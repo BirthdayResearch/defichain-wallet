@@ -15,7 +15,7 @@ export interface LabeledAddress {
 export interface WhitelistedAddress {
   address: string;
   label: string;
-  addressType: DomainType;
+  addressDomainType: DomainType;
   isFavourite?: boolean;
 }
 
@@ -127,6 +127,23 @@ export const selectLocalWalletAddressArray = createSelector(
   }
 );
 
+// to get wallet label for saved all (DFI and EVM) wallet address, adding all relevant address type in object
+export const selectAllLabeledWalletAddress = createSelector(
+  (state: UserPreferences) => state.addresses,
+  (walletAddress): LabeledAddress => {
+    return (Object.values(walletAddress) as LocalAddress[]).reduce(
+      (allAddress, each) => {
+        return {
+          ...allAddress,
+          [each.address]: each,
+          [each.evmAddress]: each,
+        };
+      },
+      {}
+    );
+  }
+);
+
 const prePopulateField = (
   addresses: LabeledAddress
 ): (LocalAddress | WhitelistedAddress)[] => {
@@ -157,7 +174,7 @@ const prePopulateWhitelistedField = (
         [each.address]: {
           address: each.address,
           label: each.label,
-          addressType: each.addressType ?? DomainType.DFI,
+          addressDomainType: each.addressDomainType ?? DomainType.DFI,
           isFavourite: each.isFavourite,
         },
       };

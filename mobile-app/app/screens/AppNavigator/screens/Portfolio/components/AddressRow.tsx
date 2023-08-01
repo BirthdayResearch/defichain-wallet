@@ -3,10 +3,6 @@ import { tailwind } from "@tailwind";
 import { translate } from "@translations";
 import { AddressType } from "@waveshq/walletkit-ui/dist/store";
 import {
-  AddressType as WalletAddressType,
-  getAddressType,
-} from "@waveshq/walletkit-core";
-import {
   ThemedIcon,
   ThemedTextV2,
   ThemedTouchableOpacity,
@@ -17,12 +13,16 @@ import { WalletTextInputV2 } from "@components/WalletTextInputV2";
 import { Control, Controller } from "react-hook-form";
 import { NetworkName } from "@defichain/jellyfish-network";
 import { fromAddress } from "@defichain/jellyfish-address";
-import { LocalAddress, WhitelistedAddress } from "@store/userPreferences";
+import {
+  LocalAddress,
+  WhitelistedAddress,
+  selectAllLabeledWalletAddress,
+} from "@store/userPreferences";
 import { debounce } from "lodash";
 import { useEffect, useMemo, useState } from "react";
 import { useSelector } from "react-redux";
 import { RootState } from "@store";
-import { useWalletAddress } from "@hooks/useWalletAddress";
+import { WalletAddressI, useWalletAddress } from "@hooks/useWalletAddress";
 
 export function AddressRow({
   control,
@@ -62,12 +62,12 @@ export function AddressRow({
   const addressBook = useSelector(
     (state: RootState) => state.userPreferences.addressBook
   );
-  const walletAddress = useSelector(
-    (state: RootState) => state.userPreferences.addresses
+  const walletAddress = useSelector((state: RootState) =>
+    selectAllLabeledWalletAddress(state.userPreferences)
   );
 
   const [jellyfishWalletAddress, setJellyfishWalletAddresses] = useState<
-    string[]
+    WalletAddressI[]
   >([]);
   const [matchedAddress, setMatchedAddress] = useState<
     LocalAddress | WhitelistedAddress
@@ -98,29 +98,30 @@ export function AddressRow({
     ) {
       setMatchedAddress(walletAddress[address]);
       setAddressType(AddressType.WalletAddress);
-    } else if (
-      address !== undefined &&
-      jellyfishWalletAddress.includes(address)
-    ) {
-      const type = getAddressType(address, networkName);
-      // wallet address that does not have a label
-      setMatchedAddress({
-        address: type !== WalletAddressType.ETH ? address : "",
-        evmAddress: type === WalletAddressType.ETH ? address : "",
-        label: "",
-        isMine: true,
-      });
-      setAddressType(AddressType.WalletAddress);
     } else {
-      setMatchedAddress(undefined);
-      if (onlyLocalAddress) {
-        setAddressType(undefined);
+      const addressObj = jellyfishWalletAddress.find(
+        (e) => e.dfi === address || e.evm === address
+      );
+      if (address !== undefined && addressObj) {
+        // wallet address that does not have a label
+        setMatchedAddress({
+          address: addressObj.dfi,
+          evmAddress: addressObj.evm,
+          label: "",
+          isMine: true,
+        });
+        setAddressType(AddressType.WalletAddress);
       } else {
-        setAddressType(
-          fromAddress(address, networkName) !== undefined
-            ? AddressType.OthersButValid
-            : undefined
-        );
+        setMatchedAddress(undefined);
+        if (onlyLocalAddress) {
+          setAddressType(undefined);
+        } else {
+          setAddressType(
+            fromAddress(address, networkName) !== undefined
+              ? AddressType.OthersButValid
+              : undefined
+          );
+        }
       }
     }
   }, 200);
@@ -131,7 +132,7 @@ export function AddressRow({
 
   useEffect(() => {
     fetchWalletAddresses().then((walletAddresses) =>
-      setJellyfishWalletAddresses(walletAddresses.map(({ dfi }) => dfi))
+      setJellyfishWalletAddresses(walletAddresses)
     );
   }, [fetchWalletAddresses]);
 

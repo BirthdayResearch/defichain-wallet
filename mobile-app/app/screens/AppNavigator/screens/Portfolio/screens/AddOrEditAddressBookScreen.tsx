@@ -63,7 +63,7 @@ export function AddOrEditAddressBookScreen({
     },
   ];
 
-  const [selectedAddressType, setSelectedAddressType] = useState(
+  const [selectedAddressDomainType, setSelectedAddressDomainType] = useState(
     addressLabel?.evmAddress ? DomainType.EVM : DomainType.DFI
   );
 
@@ -97,9 +97,9 @@ export function AddOrEditAddressBookScreen({
     const addressType = getAddressType(input, networkName);
     if (
       addressType === undefined ||
-      (selectedAddressType === DomainType.DFI &&
+      (selectedAddressDomainType === DomainType.DFI &&
         addressType === AddressType.ETH) ||
-      (selectedAddressType === DomainType.EVM &&
+      (selectedAddressDomainType === DomainType.EVM &&
         addressType !== AddressType.ETH)
     ) {
       setAddressInputErrorMessage("Please enter a valid address");
@@ -166,7 +166,7 @@ export function AddOrEditAddressBookScreen({
         const editedAddress = {
           [addressInput]: {
             address: addressInput,
-            addressType: selectedAddressType,
+            addressDomainType: selectedAddressDomainType,
             label: labelInput,
             isFavourite: addressLabel?.isFavourite,
           },
@@ -250,7 +250,7 @@ export function AddOrEditAddressBookScreen({
       return;
     }
     validateAddressInput(addressInput);
-  }, [addressInput, selectedAddressType]);
+  }, [addressInput, selectedAddressDomainType]);
 
   useEffect(() => {
     let isSubscribed = true;
@@ -290,7 +290,7 @@ export function AddOrEditAddressBookScreen({
           style={tailwind("flex-col w-full border-0.5 rounded-lg-v2")}
         >
           {AddressTypes.map((eachDomain, index) => {
-            const isChecked = selectedAddressType === eachDomain.value;
+            const isChecked = selectedAddressDomainType === eachDomain.value;
             return (
               <ThemedTouchableOpacityV2
                 key={eachDomain.value}
@@ -303,7 +303,7 @@ export function AddOrEditAddressBookScreen({
                 activeOpacity={0.7}
                 disabled={!isAddNew}
                 onPress={() => {
-                  setSelectedAddressType(eachDomain.value);
+                  setSelectedAddressDomainType(eachDomain.value);
                 }}
                 testID={`address_book_address_type_${eachDomain.value}`}
               >

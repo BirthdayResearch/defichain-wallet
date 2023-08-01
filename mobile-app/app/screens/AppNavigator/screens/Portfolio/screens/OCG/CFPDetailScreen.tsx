@@ -250,7 +250,7 @@ export function CFPDetailScreen(): JSX.Element {
                   name: "AddressBookScreen",
                   params: {
                     selectedAddress: getValues("address"),
-                    addressType: DomainType.DFI,
+                    addressDomainType: DomainType.DFI,
                     onAddressSelect,
                     disabledTab: ButtonGroupTabKey.Whitelisted,
                   },

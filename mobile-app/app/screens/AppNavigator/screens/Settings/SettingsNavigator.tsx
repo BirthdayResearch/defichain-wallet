@@ -41,7 +41,7 @@ export interface SettingsParamList {
   ServiceProviderScreen: {};
   AddressBookScreen: {
     selectedAddress?: string;
-    addressType?: DomainType;
+    addressDomainType?: DomainType;
     onAddressSelect?: (address: string) => void;
     disabledTab?: ButtonGroupTabKey;
   };

@@ -67,7 +67,7 @@ export function AddressBookScreen({ route, navigation }: Props): JSX.Element {
     selectedAddress,
     onAddressSelect,
     disabledTab,
-    addressType = DomainType.DFI,
+    addressDomainType = DomainType.DFI,
   } = route.params;
   const { isLight } = useThemeContext();
   const { network } = useNetworkContext();
@@ -161,7 +161,7 @@ export function AddressBookScreen({ route, navigation }: Props): JSX.Element {
   const filterAddress = useCallback(
     debounce((searchString: string): void => {
       setFilteredAddressBook(
-        filterByAddressType(
+        filterByAddressDomainType(
           sortByFavourite(addressBook) as WhitelistedAddress[]
         ).filter(
           (address) =>
@@ -215,11 +215,13 @@ export function AddressBookScreen({ route, navigation }: Props): JSX.Element {
     });
   };
 
-  const filterByAddressType = (
+  const filterByAddressDomainType = (
     addresses: WhitelistedAddress[]
   ): WhitelistedAddress[] => {
     if (enableAddressSelect) {
-      return addresses.filter((address) => address.addressType === addressType);
+      return addresses.filter(
+        (address) => address.addressDomainType === addressDomainType
+      );
     }
     return addresses;
   };
@@ -245,7 +247,7 @@ export function AddressBookScreen({ route, navigation }: Props): JSX.Element {
     }
     if (activeButtonGroup === ButtonGroupTabKey.Whitelisted) {
       setFilteredAddressBook(
-        filterByAddressType(
+        filterByAddressDomainType(
           sortByFavourite(addressBook) as WhitelistedAddress[]
         )
       );
@@ -259,7 +261,7 @@ export function AddressBookScreen({ route, navigation }: Props): JSX.Element {
     walletAddress,
     searchString,
     activeButtonGroup,
-    addressType,
+    addressDomainType,
   ]);
 
   useEffect(() => {
@@ -286,11 +288,24 @@ export function AddressBookScreen({ route, navigation }: Props): JSX.Element {
     }): JSX.Element => {
       const { item, index, testIDSuffix } = props;
 
-      const onChangeAddress = (address: string): void => {
+      const onChangeAddress = (
+        addressDetail: LocalAddress | WhitelistedAddress
+      ): void => {
         if (enableAddressSelect && onAddressSelect) {
-          onAddressSelect(address);
+          // for whitelisted address
+          if (activeButtonGroup === ButtonGroupTabKey.Whitelisted) {
+            onAddressSelect(addressDetail.address);
+          } else {
+            // for wallet address
+            onAddressSelect(
+              addressDomainType === DomainType.EVM
+                ? (addressDetail as LocalAddress).evmAddress
+                : addressDetail.address
+            );
+          }
         }
       };
+
       const onDFIAddressClick = async () => {
         if (activeButtonGroup === ButtonGroupTabKey.Whitelisted) {
           setSearchString("");
@@ -318,7 +333,7 @@ export function AddressBookScreen({ route, navigation }: Props): JSX.Element {
           style={tailwind("py-4.5 pl-5 pr-4 mb-2 rounded-lg-v2")}
           testID={`address_row_${index}_${testIDSuffix}`}
           onPress={async () => {
-            onChangeAddress(item.address);
+            onChangeAddress(item);
           }}
         >
           <View

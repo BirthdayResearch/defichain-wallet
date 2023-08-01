@@ -22,7 +22,7 @@ describe("Address List Edit Button", () => {
           bar: {
             address: "bar",
             label: "bar",
-            addressType: DomainType.DFI,
+            addressDomainType: DomainType.DFI,
           },
         },
       },
