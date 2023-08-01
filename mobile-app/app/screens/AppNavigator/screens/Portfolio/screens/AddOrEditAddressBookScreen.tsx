@@ -7,7 +7,6 @@ import {
   ThemedTouchableOpacityV2,
   ThemedViewV2,
 } from "@components/themed";
-import { fromAddress } from "@defichain/jellyfish-address";
 import { WalletAddressI, useWalletAddress } from "@hooks/useWalletAddress";
 import { useAppDispatch } from "@hooks/useAppDispatch";
 import { StackScreenProps } from "@react-navigation/stack";
@@ -27,6 +26,7 @@ import { ButtonV2 } from "@components/ButtonV2";
 import { useDeFiScanContext } from "@shared-contexts/DeFiScanContext";
 import { useToast } from "react-native-toast-notifications";
 import { debounce } from "lodash";
+import { AddressType, getAddressType } from "@waveshq/walletkit-core";
 import * as Clipboard from "expo-clipboard";
 import { DomainType } from "@contexts/DomainContext";
 import { SettingsParamList } from "../../Settings/SettingsNavigator";
@@ -94,14 +94,14 @@ export function AddOrEditAddressBookScreen({
   };
 
   const validateAddressInput = (input: string): boolean => {
-    if (selectedAddressType === DomainType.DFI) {
-      const decodedAddress = fromAddress(input, networkName);
-      if (decodedAddress === undefined) {
-        setAddressInputErrorMessage("Please enter a valid address");
-        return false;
-      }
-    } else if (selectedAddressType === DomainType.EVM) {
-      // TODO (Harsh) add evm address validation
+    const addressType = getAddressType(input, networkName);
+    if (
+      addressType === undefined ||
+      (selectedAddressType === DomainType.EVM &&
+        addressType !== AddressType.ETH)
+    ) {
+      setAddressInputErrorMessage("Please enter a valid address");
+      return false;
     }
 
     if (

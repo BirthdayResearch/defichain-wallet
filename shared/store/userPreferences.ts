@@ -40,7 +40,9 @@ const initialState: UserPreferences = {
 export const fetchUserPreferences = createAsyncThunk(
   "userPreferences/fetchUserPreferences",
   async (network: EnvironmentNetwork) => {
-    return await LocalStorageProvider.getUserPreferences(network);
+    const { addresses, addressBook } =
+      await LocalStorageProvider.getUserPreferences(network);
+    return { addresses, addressBook: prePopulateWhitelistedField(addressBook) };
   }
 );
 
@@ -142,4 +144,24 @@ const prePopulateField = (
     }
   }
   return Object.values(_addresses);
+};
+
+const prePopulateWhitelistedField = (
+  addressBook: LabeledAddress
+): LabeledAddress => {
+  const address = Object.values(addressBook);
+  return (address as WhitelistedAddress[]).reduce(
+    (all: LabeledAddress, each: WhitelistedAddress) => {
+      return {
+        ...all,
+        [each.address]: {
+          address: each.address,
+          label: each.label,
+          addressType: each.addressType ?? DomainType.DFI,
+          isFavourite: each.isFavourite,
+        },
+      };
+    },
+    {}
+  );
 };

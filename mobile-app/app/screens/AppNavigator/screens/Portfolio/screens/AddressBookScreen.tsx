@@ -72,6 +72,9 @@ export function AddressBookScreen({ route, navigation }: Props): JSX.Element {
   const { isLight } = useThemeContext();
   const { network } = useNetworkContext();
   const dispatch = useAppDispatch();
+  // condition to hide icon from send page
+  const enableAddressSelect =
+    selectedAddress !== undefined && onAddressSelect !== undefined;
   const userPreferencesFromStore = useSelector(
     (state: RootState) => state.userPreferences
   );
@@ -158,14 +161,14 @@ export function AddressBookScreen({ route, navigation }: Props): JSX.Element {
   const filterAddress = useCallback(
     debounce((searchString: string): void => {
       setFilteredAddressBook(
-        (sortByFavourite(addressBook) as WhitelistedAddress[]).filter(
+        filterByAddressType(
+          sortByFavourite(addressBook) as WhitelistedAddress[]
+        ).filter(
           (address) =>
-            // filter address by addressType
-            address.addressType === addressType &&
-            (address.label
+            address.label
               .toLowerCase()
               .includes(searchString?.trim().toLowerCase()) ||
-              address.address.includes(searchString?.trim().toLowerCase()))
+            address.address.includes(searchString?.trim().toLowerCase())
         )
       );
       setFilteredWalletAddress(
@@ -211,6 +214,15 @@ export function AddressBookScreen({ route, navigation }: Props): JSX.Element {
     });
   };
 
+  const filterByAddressType = (
+    addresses: WhitelistedAddress[]
+  ): WhitelistedAddress[] => {
+    if (enableAddressSelect) {
+      return addresses.filter((address) => address.addressType === addressType);
+    }
+    return addresses;
+  };
+
   useEffect(() => {
     // sync all store changes to local storage
     const updateLocalStorage = async (): Promise<void> => {
@@ -230,12 +242,11 @@ export function AddressBookScreen({ route, navigation }: Props): JSX.Element {
       filterAddress(searchString);
       return;
     }
-
     if (activeButtonGroup === ButtonGroupTabKey.Whitelisted) {
       setFilteredAddressBook(
-        (sortByFavourite(addressBook) as WhitelistedAddress[])
-          // filter address by addressType
-          .filter((address) => address.addressType === addressType)
+        filterByAddressType(
+          sortByFavourite(addressBook) as WhitelistedAddress[]
+        )
       );
     } else {
       setFilteredWalletAddress(
@@ -273,9 +284,7 @@ export function AddressBookScreen({ route, navigation }: Props): JSX.Element {
       onAddressSelect?: (address: string) => void;
     }): JSX.Element => {
       const { item, index, testIDSuffix } = props;
-      // condition to hide icon from send page
-      const enableAddressSelect =
-        selectedAddress !== undefined && onAddressSelect !== undefined;
+
       const onChangeAddress = (address: string): void => {
         if (enableAddressSelect) {
           onAddressSelect(address);
@@ -365,12 +374,10 @@ export function AddressBookScreen({ route, navigation }: Props): JSX.Element {
                   onClick={onDFIAddressClick}
                 />
                 {/* for EVM address */}
-                {activeButtonGroup === ButtonGroupTabKey.Whitelisted && (
+                {activeButtonGroup === ButtonGroupTabKey.YourAddress && (
                   <YourAddressLink
+                    displayIcon
                     testIDSuffix={`${index}_${testIDSuffix}`}
-                    displayIcon={
-                      activeButtonGroup !== ButtonGroupTabKey.Whitelisted
-                    }
                     address={(item as LocalAddress).evmAddress}
                     disabled={enableAddressSelect}
                     onClick={async () => {
