@@ -405,6 +405,7 @@ export function AddressBookScreen({ route, navigation }: Props): JSX.Element {
                           style={tailwind("rounded-sm-v2 px-1.5 py-1 ml-1")}
                         >
                           <Text
+                            testID={`address_row_label_${index}_${testIDSuffix}_EVM_tag`}
                             style={tailwind(
                               "text-mono-light-v2-00 text-2xs font-semibold-v2 leading-3"
                             )}
@@ -429,7 +430,7 @@ export function AddressBookScreen({ route, navigation }: Props): JSX.Element {
                 {activeButtonGroup === ButtonGroupTabKey.YourAddress && (
                   <YourAddressLink
                     displayIcon
-                    testIDSuffix={`${index}_${testIDSuffix}`}
+                    testIDSuffix={`${index}_${testIDSuffix}_EVM`}
                     address={(item as LocalAddress).evmAddress}
                     disabled={enableAddressSelect}
                     onClick={async () => {

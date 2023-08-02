@@ -311,7 +311,9 @@ export function AddOrEditAddressBookScreen({
                 onPress={() => {
                   setSelectedAddressDomainType(eachDomain.value);
                 }}
-                testID={`address_book_address_type_${eachDomain.value}`}
+                testID={`address_book_address_type_${eachDomain.value}${
+                  isChecked ? "_checked" : ""
+                }`}
               >
                 <ThemedIcon
                   size={20}
