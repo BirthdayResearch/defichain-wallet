@@ -388,7 +388,7 @@ export const BottomSheetAddressDetailV2 = (
 
     return (
       <FlatList
-        keyExtractor={(item) => item}
+        keyExtractor={(item) => item.dfi}
         stickyHeaderIndices={[0]}
         style={tailwind({
           "bg-mono-dark-v2-100": !isLight,
