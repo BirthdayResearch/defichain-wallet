@@ -16,7 +16,7 @@ export function useEvmTokenBalances(): { evmTokens: AddressToken[] } {
   const getEvmTokens = async () => {
     const tokens = await getTokenBalances({
       network,
-      address, // : "0xDd91C928d137112Cbca6D05d365cAef969b82ece",
+      address,
     }).unwrap();
 
     const evmAddressTokens: AddressToken[] = tokens
