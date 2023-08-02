@@ -1,35 +1,6 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { EnvironmentNetwork } from "@waveshq/walletkit-core";
 
-// TODO: Add proper ethereum RPC URLs for each network
-const getEthRpcUrl = (network: EnvironmentNetwork) => {
-  switch (network) {
-    case EnvironmentNetwork.LocalPlayground:
-    case EnvironmentNetwork.RemotePlayground:
-    case EnvironmentNetwork.DevNet:
-      return "https://changi.dfi.team";
-    case EnvironmentNetwork.TestNet:
-      return "https://changi.dfi.team";
-    case EnvironmentNetwork.MainNet:
-    default:
-      return "https://changi.dfi.team";
-  }
-};
-
-interface EvmToken {
-  address: string;
-  decimals: string;
-  name: string;
-  symbol: string;
-  type: string;
-}
-
-interface EvmTokenBalance {
-  token_id: string;
-  value: string;
-  token: EvmToken;
-}
-
 export const ethRpcApi = createApi({
   reducerPath: "ethRpc",
   baseQuery: fetchBaseQuery({ baseUrl: "" }),
@@ -48,5 +19,33 @@ export const ethRpcApi = createApi({
   }),
 });
 
-const { useGetEvmTokenBalancesMutation } = ethRpcApi;
-export { useGetEvmTokenBalancesMutation };
+export const { useGetEvmTokenBalancesMutation } = ethRpcApi;
+
+const getEthRpcUrl = (network: EnvironmentNetwork) => {
+  // TODO: Add proper ethereum RPC URLs for each network
+  switch (network) {
+    case EnvironmentNetwork.LocalPlayground:
+    case EnvironmentNetwork.RemotePlayground:
+    case EnvironmentNetwork.DevNet:
+      return "https://changi.ocean.jellyfishsdk.com";
+    case EnvironmentNetwork.TestNet:
+      return "https://changi.ocean.jellyfishsdk.com";
+    case EnvironmentNetwork.MainNet:
+    default:
+      return "https://changi.ocean.jellyfishsdk.com";
+  }
+};
+
+interface EvmToken {
+  address: string;
+  decimals: string;
+  name: string;
+  symbol: string;
+  type: string;
+}
+
+interface EvmTokenBalance {
+  token_id: string;
+  value: string;
+  token: EvmToken;
+}
