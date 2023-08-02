@@ -16,7 +16,7 @@ const getEthRpcUrl = (network: EnvironmentNetwork) => {
   }
 };
 
-interface EthToken {
+interface EvmToken {
   address: string;
   decimals: string;
   name: string;
@@ -24,18 +24,18 @@ interface EthToken {
   type: string;
 }
 
-interface EthTokenBalance {
+interface EvmTokenBalance {
   token_id: string;
   value: string;
-  token: EthToken;
+  token: EvmToken;
 }
 
 export const ethRpcApi = createApi({
   reducerPath: "ethRpc",
   baseQuery: fetchBaseQuery({ baseUrl: "" }),
   endpoints: (builder) => ({
-    getEthTokenBalances: builder.mutation<
-      EthTokenBalance[],
+    getEvmTokenBalances: builder.mutation<
+      EvmTokenBalance[],
       { network: EnvironmentNetwork; address: string }
     >({
       query: ({ network = EnvironmentNetwork.TestNet, address }) => ({
@@ -48,5 +48,5 @@ export const ethRpcApi = createApi({
   }),
 });
 
-const { useGetEthTokenBalancesMutation } = ethRpcApi;
-export { useGetEthTokenBalancesMutation };
+const { useGetEvmTokenBalancesMutation } = ethRpcApi;
+export { useGetEvmTokenBalancesMutation };

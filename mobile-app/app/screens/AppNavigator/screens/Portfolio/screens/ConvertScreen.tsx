@@ -43,7 +43,7 @@ import { PortfolioParamList } from "../PortfolioNavigator";
 import { TokenListType } from "../../Dex/CompositeSwap/SwapTokenSelectionScreen";
 import { useTokenPrice } from "../hooks/TokenPrice";
 import { useConvertibleTokens } from "../hooks/ConvertibleTokens";
-import { useGetEthTokens } from "../hooks/EthTokens";
+import { useEvmTokenBalances } from "../hooks/EvmTokenBalances";
 
 type Props = StackScreenProps<PortfolioParamList, "ConvertScreen">;
 
@@ -94,7 +94,7 @@ export function ConvertScreen(props: Props): JSX.Element {
   );
 
   const { fromTokens } = useConvertibleTokens();
-  const { ethTokens } = useGetEthTokens();
+  const { evmTokens } = useEvmTokenBalances();
 
   useEffect(() => {
     client.fee
@@ -104,7 +104,7 @@ export function ConvertScreen(props: Props): JSX.Element {
   }, []);
 
   useEffect(() => {
-    const [source, target] = getDFIBalances(mode, tokens, ethTokens);
+    const [source, target] = getDFIBalances(mode, tokens, evmTokens);
     setSourceToken(source);
     setTargetToken(target);
     const sourceNum = new BigNumber(
@@ -126,7 +126,7 @@ export function ConvertScreen(props: Props): JSX.Element {
     } else {
       setInlineTextStatus(InlineTextStatus.Default);
     }
-  }, [mode, JSON.stringify(tokens), ethTokens, amount]);
+  }, [mode, JSON.stringify(tokens), evmTokens, amount]);
 
   if (sourceToken === undefined || targetToken === undefined) {
     return <></>;
@@ -497,13 +497,13 @@ export function ConvertScreen(props: Props): JSX.Element {
 function getSourceAddressToken(
   mode: ConversionMode,
   tokens: AddressToken[],
-  ethTokens: AddressToken[]
+  evmTokens: AddressToken[]
 ): AddressToken {
   switch (mode) {
     case ConversionMode.utxosToAccount:
       return tokens.find((tk) => tk.id === "0_utxo") as AddressToken;
     case ConversionMode.evmToAccount:
-      return ethTokens.find((tk) => tk.id === "0") as AddressToken;
+      return evmTokens.find((tk) => tk.id === "0") as AddressToken;
     default:
       return tokens.find((tk) => tk.id === "0") as AddressToken;
   }
@@ -512,11 +512,11 @@ function getSourceAddressToken(
 function getDestinationAddressToken(
   mode: ConversionMode,
   tokens: AddressToken[],
-  ethTokens: AddressToken[]
+  evmTokens: AddressToken[]
 ): AddressToken {
   switch (mode) {
     case ConversionMode.accountToEvm:
-      return ethTokens.find((tk) => tk.id === "0") as AddressToken;
+      return evmTokens.find((tk) => tk.id === "0") as AddressToken;
     case ConversionMode.accountToUtxos:
       return tokens.find((tk) => tk.id === "0_utxo") as AddressToken;
     default:
@@ -549,15 +549,15 @@ function getTargetTokenUnit(mode: ConversionMode): ConvertTokenUnit {
 function getDFIBalances(
   mode: ConversionMode,
   tokens: AddressToken[],
-  ethTokens: AddressToken[]
+  evmTokens: AddressToken[]
 ): [source: ConversionIO, target: ConversionIO] {
-  const source: AddressToken = getSourceAddressToken(mode, tokens, ethTokens);
+  const source: AddressToken = getSourceAddressToken(mode, tokens, evmTokens);
   const sourceUnit = getSourceTokenUnit(mode);
 
   const target: AddressToken = getDestinationAddressToken(
     mode,
     tokens,
-    ethTokens
+    evmTokens
   );
   const targetUnit = getTargetTokenUnit(mode);
 
