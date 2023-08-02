@@ -114,7 +114,8 @@
     "AVAILABLE ASSETS": "ASSET DISPONIBILI",
     "Asset value": "Valore degli asset",
     "Sort by": "Sort by",
-    "ASSETS": "ASSETS"
+    "ASSETS": "ASSETS",
+    "network": "rete"
   },
   "screens/GetDFIScreen": {
     "Get DFI": "Get DFI",
@@ -283,7 +284,7 @@
     "You are sending": "Stai inviando",
     "TRANSACTION DETAILS": "DETTAGLI TRANSAZIONE",
     "Recipient address": "Indirizzo del destinatario",
-    "Network": "Network",
+    "Network": "Rete",
     "Amount": "Importo",
     "Estimated fee": "Commissione stimata",
     "Remaining balance": "Saldo rimanente",

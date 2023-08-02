@@ -109,7 +109,8 @@
     "AVAILABLE ASSETS": "VERFÜGBARE AKTIVA",
     "Asset value": "Wert der Aktiva",
     "Sort by": "Sortieren nach",
-    "ASSETS": "AKTIVA"
+    "ASSETS": "AKTIVA",
+    "network": "netzwerk"
   },
   "screens/GetDFIScreen": {
     "Get DFI": "DFI erhalten",

@@ -109,7 +109,8 @@
     "AVAILABLE ASSETS": "ACTIFS DISPONIBLES",
     "Asset value": "Valeur des actifs",
     "Sort by": "Trier par",
-    "ASSETS": "ACTIFS"
+    "ASSETS": "ACTIFS",
+    "network": "réseau"
   },
   "screens/GetDFIScreen": {
     "Get DFI": "Obtenir DFI",

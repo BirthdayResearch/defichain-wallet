@@ -109,7 +109,8 @@
     "AVAILABLE ASSETS": "可用资产",
     "Asset value": "资产价值",
     "Sort by": "Sort by",
-    "ASSETS": "ASSETS"
+    "ASSETS": "ASSETS",
+    "network": "网络"
   },
   "screens/GetDFIScreen": {
     "Get DFI": "获取 DFI",
