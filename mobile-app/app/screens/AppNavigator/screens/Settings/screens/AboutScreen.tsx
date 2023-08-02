@@ -10,7 +10,7 @@ import {
   ThemedTouchableOpacityV2,
   ThemedViewV2,
 } from "@components/themed";
-import { tailwind } from "@tailwind";
+import { getColor, tailwind } from "@tailwind";
 import { translate } from "@translations";
 import { NavigationProp, useNavigation } from "@react-navigation/native";
 import { openURL } from "@api/linking";
@@ -21,6 +21,7 @@ import DeFiChainWalletImageDark from "@assets/images/DeFiChainWallet-dark.png";
 import GridBackgroundImageLight from "@assets/images/about-grid-bg-light.png";
 import GridBackgroundImageDark from "@assets/images/about-grid-bg-dark.png";
 import { VersionTag } from "@components/VersionTag";
+import { TwitterIcon } from "@components/icons/assets/TwitterIcon";
 import { SettingsParamList } from "../SettingsNavigator";
 
 interface AboutScreenLinks {
@@ -177,7 +178,7 @@ export function AboutScreen(): JSX.Element {
 
           <View style={tailwind("flex-row justify-center pt-11")}>
             {SOCIAL_LINKS.map((link) => (
-              <SocialIcon {...link} key={link.testID} />
+              <SocialLink {...link} key={link.testID} />
             ))}
           </View>
         </ImageBackground>
@@ -272,7 +273,7 @@ function LinkItemRow({
   );
 }
 
-function SocialIcon({
+function SocialLink({
   iconName,
   url,
   testID,
@@ -291,15 +292,35 @@ function SocialIcon({
       )}
       testID={testID}
     >
-      <ThemedIcon
-        dark={tailwind("text-mono-dark-v2-00")}
-        light={tailwind("text-mono-light-v2-00")}
-        style={tailwind("pl-px")}
-        iconType="MaterialCommunityIcons"
-        name={iconName}
-        size={24}
-      />
+      <SocialIcon name={iconName} />
     </ThemedTouchableOpacityV2>
+  );
+}
+
+function SocialIcon({
+  name,
+}: {
+  name: React.ComponentProps<typeof MaterialCommunityIcons>["name"];
+}) {
+  const { isLight } = useThemeContext();
+  if (name === "twitter") {
+    return (
+      <TwitterIcon
+        color={getColor(isLight ? "mono-light-v2-00" : "mono-dark-v2-00")}
+        width={24}
+        height={24}
+      />
+    );
+  }
+  return (
+    <ThemedIcon
+      dark={tailwind("text-mono-dark-v2-00")}
+      light={tailwind("text-mono-light-v2-00")}
+      style={tailwind("pl-px")}
+      iconType="MaterialCommunityIcons"
+      name={name}
+      size={24}
+    />
   );
 }
 
