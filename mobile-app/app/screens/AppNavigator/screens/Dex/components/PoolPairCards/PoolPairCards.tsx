@@ -378,7 +378,7 @@ function AvailablePool(props: AvailablePoolProps): JSX.Element {
         {props.pair?.apr?.total !== undefined &&
           props.pair?.apr?.total !== null && (
             <APRSection
-              label={`${translate("screens/DexScreen", "APR")}`}
+              label={translate("screens/DexScreen", "APR")}
               value={{
                 text: new BigNumber(
                   isNaN(props.pair.apr.total) ? 0 : props.pair.apr.total
@@ -442,7 +442,7 @@ function YourPoolPair(props: YourPoolPairProps): JSX.Element {
         {props.poolPair?.apr?.total !== undefined &&
           props.poolPair?.apr?.total !== null && (
             <APRSection
-              label={`${translate("screens/DexScreen", "APR")}`}
+              label={translate("screens/DexScreen", "APR")}
               value={{
                 text: new BigNumber(
                   isNaN(props.poolPair.apr.total) ? 0 : props.poolPair.apr.total

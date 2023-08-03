@@ -2,7 +2,7 @@ import { useWalletContext } from "@shared-contexts/WalletContext";
 import { useCallback } from "react";
 
 export interface WalletAddressI {
-  dfi: string;
+  dvm: string;
   evm: string;
 }
 
@@ -17,10 +17,10 @@ export function useWalletAddress(): {
     const addresses: WalletAddressI[] = [];
     for (let i = 0; i <= addressLength; i++) {
       const account = wallet.get(i);
-      const dfi = await account.getAddress();
+      const dvm = await account.getAddress();
       // TODO (Harsh) replace it with getEvmAddress
       const evm = "evmaddress"; // await account.getEvmAddress();
-      addresses.push({ dfi, evm });
+      addresses.push({ dvm, evm });
     }
     return addresses;
   }, [wallet, addressLength]);

@@ -99,7 +99,7 @@ export const CreateOrEditAddressLabelForm = memo(
         return storedWalletAddress.evmAddress;
       }
       // to support backward compatibility for already saved address
-      const addressObj = walletAddress.find((a) => a.dfi === address);
+      const addressObj = walletAddress.find((a) => a.dvm === address);
       return addressObj?.evm ?? "";
     };
 

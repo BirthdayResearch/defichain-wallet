@@ -260,7 +260,7 @@ export function AddOrEditAddressBookScreen({
 
   useEffect(() => {
     let isSubscribed = true;
-    void fetchWalletAddresses().then((walletAddress) => {
+    fetchWalletAddresses().then((walletAddress: WalletAddressI[]) => {
       if (isSubscribed) {
         const allWalletAddresses = walletAddress.reduce(
           (allAddress: string[], each: WalletAddressI) => {

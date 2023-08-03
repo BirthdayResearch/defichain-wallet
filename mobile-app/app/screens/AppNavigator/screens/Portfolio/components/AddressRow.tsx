@@ -100,12 +100,12 @@ export function AddressRow({
       setAddressType(AddressType.WalletAddress);
     } else {
       const addressObj = jellyfishWalletAddress.find(
-        (e) => e.dfi === address || e.evm === address
+        (e: WalletAddressI) => e.dvm === address || e.evm === address
       );
       if (address !== undefined && addressObj) {
         // wallet address that does not have a label
         setMatchedAddress({
-          address: addressObj.dfi,
+          address: addressObj.dvm,
           evmAddress: addressObj.evm,
           label: "",
         });

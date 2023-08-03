@@ -38,7 +38,7 @@ import { debounce } from "lodash";
 import { openURL } from "@api/linking";
 import { Logging } from "@api";
 import { useWalletContext } from "@shared-contexts/WalletContext";
-import { useWalletAddress } from "@hooks/useWalletAddress";
+import { WalletAddressI, useWalletAddress } from "@hooks/useWalletAddress";
 import { useAppDispatch } from "@hooks/useAppDispatch";
 import LightEmptyAddress from "@assets/images/empty-address-light.png";
 import DarkEmptyAddress from "@assets/images/empty-address-dark.png";
@@ -125,18 +125,18 @@ export function AddressBookScreen({ route, navigation }: Props): JSX.Element {
     fetchWalletAddresses().then((walletAddresses) => {
       if (isSubscribed) {
         const addresses: LocalAddress[] = [];
-        walletAddresses.forEach((address) => {
+        walletAddresses.forEach((address: WalletAddressI) => {
           const storedWalletAddress = walletAddressFromStore.find(
-            (a) => a.address === address.dfi
+            (a) => a.address === address.dvm
           );
 
-          if (selectedAddress === address.dfi) {
+          if (selectedAddress === address.dvm) {
             // change tab if selected address is from your addresses
             setActiveButtonGroup(ButtonGroupTabKey.YourAddress);
           }
           if (storedWalletAddress === undefined) {
             addresses.push({
-              address: address.dfi,
+              address: address.dvm,
               evmAddress: address.evm,
               label: "",
             });
