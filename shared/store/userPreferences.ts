@@ -172,7 +172,7 @@ const prePopulateWhitelistedField = (
         [each.address]: {
           address: each.address,
           label: each.label,
-          addressDomainType: each.addressDomainType ?? DomainType.DFI,
+          addressDomainType: each.addressDomainType ?? DomainType.DVM,
           isFavourite: each.isFavourite,
         },
       };

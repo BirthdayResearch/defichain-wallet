@@ -200,14 +200,14 @@ export const BottomSheetAddressDetailV2 = (
         item: WalletAddressI;
         index: number;
       }): JSX.Element => {
-        const isSelected = item.dfi === props.address;
+        const isSelected = item.dvm === props.address;
         const hasLabel =
-          labeledAddresses?.[item.dfi]?.label != null &&
-          labeledAddresses?.[item.dfi]?.label !== "";
-        const displayAddress = domain === DomainType.DFI ? item.dfi : item.evm;
+          labeledAddresses?.[item.dvm]?.label != null &&
+          labeledAddresses?.[item.dvm]?.label !== "";
+        const displayAddress = domain === DomainType.EVM ? item.evm : item.dvm;
         return (
           <ThemedTouchableOpacityV2
-            key={item.dfi}
+            key={item.dvm}
             style={tailwind(
               "px-5 py-4.5 flex flex-row items-center justify-between border-0 mx-5 rounded-lg-v2 h-20"
             )}
@@ -224,7 +224,7 @@ export const BottomSheetAddressDetailV2 = (
                 "flex-auto": Platform.OS === "web",
               })}
             >
-              <RandomAvatar name={item.dfi} size={36} />
+              <RandomAvatar name={item.dvm} size={36} />
               <View style={tailwind("ml-3 flex-auto")}>
                 {hasLabel && (
                   <View style={tailwind("flex-row items-center")}>
@@ -233,7 +233,7 @@ export const BottomSheetAddressDetailV2 = (
                       testID={`list_address_label_${item}`}
                       numberOfLines={1}
                     >
-                      {labeledAddresses[item.dfi]?.label}
+                      {labeledAddresses[item.dvm]?.label}
                     </ThemedTextV2>
                     {isSelected && (
                       <ThemedIcon
@@ -299,10 +299,10 @@ export const BottomSheetAddressDetailV2 = (
                     name: props.navigateToScreen.screenName,
                     params: {
                       title: "Edit wallet label",
-                      address: item.dfi,
+                      address: item.dvm,
                       addressLabel:
                         labeledAddresses != null
-                          ? labeledAddresses[item.dfi]
+                          ? labeledAddresses[item.dvm]
                           : "",
                       index: index + 1,
                       type: "edit",
@@ -347,7 +347,7 @@ export const BottomSheetAddressDetailV2 = (
 
     const AddressDetailHeader = useCallback(() => {
       const activeAddress = availableAddresses.find(
-        ({ dfi }) => dfi === props.address
+        ({ dvm }) => dvm === props.address
       );
       return (
         <ThemedViewV2
@@ -368,8 +368,8 @@ export const BottomSheetAddressDetailV2 = (
           )}
           <ActiveAddress
             address={
-              (domain === DomainType.DFI
-                ? activeAddress?.dfi
+              (domain === DomainType.DVM
+                ? activeAddress?.dvm
                 : activeAddress?.evm) ?? ""
             }
             onPress={onActiveAddressPress}
@@ -388,7 +388,7 @@ export const BottomSheetAddressDetailV2 = (
 
     return (
       <FlatList
-        keyExtractor={(item) => item.dfi}
+        keyExtractor={(item) => item.dvm}
         stickyHeaderIndices={[0]}
         style={tailwind({
           "bg-mono-dark-v2-100": !isLight,

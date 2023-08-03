@@ -61,7 +61,7 @@ export function AddOrEditAddressBookScreen({
   const AddressDomains = [
     {
       label: "DeFiChain (DVM)",
-      value: DomainType.DFI,
+      value: DomainType.DVM,
     },
     {
       label: "MetaChain (EVM)",
@@ -70,7 +70,7 @@ export function AddOrEditAddressBookScreen({
   ];
 
   const [selectedAddressDomainType, setSelectedAddressDomainType] = useState(
-    addressDomainType ?? DomainType.DFI
+    addressDomainType ?? DomainType.DVM
   );
 
   const validateLabelInput = (input: string): boolean => {
@@ -103,7 +103,7 @@ export function AddOrEditAddressBookScreen({
     const addressType = getAddressType(input, networkName);
     if (
       addressType === undefined ||
-      (selectedAddressDomainType === DomainType.DFI &&
+      (selectedAddressDomainType === DomainType.DVM &&
         addressType === AddressType.ETH) ||
       (selectedAddressDomainType === DomainType.EVM &&
         addressType !== AddressType.ETH)
@@ -260,7 +260,7 @@ export function AddOrEditAddressBookScreen({
 
   useEffect(() => {
     let isSubscribed = true;
-    void fetchWalletAddresses().then((walletAddress) => {
+    fetchWalletAddresses().then((walletAddress: WalletAddressI[]) => {
       if (isSubscribed) {
         const allWalletAddresses = walletAddress.reduce(
           (allAddress: string[], each: WalletAddressI) => {

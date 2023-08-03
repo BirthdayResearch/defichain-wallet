@@ -20,12 +20,12 @@ interface DomainContextI {
 }
 
 export enum DomainType {
-  DFI = "DFI",
+  DVM = "DVM",
   EVM = "EVM",
 }
 
 export function useDomain({ api }: DomainContextI): DomainLoader {
-  const defaultDomain = DomainType.DFI;
+  const defaultDomain = DomainType.DVM;
   const logger = useLogger();
   const [isDomainLoaded, setIsDomainLoaded] = useState<boolean>(false);
   const [domain, setDomain] = useState<NonNullable<DomainType>>(defaultDomain);
@@ -79,7 +79,7 @@ export function DomainProvider(
         setDomain(DomainType.EVM);
         break;
       default:
-        setDomain(DomainType.DFI);
+        setDomain(DomainType.DVM);
     }
   }, [currentDomain]);
 

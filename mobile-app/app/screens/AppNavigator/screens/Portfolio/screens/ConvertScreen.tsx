@@ -292,7 +292,7 @@ export function ConvertScreen(props: Props): JSX.Element {
               />
             </View>
 
-            {domain === DomainType.DFI && (
+            {domain === DomainType.DVM && (
               <TokenDropdownButton
                 symbol={sourceToken?.displaySymbol}
                 displayedTextSymbol={
@@ -416,7 +416,7 @@ export function ConvertScreen(props: Props): JSX.Element {
               )}
             />
           </View>
-          {domain === DomainType.DFI && (
+          {domain === DomainType.DVM && (
             <TokenDropdownButton
               symbol={targetToken?.displaySymbol}
               displayedTextSymbol={
@@ -462,10 +462,10 @@ export function ConvertScreen(props: Props): JSX.Element {
               light={tailwind("text-mono-light-v2-500")}
               dark={tailwind("text-mono-dark-v2-500")}
             >
-              {`${translate(
+              {translate(
                 "screens/ConvertScreen",
                 "Review full details in the next screen"
-              )}`}
+              )}
             </ThemedTextV2>
           )}
         </View>
@@ -616,9 +616,9 @@ function ConversionResultCard(props: {
           light={tailwind("text-mono-light-v2-500")}
           dark={tailwind("text-mono-dark-v2-500")}
         >
-          {`${translate("screens/ConvertScreen", "Available {{unit}}", {
+          {translate("screens/ConvertScreen", "Available {{unit}}", {
             unit: translate("screens/ConvertScreen", props.unit),
-          })}`}
+          })}
         </ThemedTextV2>
         <NumberFormat
           displayType="text"
@@ -647,9 +647,9 @@ function ConversionResultCard(props: {
           light={tailwind("text-mono-light-v2-500")}
           dark={tailwind("text-mono-dark-v2-500")}
         >
-          {`${translate("screens/ConvertScreen", "Resulting {{unit}}", {
+          {translate("screens/ConvertScreen", "Resulting {{unit}}", {
             unit: translate("screens/ConvertScreen", props.unit),
-          })}`}
+          })}
         </ThemedTextV2>
         <NumberFormat
           decimalScale={8}
