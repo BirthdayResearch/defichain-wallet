@@ -4,7 +4,6 @@ import { getNativeIcon } from "@components/icons/assets";
 import { useThemeContext } from "@waveshq/walletkit-ui";
 import React from "react";
 import { useDomainContext, DomainType } from "@contexts/DomainContext";
-import { DomainPersistence } from "@api";
 import { tailwind } from "@tailwind";
 import { LinearGradient } from "expo-linear-gradient";
 
@@ -14,21 +13,23 @@ export function DomainSwitch({ testID }: { testID: string }): JSX.Element {
   const DFIIcon = getNativeIcon("DFIlogo");
   const EvmDFIIcon = getNativeIcon("EvmDFI");
 
+  const toggleDomain = async () => {
+    await setDomain(
+      domain === DomainType.DFI ? DomainType.EVM : DomainType.DFI
+    );
+  };
   return (
-    <View
+    <ThemedTouchableOpacityV2
+      activeOpacity={0.7}
       style={tailwind("h-7 w-18 rounded-full flex-row justify-center mr-4", {
         "bg-mono-light-v2-300": isLight,
         "bg-mono-dark-v2-300": !isLight,
       })}
+      onPress={toggleDomain}
       testID={testID}
     >
       {domain === DomainType.DFI && (
-        <ThemedTouchableOpacityV2
-          activeOpacity={1}
-          onPress={async () => {
-            setDomain(DomainType.EVM);
-            await DomainPersistence.set(domain);
-          }}
+        <View
           style={tailwind(
             "flex-1 flex-row justify-center rounded-full items-center p-0 absolute left-0"
           )}
@@ -52,15 +53,10 @@ export function DomainSwitch({ testID }: { testID: string }): JSX.Element {
               DFI
             </Text>
           </View>
-        </ThemedTouchableOpacityV2>
+        </View>
       )}
       {domain === DomainType.EVM && (
-        <ThemedTouchableOpacityV2
-          activeOpacity={1}
-          onPress={async () => {
-            setDomain(DomainType.DFI);
-            await DomainPersistence.set(domain);
-          }}
+        <View
           style={tailwind(
             "flex-1 rounded-full flex-row justify-center items-center absolute right-0"
           )}
@@ -89,8 +85,8 @@ export function DomainSwitch({ testID }: { testID: string }): JSX.Element {
               </Text>
             </View>
           </LinearGradient>
-        </ThemedTouchableOpacityV2>
+        </View>
       )}
-    </View>
+    </ThemedTouchableOpacityV2>
   );
 }
