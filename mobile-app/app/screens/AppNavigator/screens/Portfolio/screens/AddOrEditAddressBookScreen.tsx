@@ -60,11 +60,11 @@ export function AddOrEditAddressBookScreen({
 
   const AddressDomains = [
     {
-      label: "DFI",
+      label: "DeFiChain (DVM)",
       value: DomainType.DFI,
     },
     {
-      label: "Ethereum",
+      label: "MetaChain (EVM)",
       value: DomainType.EVM,
     },
   ];

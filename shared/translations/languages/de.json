@@ -213,7 +213,8 @@
     "Address deleted!": "Adresse gelöscht!",
     "It may take a few seconds to delete": "Das Löschen kann einige Sekunden dauern",
     "It may take a few seconds to update": "Die Aktualisierung kann ein paar Sekunden dauern",
-    "It may take a few seconds to save": "Das Speichern kann ein paar Sekunden dauern"
+    "It may take a few seconds to save": "Das Speichern kann ein paar Sekunden dauern",
+    "ADDRESS TYPE": "ADRESSTYP"
   },
   "screens/ReceiveScreen": {
     "Receive": "Empfangen",

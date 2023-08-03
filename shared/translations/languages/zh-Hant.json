@@ -213,7 +213,8 @@
     "Address deleted!": "Address deleted!",
     "It may take a few seconds to delete": "It may take a few seconds to delete",
     "It may take a few seconds to update": "It may take a few seconds to update",
-    "It may take a few seconds to save": "It may take a few seconds to save"
+    "It may take a few seconds to save": "It may take a few seconds to save",
+    "ADDRESS TYPE": "地址類型"
   },
   "screens/ReceiveScreen": {
     "Receive": "接收",
