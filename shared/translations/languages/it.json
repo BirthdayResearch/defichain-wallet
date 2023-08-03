@@ -114,7 +114,8 @@
     "AVAILABLE ASSETS": "ASSET DISPONIBILI",
     "Asset value": "Valore degli asset",
     "Sort by": "Sort by",
-    "ASSETS": "ASSETS"
+    "ASSETS": "ASSETS",
+    "network": "rete"
   },
   "screens/GetDFIScreen": {
     "Get DFI": "Get DFI",
@@ -223,7 +224,8 @@
     "Address deleted!": "Address deleted!",
     "It may take a few seconds to delete": "It may take a few seconds to delete",
     "It may take a few seconds to update": "It may take a few seconds to update",
-    "It may take a few seconds to save": "It may take a few seconds to save"
+    "It may take a few seconds to save": "It may take a few seconds to save",
+    "ADDRESS TYPE": "ADDRESS TYPE"
   },
   "screens/ReceiveScreen": {
     "Receive": "Ricevi",
@@ -283,7 +285,7 @@
     "You are sending": "Stai inviando",
     "TRANSACTION DETAILS": "DETTAGLI TRANSAZIONE",
     "Recipient address": "Indirizzo del destinatario",
-    "Network": "Network",
+    "Network": "Rete",
     "Amount": "Importo",
     "Estimated fee": "Commissione stimata",
     "Remaining balance": "Saldo rimanente",

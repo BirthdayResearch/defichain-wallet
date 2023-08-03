@@ -181,6 +181,7 @@ module.exports = {
         1.5: 1.5,
       },
       borderRadius: {
+        "sm-v2": 5,
         "lg-v2": 10,
         "xl-v2": 15,
         "2xl-v2": 20,

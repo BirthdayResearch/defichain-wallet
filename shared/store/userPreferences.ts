@@ -6,16 +6,23 @@ import {
 } from "@reduxjs/toolkit";
 import { LocalStorageProvider } from "@api/local_storage/provider";
 import { EnvironmentNetwork } from "@waveshq/walletkit-core";
+import { DomainType } from "@contexts/DomainContext";
 
 export interface LabeledAddress {
-  [address: string]: LocalAddress;
+  [address: string]: LocalAddress | WhitelistedAddress;
+}
+
+export interface WhitelistedAddress {
+  address: string;
+  label: string;
+  addressDomainType: DomainType;
+  isFavourite?: boolean;
 }
 
 export interface LocalAddress {
   address: string;
+  evmAddress: string;
   label: string;
-  isMine: boolean;
-  isFavourite?: boolean;
 }
 
 export interface UserPreferences {
@@ -31,7 +38,9 @@ const initialState: UserPreferences = {
 export const fetchUserPreferences = createAsyncThunk(
   "userPreferences/fetchUserPreferences",
   async (network: EnvironmentNetwork) => {
-    return await LocalStorageProvider.getUserPreferences(network);
+    const { addresses, addressBook } =
+      await LocalStorageProvider.getUserPreferences(network);
+    return { addresses, addressBook: prePopulateWhitelistedField(addressBook) };
   }
 );
 
@@ -104,19 +113,38 @@ export const userPreferences = createSlice({
 
 export const selectAddressBookArray = createSelector(
   (state: UserPreferences) => state.addressBook,
-  (addressBook) => {
-    return prepopulateField(addressBook);
+  (addressBook): WhitelistedAddress[] => {
+    return prePopulateField(addressBook) as WhitelistedAddress[];
   }
 );
 
 export const selectLocalWalletAddressArray = createSelector(
   (state: UserPreferences) => state.addresses,
-  (walletAddress) => {
-    return prepopulateField(walletAddress);
+  (walletAddress): LocalAddress[] => {
+    return prePopulateField(walletAddress) as LocalAddress[];
   }
 );
 
-const prepopulateField = (addresses: LabeledAddress): LocalAddress[] => {
+// to get wallet label for saved all (DFI and EVM) wallet address, adding all relevant address type in object
+export const selectAllLabeledWalletAddress = createSelector(
+  (state: UserPreferences) => state.addresses,
+  (walletAddress): LabeledAddress => {
+    return (Object.values(walletAddress) as LocalAddress[]).reduce(
+      (allAddress, each) => {
+        return {
+          ...allAddress,
+          [each.address]: each,
+          [each.evmAddress]: each,
+        };
+      },
+      {}
+    );
+  }
+);
+
+const prePopulateField = (
+  addresses: LabeledAddress
+): (LocalAddress | WhitelistedAddress)[] => {
   const _addresses: LabeledAddress = { ...addresses };
 
   // pre-populate address and isFavourite flag for older app version, used for UI data model only
@@ -131,4 +159,24 @@ const prepopulateField = (addresses: LabeledAddress): LocalAddress[] => {
     }
   }
   return Object.values(_addresses);
+};
+
+const prePopulateWhitelistedField = (
+  addressBook: LabeledAddress
+): LabeledAddress => {
+  const address = Object.values(addressBook);
+  return (address as WhitelistedAddress[]).reduce(
+    (all: LabeledAddress, each: WhitelistedAddress) => {
+      return {
+        ...all,
+        [each.address]: {
+          address: each.address,
+          label: each.label,
+          addressDomainType: each.addressDomainType ?? DomainType.DFI,
+          isFavourite: each.isFavourite,
+        },
+      };
+    },
+    {}
+  );
 };

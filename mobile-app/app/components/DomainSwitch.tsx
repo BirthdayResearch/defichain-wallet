@@ -80,7 +80,11 @@ export function DomainSwitch({ testID }: { testID: string }): JSX.Element {
                 <EvmDFIIcon width={20} height={20} />
               </View>
 
-              <Text style={tailwind("text-mono-light-v2-00 text-xs ml-1")}>
+              <Text
+                style={tailwind(
+                  "text-mono-light-v2-00 text-xs ml-1 font-normal-v2"
+                )}
+              >
                 EVM
               </Text>
             </View>

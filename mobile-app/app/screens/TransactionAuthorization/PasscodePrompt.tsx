@@ -67,7 +67,7 @@ const PromptContent = React.memo((props: PasscodePromptProps): JSX.Element => {
           light={tailwind("text-mono-light-v2-900")}
           iconType="Feather"
           name="x-circle"
-          size={20}
+          size={22}
         />
       </ThemedTouchableOpacityV2>
       <ThemedViewV2 style={tailwind("w-full flex-1 flex-col px-5")}>

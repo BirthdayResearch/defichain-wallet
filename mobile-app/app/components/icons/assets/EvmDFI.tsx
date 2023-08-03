@@ -12,8 +12,8 @@ import Svg, {
 export function EvmDFI(props: SvgProps): JSX.Element {
   return (
     <Svg width="36" height="36" viewBox="0 0 36 36" fill="none" {...props}>
-      <G clip-path="url(#clip0_13656_13629)">
-        <G clip-path="url(#clip1_13656_13629)">
+      <G clipPath="url(#clip0_13656_13629)">
+        <G clipPath="url(#clip1_13656_13629)">
           <Path
             d="M35 18.0033C35 27.3921 27.3888 35.0033 18 35.0033C8.61116 35.0033 1 27.3921 1 18.0033C1 8.61446 8.61116 1.0033 18 1.0033C27.3888 1.0033 35 8.61446 35 18.0033Z"
             fill="white"

@@ -3,6 +3,7 @@ import { RootState } from "@store";
 import { userPreferences } from "@store/userPreferences";
 import { render } from "@testing-library/react-native";
 import { Provider } from "react-redux";
+import { DomainType } from "@contexts/DomainContext";
 import { AddressListEditButton } from "./AddressListEditButton";
 
 describe("Address List Edit Button", () => {
@@ -12,15 +13,15 @@ describe("Address List Edit Button", () => {
         addresses: {
           foo: {
             address: "foo",
+            evmAddress: "",
             label: "foo",
-            isMine: true,
           },
         },
         addressBook: {
           bar: {
             address: "bar",
             label: "bar",
-            isMine: false,
+            addressDomainType: DomainType.DFI,
           },
         },
       },

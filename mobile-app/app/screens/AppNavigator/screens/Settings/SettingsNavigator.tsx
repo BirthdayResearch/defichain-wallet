@@ -9,9 +9,10 @@ import { DexFaq } from "@screens/WalletNavigator/screens/CreateWallet/DexFaq";
 import { LiquidityMiningFaq } from "@screens/WalletNavigator/screens/CreateWallet/LiquidityMiningFaq";
 import { ChangePinScreen } from "@screens/AppNavigator/screens/Settings/screens/ChangePinScreen";
 import { ConfirmPinScreen } from "@screens/AppNavigator/screens/Settings/screens/ConfirmPinScreen";
-import { LocalAddress } from "@store/userPreferences";
+import { WhitelistedAddress } from "@store/userPreferences";
 import { NetworkSelectionScreen } from "@screens/AppNavigator/screens/Settings/screens/NetworkSelectionScreen";
 import { CfpDfipProposalsFaq } from "@screens/AppNavigator/screens/Portfolio/screens/CfpDfipProposalsFaq";
+import { DomainType } from "@contexts/DomainContext";
 import { AboutScreen } from "./screens/AboutScreen";
 import { CommunityScreen } from "./screens/CommunityScreen";
 import { LanguageSelectionScreen } from "./screens/LanguageSelectionScreen";
@@ -40,13 +41,15 @@ export interface SettingsParamList {
   ServiceProviderScreen: {};
   AddressBookScreen: {
     selectedAddress?: string;
+    addressDomainType?: DomainType;
     onAddressSelect?: (address: string) => void;
     disabledTab?: ButtonGroupTabKey;
   };
   AddOrEditAddressBookScreen: {
     title: string;
     onSaveButtonPress: (address?: string) => void;
-    addressLabel?: LocalAddress;
+    addressLabel?: WhitelistedAddress;
+    addressDomainType?: DomainType;
     address?: string;
     isAddNew: boolean;
   };

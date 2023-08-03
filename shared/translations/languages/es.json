@@ -112,7 +112,8 @@
     "AVAILABLE ASSETS": "ACTIVOS DISPONIBLES",
     "Asset value": "Valor del activo",
     "Sort by": "Ordenar por",
-    "ASSETS": "ACTIVOS"
+    "ASSETS": "ACTIVOS",
+    "network": "red"
   },
   "screens/GetDFIScreen": {
     "Get DFI": "Obtener DFI",
@@ -221,7 +222,8 @@
     "Address deleted!": "Dirección borrada!",
     "It may take a few seconds to delete": "Puede tardar unos segundos en borrarse",
     "It may take a few seconds to update": "Puede tardar unos segundos en actualizarse",
-    "It may take a few seconds to save": "Puede tardar unos segundos en guardarse"
+    "It may take a few seconds to save": "Puede tardar unos segundos en guardarse",
+    "ADDRESS TYPE": "ADDRESS TYPE"
   },
   "screens/ReceiveScreen": {
     "Receive": "Recibir",

@@ -49,6 +49,7 @@ context("Wallet - Settings - Address Book", () => {
   it("should have Your Addresses tab with one wallet address", () => {
     cy.getByTestID("address_button_group_YOUR_ADDRESS").click();
     cy.getByTestID("address_row_text_0_YOUR_ADDRESS").should("exist");
+    cy.getByTestID("address_row_text_0_YOUR_ADDRESS_EVM").should("exist");
   });
 
   it("should have refresh button in Your address tab", () => {
@@ -58,17 +59,62 @@ context("Wallet - Settings - Address Book", () => {
   it("should block wallet address during add new whitelisted address", () => {
     cy.getByTestID("address_row_text_0_YOUR_ADDRESS")
       .invoke("text")
-      .then((walletAddress) => {
-        cy.getByTestID("address_button_group_WHITELISTED").click();
-        cy.getByTestID("add_new_address").click();
-        cy.getByTestID("address_book_address_input")
-          .clear()
-          .type(walletAddress)
-          .blur();
-        cy.getByTestID("address_book_address_input_error").contains(
-          "This address already exists in your address book, please enter a different address"
-        );
+      .then((walletDFIAddress) => {
+        cy.getByTestID("address_row_text_0_YOUR_ADDRESS_EVM")
+          .invoke("text")
+          .then((walletETHAddress) => {
+            cy.getByTestID("address_button_group_WHITELISTED").click();
+            cy.getByTestID("add_new_address").click();
+            cy.getByTestID("address_book_address_type_DFI_checked").should(
+              "exist"
+            );
+            // check for DFI address
+            cy.getByTestID("address_book_address_input")
+              .clear()
+              .type(walletDFIAddress)
+              .blur();
+            cy.getByTestID("address_book_address_input_error").contains(
+              "This address already exists in your address book, please enter a different address"
+            );
+            // check for evm address
+            cy.getByTestID("address_book_address_input")
+              .clear()
+              .type(walletETHAddress)
+              .blur();
+            cy.getByTestID("address_book_address_input_error").contains(
+              "Please enter a valid address"
+            );
+            // change domain type
+            cy.getByTestID("address_book_address_type_EVM").click();
+            cy.getByTestID("address_book_address_input_error").contains(
+              "This address already exists in your address book, please enter a different address"
+            );
+          });
       });
+  });
+
+  it("should be able to create EVM address in whitelisted tab", () => {
+    const evmAddress = "0x333333f332a06ECB5D20D35da44ba07986D6E203";
+    const label = "EVM Address";
+    cy.createEmptyWallet(true);
+    cy.getByTestID("header_settings").click();
+    cy.getByTestID("address_book_title").click();
+    cy.getByTestID("add_new_address").click();
+    cy.getByTestID("address_book_label_input").type(label);
+    cy.getByTestID("address_book_label_input_error").should("not.exist");
+    cy.getByTestID("address_book_address_type_EVM").click();
+    cy.getByTestID("address_book_address_type_EVM_checked").should("exist");
+    cy.getByTestID("address_book_address_input")
+      .clear()
+      .type(evmAddress)
+      .blur();
+    cy.getByTestID("address_book_address_input_error").should("not.exist");
+    cy.wait(1000);
+    cy.getByTestID("save_address_label").click();
+    cy.getByTestID("pin_authorize").type("000000").wait(5000);
+    cy.getByTestID(`address_row_label_0_WHITELISTED`).contains(label);
+    cy.getByTestID(`address_row_text_0_WHITELISTED`).contains(evmAddress);
+    cy.getByTestID(`address_row_label_0_WHITELISTED_EVM_tag`).contains("EVM");
   });
 
   it("should be able to create address in whitelisted tab", () => {

@@ -9,7 +9,7 @@ import { BarCodeScanner } from "@components/BarCodeScanner";
 import { HeaderTitle } from "@components/HeaderTitle";
 import { tailwind } from "@tailwind";
 import { translate } from "@translations";
-import { LocalAddress } from "@store/userPreferences";
+import { WhitelistedAddress } from "@store/userPreferences";
 import { FutureSwapData } from "@store/futureSwap";
 import { TransactionsScreen } from "@screens/AppNavigator/screens/Transactions/TransactionsScreen";
 import { TransactionDetailScreen } from "@screens/AppNavigator/screens/Transactions/screens/TransactionDetailScreen";
@@ -33,6 +33,7 @@ import {
   TokenListType,
 } from "@screens/AppNavigator/screens/Dex/CompositeSwap/SwapTokenSelectionScreen";
 import { ConversionMode, ScreenName } from "@screens/enum";
+import { DomainType } from "@contexts/DomainContext";
 import { NetworkDetails } from "../Settings/screens/NetworkDetails";
 import { PortfolioScreen } from "./PortfolioScreen";
 import { ReceiveScreen } from "./screens/ReceiveScreen";
@@ -104,7 +105,8 @@ export interface PortfolioParamList {
   AddOrEditAddressBookScreen: {
     title: string;
     onSaveButtonPress: (address?: string) => void;
-    addressLabel?: LocalAddress;
+    addressLabel?: WhitelistedAddress;
+    addressDomainType?: DomainType;
     address?: string;
     isAddNew: boolean;
   };
@@ -211,6 +213,7 @@ export function PortfolioNavigator(): JSX.Element {
               source={
                 isLight ? GridBackgroundImageLight : GridBackgroundImageDark
               }
+              // eslint-disable-next-line react-native/no-inline-styles
               style={{
                 height: 220,
                 width: "100%",
