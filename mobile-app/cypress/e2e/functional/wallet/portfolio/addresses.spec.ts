@@ -48,7 +48,7 @@ context("Wallet - Addresses", () => {
     cy.getByTestID("active_address")
       .invoke("css", "text-overflow")
       .should("eq", "ellipsis");
-    cy.getByTestID("bottomsheet-address-header").contains("DFI");
+    cy.getByTestID("bottomsheet-address-header").contains("DVM");
     cy.getByTestID("active_address").click();
     cy.getByTestID("wallet_toast").should("exist");
   });
@@ -80,7 +80,7 @@ context("Wallet - Addresses", () => {
       .invoke("text")
       .then((evmAddress: string) => {
         cy.getByTestID("bottom_tab_portfolio").click();
-        cy.getByTestID("domain_switch_DFI").should("exist");
+        cy.getByTestID("domain_switch_DVM").should("exist");
         cy.getByTestID("domain_switch").click();
         cy.getByTestID("domain_switch_EVM").should("exist");
         cy.getByTestID("switch_account_button").click();

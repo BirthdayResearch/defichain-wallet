@@ -45,13 +45,13 @@ export function DomainSwitch({ testID }: { testID: string }): JSX.Element {
             </View>
 
             <Text
-              style={tailwind("mr-2 text-xs", {
+              style={tailwind("mr-1 text-xs", {
                 "text-white": isLight,
                 "text-black": !isLight,
               })}
-              testID={`${testID}_DFI`}
+              testID={`${testID}_DVM`}
             >
-              DFI
+              DVM
             </Text>
           </View>
         </View>

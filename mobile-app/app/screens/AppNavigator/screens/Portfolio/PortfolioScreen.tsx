@@ -539,7 +539,7 @@ export function PortfolioScreen({ navigation }: Props): JSX.Element {
                 light={tailwind("text-mono-light-v2-700")}
                 testID="bottomsheet-address-header"
               >
-                {domain}
+                {domain === DomainType.EVM ? "EVM" : "DVM"}
               </ThemedTextV2>
               <ThemedTextV2
                 style={tailwind("text-xs font-normal-v2")}
