@@ -204,7 +204,7 @@ export const BottomSheetAddressDetailV2 = (
         const hasLabel =
           labeledAddresses?.[item.dfi]?.label != null &&
           labeledAddresses?.[item.dfi]?.label !== "";
-        const displayAddress = domain === DomainType.DFI ? item.dfi : item.evm;
+        const displayAddress = domain === DomainType.EVM ? item.evm : item.dfi;
         return (
           <ThemedTouchableOpacityV2
             key={item.dfi}
@@ -368,7 +368,7 @@ export const BottomSheetAddressDetailV2 = (
           )}
           <ActiveAddress
             address={
-              (domain === DomainType.DFI
+              (domain === DomainType.DVM
                 ? activeAddress?.dfi
                 : activeAddress?.evm) ?? ""
             }

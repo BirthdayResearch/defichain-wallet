@@ -21,7 +21,7 @@ describe("Address List Edit Button", () => {
           bar: {
             address: "bar",
             label: "bar",
-            addressDomainType: DomainType.DFI,
+            addressDomainType: DomainType.DVM,
           },
         },
       },

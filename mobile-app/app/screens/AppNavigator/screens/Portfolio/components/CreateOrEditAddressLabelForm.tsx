@@ -135,7 +135,7 @@ export const CreateOrEditAddressLabelForm = memo(
         {address !== undefined && (
           <AddressDisplay
             address={address}
-            label={domain === DomainType.DFI ? address : getEVMAddress(address)}
+            label={domain === DomainType.DVM ? address : getEVMAddress(address)}
           />
         )}
         <ThemedTextV2

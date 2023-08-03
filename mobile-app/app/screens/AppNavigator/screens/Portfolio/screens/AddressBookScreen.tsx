@@ -68,7 +68,7 @@ export function AddressBookScreen({ route, navigation }: Props): JSX.Element {
     selectedAddress,
     onAddressSelect,
     disabledTab,
-    addressDomainType = DomainType.DFI,
+    addressDomainType = DomainType.DVM,
   } = route.params;
   const { isLight } = useThemeContext();
   const { network } = useNetworkContext();

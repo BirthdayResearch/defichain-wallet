@@ -24,7 +24,7 @@ describe("Wallet Address Row", () => {
           bar: {
             address: "bar",
             label: "bar",
-            addressDomainType: DomainType.DFI,
+            addressDomainType: DomainType.DVM,
           },
         },
       },

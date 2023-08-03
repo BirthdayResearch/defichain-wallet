@@ -168,12 +168,12 @@ function getEmptyScreenDetails(
     default:
       return {
         icon:
-          domain === DomainType.DFI
+          domain === DomainType.DVM
             ? EmptyPortfolioIcon
             : EmptyEvmPortfolioIcon,
         title: translate("components/EmptyPortfolio", "Empty portfolio"),
         subtitle:
-          domain === DomainType.DFI
+          domain === DomainType.DVM
             ? translate(
                 "components/EmptyPortfolio",
                 "Add DFI and other tokens to get started"

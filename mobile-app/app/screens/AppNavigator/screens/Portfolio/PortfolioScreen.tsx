@@ -539,7 +539,7 @@ export function PortfolioScreen({ navigation }: Props): JSX.Element {
                 light={tailwind("text-mono-light-v2-700")}
                 testID="bottomsheet-address-header"
               >
-                {domain === DomainType.EVM ? "EVM" : "DVM"}
+                {domain}
               </ThemedTextV2>
               <ThemedTextV2
                 style={tailwind("text-xs font-normal-v2")}
@@ -658,9 +658,9 @@ export function PortfolioScreen({ navigation }: Props): JSX.Element {
           setDenominationCurrency={setDenominationCurrency}
         />
         <ActionButtons />
-        {domain === DomainType.DFI && <Announcements />}
+        {domain === DomainType.DVM && <Announcements />}
 
-        {domain === DomainType.DFI && (
+        {domain === DomainType.DVM && (
           <AssetsFilterRow
             activeButtonGroup={activeButtonGroup}
             onButtonGroupPress={handleButtonFilter}

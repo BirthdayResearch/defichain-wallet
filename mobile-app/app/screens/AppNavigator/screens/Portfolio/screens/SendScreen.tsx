@@ -414,7 +414,7 @@ export function SendScreen({ route, navigation }: Props): JSX.Element {
                   name: "AddressBookScreen",
                   params: {
                     selectedAddress: getValues("address"),
-                    addressDomainType: DomainType.DFI,
+                    addressDomainType: DomainType.DVM,
                     onAddressSelect,
                   },
                   merge: true,

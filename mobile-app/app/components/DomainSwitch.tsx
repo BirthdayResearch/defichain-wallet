@@ -15,7 +15,7 @@ export function DomainSwitch({ testID }: { testID: string }): JSX.Element {
 
   const toggleDomain = async () => {
     await setDomain(
-      domain === DomainType.DFI ? DomainType.EVM : DomainType.DFI
+      domain === DomainType.DVM ? DomainType.EVM : DomainType.DVM
     );
   };
   return (
@@ -28,7 +28,7 @@ export function DomainSwitch({ testID }: { testID: string }): JSX.Element {
       onPress={toggleDomain}
       testID={testID}
     >
-      {domain === DomainType.DFI && (
+      {domain === DomainType.DVM && (
         <View
           style={tailwind(
             "flex-1 flex-row justify-center rounded-full items-center p-0 absolute left-0"
