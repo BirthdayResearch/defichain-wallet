@@ -21,10 +21,9 @@ export function DomainSwitch({ testID }: { testID: string }): JSX.Element {
   return (
     <ThemedTouchableOpacityV2
       activeOpacity={0.7}
-      style={tailwind("h-7 w-18 rounded-full flex-row justify-center mr-4", {
-        "bg-mono-light-v2-300": isLight,
-        "bg-mono-dark-v2-300": !isLight,
-      })}
+      light={tailwind("bg-mono-light-v2-300")}
+      dark={tailwind("bg-mono-dark-v2-300")}
+      style={tailwind("h-7 w-21 rounded-full flex-row justify-center mr-4")}
       onPress={toggleDomain}
       testID={testID}
     >
@@ -41,11 +40,11 @@ export function DomainSwitch({ testID }: { testID: string }): JSX.Element {
             })}
           >
             <View style={tailwind("bg-brand-v2-500 p-1 rounded-full mr-1")}>
-              <DFIIcon width={12.5} height={12.5} color="#FFFFFF" />
+              <DFIIcon width={12} height={12} color="#FFFFFF" />
             </View>
 
             <Text
-              style={tailwind("mr-1 text-xs", {
+              style={tailwind("w-9 text-xs font-normal-v2", {
                 "text-white": isLight,
                 "text-black": !isLight,
               })}
@@ -79,7 +78,7 @@ export function DomainSwitch({ testID }: { testID: string }): JSX.Element {
 
               <Text
                 style={tailwind(
-                  "text-mono-light-v2-00 text-xs ml-1 font-normal-v2"
+                  "text-mono-light-v2-00 text-xs ml-1 w-9 font-normal-v2"
                 )}
                 testID={`${testID}_EVM`}
               >
