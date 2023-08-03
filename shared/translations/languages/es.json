@@ -554,6 +554,9 @@
     "Are there other ways to submit proposals?": "Are there other ways to submit proposals?",
     "If you own a full node wallet, you may also choose to submit using commands via CLI. Commands can be generated on DeFiScan, under Governance tab > Submit proposal.": "If you own a full node wallet, you may also choose to submit using commands via CLI. Commands can be generated on DeFiScan, under Governance tab > Submit proposal."
   },
+  "components/EvmFeatureFaq": {
+    "FREQUENTLY ASKED QUESTIONS": "PREGUNTAS FRECUENTES"
+  },
   "screens/NetworkSelectionScreen": {
     "NETWORK": "RED",
     "Select network": "Seleccionar red",

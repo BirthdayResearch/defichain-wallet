@@ -68,6 +68,12 @@ export function KnowledgeBaseScreen({ navigation }: Props): JSX.Element {
           },
         ]
       : []),
+    {
+      // TODO (Lyka): Check if we need to check for feature flag
+      label: "MetaChain (EVM)",
+      testID: "evm_feature_faq",
+      onPress: () => navigation.navigate("EvmFeatureFaq"),
+    },
   ];
 
   return (

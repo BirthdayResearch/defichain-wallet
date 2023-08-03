@@ -539,6 +539,9 @@
     "Are there other ways to submit proposals?": "還有其他的方式提交提案嗎？",
     "If you own a full node wallet, you may also choose to submit using commands via CLI. Commands can be generated on DeFiScan, under Governance tab > Submit proposal.": "如果您擁有全節點錢包，你可以選擇通過CLI界面使用命令進行提交。該命令可以在DeFiScan上生成，在\"Governance\" > \"Submit proposal\" 選項裡。"
   },
+  "components/EvmFeatureFaq": {
+    "FREQUENTLY ASKED QUESTIONS": "常見問題"
+  },
   "screens/NetworkSelectionScreen": {
     "NETWORK": "網絡",
     "Select network": "切換網絡",
