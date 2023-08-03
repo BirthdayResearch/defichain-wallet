@@ -58,7 +58,7 @@ export function AddOrEditAddressBookScreen({
   // array of all wallet addresses
   const [walletAddress, setWalletAddress] = useState<string[]>([]);
 
-  const AddressTypes = [
+  const AddressDomains = [
     {
       label: "DFI",
       value: DomainType.DFI,
@@ -295,23 +295,24 @@ export function AddOrEditAddressBookScreen({
           dark={tailwind("bg-mono-dark-v2-00 border-mono-dark-v2-00")}
           style={tailwind("flex-col w-full border-0.5 rounded-lg-v2")}
         >
-          {AddressTypes.map((eachDomain, index) => {
-            const isChecked = selectedAddressDomainType === eachDomain.value;
+          {AddressDomains.map((addressDomain, index) => {
+            const isChecked = selectedAddressDomainType === addressDomain.value;
             return (
               <ThemedTouchableOpacityV2
-                key={eachDomain.value}
+                key={addressDomain.value}
                 light={tailwind("border-mono-light-v2-300")}
                 dark={tailwind("border-mono-dark-v2-300")}
                 style={[
                   tailwind("flex flex-row mx-5 py-4"),
-                  index !== AddressTypes.length - 1 && tailwind("border-b-0.5"),
+                  index !== AddressDomains.length - 1 &&
+                    tailwind("border-b-0.5"),
                 ]}
                 activeOpacity={0.7}
                 disabled={!isAddNew}
                 onPress={() => {
-                  setSelectedAddressDomainType(eachDomain.value);
+                  setSelectedAddressDomainType(addressDomain.value);
                 }}
-                testID={`address_book_address_type_${eachDomain.value}${
+                testID={`address_book_address_type_${addressDomain.value}${
                   isChecked ? "_checked" : ""
                 }`}
               >
@@ -330,7 +331,7 @@ export function AddOrEditAddressBookScreen({
                 <ThemedTextV2 style={tailwind("pl-4 text-sm font-normal-v2")}>
                   {translate(
                     "screens/AddOrEditAddressBookScreen",
-                    eachDomain.label
+                    addressDomain.label
                   )}
                 </ThemedTextV2>
               </ThemedTouchableOpacityV2>
