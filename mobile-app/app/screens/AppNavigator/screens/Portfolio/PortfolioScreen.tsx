@@ -537,6 +537,7 @@ export function PortfolioScreen({ navigation }: Props): JSX.Element {
                 style={tailwind("text-xs font-normal-v2 pr-1")}
                 dark={tailwind("text-mono-dark-v2-700")}
                 light={tailwind("text-mono-light-v2-700")}
+                testID="bottomsheet-address-header"
               >
                 {domain}
               </ThemedTextV2>

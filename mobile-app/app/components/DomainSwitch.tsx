@@ -49,6 +49,7 @@ export function DomainSwitch({ testID }: { testID: string }): JSX.Element {
                 "text-white": isLight,
                 "text-black": !isLight,
               })}
+              testID={`${testID}_DFI`}
             >
               DFI
             </Text>
@@ -80,6 +81,7 @@ export function DomainSwitch({ testID }: { testID: string }): JSX.Element {
                 style={tailwind(
                   "text-mono-light-v2-00 text-xs ml-1 font-normal-v2"
                 )}
+                testID={`${testID}_EVM`}
               >
                 EVM
               </Text>

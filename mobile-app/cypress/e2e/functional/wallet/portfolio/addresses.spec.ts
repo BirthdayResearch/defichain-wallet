@@ -48,6 +48,7 @@ context("Wallet - Addresses", () => {
     cy.getByTestID("active_address")
       .invoke("css", "text-overflow")
       .should("eq", "ellipsis");
+    cy.getByTestID("bottomsheet-address-header").contains("DFI");
     cy.getByTestID("active_address").click();
     cy.getByTestID("wallet_toast").should("exist");
   });
@@ -68,6 +69,24 @@ context("Wallet - Addresses", () => {
         cy.getByTestID("close_bottom_sheet_button").click();
         cy.getByTestID("receive_balance_button").click();
         cy.getByTestID("address_text").contains(address);
+      });
+  });
+
+  it("should show EVM address when toggle set to EVM", () => {
+    cy.getByTestID("header_settings").click();
+    cy.getByTestID("address_book_title").click();
+    cy.getByTestID("address_button_group_YOUR_ADDRESS").click();
+    cy.getByTestID("address_row_text_0_YOUR_ADDRESS_EVM")
+      .invoke("text")
+      .then((evmAddress: string) => {
+        cy.getByTestID("bottom_tab_portfolio").click();
+        cy.getByTestID("domain_switch_DFI").should("exist");
+        cy.getByTestID("domain_switch").click();
+        cy.getByTestID("domain_switch_EVM").should("exist");
+        cy.getByTestID("switch_account_button").click();
+        cy.getByTestID("address_row_text_0").contains(evmAddress);
+        cy.getByTestID("bottomsheet-address-header").contains("EVM");
+        cy.getByTestID("close_bottom_sheet_button").click();
       });
   });
 
