@@ -109,7 +109,8 @@
     "AVAILABLE ASSETS": "ACTIFS DISPONIBLES",
     "Asset value": "Valeur des actifs",
     "Sort by": "Trier par",
-    "ASSETS": "ACTIFS"
+    "ASSETS": "ACTIFS",
+    "network": "réseau"
   },
   "screens/GetDFIScreen": {
     "Get DFI": "Obtenir DFI",
@@ -215,7 +216,8 @@
     "Address deleted!": "Adresse supprimée !",
     "It may take a few seconds to delete": "La suppression peut prendre quelques secondes",
     "It may take a few seconds to update": "La mise à jour peut prendre quelques secondes",
-    "It may take a few seconds to save": "La sauvegarde peut prendre quelques secondes"
+    "It may take a few seconds to save": "La sauvegarde peut prendre quelques secondes",
+    "ADDRESS TYPE": "TYPE D’ADRESSE"
   },
   "screens/AddressControlScreen": {
     "CREATE WALLET ADDRESS": "CRÉER UNE ADRESSE DE PORTEFEUILLE",

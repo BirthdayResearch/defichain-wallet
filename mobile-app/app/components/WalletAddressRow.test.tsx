@@ -4,6 +4,7 @@ import { RootState } from "@store";
 import { Provider } from "react-redux";
 import { userPreferences } from "@store/userPreferences";
 
+import { DomainType } from "@contexts/DomainContext";
 import { WalletAddressRow } from "./WalletAddressRow";
 
 jest.mock("@shared-contexts/WalletContext");
@@ -15,15 +16,15 @@ describe("Wallet Address Row", () => {
         addresses: {
           foo: {
             address: "foo",
+            evmAddress: "",
             label: "foo",
-            isMine: true,
           },
         },
         addressBook: {
           bar: {
             address: "bar",
             label: "bar",
-            isMine: false,
+            addressDomainType: DomainType.DVM,
           },
         },
       },

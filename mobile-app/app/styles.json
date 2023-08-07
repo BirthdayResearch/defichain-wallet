@@ -4395,6 +4395,9 @@
 	"w-20": {
 		"width": 80
 	},
+	"w-21": {
+		"width": 84
+	},
 	"w-24": {
 		"width": 96
 	},
@@ -4820,6 +4823,12 @@
 		"borderBottomRightRadius": 9999,
 		"borderBottomLeftRadius": 9999
 	},
+	"rounded-sm-v2": {
+		"borderTopLeftRadius": 5,
+		"borderTopRightRadius": 5,
+		"borderBottomRightRadius": 5,
+		"borderBottomLeftRadius": 5
+	},
 	"rounded-lg-v2": {
 		"borderTopLeftRadius": 10,
 		"borderTopRightRadius": 10,
@@ -4874,6 +4883,10 @@
 		"borderTopLeftRadius": 9999,
 		"borderTopRightRadius": 9999
 	},
+	"rounded-t-sm-v2": {
+		"borderTopLeftRadius": 5,
+		"borderTopRightRadius": 5
+	},
 	"rounded-t-lg-v2": {
 		"borderTopLeftRadius": 10,
 		"borderTopRightRadius": 10
@@ -4921,6 +4934,10 @@
 	"rounded-r-full": {
 		"borderTopRightRadius": 9999,
 		"borderBottomRightRadius": 9999
+	},
+	"rounded-r-sm-v2": {
+		"borderTopRightRadius": 5,
+		"borderBottomRightRadius": 5
 	},
 	"rounded-r-lg-v2": {
 		"borderTopRightRadius": 10,
@@ -4970,6 +4987,10 @@
 		"borderBottomRightRadius": 9999,
 		"borderBottomLeftRadius": 9999
 	},
+	"rounded-b-sm-v2": {
+		"borderBottomRightRadius": 5,
+		"borderBottomLeftRadius": 5
+	},
 	"rounded-b-lg-v2": {
 		"borderBottomRightRadius": 10,
 		"borderBottomLeftRadius": 10
@@ -5018,6 +5039,10 @@
 		"borderTopLeftRadius": 9999,
 		"borderBottomLeftRadius": 9999
 	},
+	"rounded-l-sm-v2": {
+		"borderTopLeftRadius": 5,
+		"borderBottomLeftRadius": 5
+	},
 	"rounded-l-lg-v2": {
 		"borderTopLeftRadius": 10,
 		"borderBottomLeftRadius": 10
@@ -5057,6 +5082,9 @@
 	"rounded-tl-full": {
 		"borderTopLeftRadius": 9999
 	},
+	"rounded-tl-sm-v2": {
+		"borderTopLeftRadius": 5
+	},
 	"rounded-tl-lg-v2": {
 		"borderTopLeftRadius": 10
 	},
@@ -5092,6 +5120,9 @@
 	},
 	"rounded-tr-full": {
 		"borderTopRightRadius": 9999
+	},
+	"rounded-tr-sm-v2": {
+		"borderTopRightRadius": 5
 	},
 	"rounded-tr-lg-v2": {
 		"borderTopRightRadius": 10
@@ -5129,6 +5160,9 @@
 	"rounded-br-full": {
 		"borderBottomRightRadius": 9999
 	},
+	"rounded-br-sm-v2": {
+		"borderBottomRightRadius": 5
+	},
 	"rounded-br-lg-v2": {
 		"borderBottomRightRadius": 10
 	},
@@ -5164,6 +5198,9 @@
 	},
 	"rounded-bl-full": {
 		"borderBottomLeftRadius": 9999
+	},
+	"rounded-bl-sm-v2": {
+		"borderBottomLeftRadius": 5
 	},
 	"rounded-bl-lg-v2": {
 		"borderBottomLeftRadius": 10

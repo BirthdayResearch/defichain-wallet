@@ -39,7 +39,7 @@ export function BottomSheetHeader({
           light={tailwind("text-mono-light-v2-900")}
           iconType="Feather"
           name="x-circle"
-          size={24}
+          size={22}
         />
       </ThemedTouchableOpacityV2>
       <ThemedTextV2 style={tailwind("text-xl font-normal-v2")} {...headerStyle}>

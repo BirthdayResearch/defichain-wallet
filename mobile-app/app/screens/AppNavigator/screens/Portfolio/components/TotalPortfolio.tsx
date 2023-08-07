@@ -45,7 +45,6 @@ interface PortfolioButtonGroup {
 export function TotalPortfolio(props: TotalPortfolioProps): JSX.Element {
   const { hasFetchedToken } = useSelector((state: RootState) => state.wallet);
   const { domain } = useDomainContext();
-  const isEvmDomain = domain !== DomainType.DFI;
   const { hasFetchedVaultsData } = useSelector(
     (state: RootState) => state.loans
   );
@@ -124,7 +123,7 @@ export function TotalPortfolio(props: TotalPortfolioProps): JSX.Element {
               }
             />
           </TouchableOpacity>
-          {domain === DomainType.DFI && (
+          {domain === DomainType.DVM && (
             <TouchableOpacity
               activeOpacity={0.7}
               onPress={() => setIsExpanded(!isExpanded)}

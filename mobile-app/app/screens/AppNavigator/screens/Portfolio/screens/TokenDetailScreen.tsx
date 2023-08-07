@@ -27,10 +27,10 @@ import {
 import { useSelector } from "react-redux";
 import { RootState } from "@store";
 import { ButtonV2 } from "@components/ButtonV2";
+import { ConversionMode } from "@screens/enum";
 import { InfoTextLinkV2 } from "@components/InfoTextLink";
 import { ThemedTouchableListItem } from "@components/themed/ThemedTouchableListItem";
 import { PortfolioParamList } from "../PortfolioNavigator";
-import { ConversionMode } from "./ConvertScreen";
 import { useTokenPrice } from "../hooks/TokenPrice";
 import { useDenominationCurrency } from "../hooks/PortfolioCurrency";
 import { TokenBreakdownDetailsV2 } from "../components/TokenBreakdownDetailsV2";
@@ -249,7 +249,7 @@ export function TokenDetailScreen({ route, navigation }: Props): JSX.Element {
                   isLast={false}
                   onPress={() => navigation.navigate("Receive")}
                   testID="receive_button"
-                  title={`${translate("screens/TokenDetailScreen", "Receive")}`}
+                  title={translate("screens/TokenDetailScreen", "Receive")}
                 />
               </>
             )}
@@ -260,7 +260,9 @@ export function TokenDetailScreen({ route, navigation }: Props): JSX.Element {
                 iconType="MaterialIcons"
                 onPress={() => {
                   const mode: ConversionMode =
-                    token.id === "0_utxo" ? "utxosToAccount" : "accountToUtxos";
+                    token.id === "0_utxo"
+                      ? ConversionMode.utxosToAccount
+                      : ConversionMode.accountToUtxos;
                   navigation.navigate({
                     name: "ConvertScreen",
                     params: { mode },
@@ -268,11 +270,11 @@ export function TokenDetailScreen({ route, navigation }: Props): JSX.Element {
                   });
                 }}
                 testID="convert_button"
-                title={`${translate(
+                title={translate(
                   "screens/TokenDetailScreen",
                   "Convert to {{symbol}}",
                   { symbol: `${token.id === "0_utxo" ? "Token" : "UTXO"}` }
-                )}`}
+                )}
               />
             )}
             {token.isLPS && pair !== undefined && (

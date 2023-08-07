@@ -1,10 +1,10 @@
 export enum DomainType {
-  DFI = "DFI",
+  DVM = "DVM",
   EVM = "EVM",
 }
 
 export const useDomainContext = () => {
   return {
-    domain: "DFI",
+    domain: "DVM",
   };
 };

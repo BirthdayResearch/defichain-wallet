@@ -215,7 +215,7 @@ export function ConvertConfirmationScreen({ route }: Props): JSX.Element {
           lhs={{
             value: translate(
               "screens/ConvertConfirmScreen",
-              domain === DomainType.DFI
+              domain === DomainType.DVM
                 ? "Resulting UTXO"
                 : "Resulting Tokens (EVM)"
             ),
@@ -227,7 +227,7 @@ export function ConvertConfirmationScreen({ route }: Props): JSX.Element {
           }}
           rhs={{
             value: getResultingValue(
-              domain === DomainType.DFI
+              domain === DomainType.DVM
                 ? ConvertTokenUnit.UTXO
                 : ConvertTokenUnit.EVMDFI,
               fee,
@@ -236,7 +236,7 @@ export function ConvertConfirmationScreen({ route }: Props): JSX.Element {
               targetBalance,
               targetUnit
             ),
-            suffix: domain === DomainType.DFI ? " DFI" : "",
+            suffix: domain === DomainType.DVM ? " DFI" : "",
             testID: "resulting_utxo_value",
             themedProps: {
               light: tailwind("text-mono-light-v2-900 font-semibold-v2"),
@@ -244,7 +244,7 @@ export function ConvertConfirmationScreen({ route }: Props): JSX.Element {
             },
             subValue: {
               value: getResultingPercentage(
-                domain === DomainType.DFI
+                domain === DomainType.DVM
                   ? ConvertTokenUnit.UTXO
                   : ConvertTokenUnit.EVMDFI,
                 sourceBalance,

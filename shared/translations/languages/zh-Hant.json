@@ -109,7 +109,8 @@
     "AVAILABLE ASSETS": "可用資產",
     "Asset value": "資產價值",
     "Sort by": "Sort by",
-    "ASSETS": "ASSETS"
+    "ASSETS": "ASSETS",
+    "network": "網絡"
   },
   "screens/GetDFIScreen": {
     "Get DFI": "獲取 DFI",
@@ -212,7 +213,8 @@
     "Address deleted!": "Address deleted!",
     "It may take a few seconds to delete": "It may take a few seconds to delete",
     "It may take a few seconds to update": "It may take a few seconds to update",
-    "It may take a few seconds to save": "It may take a few seconds to save"
+    "It may take a few seconds to save": "It may take a few seconds to save",
+    "ADDRESS TYPE": "地址類型"
   },
   "screens/ReceiveScreen": {
     "Receive": "接收",

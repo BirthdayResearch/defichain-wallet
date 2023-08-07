@@ -20,7 +20,7 @@ import {
   tokensSelector,
   WalletToken,
 } from "@waveshq/walletkit-ui/dist/store";
-import { LocalAddress } from "@store/userPreferences";
+import { LocalAddress, WhitelistedAddress } from "@store/userPreferences";
 import { useDisplayUtxoWarning } from "@hooks/wallet/DisplayUtxoWarning";
 import {
   queueConvertTransaction,
@@ -42,6 +42,7 @@ import {
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { AddressRow } from "@screens/AppNavigator/screens/Portfolio/components/AddressRow";
+import { DomainType } from "@contexts/DomainContext";
 import { useTokenPrice } from "../hooks/TokenPrice";
 import { ActiveUSDValueV2 } from "../../Loans/VaultDetail/components/ActiveUSDValueV2";
 import { PortfolioParamList } from "../PortfolioNavigator";
@@ -92,7 +93,9 @@ export function SendScreen({ route, navigation }: Props): JSX.Element {
   );
 
   const [token, setToken] = useState(route.params?.token);
-  const [matchedAddress, setMatchedAddress] = useState<LocalAddress>();
+  const [matchedAddress, setMatchedAddress] = useState<
+    LocalAddress | WhitelistedAddress
+  >();
   const [fee, setFee] = useState<BigNumber>(new BigNumber(0.0001));
   const [transactionCardStatus, setTransactionCardStatus] = useState(
     TransactionCardStatus.Default
@@ -411,6 +414,7 @@ export function SendScreen({ route, navigation }: Props): JSX.Element {
                   name: "AddressBookScreen",
                   params: {
                     selectedAddress: getValues("address"),
+                    addressDomainType: DomainType.DVM,
                     onAddressSelect,
                   },
                   merge: true,

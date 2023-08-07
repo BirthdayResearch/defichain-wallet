@@ -14,8 +14,10 @@ export function useAddressBook(): {
   const dispatch = useAppDispatch();
   const clearAddressBook = (): void => {
     const emptyAddressBook = {};
+    // clear redux store
     dispatch(setAddressBook(emptyAddressBook)).then(() => {
       dispatch(
+        // clear persistance storage data
         setUserPreferences({
           network,
           preferences: {

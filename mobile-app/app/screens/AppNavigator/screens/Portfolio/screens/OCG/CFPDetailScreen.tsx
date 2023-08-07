@@ -32,6 +32,7 @@ import { useWhaleApiClient } from "@waveshq/walletkit-ui/dist/contexts";
 import { OCGProposalType } from "@screens/AppNavigator/screens/Portfolio/screens/OCG/OCGProposalsScreen";
 import { AddressRow } from "@screens/AppNavigator/screens/Portfolio/components/AddressRow";
 import { ButtonGroupTabKey } from "@screens/AppNavigator/screens/Portfolio/screens/AddressBookScreen";
+import { DomainType } from "@contexts/DomainContext";
 
 export function CFPDetailScreen(): JSX.Element {
   const logger = useLogger();
@@ -249,6 +250,7 @@ export function CFPDetailScreen(): JSX.Element {
                   name: "AddressBookScreen",
                   params: {
                     selectedAddress: getValues("address"),
+                    addressDomainType: DomainType.DVM,
                     onAddressSelect,
                     disabledTab: ButtonGroupTabKey.Whitelisted,
                   },

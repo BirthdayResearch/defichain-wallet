@@ -181,6 +181,7 @@ module.exports = {
         1.5: 1.5,
       },
       borderRadius: {
+        "sm-v2": 5,
         "lg-v2": 10,
         "xl-v2": 15,
         "2xl-v2": 20,
@@ -195,7 +196,8 @@ module.exports = {
       },
       width: {
         15: 60,
-        18: 76
+        18: 76,
+        21: 84
       },
       height: {
         15: 60,

@@ -515,15 +515,49 @@ export function PortfolioScreen({ navigation }: Props): JSX.Element {
       "bg-mono-light-v2-100": isLight,
       "bg-mono-dark-v2-100": !isLight,
     }),
-    headerRight: (): JSX.Element => {
+    header: (): JSX.Element => {
       return (
-        <ThemedTouchableOpacityV2
-          style={tailwind("border-0 mr-5 mt-2")}
-          onPress={() => dismissModal(false)}
-          testID="close_bottom_sheet_button"
+        <ThemedViewV2
+          style={tailwind("pt-5 pb-3 rounded-t-xl-v2 border-b-0 relative px-5")}
         >
-          <ThemedIcon iconType="Feather" name="x-circle" size={22} />
-        </ThemedTouchableOpacityV2>
+          <ThemedViewV2
+            style={tailwind("flex flex-row justify-center items-center")}
+          >
+            <ThemedViewV2
+              dark={tailwind("bg-mono-dark-v2-00 border-mono-dark-v2-200")}
+              light={tailwind("bg-mono-light-v2-00 border-mono-light-v2-200")}
+              style={tailwind(
+                "flex flex-row items-center rounded-2xl border-0.5 px-4 py-2"
+              )}
+            >
+              <View
+                style={tailwind("w-1.5 h-1.5 bg-green-v2 rounded-full mr-1")}
+              />
+              <ThemedTextV2
+                style={tailwind("text-xs font-normal-v2 pr-1")}
+                dark={tailwind("text-mono-dark-v2-700")}
+                light={tailwind("text-mono-light-v2-700")}
+                testID="bottomsheet-address-header"
+              >
+                {domain}
+              </ThemedTextV2>
+              <ThemedTextV2
+                style={tailwind("text-xs font-normal-v2")}
+                dark={tailwind("text-mono-dark-v2-700")}
+                light={tailwind("text-mono-light-v2-700")}
+              >
+                {translate("screens/PortfolioScreen", "network")}
+              </ThemedTextV2>
+            </ThemedViewV2>
+          </ThemedViewV2>
+          <ThemedTouchableOpacityV2
+            style={tailwind("border-0 absolute right-5 top-6")}
+            onPress={() => dismissModal(false)}
+            testID="close_bottom_sheet_button"
+          >
+            <ThemedIcon iconType="Feather" name="x-circle" size={22} />
+          </ThemedTouchableOpacityV2>
+        </ThemedViewV2>
       );
     },
   };
@@ -568,7 +602,7 @@ export function PortfolioScreen({ navigation }: Props): JSX.Element {
         },
       },
     ];
-  }, [address, isLight]);
+  }, [address, isLight, domain]);
 
   // Hide splashscreen when first page is loaded to prevent white screen
   // It is wrapped on a timeout so it will execute once the JS stack is cleared up
@@ -609,7 +643,7 @@ export function PortfolioScreen({ navigation }: Props): JSX.Element {
               iconType="MaterialCommunityIcons"
               dark={tailwind("text-mono-dark-v2-900")}
               light={tailwind("text-mono-light-v2-900")}
-              name={`${isBalancesDisplayed ? "eye" : "eye-off"}`}
+              name={isBalancesDisplayed ? "eye" : "eye-off"}
               size={18}
             />
           </ThemedTouchableOpacityV2>
@@ -624,9 +658,9 @@ export function PortfolioScreen({ navigation }: Props): JSX.Element {
           setDenominationCurrency={setDenominationCurrency}
         />
         <ActionButtons />
-        {domain === DomainType.DFI && <Announcements />}
+        {domain === DomainType.DVM && <Announcements />}
 
-        {domain === DomainType.DFI && (
+        {domain === DomainType.DVM && (
           <AssetsFilterRow
             activeButtonGroup={activeButtonGroup}
             onButtonGroupPress={handleButtonFilter}
