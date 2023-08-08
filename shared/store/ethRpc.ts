@@ -5,6 +5,15 @@ export const ethRpcApi = createApi({
   reducerPath: "ethRpc",
   baseQuery: fetchBaseQuery({ baseUrl: "" }),
   endpoints: (builder) => ({
+    getEvmAddressDetails: builder.mutation<
+      any,
+      { network: EnvironmentNetwork; address: string }
+    >({
+      query: ({ network = EnvironmentNetwork.TestNet, address }) => ({
+        url: `${getEthRpcUrl(network)}/api/v2/addresses/${address}`,
+        method: "GET",
+      }),
+    }),
     getEvmTokenBalances: builder.mutation<
       EvmTokenBalance[],
       { network: EnvironmentNetwork; address: string }
@@ -19,7 +28,10 @@ export const ethRpcApi = createApi({
   }),
 });
 
-export const { useGetEvmTokenBalancesMutation } = ethRpcApi;
+export const {
+  useGetEvmAddressDetailsMutation,
+  useGetEvmTokenBalancesMutation,
+} = ethRpcApi;
 
 const getEthRpcUrl = (network: EnvironmentNetwork) => {
   // TODO: Add proper ethereum RPC URLs for each network
