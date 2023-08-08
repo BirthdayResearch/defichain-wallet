@@ -6,7 +6,7 @@ import { useWalletContext } from "@shared-contexts/WalletContext";
 import {
   useGetEvmAddressDetailsMutation,
   useGetEvmTokenBalancesMutation,
-} from "@store/ethRpc";
+} from "@store/evmApi";
 
 const GWEI_DECIMAL = 9; // Source: https://docs.ethers.org/v5/api/utils/display-logic/
 

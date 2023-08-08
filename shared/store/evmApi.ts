@@ -1,8 +1,8 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { EnvironmentNetwork } from "@waveshq/walletkit-core";
 
-export const ethRpcApi = createApi({
-  reducerPath: "ethRpc",
+export const evmApi = createApi({
+  reducerPath: "evmApi",
   baseQuery: fetchBaseQuery({ baseUrl: "" }),
   endpoints: (builder) => ({
     getEvmAddressDetails: builder.mutation<
@@ -31,7 +31,7 @@ export const ethRpcApi = createApi({
 export const {
   useGetEvmAddressDetailsMutation,
   useGetEvmTokenBalancesMutation,
-} = ethRpcApi;
+} = evmApi;
 
 const getEthRpcUrl = (network: EnvironmentNetwork) => {
   // TODO: Add proper ethereum RPC URLs for each network

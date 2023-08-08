@@ -13,7 +13,7 @@ import { authentication } from "./authentication";
 import { loans } from "./loans";
 import { auctions } from "./auctions";
 import { futureSwaps } from "./futureSwap";
-import { ethRpcApi } from "./ethRpc";
+import { evmApi } from "./evmApi";
 /**
  * RootState for DeFiChain Wallet App
  *
@@ -37,13 +37,13 @@ export function initializeStore() {
       [statusWebsiteSlice.reducerPath]: statusWebsiteSlice.reducer,
       userPreferences: userPreferences.reducer,
       futureSwaps: futureSwaps.reducer,
-      [ethRpcApi.reducerPath]: ethRpcApi.reducer,
+      [evmApi.reducerPath]: evmApi.reducer,
     },
     middleware: (getDefaultMiddleware) =>
       getDefaultMiddleware({ serializableCheck: false })
         .concat(announcementWebsiteSlice.middleware)
         .concat(statusWebsiteSlice.middleware)
-        .concat(ethRpcApi.middleware),
+        .concat(evmApi.middleware),
   });
 }
 
