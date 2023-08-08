@@ -7,21 +7,21 @@ export const evmApi = createApi({
   endpoints: (builder) => ({
     getEvmAddressDetails: builder.mutation<
       EvmAddressDetails,
-      { network: EnvironmentNetwork; address: string }
+      { network: EnvironmentNetwork; evmAddress: string }
     >({
-      query: ({ network = EnvironmentNetwork.TestNet, address }) => ({
-        url: `${getEthRpcUrl(network)}/api/v2/addresses/${address}`,
+      query: ({ network = EnvironmentNetwork.TestNet, evmAddress }) => ({
+        url: `${getEthRpcUrl(network)}/api/v2/addresses/${evmAddress}`,
         method: "GET",
       }),
     }),
     getEvmTokenBalances: builder.mutation<
       EvmTokenBalance[],
-      { network: EnvironmentNetwork; address: string }
+      { network: EnvironmentNetwork; evmAddress: string }
     >({
-      query: ({ network = EnvironmentNetwork.TestNet, address }) => ({
+      query: ({ network = EnvironmentNetwork.TestNet, evmAddress }) => ({
         url: `${getEthRpcUrl(
           network
-        )}/api/v2/addresses/${address}/token-balances`,
+        )}/api/v2/addresses/${evmAddress}/token-balances`,
         method: "GET",
       }),
     }),

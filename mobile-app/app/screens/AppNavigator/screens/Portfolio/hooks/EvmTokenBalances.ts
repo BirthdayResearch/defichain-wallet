@@ -11,14 +11,17 @@ import {
 const GWEI_DECIMAL = 9; // Source: https://docs.ethers.org/v5/api/utils/display-logic/
 
 export function useEvmTokenBalances(): { evmTokens: AddressToken[] } {
-  const { address } = useWalletContext();
+  const { evmAddress } = useWalletContext();
   const [evmTokens, setEvmTokens] = useState<AddressToken[]>([]);
   const [getEvmAddressDetails] = useGetEvmAddressDetailsMutation();
   const [getTokenBalances] = useGetEvmTokenBalancesMutation();
   const { network } = useNetworkContext();
 
   const getEvmTokens = async () => {
-    const details = await getEvmAddressDetails({ network, address }).unwrap();
+    const details = await getEvmAddressDetails({
+      network,
+      evmAddress,
+    }).unwrap();
     const evmDfiBalance = formatEther(BigInt(details.coin_balance ?? 0));
     const evmDfiToken = {
       id: "0",
@@ -32,7 +35,7 @@ export function useEvmTokenBalances(): { evmTokens: AddressToken[] } {
       isLoanToken: false,
     };
 
-    const tokens = await getTokenBalances({ network, address }).unwrap();
+    const tokens = await getTokenBalances({ network, evmAddress }).unwrap();
     const evmAddressTokens: AddressToken[] = tokens
       // .filter(({ token }) => token.type === "DST20") // TODO (lyka): Add filter to only get DST20 tokens
       .map(({ token_id, value, token }) => ({
