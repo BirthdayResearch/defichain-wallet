@@ -70,7 +70,7 @@ export function useWalletContext(): WalletContextI {
 
 export function WalletContextProvider(
   props: WalletContextProviderProps
-): Promise<JSX.Element | null> {
+): JSX.Element | null {
   const { api } = props;
   const logger = useLogger();
   const { provider } = useWalletNodeContext();
