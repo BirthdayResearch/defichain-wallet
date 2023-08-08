@@ -105,7 +105,7 @@ export function PortfolioScreen({ navigation }: Props): JSX.Element {
   const height = useBottomTabBarHeight();
   const client = useWhaleApiClient();
   const whaleRpcClient = useWhaleRpcClient();
-  const { address, addressLength } = useWalletContext();
+  const { address, addressLength, evmAddress } = useWalletContext();
   const { denominationCurrency, setDenominationCurrency } =
     useDenominationCurrency();
 
@@ -628,7 +628,7 @@ export function PortfolioScreen({ navigation }: Props): JSX.Element {
           style={tailwind("px-5 flex flex-row items-center")}
         >
           <AddressSelectionButtonV2
-            address={address}
+            address={domain === DomainType.EVM ? evmAddress : address}
             addressLength={addressLength}
             onPress={() => expandModal(false)}
           />
