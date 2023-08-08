@@ -6,7 +6,7 @@ export const evmApi = createApi({
   baseQuery: fetchBaseQuery({ baseUrl: "" }),
   endpoints: (builder) => ({
     getEvmAddressDetails: builder.mutation<
-      any,
+      EvmAddressDetails,
       { network: EnvironmentNetwork; address: string }
     >({
       query: ({ network = EnvironmentNetwork.TestNet, address }) => ({
@@ -60,4 +60,15 @@ interface EvmTokenBalance {
   token_id: string;
   value: string;
   token: EvmToken;
+}
+
+interface EvmAddressDetails {
+  hash: string;
+  name: string;
+  coin_balance: string;
+  exchange_rate: string;
+  implementation_address: string;
+  block_number_balance_updated_at: number;
+  creator_address_hash: string;
+  creation_tx_hash: string;
 }

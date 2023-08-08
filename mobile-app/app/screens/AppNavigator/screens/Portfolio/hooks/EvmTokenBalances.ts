@@ -19,7 +19,7 @@ export function useEvmTokenBalances(): { evmTokens: AddressToken[] } {
 
   const getEvmTokens = async () => {
     const details = await getEvmAddressDetails({ network, address }).unwrap();
-    const evmDfiBalance = formatEther(details.coin_balance ?? 0);
+    const evmDfiBalance = formatEther(BigInt(details.coin_balance ?? 0));
     const evmDfiToken = {
       id: "0",
       amount: evmDfiBalance,
