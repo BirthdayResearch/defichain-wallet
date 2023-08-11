@@ -8,7 +8,7 @@ import { NavigationProp, useNavigation } from "@react-navigation/native";
 import { StackScreenProps } from "@react-navigation/stack";
 import { tailwind, getColor } from "@tailwind";
 import { translate } from "@translations";
-import { DeFiAddress } from "@defichain/jellyfish-address";
+import { DeFiAddress, Eth } from "@defichain/jellyfish-address";
 import { NetworkName } from "@defichain/jellyfish-network";
 import {
   CTransactionSegWit,
@@ -348,6 +348,10 @@ interface SendForm {
   token: WalletToken;
   networkName: NetworkName;
 }
+const TRANSFER_DOMAIN_TYPE = {
+  DVM: 2,
+  EVM: 3,
+};
 
 async function send(
   { address, token, amount, networkName }: SendForm,
@@ -356,7 +360,15 @@ async function send(
   logger: NativeLoggingProps
 ): Promise<void> {
   try {
+    console.log("SEND.>..");
     const to = DeFiAddress.from(networkName, address).getScript();
+    const dstScript = Eth.fromAddress(
+      "0x9b383C64a51e257a4b2d9a4F8604032957A129B6"
+    ); // mode === ConversionMode.evmToAccount ? script : evmScript
+    if (dstScript === undefined) {
+      console.log("LOL UNDEFINED:: ", dstScript);
+      return;
+    }
 
     const signer = async (
       account: WhaleWalletAccount
@@ -364,30 +376,34 @@ async function send(
       const script = await account.getScript();
       const builder = account.withTransactionBuilder();
 
-      let signed: TransactionSegWit;
-      if (token.symbol === "DFI") {
-        /* if (amount.gte(token.amount)) signed = await builder.utxo.sendAll(to)
-        else */
-        signed = await builder.utxo.send(amount, to, script);
-      } else {
-        signed = await builder.account.accountToAccount(
-          {
-            from: script,
-            to: [
-              {
-                script: to,
-                balances: [
-                  {
-                    token: +token.id,
-                    amount,
-                  },
-                ],
+      const sourceScript = script; // mode === ConversionMode.evmToAccount ? evmScript : script
+      // const dstScript = evmScript; // mode === ConversionMode.evmToAccount ? script : evmScript
+      const signed = await builder.account.transferDomain(
+        {
+          items: [
+            {
+              src: {
+                address: sourceScript,
+                amount: {
+                  token: 0,
+                  amount,
+                },
+                domain: TRANSFER_DOMAIN_TYPE.DVM,
               },
-            ],
-          },
-          script
-        );
-      }
+              dst: {
+                address: dstScript,
+                amount: {
+                  token: 0,
+                  amount,
+                },
+                domain: TRANSFER_DOMAIN_TYPE.EVM,
+              },
+            },
+          ],
+        },
+        script
+      );
+
       return new CTransactionSegWit(signed);
     };
 

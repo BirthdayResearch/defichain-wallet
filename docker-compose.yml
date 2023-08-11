@@ -17,14 +17,16 @@ services:
       - "/var/run/docker.sock:/var/run/docker.sock:ro"
 
   defi-blockchain:
-    image: defi/defichain:master-91a01aea0
+    # image: defi/defichain:master-91a01aea0
+    image: defi/defichain:4.0.0-beta8
     command: >
+      defid
       defid
       -printtoconsole
       -rpcallowip=0.0.0.0/0
       -rpcbind=0.0.0.0
-      -rpcuser=playground
-      -rpcpassword=playground
+      -rpcuser=whale-rpcuser
+      -rpcpassword=whale-rpcpassword
       -rpcworkqueue=512
       -masternode_operator=mswsMVsyGMj1FzDMbbxw2QW3KvQAv2FKiy
       -masternode_operator=mps7BdmwEF2vQ9DREDyNPibqsuSRZ8LuwQ
@@ -55,7 +57,8 @@ services:
       -grandcentralheight=16
       -grandcentralepilogueheight=17
       -nextnetworkupgradeheight=18
-      -changiintermediateheight=19
+      -regtest-skip-loan-collateral-validation
+      -regtest-minttoken-simulate-mainnet=0
 
   defi-playground:
     image: ghcr.io/birthdayresearch/playground-api:3.34.0

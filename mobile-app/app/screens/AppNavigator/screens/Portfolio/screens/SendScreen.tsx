@@ -7,6 +7,7 @@ import { useToast } from "react-native-toast-notifications";
 import { StackScreenProps } from "@react-navigation/stack";
 import { getColor, tailwind } from "@tailwind";
 import { translate } from "@translations";
+import { Eth } from "@defichain/jellyfish-address";
 import { useNetworkContext, useThemeContext } from "@waveshq/walletkit-ui";
 import { useWhaleApiClient } from "@waveshq/walletkit-ui/dist/contexts";
 import { useLogger } from "@shared-contexts/NativeLoggingProvider";
@@ -43,6 +44,7 @@ import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { AddressRow } from "@screens/AppNavigator/screens/Portfolio/components/AddressRow";
 import { DomainType } from "@contexts/DomainContext";
+import { InfoTextLinkV2 } from "@components/InfoTextLink";
 import { useTokenPrice } from "../hooks/TokenPrice";
 import { ActiveUSDValueV2 } from "../../Loans/VaultDetail/components/ActiveUSDValueV2";
 import { PortfolioParamList } from "../PortfolioNavigator";
@@ -96,6 +98,7 @@ export function SendScreen({ route, navigation }: Props): JSX.Element {
   const [matchedAddress, setMatchedAddress] = useState<
     LocalAddress | WhitelistedAddress
   >();
+  const [isEvmAddress, setIsEvmAddress] = useState<boolean>(false);
   const [fee, setFee] = useState<BigNumber>(new BigNumber(0.0001));
   const [transactionCardStatus, setTransactionCardStatus] = useState(
     TransactionCardStatus.Default
@@ -438,6 +441,7 @@ export function SendScreen({ route, navigation }: Props): JSX.Element {
               }}
               onAddressChange={async (address) => {
                 setValue("address", address, { shouldDirty: true });
+                setIsEvmAddress(Eth.fromAddress(address) !== undefined);
                 await trigger("address");
               }}
               address={address}
@@ -455,15 +459,38 @@ export function SendScreen({ route, navigation }: Props): JSX.Element {
               dark={tailwind("text-mono-dark-v2-500")}
               style={tailwind("mt-2 text-xs text-center font-normal-v2")}
             >
-              {isConversionRequired
-                ? translate(
+              {isConversionRequired ? (
+                translate(
+                  "screens/SendScreen",
+                  "By continuing, the required amount of DFI will be converted"
+                )
+              ) : isEvmAddress ? (
+                <>
+                  {translate(
                     "screens/SendScreen",
-                    "By continuing, the required amount of DFI will be converted"
-                  )
-                : translate(
-                    "screens/SendScreen",
-                    "Review full details in the next screen"
+                    "You are sending assets to an EVM address. DFI asset gets converted to EVM."
                   )}
+                  <ThemedTouchableOpacityV2>
+                    <ThemedTextV2>
+                      {translate("screens/SendScreen", "Learn more")}
+                    </ThemedTextV2>
+                    <InfoTextLinkV2
+                      containerStyle={tailwind(
+                        "mt-2 justify-center items-center"
+                      )}
+                      textStyle={tailwind("text-sm font-semibold-v2")}
+                      onPress={() => navigation.navigate("")}
+                      text="Learn more"
+                      testId="empty_auctions_learn_more"
+                    />
+                  </ThemedTouchableOpacityV2>
+                </>
+              ) : (
+                translate(
+                  "screens/SendScreen",
+                  "Review full details in the next screen"
+                )
+              )}
             </ThemedTextV2>
           )}
           <SubmitButtonGroup

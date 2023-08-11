@@ -12,7 +12,7 @@ import { RandomAvatar } from "@screens/AppNavigator/screens/Portfolio/components
 import { WalletTextInputV2 } from "@components/WalletTextInputV2";
 import { Control, Controller } from "react-hook-form";
 import { NetworkName } from "@defichain/jellyfish-network";
-import { fromAddress } from "@defichain/jellyfish-address";
+import { fromAddress, Eth } from "@defichain/jellyfish-address";
 import {
   LocalAddress,
   WhitelistedAddress,
@@ -23,6 +23,9 @@ import { useEffect, useMemo, useState } from "react";
 import { useSelector } from "react-redux";
 import { RootState } from "@store";
 import { WalletAddressI, useWalletAddress } from "@hooks/useWalletAddress";
+import { DomainType, useDomainContext } from "@contexts/DomainContext";
+import { LinearGradient } from "expo-linear-gradient";
+import { Text } from "@components";
 
 export function AddressRow({
   control,
@@ -73,6 +76,7 @@ export function AddressRow({
     LocalAddress | WhitelistedAddress
   >();
   const [addressType, setAddressType] = useState<AddressType>();
+  const [isEvmAddress, setIsEvmAddress] = useState<boolean>(false);
   const validLocalAddress = useMemo(() => {
     if (address === "") {
       return true;
@@ -84,25 +88,32 @@ export function AddressRow({
   }, [onlyLocalAddress, addressType, address]);
 
   const debounceMatchAddress = debounce(() => {
-    if (
-      address !== undefined &&
-      addressBook !== undefined &&
-      addressBook[address] !== undefined
-    ) {
+    if (address === undefined) {
+      return;
+    }
+
+    const ethAddress = Eth.fromAddress(address);
+    setIsEvmAddress(ethAddress !== undefined);
+
+    console.log("yow: ", { addressBook, address, walletAddress });
+    if (addressBook !== undefined && addressBook[address] !== undefined) {
+      console.log("Type is Whitelisted...");
       setMatchedAddress(addressBook[address]);
       setAddressType(AddressType.Whitelisted);
     } else if (
-      address !== undefined &&
       walletAddress !== undefined &&
       walletAddress[address] !== undefined
     ) {
+      console.log("Type is WalletAddress11...");
       setMatchedAddress(walletAddress[address]);
       setAddressType(AddressType.WalletAddress);
     } else {
       const addressObj = jellyfishWalletAddress.find(
         (e: WalletAddressI) => e.dvm === address || e.evm === address
       );
-      if (address !== undefined && addressObj) {
+      console.log("yow1: ", { addressObj });
+
+      if (addressObj) {
         // wallet address that does not have a label
         setMatchedAddress({
           address: addressObj.dvm,
@@ -110,13 +121,17 @@ export function AddressRow({
           label: "",
         });
         setAddressType(AddressType.WalletAddress);
+        console.log("Type is WalletAddress22...");
       } else {
         setMatchedAddress(undefined);
         if (onlyLocalAddress) {
           setAddressType(undefined);
+          console.log("Type is undefined...");
         } else {
+          const jellyfishAddress = fromAddress(address, networkName);
+          console.log("Type is OthersButValid...");
           setAddressType(
-            fromAddress(address, networkName) !== undefined
+            jellyfishAddress !== undefined || ethAddress !== undefined
               ? AddressType.OthersButValid
               : undefined
           );
@@ -124,6 +139,13 @@ export function AddressRow({
       }
     }
   }, 200);
+
+  console.log("yow2 outside: ", {
+    address,
+    matchedAddress,
+    addressType,
+    isEvmAddress,
+  });
 
   useEffect(() => {
     debounceMatchAddress();
@@ -236,7 +258,8 @@ export function AddressRow({
           required: true,
           validate: {
             isValidAddress: (address) =>
-              fromAddress(address, networkName) !== undefined &&
+              (fromAddress(address, networkName) !== undefined ||
+                Eth.fromAddress(address) !== undefined) &&
               (!onlyLocalAddress ||
                 jellyfishWalletAddress.includes(address) ||
                 (walletAddress !== undefined &&
@@ -261,12 +284,59 @@ export function AddressRow({
                 light={tailwind("text-mono-light-v2-500")}
                 dark={tailwind("text-mono-dark-v2-500")}
               >
-                {translate("screens/SendScreen", "Verified")}
+                {translate(
+                  "screens/SendScreen",
+                  isEvmAddress ? "Verified MetaChain (EVM) address" : "Verified"
+                )}
               </ThemedTextV2>
             </>
           ) : (
             addressType !== undefined &&
-            validLocalAddress && (
+            validLocalAddress &&
+            (isEvmAddress ? (
+              <>
+                <LinearGradient
+                  colors={["#02CF92", "#3B57CF"]}
+                  start={[0, 0]}
+                  end={[1, 1]}
+                  style={tailwind(
+                    "flex flex-row items-center overflow-hidden rounded-lg py-0.5",
+                    {
+                      "px-1": addressType === AddressType.WalletAddress,
+                      "px-2": addressType === AddressType.Whitelisted,
+                    }
+                  )}
+                >
+                  {addressType === AddressType.WalletAddress && (
+                    <View style={tailwind("rounded-l-2xl mr-1")}>
+                      <RandomAvatar
+                        name={(matchedAddress as LocalAddress)?.evmAddress}
+                        size={12}
+                      />
+                    </View>
+                  )}
+                  <ThemedTextV2
+                    ellipsizeMode="middle"
+                    numberOfLines={1}
+                    testID="address_input_footer_EVM"
+                    style={[
+                      tailwind("text-xs font-normal-v2"),
+                      // eslint-disable-next-line react-native/no-inline-styles
+                      {
+                        minWidth: 10,
+                        maxWidth: 108,
+                      },
+                    ]}
+                    light={tailwind("text-mono-light-v2-900")}
+                    dark={tailwind("text-mono-dark-v2-900")}
+                  >
+                    {matchedAddress?.label !== ""
+                      ? matchedAddress?.label
+                      : (matchedAddress as LocalAddress).evmAddress}
+                  </ThemedTextV2>
+                </LinearGradient>
+              </>
+            ) : (
               <ThemedViewV2
                 style={tailwind(
                   "flex flex-row items-center overflow-hidden rounded-lg py-0.5",
@@ -304,7 +374,7 @@ export function AddressRow({
                     : matchedAddress.address}
                 </ThemedTextV2>
               </ThemedViewV2>
-            )
+            ))
           )}
         </View>
       )}

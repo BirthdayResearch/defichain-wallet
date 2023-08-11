@@ -16,6 +16,7 @@ function initProvider(
   }
 
   const options = getBip32Option(network);
+  // console.log("DATA.RAW: ", data.raw);
   return MnemonicHdNodeProvider.fromData(data.raw, options);
 }
 

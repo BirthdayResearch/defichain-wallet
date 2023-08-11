@@ -91,6 +91,7 @@ import {
 } from "./components/TotalPortfolio";
 import { useTokenPrice } from "./hooks/TokenPrice";
 import { PortfolioParamList } from "./PortfolioNavigator";
+import { useEvmTokenBalances } from "./hooks/EvmTokenBalances";
 
 type Props = StackScreenProps<PortfolioParamList, "PortfolioScreen">;
 
@@ -108,6 +109,9 @@ export function PortfolioScreen({ navigation }: Props): JSX.Element {
   const { address, addressLength, evmAddress } = useWalletContext();
   const { denominationCurrency, setDenominationCurrency } =
     useDenominationCurrency();
+
+  const { evmTokens } = useEvmTokenBalances();
+  console.log({ evmTokens });
 
   const { getTokenPrice } = useTokenPrice(denominationCurrency);
   const prices = useSelector((state: RootState) =>
@@ -648,6 +652,21 @@ export function PortfolioScreen({ navigation }: Props): JSX.Element {
             />
           </ThemedTouchableOpacityV2>
         </ThemedViewV2>
+
+        {evmTokens.map((evmToken) => (
+          <ThemedViewV2
+            light={tailwind("bg-mono-light-v2-00")}
+            dark={tailwind("bg-mono-dark-v2-00")}
+            style={tailwind("px-5 flex flex-col items-center")}
+          >
+            <ThemedTextV2
+              light={tailwind("text-mono-light-v2-500")}
+              dark={tailwind("text-mono-dark-v2-500")}
+            >
+              {`${evmToken.symbol} - ${evmToken.amount}`}
+            </ThemedTextV2>
+          </ThemedViewV2>
+        ))}
 
         <TotalPortfolio
           totalAvailableValue={totalAvailableValue}

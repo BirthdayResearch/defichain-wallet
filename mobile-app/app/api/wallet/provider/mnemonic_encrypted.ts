@@ -55,6 +55,7 @@ function initProvider(
   }
 
   const bip32Options = getBip32Option(network);
+  // console.log("DATA.RAW-ENCR: ", data.raw);
   return EncryptedHdNodeProvider.init(
     data.raw,
     bip32Options,

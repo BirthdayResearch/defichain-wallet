@@ -156,6 +156,13 @@ export function AddOrEditAddressBookScreen({
   const logger = useLogger();
 
   const handleSubmit = useCallback(async (): Promise<void> => {
+    console.log("HELLOOOO", {
+      isEncrypted,
+      labelInput,
+      addressInput,
+      validInput: validateLabelInput(labelInput ?? ""),
+      validAddr: validateAddressInput(addressInput ?? ""),
+    });
     if (
       !isEncrypted ||
       addressInput === undefined ||
