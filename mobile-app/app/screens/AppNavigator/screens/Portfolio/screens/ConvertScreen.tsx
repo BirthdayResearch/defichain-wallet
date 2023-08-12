@@ -204,7 +204,7 @@ export function ConvertScreen(props: Props): JSX.Element {
     setConvertDirection(updatedConvertDirection);
   }
 
-  function getListByDomain(listType: TokenListType) {
+  function getListByDomain(listType: TokenListType): FromToken[] {
     if (listType === TokenListType.To) {
       if (domain === DomainType.DVM && sourceToken.tokenId === "0") {
         return [
@@ -224,7 +224,7 @@ export function ConvertScreen(props: Props): JSX.Element {
     return domain === DomainType.DVM ? dvmTokens : evmTokens;
   }
 
-  function onTokenSelect(item: SelectionToken, listType: TokenListType) {
+  function onTokenSelect(item: SelectionToken, listType: TokenListType): void {
     let updatedConvertDirection = convertDirection;
     if (
       sourceToken.tokenId === "0" &&
