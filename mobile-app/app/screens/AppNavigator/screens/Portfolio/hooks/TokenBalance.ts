@@ -6,6 +6,7 @@ import {
   tokensSelector,
 } from "@waveshq/walletkit-ui/dist/store";
 import { useMemo } from "react";
+import { DomainType } from "@contexts/DomainContext";
 import { useDenominationCurrency } from "./PortfolioCurrency";
 
 export interface FromToken {
@@ -16,6 +17,7 @@ export interface FromToken {
     displaySymbol: string;
     symbol: string;
     isLPS?: boolean;
+    domainType: DomainType;
   };
   factor?: string;
   reserve?: string;
@@ -61,6 +63,7 @@ export function useTokenBalance(): {
                 displaySymbol: token.displaySymbol,
                 symbol: token.symbol,
                 isLPS: false,
+                domainType: DomainType.DVM,
               },
             },
           ],
@@ -75,6 +78,7 @@ export function useTokenBalance(): {
                 displaySymbol: token.displaySymbol,
                 symbol: token.symbol,
                 isLPS: false,
+                domainType: DomainType.EVM,
               },
             },
           ],

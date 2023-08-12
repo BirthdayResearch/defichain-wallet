@@ -120,6 +120,31 @@ export function ConvertScreen(props: Props): JSX.Element {
     }
   }, [convertDirection, JSON.stringify(tokens), amount]);
 
+  useEffect(() => {
+    let updatedConvertDirection: ConvertDirection = convertDirection;
+
+    if (sourceToken.tokenId === "0_utxo" && targetToken?.tokenId === "0") {
+      updatedConvertDirection = ConvertDirection.utxosToAccount;
+    } else if (
+      sourceToken.tokenId === "0" &&
+      targetToken?.tokenId === "0_utxo"
+    ) {
+      updatedConvertDirection = ConvertDirection.accountToUtxos;
+    } else if (
+      sourceToken.token.domainType === DomainType.DVM &&
+      targetToken?.token.domainType === DomainType.EVM
+    ) {
+      updatedConvertDirection = ConvertDirection.dvmToEvm;
+    } else if (
+      sourceToken.token.domainType === DomainType.EVM &&
+      targetToken?.token.domainType === DomainType.DVM
+    ) {
+      updatedConvertDirection = ConvertDirection.evmToDvm;
+    }
+
+    setConvertDirection(updatedConvertDirection);
+  }, [sourceToken, targetToken]);
+
   if (sourceToken === undefined) {
     return <></>;
   }
@@ -188,20 +213,6 @@ export function ConvertScreen(props: Props): JSX.Element {
     setSourceToken(targetToken);
     setTargetToken(sourceToken);
     setAmount("");
-
-    let updatedConvertDirection: ConvertDirection = convertDirection;
-
-    if (convertDirection === ConvertDirection.accountToUtxos) {
-      updatedConvertDirection = ConvertDirection.utxosToAccount;
-    } else if (convertDirection === ConvertDirection.utxosToAccount) {
-      updatedConvertDirection = ConvertDirection.accountToUtxos;
-    } else if (convertDirection === ConvertDirection.dvmToEvm) {
-      updatedConvertDirection = ConvertDirection.evmToDvm;
-    } else if (convertDirection === ConvertDirection.evmToDvm) {
-      updatedConvertDirection = ConvertDirection.dvmToEvm;
-    }
-
-    setConvertDirection(updatedConvertDirection);
   }
 
   function getListByDomain(listType: TokenListType): FromToken[] {

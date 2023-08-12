@@ -65,6 +65,8 @@ export function ActionButtons(): JSX.Element {
   const getConvertDirection = (tokenId: string) => {
     if (domain === DomainType.DVM && tokenId === "0") {
       return ConvertDirection.accountToUtxos;
+    } else if (domain === DomainType.DVM && tokenId === "0_utxo") {
+      return ConvertDirection.utxosToAccount;
     }
 
     return domain === DomainType.EVM
