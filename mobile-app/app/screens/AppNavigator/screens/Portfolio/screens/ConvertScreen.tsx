@@ -204,7 +204,7 @@ export function ConvertScreen(props: Props): JSX.Element {
     setConvertDirection(updatedConvertDirection);
   }
 
-  const getListByDomain = (listType: TokenListType) => {
+  function getListByDomain(listType: TokenListType) {
     if (listType === TokenListType.To) {
       if (domain === DomainType.DVM && sourceToken.tokenId === "0") {
         return [
@@ -222,9 +222,9 @@ export function ConvertScreen(props: Props): JSX.Element {
     }
 
     return domain === DomainType.DVM ? dvmTokens : evmTokens;
-  };
+  }
 
-  const onTokenSelect = (item: SelectionToken, listType: TokenListType) => {
+  function onTokenSelect(item: SelectionToken, listType: TokenListType) {
     let updatedConvertDirection = convertDirection;
     if (
       sourceToken.tokenId === "0" &&
@@ -278,9 +278,9 @@ export function ConvertScreen(props: Props): JSX.Element {
       },
       merge: true,
     });
-  };
+  }
 
-  const navigateToTokenSelectionScreen = (listType: TokenListType): void => {
+  function navigateToTokenSelectionScreen(listType: TokenListType): void {
     navigation.navigate("SwapTokenSelectionScreen", {
       fromToken: {
         symbol: sourceToken.token.symbol,
@@ -294,7 +294,7 @@ export function ConvertScreen(props: Props): JSX.Element {
       isFutureSwap: false,
       isSearchDTokensOnly: false,
     });
-  };
+  }
 
   return (
     <ThemedScrollViewV2 testID="convert_screen">
