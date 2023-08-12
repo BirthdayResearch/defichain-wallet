@@ -44,7 +44,7 @@ import {
   SelectionToken,
 } from "../../Dex/CompositeSwap/SwapTokenSelectionScreen";
 import { useTokenPrice } from "../hooks/TokenPrice";
-import { FromToken, useTokenBalance } from "../hooks/TokenBalance";
+import { DomainToken, useTokenBalance } from "../hooks/TokenBalance";
 
 type Props = StackScreenProps<PortfolioParamList, "ConvertScreen">;
 
@@ -77,11 +77,11 @@ export function ConvertScreen(props: Props): JSX.Element {
   const [convertDirection, setConvertDirection] = useState(
     props.route.params.convertDirection
   );
-  const [sourceToken, setSourceToken] = useState<FromToken>(
-    props.route.params.fromToken
+  const [sourceToken, setSourceToken] = useState<DomainToken>(
+    props.route.params.sourceToken
   );
-  const [targetToken, setTargetToken] = useState<FromToken | undefined>(
-    props.route.params.toToken
+  const [targetToken, setTargetToken] = useState<DomainToken | undefined>(
+    props.route.params.targetToken
   );
 
   const [convAmount, setConvAmount] = useState<string>("0");
@@ -149,7 +149,7 @@ export function ConvertScreen(props: Props): JSX.Element {
     return <></>;
   }
 
-  function convert(sourceToken: FromToken, targetToken?: FromToken): void {
+  function convert(sourceToken: DomainToken, targetToken?: DomainToken): void {
     if (hasPendingJob || hasPendingBroadcastJob || targetToken === undefined) {
       return;
     }
@@ -215,7 +215,7 @@ export function ConvertScreen(props: Props): JSX.Element {
     setAmount("");
   }
 
-  function getListByDomain(listType: TokenListType): FromToken[] {
+  function getListByDomain(listType: TokenListType): DomainToken[] {
     if (listType === TokenListType.To) {
       if (domain === DomainType.DVM && sourceToken.tokenId === "0") {
         return [
@@ -253,38 +253,38 @@ export function ConvertScreen(props: Props): JSX.Element {
       updatedConvertDirection = ConvertDirection.utxosToAccount;
     }
 
-    let toToken: SelectionToken | undefined = targetToken;
+    let updatedTargetToken: SelectionToken | undefined = targetToken;
 
     if (listType === TokenListType.From) {
       /* Move to a hook since it's used in portfolio page and convert screen */
       if (domain === DomainType.DVM && item.tokenId === "0_utxo") {
         // If DFI UTXO -> choose DFI Token
 
-        toToken = dvmTokens.find((token) => token.tokenId === "0");
+        updatedTargetToken = dvmTokens.find((token) => token.tokenId === "0");
       } else if (domain === DomainType.DVM && item.tokenId === "0") {
         // If DFI Token -> no default
-        toToken = undefined;
+        updatedTargetToken = undefined;
       } else if (domain === DomainType.EVM) {
         // If EVM -> choose DVM equivalent
-        toToken = dvmTokens.find(
+        updatedTargetToken = dvmTokens.find(
           (token) => token.tokenId === item.tokenId.replace("-EVM", "")
         );
       } else if (domain === DomainType.DVM) {
         // If DVM -> choose EVM equivalent
-        toToken = evmTokens.find(
+        updatedTargetToken = evmTokens.find(
           (token) => token.tokenId === `${item.tokenId}-EVM`
         );
       }
       /* End of what will be moved into a hook */
     } else {
-      toToken = item;
+      updatedTargetToken = item;
     }
 
     navigation.navigate({
       name: "ConvertScreen",
       params: {
-        fromToken: listType === TokenListType.From ? item : sourceToken,
-        toToken: toToken,
+        sourceToken: listType === TokenListType.From ? item : sourceToken,
+        targetToken: updatedTargetToken,
         convertDirection: updatedConvertDirection,
       },
       merge: true,

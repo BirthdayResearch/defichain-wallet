@@ -9,7 +9,7 @@ import { useMemo } from "react";
 import { DomainType } from "@contexts/DomainContext";
 import { useDenominationCurrency } from "./PortfolioCurrency";
 
-export interface FromToken {
+export interface DomainToken {
   tokenId: string;
   available: BigNumber;
   token: {
@@ -24,8 +24,8 @@ export interface FromToken {
 }
 
 export function useTokenBalance(): {
-  dvmTokens: FromToken[];
-  evmTokens: FromToken[];
+  dvmTokens: DomainToken[];
+  evmTokens: DomainToken[];
 } {
   const { denominationCurrency } = useDenominationCurrency();
 
@@ -42,9 +42,9 @@ export function useTokenBalance(): {
         {
           dvmTokens,
           evmTokens,
-        }: { dvmTokens: FromToken[]; evmTokens: FromToken[] },
+        }: { dvmTokens: DomainToken[]; evmTokens: DomainToken[] },
         token
-      ): { dvmTokens: FromToken[]; evmTokens: FromToken[] } => {
+      ): { dvmTokens: DomainToken[]; evmTokens: DomainToken[] } => {
         if (token.isLPS || token.id === "0_unified") {
           return { dvmTokens, evmTokens };
         }

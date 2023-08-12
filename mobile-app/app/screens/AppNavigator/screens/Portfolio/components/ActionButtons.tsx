@@ -83,21 +83,21 @@ export function ActionButtons(): JSX.Element {
       listType: listType,
       list: domain === DomainType.EVM ? evmTokens : dvmTokens,
       onTokenPress: (item) => {
-        let toToken: SelectionToken | undefined;
+        let targetToken: SelectionToken | undefined;
         if (domain === DomainType.DVM && item.tokenId === "0_utxo") {
           // If DFI UTXO -> choose DFI Token
-          toToken = dvmTokens.find((token) => token.tokenId === "0");
+          targetToken = dvmTokens.find((token) => token.tokenId === "0");
         } else if (domain === DomainType.DVM && item.tokenId === "0") {
           // If DFI Token -> no default
-          toToken = undefined;
+          targetToken = undefined;
         } else if (domain === DomainType.EVM) {
           // If EVM -> choose DVM equivalent
-          toToken = dvmTokens.find(
+          targetToken = dvmTokens.find(
             (token) => token.tokenId === item.tokenId.replace("-EVM", "")
           );
         } else if (domain === DomainType.DVM) {
           // If DVM -> choose EVM equivalent
-          toToken = evmTokens.find(
+          targetToken = evmTokens.find(
             (token) => token.tokenId === `${item.tokenId}-EVM`
           );
         }
@@ -105,8 +105,8 @@ export function ActionButtons(): JSX.Element {
         navigation.navigate({
           name: "ConvertScreen",
           params: {
-            fromToken: item,
-            toToken,
+            sourceToken: item,
+            targetToken,
             convertDirection: getConvertDirection(item.tokenId),
           },
           merge: true,

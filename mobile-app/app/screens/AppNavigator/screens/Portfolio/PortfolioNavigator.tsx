@@ -61,7 +61,7 @@ import {
 import { CFPDetailScreen } from "./screens/OCG/CFPDetailScreen";
 import { DFIPDetailScreen } from "./screens/OCG/DFIPDetailScreen";
 import { OCGConfirmScreen } from "./screens/OCG/OCGConfirmScreen";
-import { FromToken } from "./hooks/TokenBalance";
+import { DomainToken } from "./hooks/TokenBalance";
 
 export interface PortfolioParamList {
   PortfolioScreen: undefined;
@@ -81,8 +81,8 @@ export interface PortfolioParamList {
   };
   TokenDetailScreen: { fromToken: WalletToken };
   ConvertScreen: {
-    fromToken: FromToken;
-    toToken?: FromToken;
+    sourceToken: DomainToken;
+    targetToken?: DomainToken;
     convertDirection: ConvertDirection;
   };
   ConvertConfirmationScreen: {
