@@ -52,7 +52,10 @@ export function useTokenBalance(): {
             ...dvmTokens,
             {
               tokenId: token.id,
-              available: new BigNumber(token.amount),
+              available: getConvertibleAmount(
+                token.id === "0_utxo",
+                new BigNumber(token.amount)
+              ),
               token: {
                 name: token.name,
                 displaySymbol: token.displaySymbol,
@@ -88,4 +91,14 @@ export function useTokenBalance(): {
     dvmTokens,
     evmTokens,
   };
+}
+
+function getConvertibleAmount(isUtxo: boolean, amount: BigNumber): BigNumber {
+  if (isUtxo) {
+    const utxoToReserve = "0.1";
+    const leftover = new BigNumber(amount).minus(new BigNumber(utxoToReserve));
+    return leftover.isLessThan(0) ? new BigNumber(0) : leftover;
+  }
+
+  return amount;
 }

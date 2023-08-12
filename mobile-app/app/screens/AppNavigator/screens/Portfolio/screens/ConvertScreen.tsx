@@ -252,7 +252,6 @@ export function ConvertScreen(props: Props): JSX.Element {
         toToken = dvmTokens.find((token) => token.tokenId === "0");
       } else if (domain === DomainType.DVM && item.tokenId === "0") {
         // If DFI Token -> no default
-
         toToken = undefined;
       } else if (domain === DomainType.EVM) {
         // If EVM -> choose DVM equivalent
@@ -679,21 +678,6 @@ function canConvert(amount: string, balance: BigNumber): boolean {
     new BigNumber(amount).isPositive()
   );
 }
-
-// TODO(Pierre): DFI Conversion convetible amount if source is UTXO
-// function getConvertibleAmount(
-//   mode: ConvertDirection,
-//   source: AddressToken
-// ): string {
-//   if (mode === ConvertDirection.utxosToAccount) {
-//     const utxoToReserve = "0.1";
-//     const leftover = new BigNumber(source.amount).minus(
-//       new BigNumber(utxoToReserve)
-//     );
-//     return leftover.isLessThan(0) ? "0" : leftover.toFixed();
-//   }
-//   return source.amount;
-// }
 
 function FixedTokenButton(props: {
   symbol: string;
