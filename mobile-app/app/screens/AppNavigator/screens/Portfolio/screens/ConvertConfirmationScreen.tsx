@@ -62,6 +62,34 @@ export function ConvertConfirmationScreen({ route }: Props): JSX.Element {
     };
   }, []);
 
+  const [fromLhs, toLhs] = useMemo(() => {
+    const dvmText = translate(
+      "screens/ConvertConfirmScreen",
+      "Resulting Tokens"
+    );
+    const utxoText = translate(
+      "screens/ConvertConfirmScreen",
+      "Resulting UTXO"
+    );
+    const evmText = translate(
+      "screens/ConvertConfirmScreen",
+      "Resulting Tokens (EVM)"
+    );
+
+    switch (convertDirection) {
+      case ConvertDirection.accountToUtxos:
+        return [dvmText, utxoText];
+      case ConvertDirection.utxosToAccount:
+        return [utxoText, dvmText];
+      case ConvertDirection.dvmToEvm:
+        return [dvmText, evmText];
+      case ConvertDirection.evmToDvm:
+        return [evmText, dvmText];
+      default:
+        return [evmText, dvmText];
+    }
+  }, [convertDirection]);
+
   async function onSubmit(): Promise<void> {
     if (hasPendingJob || hasPendingBroadcastJob) {
       return;
@@ -132,34 +160,6 @@ export function ConvertConfirmationScreen({ route }: Props): JSX.Element {
       });
     }
   }
-
-  const [fromLhs, toLhs] = useMemo(() => {
-    const dvmText = translate(
-      "screens/ConvertConfirmScreen",
-      "Resulting Tokens"
-    );
-    const utxoText = translate(
-      "screens/ConvertConfirmScreen",
-      "Resulting UTXO"
-    );
-    const evmText = translate(
-      "screens/ConvertConfirmScreen",
-      "Resulting Tokens (EVM)"
-    );
-
-    switch (convertDirection) {
-      case ConvertDirection.accountToUtxos:
-        return [dvmText, utxoText];
-      case ConvertDirection.utxosToAccount:
-        return [utxoText, dvmText];
-      case ConvertDirection.dvmToEvm:
-        return [dvmText, evmText];
-      case ConvertDirection.evmToDvm:
-        return [evmText, dvmText];
-      default:
-        return [evmText, dvmText];
-    }
-  }, [convertDirection]);
 
   return (
     <ThemedScrollViewV2 style={tailwind("pb-4")}>
