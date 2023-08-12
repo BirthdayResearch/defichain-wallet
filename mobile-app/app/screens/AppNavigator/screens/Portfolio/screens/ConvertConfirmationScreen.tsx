@@ -3,7 +3,7 @@ import { ThemedScrollViewV2, ThemedViewV2 } from "@components/themed";
 import { NavigationProp, useNavigation } from "@react-navigation/native";
 import { StackScreenProps } from "@react-navigation/stack";
 import BigNumber from "bignumber.js";
-import { Dispatch, useEffect, useState } from "react";
+import { Dispatch, useEffect, useMemo, useState } from "react";
 import { useSelector } from "react-redux";
 import { RootState } from "@store";
 import {
@@ -26,26 +26,22 @@ import { View } from "react-native";
 import { useWalletContext } from "@shared-contexts/WalletContext";
 import { useAddressLabel } from "@hooks/useAddressLabel";
 import { NumberRowV2 } from "@components/NumberRowV2";
-import { ConvertTokenUnit } from "@screens/AppNavigator/screens/Portfolio/screens/ConvertScreen";
-import { ConversionMode, ScreenName } from "@screens/enum";
-import { DomainType, useDomainContext } from "@contexts/DomainContext";
+import { ConvertDirection, ScreenName } from "@screens/enum";
+import { transferDomainCrafter } from "@api/transaction/transfer_domain";
 import { PortfolioParamList } from "../PortfolioNavigator";
 
 type Props = StackScreenProps<PortfolioParamList, "ConvertConfirmationScreen">;
 
 export function ConvertConfirmationScreen({ route }: Props): JSX.Element {
   const {
-    sourceUnit,
-    sourceBalance,
-    targetUnit,
-    targetBalance,
-    mode,
     amount,
+    convertDirection,
     fee,
+    sourceToken,
+    targetToken,
     originScreen,
   } = route.params;
   const { address } = useWalletContext();
-  const { domain } = useDomainContext();
   const addressLabel = useAddressLabel(address);
   const hasPendingJob = useSelector((state: RootState) =>
     hasTxQueued(state.transactionQueue)
@@ -71,17 +67,40 @@ export function ConvertConfirmationScreen({ route }: Props): JSX.Element {
       return;
     }
     setIsSubmitting(true);
-    await constructSignedConversionAndSend(
-      {
-        mode,
-        amount,
-      },
-      dispatch,
-      () => {
-        onTransactionBroadcast(isOnPage, navigation.dispatch);
-      },
-      logger
-    );
+
+    if (
+      [
+        ConvertDirection.accountToUtxos,
+        ConvertDirection.utxosToAccount,
+      ].includes(convertDirection)
+    ) {
+      await constructSignedConversionAndSend(
+        {
+          convertDirection,
+          amount,
+        },
+        dispatch,
+        () => {
+          onTransactionBroadcast(isOnPage, navigation.dispatch);
+        },
+        logger
+      );
+    } else {
+      await constructSignedTransferDomain(
+        {
+          amount,
+          convertDirection,
+          sourceToken,
+          targetToken,
+        },
+        dispatch,
+        () => {
+          onTransactionBroadcast(isOnPage, navigation.dispatch);
+        },
+        logger
+      );
+    }
+
     setIsSubmitting(false);
   }
 
@@ -114,6 +133,34 @@ export function ConvertConfirmationScreen({ route }: Props): JSX.Element {
     }
   }
 
+  const [fromLhs, toLhs] = useMemo(() => {
+    const dvmText = translate(
+      "screens/ConvertConfirmScreen",
+      "Resulting Tokens"
+    );
+    const utxoText = translate(
+      "screens/ConvertConfirmScreen",
+      "Resulting UTXO"
+    );
+    const evmText = translate(
+      "screens/ConvertConfirmScreen",
+      "Resulting Tokens (EVM)"
+    );
+
+    switch (convertDirection) {
+      case ConvertDirection.accountToUtxos:
+        return [dvmText, utxoText];
+      case ConvertDirection.utxosToAccount:
+        return [utxoText, dvmText];
+      case ConvertDirection.dvmToEvm:
+        return [dvmText, evmText];
+      case ConvertDirection.evmToDvm:
+        return [evmText, dvmText];
+      default:
+        return [evmText, dvmText];
+    }
+  }, [convertDirection]);
+
   return (
     <ThemedScrollViewV2 style={tailwind("pb-4")}>
       <ThemedViewV2 style={tailwind("flex-col px-5 py-8")}>
@@ -122,7 +169,12 @@ export function ConvertConfirmationScreen({ route }: Props): JSX.Element {
             "screens/ConvertConfirmScreen",
             "You are converting to {{unit}}",
             {
-              unit: translate("screens/ConvertScreen", targetUnit),
+              unit: translate(
+                "screens/ConvertScreen",
+                convertDirection === ConvertDirection.accountToUtxos
+                  ? "UTXO"
+                  : "tokens"
+              ),
             }
           )}
           amount={amount}
@@ -165,10 +217,7 @@ export function ConvertConfirmationScreen({ route }: Props): JSX.Element {
             dark: tailwind("bg-transparent"),
           }}
           lhs={{
-            value: translate(
-              "screens/ConvertConfirmScreen",
-              "Resulting Tokens"
-            ),
+            value: fromLhs,
             testID: "resulting_tokens_label",
             themedProps: {
               light: tailwind("text-mono-light-v2-500"),
@@ -176,27 +225,22 @@ export function ConvertConfirmationScreen({ route }: Props): JSX.Element {
             },
           }}
           rhs={{
-            value: getResultingValue(
-              ConvertTokenUnit.DFI,
+            value: getResultingValue({
+              balance: sourceToken.balance,
+              convertDirection,
               fee,
-              sourceBalance,
-              sourceUnit,
-              targetBalance,
-              targetUnit
-            ),
-            suffix: " DFI",
+            }),
+            suffix: ` ${sourceToken.displaySymbol}`,
             testID: "resulting_tokens_value",
             themedProps: {
               light: tailwind("text-mono-light-v2-900 font-semibold-v2"),
               dark: tailwind("text-mono-dark-v2-900 font-semibold-v2"),
             },
             subValue: {
-              value: getResultingPercentage(
-                ConvertTokenUnit.DFI,
-                sourceBalance,
-                sourceUnit,
-                targetBalance
-              ),
+              value: getResultingPercentage({
+                balanceA: targetToken.balance,
+                balanceB: sourceToken.balance,
+              }),
               prefix: "(",
               suffix: "%)",
               testID: "resulting_tokens_sub_value",
@@ -213,12 +257,7 @@ export function ConvertConfirmationScreen({ route }: Props): JSX.Element {
             dark: tailwind("bg-transparent border-mono-dark-v2-300"),
           }}
           lhs={{
-            value: translate(
-              "screens/ConvertConfirmScreen",
-              domain === DomainType.DVM
-                ? "Resulting UTXO"
-                : "Resulting Tokens (EVM)"
-            ),
+            value: translate("screens/ConvertConfirmScreen", toLhs),
             testID: "resulting_utxo_label",
             themedProps: {
               light: tailwind("text-mono-light-v2-500"),
@@ -226,31 +265,22 @@ export function ConvertConfirmationScreen({ route }: Props): JSX.Element {
             },
           }}
           rhs={{
-            value: getResultingValue(
-              domain === DomainType.DVM
-                ? ConvertTokenUnit.UTXO
-                : ConvertTokenUnit.EVMDFI,
+            value: getResultingValue({
+              balance: targetToken.balance,
+              convertDirection,
               fee,
-              sourceBalance,
-              sourceUnit,
-              targetBalance,
-              targetUnit
-            ),
-            suffix: domain === DomainType.DVM ? " DFI" : "",
+            }),
+            suffix: ` ${targetToken.displaySymbol}`,
             testID: "resulting_utxo_value",
             themedProps: {
               light: tailwind("text-mono-light-v2-900 font-semibold-v2"),
               dark: tailwind("text-mono-dark-v2-900 font-semibold-v2"),
             },
             subValue: {
-              value: getResultingPercentage(
-                domain === DomainType.DVM
-                  ? ConvertTokenUnit.UTXO
-                  : ConvertTokenUnit.EVMDFI,
-                sourceBalance,
-                sourceUnit,
-                targetBalance
-              ),
+              value: getResultingPercentage({
+                balanceA: sourceToken.balance,
+                balanceB: targetToken.balance,
+              }),
               prefix: "(",
               suffix: "%)",
               testID: "resulting_utxo_sub_value",
@@ -274,7 +304,10 @@ export function ConvertConfirmationScreen({ route }: Props): JSX.Element {
 }
 
 async function constructSignedConversionAndSend(
-  { mode, amount }: { mode: ConversionMode; amount: BigNumber },
+  {
+    convertDirection,
+    amount,
+  }: { convertDirection: ConvertDirection; amount: BigNumber },
   dispatch: Dispatch<any>,
   onBroadcast: () => void,
   logger: NativeLoggingProps
@@ -282,7 +315,7 @@ async function constructSignedConversionAndSend(
   try {
     dispatch(
       transactionQueue.actions.push(
-        dfiConversionCrafter(amount, mode, onBroadcast, () => {})
+        dfiConversionCrafter(amount, convertDirection, onBroadcast, () => {})
       )
     );
   } catch (e) {
@@ -290,31 +323,73 @@ async function constructSignedConversionAndSend(
   }
 }
 
-function getResultingValue(
-  desireUnit: string,
-  fee: BigNumber,
-  balanceA: BigNumber,
-  unitA: string,
-  balanceB: BigNumber,
-  unitB: string
-): string {
-  const balance = desireUnit === unitA ? balanceA : balanceB;
-  const unit = desireUnit === unitA ? unitA : unitB;
+async function constructSignedTransferDomain(
+  {
+    amount,
+    convertDirection,
+    sourceToken,
+    targetToken,
+  }: {
+    convertDirection: ConvertDirection;
+    sourceToken: {
+      tokenId: string;
+      displaySymbol: string;
+      balance: BigNumber;
+    };
+    targetToken: {
+      tokenId: string;
+      displaySymbol: string;
+      balance: BigNumber;
+    };
+    amount: BigNumber;
+  },
+  dispatch: Dispatch<any>,
+  onBroadcast: () => void,
+  logger: NativeLoggingProps
+): Promise<void> {
+  try {
+    dispatch(
+      transactionQueue.actions.push(
+        transferDomainCrafter(
+          amount,
+          convertDirection,
+          sourceToken,
+          targetToken,
+          onBroadcast,
+          () => {}
+        )
+      )
+    );
+  } catch (e) {
+    logger.error(e);
+  }
+}
 
+function getResultingValue({
+  balance,
+  convertDirection,
+  fee,
+}: {
+  balance: BigNumber;
+  convertDirection: ConvertDirection;
+  fee: BigNumber;
+}): string {
   return BigNumber.max(
-    balance.minus(unit === ConvertTokenUnit.UTXO ? fee : 0),
+    balance.minus(
+      convertDirection === ConvertDirection.accountToUtxos ? fee : 0
+    ),
     0
   ).toFixed(8);
 }
 
-function getResultingPercentage(
-  desireUnit: string,
-  balanceA: BigNumber,
-  unitA: string,
-  balanceB: BigNumber
-): string {
-  const amount = desireUnit === unitA ? balanceA : balanceB;
+function getResultingPercentage({
+  balanceA,
+  balanceB,
+}: {
+  balanceA: BigNumber;
+  balanceB: BigNumber;
+}): string {
   const totalAmount = balanceA.plus(balanceB);
 
-  return new BigNumber(amount).div(totalAmount).multipliedBy(100).toFixed(2);
+  return new BigNumber(balanceB).div(totalAmount).multipliedBy(100).toFixed(2);
 }

@@ -19,10 +19,7 @@ import { useThemeContext } from "@waveshq/walletkit-ui";
 import GridBackgroundImageLight from "@assets/images/onboarding/grid-background-light.png";
 import GridBackgroundImageDark from "@assets/images/onboarding/grid-background-dark.png";
 import { HeaderNetworkStatus } from "@components/HeaderNetworkStatus";
-import {
-  ConvertScreen,
-  ConvertTokenUnit,
-} from "@screens/AppNavigator/screens/Portfolio/screens/ConvertScreen";
+import { ConvertScreen } from "@screens/AppNavigator/screens/Portfolio/screens/ConvertScreen";
 import { ConvertConfirmationScreen } from "@screens/AppNavigator/screens/Portfolio/screens/ConvertConfirmationScreen";
 import { FutureSwapScreen } from "@screens/AppNavigator/screens/Portfolio/screens/FutureSwapScreen";
 import { WithdrawFutureSwapScreen } from "@screens/AppNavigator/screens/Portfolio/screens/WithdrawFutureSwapScreen";
@@ -32,7 +29,7 @@ import {
   SwapTokenSelectionScreen,
   TokenListType,
 } from "@screens/AppNavigator/screens/Dex/CompositeSwap/SwapTokenSelectionScreen";
-import { ConversionMode, ScreenName } from "@screens/enum";
+import { ConvertDirection, ScreenName } from "@screens/enum";
 import { DomainType } from "@contexts/DomainContext";
 import { NetworkDetails } from "../Settings/screens/NetworkDetails";
 import { PortfolioScreen } from "./PortfolioScreen";
@@ -64,6 +61,7 @@ import {
 import { CFPDetailScreen } from "./screens/OCG/CFPDetailScreen";
 import { DFIPDetailScreen } from "./screens/OCG/DFIPDetailScreen";
 import { OCGConfirmScreen } from "./screens/OCG/OCGConfirmScreen";
+import { FromToken } from "./hooks/TokenBalance";
 
 export interface PortfolioParamList {
   PortfolioScreen: undefined;
@@ -81,17 +79,27 @@ export interface PortfolioParamList {
     addressType?: AddressType;
     originScreen?: ScreenName;
   };
-  TokenDetailScreen: { token: WalletToken };
-  ConvertScreen: { mode: ConversionMode };
+  TokenDetailScreen: { fromToken: WalletToken };
+  ConvertScreen: {
+    fromToken: FromToken;
+    toToken?: FromToken;
+    convertDirection: ConvertDirection;
+  };
   ConvertConfirmationScreen: {
     amount: BigNumber;
-    mode: ConversionMode;
-    sourceUnit: ConvertTokenUnit;
-    sourceBalance: BigNumber;
-    targetUnit: ConvertTokenUnit;
-    targetBalance: BigNumber;
+    convertDirection: ConvertDirection;
     fee: BigNumber;
     originScreen: ScreenName;
+    sourceToken: {
+      tokenId: string;
+      displaySymbol: string;
+      balance: BigNumber;
+    };
+    targetToken: {
+      tokenId: string;
+      displaySymbol: string;
+      balance: BigNumber;
+    };
   };
   BarCodeScanner: {
     onQrScanned: (value: string) => void;
