@@ -157,6 +157,7 @@ export interface PortfolioParamList {
     listType: TokenListType;
     list: any;
     onTokenPress: (item: SelectionToken) => void;
+    isConvert?: boolean;
     isFutureSwap?: boolean;
     isSearchDTokensOnly?: boolean;
   };

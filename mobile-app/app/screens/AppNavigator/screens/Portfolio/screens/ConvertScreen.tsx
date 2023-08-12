@@ -303,6 +303,7 @@ export function ConvertScreen(props: Props): JSX.Element {
         onTokenSelect(item, listType);
       },
       isFutureSwap: false,
+      isConvert: true,
       isSearchDTokensOnly: false,
     });
   }
@@ -389,11 +390,7 @@ export function ConvertScreen(props: Props): JSX.Element {
 
             <TokenDropdownButton
               symbol={sourceToken.token.displaySymbol}
-              displayedTextSymbol={
-                sourceToken?.tokenId === "0_utxo"
-                  ? "UTXO"
-                  : sourceToken.token.displaySymbol
-              }
+              displayedTextSymbol={sourceToken.token.displayTextSymbol}
               testID={TokenListType.From}
               onPress={() => {
                 navigateToTokenSelectionScreen(TokenListType.From);
@@ -509,11 +506,7 @@ export function ConvertScreen(props: Props): JSX.Element {
           {sourceToken.tokenId === "0" && (
             <TokenDropdownButton
               symbol={targetToken?.token.displaySymbol}
-              displayedTextSymbol={
-                targetToken?.tokenId === "0_utxo"
-                  ? "UTXO"
-                  : targetToken?.token.displaySymbol
-              }
+              displayedTextSymbol={targetToken?.token.displayTextSymbol}
               testID={TokenListType.To}
               onPress={() => {
                 navigateToTokenSelectionScreen(TokenListType.To);
@@ -525,7 +518,7 @@ export function ConvertScreen(props: Props): JSX.Element {
             <FixedTokenButton
               testID={TokenListType.To}
               symbol={targetToken.token.displaySymbol}
-              unit={targetToken.token.displaySymbol}
+              unit={targetToken.token.displayTextSymbol}
             />
           )}
         </View>

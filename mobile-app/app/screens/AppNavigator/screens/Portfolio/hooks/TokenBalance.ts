@@ -15,6 +15,7 @@ export interface DomainToken {
   token: {
     name: string;
     displaySymbol: string;
+    displayTextSymbol: string;
     symbol: string;
     isLPS?: boolean;
     domainType: DomainType;
@@ -61,6 +62,12 @@ export function useTokenBalance(): {
               token: {
                 name: token.name,
                 displaySymbol: token.displaySymbol,
+                displayTextSymbol:
+                  token.id === "0"
+                    ? "DFI"
+                    : token.id === "0_utxo"
+                    ? "UTXO"
+                    : token.displaySymbol,
                 symbol: token.symbol,
                 isLPS: false,
                 domainType: DomainType.DVM,
@@ -76,6 +83,8 @@ export function useTokenBalance(): {
               token: {
                 name: `${token.name} for EVM`,
                 displaySymbol: token.displaySymbol,
+                displayTextSymbol:
+                  token.symbol === "DFI" ? "DFI" : token.displaySymbol,
                 symbol: token.symbol,
                 isLPS: false,
                 domainType: DomainType.EVM,
@@ -93,7 +102,8 @@ export function useTokenBalance(): {
 
   return {
     dvmTokens,
-    evmTokens,
+    // TODO(pierregee): remove this. temp added for testing
+    evmTokens: evmTokens.filter((token) => token.tokenId !== "0_utxo-EVM"),
   };
 }
 
