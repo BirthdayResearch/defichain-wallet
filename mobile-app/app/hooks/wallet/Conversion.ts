@@ -8,10 +8,7 @@ import {
   unifiedDFISelector,
   transactionQueue,
 } from "@waveshq/walletkit-ui/dist/store";
-import {
-  ConversionMode,
-  dfiConversionCrafter,
-} from "@api/transaction/dfi_converter";
+import { dfiConversionCrafter } from "@api/transaction/dfi_converter";
 import { NativeLoggingProps } from "@shared-contexts/NativeLoggingProvider";
 
 interface useConversionProps {

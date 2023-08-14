@@ -27,9 +27,9 @@ import {
 import { useSelector } from "react-redux";
 import { RootState } from "@store";
 import { ButtonV2 } from "@components/ButtonV2";
-import { ConversionMode } from "@screens/enum";
 import { InfoTextLinkV2 } from "@components/InfoTextLink";
 import { ThemedTouchableListItem } from "@components/themed/ThemedTouchableListItem";
+import { ConvertDirection } from "@screens/enum";
 import { PortfolioParamList } from "../PortfolioNavigator";
 import { useTokenPrice } from "../hooks/TokenPrice";
 import { useDenominationCurrency } from "../hooks/PortfolioCurrency";
@@ -259,10 +259,10 @@ export function TokenDetailScreen({ route, navigation }: Props): JSX.Element {
                 icon="swap-calls"
                 iconType="MaterialIcons"
                 onPress={() => {
-                  const mode: ConversionMode =
+                  const mode: ConvertDirection =
                     token.id === "0_utxo"
-                      ? ConversionMode.utxosToAccount
-                      : ConversionMode.accountToUtxos;
+                      ? ConvertDirection.utxosToAccount
+                      : ConvertDirection.accountToUtxos;
                   navigation.navigate({
                     name: "ConvertScreen",
                     params: { mode },

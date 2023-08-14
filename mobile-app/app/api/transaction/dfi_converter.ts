@@ -8,12 +8,6 @@ import {
 } from "@defichain/jellyfish-transaction";
 import { ConvertDirection } from "@screens/enum";
 
-export type ConversionMode =
-  | "utxosToAccount"
-  | "accountToUtxos"
-  | "evmToAccount"
-  | "accountToEvm";
-
 export async function dfiConversionSigner(
   account: WhaleWalletAccount,
   amount: BigNumber,

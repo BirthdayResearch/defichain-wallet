@@ -79,7 +79,7 @@ export interface PortfolioParamList {
     addressType?: AddressType;
     originScreen?: ScreenName;
   };
-  TokenDetailScreen: { fromToken: WalletToken };
+  TokenDetailScreen: { token: WalletToken };
   ConvertScreen: {
     sourceToken: DomainToken;
     targetToken?: DomainToken;
