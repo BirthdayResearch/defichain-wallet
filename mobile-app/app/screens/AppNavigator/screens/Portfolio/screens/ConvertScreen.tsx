@@ -436,7 +436,10 @@ export function ConvertScreen(props: Props): JSX.Element {
             light={tailwind("border-mono-light-v2-300")}
             style={tailwind("border-b-0.5 flex-1 h-1/2")}
           />
-          <ConvertToggleButton onPress={onTogglePress} />
+          <ConvertToggleButton
+            onPress={onTogglePress}
+            isDisabled={!sourceToken || !targetToken}
+          />
           <ThemedViewV2
             dark={tailwind("border-mono-dark-v2-300")}
             light={tailwind("border-mono-light-v2-300")}
@@ -576,15 +579,21 @@ export function ConvertScreen(props: Props): JSX.Element {
   );
 }
 
-function ConvertToggleButton(props: { onPress: () => void }): JSX.Element {
+function ConvertToggleButton(props: {
+  isDisabled: boolean;
+  onPress: () => void;
+}): JSX.Element {
   return (
     <ThemedTouchableOpacityV2
       style={tailwind("border-0 items-center")}
       onPress={props.onPress}
+      disabled={props.isDisabled}
     >
       <ThemedViewV2
         testID="button_convert_mode_toggle"
-        style={tailwind("w-10 h-10 rounded-full items-center justify-center")}
+        style={tailwind("w-10 h-10 rounded-full items-center justify-center", {
+          "opacity-30": props.isDisabled,
+        })}
         light={tailwind("bg-mono-light-v2-900")}
         dark={tailwind("bg-mono-dark-v2-900")}
       >
