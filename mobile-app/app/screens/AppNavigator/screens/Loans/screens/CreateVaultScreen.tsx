@@ -38,6 +38,7 @@ import { onTransactionBroadcast } from "@api/transaction/transaction_commands";
 import { WhaleWalletAccount } from "@defichain/whale-api-wallet";
 import { CTransactionSegWit } from "@defichain/jellyfish-transaction";
 import { useWalletContext } from "@shared-contexts/WalletContext";
+import { ConvertDirection } from "@screens/enum";
 import { LoanParamList } from "../LoansNavigator";
 
 type Props = StackScreenProps<LoanParamList, "CreateVaultScreen">;
@@ -100,7 +101,7 @@ export function CreateVaultScreen({ navigation, route }: Props): JSX.Element {
       const convertAmount = new BigNumber(RESERVE_AMOUNT).minus(DFIUtxo.amount);
       queueConvertTransaction(
         {
-          mode: "accountToUtxos",
+          mode: ConvertDirection.accountToUtxos,
           amount: convertAmount,
         },
         dispatch,
