@@ -37,6 +37,7 @@ import { TokenBreakdownDetailsV2 } from "../components/TokenBreakdownDetailsV2";
 import { getPrecisedTokenValue } from "../../Auctions/helpers/precision-token-value";
 import { PortfolioButtonGroupTabKey } from "../components/TotalPortfolio";
 import { TokenIcon } from "../components/TokenIcon";
+import { useTokenBalance } from "../hooks/TokenBalance";
 
 interface TokenActionItems {
   title: string;
@@ -122,6 +123,8 @@ export function TokenDetailScreen({ route, navigation }: Props): JSX.Element {
   const { pair, token, swapTokenDisplaySymbol } = usePoolPairToken(
     route.params.token
   );
+
+  const { dvmTokens } = useTokenBalance();
 
   // usdAmount for crypto tokens, undefined for DFI token
   const { usdAmount } = route.params.token;
@@ -259,13 +262,29 @@ export function TokenDetailScreen({ route, navigation }: Props): JSX.Element {
                 icon="swap-calls"
                 iconType="MaterialIcons"
                 onPress={() => {
-                  const mode: ConvertDirection =
+                  const convertDirection: ConvertDirection =
                     token.id === "0_utxo"
                       ? ConvertDirection.utxosToAccount
                       : ConvertDirection.accountToUtxos;
+
+                  const utxoToken = dvmTokens.find(
+                    (token) => token.tokenId === "0_utxo"
+                  );
+                  const dfiToken = dvmTokens.find(
+                    (token) => token.tokenId === "0"
+                  );
+                  const [sourceToken, targetToken] =
+                    convertDirection === ConvertDirection.utxosToAccount
+                      ? [utxoToken, dfiToken]
+                      : [dfiToken, utxoToken];
+
                   navigation.navigate({
                     name: "ConvertScreen",
-                    params: { mode },
+                    params: {
+                      sourceToken,
+                      targetToken,
+                      convertDirection,
+                    },
                     merge: true,
                   });
                 }}
