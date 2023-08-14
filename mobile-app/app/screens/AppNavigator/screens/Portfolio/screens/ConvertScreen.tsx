@@ -182,10 +182,10 @@ export function ConvertScreen(props: Props): JSX.Element {
 
   function onPercentagePress(amount: string, type: AmountButtonTypes): void {
     setAmount(amount);
-    showToast(type);
+    showToast(type, domain);
   }
 
-  function showToast(type: AmountButtonTypes): void {
+  function showToast(type: AmountButtonTypes, domain: DomainType): void {
     if (sourceToken === undefined) {
       return;
     }
@@ -196,7 +196,12 @@ export function ConvertScreen(props: Props): JSX.Element {
       ? "Max available {{unit}} entered"
       : "{{percent}} of available {{unit}} entered";
     const toastOption = {
-      unit: translate("screens/ConvertScreen", sourceToken.token.displaySymbol),
+      unit: translate(
+        "screens/ConvertScreen",
+        `${sourceToken.token.displayTextSymbol}${
+          domain === DomainType.EVM ? "-EVM" : ""
+        }`
+      ),
       percent: type,
     };
     toast.show(translate("screens/ConvertScreen", toastMessage, toastOption), {
