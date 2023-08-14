@@ -328,8 +328,8 @@ export function ConvertScreen(props: Props): JSX.Element {
                 : "",
             token:
               convertDirection === ConvertDirection.evmToDvm
-                ? `${sourceToken.token.displaySymbol}-EVM`
-                : sourceToken.token.displaySymbol,
+                ? `${sourceToken.token.displayTextSymbol}-EVM`
+                : sourceToken.token.displayTextSymbol,
           }
         )}
       </ThemedTextV2>
@@ -529,7 +529,7 @@ export function ConvertScreen(props: Props): JSX.Element {
         {targetToken !== undefined && (
           <View style={tailwind("flex-col w-full")}>
             <ConversionResultCard
-              unit={`${targetToken.token.displaySymbol}${
+              unit={`${targetToken.token.displayTextSymbol}${
                 convertDirection === ConvertDirection.dvmToEvm ? " (EVM)" : ""
               }`}
               oriTargetAmount={targetToken.available}
