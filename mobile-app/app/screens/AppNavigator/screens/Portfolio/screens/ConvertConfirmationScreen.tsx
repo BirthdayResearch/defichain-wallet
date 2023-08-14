@@ -233,7 +233,9 @@ export function ConvertConfirmationScreen({ route }: Props): JSX.Element {
               convertDirection,
               fee,
             }),
-            suffix: ` ${sourceToken.displayTextSymbol}`,
+            suffix: ` ${sourceToken.displayTextSymbol}${
+              convertDirection === ConvertDirection.dvmToEvm ? "-EVM" : ""
+            }`,
             testID: "resulting_tokens_value",
             themedProps: {
               light: tailwind("text-mono-light-v2-900 font-semibold-v2"),
@@ -273,7 +275,9 @@ export function ConvertConfirmationScreen({ route }: Props): JSX.Element {
               convertDirection,
               fee,
             }),
-            suffix: ` ${targetToken.displayTextSymbol}`,
+            suffix: ` ${targetToken.displayTextSymbol}${
+              convertDirection === ConvertDirection.dvmToEvm ? "-EVM" : ""
+            }`,
             testID: "resulting_utxo_value",
             themedProps: {
               light: tailwind("text-mono-light-v2-900 font-semibold-v2"),
