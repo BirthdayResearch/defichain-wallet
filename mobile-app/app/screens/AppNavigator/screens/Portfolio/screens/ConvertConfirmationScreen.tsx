@@ -171,9 +171,9 @@ export function ConvertConfirmationScreen({ route }: Props): JSX.Element {
             {
               unit: translate(
                 "screens/ConvertScreen",
-                convertDirection === ConvertDirection.accountToUtxos
-                  ? "UTXO"
-                  : "tokens"
+                `${targetToken.displayTextSymbol}${
+                  convertDirection === ConvertDirection.dvmToEvm ? "-EVM" : ""
+                }`
               ),
             }
           )}
@@ -230,7 +230,7 @@ export function ConvertConfirmationScreen({ route }: Props): JSX.Element {
               convertDirection,
               fee,
             }),
-            suffix: ` ${sourceToken.displaySymbol}`,
+            suffix: ` ${sourceToken.displayTextSymbol}`,
             testID: "resulting_tokens_value",
             themedProps: {
               light: tailwind("text-mono-light-v2-900 font-semibold-v2"),
@@ -270,7 +270,7 @@ export function ConvertConfirmationScreen({ route }: Props): JSX.Element {
               convertDirection,
               fee,
             }),
-            suffix: ` ${targetToken.displaySymbol}`,
+            suffix: ` ${targetToken.displayTextSymbol}`,
             testID: "resulting_utxo_value",
             themedProps: {
               light: tailwind("text-mono-light-v2-900 font-semibold-v2"),

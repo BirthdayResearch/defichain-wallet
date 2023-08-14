@@ -94,11 +94,13 @@ export interface PortfolioParamList {
       tokenId: string;
       displaySymbol: string;
       balance: BigNumber;
+      displayTextSymbol: string;
     };
     targetToken: {
       tokenId: string;
       displaySymbol: string;
       balance: BigNumber;
+      displayTextSymbol: string;
     };
   };
   BarCodeScanner: {

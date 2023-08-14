@@ -166,6 +166,7 @@ export function ConvertScreen(props: Props): JSX.Element {
             new BigNumber(sourceToken.available).minus(convAmount),
             0
           ),
+          displayTextSymbol: sourceToken.token.displayTextSymbol,
         },
         targetToken: {
           tokenId: targetToken.tokenId,
@@ -174,6 +175,7 @@ export function ConvertScreen(props: Props): JSX.Element {
             new BigNumber(targetToken.available).plus(convAmount),
             0
           ),
+          displayTextSymbol: targetToken.token.displayTextSymbol,
         },
       },
       merge: true,
