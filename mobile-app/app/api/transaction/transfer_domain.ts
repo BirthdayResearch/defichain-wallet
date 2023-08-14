@@ -15,6 +15,8 @@ const TRANSFER_DOMAIN_TYPE = {
 
 export async function transferDomainSigner(
   account: WhaleWalletAccount,
+  sourceTokenId: string,
+  targetTokenId: string,
   amount: BigNumber,
   convertDirection: ConvertDirection
 ): Promise<CTransactionSegWit> {
@@ -34,7 +36,7 @@ export async function transferDomainSigner(
           src: {
             address: sourceScript,
             amount: {
-              token: 0,
+              token: Number(sourceTokenId),
               amount,
             },
             domain: TRANSFER_DOMAIN_TYPE.EVM,
@@ -42,7 +44,7 @@ export async function transferDomainSigner(
           dst: {
             address: dstScript,
             amount: {
-              token: 0,
+              token: Number(targetTokenId),
               amount,
             },
             domain: TRANSFER_DOMAIN_TYPE.DVM,
@@ -88,7 +90,13 @@ export function transferDomainCrafter(
 
   return {
     sign: async (account: WhaleWalletAccount) =>
-      await transferDomainSigner(account, amount, convertDirection),
+      await transferDomainSigner(
+        account,
+        sourceToken.tokenId,
+        targetToken.tokenId,
+        amount,
+        convertDirection
+      ),
     title: translate(
       "screens/ConvertConfirmScreen",
       "Convert {{amount}} {{source}} to {{target}}",
