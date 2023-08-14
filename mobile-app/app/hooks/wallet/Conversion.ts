@@ -8,11 +8,9 @@ import {
   unifiedDFISelector,
   transactionQueue,
 } from "@waveshq/walletkit-ui/dist/store";
-import {
-  ConversionMode,
-  dfiConversionCrafter,
-} from "@api/transaction/dfi_converter";
+import { dfiConversionCrafter } from "@api/transaction/dfi_converter";
 import { NativeLoggingProps } from "@shared-contexts/NativeLoggingProvider";
+import { ConvertDirection } from "@screens/enum";
 
 interface useConversionProps {
   inputToken: InputToken;
@@ -78,7 +76,7 @@ export function useConversion(props: useConversionProps): ConversionResult {
 }
 
 export function queueConvertTransaction(
-  { mode, amount }: { mode: ConversionMode; amount: BigNumber },
+  { mode, amount }: { mode: ConvertDirection; amount: BigNumber },
   dispatch: Dispatch<any>,
   onBroadcast: () => void,
   logger: NativeLoggingProps,

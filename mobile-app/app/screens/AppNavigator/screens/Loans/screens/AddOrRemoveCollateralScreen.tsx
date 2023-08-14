@@ -54,6 +54,7 @@ import { queueConvertTransaction } from "@hooks/wallet/Conversion";
 import { NavigationProp, useNavigation } from "@react-navigation/native";
 import { BottomSheetTokenListHeader } from "@components/BottomSheetTokenListHeader";
 import { LoanVaultTokenAmount } from "@defichain/whale-api-client/dist/api/loan";
+import { ConvertDirection } from "@screens/enum";
 import { getActivePrice } from "../../Auctions/helpers/ActivePrice";
 import { ActiveUSDValueV2 } from "../VaultDetail/components/ActiveUSDValueV2";
 import { LoanParamList } from "../LoansNavigator";
@@ -305,7 +306,7 @@ export function AddOrRemoveCollateralScreen({ route }: Props): JSX.Element {
       } as any;
       queueConvertTransaction(
         {
-          mode: "utxosToAccount",
+          mode: ConvertDirection.utxosToAccount,
           amount: conversionAmount,
         },
         dispatch,

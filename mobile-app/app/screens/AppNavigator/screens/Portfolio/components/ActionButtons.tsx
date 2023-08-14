@@ -22,10 +22,13 @@ import { getNativeIcon } from "@components/icons/assets";
 import { useThemeContext } from "@waveshq/walletkit-ui";
 import BigNumber from "bignumber.js";
 import { ConvertIcon } from "@components/icons/assets/ConvertIcon";
-import { ConversionMode } from "@screens/enum";
+import { ConvertDirection } from "@screens/enum";
 import { PortfolioParamList } from "../PortfolioNavigator";
-import { TokenListType } from "../../Dex/CompositeSwap/SwapTokenSelectionScreen";
-import { useConvertibleTokens } from "../hooks/ConvertibleTokens";
+import {
+  SelectionToken,
+  TokenListType,
+} from "../../Dex/CompositeSwap/SwapTokenSelectionScreen";
+import { useTokenBalance } from "../hooks/TokenBalance";
 
 export interface ActionButtonsProps {
   name: string;
@@ -43,7 +46,7 @@ export function ActionButtons(): JSX.Element {
   const { domain } = useDomainContext();
   const isEvmDomain = domain === DomainType.EVM;
 
-  const { fromTokens } = useConvertibleTokens();
+  const { dvmTokens, evmTokens } = useTokenBalance();
   const navigation = useNavigation<NavigationProp<PortfolioParamList>>();
   const futureSwaps = useSelector((state: RootState) =>
     futureSwapSelector(state)
@@ -59,6 +62,18 @@ export function ActionButtons(): JSX.Element {
     hasFetchedToken &&
     new BigNumber(DFIUtxo.amount ?? 0).plus(DFIToken.amount ?? 0).gt(0);
 
+  const getConvertDirection = (tokenId: string) => {
+    if (domain === DomainType.DVM && tokenId === "0") {
+      return ConvertDirection.accountToUtxos;
+    } else if (domain === DomainType.DVM && tokenId === "0_utxo") {
+      return ConvertDirection.utxosToAccount;
+    }
+
+    return domain === DomainType.EVM
+      ? ConvertDirection.evmToDvm
+      : ConvertDirection.dvmToEvm;
+  };
+
   const navigateToTokenSelectionScreen = (listType: TokenListType): void => {
     navigation.navigate("SwapTokenSelectionScreen", {
       fromToken: {
@@ -66,15 +81,33 @@ export function ActionButtons(): JSX.Element {
         displaySymbol: undefined,
       },
       listType: listType,
-      list: fromTokens,
+      list: domain === DomainType.EVM ? evmTokens : dvmTokens,
       onTokenPress: (item) => {
+        let targetToken: SelectionToken | undefined;
+        if (domain === DomainType.DVM && item.tokenId === "0_utxo") {
+          // If DFI UTXO -> choose DFI Token
+          targetToken = dvmTokens.find((token) => token.tokenId === "0");
+        } else if (domain === DomainType.DVM && item.tokenId === "0") {
+          // If DFI Token -> no default
+          targetToken = undefined;
+        } else if (domain === DomainType.EVM) {
+          // If EVM -> choose DVM equivalent
+          targetToken = dvmTokens.find(
+            (token) => token.tokenId === item.tokenId.replace("-EVM", "")
+          );
+        } else if (domain === DomainType.DVM) {
+          // If DVM -> choose EVM equivalent
+          targetToken = evmTokens.find(
+            (token) => token.tokenId === `${item.tokenId}-EVM`
+          );
+        }
+
         navigation.navigate({
           name: "ConvertScreen",
           params: {
-            mode:
-              item.tokenId === "0"
-                ? ConversionMode.accountToUtxos
-                : ConversionMode.utxosToAccount,
+            sourceToken: item,
+            targetToken,
+            convertDirection: getConvertDirection(item.tokenId),
           },
           merge: true,
         });
@@ -144,17 +177,7 @@ export function ActionButtons(): JSX.Element {
           iconSize={28}
           testID="convert_button"
           onPress={() => {
-            if (isEvmDomain) {
-              navigation.navigate({
-                name: "ConvertScreen",
-                params: {
-                  mode: ConversionMode.evmToAccount,
-                },
-                merge: true,
-              });
-            } else {
-              navigateToTokenSelectionScreen(TokenListType.From);
-            }
+            navigateToTokenSelectionScreen(TokenListType.From);
           }}
           isEvmDomain
         />

@@ -33,6 +33,7 @@ import { OCGProposalType } from "@screens/AppNavigator/screens/Portfolio/screens
 import { AddressRow } from "@screens/AppNavigator/screens/Portfolio/components/AddressRow";
 import { ButtonGroupTabKey } from "@screens/AppNavigator/screens/Portfolio/screens/AddressBookScreen";
 import { DomainType } from "@contexts/DomainContext";
+import { ConvertDirection } from "@screens/enum";
 
 export function CFPDetailScreen(): JSX.Element {
   const logger = useLogger();
@@ -137,7 +138,7 @@ export function CFPDetailScreen(): JSX.Element {
     if (isConversionRequired) {
       queueConvertTransaction(
         {
-          mode: "accountToUtxos",
+          mode: ConvertDirection.accountToUtxos,
           amount: conversionAmount,
         },
         dispatch,

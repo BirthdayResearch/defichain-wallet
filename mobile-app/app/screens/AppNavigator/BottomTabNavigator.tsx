@@ -57,7 +57,7 @@ export function BottomTabNavigator(): JSX.Element {
             { "bg-mono-light-v2-00 border-mono-light-v2-100": isLight },
             { "bg-mono-dark-v2-00 border-mono-dark-v2-100": !isLight },
             { "pt-1 pb-4 h-24": Platform.OS === "ios" },
-            { hidden: domain !== DomainType.DFI }
+            { hidden: domain !== DomainType.DVM }
           ),
           tabBarActiveTintColor: getColor("brand-v2-500"),
           tabBarInactiveTintColor: isLight
@@ -83,7 +83,7 @@ export function BottomTabNavigator(): JSX.Element {
           }}
         />
 
-        {domain === DomainType.DFI && (
+        {domain === DomainType.DVM && (
           <>
             <BottomTab.Screen
               component={DexNavigator}

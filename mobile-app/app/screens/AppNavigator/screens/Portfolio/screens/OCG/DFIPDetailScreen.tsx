@@ -27,6 +27,7 @@ import { useLogger } from "@shared-contexts/NativeLoggingProvider";
 import { useWhaleApiClient } from "@waveshq/walletkit-ui/dist/contexts";
 import { EnvironmentNetwork } from "@waveshq/walletkit-core";
 import { OCGProposalType } from "@screens/AppNavigator/screens/Portfolio/screens/OCG/OCGProposalsScreen";
+import { ConvertDirection } from "@screens/enum";
 
 export function DFIPDetailScreen(): JSX.Element {
   const logger = useLogger();
@@ -108,7 +109,7 @@ export function DFIPDetailScreen(): JSX.Element {
     if (isConversionRequired) {
       queueConvertTransaction(
         {
-          mode: "accountToUtxos",
+          mode: ConvertDirection.accountToUtxos,
           amount: conversionAmount,
         },
         dispatch,

@@ -30,6 +30,7 @@ export interface SelectionToken {
   token: {
     name: string;
     displaySymbol: string;
+    displayTextSymbol?: string;
     symbol: string;
     isLPS?: boolean;
   };
@@ -45,6 +46,7 @@ export function SwapTokenSelectionScreen({ route }: Props): JSX.Element {
     listType,
     list,
     onTokenPress,
+    isConvert = false,
     isFutureSwap = false,
     isSearchDTokensOnly = false,
   } = route.params;
@@ -147,6 +149,8 @@ export function SwapTokenSelectionScreen({ route }: Props): JSX.Element {
                 "screens/SwapTokenSelectionScreen",
                 listType === TokenListType.From
                   ? "AVAILABLE TOKENS"
+                  : isConvert
+                  ? "AVAILABLE FOR CONVERT"
                   : isFutureSwap
                   ? "AVAILABLE FOR FUTURE SWAP"
                   : "AVAILABLE FOR SWAP"
@@ -222,7 +226,9 @@ function TokenItem({
           size={36}
         />
         <TokenNameText
-          displaySymbol={item.token.displaySymbol}
+          displaySymbol={
+            item.token.displayTextSymbol ?? item.token.displaySymbol
+          }
           name={item.token.name}
           testID={item.token.displaySymbol}
         />
