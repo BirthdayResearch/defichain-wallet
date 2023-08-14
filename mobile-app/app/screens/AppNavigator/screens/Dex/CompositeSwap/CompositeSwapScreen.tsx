@@ -67,6 +67,7 @@ import {
   TokenDropdownButton,
   TokenDropdownButtonStatus,
 } from "@components/TokenDropdownButton";
+import { ConvertDirection } from "@screens/enum";
 import {
   Announcement,
   AnnouncementBannerV2,
@@ -721,7 +722,7 @@ export function CompositeSwapScreen({ route }: Props): JSX.Element {
     if (isConversionRequired) {
       queueConvertTransaction(
         {
-          mode: "utxosToAccount",
+          mode: ConvertDirection.utxosToAccount,
           amount: conversionAmount,
         },
         dispatch,

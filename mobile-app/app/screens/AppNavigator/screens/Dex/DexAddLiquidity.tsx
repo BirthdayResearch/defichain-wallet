@@ -41,6 +41,7 @@ import { ButtonV2 } from "@components/ButtonV2";
 import { useToast } from "react-native-toast-notifications";
 import { useBottomSheet } from "@hooks/useBottomSheet";
 import { useDisplayUtxoWarning } from "@hooks/wallet/DisplayUtxoWarning";
+import { ConvertDirection } from "@screens/enum";
 import { ViewPoolHeader } from "./components/ViewPoolHeader";
 import { ViewPoolDetails, DataRoutes } from "./components/ViewPoolDetails";
 import { LiquidityCalculationSummary } from "./components/LiquidityCalculationSummary";
@@ -224,7 +225,7 @@ export function AddLiquidityScreen(props: Props): JSX.Element {
     if (isConversionRequired) {
       queueConvertTransaction(
         {
-          mode: "utxosToAccount",
+          mode: ConvertDirection.utxosToAccount,
           amount: conversionAmount,
         },
         dispatch,
