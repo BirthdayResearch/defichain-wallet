@@ -76,7 +76,7 @@ export function dfiConversionCrafter(
       await dfiConversionSigner(account, amount, convertDirection),
     title: translate(
       "screens/ConvertConfirmScreen",
-      "Convert {{amount}} {{symbolA}} to {{symbolB}}",
+      "Convert {{amount}} {{symbolA}} to {{symbolB}} tokens",
       {
         amount: amount.toFixed(8),
         symbolA,
@@ -87,7 +87,7 @@ export function dfiConversionCrafter(
       preparing: translate("screens/OceanInterface", "Preparing to convert…"),
       waiting: translate(
         "screens/OceanInterface",
-        "Converting {{amount}} {{symbolA}} to {{symbolB}}",
+        "Converting {{amount}} {{symbolA}} to {{symbolB}} tokens",
         {
           symbolA: symbolA,
           symbolB: symbolB,
@@ -96,7 +96,7 @@ export function dfiConversionCrafter(
       ),
       complete: translate(
         "screens/OceanInterface",
-        "{{amount}} {{symbolA}} converted to {{symbolB}}",
+        "{{amount}} {{symbolA}} converted to {{symbolB}} tokens",
         {
           symbolA,
           symbolB,

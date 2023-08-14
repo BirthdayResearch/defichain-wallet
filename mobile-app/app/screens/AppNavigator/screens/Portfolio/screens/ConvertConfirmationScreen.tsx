@@ -27,7 +27,10 @@ import { useWalletContext } from "@shared-contexts/WalletContext";
 import { useAddressLabel } from "@hooks/useAddressLabel";
 import { NumberRowV2 } from "@components/NumberRowV2";
 import { ConvertDirection, ScreenName } from "@screens/enum";
-import { transferDomainCrafter } from "@api/transaction/transfer_domain";
+import {
+  TransferDomainToken,
+  transferDomainCrafter,
+} from "@api/transaction/transfer_domain";
 import { PortfolioParamList } from "../PortfolioNavigator";
 
 type Props = StackScreenProps<PortfolioParamList, "ConvertConfirmationScreen">;
@@ -331,16 +334,8 @@ async function constructSignedTransferDomain(
     targetToken,
   }: {
     convertDirection: ConvertDirection;
-    sourceToken: {
-      tokenId: string;
-      displaySymbol: string;
-      balance: BigNumber;
-    };
-    targetToken: {
-      tokenId: string;
-      displaySymbol: string;
-      balance: BigNumber;
-    };
+    sourceToken: TransferDomainToken;
+    targetToken: TransferDomainToken;
     amount: BigNumber;
   },
   dispatch: Dispatch<any>,

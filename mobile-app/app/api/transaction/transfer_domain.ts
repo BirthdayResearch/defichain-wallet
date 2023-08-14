@@ -13,6 +13,13 @@ const TRANSFER_DOMAIN_TYPE = {
   EVM: 3,
 };
 
+export interface TransferDomainToken {
+  tokenId: string;
+  displaySymbol: string;
+  displayTextSymbol: string;
+  balance: BigNumber;
+}
+
 export async function transferDomainSigner(
   account: WhaleWalletAccount,
   sourceTokenId: string,
@@ -61,16 +68,8 @@ export async function transferDomainSigner(
 export function transferDomainCrafter(
   amount: BigNumber,
   convertDirection: ConvertDirection,
-  sourceToken: {
-    tokenId: string;
-    displaySymbol: string;
-    balance: BigNumber;
-  },
-  targetToken: {
-    tokenId: string;
-    displaySymbol: string;
-    balance: BigNumber;
-  },
+  sourceToken: TransferDomainToken,
+  targetToken: TransferDomainToken,
   onBroadcast: () => any,
   onConfirmation: () => void,
   submitButtonLabel?: string
@@ -85,8 +84,8 @@ export function transferDomainCrafter(
 
   const [symbolA, symbolB] =
     convertDirection === ConvertDirection.dvmToEvm
-      ? [sourceToken.displaySymbol, targetToken.displaySymbol]
-      : [targetToken.displaySymbol, sourceToken.displaySymbol];
+      ? [sourceToken.displayTextSymbol, `${targetToken.displayTextSymbol}-EVM`]
+      : [`${targetToken.displayTextSymbol}-EVM`, sourceToken.displayTextSymbol];
 
   return {
     sign: async (account: WhaleWalletAccount) =>
@@ -99,18 +98,18 @@ export function transferDomainCrafter(
       ),
     title: translate(
       "screens/ConvertConfirmScreen",
-      "Convert {{amount}} {{source}} to {{target}}",
+      "Convert {{amount}} {{symbolA}} to {{symbolB}} tokens",
       {
         amount: amount.toFixed(8),
-        source: symbolA,
-        target: symbolB,
+        symbolA,
+        symbolB,
       }
     ),
     drawerMessages: {
       preparing: translate("screens/OceanInterface", "Preparing to convert…"),
       waiting: translate(
         "screens/OceanInterface",
-        "Converting {{amount}} {{symbolA}} to {{symbolB}}",
+        "Converting {{amount}} {{symbolA}} to {{symbolB}} tokens",
         {
           symbolA: symbolA,
           symbolB: symbolB,
@@ -119,7 +118,7 @@ export function transferDomainCrafter(
       ),
       complete: translate(
         "screens/OceanInterface",
-        "{{amount}} {{symbolA}} converted to {{symbolB}}",
+        "{{amount}} {{symbolA}} converted to {{symbolB}} tokens",
         {
           symbolA: symbolA,
           symbolB: symbolB,
