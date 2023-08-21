@@ -103,7 +103,9 @@ export function OnboardingCarousel(): JSX.Element {
       }
       paginationStyleItem={tailwind("h-1.5 w-1.5 mx-0.75")}
       PaginationComponent={CarouselPagination}
-      renderItem={({ item }) => <View style={{ width }}>{item}</View>}
+      renderItem={({ item }) => (
+        <View style={{ width: Number(width) }}>{item}</View>
+      )}
       showPagination
     />
   );
