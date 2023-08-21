@@ -12,6 +12,12 @@ import { dUSDT } from "./dUSDT";
 import { dUSD } from "./dUSD";
 import { DFIlogo } from "./plainDFI";
 import { dEUROC } from "./dEUROC";
+import { DOT } from "./DOT";
+import { SOL } from "./SOL";
+import { MATIC } from "./MATIC";
+import { dDOT } from "./dDOT";
+import { dMATIC } from "./dMATIC";
+import { dSOL } from "./dSOL";
 
 const mapping: Record<string, (props: SvgProps) => JSX.Element> = {
   _UTXO: DFI,
@@ -19,6 +25,9 @@ const mapping: Record<string, (props: SvgProps) => JSX.Element> = {
   "DFI (UTXO)": DFI,
   "DFI (Token)": DFI,
   BTC: BTC,
+  DOT: DOT,
+  MATIC: MATIC,
+  SOL: SOL,
   dBCH: dBCH,
   dBTC: dBTC,
   dDFI: DFI,
@@ -31,6 +40,9 @@ const mapping: Record<string, (props: SvgProps) => JSX.Element> = {
   DUSD: dUSD,
   dEUROC: dEUROC,
   DFIlogo: DFIlogo,
+  dDOT: dDOT,
+  dMATIC: dMATIC,
+  dSOL: dSOL,
 };
 
 /**
