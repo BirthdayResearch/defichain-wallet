@@ -129,30 +129,27 @@ exports[`WalletCreateRestoreSuccess should match create wallet snapshot 1`] = `
           }
         />
         <ViewManagerAdapter_ExpoImage
+          contentFit="cover"
+          contentPosition={
+            {
+              "left": "50%",
+              "top": "50%",
+            }
+          }
           height={332}
           onError={[Function]}
           onLoad={[Function]}
           onLoadStart={[Function]}
           onProgress={[Function]}
-          proxiedProperties={
-            {
-              "contentFit": "cover",
-              "contentPosition": {
-                "left": "50%",
-                "top": "50%",
-              },
-              "placeholder": [],
-              "source": [],
-              "tintColor": undefined,
-              "transition": null,
-            }
-          }
+          placeholder={[]}
+          source={[]}
           style={
             {
               "height": 332,
               "width": 750,
             }
           }
+          transition={null}
           width={750}
         />
         <View
@@ -364,30 +361,27 @@ exports[`WalletCreateRestoreSuccess should match restore wallet snapshot 1`] = `
           }
         />
         <ViewManagerAdapter_ExpoImage
+          contentFit="cover"
+          contentPosition={
+            {
+              "left": "50%",
+              "top": "50%",
+            }
+          }
           height={332}
           onError={[Function]}
           onLoad={[Function]}
           onLoadStart={[Function]}
           onProgress={[Function]}
-          proxiedProperties={
-            {
-              "contentFit": "cover",
-              "contentPosition": {
-                "left": "50%",
-                "top": "50%",
-              },
-              "placeholder": [],
-              "source": [],
-              "tintColor": undefined,
-              "transition": null,
-            }
-          }
+          placeholder={[]}
+          source={[]}
           style={
             {
               "height": 332,
               "width": 750,
             }
           }
+          transition={null}
           width={750}
         />
         <View

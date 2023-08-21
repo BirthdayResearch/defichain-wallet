@@ -80,7 +80,14 @@ exports[`Summary Title V2 should match snapshot 1`] = `
           vbWidth={32}
           width={32}
         >
-          <RNSVGGroup>
+          <RNSVGGroup
+            fill={
+              {
+                "payload": 4278190080,
+                "type": 0,
+              }
+            }
+          >
             <RNSVGCircle
               cx="16"
               cy="16"
@@ -142,7 +149,14 @@ exports[`Summary Title V2 should match snapshot 1`] = `
           vbWidth={32}
           width={32}
         >
-          <RNSVGGroup>
+          <RNSVGGroup
+            fill={
+              {
+                "payload": 4278190080,
+                "type": 0,
+              }
+            }
+          >
             <RNSVGPath
               d="M31.521 19.87c-2.137 8.572-10.82 13.788-19.393 11.651C3.558 29.384-1.659 20.702.479 12.131 2.616 3.56 11.298-1.659 19.87.48c8.573 2.137 13.79 10.82 11.652 19.392z"
               fill={
