@@ -142,7 +142,14 @@ exports[`Batch Card should match snapshot 1`] = `
               vbWidth={32}
               width={24}
             >
-              <RNSVGGroup>
+              <RNSVGGroup
+                fill={
+                  {
+                    "payload": 4278190080,
+                    "type": 0,
+                  }
+                }
+              >
                 <RNSVGCircle
                   cx="16"
                   cy="16"
@@ -358,7 +365,14 @@ exports[`Batch Card should match snapshot 1`] = `
               vbWidth={32}
               width={16}
             >
-              <RNSVGGroup>
+              <RNSVGGroup
+                fill={
+                  {
+                    "payload": 4278190080,
+                    "type": 0,
+                  }
+                }
+              >
                 <RNSVGPath
                   d="M32 15.9908C32 24.8268 24.836 31.9908 16 31.9908C7.164 31.9908 0 24.8268 0 15.9908C0 7.15484 7.164 -0.00915527 16 -0.00915527C24.836 -0.00915527 32 7.15484 32 15.9908Z"
                   fill={

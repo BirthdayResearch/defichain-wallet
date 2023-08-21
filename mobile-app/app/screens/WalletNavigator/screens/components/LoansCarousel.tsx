@@ -110,7 +110,7 @@ export function LoansCarousel({
           "bg-mono-light-v2-100": isLight,
         },
         { "-mt-0.5": Platform.OS === "ios" },
-        { "-mt-1": Platform.OS === "android" }
+        { "-mt-1": Platform.OS === "android" },
       )}
       testID="loans_carousel"
     >
@@ -146,7 +146,9 @@ export function LoansCarousel({
               dismissModal={dismissModal}
             />
           )}
-          renderItem={({ item }) => <View style={{ width }}>{item}</View>}
+          renderItem={({ item }) => (
+            <View style={{ width: Number(width) }}>{item}</View>
+          )}
           showPagination
         />
       </View>

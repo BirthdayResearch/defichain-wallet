@@ -202,7 +202,6 @@ exports[`LoansFaq FAQ V2 screen should match snapshot 1`] = `
             >
               <View
                 collapsable={false}
-                forwardedRef={[Function]}
                 onLayout={[Function]}
                 style={{}}
               >
@@ -367,7 +366,6 @@ exports[`LoansFaq FAQ V2 screen should match snapshot 1`] = `
             >
               <View
                 collapsable={false}
-                forwardedRef={[Function]}
                 onLayout={[Function]}
                 style={{}}
               >
@@ -759,7 +757,6 @@ exports[`LoansFaq FAQ V2 screen should match snapshot 1`] = `
             >
               <View
                 collapsable={false}
-                forwardedRef={[Function]}
                 onLayout={[Function]}
                 style={{}}
               >
@@ -1333,7 +1330,6 @@ exports[`LoansFaq FAQ V2 screen should match snapshot 1`] = `
             >
               <View
                 collapsable={false}
-                forwardedRef={[Function]}
                 onLayout={[Function]}
                 style={{}}
               >
@@ -1661,7 +1657,6 @@ exports[`LoansFaq FAQ V2 screen should match snapshot 1`] = `
             >
               <View
                 collapsable={false}
-                forwardedRef={[Function]}
                 onLayout={[Function]}
                 style={{}}
               >
@@ -1822,7 +1817,6 @@ exports[`LoansFaq FAQ V2 screen should match snapshot 1`] = `
             >
               <View
                 collapsable={false}
-                forwardedRef={[Function]}
                 onLayout={[Function]}
                 style={{}}
               >
