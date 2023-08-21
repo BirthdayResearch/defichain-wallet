@@ -1,4 +1,4 @@
-import Svg, { SvgProps, Path } from "react-native-svg";
+import Svg, { SvgProps, Path, G, Defs, Rect } from "react-native-svg";
 
 export function DOT(props: SvgProps): JSX.Element {
   return (
@@ -9,7 +9,7 @@ export function DOT(props: SvgProps): JSX.Element {
         d="M0 18C0 8.05891 8.05891 0 18 0C27.9411 0 36 8.05891 36 18C36 27.9411 27.9411 36 18 36C8.05891 36 0 27.9411 0 18Z"
         fill="#E6007A"
       />
-      <g clipPath="url(#clip0_7705_27256)">
+      <G clipPath="url(#clip0_7705_27256)">
         <Path
           d="M17.9992 11.4612C20.1174 11.4612 21.8346 10.4625 21.8346 9.2306C21.8346 7.99867 20.1174 7 17.9992 7C15.8811 7 14.1639 7.99867 14.1639 9.2306C14.1639 10.4625 15.8811 11.4612 17.9992 11.4612Z"
           fill="white"
@@ -34,17 +34,17 @@ export function DOT(props: SvgProps): JSX.Element {
           d="M27.1952 16.7547C28.2621 16.1387 28.2684 14.1524 27.2093 12.318C26.1502 10.4837 24.4268 9.49597 23.3599 10.1119C22.2931 10.7279 22.2868 12.7143 23.3459 14.5486C24.405 16.383 26.1284 17.3706 27.1952 16.7547Z"
           fill="white"
         />
-      </g>
-      <defs>
+      </G>
+      <Defs>
         <clipPath id="clip0_7705_27256">
-          <rect
+          <Rect
             width="20"
             height="21.2699"
             fill="white"
             transform="translate(8 7)"
           />
         </clipPath>
-      </defs>
+      </Defs>
     </Svg>
   );
 }
