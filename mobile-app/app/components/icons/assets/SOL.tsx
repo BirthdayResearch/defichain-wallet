@@ -1,4 +1,4 @@
-import Svg, { Stop, Path, SvgProps } from "react-native-svg";
+import Svg, { Stop, Path, SvgProps, G, Defs, Rect } from "react-native-svg";
 
 export function SOL(props: SvgProps): JSX.Element {
   return (
@@ -9,7 +9,7 @@ export function SOL(props: SvgProps): JSX.Element {
         d="M0 18C0 8.05891 8.05891 0 18 0C27.9411 0 36 8.05891 36 18C36 27.9411 27.9411 36 18 36C8.05891 36 0 27.9411 0 18Z"
         fill="#0C192B"
       />
-      <g clipPath="url(#clip0_7705_27225)">
+      <G clipPath="url(#clip0_7705_27225)">
         <Path
           d="M11.2487 21.9638C11.3694 21.8431 11.5353 21.7727 11.7113 21.7727H27.6731C27.9648 21.7727 28.1106 22.1247 27.9045 22.3309L24.7513 25.484C24.6306 25.6047 24.4647 25.6751 24.2887 25.6751H8.32688C8.0352 25.6751 7.88936 25.3231 8.09555 25.1169L11.2487 21.9638Z"
           fill="url(#paint0_linear_7705_27225)"
@@ -22,8 +22,8 @@ export function SOL(props: SvgProps): JSX.Element {
           d="M24.7513 16.0397C24.6306 15.919 24.4647 15.8486 24.2887 15.8486H8.32688C8.0352 15.8486 7.88936 16.2007 8.09555 16.4068L11.2487 19.56C11.3694 19.6807 11.5353 19.7511 11.7113 19.7511H27.6731C27.9648 19.7511 28.1106 19.399 27.9045 19.1929L24.7513 16.0397Z"
           fill="url(#paint2_linear_7705_27225)"
         />
-      </g>
-      <defs>
+      </G>
+      <Defs>
         <linearGradient
           id="paint0_linear_7705_27225"
           x1="26.1483"
@@ -58,14 +58,14 @@ export function SOL(props: SvgProps): JSX.Element {
           <Stop offset="1" stopColor="#DC1FFF" />
         </linearGradient>
         <clipPath id="clip0_7705_27225">
-          <rect
+          <Rect
             width="20"
             height="15.6751"
             fill="white"
             transform="translate(8 10)"
           />
         </clipPath>
-      </defs>
+      </Defs>
     </Svg>
   );
 }

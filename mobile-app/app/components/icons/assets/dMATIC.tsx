@@ -1,4 +1,4 @@
-import Svg, { G, Path, SvgProps } from "react-native-svg";
+import Svg, { G, Path, SvgProps, Defs } from "react-native-svg";
 
 export function dMATIC(props: SvgProps): JSX.Element {
   return (
@@ -15,7 +15,7 @@ export function dMATIC(props: SvgProps): JSX.Element {
           fill="#8247E5"
         />
       </G>
-      <defs>
+      <Defs>
         <clipPath id="clip0_7700_19">
           <rect
             width="22"
@@ -24,7 +24,7 @@ export function dMATIC(props: SvgProps): JSX.Element {
             transform="translate(7 8)"
           />
         </clipPath>
-      </defs>
+      </Defs>
     </Svg>
   );
 }
