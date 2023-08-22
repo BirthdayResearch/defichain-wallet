@@ -1,8 +1,8 @@
-import Svg, { Rect, Path, SvgProps, Defs, G } from "react-native-svg";
+import Svg, { Rect, Path, SvgProps, Defs, G, ClipPath } from "react-native-svg";
 
 export function MATIC(props: SvgProps): JSX.Element {
   return (
-    <Svg width="36" height="36" viewBox="0 0 36 36" fill="none" {...props}>
+    <Svg width="32" height="32" viewBox="0 0 32 32" fill="none" {...props}>
       <Path
         fillRule="evenodd"
         clipRule="evenodd"
@@ -16,14 +16,14 @@ export function MATIC(props: SvgProps): JSX.Element {
         />
       </G>
       <Defs>
-        <clipPath id="clip0_7700_5237">
+        <ClipPath id="clip0_7700_5237">
           <Rect
             width="22"
             height="19.1927"
             fill="white"
             transform="translate(7 8)"
           />
-        </clipPath>
+        </ClipPath>
       </Defs>
     </Svg>
   );

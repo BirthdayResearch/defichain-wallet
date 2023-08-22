@@ -1,8 +1,8 @@
-import Svg, { SvgProps, Path, G, Defs, Rect } from "react-native-svg";
+import Svg, { SvgProps, Path, G, Defs, Rect, ClipPath } from "react-native-svg";
 
 export function DOT(props: SvgProps): JSX.Element {
   return (
-    <Svg width="36" height="36" viewBox="0 0 36 36" fill="none" {...props}>
+    <Svg width="32" height="32" viewBox="0 0 32 32" fill="none" {...props}>
       <Path
         fillRule="evenodd"
         clipRule="evenodd"
@@ -36,14 +36,14 @@ export function DOT(props: SvgProps): JSX.Element {
         />
       </G>
       <Defs>
-        <clipPath id="clip0_7705_27256">
+        <ClipPath id="clip0_7705_27256">
           <Rect
             width="20"
             height="21.2699"
             fill="white"
             transform="translate(8 7)"
           />
-        </clipPath>
+        </ClipPath>
       </Defs>
     </Svg>
   );

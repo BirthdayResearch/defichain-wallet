@@ -6,11 +6,12 @@ import Svg, {
   Defs,
   Rect,
   LinearGradient,
+  ClipPath,
 } from "react-native-svg";
 
 export function SOL(props: SvgProps): JSX.Element {
   return (
-    <Svg width="36" height="36" viewBox="0 0 36 36" fill="none" {...props}>
+    <Svg width="32" height="32" viewBox="0 0 32 32" fill="none" {...props}>
       <Path
         fillRule="evenodd"
         clipRule="evenodd"
@@ -65,14 +66,14 @@ export function SOL(props: SvgProps): JSX.Element {
           <Stop stopColor="#00FFA3" />
           <Stop offset="1" stopColor="#DC1FFF" />
         </LinearGradient>
-        <clipPath id="clip0_7705_27225">
+        <ClipPath id="clip0_7705_27225">
           <Rect
             width="20"
             height="15.6751"
             fill="white"
             transform="translate(8 10)"
           />
-        </clipPath>
+        </ClipPath>
       </Defs>
     </Svg>
   );
