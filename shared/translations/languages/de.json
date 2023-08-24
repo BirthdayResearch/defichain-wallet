@@ -354,7 +354,7 @@
     "Convert {{amount}} DFI to {{target}}": "Wandle {{amount}} DFI in {{target}} um",
     "Converting": "Umwandeln",
     "Converted": "Umgewandelt",
-    "Convert {{amount}} {{symbolA}} to {{symbolB}} tokens": "{amount}} {{symbolA}}-Token in {{symbolB}}-Token umwandeln"
+    "Convert {{amount}} {{symbolA}} to {{symbolB}} tokens": "{{amount}} {{symbolA}}-Token in {{symbolB}}-Token umwandeln"
   },
   "screens/SettingsNavigator": {
     "Settings": "Einstellungen"
