@@ -1,9 +1,10 @@
 import { useSelector } from "react-redux";
 import { RootState } from "@store";
+import { selectAllLabeledWalletAddress } from "@store/userPreferences";
 
 export function useAddressLabel(address: string): string | null {
-  const addresses = useSelector(
-    (state: RootState) => state.userPreferences?.addresses
+  const addresses = useSelector((state: RootState) =>
+    selectAllLabeledWalletAddress(state.userPreferences),
   );
   let label = null;
   if (addresses?.[address] != null) {

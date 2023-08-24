@@ -13,12 +13,16 @@ import { WalletTextInputV2 } from "@components/WalletTextInputV2";
 import { Control, Controller } from "react-hook-form";
 import { NetworkName } from "@defichain/jellyfish-network";
 import { fromAddress } from "@defichain/jellyfish-address";
-import { LocalAddress } from "@store/userPreferences";
+import {
+  LocalAddress,
+  WhitelistedAddress,
+  selectAllLabeledWalletAddress,
+} from "@store/userPreferences";
 import { debounce } from "lodash";
 import { useEffect, useMemo, useState } from "react";
 import { useSelector } from "react-redux";
 import { RootState } from "@store";
-import { useWalletAddress } from "@hooks/useWalletAddress";
+import { WalletAddressI, useWalletAddress } from "@hooks/useWalletAddress";
 
 export function AddressRow({
   control,
@@ -44,7 +48,9 @@ export function AddressRow({
   inputFooter?: React.ReactElement;
   title: string;
   address: string;
-  onMatchedAddress?: (matchedAddress?: LocalAddress) => void;
+  onMatchedAddress?: (
+    matchedAddress?: LocalAddress | WhitelistedAddress,
+  ) => void;
   onAddressType?: (addressType?: AddressType) => void;
   showQrButton?: boolean;
   onlyLocalAddress?: boolean;
@@ -54,16 +60,18 @@ export function AddressRow({
   const defaultValue = "";
 
   const addressBook = useSelector(
-    (state: RootState) => state.userPreferences.addressBook
+    (state: RootState) => state.userPreferences.addressBook,
   );
-  const walletAddress = useSelector(
-    (state: RootState) => state.userPreferences.addresses
+  const walletAddress = useSelector((state: RootState) =>
+    selectAllLabeledWalletAddress(state.userPreferences),
   );
 
   const [jellyfishWalletAddress, setJellyfishWalletAddresses] = useState<
-    string[]
+    WalletAddressI[]
   >([]);
-  const [matchedAddress, setMatchedAddress] = useState<LocalAddress>();
+  const [matchedAddress, setMatchedAddress] = useState<
+    LocalAddress | WhitelistedAddress
+  >();
   const [addressType, setAddressType] = useState<AddressType>();
   const validLocalAddress = useMemo(() => {
     if (address === "") {
@@ -90,27 +98,29 @@ export function AddressRow({
     ) {
       setMatchedAddress(walletAddress[address]);
       setAddressType(AddressType.WalletAddress);
-    } else if (
-      address !== undefined &&
-      jellyfishWalletAddress.includes(address)
-    ) {
-      // wallet address that does not have a label
-      setMatchedAddress({
-        address,
-        label: "",
-        isMine: true,
-      });
-      setAddressType(AddressType.WalletAddress);
     } else {
-      setMatchedAddress(undefined);
-      if (onlyLocalAddress) {
-        setAddressType(undefined);
+      const addressObj = jellyfishWalletAddress.find(
+        (e: WalletAddressI) => e.dvm === address || e.evm === address,
+      );
+      if (address !== undefined && addressObj) {
+        // wallet address that does not have a label
+        setMatchedAddress({
+          address: addressObj.dvm,
+          evmAddress: addressObj.evm,
+          label: "",
+        });
+        setAddressType(AddressType.WalletAddress);
       } else {
-        setAddressType(
-          fromAddress(address, networkName) !== undefined
-            ? AddressType.OthersButValid
-            : undefined
-        );
+        setMatchedAddress(undefined);
+        if (onlyLocalAddress) {
+          setAddressType(undefined);
+        } else {
+          setAddressType(
+            fromAddress(address, networkName) !== undefined
+              ? AddressType.OthersButValid
+              : undefined,
+          );
+        }
       }
     }
   }, 200);
@@ -120,8 +130,8 @@ export function AddressRow({
   }, [address, addressBook]);
 
   useEffect(() => {
-    void fetchWalletAddresses().then((walletAddresses) =>
-      setJellyfishWalletAddresses(walletAddresses)
+    fetchWalletAddresses().then((walletAddresses) =>
+      setJellyfishWalletAddresses(walletAddresses),
     );
   }, [fetchWalletAddresses]);
 
@@ -215,7 +225,7 @@ export function AddressRow({
                 >
                   {translate(
                     "screens/SendScreen",
-                    "Invalid address. Make sure the address is correct to avoid irrecoverable losses"
+                    "Invalid address. Make sure the address is correct to avoid irrecoverable losses",
                   )}
                 </ThemedTextV2>
               )}
@@ -263,7 +273,7 @@ export function AddressRow({
                   {
                     "px-1": addressType === AddressType.WalletAddress,
                     "px-2": addressType === AddressType.Whitelisted,
-                  }
+                  },
                 )}
                 light={tailwind("bg-mono-light-v2-200")}
                 dark={tailwind("bg-mono-dark-v2-200")}
@@ -279,6 +289,7 @@ export function AddressRow({
                   numberOfLines={1}
                   style={[
                     tailwind("text-xs font-normal-v2"),
+                    // eslint-disable-next-line react-native/no-inline-styles
                     {
                       minWidth: 10,
                       maxWidth: 108,

@@ -45,9 +45,8 @@ interface PortfolioButtonGroup {
 export function TotalPortfolio(props: TotalPortfolioProps): JSX.Element {
   const { hasFetchedToken } = useSelector((state: RootState) => state.wallet);
   const { domain } = useDomainContext();
-  const isEvmDomain = domain !== DomainType.DFI;
   const { hasFetchedVaultsData } = useSelector(
-    (state: RootState) => state.loans
+    (state: RootState) => state.loans,
   );
   const [isExpanded, setIsExpanded] = useState<boolean>(false);
   const denominationCurrency = props.denominationCurrency; // for 'BTC' or 'DFI' denomination
@@ -55,13 +54,13 @@ export function TotalPortfolio(props: TotalPortfolioProps): JSX.Element {
     0,
     new BigNumber(props.totalAvailableValue)
       .plus(props.totalLockedValue)
-      .minus(props.totalLoansValue)
+      .minus(props.totalLoansValue),
   );
   const [activeButtonGroup, setActiveButtonGroup] =
     useState<PortfolioButtonGroup>();
   const onCurrencySwitch = (): void => {
     const activeIndex = props.portfolioButtonGroup.findIndex(
-      (tab) => tab.id === props.denominationCurrency
+      (tab) => tab.id === props.denominationCurrency,
     );
     let nextIndex = activeIndex + 1;
     if (activeIndex === props.portfolioButtonGroup.length - 1) {
@@ -73,8 +72,8 @@ export function TotalPortfolio(props: TotalPortfolioProps): JSX.Element {
   useEffect(() => {
     setActiveButtonGroup(
       props.portfolioButtonGroup.find(
-        (button) => button.id === props.denominationCurrency
-      )
+        (button) => button.id === props.denominationCurrency,
+      ),
     );
   }, [props.denominationCurrency]);
 
@@ -104,7 +103,7 @@ export function TotalPortfolio(props: TotalPortfolioProps): JSX.Element {
                 <BalanceTextV2
                   style={[
                     tailwind(
-                      "font-semibold-v2 mr-2 flex flex-row items-center"
+                      "font-semibold-v2 mr-2 flex flex-row items-center",
                     ),
                     { fontSize: 28, lineHeight: 36 },
                   ]}
@@ -124,7 +123,7 @@ export function TotalPortfolio(props: TotalPortfolioProps): JSX.Element {
               }
             />
           </TouchableOpacity>
-          {domain === DomainType.DFI && (
+          {domain === DomainType.DVM && (
             <TouchableOpacity
               activeOpacity={0.7}
               onPress={() => setIsExpanded(!isExpanded)}

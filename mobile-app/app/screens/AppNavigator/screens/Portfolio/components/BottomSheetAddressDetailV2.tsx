@@ -40,7 +40,8 @@ import { useAddressLabel } from "@hooks/useAddressLabel";
 import { useAppDispatch } from "@hooks/useAppDispatch";
 import { openURL } from "@api/linking";
 import { ThemedFlatListV2 } from "@components/themed/ThemedFlatListV2";
-import { useWalletAddress } from "@hooks/useWalletAddress";
+import { WalletAddressI, useWalletAddress } from "@hooks/useWalletAddress";
+import { DomainType, useDomainContext } from "@contexts/DomainContext";
 import { RandomAvatar } from "./RandomAvatar";
 
 interface BottomSheetAddressDetailProps {
@@ -56,7 +57,7 @@ interface BottomSheetAddressDetailProps {
 }
 
 export const BottomSheetAddressDetailV2 = (
-  props: BottomSheetAddressDetailProps
+  props: BottomSheetAddressDetailProps,
 ): React.MemoExoticComponent<() => JSX.Element> =>
   memo(() => {
     const { isLight } = useThemeContext();
@@ -78,23 +79,26 @@ export const BottomSheetAddressDetailV2 = (
     const toast = useToast();
     const [showToast, setShowToast] = useState(false);
     const TOAST_DURATION = 2000;
-    const [availableAddresses, setAvailableAddresses] = useState<string[]>([]);
+    const [availableAddresses, setAvailableAddresses] = useState<
+      WalletAddressI[]
+    >([]);
     const [canCreateAddress, setCanCreateAddress] = useState<boolean>(false);
     const { fetchWalletAddresses } = useWalletAddress();
     const logger = useLogger();
     const dispatch = useAppDispatch();
+    const { domain } = useDomainContext();
     const blockCount = useSelector((state: RootState) => state.block.count);
     const hasPendingJob = useSelector((state: RootState) =>
-      hasTxQueued(state.transactionQueue)
+      hasTxQueued(state.transactionQueue),
     );
     const hasPendingBroadcastJob = useSelector((state: RootState) =>
-      hasOceanTXQueued(state.ocean)
+      hasOceanTXQueued(state.ocean),
     );
     const navigation =
       useNavigation<NavigationProp<BottomSheetWithNavRouteParam>>();
     const { network } = useNetworkContext();
     const userPreferences = useSelector(
-      (state: RootState) => state.userPreferences
+      (state: RootState) => state.userPreferences,
     );
     const labeledAddresses = userPreferences.addresses;
     const activeLabel = useAddressLabel(props.address);
@@ -108,7 +112,7 @@ export const BottomSheetAddressDetailV2 = (
         setShowToast(true);
         setTimeout(() => setShowToast(false), TOAST_DURATION);
       }, 500),
-      [showToast]
+      [showToast],
     );
 
     useEffect(() => {
@@ -164,7 +168,7 @@ export const BottomSheetAddressDetailV2 = (
           >
             {translate(
               "components/BottomSheetAddressDetail",
-              "Create wallet address"
+              "Create wallet address",
             )}
           </ThemedTextV2>
         </ThemedTouchableOpacityV2>
@@ -189,17 +193,23 @@ export const BottomSheetAddressDetailV2 = (
 
     const AddressListItem = useCallback(
       // eslint-disable-next-line react/no-unused-prop-types
-      ({ item, index }: { item: string; index: number }): JSX.Element => {
-        const isSelected = item === props.address;
+      ({
+        item,
+        index,
+      }: {
+        item: WalletAddressI;
+        index: number;
+      }): JSX.Element => {
+        const isSelected = item.dvm === props.address;
         const hasLabel =
-          labeledAddresses?.[item]?.label != null &&
-          labeledAddresses?.[item]?.label !== "";
-
+          labeledAddresses?.[item.dvm]?.label != null &&
+          labeledAddresses?.[item.dvm]?.label !== "";
+        const displayAddress = domain === DomainType.EVM ? item.evm : item.dvm;
         return (
           <ThemedTouchableOpacityV2
-            key={item}
+            key={item.dvm}
             style={tailwind(
-              "px-5 py-4.5 flex flex-row items-center justify-between border-0 mx-5 rounded-lg-v2 h-20"
+              "px-5 py-4.5 flex flex-row items-center justify-between border-0 mx-5 rounded-lg-v2 h-20",
             )}
             dark={tailwind("bg-mono-dark-v2-00")}
             light={tailwind("bg-mono-light-v2-00")}
@@ -214,7 +224,7 @@ export const BottomSheetAddressDetailV2 = (
                 "flex-auto": Platform.OS === "web",
               })}
             >
-              <RandomAvatar name={item} size={36} />
+              <RandomAvatar name={item.dvm} size={36} />
               <View style={tailwind("ml-3 flex-auto")}>
                 {hasLabel && (
                   <View style={tailwind("flex-row items-center")}>
@@ -223,7 +233,7 @@ export const BottomSheetAddressDetailV2 = (
                       testID={`list_address_label_${item}`}
                       numberOfLines={1}
                     >
-                      {labeledAddresses[item]?.label}
+                      {labeledAddresses[item.dvm]?.label}
                     </ThemedTextV2>
                     {isSelected && (
                       <ThemedIcon
@@ -233,7 +243,7 @@ export const BottomSheetAddressDetailV2 = (
                         light={tailwind("text-green-v2")}
                         dark={tailwind("text-green-v2")}
                         style={tailwind("ml-1")}
-                        testID={`address_active_indicator_${item}`}
+                        testID={`address_active_indicator_${displayAddress}`}
                       />
                     )}
                   </View>
@@ -247,14 +257,16 @@ export const BottomSheetAddressDetailV2 = (
                       light={tailwind("text-green-v2")}
                       dark={tailwind("text-green-v2")}
                       style={tailwind("mr-1")}
-                      testID={`address_active_indicator_${item}`}
+                      testID={`address_active_indicator_${displayAddress}`}
                     />
                   )}
                   <ThemedTouchableOpacityV2
-                    onPress={async () => await openURL(getAddressUrl(item))}
+                    onPress={async () =>
+                      await openURL(getAddressUrl(displayAddress))
+                    }
                     disabled={!isSelected}
                     style={tailwind(
-                      "border-0 flex flex-1 flex-row items-center"
+                      "border-0 flex flex-1 flex-row items-center",
                     )}
                   >
                     <ThemedTextV2
@@ -265,7 +277,7 @@ export const BottomSheetAddressDetailV2 = (
                       numberOfLines={1}
                       testID={`address_row_text_${index}`}
                     >
-                      {item}
+                      {displayAddress}
                     </ThemedTextV2>
                     {isSelected && (
                       <ThemedIcon
@@ -287,10 +299,11 @@ export const BottomSheetAddressDetailV2 = (
                     name: props.navigateToScreen.screenName,
                     params: {
                       title: "Edit wallet label",
-                      isAddressBook: false,
-                      address: item,
+                      address: item.dvm,
                       addressLabel:
-                        labeledAddresses != null ? labeledAddresses[item] : "",
+                        labeledAddresses != null
+                          ? labeledAddresses[item.dvm]
+                          : "",
                       index: index + 1,
                       type: "edit",
                       onSaveButtonPress: (labelAddress: LabeledAddress) => {
@@ -306,7 +319,7 @@ export const BottomSheetAddressDetailV2 = (
                                 ...userPreferences,
                                 addresses,
                               },
-                            })
+                            }),
                           );
                         });
                         navigation.goBack();
@@ -315,7 +328,7 @@ export const BottomSheetAddressDetailV2 = (
                     merge: true,
                   });
                 }}
-                testID={`address_edit_indicator_${item}`}
+                testID={`address_edit_indicator_${displayAddress}`}
               >
                 <ThemedIcon
                   size={16}
@@ -329,10 +342,13 @@ export const BottomSheetAddressDetailV2 = (
           </ThemedTouchableOpacityV2>
         );
       },
-      [labeledAddresses]
+      [labeledAddresses, domain],
     );
 
     const AddressDetailHeader = useCallback(() => {
+      const activeAddress = availableAddresses.find(
+        ({ dvm }) => dvm === props.address,
+      );
       return (
         <ThemedViewV2
           style={tailwind("flex flex-col w-full px-5 py-2 items-center")}
@@ -351,12 +367,16 @@ export const BottomSheetAddressDetailV2 = (
             </View>
           )}
           <ActiveAddress
-            address={props.address}
+            address={
+              (domain === DomainType.DVM
+                ? activeAddress?.dvm
+                : activeAddress?.evm) ?? ""
+            }
             onPress={onActiveAddressPress}
           />
           <View
             style={tailwind(
-              "mt-12 px-5 flex flex-row items-center justify-between w-full"
+              "mt-12 px-5 flex flex-row items-center justify-between w-full",
             )}
           >
             <WalletCounterDisplay />
@@ -364,11 +384,11 @@ export const BottomSheetAddressDetailV2 = (
           </View>
         </ThemedViewV2>
       );
-    }, [props, addressLength, activeLabel]);
+    }, [props, addressLength, activeLabel, domain, availableAddresses]);
 
     return (
       <FlatList
-        keyExtractor={(item) => item}
+        keyExtractor={(item) => item.dvm}
         stickyHeaderIndices={[0]}
         style={tailwind({
           "bg-mono-dark-v2-100": !isLight,

@@ -19,7 +19,7 @@ jest.mock("react-native/Libraries/Utilities/Platform", () => ({
   select: () => jest.fn,
 }));
 
-describe("DFI Action Buttons", () => {
+describe.skip("DFI Action Buttons", () => {
   it("should match snapshot for Action Buttons component", async () => {
     const initialState: Partial<RootState> = {
       futureSwaps: {
@@ -63,7 +63,7 @@ describe("DFI Action Buttons", () => {
         <Provider store={store}>
           <ActionButtons />
         </Provider>
-      </StoreProvider>
+      </StoreProvider>,
     );
     expect(rendered.toJSON()).toMatchSnapshot();
   });

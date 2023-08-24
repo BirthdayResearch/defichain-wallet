@@ -3,6 +3,7 @@ import { RootState } from "@store";
 import { userPreferences } from "@store/userPreferences";
 import { render } from "@testing-library/react-native";
 import { Provider } from "react-redux";
+import { DomainType } from "@contexts/DomainContext";
 import { AddressSelectionButton } from "./AddressSelectionButton";
 
 describe("Address Selection Button", () => {
@@ -13,15 +14,15 @@ describe("Address Selection Button", () => {
         addresses: {
           foo: {
             address: "foo",
+            evmAddress: "",
             label: "foo",
-            isMine: true,
           },
         },
         addressBook: {
           bar: {
             address: "bar",
             label: "bar",
-            isMine: false,
+            addressDomainType: DomainType.DVM,
           },
         },
       },
@@ -39,7 +40,7 @@ describe("Address Selection Button", () => {
           onPress={onPress}
           hasCount
         />
-      </Provider>
+      </Provider>,
     );
 
     expect(rendered.toJSON()).toMatchSnapshot();

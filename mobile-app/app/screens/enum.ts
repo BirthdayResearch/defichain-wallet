@@ -5,9 +5,9 @@ export enum ScreenName {
   AUCTIONS_screen = "AuctionsScreen",
 }
 
-export enum ConversionMode {
+export enum ConvertDirection {
+  evmToDvm = "evmToDvm",
+  dvmToEvm = "dvmToEvm",
   utxosToAccount = "utxosToAccount",
   accountToUtxos = "accountToUtxos",
-  evmToAccount = "evmToAccount",
-  accountToEvm = "accountToEvm",
 }

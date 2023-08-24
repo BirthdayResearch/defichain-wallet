@@ -6,17 +6,12 @@ import {
   CTransactionSegWit,
   TransactionSegWit,
 } from "@defichain/jellyfish-transaction";
-
-export type ConversionMode =
-  | "utxosToAccount"
-  | "accountToUtxos"
-  | "evmToAccount"
-  | "accountToEvm";
+import { ConvertDirection } from "@screens/enum";
 
 export async function dfiConversionSigner(
   account: WhaleWalletAccount,
   amount: BigNumber,
-  mode: ConversionMode
+  mode: ConvertDirection,
 ): Promise<CTransactionSegWit> {
   const script = await account.getScript();
   const builder = account.withTransactionBuilder();
@@ -36,7 +31,7 @@ export async function dfiConversionSigner(
           },
         ],
       },
-      script
+      script,
     );
   } else {
     signed = await builder.account.accountToUtxos(
@@ -50,7 +45,7 @@ export async function dfiConversionSigner(
         ],
         mintingOutputsStart: 2, // 0: DfTx, 1: change, 2: minted utxos (mandated by jellyfish-tx)
       },
-      script
+      script,
     );
   }
   return new CTransactionSegWit(signed);
@@ -58,47 +53,55 @@ export async function dfiConversionSigner(
 
 export function dfiConversionCrafter(
   amount: BigNumber,
-  mode: ConversionMode,
+  convertDirection: ConvertDirection,
   onBroadcast: () => any,
   onConfirmation: () => void,
-  submitButtonLabel?: string
+  submitButtonLabel?: string,
 ): DfTxSigner {
+  if (
+    ![
+      ConvertDirection.accountToUtxos,
+      ConvertDirection.utxosToAccount,
+    ].includes(convertDirection)
+  ) {
+    throw new Error("Unexpected DFI conversion");
+  }
+
   const [symbolA, symbolB] =
-    mode === "utxosToAccount"
-      ? ["UTXO", translate("screens/OceanInterface", "tokens")]
-      : [translate("screens/OceanInterface", "tokens"), "UTXO"];
+    convertDirection === ConvertDirection.utxosToAccount
+      ? ["UTXO", translate("screens/OceanInterface", "DFI")]
+      : [translate("screens/OceanInterface", "DFI"), "UTXO"];
   return {
     sign: async (account: WhaleWalletAccount) =>
-      await dfiConversionSigner(account, amount, mode),
+      await dfiConversionSigner(account, amount, convertDirection),
     title: translate(
       "screens/ConvertConfirmScreen",
-      "Convert {{amount}} DFI to {{target}}",
+      "Convert {{amount}} {{symbolA}} to {{symbolB}} tokens",
       {
         amount: amount.toFixed(8),
-        target:
-          mode === "utxosToAccount"
-            ? translate("screens/ConvertScreen", "tokens")
-            : "UTXO",
-      }
+        symbolA,
+        symbolB,
+      },
     ),
     drawerMessages: {
       preparing: translate("screens/OceanInterface", "Preparing to convert…"),
       waiting: translate(
         "screens/OceanInterface",
-        "Converting {{amount}} DFI {{symbolA}} to {{symbolB}}",
+        "Converting {{amount}} {{symbolA}} to {{symbolB}} tokens",
         {
           symbolA: symbolA,
           symbolB: symbolB,
           amount: amount.toFixed(8),
-        }
+        },
       ),
       complete: translate(
         "screens/OceanInterface",
-        "{{amount}} DFI converted to {{symbolB}}",
+        "{{amount}} {{symbolA}} converted to {{symbolB}} tokens",
         {
-          symbolB: symbolB,
+          symbolA,
+          symbolB,
           amount: amount.toFixed(8),
-        }
+        },
       ),
     },
     onBroadcast,
