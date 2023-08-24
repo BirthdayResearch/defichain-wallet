@@ -18,6 +18,8 @@ import { useTokenPrice } from "@screens/AppNavigator/screens/Portfolio/hooks/Tok
 import { translate } from "@translations";
 import { useThemeContext } from "@waveshq/walletkit-ui";
 import { PortfolioParamList } from "@screens/AppNavigator/screens/Portfolio/PortfolioNavigator";
+import { DomainType, useDomainContext } from "@contexts/DomainContext";
+import { EVMLinearGradient } from "@components/EVMLinearGradient";
 
 export enum TokenListType {
   From = "FROM",
@@ -53,6 +55,7 @@ export function SwapTokenSelectionScreen({ route }: Props): JSX.Element {
 
   const { isLight } = useThemeContext();
   const { getTokenPrice } = useTokenPrice();
+  const { domain } = useDomainContext();
 
   const [searchString, setSearchString] = useState("");
   const [isSearchFocus, setIsSearchFocus] = useState(false);
@@ -95,6 +98,7 @@ export function SwapTokenSelectionScreen({ route }: Props): JSX.Element {
       }: ListRenderItemInfo<SelectionToken>): JSX.Element => {
         return (
           <TokenItem
+            isEVMDomain={domain === DomainType.EVM}
             fromToken={fromToken}
             item={item}
             onPress={() => onTokenPress(item)}
@@ -111,7 +115,7 @@ export function SwapTokenSelectionScreen({ route }: Props): JSX.Element {
             showClearButton={debouncedSearchTerm !== ""}
             placeholder={translate(
               "screens/SwapTokenSelectionScreen",
-              "Search token"
+              "Search token",
             )}
             containerStyle={tailwind([
               "border-0.5",
@@ -153,7 +157,7 @@ export function SwapTokenSelectionScreen({ route }: Props): JSX.Element {
                   ? "AVAILABLE FOR CONVERT"
                   : isFutureSwap
                   ? "AVAILABLE FOR FUTURE SWAP"
-                  : "AVAILABLE FOR SWAP"
+                  : "AVAILABLE FOR SWAP",
               )}
             </ThemedTextV2>
           ) : (
@@ -166,7 +170,7 @@ export function SwapTokenSelectionScreen({ route }: Props): JSX.Element {
               {translate(
                 "screens/SwapTokenSelectionScreen",
                 getEmptyResultText(),
-                { searchTerm: debouncedSearchTerm }
+                { searchTerm: debouncedSearchTerm },
               )}
             </ThemedTextV2>
           )}
@@ -179,7 +183,7 @@ export function SwapTokenSelectionScreen({ route }: Props): JSX.Element {
 type TokenPrice = (
   symbol: string,
   amount: BigNumber,
-  isLPS?: boolean | undefined
+  isLPS?: boolean | undefined,
 ) => BigNumber;
 
 interface TokenItemProps {
@@ -191,6 +195,7 @@ interface TokenItemProps {
   onPress: any;
   getTokenPrice: TokenPrice;
   listType: TokenListType;
+  isEVMDomain: boolean;
 }
 
 function TokenItem({
@@ -199,17 +204,18 @@ function TokenItem({
   onPress,
   getTokenPrice,
   listType,
+  isEVMDomain,
 }: TokenItemProps): JSX.Element {
   const activePriceUSDT = getTokenPrice(
     item.token.symbol,
     new BigNumber("1"),
-    item.token.isLPS
+    item.token.isLPS,
   );
 
   return (
     <ThemedTouchableOpacityV2
       style={tailwind(
-        "flex flex-row p-5 mb-2 border-0 rounded-lg-v2 items-center justify-between"
+        "flex flex-row p-5 mb-2 border-0 rounded-lg-v2 items-center justify-between",
       )}
       light={tailwind("bg-mono-light-v2-00")}
       dark={tailwind("bg-mono-dark-v2-00")}
@@ -217,14 +223,16 @@ function TokenItem({
       testID={`select_${item.token.displaySymbol}`}
     >
       <View style={tailwind("w-6/12 flex flex-row items-center pr-2")}>
-        <TokenIcon
-          testID={`${item.token.displaySymbol}_icon`}
-          token={{
-            isLPS: item.token.isLPS,
-            displaySymbol: item.token.displaySymbol,
-          }}
-          size={36}
-        />
+        <EVMLinearGradient isEVMtoken={isEVMDomain}>
+          <TokenIcon
+            testID={`${item.token.displaySymbol}_icon`}
+            token={{
+              isLPS: item.token.isLPS,
+              displaySymbol: item.token.displaySymbol,
+            }}
+            size={36}
+          />
+        </EVMLinearGradient>
         <TokenNameText
           displaySymbol={
             item.token.displayTextSymbol ?? item.token.displaySymbol
@@ -244,7 +252,7 @@ function TokenItem({
           renderText={(value) => (
             <ThemedTextV2
               style={tailwind(
-                "w-full flex-wrap font-semibold-v2 text-xs text-right"
+                "w-full flex-wrap font-semibold-v2 text-xs text-right",
               )}
               testID={`select_${item.token.displaySymbol}_value`}
             >
@@ -256,7 +264,7 @@ function TokenItem({
           {listType === TokenListType.From ? (
             <ActiveUSDValueV2
               price={new BigNumber(item.available).multipliedBy(
-                activePriceUSDT
+                activePriceUSDT,
               )}
               containerStyle={tailwind("justify-end")}
               style={tailwind("flex-wrap")}
@@ -269,7 +277,7 @@ function TokenItem({
               renderText={(value) => (
                 <ThemedTextV2
                   style={tailwind(
-                    "flex-wrap font-normal-v2 text-xs text-right"
+                    "flex-wrap font-normal-v2 text-xs text-right",
                   )}
                   testID={`select_${item.token.displaySymbol}_sub_value`}
                   light={tailwind("text-mono-light-v2-700")}
@@ -290,14 +298,14 @@ function TokenItem({
 function filterTokensBySearchTerm(
   tokens: SelectionToken[],
   searchTerm: string,
-  isFocused: boolean
+  isFocused: boolean,
 ): SelectionToken[] {
   if (isFocused && searchTerm === "") {
     return [];
   }
   return tokens.filter((t) =>
     [t.token.displaySymbol, t.token.name].some((searchItem) =>
-      searchItem.toLowerCase().includes(searchTerm.trim().toLowerCase())
-    )
+      searchItem.toLowerCase().includes(searchTerm.trim().toLowerCase()),
+    ),
   );
 }

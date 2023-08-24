@@ -6,6 +6,7 @@ import {
 import { getNativeIcon } from "@components/icons/assets";
 import { tailwind } from "@tailwind";
 import { translate } from "@translations";
+import { EVMLinearGradient } from "./EVMLinearGradient";
 
 export enum TokenDropdownButtonStatus {
   Active,
@@ -20,6 +21,7 @@ export function TokenDropdownButton(props: {
   testID: string;
   onPress?: () => void;
   status: TokenDropdownButtonStatus;
+  isEVMtoken?: boolean;
 }): JSX.Element {
   const Icon =
     props.symbol !== undefined ? getNativeIcon(props.symbol) : undefined;
@@ -49,7 +51,10 @@ export function TokenDropdownButton(props: {
       )}
       {props.symbol !== undefined && Icon !== undefined && (
         <>
-          <Icon testID="tokenA_icon" height={24} width={24} />
+          <EVMLinearGradient isEVMtoken={props.isEVMtoken}>
+            <Icon testID="tokenA_icon" height={24} width={24} />
+          </EVMLinearGradient>
+
           <ThemedTextV2
             style={tailwind("ml-2 text-sm font-semibold-v2")}
             dark={tailwind("text-mono-dark-v2-900", {
@@ -73,7 +78,7 @@ export function TokenDropdownButton(props: {
           size={24}
           style={tailwind(
             { "ml-2.5": props.symbol === undefined },
-            { "ml-3.5": props.symbol !== undefined }
+            { "ml-3.5": props.symbol !== undefined },
           )}
           dark={tailwind("text-mono-dark-v2-700")}
           light={tailwind("text-mono-light-v2-700")}
