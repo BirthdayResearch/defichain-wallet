@@ -50,7 +50,14 @@ exports[`Skeleton Loader should match snapshot of address skeleton loader 1`] = 
     vbWidth={400}
     width="100%"
   >
-    <RNSVGGroup>
+    <RNSVGGroup
+      fill={
+        {
+          "payload": 4278190080,
+          "type": 0,
+        }
+      }
+    >
       <RNSVGRect
         clipPath="address-animated-diff"
         fill={
@@ -71,14 +78,32 @@ exports[`Skeleton Loader should match snapshot of address skeleton loader 1`] = 
       />
       <RNSVGDefs>
         <RNSVGClipPath
+          fill={
+            {
+              "payload": 4278190080,
+              "type": 0,
+            }
+          }
           name="address-animated-diff"
         >
           <RNSVGCircle
             cx="35"
             cy="16"
+            fill={
+              {
+                "payload": 4278190080,
+                "type": 0,
+              }
+            }
             r="12"
           />
           <RNSVGRect
+            fill={
+              {
+                "payload": 4278190080,
+                "type": 0,
+              }
+            }
             height="20"
             rx="3"
             ry="3"
@@ -164,7 +189,14 @@ exports[`Skeleton Loader should match snapshot of browse auction skeleton loader
     vbWidth={289}
     width="100%"
   >
-    <RNSVGGroup>
+    <RNSVGGroup
+      fill={
+        {
+          "payload": 4278190080,
+          "type": 0,
+        }
+      }
+    >
       <RNSVGRect
         clipPath="browseAuctions-animated-diff"
         fill={
@@ -185,14 +217,32 @@ exports[`Skeleton Loader should match snapshot of browse auction skeleton loader
       />
       <RNSVGDefs>
         <RNSVGClipPath
+          fill={
+            {
+              "payload": 4278190080,
+              "type": 0,
+            }
+          }
           name="browseAuctions-animated-diff"
         >
           <RNSVGCircle
             cx="16"
             cy="19"
+            fill={
+              {
+                "payload": 4278190080,
+                "type": 0,
+              }
+            }
             r="16"
           />
           <RNSVGRect
+            fill={
+              {
+                "payload": 4278190080,
+                "type": 0,
+              }
+            }
             height="24"
             rx="5"
             ry="5"
@@ -201,6 +251,12 @@ exports[`Skeleton Loader should match snapshot of browse auction skeleton loader
             y="4"
           />
           <RNSVGRect
+            fill={
+              {
+                "payload": 4278190080,
+                "type": 0,
+              }
+            }
             height="12"
             rx="5"
             ry="5"
@@ -209,6 +265,12 @@ exports[`Skeleton Loader should match snapshot of browse auction skeleton loader
             y="30"
           />
           <RNSVGRect
+            fill={
+              {
+                "payload": 4278190080,
+                "type": 0,
+              }
+            }
             height="12"
             rx="3"
             ry="3"
@@ -217,6 +279,12 @@ exports[`Skeleton Loader should match snapshot of browse auction skeleton loader
             y="55"
           />
           <RNSVGRect
+            fill={
+              {
+                "payload": 4278190080,
+                "type": 0,
+              }
+            }
             height="32"
             rx="20"
             ry="20"
@@ -225,6 +293,12 @@ exports[`Skeleton Loader should match snapshot of browse auction skeleton loader
             y="51"
           />
           <RNSVGRect
+            fill={
+              {
+                "payload": 4278190080,
+                "type": 0,
+              }
+            }
             height="12"
             rx="3"
             ry="3"
@@ -300,7 +374,14 @@ exports[`Skeleton Loader should match snapshot of dex price skeleton loader 1`] 
     vbWidth={180}
     width="100%"
   >
-    <RNSVGGroup>
+    <RNSVGGroup
+      fill={
+        {
+          "payload": 4278190080,
+          "type": 0,
+        }
+      }
+    >
       <RNSVGRect
         clipPath="dexPrice-animated-diff"
         fill={
@@ -321,9 +402,21 @@ exports[`Skeleton Loader should match snapshot of dex price skeleton loader 1`] 
       />
       <RNSVGDefs>
         <RNSVGClipPath
+          fill={
+            {
+              "payload": 4278190080,
+              "type": 0,
+            }
+          }
           name="dexPrice-animated-diff"
         >
           <RNSVGRect
+            fill={
+              {
+                "payload": 4278190080,
+                "type": 0,
+              }
+            }
             height="30"
             rx="4"
             ry="4"
@@ -407,7 +500,14 @@ exports[`Skeleton Loader should match snapshot of dex skeleton loader 1`] = `
     vbWidth={335}
     width="100%"
   >
-    <RNSVGGroup>
+    <RNSVGGroup
+      fill={
+        {
+          "payload": 4278190080,
+          "type": 0,
+        }
+      }
+    >
       <RNSVGRect
         clipPath="dex-animated-diff"
         fill={
@@ -428,14 +528,32 @@ exports[`Skeleton Loader should match snapshot of dex skeleton loader 1`] = `
       />
       <RNSVGDefs>
         <RNSVGClipPath
+          fill={
+            {
+              "payload": 4278190080,
+              "type": 0,
+            }
+          }
           name="dex-animated-diff"
         >
           <RNSVGCircle
             cx="35"
             cy="25"
+            fill={
+              {
+                "payload": 4278190080,
+                "type": 0,
+              }
+            }
             r="20"
           />
           <RNSVGRect
+            fill={
+              {
+                "payload": 4278190080,
+                "type": 0,
+              }
+            }
             height="24"
             rx="4"
             ry="4"
@@ -444,6 +562,12 @@ exports[`Skeleton Loader should match snapshot of dex skeleton loader 1`] = `
             y="12"
           />
           <RNSVGRect
+            fill={
+              {
+                "payload": 4278190080,
+                "type": 0,
+              }
+            }
             height="30"
             rx="4"
             ry="4"
@@ -452,6 +576,12 @@ exports[`Skeleton Loader should match snapshot of dex skeleton loader 1`] = `
             y="7"
           />
           <RNSVGRect
+            fill={
+              {
+                "payload": 4278190080,
+                "type": 0,
+              }
+            }
             height="12"
             rx="4"
             ry="4"
@@ -460,6 +590,12 @@ exports[`Skeleton Loader should match snapshot of dex skeleton loader 1`] = `
             y="55"
           />
           <RNSVGRect
+            fill={
+              {
+                "payload": 4278190080,
+                "type": 0,
+              }
+            }
             height="12"
             rx="4"
             ry="4"
@@ -468,6 +604,12 @@ exports[`Skeleton Loader should match snapshot of dex skeleton loader 1`] = `
             y="70"
           />
           <RNSVGRect
+            fill={
+              {
+                "payload": 4278190080,
+                "type": 0,
+              }
+            }
             height="30"
             rx="4"
             ry="4"
@@ -577,7 +719,14 @@ exports[`Skeleton Loader should match snapshot of loan skeleton loader 1`] = `
       vbWidth={163}
       width="100%"
     >
-      <RNSVGGroup>
+      <RNSVGGroup
+        fill={
+          {
+            "payload": 4278190080,
+            "type": 0,
+          }
+        }
+      >
         <RNSVGRect
           clipPath="loan-animated-diff"
           fill={
@@ -598,9 +747,21 @@ exports[`Skeleton Loader should match snapshot of loan skeleton loader 1`] = `
         />
         <RNSVGDefs>
           <RNSVGClipPath
+            fill={
+              {
+                "payload": 4278190080,
+                "type": 0,
+              }
+            }
             name="loan-animated-diff"
           >
             <RNSVGRect
+              fill={
+                {
+                  "payload": 4278190080,
+                  "type": 0,
+                }
+              }
               height="14"
               rx="6"
               ry="6"
@@ -609,6 +770,12 @@ exports[`Skeleton Loader should match snapshot of loan skeleton loader 1`] = `
               y="24"
             />
             <RNSVGRect
+              fill={
+                {
+                  "payload": 4278190080,
+                  "type": 0,
+                }
+              }
               height="12"
               rx="5"
               ry="5"
@@ -617,6 +784,12 @@ exports[`Skeleton Loader should match snapshot of loan skeleton loader 1`] = `
               y="56"
             />
             <RNSVGRect
+              fill={
+                {
+                  "payload": 4278190080,
+                  "type": 0,
+                }
+              }
               height="12"
               rx="6"
               ry="6"
@@ -627,9 +800,21 @@ exports[`Skeleton Loader should match snapshot of loan skeleton loader 1`] = `
             <RNSVGCircle
               cx="26"
               cy="31"
+              fill={
+                {
+                  "payload": 4278190080,
+                  "type": 0,
+                }
+              }
               r="13"
             />
             <RNSVGRect
+              fill={
+                {
+                  "payload": 4278190080,
+                  "type": 0,
+                }
+              }
               height="12"
               rx="6"
               ry="6"
@@ -638,6 +823,12 @@ exports[`Skeleton Loader should match snapshot of loan skeleton loader 1`] = `
               y="100"
             />
             <RNSVGRect
+              fill={
+                {
+                  "payload": 4278190080,
+                  "type": 0,
+                }
+              }
               height="12"
               rx="6"
               ry="6"
@@ -725,7 +916,14 @@ exports[`Skeleton Loader should match snapshot of loan skeleton loader 1`] = `
       vbWidth={163}
       width="100%"
     >
-      <RNSVGGroup>
+      <RNSVGGroup
+        fill={
+          {
+            "payload": 4278190080,
+            "type": 0,
+          }
+        }
+      >
         <RNSVGRect
           clipPath="loan-animated-diff"
           fill={
@@ -746,9 +944,21 @@ exports[`Skeleton Loader should match snapshot of loan skeleton loader 1`] = `
         />
         <RNSVGDefs>
           <RNSVGClipPath
+            fill={
+              {
+                "payload": 4278190080,
+                "type": 0,
+              }
+            }
             name="loan-animated-diff"
           >
             <RNSVGRect
+              fill={
+                {
+                  "payload": 4278190080,
+                  "type": 0,
+                }
+              }
               height="14"
               rx="6"
               ry="6"
@@ -757,6 +967,12 @@ exports[`Skeleton Loader should match snapshot of loan skeleton loader 1`] = `
               y="24"
             />
             <RNSVGRect
+              fill={
+                {
+                  "payload": 4278190080,
+                  "type": 0,
+                }
+              }
               height="12"
               rx="5"
               ry="5"
@@ -765,6 +981,12 @@ exports[`Skeleton Loader should match snapshot of loan skeleton loader 1`] = `
               y="56"
             />
             <RNSVGRect
+              fill={
+                {
+                  "payload": 4278190080,
+                  "type": 0,
+                }
+              }
               height="12"
               rx="6"
               ry="6"
@@ -775,9 +997,21 @@ exports[`Skeleton Loader should match snapshot of loan skeleton loader 1`] = `
             <RNSVGCircle
               cx="26"
               cy="31"
+              fill={
+                {
+                  "payload": 4278190080,
+                  "type": 0,
+                }
+              }
               r="13"
             />
             <RNSVGRect
+              fill={
+                {
+                  "payload": 4278190080,
+                  "type": 0,
+                }
+              }
               height="12"
               rx="6"
               ry="6"
@@ -786,6 +1020,12 @@ exports[`Skeleton Loader should match snapshot of loan skeleton loader 1`] = `
               y="100"
             />
             <RNSVGRect
+              fill={
+                {
+                  "payload": 4278190080,
+                  "type": 0,
+                }
+              }
               height="12"
               rx="6"
               ry="6"
@@ -873,7 +1113,14 @@ exports[`Skeleton Loader should match snapshot of mnemonic word skeleton loader 
     vbWidth={400}
     width="100%"
   >
-    <RNSVGGroup>
+    <RNSVGGroup
+      fill={
+        {
+          "payload": 4278190080,
+          "type": 0,
+        }
+      }
+    >
       <RNSVGRect
         clipPath="mnemonic_word-animated-diff"
         fill={
@@ -894,9 +1141,21 @@ exports[`Skeleton Loader should match snapshot of mnemonic word skeleton loader 
       />
       <RNSVGDefs>
         <RNSVGClipPath
+          fill={
+            {
+              "payload": 4278190080,
+              "type": 0,
+            }
+          }
           name="mnemonic_word-animated-diff"
         >
           <RNSVGRect
+            fill={
+              {
+                "payload": 4278190080,
+                "type": 0,
+              }
+            }
             height="33"
             rx="3"
             ry="3"
@@ -907,6 +1166,12 @@ exports[`Skeleton Loader should match snapshot of mnemonic word skeleton loader 
           <RNSVGCircle
             cx="20"
             cy="20"
+            fill={
+              {
+                "payload": 4278190080,
+                "type": 0,
+              }
+            }
             matrix={
               [
                 1,
@@ -996,7 +1261,14 @@ exports[`Skeleton Loader should match snapshot of mnemonic word skeleton loader 
     vbWidth={328}
     width="100%"
   >
-    <RNSVGGroup>
+    <RNSVGGroup
+      fill={
+        {
+          "payload": 4278190080,
+          "type": 0,
+        }
+      }
+    >
       <RNSVGRect
         clipPath="mnemonic_word_v2-animated-diff"
         fill={
@@ -1017,9 +1289,21 @@ exports[`Skeleton Loader should match snapshot of mnemonic word skeleton loader 
       />
       <RNSVGDefs>
         <RNSVGClipPath
+          fill={
+            {
+              "payload": 4278190080,
+              "type": 0,
+            }
+          }
           name="mnemonic_word_v2-animated-diff"
         >
           <RNSVGRect
+            fill={
+              {
+                "payload": 4278190080,
+                "type": 0,
+              }
+            }
             height="16"
             rx="5"
             ry="5"
@@ -1103,7 +1387,14 @@ exports[`Skeleton Loader should match snapshot of portfolio skeleton loader 1`] 
     vbWidth={328}
     width="100%"
   >
-    <RNSVGGroup>
+    <RNSVGGroup
+      fill={
+        {
+          "payload": 4278190080,
+          "type": 0,
+        }
+      }
+    >
       <RNSVGRect
         clipPath="portfolio_scheme-animated-diff"
         fill={
@@ -1124,14 +1415,32 @@ exports[`Skeleton Loader should match snapshot of portfolio skeleton loader 1`] 
       />
       <RNSVGDefs>
         <RNSVGClipPath
+          fill={
+            {
+              "payload": 4278190080,
+              "type": 0,
+            }
+          }
           name="portfolio_scheme-animated-diff"
         >
           <RNSVGCircle
             cx="38"
             cy="22"
+            fill={
+              {
+                "payload": 4278190080,
+                "type": 0,
+              }
+            }
             r="18"
           />
           <RNSVGRect
+            fill={
+              {
+                "payload": 4278190080,
+                "type": 0,
+              }
+            }
             height="16"
             rx="5"
             ry="5"
@@ -1140,6 +1449,12 @@ exports[`Skeleton Loader should match snapshot of portfolio skeleton loader 1`] 
             y="4"
           />
           <RNSVGRect
+            fill={
+              {
+                "payload": 4278190080,
+                "type": 0,
+              }
+            }
             height="12"
             rx="5"
             ry="5"
@@ -1148,6 +1463,12 @@ exports[`Skeleton Loader should match snapshot of portfolio skeleton loader 1`] 
             y="25"
           />
           <RNSVGRect
+            fill={
+              {
+                "payload": 4278190080,
+                "type": 0,
+              }
+            }
             height="16"
             rx="5"
             ry="5"
@@ -1156,6 +1477,12 @@ exports[`Skeleton Loader should match snapshot of portfolio skeleton loader 1`] 
             y="4"
           />
           <RNSVGRect
+            fill={
+              {
+                "payload": 4278190080,
+                "type": 0,
+              }
+            }
             height="12"
             rx="5"
             ry="5"
@@ -1242,7 +1569,14 @@ exports[`Skeleton Loader should match snapshot of transaction skeleton loader 1`
     vbWidth={344}
     width="100%"
   >
-    <RNSVGGroup>
+    <RNSVGGroup
+      fill={
+        {
+          "payload": 4278190080,
+          "type": 0,
+        }
+      }
+    >
       <RNSVGRect
         clipPath="transaction-animated-diff"
         fill={
@@ -1263,26 +1597,56 @@ exports[`Skeleton Loader should match snapshot of transaction skeleton loader 1`
       />
       <RNSVGDefs>
         <RNSVGClipPath
+          fill={
+            {
+              "payload": 4278190080,
+              "type": 0,
+            }
+          }
           name="transaction-animated-diff"
         >
           <RNSVGCircle
             cx="17"
             cy="23"
+            fill={
+              {
+                "payload": 4278190080,
+                "type": 0,
+              }
+            }
             r="10"
           />
           <RNSVGRect
+            fill={
+              {
+                "payload": 4278190080,
+                "type": 0,
+              }
+            }
             height="15"
             width="100"
             x="44"
             y="7"
           />
           <RNSVGRect
+            fill={
+              {
+                "payload": 4278190080,
+                "type": 0,
+              }
+            }
             height="10"
             width="100"
             x="44"
             y="29"
           />
           <RNSVGRect
+            fill={
+              {
+                "payload": 4278190080,
+                "type": 0,
+              }
+            }
             height="15"
             width="85"
             x="250"
@@ -1364,7 +1728,14 @@ exports[`Skeleton Loader should match snapshot of vault scheme skeleton loader 1
     vbWidth={300}
     width="100%"
   >
-    <RNSVGGroup>
+    <RNSVGGroup
+      fill={
+        {
+          "payload": 4278190080,
+          "type": 0,
+        }
+      }
+    >
       <RNSVGRect
         clipPath="vault_scheme-animated-diff"
         fill={
@@ -1385,9 +1756,21 @@ exports[`Skeleton Loader should match snapshot of vault scheme skeleton loader 1
       />
       <RNSVGDefs>
         <RNSVGClipPath
+          fill={
+            {
+              "payload": 4278190080,
+              "type": 0,
+            }
+          }
           name="vault_scheme-animated-diff"
         >
           <RNSVGRect
+            fill={
+              {
+                "payload": 4278190080,
+                "type": 0,
+              }
+            }
             height="20"
             rx="4"
             ry="4"
@@ -1396,6 +1779,12 @@ exports[`Skeleton Loader should match snapshot of vault scheme skeleton loader 1
             y="22"
           />
           <RNSVGRect
+            fill={
+              {
+                "payload": 4278190080,
+                "type": 0,
+              }
+            }
             height="20"
             rx="4"
             ry="4"
@@ -1406,6 +1795,12 @@ exports[`Skeleton Loader should match snapshot of vault scheme skeleton loader 1
           <RNSVGCircle
             cx="280"
             cy="45"
+            fill={
+              {
+                "payload": 4278190080,
+                "type": 0,
+              }
+            }
             r="14"
           />
         </RNSVGClipPath>
@@ -1492,7 +1887,14 @@ exports[`Skeleton Loader should match snapshot of vault skeleton loader 1`] = `
     vbWidth={328}
     width="100%"
   >
-    <RNSVGGroup>
+    <RNSVGGroup
+      fill={
+        {
+          "payload": 4278190080,
+          "type": 0,
+        }
+      }
+    >
       <RNSVGRect
         clipPath="vault-animated-diff"
         fill={
@@ -1513,51 +1915,105 @@ exports[`Skeleton Loader should match snapshot of vault skeleton loader 1`] = `
       />
       <RNSVGDefs>
         <RNSVGClipPath
+          fill={
+            {
+              "payload": 4278190080,
+              "type": 0,
+            }
+          }
           name="vault-animated-diff"
         >
           <RNSVGRect
+            fill={
+              {
+                "payload": 4278190080,
+                "type": 0,
+              }
+            }
             height="16"
             width="60"
             x="0"
             y="13"
           />
           <RNSVGRect
+            fill={
+              {
+                "payload": 4278190080,
+                "type": 0,
+              }
+            }
             height="16"
             width="60"
             x="70"
             y="13"
           />
           <RNSVGRect
+            fill={
+              {
+                "payload": 4278190080,
+                "type": 0,
+              }
+            }
             height="16"
             width="240"
             x="0"
             y="33"
           />
           <RNSVGRect
+            fill={
+              {
+                "payload": 4278190080,
+                "type": 0,
+              }
+            }
             height="15"
             width="150"
             x="0"
             y="53"
           />
           <RNSVGRect
+            fill={
+              {
+                "payload": 4278190080,
+                "type": 0,
+              }
+            }
             height="15"
             width="130"
             x="0"
             y="90"
           />
           <RNSVGRect
+            fill={
+              {
+                "payload": 4278190080,
+                "type": 0,
+              }
+            }
             height="15"
             width="140"
             x="220"
             y="90"
           />
           <RNSVGRect
+            fill={
+              {
+                "payload": 4278190080,
+                "type": 0,
+              }
+            }
             height="15"
             width="130"
             x="0"
             y="115"
           />
           <RNSVGRect
+            fill={
+              {
+                "payload": 4278190080,
+                "type": 0,
+              }
+            }
             height="15"
             width="140"
             x="220"
