@@ -328,6 +328,7 @@
     "Available {{unit}}": "Verfügbare {{unit}}",
     "Resulting {{unit}}": "Resultierende {{unit}}",
     "TO RECEIVE": "ZU ERHALTEN",
+    "TO CONVERT": "UMWANDELN",
     "tokens": "Token"
   },
   "screens/ConvertConfirmScreen": {
@@ -352,7 +353,8 @@
     "Resulting UTXO": "Resultierende UTXO",
     "Convert {{amount}} DFI to {{target}}": "Wandle {{amount}} DFI in {{target}} um",
     "Converting": "Umwandeln",
-    "Converted": "Umgewandelt"
+    "Converted": "Umgewandelt",
+    "Convert {{amount}} {{symbolA}} to {{symbolB}} tokens": "{amount}} {{symbolA}}-Token in {{symbolB}}-Token umwandeln"
   },
   "screens/SettingsNavigator": {
     "Settings": "Einstellungen"
@@ -834,7 +836,9 @@
     "Borrowing {{amount}} {{symbol}} with vault {{vaultId}}": "Darlehensaufnahme von {{amount}} {{symbol}} mit Vault {{vaultId}}",
     "Borrowed {{amount}} {{symbol}}": "{{amount}} {{symbol}} ausgeliehen",
     "Requested amount is higher than available amount.": "Der beantragte Betrag ist höher als der verfügbare Betrag.",
-    "tokens": "Token"
+    "tokens": "Token",
+    "Converting {{amount}} {{symbolA}} to {{symbolB}} tokens": "Umwandlung von {{amount}} {{symbolA}}-Token in {{symbolB}}-Token",
+    "{{amount}} {{symbolA}} converted to {{symbolB}} tokens": "{{amount}} {{symbolA}}-Token in {{symbolB}}-Token umgewandelt"
   },
   "components/BarCodeScanner": {
     "Requesting for camera permission": "Kameranutzung erlauben",

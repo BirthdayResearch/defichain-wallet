@@ -328,6 +328,7 @@
     "Available {{unit}}": "可转换资金 {{unit}}",
     "Resulting {{unit}}": "转换后 {{unit}}",
     "TO RECEIVE": "TO RECEIVE",
+    "TO CONVERT": "转换",
     "tokens": "代币"
   },
   "screens/ConvertConfirmScreen": {
@@ -352,7 +353,8 @@
     "Resulting UTXO": "转换后 UTXO",
     "Convert {{amount}} DFI to {{target}}": "转换 {{amount}} DFI 至 {{target}}",
     "Converting": "转换中",
-    "Converted": "Converted"
+    "Converted": "Converted",
+    "Convert {{amount}} {{symbolA}} to {{symbolB}} tokens": "转换 {{amount}} {{symbolA}} 到 {{symbolB}} 代币"
   },
   "screens/SettingsNavigator": {
     "Settings": "设置"
@@ -837,7 +839,9 @@
     "Borrowing {{amount}} {{symbol}} with vault {{vaultId}}": "Borrowing {{amount}} {{symbol}} with vault {{vaultId}}",
     "Borrowed {{amount}} {{symbol}}": "Borrowed {{amount}} {{symbol}}",
     "Requested amount is higher than available amount.": "您请求的金额高于可用金额。",
-    "tokens": "代币"
+    "tokens": "代币",
+    "Converting {{amount}} {{symbolA}} to {{symbolB}} tokens": "正在转换 {{amount}} {{symbolA}} 到 {{symbolB}} 代币 ",
+    "{{amount}} {{symbolA}} converted to {{symbolB}} tokens": "{{amount}} {{symbolA}} 已经成功转换成 {{symbolB}}代币"
   },
   "components/BarCodeScanner": {
     "Requesting for camera permission": "请许可程序使用相机",
@@ -2212,7 +2216,7 @@
     "Future swap": "Future swap",
     "Get DFI": "获取 DFI",
     "Convert": "转换",
-    "Governance": "Governance"
+    "Governance": "治理"
   },
   "screens/PoolPairDetailsScreen": {
     "{{poolPair}} Pool": "Pool {{poolPair}}",
@@ -2248,7 +2252,7 @@
     "Resulting Tokens": "转换后 Tokens"
   },
   "screens/OCGProposalsScreen": {
-    "Governance": "Governance",
+    "Governance": "治理",
     "Community Funding Proposal": "社区资助提案 (CFP)",
     "Proposal to build on top of the DeFiChain blockchain, and funded by the Community Development Fund.": "该选项是用于搭建在DeFiChain区块链之上且由社区发展基金资助",
     "DeFiChain Improvement Proposal": "DeFiChain 改进提案 (DFIP)",
