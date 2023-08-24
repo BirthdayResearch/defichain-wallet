@@ -112,7 +112,8 @@
     "AVAILABLE ASSETS": "ACTIVOS DISPONIBLES",
     "Asset value": "Valor del activo",
     "Sort by": "Ordenar por",
-    "ASSETS": "ACTIVOS"
+    "ASSETS": "ACTIVOS",
+    "network": "red"
   },
   "screens/GetDFIScreen": {
     "Get DFI": "Obtener DFI",
@@ -221,7 +222,8 @@
     "Address deleted!": "Dirección borrada!",
     "It may take a few seconds to delete": "Puede tardar unos segundos en borrarse",
     "It may take a few seconds to update": "Puede tardar unos segundos en actualizarse",
-    "It may take a few seconds to save": "Puede tardar unos segundos en guardarse"
+    "It may take a few seconds to save": "Puede tardar unos segundos en guardarse",
+    "ADDRESS TYPE": "ADDRESS TYPE"
   },
   "screens/ReceiveScreen": {
     "Receive": "Recibir",
@@ -355,6 +357,7 @@
     "CONFIRM TRANSACTION": "CONFIRMAR TRANSACCIÓN",
     "You are converting to {{unit}}": "Esta convirtiendo a {{unit}}",
     "Transaction fee": "Comisión de transacción",
+    "Resulting Tokens (EVM)": "Resultando Tokens (EVM)",
     "Resulting Tokens": "Resultando Tokens",
     "Resulting UTXO": "Resultando UTXO",
     "Convert {{amount}} DFI to {{target}}": "Convirtiendo {{amount}} DFI a {{target}}",
@@ -2230,7 +2233,9 @@
     "Swap": "Cambiar",
     "Transactions": "Transacciones",
     "Future swap": "Cambio a futuros",
-    "Get DFI": "Obtener DFI"
+    "Get DFI": "Obtener DFI",
+    "Convert": "Convertir",
+    "Governance": "Governance"
   },
   "screens/PoolPairDetailsScreen": {
     "{{poolPair}} Pool": "{{poolPair}} Pool",
@@ -2260,6 +2265,10 @@
     "Select Token": "Select Token",
     "Search with token name": "Buscar por nombre de token",
     "Search results for “{{searchTerm}}”": "Buscar resultados para “{{searchTerm}}”"
+  },
+  "components/ConversionDetailsRow": {
+    "Resulting UTXO": "Resultando UTXO",
+    "Resulting Tokens": "Resultando Tokens"
   },
   "screens/OCGProposalsScreen": {
     "Governance": "Governance",

@@ -109,7 +109,8 @@
     "AVAILABLE ASSETS": "可用资产",
     "Asset value": "资产价值",
     "Sort by": "Sort by",
-    "ASSETS": "ASSETS"
+    "ASSETS": "ASSETS",
+    "network": "网络"
   },
   "screens/GetDFIScreen": {
     "Get DFI": "获取 DFI",
@@ -212,7 +213,8 @@
     "Address deleted!": "Address deleted!",
     "It may take a few seconds to delete": "It may take a few seconds to delete",
     "It may take a few seconds to update": "It may take a few seconds to update",
-    "It may take a few seconds to save": "It may take a few seconds to save"
+    "It may take a few seconds to save": "It may take a few seconds to save",
+    "ADDRESS TYPE": "地址类型"
   },
   "screens/ReceiveScreen": {
     "Receive": "接收",
@@ -345,6 +347,7 @@
     "CONFIRM TRANSACTION": "确认发出",
     "You are converting to {{unit}}": "You are converting to {{unit}}",
     "Transaction fee": "交易費用",
+    "Resulting Tokens (EVM)": "转换后 Tokens (EVM)",
     "Resulting Tokens": "转换后 Tokens",
     "Resulting UTXO": "转换后 UTXO",
     "Convert {{amount}} DFI to {{target}}": "转换 {{amount}} DFI 至 {{target}}",
@@ -2207,7 +2210,9 @@
     "Swap": "兑换",
     "Transactions": "交易纪录",
     "Future swap": "Future swap",
-    "Get DFI": "获取 DFI"
+    "Get DFI": "获取 DFI",
+    "Convert": "转换",
+    "Governance": "Governance"
   },
   "screens/PoolPairDetailsScreen": {
     "{{poolPair}} Pool": "Pool {{poolPair}}",
@@ -2237,6 +2242,10 @@
     "Select Token": "Select Token",
     "Search with token name": "使用代币名称搜索",
     "Search results for “{{searchTerm}}”": "Search results for “{{searchTerm}}”"
+  },
+  "components/ConversionDetailsRow": {
+    "Resulting UTXO": "转换后 UTXO",
+    "Resulting Tokens": "转换后 Tokens"
   },
   "screens/OCGProposalsScreen": {
     "Governance": "Governance",

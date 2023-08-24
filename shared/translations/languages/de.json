@@ -109,7 +109,8 @@
     "AVAILABLE ASSETS": "VERFÜGBARE AKTIVA",
     "Asset value": "Wert der Aktiva",
     "Sort by": "Sortieren nach",
-    "ASSETS": "AKTIVA"
+    "ASSETS": "AKTIVA",
+    "network": "netzwerk"
   },
   "screens/GetDFIScreen": {
     "Get DFI": "DFI erhalten",
@@ -212,7 +213,8 @@
     "Address deleted!": "Adresse gelöscht!",
     "It may take a few seconds to delete": "Das Löschen kann einige Sekunden dauern",
     "It may take a few seconds to update": "Die Aktualisierung kann ein paar Sekunden dauern",
-    "It may take a few seconds to save": "Das Speichern kann ein paar Sekunden dauern"
+    "It may take a few seconds to save": "Das Speichern kann ein paar Sekunden dauern",
+    "ADDRESS TYPE": "ADRESSTYP"
   },
   "screens/ReceiveScreen": {
     "Receive": "Empfangen",
@@ -345,6 +347,7 @@
     "CONFIRM TRANSACTION": "TRANSAKTION BESTÄTIGEN",
     "You are converting to {{unit}}": "Du wandelst in {{unit}} um",
     "Transaction fee": "Transaktionsgebühren",
+    "Resulting Tokens (EVM)": "Resultierende Token (EVM)",
     "Resulting Tokens": "Resultierende Token",
     "Resulting UTXO": "Resultierende UTXO",
     "Convert {{amount}} DFI to {{target}}": "Wandle {{amount}} DFI in {{target}} um",
@@ -840,6 +843,10 @@
   "components/max": {
     "HALF": "1/2",
     "MAX": "MAX"
+  },
+  "components/ConversionDetailsRow": {
+    "Resulting UTXO": "Resultierende UTXO",
+    "Resulting Tokens": "Resultierende Token"
   },
   "screens/common": {
     "CANCEL": "ABBRECHEN",
@@ -2197,7 +2204,9 @@
     "Swap": "Tausch",
     "Transactions": "Transaktionen",
     "Future swap": "Future Swap",
-    "Get DFI": "DFI erhalten"
+    "Get DFI": "DFI erhalten",
+    "Convert": "Umwandeln",
+    "Governance": "Governance"
   },
   "screens/PoolPairDetailsScreen": {
     "{{poolPair}} Pool": "{{poolPair}}-Pool",
