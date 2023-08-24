@@ -69,17 +69,17 @@ export function ConvertScreen(props: Props): JSX.Element {
   const client = useWhaleApiClient();
   const logger = useLogger();
   const tokens = useSelector((state: RootState) =>
-    tokensSelector(state.wallet)
+    tokensSelector(state.wallet),
   );
   const toast = useToast();
   const TOAST_DURATION = 2000;
 
   // global state
   const hasPendingJob = useSelector((state: RootState) =>
-    hasTxQueued(state.transactionQueue)
+    hasTxQueued(state.transactionQueue),
   );
   const hasPendingBroadcastJob = useSelector((state: RootState) =>
-    hasOceanTXQueued(state.ocean)
+    hasOceanTXQueued(state.ocean),
   );
   const navigation = useNavigation<NavigationProp<PortfolioParamList>>();
   const [mode, setMode] = useState(props.route.params.mode);
@@ -89,7 +89,7 @@ export function ConvertScreen(props: Props): JSX.Element {
   const [fee, setFee] = useState<BigNumber>(new BigNumber(0.0001));
   const [amount, setAmount] = useState<string>("");
   const [inlineTextStatus, setInlineTextStatus] = useState<InlineTextStatus>(
-    InlineTextStatus.Default
+    InlineTextStatus.Default,
   );
 
   const { fromTokens } = useConvertibleTokens();
@@ -106,7 +106,7 @@ export function ConvertScreen(props: Props): JSX.Element {
     setSourceToken(source);
     setTargetToken(target);
     const sourceNum = new BigNumber(
-      source?.amount !== undefined && source.amount !== "" ? source.amount : 0
+      source?.amount !== undefined && source.amount !== "" ? source.amount : 0,
     );
     const conversionNum = new BigNumber(amount).isNaN()
       ? new BigNumber(0)
@@ -140,12 +140,12 @@ export function ConvertScreen(props: Props): JSX.Element {
         sourceUnit: sourceToken.unit,
         sourceBalance: BigNumber.maximum(
           new BigNumber(sourceToken.amount).minus(convAmount),
-          0
+          0,
         ),
         targetUnit: targetToken.unit,
         targetBalance: BigNumber.maximum(
           new BigNumber(targetToken.amount).plus(convAmount),
-          0
+          0,
         ),
         mode,
         amount: new BigNumber(amount),
@@ -219,7 +219,7 @@ export function ConvertScreen(props: Props): JSX.Element {
     <ThemedScrollViewV2 testID="convert_screen">
       <ThemedTextV2
         style={tailwind(
-          "mx-10 text-xs font-normal-v2 mt-8 mb-4 tracking-wide-v2 uppercase"
+          "mx-10 text-xs font-normal-v2 mt-8 mb-4 tracking-wide-v2 uppercase",
         )}
         light={tailwind("text-mono-light-v2-500")}
         dark={tailwind("text-mono-dark-v2-500")}
@@ -234,7 +234,7 @@ export function ConvertScreen(props: Props): JSX.Element {
                 ? BigNumber(sourceToken.amount).toFixed(8)
                 : "",
             token: sourceToken != null ? sourceToken.unit : "",
-          }
+          },
         )}
       </ThemedTextV2>
       <View style={tailwind("mx-5")}>
@@ -268,14 +268,14 @@ export function ConvertScreen(props: Props): JSX.Element {
                 onChangeText={setAmount}
                 placeholder="0.00"
                 placeholderTextColor={getColor(
-                  isLight ? "mono-light-v2-900" : "mono-dark-v2-900"
+                  isLight ? "mono-light-v2-900" : "mono-dark-v2-900",
                 )}
                 testID="convert_input"
               />
               <NumberFormat
                 value={getNumberFormatValue(
                   getTokenPrice(sourceToken.symbol, BigNumber(amount)),
-                  2
+                  2,
                 )}
                 thousandSeparator
                 displayType="text"
@@ -345,7 +345,7 @@ export function ConvertScreen(props: Props): JSX.Element {
             {
               amount: new BigNumber(sourceToken.amount).toFixed(8),
               unit: sourceToken.unit,
-            }
+            },
           )}
         </ThemedTextV2>
 
@@ -369,12 +369,12 @@ export function ConvertScreen(props: Props): JSX.Element {
           dark={tailwind("text-mono-dark-v2-500")}
           testID="tokenB_displaySymbol"
         >
-          {translate("screens/ConvertScreen", "TO RECEIVE")}
+          {translate("screens/ConvertScreen", "TO CONVERT")}
         </ThemedTextV2>
 
         <View
           style={tailwind(
-            "flex flex-row justify-between items-center pl-5 mt-4"
+            "flex flex-row justify-between items-center pl-5 mt-4",
           )}
         >
           <View style={tailwind("w-6/12 mr-2")}>
@@ -400,7 +400,7 @@ export function ConvertScreen(props: Props): JSX.Element {
             <NumberFormat
               value={getNumberFormatValue(
                 getTokenPrice(targetToken.symbol, BigNumber(convAmount)),
-                2
+                2,
               )}
               thousandSeparator
               displayType="text"
@@ -450,7 +450,7 @@ export function ConvertScreen(props: Props): JSX.Element {
               amount !== ""
                 ? BigNumber.maximum(
                     new BigNumber(targetToken.amount).plus(convAmount),
-                    0
+                    0,
                   ).toFixed(8)
                 : "-"
             }
@@ -464,7 +464,7 @@ export function ConvertScreen(props: Props): JSX.Element {
             >
               {`${translate(
                 "screens/ConvertScreen",
-                "Review full details in the next screen"
+                "Review full details in the next screen",
               )}`}
             </ThemedTextV2>
           )}
@@ -494,7 +494,7 @@ export function ConvertScreen(props: Props): JSX.Element {
 
 function getSourceAddressToken(
   mode: ConversionMode,
-  tokens: AddressToken[]
+  tokens: AddressToken[],
 ): AddressToken {
   switch (mode) {
     case ConversionMode.utxosToAccount:
@@ -512,7 +512,7 @@ function getSourceAddressToken(
 
 function getDestinationAddressToken(
   mode: ConversionMode,
-  tokens: AddressToken[]
+  tokens: AddressToken[],
 ): AddressToken {
   switch (mode) {
     case ConversionMode.accountToEvm:
@@ -552,7 +552,7 @@ function getTargetTokenUnit(mode: ConversionMode): ConvertTokenUnit {
 
 function getDFIBalances(
   mode: ConversionMode,
-  tokens: AddressToken[]
+  tokens: AddressToken[],
 ): [source: ConversionIO, target: ConversionIO] {
   const source: AddressToken = getSourceAddressToken(mode, tokens);
   const sourceUnit = getSourceTokenUnit(mode);
@@ -682,7 +682,7 @@ function canConvert(amount: string, balance: string): boolean {
 
 function getConvertibleUtxoAmount(
   mode: ConversionMode,
-  source: AddressToken
+  source: AddressToken,
 ): string {
   if (
     [
@@ -696,7 +696,7 @@ function getConvertibleUtxoAmount(
 
   const utxoToReserve = "0.1";
   const leftover = new BigNumber(source.amount).minus(
-    new BigNumber(utxoToReserve)
+    new BigNumber(utxoToReserve),
   );
   return leftover.isLessThan(0) ? "0" : leftover.toFixed();
 }
