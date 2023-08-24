@@ -7,6 +7,7 @@ import { RandomAvatar } from "@screens/AppNavigator/screens/Portfolio/components
 import { AddressType } from "@waveshq/walletkit-ui/dist/store";
 import { View } from ".";
 import { ThemedTextV2, ThemedViewV2 } from "./themed";
+import { EVMLinearGradient } from "./EVMLinearGradient";
 
 interface ISummaryTitleProps {
   title: string;
@@ -21,6 +22,7 @@ interface ISummaryTitleProps {
   iconB?: string;
   addressType?: AddressType;
   amountTextStyle?: string;
+  isEvmToken?: boolean;
 }
 
 export function SummaryTitle(props: ISummaryTitleProps): JSX.Element {
@@ -47,7 +49,12 @@ export function SummaryTitle(props: ISummaryTitleProps): JSX.Element {
               <IconB height={32} width={32} style={tailwind("-ml-3")} />
             </View>
           ) : (
-            <IconA height={32} width={32} />
+            <EVMLinearGradient isEvmToken={props.isEvmToken}>
+              <IconA
+                height={props.isEvmToken ? 28 : 32}
+                width={props.isEvmToken ? 28 : 32}
+              />
+            </EVMLinearGradient>
           )}
 
           <NumberFormat
@@ -57,7 +64,7 @@ export function SummaryTitle(props: ISummaryTitleProps): JSX.Element {
                 style={tailwind(
                   `text-3xl font-semibold-v2 flex-wrap pr-1 pl-2 ${
                     props.amountTextStyle ?? ""
-                  }`
+                  }`,
                 )}
                 testID={props.testID}
               >
@@ -82,7 +89,7 @@ export function SummaryTitle(props: ISummaryTitleProps): JSX.Element {
               dark={tailwind("bg-mono-dark-v2-200")}
               light={tailwind("bg-mono-light-v2-200")}
               style={tailwind(
-                "rounded-full pl-1 pr-2.5 py-1 flex flex-row items-center overflow-hidden ml-2"
+                "rounded-full pl-1 pr-2.5 py-1 flex flex-row items-center overflow-hidden ml-2",
               )}
             >
               <RandomAvatar name={props.fromAddress} size={20} />
@@ -124,7 +131,7 @@ export function SummaryTitle(props: ISummaryTitleProps): JSX.Element {
                 {
                   "pl-1": props.addressType === AddressType.WalletAddress,
                   "pl-2.5": props.addressType !== AddressType.WalletAddress,
-                }
+                },
               )}
             >
               {props.addressType === AddressType.WalletAddress && (

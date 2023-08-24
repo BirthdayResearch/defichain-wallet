@@ -21,7 +21,7 @@ export function TokenDropdownButton(props: {
   testID: string;
   onPress?: () => void;
   status: TokenDropdownButtonStatus;
-  isEVMtoken?: boolean;
+  isEvmToken?: boolean;
 }): JSX.Element {
   const Icon =
     props.symbol !== undefined ? getNativeIcon(props.symbol) : undefined;
@@ -51,7 +51,7 @@ export function TokenDropdownButton(props: {
       )}
       {props.symbol !== undefined && Icon !== undefined && (
         <>
-          <EVMLinearGradient isEVMtoken={props.isEVMtoken}>
+          <EVMLinearGradient isEvmToken={props.isEvmToken}>
             <Icon testID="tokenA_icon" height={24} width={24} />
           </EVMLinearGradient>
 

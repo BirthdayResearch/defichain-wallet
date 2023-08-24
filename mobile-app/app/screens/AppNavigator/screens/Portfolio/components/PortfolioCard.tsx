@@ -7,7 +7,6 @@ import { useSelector } from "react-redux";
 import { Platform } from "react-native";
 import { translate } from "@translations";
 import { useDomainContext, DomainType } from "@contexts/DomainContext";
-import { EVMLinearGradient } from "@components/EVMLinearGradient";
 import { PortfolioParamList } from "../PortfolioNavigator";
 import { PortfolioRowToken } from "../PortfolioScreen";
 import { EmptyTokensScreen } from "./EmptyTokensScreen";
@@ -77,7 +76,6 @@ export function PortfolioCard({
               params: {
                 token: item,
                 usdAmount: item.usdAmount,
-                // isEvmDomain: domain === DomainType.EVM,
               },
               merge: true,
             })
@@ -114,9 +112,12 @@ function PortfolioItemRow({
     >
       <View style={tailwind("flex flex-row items-start")}>
         <View style={tailwind("w-7/12 flex-row items-center")}>
-          <EVMLinearGradient isEVMtoken={isEvmDomain}>
-            <TokenIcon testID={`${testID}_icon`} token={token} size={36} />
-          </EVMLinearGradient>
+          <TokenIcon
+            testID={`${testID}_icon`}
+            token={token}
+            size={36}
+            isEvmToken={isEvmDomain}
+          />
           <TokenNameText
             displaySymbol={token.displaySymbol}
             name={token.name}

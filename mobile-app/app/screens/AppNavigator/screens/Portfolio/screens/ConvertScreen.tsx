@@ -397,7 +397,7 @@ export function ConvertScreen(props: Props): JSX.Element {
             </View>
 
             <TokenDropdownButton
-              isEVMtoken={sourceToken?.token.domainType === DomainType.EVM}
+              isEvmToken={sourceToken?.token.domainType === DomainType.EVM}
               symbol={sourceToken.token.displaySymbol}
               displayedTextSymbol={sourceToken.token.displayTextSymbol}
               testID={TokenListType.From}
@@ -517,7 +517,7 @@ export function ConvertScreen(props: Props): JSX.Element {
 
           {sourceToken.tokenId === "0" && (
             <TokenDropdownButton
-              isEVMtoken={targetToken?.token.domainType === DomainType.EVM}
+              isEvmToken={targetToken?.token.domainType === DomainType.EVM}
               symbol={targetToken?.token.displaySymbol}
               displayedTextSymbol={targetToken?.token.displayTextSymbol}
               testID={TokenListType.To}
@@ -532,7 +532,7 @@ export function ConvertScreen(props: Props): JSX.Element {
               testID={TokenListType.To}
               symbol={targetToken.token.displaySymbol}
               unit={targetToken.token.displayTextSymbol}
-              isEVMtoken={targetToken?.token.domainType === DomainType.EVM}
+              isEvmToken={targetToken?.token.domainType === DomainType.EVM}
             />
           )}
         </View>
@@ -707,7 +707,7 @@ function FixedTokenButton(props: {
   symbol: string;
   testID: string;
   unit: string;
-  isEVMtoken?: boolean;
+  isEvmToken?: boolean;
 }): JSX.Element {
   const Icon = getNativeIcon(props.symbol);
   return (
@@ -720,7 +720,7 @@ function FixedTokenButton(props: {
     >
       {props.symbol !== undefined && Icon !== undefined && (
         <View style={tailwind("flex flex-row items-center")}>
-          <EVMLinearGradient isEVMtoken={props.isEVMtoken}>
+          <EVMLinearGradient isEvmToken={props.isEvmToken}>
             <Icon testID="fixed_token_icon" height={24} width={24} />
           </EVMLinearGradient>
           <ThemedTextV2

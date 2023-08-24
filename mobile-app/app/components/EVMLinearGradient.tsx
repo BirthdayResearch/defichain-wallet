@@ -2,15 +2,15 @@ import { tailwind } from "@tailwind";
 import { LinearGradient } from "expo-linear-gradient";
 import { ReactElement } from "react";
 
-/* Only apply evm border color if it's an evmtoken */
+/* Only apply evm border color if it's an EVM Token */
 export function EVMLinearGradient({
   children,
-  isEVMtoken,
+  isEvmToken,
 }: {
   children: ReactElement;
-  isEVMtoken?: boolean;
+  isEvmToken?: boolean;
 }): JSX.Element | null {
-  if (isEVMtoken) {
+  if (isEvmToken) {
     return (
       <LinearGradient
         collapsable={false}

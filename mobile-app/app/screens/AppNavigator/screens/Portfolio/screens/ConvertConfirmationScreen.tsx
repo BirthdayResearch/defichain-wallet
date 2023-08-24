@@ -47,10 +47,10 @@ export function ConvertConfirmationScreen({ route }: Props): JSX.Element {
   const { address } = useWalletContext();
   const addressLabel = useAddressLabel(address);
   const hasPendingJob = useSelector((state: RootState) =>
-    hasTxQueued(state.transactionQueue)
+    hasTxQueued(state.transactionQueue),
   );
   const hasPendingBroadcastJob = useSelector((state: RootState) =>
-    hasOceanTXQueued(state.ocean)
+    hasOceanTXQueued(state.ocean),
   );
   const dispatch = useAppDispatch();
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -68,15 +68,15 @@ export function ConvertConfirmationScreen({ route }: Props): JSX.Element {
   const [fromLhs, toLhs] = useMemo(() => {
     const dvmText = translate(
       "screens/ConvertConfirmScreen",
-      "Resulting Tokens"
+      "Resulting Tokens",
     );
     const utxoText = translate(
       "screens/ConvertConfirmScreen",
-      "Resulting UTXO"
+      "Resulting UTXO",
     );
     const evmText = translate(
       "screens/ConvertConfirmScreen",
-      "Resulting Tokens (EVM)"
+      "Resulting Tokens (EVM)",
     );
 
     switch (convertDirection) {
@@ -114,7 +114,7 @@ export function ConvertConfirmationScreen({ route }: Props): JSX.Element {
         () => {
           onTransactionBroadcast(isOnPage, navigation.dispatch);
         },
-        logger
+        logger,
       );
     } else {
       await constructSignedTransferDomain(
@@ -128,7 +128,7 @@ export function ConvertConfirmationScreen({ route }: Props): JSX.Element {
         () => {
           onTransactionBroadcast(isOnPage, navigation.dispatch);
         },
-        logger
+        logger,
       );
     }
 
@@ -141,7 +141,7 @@ export function ConvertConfirmationScreen({ route }: Props): JSX.Element {
         title: translate("screens/Settings", "Cancel transaction"),
         message: translate(
           "screens/Settings",
-          "By cancelling, you will lose any changes you made for your transaction."
+          "By cancelling, you will lose any changes you made for your transaction.",
         ),
         buttons: [
           {
@@ -155,7 +155,7 @@ export function ConvertConfirmationScreen({ route }: Props): JSX.Element {
               navigation.navigate(
                 originScreen === ScreenName.DEX_screen
                   ? ScreenName.DEX_screen
-                  : ScreenName.PORTFOLIO_screen
+                  : ScreenName.PORTFOLIO_screen,
               );
             },
           },
@@ -176,20 +176,21 @@ export function ConvertConfirmationScreen({ route }: Props): JSX.Element {
                 "screens/ConvertScreen",
                 `${targetToken.displayTextSymbol}${
                   convertDirection === ConvertDirection.dvmToEvm ? "-EVM" : ""
-                }`
+                }`,
               ),
-            }
+            },
           )}
           amount={amount}
           testID="text_convert_amount"
-          iconA="_UTXO"
+          iconA={targetToken.displaySymbol}
           fromAddress={address}
           fromAddressLabel={addressLabel}
+          isEvmToken={convertDirection === ConvertDirection.dvmToEvm}
         />
         <NumberRowV2
           containerStyle={{
             style: tailwind(
-              "flex-row items-start w-full bg-transparent border-t-0.5 pt-5 mt-8"
+              "flex-row items-start w-full bg-transparent border-t-0.5 pt-5 mt-8",
             ),
             light: tailwind("bg-transparent border-mono-light-v2-300"),
             dark: tailwind("bg-transparent border-mono-dark-v2-300"),
@@ -256,7 +257,7 @@ export function ConvertConfirmationScreen({ route }: Props): JSX.Element {
         <NumberRowV2
           containerStyle={{
             style: tailwind(
-              "flex-row items-start w-full bg-transparent mt-5 border-b-0.5 pb-5"
+              "flex-row items-start w-full bg-transparent mt-5 border-b-0.5 pb-5",
             ),
             light: tailwind("bg-transparent border-mono-light-v2-300"),
             dark: tailwind("bg-transparent border-mono-dark-v2-300"),
@@ -317,13 +318,13 @@ async function constructSignedConversionAndSend(
   }: { convertDirection: ConvertDirection; amount: BigNumber },
   dispatch: Dispatch<any>,
   onBroadcast: () => void,
-  logger: NativeLoggingProps
+  logger: NativeLoggingProps,
 ): Promise<void> {
   try {
     dispatch(
       transactionQueue.actions.push(
-        dfiConversionCrafter(amount, convertDirection, onBroadcast, () => {})
-      )
+        dfiConversionCrafter(amount, convertDirection, onBroadcast, () => {}),
+      ),
     );
   } catch (e) {
     logger.error(e);
@@ -344,7 +345,7 @@ async function constructSignedTransferDomain(
   },
   dispatch: Dispatch<any>,
   onBroadcast: () => void,
-  logger: NativeLoggingProps
+  logger: NativeLoggingProps,
 ): Promise<void> {
   try {
     dispatch(
@@ -355,9 +356,9 @@ async function constructSignedTransferDomain(
           sourceToken,
           targetToken,
           onBroadcast,
-          () => {}
-        )
-      )
+          () => {},
+        ),
+      ),
     );
   } catch (e) {
     logger.error(e);
@@ -375,9 +376,9 @@ function getResultingValue({
 }): string {
   return BigNumber.max(
     balance.minus(
-      convertDirection === ConvertDirection.accountToUtxos ? fee : 0
+      convertDirection === ConvertDirection.accountToUtxos ? fee : 0,
     ),
-    0
+    0,
   ).toFixed(8);
 }
 

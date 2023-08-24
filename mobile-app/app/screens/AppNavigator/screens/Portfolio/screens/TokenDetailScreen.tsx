@@ -31,7 +31,6 @@ import { InfoTextLinkV2 } from "@components/InfoTextLink";
 import { ThemedTouchableListItem } from "@components/themed/ThemedTouchableListItem";
 import { ConvertDirection } from "@screens/enum";
 import { DomainType, useDomainContext } from "@contexts/DomainContext";
-import { EVMLinearGradient } from "@components/EVMLinearGradient";
 import { PortfolioParamList } from "../PortfolioNavigator";
 import { useTokenPrice } from "../hooks/TokenPrice";
 import { useDenominationCurrency } from "../hooks/PortfolioCurrency";
@@ -187,7 +186,7 @@ export function TokenDetailScreen({ route, navigation }: Props): JSX.Element {
         token={token}
         border
         usdAmount={usdAmount ?? new BigNumber(0)}
-        isEVMDomain={domain === DomainType.EVM}
+        isEvmDomain={domain === DomainType.EVM}
       />
 
       <View style={tailwind("p-5 pb-12")}>
@@ -396,7 +395,7 @@ function TokenSummary(props: {
   token: WalletToken;
   border?: boolean;
   usdAmount: BigNumber;
-  isEVMDomain?: boolean;
+  isEvmDomain?: boolean;
 }): JSX.Element {
   const { denominationCurrency } = useDenominationCurrency();
   const { getTokenUrl } = useDeFiScanContext();
@@ -426,15 +425,14 @@ function TokenSummary(props: {
       style={tailwind("pt-8 pb-5 mx-5", { "border-b-0.5": props.border })}
     >
       <View style={tailwind("flex-row items-center")}>
-        <EVMLinearGradient isEVMtoken={props.isEVMDomain}>
-          <TokenIcon
-            token={{
-              isLPS: props.token.isLPS,
-              displaySymbol: props.token.displaySymbol,
-            }}
-            size={40}
-          />
-        </EVMLinearGradient>
+        <TokenIcon
+          token={{
+            isLPS: props.token.isLPS,
+            displaySymbol: props.token.displaySymbol,
+          }}
+          size={40}
+          isEvmToken={props.isEvmDomain}
+        />
         <View style={tailwind("flex-col ml-3")}>
           <ThemedTextV2 style={tailwind("font-semibold-v2")}>
             {props.token.displaySymbol}
