@@ -354,7 +354,7 @@
     "Convert {{amount}} DFI to {{target}}": "Wandle {{amount}} DFI in {{target}} um",
     "Converting": "Umwandeln",
     "Converted": "Umgewandelt",
-    "Convert {{amount}} {{symbolA}} to {{symbolB}} tokens": "{{amount}} {{symbolA}}-Token in {{symbolB}}-Token umwandeln"
+    "Convert {{amount}} {{symbolA}} to {{symbolB}} tokens": "{{amount}} {{symbolA}}- in {{symbolB}}-Token umwandeln"
   },
   "screens/SettingsNavigator": {
     "Settings": "Einstellungen"
@@ -837,8 +837,8 @@
     "Borrowed {{amount}} {{symbol}}": "{{amount}} {{symbol}} ausgeliehen",
     "Requested amount is higher than available amount.": "Der beantragte Betrag ist höher als der verfügbare Betrag.",
     "tokens": "Token",
-    "Converting {{amount}} {{symbolA}} to {{symbolB}} tokens": "Umwandlung von {{amount}} {{symbolA}}-Token in {{symbolB}}-Token",
-    "{{amount}} {{symbolA}} converted to {{symbolB}} tokens": "{{amount}} {{symbolA}}-Token in {{symbolB}}-Token umgewandelt"
+    "Converting {{amount}} {{symbolA}} to {{symbolB}} tokens": "Umwandlung von {{amount}} {{symbolA}}- in {{symbolB}}-Token",
+    "{{amount}} {{symbolA}} converted to {{symbolB}} tokens": "{{amount}} {{symbolA}}- in {{symbolB}}-Token umgewandelt"
   },
   "components/BarCodeScanner": {
     "Requesting for camera permission": "Kameranutzung erlauben",
