@@ -339,6 +339,7 @@
     "Available {{unit}}": "Disponibile {{unit}}",
     "Resulting {{unit}}": "Risultato {{unit}}",
     "TO RECEIVE": "TO RECEIVE",
+    "TO CONVERT": "TO CONVERT",
     "tokens": "tokens"
   },
   "screens/ConvertConfirmScreen": {
