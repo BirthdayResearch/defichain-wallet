@@ -37,7 +37,7 @@ describe("Wallet Address Row", () => {
     const rendered = render(
       <Provider store={store}>
         <WalletAddressRow />
-      </Provider>
+      </Provider>,
     );
     expect(rendered.toJSON()).toMatchSnapshot();
   });

@@ -63,7 +63,7 @@ describe.skip("DFI Action Buttons", () => {
         <Provider store={store}>
           <ActionButtons />
         </Provider>
-      </StoreProvider>
+      </StoreProvider>,
     );
     expect(rendered.toJSON()).toMatchSnapshot();
   });

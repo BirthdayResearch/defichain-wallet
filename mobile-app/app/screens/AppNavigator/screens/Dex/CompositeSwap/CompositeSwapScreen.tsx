@@ -123,19 +123,19 @@ export function CompositeSwapScreen({ route }: Props): JSX.Element {
   const blockCount = useSelector((state: RootState) => state.block.count ?? 0);
   const pairs = useSelector((state: RootState) => state.wallet.poolpairs);
   const tokens = useSelector((state: RootState) =>
-    tokensSelector(state.wallet)
+    tokensSelector(state.wallet),
   );
   const hasPendingJob = useSelector((state: RootState) =>
-    hasTxQueued(state.transactionQueue)
+    hasTxQueued(state.transactionQueue),
   );
   const hasPendingBroadcastJob = useSelector((state: RootState) =>
-    hasOceanTXQueued(state.ocean)
+    hasOceanTXQueued(state.ocean),
   );
   const DFIToken = useSelector((state: RootState) =>
-    DFITokenSelector(state.wallet)
+    DFITokenSelector(state.wallet),
   );
   const DFIUtxo = useSelector((state: RootState) =>
-    DFIUtxoSelector(state.wallet)
+    DFIUtxoSelector(state.wallet),
   );
 
   const reservedDfi = 0.1;
@@ -153,7 +153,7 @@ export function CompositeSwapScreen({ route }: Props): JSX.Element {
   const [estimatedLessFeesAfterSlippage, setEstimatedLessFeesAfterSlippage] =
     useState<BigNumber | undefined>(undefined);
   const [activeButtonGroup, setActiveButtonGroup] = useState<ButtonGroupTabKey>(
-    ButtonGroupTabKey.InstantSwap
+    ButtonGroupTabKey.InstantSwap,
   );
   const [isFutureSwap, setIsFutureSwap] = useState(false);
   const [bestPathEstimatedReturn, setBestPathEstimatedReturn] = useState<
@@ -162,24 +162,24 @@ export function CompositeSwapScreen({ route }: Props): JSX.Element {
   const [oraclePriceMessage, setOraclePriceMessage] = useState<string>(
     translate(
       "screens/CompositeSwapScreen",
-      "Future swap uses the oracle price of the selected token on the settlement block"
-    )
+      "Future swap uses the oracle price of the selected token on the settlement block",
+    ),
   );
   const [hasShownInputFocusBefore, setHasShownInputFocusBefore] =
     useState<boolean>(false);
 
   const executionBlock = useSelector(
-    (state: RootState) => state.futureSwaps.executionBlock
+    (state: RootState) => state.futureSwaps.executionBlock,
   );
   const { timeRemaining, transactionDate, isEnded } = useFutureSwapDate(
     executionBlock,
-    blockCount
+    blockCount,
   );
   const { fromTokens, toTokens } = useSwappableTokens(
     selectedTokenA?.id,
     selectedTokenA?.displaySymbol,
     selectedTokenA?.symbol,
-    activeButtonGroup === ButtonGroupTabKey.FutureSwap
+    activeButtonGroup === ButtonGroupTabKey.FutureSwap,
   );
   const {
     isFutureSwapOptionEnabled,
@@ -243,7 +243,7 @@ export function CompositeSwapScreen({ route }: Props): JSX.Element {
   const { tokenA, tokenB } = watch();
   const isReservedUtxoUsed = getDisplayUtxoWarningStatus(
     new BigNumber(tokenA),
-    selectedTokenA?.displaySymbol ?? ""
+    selectedTokenA?.displaySymbol ?? "",
   );
 
   const { isConversionRequired, conversionAmount } = useConversion({
@@ -261,7 +261,7 @@ export function CompositeSwapScreen({ route }: Props): JSX.Element {
 
     const maxAmount = BigNumber.max(
       new BigNumber(token.amount).minus(reservedDfi),
-      0
+      0,
     );
     return maxAmount.isLessThanOrEqualTo(0)
       ? new BigNumber(0).toFixed(8)
@@ -270,7 +270,7 @@ export function CompositeSwapScreen({ route }: Props): JSX.Element {
 
   const onTokenSelect = (
     { tokenId, reserve, token: { displaySymbol, symbol } }: BottomSheetToken,
-    direction: "FROM" | "TO"
+    direction: "FROM" | "TO",
   ): void => {
     if (
       (selectedTokenA?.displaySymbol === displaySymbol &&
@@ -387,7 +387,7 @@ export function CompositeSwapScreen({ route }: Props): JSX.Element {
             name: route.params.fromToken.name,
           },
         },
-        "FROM"
+        "FROM",
       );
 
       return;
@@ -409,7 +409,7 @@ export function CompositeSwapScreen({ route }: Props): JSX.Element {
           },
           reserve: pair.data.tokenA.reserve,
         },
-        "FROM"
+        "FROM",
       );
     }
     if (tokenSelectOption.to.isPreselected) {
@@ -424,7 +424,7 @@ export function CompositeSwapScreen({ route }: Props): JSX.Element {
           },
           reserve: pair.data.tokenB.reserve,
         },
-        "TO"
+        "TO",
       );
     }
   }, [
@@ -452,7 +452,7 @@ export function CompositeSwapScreen({ route }: Props): JSX.Element {
     if (selectedTokenA !== undefined && selectedTokenB !== undefined) {
       const poolPairs = await getArbitraryPoolPair(
         selectedTokenA.id,
-        selectedTokenB.id
+        selectedTokenB.id,
       );
       setSelectedPoolPairs(poolPairs);
     }
@@ -473,7 +473,7 @@ export function CompositeSwapScreen({ route }: Props): JSX.Element {
         await calculatePriceRates(
           selectedTokenA.id,
           selectedTokenB.id,
-          new BigNumber(tokenA)
+          new BigNumber(tokenA),
         );
 
       // Find the selected reserve in case it's null. From Token Detail Screen, reserve does not exist due to pair not existing
@@ -486,10 +486,10 @@ export function CompositeSwapScreen({ route }: Props): JSX.Element {
         ? selectedTokenA.reserve
         : selectedReserve;
       const slippage = new BigNumber(1).minus(
-        new BigNumber(tokenA).div(tokenAReserve)
+        new BigNumber(tokenA).div(tokenAReserve),
       );
       setEstimatedLessFeesAfterSlippage(
-        new BigNumber(estimatedLessDexFees).multipliedBy(slippage)
+        new BigNumber(estimatedLessDexFees).multipliedBy(slippage),
       );
 
       setPriceRates([
@@ -523,7 +523,7 @@ export function CompositeSwapScreen({ route }: Props): JSX.Element {
   useEffect(() => {
     setIsFutureSwap(
       activeButtonGroup === ButtonGroupTabKey.FutureSwap &&
-        isFutureSwapOptionEnabled
+        isFutureSwapOptionEnabled,
     );
   }, [activeButtonGroup, isFutureSwapOptionEnabled]);
 
@@ -535,7 +535,7 @@ export function CompositeSwapScreen({ route }: Props): JSX.Element {
     const fetchBestPath = async () => {
       const bestPath = await getBestPath(
         selectedTokenA.id === "0_unified" ? "0" : selectedTokenA.id,
-        selectedTokenB.id === "0_unified" ? "0" : selectedTokenB.id
+        selectedTokenB.id === "0_unified" ? "0" : selectedTokenB.id,
       );
       setBestPathEstimatedReturn({
         estimatedReturn: bestPath.estimatedReturn,
@@ -560,38 +560,38 @@ export function CompositeSwapScreen({ route }: Props): JSX.Element {
       dexFeesInTokenBUnit = Burn fees + commission fee of 1 tokenA
     */
     const dexFeesInTokenBUnit = new BigNumber(
-      bestPathEstimatedReturn?.estimatedReturn ?? 0
+      bestPathEstimatedReturn?.estimatedReturn ?? 0,
     )
       .minus(
-        new BigNumber(bestPathEstimatedReturn?.estimatedReturnLessDexFees ?? 0)
+        new BigNumber(bestPathEstimatedReturn?.estimatedReturnLessDexFees ?? 0),
       )
       .multipliedBy(tokenA);
 
     /* Transaction fee + DEX fees */
     return getPrecisedCurrencyValue(
       getTokenPrice("DFI", fee).plus(
-        getTokenPrice(selectedTokenB.symbol, dexFeesInTokenBUnit)
-      )
+        getTokenPrice(selectedTokenB.symbol, dexFeesInTokenBUnit),
+      ),
     );
   }, [priceRates, selectedTokenB, tokenA, bestPathEstimatedReturn, fee]);
 
   useEffect(() => {
     let message = translate(
       "screens/CompositeSwapScreen",
-      "Future swap uses the oracle price of the selected token on the settlement block"
+      "Future swap uses the oracle price of the selected token on the settlement block",
     );
     if (selectedTokenA !== undefined) {
       if (selectedTokenA.displaySymbol === "DUSD") {
         if (selectedTokenB === undefined) {
           message = translate(
             "screens/CompositeSwapScreen",
-            "You are buying dTokens at 5% more than the oracle price at settlement block."
+            "You are buying dTokens at 5% more than the oracle price at settlement block.",
           );
         } else {
           message = translate(
             "screens/CompositeSwapScreen",
             "You are buying {{displaySymbol}} at 5% more than the oracle price at settlement block.",
-            { displaySymbol: selectedTokenB.displaySymbol }
+            { displaySymbol: selectedTokenB.displaySymbol },
           );
         }
       } else {
@@ -600,7 +600,7 @@ export function CompositeSwapScreen({ route }: Props): JSX.Element {
           "You are selling your {{displaySymbol}} at 5% less than the oracle price at settlement block.",
           {
             displaySymbol: selectedTokenA.displaySymbol,
-          }
+          },
         );
       }
     }
@@ -743,7 +743,7 @@ export function CompositeSwapScreen({ route }: Props): JSX.Element {
             params,
             merge: true,
           });
-        }
+        },
       );
     } else {
       navigation.navigate("ConfirmCompositeSwapScreen", params);
@@ -776,7 +776,7 @@ export function CompositeSwapScreen({ route }: Props): JSX.Element {
 
       return getTokenPrice(token.symbol, new BigNumber(tokenAmount));
     },
-    []
+    [],
   );
 
   const isBothTokensSelected = (): boolean => {
@@ -785,7 +785,7 @@ export function CompositeSwapScreen({ route }: Props): JSX.Element {
 
   async function onPercentagePress(
     amount: string,
-    type: AmountButtonTypes
+    type: AmountButtonTypes,
   ): Promise<void> {
     setValue("tokenA", amount);
     await trigger("tokenA");
@@ -812,7 +812,7 @@ export function CompositeSwapScreen({ route }: Props): JSX.Element {
         type: "wallet_toast",
         placement: "top",
         duration: TOAST_DURATION,
-      }
+      },
     );
   }
 
@@ -859,7 +859,7 @@ export function CompositeSwapScreen({ route }: Props): JSX.Element {
 
           <ThemedTextV2
             style={tailwind(
-              "mx-10 text-xs font-normal-v2 mt-8 tracking-wide-v2"
+              "mx-10 text-xs font-normal-v2 mt-8 tracking-wide-v2",
             )}
             light={tailwind("text-mono-light-v2-500")}
             dark={tailwind("text-mono-dark-v2-500")}
@@ -873,7 +873,7 @@ export function CompositeSwapScreen({ route }: Props): JSX.Element {
                   selectedTokenA != null ? getMaxAmount(selectedTokenA) : "",
                 token:
                   selectedTokenA != null ? selectedTokenA.displaySymbol : "",
-              }
+              },
             )}
           </ThemedTextV2>
 
@@ -881,7 +881,7 @@ export function CompositeSwapScreen({ route }: Props): JSX.Element {
             <TransactionCard
               maxValue={
                 new BigNumber(
-                  selectedTokenA != null ? getMaxAmount(selectedTokenA) : 0
+                  selectedTokenA != null ? getMaxAmount(selectedTokenA) : 0,
                 )
               }
               onChange={onPercentagePress}
@@ -905,7 +905,7 @@ export function CompositeSwapScreen({ route }: Props): JSX.Element {
             >
               <View
                 style={tailwind(
-                  "flex flex-row justify-between items-center pl-5 mt-4"
+                  "flex flex-row justify-between items-center pl-5 mt-4",
                 )}
               >
                 <View style={tailwind("w-6/12 mr-2")}>
@@ -934,7 +934,7 @@ export function CompositeSwapScreen({ route }: Props): JSX.Element {
                         }}
                         placeholder="0.00"
                         placeholderTextColor={getColor(
-                          isLight ? "mono-light-v2-900" : "mono-dark-v2-900"
+                          isLight ? "mono-light-v2-900" : "mono-dark-v2-900",
                         )}
                         ref={amountInputRef}
                         testID="text_input_tokenA"
@@ -948,7 +948,7 @@ export function CompositeSwapScreen({ route }: Props): JSX.Element {
                       validate: {
                         greaterThanZero: (value: string) =>
                           new BigNumber(
-                            value !== undefined && value !== "" ? value : 0
+                            value !== undefined && value !== "" ? value : 0,
                           ).isGreaterThan(0),
                       },
                     }}
@@ -956,7 +956,7 @@ export function CompositeSwapScreen({ route }: Props): JSX.Element {
                   <ActiveUSDValueV2
                     price={getAmountInUSDValue(
                       selectedTokenA ?? undefined,
-                      tokenA
+                      tokenA,
                     )}
                     testId="tokenA_value_in_usd"
                     containerStyle={tailwind("w-full break-words")}
@@ -986,7 +986,7 @@ export function CompositeSwapScreen({ route }: Props): JSX.Element {
                 >
                   {translate(
                     "screens/CompositeSwapScreen",
-                    "Select a token first"
+                    "Select a token first",
                   )}
                 </ThemedTextV2>
               )}
@@ -1001,7 +1001,7 @@ export function CompositeSwapScreen({ route }: Props): JSX.Element {
                   >
                     {translate(
                       "screens/CompositeSwapScreen",
-                      "Insufficient balance"
+                      "Insufficient balance",
                     )}
                   </ThemedTextV2>
                 )}
@@ -1016,7 +1016,7 @@ export function CompositeSwapScreen({ route }: Props): JSX.Element {
                   >
                     {translate(
                       "screens/CompositeSwapScreen",
-                      "A small amount of UTXO is reserved for fees"
+                      "A small amount of UTXO is reserved for fees",
                     )}
                   </ThemedTextV2>
                 )}
@@ -1084,7 +1084,7 @@ export function CompositeSwapScreen({ route }: Props): JSX.Element {
                       isBothTokensSelected() &&
                       priceRates !== undefined &&
                       activeButtonGroup === ButtonGroupTabKey.InstantSwap,
-                  }
+                  },
                 )}
                 light={tailwind("border-mono-light-v2-300")}
                 dark={tailwind("border-mono-dark-v2-300")}
@@ -1097,7 +1097,7 @@ export function CompositeSwapScreen({ route }: Props): JSX.Element {
                     tokenAmount={new BigNumber(tokenB).toFixed(8)}
                     tokenUsdAmount={getAmountInUSDValue(
                       selectedTokenB ?? undefined,
-                      tokenB
+                      tokenB,
                     )}
                   />
                 )}
@@ -1165,11 +1165,11 @@ export function CompositeSwapScreen({ route }: Props): JSX.Element {
               {isConversionRequired
                 ? translate(
                     "screens/CompositeSwapScreen",
-                    "By continuing, the required amount of DFI will be converted"
+                    "By continuing, the required amount of DFI will be converted",
                   )
                 : translate(
                     "screens/CompositeSwapScreen",
-                    "Review full details in the next screen"
+                    "Review full details in the next screen",
                   )}
             </ThemedTextV2>
           )}

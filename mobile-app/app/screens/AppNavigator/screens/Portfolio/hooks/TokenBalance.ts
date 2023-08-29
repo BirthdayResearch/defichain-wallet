@@ -31,10 +31,10 @@ export function useTokenBalance(): {
   const { denominationCurrency } = useDenominationCurrency();
 
   const tokens = useSelector((state: RootState) =>
-    tokensSelector(state.wallet)
+    tokensSelector(state.wallet),
   );
   const prices = useSelector((state: RootState) =>
-    dexPricesSelectorByDenomination(state.wallet, denominationCurrency)
+    dexPricesSelectorByDenomination(state.wallet, denominationCurrency),
   );
 
   const { dvmTokens, evmTokens } = useMemo(() => {
@@ -44,7 +44,7 @@ export function useTokenBalance(): {
           dvmTokens,
           evmTokens,
         }: { dvmTokens: DomainToken[]; evmTokens: DomainToken[] },
-        token
+        token,
       ): { dvmTokens: DomainToken[]; evmTokens: DomainToken[] } => {
         if (token.isLPS || token.id === "0_unified") {
           return { dvmTokens, evmTokens };
@@ -57,7 +57,7 @@ export function useTokenBalance(): {
               tokenId: token.id,
               available: getConvertibleAmount(
                 token.id === "0_utxo",
-                new BigNumber(token.amount)
+                new BigNumber(token.amount),
               ),
               token: {
                 name: token.name,
@@ -96,7 +96,7 @@ export function useTokenBalance(): {
       {
         dvmTokens: [],
         evmTokens: [],
-      }
+      },
     );
   }, [prices, tokens]);
 

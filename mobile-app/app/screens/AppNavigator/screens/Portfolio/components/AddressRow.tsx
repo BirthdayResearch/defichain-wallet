@@ -49,7 +49,7 @@ export function AddressRow({
   title: string;
   address: string;
   onMatchedAddress?: (
-    matchedAddress?: LocalAddress | WhitelistedAddress
+    matchedAddress?: LocalAddress | WhitelistedAddress,
   ) => void;
   onAddressType?: (addressType?: AddressType) => void;
   showQrButton?: boolean;
@@ -60,10 +60,10 @@ export function AddressRow({
   const defaultValue = "";
 
   const addressBook = useSelector(
-    (state: RootState) => state.userPreferences.addressBook
+    (state: RootState) => state.userPreferences.addressBook,
   );
   const walletAddress = useSelector((state: RootState) =>
-    selectAllLabeledWalletAddress(state.userPreferences)
+    selectAllLabeledWalletAddress(state.userPreferences),
   );
 
   const [jellyfishWalletAddress, setJellyfishWalletAddresses] = useState<
@@ -100,7 +100,7 @@ export function AddressRow({
       setAddressType(AddressType.WalletAddress);
     } else {
       const addressObj = jellyfishWalletAddress.find(
-        (e: WalletAddressI) => e.dvm === address || e.evm === address
+        (e: WalletAddressI) => e.dvm === address || e.evm === address,
       );
       if (address !== undefined && addressObj) {
         // wallet address that does not have a label
@@ -118,7 +118,7 @@ export function AddressRow({
           setAddressType(
             fromAddress(address, networkName) !== undefined
               ? AddressType.OthersButValid
-              : undefined
+              : undefined,
           );
         }
       }
@@ -131,7 +131,7 @@ export function AddressRow({
 
   useEffect(() => {
     fetchWalletAddresses().then((walletAddresses) =>
-      setJellyfishWalletAddresses(walletAddresses)
+      setJellyfishWalletAddresses(walletAddresses),
     );
   }, [fetchWalletAddresses]);
 
@@ -225,7 +225,7 @@ export function AddressRow({
                 >
                   {translate(
                     "screens/SendScreen",
-                    "Invalid address. Make sure the address is correct to avoid irrecoverable losses"
+                    "Invalid address. Make sure the address is correct to avoid irrecoverable losses",
                   )}
                 </ThemedTextV2>
               )}
@@ -273,7 +273,7 @@ export function AddressRow({
                   {
                     "px-1": addressType === AddressType.WalletAddress,
                     "px-2": addressType === AddressType.Whitelisted,
-                  }
+                  },
                 )}
                 light={tailwind("bg-mono-light-v2-200")}
                 dark={tailwind("bg-mono-dark-v2-200")}

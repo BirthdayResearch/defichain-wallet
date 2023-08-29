@@ -4,7 +4,7 @@ import { selectAllLabeledWalletAddress } from "@store/userPreferences";
 
 export function useAddressLabel(address: string): string | null {
   const addresses = useSelector((state: RootState) =>
-    selectAllLabeledWalletAddress(state.userPreferences)
+    selectAllLabeledWalletAddress(state.userPreferences),
   );
   let label = null;
   if (addresses?.[address] != null) {

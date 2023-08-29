@@ -78,19 +78,19 @@ export function SendScreen({ route, navigation }: Props): JSX.Element {
   const bottomInset = useSafeAreaInsets().bottom;
 
   const tokens = useSelector((state: RootState) =>
-    tokensSelector(state.wallet)
+    tokensSelector(state.wallet),
   );
   const hasPendingJob = useSelector((state: RootState) =>
-    hasTxQueued(state.transactionQueue)
+    hasTxQueued(state.transactionQueue),
   );
   const hasPendingBroadcastJob = useSelector((state: RootState) =>
-    hasOceanTXQueued(state.ocean)
+    hasOceanTXQueued(state.ocean),
   );
   const DFIUtxo = useSelector((state: RootState) =>
-    DFIUtxoSelector(state.wallet)
+    DFIUtxoSelector(state.wallet),
   );
   const DFIToken = useSelector((state: RootState) =>
-    DFITokenSelector(state.wallet)
+    DFITokenSelector(state.wallet),
   );
 
   const [token, setToken] = useState(route.params?.token);
@@ -99,7 +99,7 @@ export function SendScreen({ route, navigation }: Props): JSX.Element {
   >();
   const [fee, setFee] = useState<BigNumber>(new BigNumber(0.0001));
   const [transactionCardStatus, setTransactionCardStatus] = useState(
-    TransactionCardStatus.Default
+    TransactionCardStatus.Default,
   );
 
   // form
@@ -121,7 +121,7 @@ export function SendScreen({ route, navigation }: Props): JSX.Element {
   const reservedDFI = 0.1;
   const isReservedUtxoUsed = getDisplayUtxoWarningStatus(
     new BigNumber(amountToSend),
-    token?.displaySymbol ?? ""
+    token?.displaySymbol ?? "",
   );
 
   const amountInputRef = useRef<TextInput>();
@@ -208,7 +208,7 @@ export function SendScreen({ route, navigation }: Props): JSX.Element {
           t.displaySymbol === "DFI"
             ? BigNumber.max(
                 new BigNumber(t.amount).minus(reservedDFI),
-                0
+                0,
               ).toFixed(8)
             : t.amount,
       });
@@ -242,7 +242,7 @@ export function SendScreen({ route, navigation }: Props): JSX.Element {
       navigation.goBack();
       await trigger("address");
     },
-    [navigation]
+    [navigation],
   );
 
   async function onSubmit(): Promise<void> {
@@ -300,7 +300,7 @@ export function SendScreen({ route, navigation }: Props): JSX.Element {
             params,
             merge: true,
           });
-        }
+        },
       );
     } else {
       navigation.navigate({
@@ -322,7 +322,7 @@ export function SendScreen({ route, navigation }: Props): JSX.Element {
         contentContainerStyle={tailwind("pt-6 pb-8")}
         testID="send_screen"
         style={tailwind(
-          `${isLight ? "bg-mono-light-v2-100" : "bg-mono-dark-v2-100"}`
+          `${isLight ? "bg-mono-light-v2-100" : "bg-mono-dark-v2-100"}`,
         )}
         extraScrollHeight={-BOTTOM_NAV_HEIGHT - bottomInset}
       >
@@ -330,7 +330,7 @@ export function SendScreen({ route, navigation }: Props): JSX.Element {
           <ThemedTextV2 style={tailwind("px-5")}>
             {translate(
               "screens/SendScreen",
-              "Select a token you want to send to get started"
+              "Select a token you want to send to get started",
             )}
           </ThemedTextV2>
         )}
@@ -345,7 +345,7 @@ export function SendScreen({ route, navigation }: Props): JSX.Element {
                 render={({ field: { onChange, value } }) => (
                   <ThemedTextInputV2
                     style={tailwind(
-                      "text-3xl text-center font-semibold-v2 w-full"
+                      "text-3xl text-center font-semibold-v2 w-full",
                     )}
                     light={tailwind("text-mono-light-v2-900")}
                     dark={tailwind("text-mono-dark-v2-900")}
@@ -355,7 +355,7 @@ export function SendScreen({ route, navigation }: Props): JSX.Element {
                     onChangeText={onAmountChange}
                     placeholder="0.00"
                     placeholderTextColor={getColor(
-                      isLight ? "mono-light-v2-900" : "mono-dark-v2-900"
+                      isLight ? "mono-light-v2-900" : "mono-dark-v2-900",
                     )}
                     testID="amount_input"
                     ref={amountInputRef}
@@ -368,7 +368,7 @@ export function SendScreen({ route, navigation }: Props): JSX.Element {
                   validate: {
                     greaterThanZero: (value: string) =>
                       new BigNumber(
-                        value !== undefined && value !== "" ? value : 0
+                        value !== undefined && value !== "" ? value : 0,
                       ).isGreaterThan(0),
                   },
                 }}
@@ -393,7 +393,7 @@ export function SendScreen({ route, navigation }: Props): JSX.Element {
               }}
               onAmountChange={async (
                 amount: string,
-                type: AmountButtonTypes
+                type: AmountButtonTypes,
               ) => {
                 showToast(type);
                 setValue("amount", amount, { shouldDirty: true });
@@ -459,11 +459,11 @@ export function SendScreen({ route, navigation }: Props): JSX.Element {
               {isConversionRequired
                 ? translate(
                     "screens/SendScreen",
-                    "By continuing, the required amount of DFI will be converted"
+                    "By continuing, the required amount of DFI will be converted",
                   )
                 : translate(
                     "screens/SendScreen",
-                    "Review full details in the next screen"
+                    "Review full details in the next screen",
                   )}
             </ThemedTextV2>
           )}
@@ -519,7 +519,7 @@ function AmountCard({
       >
         <ThemedTouchableOpacityV2
           style={tailwind(
-            "flex flex-row items-center justify-between pt-4.5 mb-4 mx-5"
+            "flex flex-row items-center justify-between pt-4.5 mb-4 mx-5",
           )}
           onPress={onPress}
           testID="select_token_input"

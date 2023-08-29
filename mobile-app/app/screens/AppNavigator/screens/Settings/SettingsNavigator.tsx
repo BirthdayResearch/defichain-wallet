@@ -154,7 +154,7 @@ export function SettingsNavigator(): JSX.Element {
         options={{
           headerTitle: translate(
             "screens/LanguageSelectionScreen",
-            "Select language"
+            "Select language",
           ),
           headerBackTitleVisible: false,
         }}
@@ -174,7 +174,7 @@ export function SettingsNavigator(): JSX.Element {
         options={{
           headerTitle: translate(
             "screens/AddOrEditAddressBookScreen",
-            "Add Address"
+            "Add Address",
           ),
         }}
       />
@@ -234,7 +234,7 @@ export function SettingsNavigator(): JSX.Element {
         options={{
           headerTitle: translate(
             "components/RecoveryWordFaq",
-            "About Recovery Words"
+            "About Recovery Words",
           ),
         }}
       />
@@ -253,7 +253,7 @@ export function SettingsNavigator(): JSX.Element {
         options={{
           headerTitle: translate(
             "components/LiquidityMiningFaq",
-            "About Liquidity Mining"
+            "About Liquidity Mining",
           ),
         }}
       />
@@ -264,7 +264,7 @@ export function SettingsNavigator(): JSX.Element {
         options={{
           headerTitle: translate(
             "components/UtxoVsTokenFaq",
-            "About UTXO And Tokens"
+            "About UTXO And Tokens",
           ),
         }}
       />
@@ -275,7 +275,7 @@ export function SettingsNavigator(): JSX.Element {
         options={{
           headerTitle: translate(
             "components/CfpDfipProposalsFaq",
-            "About Governance"
+            "About Governance",
           ),
         }}
       />

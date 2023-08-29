@@ -235,7 +235,7 @@ export function PortfolioNavigator(): JSX.Element {
           headerLeft: () => (
             <View
               style={tailwind(
-                "flex flex-row bg-transparent items-center w-full"
+                "flex flex-row bg-transparent items-center w-full",
               )}
             >
               <DomainSwitch testID="domain_switch" />
@@ -500,7 +500,7 @@ export function PortfolioNavigator(): JSX.Element {
             <HeaderTitle
               text={translate(
                 "screens/AddOrEditAddressBookScreen",
-                "Add New Address"
+                "Add New Address",
               )}
             />
           ),
@@ -539,7 +539,7 @@ export function PortfolioNavigator(): JSX.Element {
           ...screenOptions,
           headerTitle: translate(
             "screens/WithdrawFutureSwapScreen",
-            "Withdraw"
+            "Withdraw",
           ),
           headerRight: () => (
             <HeaderNetworkStatus onPress={goToNetworkSelect} />
@@ -580,7 +580,7 @@ export function PortfolioNavigator(): JSX.Element {
           ...screenOptions,
           headerTitle: translate(
             "screens/ConfirmWithdrawFutureSwapScreen",
-            "Confirm"
+            "Confirm",
           ),
           headerRight: () => (
             <HeaderNetworkStatus onPress={goToNetworkSelect} />
@@ -623,7 +623,7 @@ export function PortfolioNavigator(): JSX.Element {
           ),
           headerTitle: translate(
             "screens/TransactionDetailScreen",
-            "Transaction"
+            "Transaction",
           ),
         }}
       />
@@ -634,7 +634,7 @@ export function PortfolioNavigator(): JSX.Element {
           ...screenOptions,
           headerTitle: translate(
             "components/UtxoVsTokenFaq",
-            "About UTXO And Tokens"
+            "About UTXO And Tokens",
           ),
         }}
       />

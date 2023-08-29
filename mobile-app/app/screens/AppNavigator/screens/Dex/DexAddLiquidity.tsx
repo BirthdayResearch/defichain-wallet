@@ -64,20 +64,20 @@ export function AddLiquidityScreen(props: Props): JSX.Element {
   const navigation = useNavigation<NavigationProp<DexParamList>>();
   const dispatch = useAppDispatch();
   const DFIToken = useSelector((state: RootState) =>
-    DFITokenSelector(state.wallet)
+    DFITokenSelector(state.wallet),
   );
   const DFIUtxo = useSelector((state: RootState) =>
-    DFIUtxoSelector(state.wallet)
+    DFIUtxoSelector(state.wallet),
   );
   const hasPendingJob = useSelector((state: RootState) =>
-    hasTxQueued(state.transactionQueue)
+    hasTxQueued(state.transactionQueue),
   );
   const hasPendingBroadcastJob = useSelector((state: RootState) =>
-    hasOceanTXQueued(state.ocean)
+    hasOceanTXQueued(state.ocean),
   );
   const pairs = useSelector((state: RootState) => state.wallet.poolpairs);
   const tokens = useSelector((state: RootState) =>
-    tokensSelector(state.wallet)
+    tokensSelector(state.wallet),
   );
   const { getTokenPrice } = useTokenPrice();
   const { pair: pairData, pairInfo, originScreen } = props.route.params;
@@ -107,7 +107,7 @@ export function AddLiquidityScreen(props: Props): JSX.Element {
   const [tokenAAmount, setTokenAAmount] = useState<string>("");
   const [tokenBAmount, setTokenBAmount] = useState<string>("");
   const [sharePercentage, setSharePercentage] = useState<BigNumber>(
-    new BigNumber(0)
+    new BigNumber(0),
   );
   const [canContinue, setCanContinue] = useState(false);
 
@@ -119,7 +119,7 @@ export function AddLiquidityScreen(props: Props): JSX.Element {
     inputToken: {
       type: "token",
       amount: new BigNumber(
-        pair?.tokenA.id === "0" ? tokenAAmount : tokenBAmount
+        pair?.tokenA.id === "0" ? tokenAAmount : tokenBAmount,
       ),
     },
     deps: [pair, tokenAAmount, tokenBAmount, balanceA, balanceB],
@@ -176,11 +176,11 @@ export function AddLiquidityScreen(props: Props): JSX.Element {
         setSharePercentage(refAmount.div(pair.tokenB.reserve));
       }
     },
-    [pair]
+    [pair],
   );
 
   const getAddressTokenById = (
-    poolpairTokenId: string
+    poolpairTokenId: string,
   ): WalletToken | undefined => {
     return tokens.find((token) => {
       if (poolpairTokenId === "0" || poolpairTokenId === "0_utxo") {
@@ -208,7 +208,7 @@ export function AddLiquidityScreen(props: Props): JSX.Element {
     _amount: string,
     type: AmountButtonTypes,
     displaySymbolA: string,
-    displaySymbolB: string
+    displaySymbolB: string,
   ): void {
     showToast(type, displaySymbolA, displaySymbolB);
   }
@@ -283,7 +283,7 @@ export function AddLiquidityScreen(props: Props): JSX.Element {
             },
             merge: true,
           });
-        }
+        },
       );
     } else {
       navigation.navigate({
@@ -310,7 +310,7 @@ export function AddLiquidityScreen(props: Props): JSX.Element {
   function showToast(
     type: AmountButtonTypes,
     displaySymbolA: string,
-    displaySymbolB: string
+    displaySymbolB: string,
   ): void {
     if (displaySymbolA === undefined || displaySymbolB === undefined) {
       return;
@@ -355,7 +355,7 @@ export function AddLiquidityScreen(props: Props): JSX.Element {
       pair !== undefined &&
       getDisplayUtxoWarningStatus(
         new BigNumber(tokenAAmount),
-        pair?.tokenA.displaySymbol
+        pair?.tokenA.displaySymbol,
       ) &&
       new BigNumber(tokenAAmount).isGreaterThan(0)
     ) {
@@ -370,7 +370,7 @@ export function AddLiquidityScreen(props: Props): JSX.Element {
       pair !== undefined &&
       getDisplayUtxoWarningStatus(
         new BigNumber(tokenBAmount),
-        pair?.tokenB.displaySymbol
+        pair?.tokenB.displaySymbol,
       ) &&
       new BigNumber(tokenBAmount).isGreaterThan(0)
     ) {
@@ -404,14 +404,14 @@ export function AddLiquidityScreen(props: Props): JSX.Element {
         ? TransactionCardStatus.Error
         : isInputAFocus
         ? TransactionCardStatus.Active
-        : undefined
+        : undefined,
     );
     setTokenBTransactionCardStatus(
       hasBError
         ? TransactionCardStatus.Error
         : isInputBFocus
         ? TransactionCardStatus.Active
-        : undefined
+        : undefined,
     );
   }, [hasAError, hasBError, isInputAFocus, isInputBFocus]);
 
@@ -425,8 +425,8 @@ export function AddLiquidityScreen(props: Props): JSX.Element {
         new BigNumber(tokenAAmount),
         new BigNumber(tokenBAmount),
         balanceA,
-        balanceB
-      )
+        balanceB,
+      ),
     );
   }, [pair, tokenAAmount, tokenBAmount, balanceA, balanceB]);
 
@@ -446,10 +446,10 @@ export function AddLiquidityScreen(props: Props): JSX.Element {
         aSymbol,
         bSymbol,
         aToBRate: new BigNumber(poolpair.tokenB.reserve).div(
-          poolpair.tokenA.reserve
+          poolpair.tokenA.reserve,
         ),
         bToARate: new BigNumber(poolpair.tokenA.reserve).div(
-          poolpair.tokenB.reserve
+          poolpair.tokenB.reserve,
         ),
       });
       if (addressTokenA !== undefined) {
@@ -457,9 +457,9 @@ export function AddLiquidityScreen(props: Props): JSX.Element {
           addressTokenA.id === "0_unified"
             ? BigNumber.max(
                 new BigNumber(addressTokenA.amount).minus(reservedDfi),
-                0
+                0,
               )
-            : new BigNumber(addressTokenA.amount)
+            : new BigNumber(addressTokenA.amount),
         );
       }
       if (addressTokenB !== undefined) {
@@ -467,9 +467,9 @@ export function AddLiquidityScreen(props: Props): JSX.Element {
           addressTokenB.id === "0_unified"
             ? BigNumber.max(
                 new BigNumber(addressTokenB.amount).minus(reservedDfi),
-                0
+                0,
               )
-            : new BigNumber(addressTokenB.amount)
+            : new BigNumber(addressTokenB.amount),
         );
       }
     }
@@ -515,7 +515,7 @@ export function AddLiquidityScreen(props: Props): JSX.Element {
                   amount,
                   type,
                   pair.tokenA.displaySymbol,
-                  pair.tokenB.displaySymbol
+                  pair.tokenB.displaySymbol,
                 );
               }}
               symbol={pair.tokenA.displaySymbol}
@@ -538,7 +538,7 @@ export function AddLiquidityScreen(props: Props): JSX.Element {
                   amount,
                   type,
                   pair.tokenA.displaySymbol,
-                  pair.tokenB.displaySymbol
+                  pair.tokenB.displaySymbol,
                 );
               }}
               symbol={pair.tokenB.displaySymbol}
@@ -576,7 +576,7 @@ export function AddLiquidityScreen(props: Props): JSX.Element {
                 resultingLplhs={{
                   value: translate(
                     "screens/AddLiquidity",
-                    "LP Tokens to receive"
+                    "LP Tokens to receive",
                   ),
                   testID: "lp_tokens_to_receive",
                   themedProps: {
@@ -591,9 +591,9 @@ export function AddLiquidityScreen(props: Props): JSX.Element {
                   testID: "lp_tokens_to_receive_value",
                   usdAmount: getTokenPrice(
                     pair.aSymbol,
-                    new BigNumber(tokenAAmount)
+                    new BigNumber(tokenAAmount),
                   ).plus(
-                    getTokenPrice(pair.bSymbol, new BigNumber(tokenBAmount))
+                    getTokenPrice(pair.bSymbol, new BigNumber(tokenBAmount)),
                   ),
                   themedProps: {
                     style: tailwind("font-semibold-v2 text-sm"),
@@ -611,11 +611,11 @@ export function AddLiquidityScreen(props: Props): JSX.Element {
                   {isConversionRequired
                     ? translate(
                         "screens/AddLiquidity",
-                        "By continuing, the required amount of DFI will be converted"
+                        "By continuing, the required amount of DFI will be converted",
                       )
                     : translate(
                         "screens/AddLiquidity",
-                        "Review full details in the next screen"
+                        "Review full details in the next screen",
                       )}
                 </ThemedTextV2>
               </View>
@@ -669,7 +669,7 @@ function canAddLiquidity(
   tokenAAmount: BigNumber,
   tokenBAmount: BigNumber,
   balanceA: BigNumber | undefined,
-  balanceB: BigNumber | undefined
+  balanceB: BigNumber | undefined,
 ): boolean {
   if (tokenAAmount.isNaN() || tokenBAmount.isNaN()) {
     // empty string, use still input-ing

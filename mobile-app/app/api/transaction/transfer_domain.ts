@@ -25,7 +25,7 @@ export async function transferDomainSigner(
   sourceTokenId: string,
   targetTokenId: string,
   amount: BigNumber,
-  convertDirection: ConvertDirection
+  convertDirection: ConvertDirection,
 ): Promise<CTransactionSegWit> {
   const dvmScript = await account.getScript();
   const evmScript = await account.getEvmScript();
@@ -64,7 +64,7 @@ export async function transferDomainSigner(
         },
       ],
     },
-    dvmScript
+    dvmScript,
   );
 
   return new CTransactionSegWit(signed);
@@ -77,11 +77,11 @@ export function transferDomainCrafter(
   targetToken: TransferDomainToken,
   onBroadcast: () => any,
   onConfirmation: () => void,
-  submitButtonLabel?: string
+  submitButtonLabel?: string,
 ): DfTxSigner {
   if (
     ![ConvertDirection.evmToDvm, ConvertDirection.dvmToEvm].includes(
-      convertDirection
+      convertDirection,
     )
   ) {
     throw new Error("Unexpected transfer domain");
@@ -99,7 +99,7 @@ export function transferDomainCrafter(
         sourceToken.tokenId,
         targetToken.tokenId,
         amount,
-        convertDirection
+        convertDirection,
       ),
     title: translate(
       "screens/ConvertConfirmScreen",
@@ -108,7 +108,7 @@ export function transferDomainCrafter(
         amount: amount.toFixed(8),
         symbolA,
         symbolB,
-      }
+      },
     ),
     drawerMessages: {
       preparing: translate("screens/OceanInterface", "Preparing to convert…"),
@@ -119,7 +119,7 @@ export function transferDomainCrafter(
           symbolA: symbolA,
           symbolB: symbolB,
           amount: amount.toFixed(8),
-        }
+        },
       ),
       complete: translate(
         "screens/OceanInterface",
@@ -128,7 +128,7 @@ export function transferDomainCrafter(
           symbolA: symbolA,
           symbolB: symbolB,
           amount: amount.toFixed(8),
-        }
+        },
       ),
     },
     onBroadcast,

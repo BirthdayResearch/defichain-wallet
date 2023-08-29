@@ -49,14 +49,14 @@ export function ActionButtons(): JSX.Element {
   const { dvmTokens, evmTokens } = useTokenBalance();
   const navigation = useNavigation<NavigationProp<PortfolioParamList>>();
   const futureSwaps = useSelector((state: RootState) =>
-    futureSwapSelector(state)
+    futureSwapSelector(state),
   );
   const { hasFetchedToken } = useSelector((state: RootState) => state.wallet);
   const DFIUtxo = useSelector((state: RootState) =>
-    DFIUtxoSelector(state.wallet)
+    DFIUtxoSelector(state.wallet),
   );
   const DFIToken = useSelector((state: RootState) =>
-    DFITokenSelector(state.wallet)
+    DFITokenSelector(state.wallet),
   );
   const hasDFIBalance =
     hasFetchedToken &&
@@ -93,12 +93,12 @@ export function ActionButtons(): JSX.Element {
         } else if (domain === DomainType.EVM) {
           // If EVM -> choose DVM equivalent
           targetToken = dvmTokens.find(
-            (token) => token.tokenId === item.tokenId.replace("-EVM", "")
+            (token) => token.tokenId === item.tokenId.replace("-EVM", ""),
           );
         } else if (domain === DomainType.DVM) {
           // If DVM -> choose EVM equivalent
           targetToken = evmTokens.find(
-            (token) => token.tokenId === `${item.tokenId}-EVM`
+            (token) => token.tokenId === `${item.tokenId}-EVM`,
           );
         }
 
@@ -122,7 +122,7 @@ export function ActionButtons(): JSX.Element {
       <ScrollView
         contentContainerStyle={tailwind(
           "flex justify-between min-w-full px-5 mt-8",
-          { "max-w-xs px-9": isEvmDomain }
+          { "max-w-xs px-9": isEvmDomain },
         )}
         showsHorizontalScrollIndicator={false}
         horizontal
@@ -227,7 +227,7 @@ function ActionButton(props: ActionButtonsProps): JSX.Element {
         dark={tailwind("bg-mono-dark-v2-00")}
         light={tailwind("bg-mono-light-v2-00")}
         style={tailwind(
-          "rounded-full w-15 h-15 items-center justify-center mx-2.5"
+          "rounded-full w-15 h-15 items-center justify-center mx-2.5",
         )}
         onPress={props.onPress}
         testID={props.testID}
@@ -237,7 +237,7 @@ function ActionButton(props: ActionButtonsProps): JSX.Element {
             {props.isEvmDomain ? (
               <ConvertIcon
                 color={getColor(
-                  isLight ? "mono-light-v2-900" : "mono-dark-v2-900"
+                  isLight ? "mono-light-v2-900" : "mono-dark-v2-900",
                 )}
               />
             ) : (
@@ -245,7 +245,7 @@ function ActionButton(props: ActionButtonsProps): JSX.Element {
                 width={props.iconSize}
                 height={props.iconSize}
                 color={getColor(
-                  isLight ? "mono-light-v2-900" : "mono-dark-v2-900"
+                  isLight ? "mono-light-v2-900" : "mono-dark-v2-900",
                 )}
               />
             )}
@@ -263,7 +263,7 @@ function ActionButton(props: ActionButtonsProps): JSX.Element {
         {props.badge !== undefined && (
           <View
             style={tailwind(
-              "bg-red-v2 rounded-full items-center justify-center h-4 w-4 absolute top-0 right-0"
+              "bg-red-v2 rounded-full items-center justify-center h-4 w-4 absolute top-0 right-0",
             )}
           >
             <Text

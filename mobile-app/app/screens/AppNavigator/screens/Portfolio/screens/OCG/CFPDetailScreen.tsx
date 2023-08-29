@@ -49,16 +49,16 @@ export function CFPDetailScreen(): JSX.Element {
   const [isUrlValid, setUrlValid] = useState<boolean>(false);
 
   const DFIToken = useSelector((state: RootState) =>
-    DFITokenSelector(state.wallet)
+    DFITokenSelector(state.wallet),
   );
   const DFIUtxo = useSelector((state: RootState) =>
-    DFIUtxoSelector(state.wallet)
+    DFIUtxoSelector(state.wallet),
   );
   const hasPendingJob = useSelector((state: RootState) =>
-    hasTxQueued(state.transactionQueue)
+    hasTxQueued(state.transactionQueue),
   );
   const hasPendingBroadcastJob = useSelector((state: RootState) =>
-    hasOceanTXQueued(state.ocean)
+    hasOceanTXQueued(state.ocean),
   );
 
   const { isConversionRequired, conversionAmount } = useConversion({
@@ -109,7 +109,7 @@ export function CFPDetailScreen(): JSX.Element {
       navigation.goBack();
       await trigger("address");
     },
-    [navigation]
+    [navigation],
   );
 
   function onContinuePress() {
@@ -159,7 +159,7 @@ export function CFPDetailScreen(): JSX.Element {
             params,
             merge: true,
           });
-        }
+        },
       );
     } else {
       navigation.navigate("OCGConfirmScreen", params);
@@ -185,7 +185,7 @@ export function CFPDetailScreen(): JSX.Element {
     <KeyboardAwareScrollView
       contentContainerStyle={tailwind("flex-grow px-5 pb-6 justify-between")}
       style={tailwind(
-        `${isLight ? "bg-mono-light-v2-100" : "bg-mono-dark-v2-100"}`
+        `${isLight ? "bg-mono-light-v2-100" : "bg-mono-dark-v2-100"}`,
       )}
     >
       <View>
@@ -209,7 +209,7 @@ export function CFPDetailScreen(): JSX.Element {
                   "screens/OCGDetailScreen",
                   titleStatus.shouldShowError
                     ? "Title exceeds max character limit of 128."
-                    : "Make sure that the name added here is the same as from the one posted in GitHub or Reddit."
+                    : "Make sure that the name added here is the same as from the one posted in GitHub or Reddit.",
                 ),
                 style: tailwind("pl-5", {
                   "text-red-v2": titleStatus.shouldShowError,
@@ -228,7 +228,7 @@ export function CFPDetailScreen(): JSX.Element {
               onChangeText={setAmount}
               title={translate(
                 "screens/OCGDetailScreen",
-                "AMOUNT REQUESTED IN DFI"
+                "AMOUNT REQUESTED IN DFI",
               )}
               placeholder="0.00 DFI"
               inputContainerStyle={tailwind("py-4.5")}
@@ -281,7 +281,7 @@ export function CFPDetailScreen(): JSX.Element {
         >
           {translate(
             "screens/OCGDetailScreen",
-            "Review full proposal details in the next screen"
+            "Review full proposal details in the next screen",
           )}
         </ThemedTextV2>
         <ButtonV2
@@ -331,7 +331,7 @@ function VotingCycles({
               title: translate("screens/OCGDetailScreen", "Voting Cycle(s)"),
               message: translate(
                 "screens/OCGDetailScreen",
-                "Cycle(s) determine the duration for which a proposal can accept votes."
+                "Cycle(s) determine the duration for which a proposal can accept votes.",
               ),
             }}
             name="voting_cycles"
@@ -357,7 +357,7 @@ function VotingCycles({
           type: "error",
           text: translate(
             "screens/OCGDetailScreen",
-            "Cycle(s) should be 1-100 only"
+            "Cycle(s) should be 1-100 only",
           ),
           style: tailwind("pl-5"),
         }}
@@ -366,12 +366,12 @@ function VotingCycles({
           token="cycle"
           onAdd={() =>
             setCycle(
-              Math.min(Math.floor(Number(cycle) + 1), maxCycle).toString()
+              Math.min(Math.floor(Number(cycle) + 1), maxCycle).toString(),
             )
           }
           onRemove={() =>
             setCycle(
-              Math.max(Math.floor(Number(cycle) - 1), minCycle).toString()
+              Math.max(Math.floor(Number(cycle) - 1), minCycle).toString(),
             )
           }
           leftDisabled={Number(cycle) <= minCycle}
@@ -386,6 +386,6 @@ function getCFPFee(requestedAmount?: BigNumber): BigNumber {
   const CFP_MIN_FEE = 10;
   const amount = requestedAmount ?? new BigNumber(0);
   return new BigNumber(
-    Math.max(amount.multipliedBy(0.01).toNumber(), CFP_MIN_FEE)
+    Math.max(amount.multipliedBy(0.01).toNumber(), CFP_MIN_FEE),
   );
 }

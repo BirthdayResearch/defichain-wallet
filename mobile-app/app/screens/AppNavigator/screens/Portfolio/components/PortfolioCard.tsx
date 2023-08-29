@@ -45,7 +45,7 @@ export function PortfolioCard({
   if (isZeroBalance) {
     const screenDetails = getEmptyScreenDetails(
       ButtonGroupTabKey.AllTokens,
-      domain
+      domain,
     );
     return <EmptyTokensScreen {...screenDetails} testID="empty_portfolio" />;
   }
@@ -58,7 +58,7 @@ export function PortfolioCard({
   ) {
     const screenDetails = getEmptyScreenDetails(
       buttonGroupOptions?.activeButtonGroup,
-      domain
+      domain,
     );
     return <EmptyTokensScreen {...screenDetails} testID="empty_portfolio" />;
   }
@@ -130,7 +130,7 @@ function PortfolioItemRow({
 
 function getEmptyScreenDetails(
   type?: ButtonGroupTabKey,
-  domain?: string
+  domain?: string,
 ): {
   icon: () => JSX.Element;
   title: string;
@@ -143,7 +143,7 @@ function getEmptyScreenDetails(
         title: translate("components/EmptyPortfolio", "No crypto found"),
         subtitle: translate(
           "components/EmptyPortfolio",
-          "Add crypto to get started"
+          "Add crypto to get started",
         ),
       };
     case ButtonGroupTabKey.LPTokens:
@@ -152,7 +152,7 @@ function getEmptyScreenDetails(
         title: translate("components/EmptyPortfolio", "No LP tokens found"),
         subtitle: translate(
           "components/EmptyPortfolio",
-          "Add liquidity to get started"
+          "Add liquidity to get started",
         ),
       };
     case ButtonGroupTabKey.dTokens:
@@ -161,7 +161,7 @@ function getEmptyScreenDetails(
         title: translate("components/EmptyPortfolio", "No dTokens found"),
         subtitle: translate(
           "components/EmptyPortfolio",
-          "Mint dTokens to get started"
+          "Mint dTokens to get started",
         ),
       };
     case ButtonGroupTabKey.AllTokens:
@@ -176,11 +176,11 @@ function getEmptyScreenDetails(
           domain === DomainType.DVM
             ? translate(
                 "components/EmptyPortfolio",
-                "Add DFI and other tokens to get started"
+                "Add DFI and other tokens to get started",
               )
             : translate(
                 "components/EmptyPortfolio",
-                "Add to your balance by converting DFI to the EVM layer"
+                "Add to your balance by converting DFI to the EVM layer",
               ),
       };
   }

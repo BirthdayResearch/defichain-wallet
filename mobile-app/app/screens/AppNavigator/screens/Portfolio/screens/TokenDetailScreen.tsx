@@ -51,7 +51,7 @@ interface TokenActionItems {
 type Props = StackScreenProps<PortfolioParamList, "TokenDetailScreen">;
 
 const usePoolPairToken = (
-  tokenParam: WalletToken
+  tokenParam: WalletToken,
 ): {
   pair?: PoolPairData;
   token: WalletToken;
@@ -59,7 +59,7 @@ const usePoolPairToken = (
 } => {
   const pairs = useSelector((state: RootState) => state.wallet.poolpairs);
   const tokens = useSelector((state: RootState) =>
-    tokensSelector(state.wallet)
+    tokensSelector(state.wallet),
   );
 
   // state
@@ -108,20 +108,20 @@ export function TokenDetailScreen({ route, navigation }: Props): JSX.Element {
   const { hasFetchedToken } = useSelector((state: RootState) => state.wallet);
   const { getTokenPrice } = useTokenPrice(denominationCurrency); // input based on selected denomination from portfolio tab
   const DFIUnified = useSelector((state: RootState) =>
-    unifiedDFISelector(state.wallet)
+    unifiedDFISelector(state.wallet),
   );
   const availableValue = getTokenPrice(
     DFIUnified.symbol,
-    new BigNumber(DFIUnified.amount)
+    new BigNumber(DFIUnified.amount),
   );
   const DFIToken = useSelector((state: RootState) =>
-    DFITokenSelector(state.wallet)
+    DFITokenSelector(state.wallet),
   );
   const DFIUtxo = useSelector((state: RootState) =>
-    DFIUtxoSelector(state.wallet)
+    DFIUtxoSelector(state.wallet),
   );
   const { pair, token, swapTokenDisplaySymbol } = usePoolPairToken(
-    route.params.token
+    route.params.token,
   );
 
   const { dvmTokens } = useTokenBalance();
@@ -242,7 +242,7 @@ export function TokenDetailScreen({ route, navigation }: Props): JSX.Element {
                   testID="send_button"
                   title={translate(
                     "screens/TokenDetailScreen",
-                    "Send to other wallet"
+                    "Send to other wallet",
                   )}
                 />
 
@@ -268,10 +268,10 @@ export function TokenDetailScreen({ route, navigation }: Props): JSX.Element {
                       : ConvertDirection.accountToUtxos;
 
                   const utxoToken = dvmTokens.find(
-                    (token) => token.tokenId === "0_utxo"
+                    (token) => token.tokenId === "0_utxo",
                   );
                   const dfiToken = dvmTokens.find(
-                    (token) => token.tokenId === "0"
+                    (token) => token.tokenId === "0",
                   );
                   const [sourceToken, targetToken] =
                     convertDirection === ConvertDirection.utxosToAccount
@@ -292,7 +292,7 @@ export function TokenDetailScreen({ route, navigation }: Props): JSX.Element {
                 title={translate(
                   "screens/TokenDetailScreen",
                   "Convert to {{symbol}}",
-                  { symbol: `${token.id === "0_utxo" ? "Token" : "UTXO"}` }
+                  { symbol: `${token.id === "0_utxo" ? "Token" : "UTXO"}` },
                 )}
               />
             )}
@@ -310,7 +310,7 @@ export function TokenDetailScreen({ route, navigation }: Props): JSX.Element {
                 testID="remove_liquidity_button"
                 title={translate(
                   "screens/TokenDetailScreen",
-                  "Remove liquidity"
+                  "Remove liquidity",
                 )}
               />
             )}
@@ -346,7 +346,7 @@ export function TokenDetailScreen({ route, navigation }: Props): JSX.Element {
                   testID="add_liquidity_button"
                   label={translate(
                     "screens/TokenDetailScreen",
-                    "Add liquidity"
+                    "Add liquidity",
                   )}
                 />
               </View>
@@ -404,13 +404,13 @@ function TokenSummary(props: {
   };
 
   const DFIUnified = useSelector((state: RootState) =>
-    unifiedDFISelector(state.wallet)
+    unifiedDFISelector(state.wallet),
   );
   const { getTokenPrice } = useTokenPrice(denominationCurrency); // input based on selected denomination from portfolio tab
   const dfiUsdAmount = getTokenPrice(
     DFIUnified.symbol,
     new BigNumber(DFIUnified.amount),
-    DFIUnified.isLPS
+    DFIUnified.isLPS,
   );
 
   return (
@@ -487,7 +487,7 @@ function TokenSummary(props: {
               renderText={(value) => (
                 <ThemedTextV2
                   style={tailwind(
-                    "flex-wrap text-sm font-normal-v2 text-right"
+                    "flex-wrap text-sm font-normal-v2 text-right",
                   )}
                   light={tailwind("text-mono-light-v2-700")}
                   dark={tailwind("text-mono-dark-v2-700")}
