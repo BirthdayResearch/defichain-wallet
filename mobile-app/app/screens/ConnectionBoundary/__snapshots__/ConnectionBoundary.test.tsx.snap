@@ -32,30 +32,27 @@ exports[`offline screen should match snapshot when offline 1`] = `
     }
   >
     <ViewManagerAdapter_ExpoImage
+      contentFit="cover"
+      contentPosition={
+        {
+          "left": "50%",
+          "top": "50%",
+        }
+      }
       height={59}
       onError={[Function]}
       onLoad={[Function]}
       onLoadStart={[Function]}
       onProgress={[Function]}
-      proxiedProperties={
-        {
-          "contentFit": "cover",
-          "contentPosition": {
-            "left": "50%",
-            "top": "50%",
-          },
-          "placeholder": [],
-          "source": [],
-          "tintColor": undefined,
-          "transition": null,
-        }
-      }
+      placeholder={[]}
+      source={[]}
       style={
         {
           "height": 59,
           "width": 163,
         }
       }
+      transition={null}
       width={163}
     />
   </View>

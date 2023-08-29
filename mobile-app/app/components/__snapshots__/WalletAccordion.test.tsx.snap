@@ -160,7 +160,6 @@ exports[`wallet accordion should render 1`] = `
         >
           <View
             collapsable={false}
-            forwardedRef={[Function]}
             onLayout={[Function]}
             style={{}}
           >

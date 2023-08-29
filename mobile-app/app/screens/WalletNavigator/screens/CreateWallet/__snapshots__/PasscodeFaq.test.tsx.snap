@@ -202,7 +202,6 @@ exports[`Passcode FAQ screen should match snapshot 1`] = `
             >
               <View
                 collapsable={false}
-                forwardedRef={[Function]}
                 onLayout={[Function]}
                 style={{}}
               >
@@ -367,7 +366,6 @@ exports[`Passcode FAQ screen should match snapshot 1`] = `
             >
               <View
                 collapsable={false}
-                forwardedRef={[Function]}
                 onLayout={[Function]}
                 style={{}}
               >
@@ -528,7 +526,6 @@ exports[`Passcode FAQ screen should match snapshot 1`] = `
             >
               <View
                 collapsable={false}
-                forwardedRef={[Function]}
                 onLayout={[Function]}
                 style={{}}
               >

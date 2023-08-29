@@ -38,30 +38,27 @@ exports[`empty transaction should match snapshot 1`] = `
       }
     >
       <ViewManagerAdapter_ExpoImage
+        contentFit="cover"
+        contentPosition={
+          {
+            "left": "50%",
+            "top": "50%",
+          }
+        }
         height={96}
         onError={[Function]}
         onLoad={[Function]}
         onLoadStart={[Function]}
         onProgress={[Function]}
-        proxiedProperties={
-          {
-            "contentFit": "cover",
-            "contentPosition": {
-              "left": "50%",
-              "top": "50%",
-            },
-            "placeholder": [],
-            "source": [],
-            "tintColor": undefined,
-            "transition": null,
-          }
-        }
+        placeholder={[]}
+        source={[]}
         style={
           {
             "height": 96,
             "width": 204,
           }
         }
+        transition={null}
         width={204}
       />
     </View>
