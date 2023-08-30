@@ -202,7 +202,6 @@ exports[`Liquidity Mining FAQ screen should match snapshot 1`] = `
             >
               <View
                 collapsable={false}
-                forwardedRef={[Function]}
                 onLayout={[Function]}
                 style={{}}
               >
@@ -369,7 +368,6 @@ Once an amount is entered on one side of the pair, the app automatically balance
             >
               <View
                 collapsable={false}
-                forwardedRef={[Function]}
                 onLayout={[Function]}
                 style={{}}
               >
@@ -534,7 +532,6 @@ Similarly, liquidity tokens can only be sent to another DFI wallet address.
             >
               <View
                 collapsable={false}
-                forwardedRef={[Function]}
                 onLayout={[Function]}
                 style={{}}
               >
@@ -702,7 +699,6 @@ View more at DeFiChain.com
             >
               <View
                 collapsable={false}
-                forwardedRef={[Function]}
                 onLayout={[Function]}
                 style={{}}
               >
@@ -863,7 +859,6 @@ View more at DeFiChain.com
             >
               <View
                 collapsable={false}
-                forwardedRef={[Function]}
                 onLayout={[Function]}
                 style={{}}
               >

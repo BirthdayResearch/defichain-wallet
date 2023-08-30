@@ -202,7 +202,6 @@ exports[`recovery words faq should match snapshot 1`] = `
             >
               <View
                 collapsable={false}
-                forwardedRef={[Function]}
                 onLayout={[Function]}
                 style={{}}
               >
@@ -367,7 +366,6 @@ exports[`recovery words faq should match snapshot 1`] = `
             >
               <View
                 collapsable={false}
-                forwardedRef={[Function]}
                 onLayout={[Function]}
                 style={{}}
               >
@@ -534,7 +532,6 @@ However, it is highly discouraged that you reuse it. Your 24-words are only as s
             >
               <View
                 collapsable={false}
-                forwardedRef={[Function]}
                 onLayout={[Function]}
                 style={{}}
               >
@@ -695,7 +692,6 @@ However, it is highly discouraged that you reuse it. Your 24-words are only as s
             >
               <View
                 collapsable={false}
-                forwardedRef={[Function]}
                 onLayout={[Function]}
                 style={{}}
               >

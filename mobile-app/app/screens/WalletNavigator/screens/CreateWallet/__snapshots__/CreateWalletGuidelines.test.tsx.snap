@@ -34,30 +34,27 @@ exports[`create wallet guidelines v2 should match snapshot 1`] = `
       }
     >
       <ViewManagerAdapter_ExpoImage
+        contentFit="cover"
+        contentPosition={
+          {
+            "left": "50%",
+            "top": "50%",
+          }
+        }
         height={136}
         onError={[Function]}
         onLoad={[Function]}
         onLoadStart={[Function]}
         onProgress={[Function]}
-        proxiedProperties={
-          {
-            "contentFit": "cover",
-            "contentPosition": {
-              "left": "50%",
-              "top": "50%",
-            },
-            "placeholder": [],
-            "source": [],
-            "tintColor": undefined,
-            "transition": null,
-          }
-        }
+        placeholder={[]}
+        source={[]}
         style={
           {
             "height": 136,
             "width": 200,
           }
         }
+        transition={null}
         width={200}
       />
     </View>
