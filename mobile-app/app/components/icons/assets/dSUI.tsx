@@ -1,4 +1,4 @@
-import Svg, { ClipPath, Defs, G, Path, SvgProps } from "react-native-svg";
+import Svg, { ClipPath, Defs, G, Path, Rect, SvgProps } from "react-native-svg";
 
 export function dSUI(props: SvgProps): JSX.Element {
   return (
@@ -17,7 +17,7 @@ export function dSUI(props: SvgProps): JSX.Element {
       </G>
       <Defs>
         <ClipPath id="clip0_4798_2431">
-          <rect width="48" height="48" fill="white" />
+          <Rect width="48" height="48" fill="white" />
         </ClipPath>
       </Defs>
     </Svg>
