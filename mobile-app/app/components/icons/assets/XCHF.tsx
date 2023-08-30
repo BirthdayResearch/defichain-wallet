@@ -4,8 +4,8 @@ export function XCHF(props: SvgProps): JSX.Element {
   return (
     <Svg width="36" height="36" viewBox="0 0 36 36" fill="none" {...props}>
       <Path
-        fill-rule="evenodd"
-        clip-rule="evenodd"
+        fillRule="evenodd"
+        clipRule="evenodd"
         d="M0 18C0 8.05891 8.05891 0 18 0C27.9411 0 36 8.05891 36 18C36 27.9411 27.9411 36 18 36C8.05891 36 0 27.9411 0 18Z"
         fill="#CE0E2D"
       />
