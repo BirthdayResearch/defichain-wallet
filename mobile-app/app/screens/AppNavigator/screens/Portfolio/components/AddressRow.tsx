@@ -295,8 +295,8 @@ export function AddressRow({
               validLocalAddress && (
                 <>
                   {(matchedAddress as WhitelistedAddress)?.addressDomainType ===
-                    DomainType.EVM ||
-                  (matchedAddress as LocalAddress)?.evmAddress ? (
+                  DomainType.EVM ? (
+                    // || (matchedAddress as LocalAddress)?.evmAddress ?
                     <LinearGradient
                       colors={["#42F9C2", "#3B57CF"]}
                       start={[0, 0]}
