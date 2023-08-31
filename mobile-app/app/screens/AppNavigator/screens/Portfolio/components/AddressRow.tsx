@@ -294,6 +294,7 @@ export function AddressRow({
             {addressType !== AddressType.OthersButValid &&
               validLocalAddress && (
                 <>
+                  {/* TODO @chloe cater for selection of evm addr from addr pair */}
                   {(matchedAddress as WhitelistedAddress)?.addressDomainType ===
                   DomainType.EVM ? (
                     // || (matchedAddress as LocalAddress)?.evmAddress ?
@@ -322,7 +323,6 @@ export function AddressRow({
                           "px-2": addressType === AddressType.Whitelisted,
                         },
                       )}
-                      // @chloe todo evm bg color for labelled evm address
                       light={tailwind("bg-mono-light-v2-200")}
                       dark={tailwind("bg-mono-dark-v2-200")}
                     >

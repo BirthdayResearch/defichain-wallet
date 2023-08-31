@@ -120,9 +120,9 @@ export function SummaryTitle(props: ISummaryTitleProps): JSX.Element {
             >
               {props.customToAddressTitle ?? translate("screens/common", "To")}
             </ThemedTextV2>
+            {/* TODO @chloe cater for selection of evm addr from addr pair */}
             {(props.matchedAddress as WhitelistedAddress)?.addressDomainType ===
-              DomainType.EVM ||
-            (props.matchedAddress as LocalAddress)?.evmAddress ? (
+            DomainType.EVM ? (
               <LinearGradient
                 colors={["#42F9C2", "#3B57CF"]}
                 start={[0, 0]}
