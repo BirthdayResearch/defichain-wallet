@@ -12,9 +12,10 @@ export function TokenNameText({
   testID: string;
   displaySymbol: string;
   name: string;
-  isEVMDomain: boolean;
+  isEVMDomain?: boolean;
 }): JSX.Element {
-  const evmDomainText = isEVMDomain ? "for EVM" : "";
+  const domainTypeText = isEVMDomain ? "for EVM" : "";
+  const tokenName = `${name} ${domainTypeText}`;
   return (
     <View style={tailwind("ml-2 flex-auto")}>
       <ThemedTextV2
@@ -34,7 +35,7 @@ export function TokenNameText({
           testID={`${testID}_name`}
           ellipsizeMode="tail"
         >
-          {name} {evmDomainText}
+          {tokenName}
         </ThemedTextV2>
       )}
     </View>
