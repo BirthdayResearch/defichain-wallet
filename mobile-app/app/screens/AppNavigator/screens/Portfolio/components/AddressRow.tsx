@@ -83,6 +83,7 @@ export function AddressRow({
   >([]);
   const [addressType, setAddressType] = useState<AddressType>();
   const [validEvmAddress, setValidEvmAddress] = useState<boolean>(false);
+  const [hasErrorMsg, setHasErrorMsg] = useState<boolean>(false);
 
   const validLocalAddress = useMemo(() => {
     if (address === "") {
@@ -175,6 +176,7 @@ export function AddressRow({
         name="address"
         render={({ field: { value, onChange }, fieldState: { error } }) => {
           const hasValidAddress = error?.type == null && validLocalAddress;
+          setHasErrorMsg(!hasValidAddress);
           return (
             <View style={tailwind("flex w-full")}>
               <WalletTextInputV2
@@ -268,7 +270,7 @@ export function AddressRow({
       />
 
       <View style={tailwind("ml-5 my-2 items-center flex flex-row")}>
-        {addressType !== undefined && (
+        {addressType !== undefined && !hasErrorMsg && (
           <>
             {/* Verified tag for DVM/EVM address */}
             {addressType === AddressType.OthersButValid && (
@@ -295,7 +297,8 @@ export function AddressRow({
               validLocalAddress && (
                 <>
                   {(matchedAddress as WhitelistedAddress)?.addressDomainType ===
-                  DomainType.EVM ? (
+                    DomainType.EVM ||
+                  (matchedAddress as LocalAddress)?.evmAddress ? (
                     <LinearGradient
                       colors={["#42F9C2", "#3B57CF"]}
                       start={[0, 0]}
