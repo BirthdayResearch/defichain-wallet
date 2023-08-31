@@ -365,14 +365,25 @@ export function PortfolioScreen({ navigation }: Props): JSX.Element {
           sortTokensFunc = (a, b) => b.usdAmount.minus(a.usdAmount).toNumber();
       }
 
+      // Filter out LP tokens on EVM domain
+      if (domain === DomainType.EVM) {
+        return filteredTokens
+          .filter((tokenType) => !tokenType.isLPS)
+          .sort(sortTokensFunc);
+      }
       return filteredTokens.sort(sortTokensFunc);
     },
-    [filteredTokens, assetSortType, denominationCurrency],
+    [domain, filteredTokens, assetSortType, denominationCurrency],
   );
 
   useEffect(() => {
     setAssetSortType(PortfolioSortType.HighestDenominationValue); // reset sorting state upon denominationCurrency change
   }, [denominationCurrency]);
+
+  // Reset button group in EVM domain
+  useEffect(() => {
+    setActiveButtonGroup(ButtonGroupTabKey.AllTokens);
+  }, [domain]);
 
   // token tab items
   const [activeButtonGroup, setActiveButtonGroup] = useState<ButtonGroupTabKey>(
@@ -698,6 +709,7 @@ export function PortfolioScreen({ navigation }: Props): JSX.Element {
               onButtonGroupPress: handleButtonFilter,
             }}
             denominationCurrency={denominationCurrency}
+            isEVMDomain={domain === DomainType.EVM}
           />
         )}
         {Platform.OS === "web" ? (

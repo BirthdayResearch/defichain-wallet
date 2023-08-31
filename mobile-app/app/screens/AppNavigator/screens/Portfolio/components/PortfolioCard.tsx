@@ -30,6 +30,7 @@ interface PortfolioCardProps {
     setActiveButtonGroup: (key: ButtonGroupTabKey) => void;
   };
   denominationCurrency: string;
+  isEVMDomain: boolean;
 }
 
 export function PortfolioCard({
@@ -38,6 +39,7 @@ export function PortfolioCard({
   navigation,
   buttonGroupOptions,
   denominationCurrency,
+  isEVMDomain,
 }: PortfolioCardProps): JSX.Element {
   const { hasFetchedToken } = useSelector((state: RootState) => state.wallet);
   const { domain } = useDomainContext();
@@ -77,6 +79,7 @@ export function PortfolioCard({
           }
           token={item}
           denominationCurrency={denominationCurrency}
+          isEVMDomain={isEVMDomain}
         />
       ))}
     </View>
@@ -87,10 +90,12 @@ function PortfolioItemRow({
   token,
   onPress,
   denominationCurrency,
+  isEVMDomain,
 }: {
   token: PortfolioRowToken;
   onPress: () => void;
   denominationCurrency: string;
+  isEVMDomain: boolean;
 }): JSX.Element {
   const testID = `portfolio_row_${token.id}`;
 
@@ -109,6 +114,7 @@ function PortfolioItemRow({
             displaySymbol={token.displaySymbol}
             name={token.name}
             testID={testID}
+            isEVMDomain={isEVMDomain}
           />
         </View>
         <View
