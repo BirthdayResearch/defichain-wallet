@@ -45,6 +45,8 @@ export function AddressRow({
   onAddressType,
   showQrButton = true,
   onlyLocalAddress,
+  matchedAddress,
+  setMatchedAddress,
 }: {
   control: Control;
   networkName: NetworkName;
@@ -61,6 +63,8 @@ export function AddressRow({
   onAddressType?: (addressType?: AddressType) => void;
   showQrButton?: boolean;
   onlyLocalAddress?: boolean;
+  matchedAddress: LocalAddress | WhitelistedAddress | undefined;
+  setMatchedAddress: (address?: LocalAddress | WhitelistedAddress) => void;
 }): JSX.Element {
   const { fetchWalletAddresses } = useWalletAddress();
   const { domain } = useDomainContext();
@@ -77,9 +81,6 @@ export function AddressRow({
   const [jellyfishWalletAddress, setJellyfishWalletAddresses] = useState<
     WalletAddressI[]
   >([]);
-  const [matchedAddress, setMatchedAddress] = useState<
-    LocalAddress | WhitelistedAddress
-  >();
   const [addressType, setAddressType] = useState<AddressType>();
   const [validEvmAddress, setValidEvmAddress] = useState<boolean>(false);
 
@@ -320,7 +321,7 @@ export function AddressRow({
                           "px-2": addressType === AddressType.Whitelisted,
                         },
                       )}
-                      // @chloe todo evm bg color for evm address
+                      // @chloe todo evm bg color for labelled evm address
                       light={tailwind("bg-mono-light-v2-200")}
                       dark={tailwind("bg-mono-dark-v2-200")}
                     >

@@ -265,6 +265,7 @@ export function SendScreen({ route, navigation }: Props): JSX.Element {
       fee,
       toAddressLabel: matchedAddress?.label,
       addressType,
+      matchedAddress,
     };
 
     if (isConversionRequired) {
@@ -445,6 +446,8 @@ export function SendScreen({ route, navigation }: Props): JSX.Element {
               address={address}
               onMatchedAddress={setMatchedAddress}
               onAddressType={setAddressType}
+              matchedAddress={matchedAddress}
+              setMatchedAddress={setMatchedAddress}
             />
           </View>
         )}
