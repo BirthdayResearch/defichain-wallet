@@ -183,7 +183,6 @@ export function SummaryTitle(props: ISummaryTitleProps): JSX.Element {
                   ]}
                   testID="summary_to_value"
                 >
-                  {/* TODO @chloe to cater for evm address here */}
                   {props.toAddressLabel != null &&
                   props.toAddressLabel.length > 0
                     ? props.toAddressLabel
