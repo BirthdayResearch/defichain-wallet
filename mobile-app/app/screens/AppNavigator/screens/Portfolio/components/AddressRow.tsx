@@ -63,8 +63,8 @@ export function AddressRow({
   onAddressType?: (addressType?: AddressType) => void;
   showQrButton?: boolean;
   onlyLocalAddress?: boolean;
-  matchedAddress: LocalAddress | WhitelistedAddress | undefined;
-  setMatchedAddress: (address?: LocalAddress | WhitelistedAddress) => void;
+  matchedAddress?: LocalAddress | WhitelistedAddress | undefined;
+  setMatchedAddress?: (address?: LocalAddress | WhitelistedAddress) => void;
 }): JSX.Element {
   const { fetchWalletAddresses } = useWalletAddress();
   const { domain } = useDomainContext();
@@ -96,7 +96,7 @@ export function AddressRow({
 
   const debounceMatchAddress = debounce(() => {
     // Check if address input field is not empty
-    if (address !== undefined) {
+    if (address !== undefined && setMatchedAddress !== undefined) {
       if (addressBook !== undefined && addressBook[address] !== undefined) {
         // Whitelisted Addresses
         setMatchedAddress(addressBook[address]);
