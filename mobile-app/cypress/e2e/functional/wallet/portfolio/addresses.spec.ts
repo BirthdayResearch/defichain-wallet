@@ -19,6 +19,7 @@ function addLocalStorageFeatureFlag(): void {
 
 context("Wallet - Addresses", () => {
   let whale: WhaleApiClient;
+  let address: string;
 
   before(() => {
     addLocalStorageFeatureFlag();
@@ -92,6 +93,10 @@ context("Wallet - Addresses", () => {
         cy.getByTestID("bottomsheet-address-header").contains("EVM");
         cy.getByTestID("close_bottom_sheet_button").click();
       });
+
+    // Toggled back to DVM for next test
+    cy.getByTestID("domain_switch_EVM").should("exist");
+    cy.getByTestID("domain_switch").click();
   });
 
   it("should be able to create new address when all available address are active", () => {
@@ -159,10 +164,7 @@ context("Wallet - Addresses", () => {
         cy.getByTestID("receive_balance_button").click();
         cy.getByTestID("address_text").contains(activeAddress);
       });
-  });
 
-  context("Wallet - Addresses transfer dfi between addresses", () => {
-    let address: string;
     it("should able to transfer dfi between addresses", () => {
       cy.getByTestID("bottom_tab_portfolio").click();
       cy.getByTestID("switch_account_button")

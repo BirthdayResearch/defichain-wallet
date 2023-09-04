@@ -130,6 +130,7 @@ export function SummaryTitle(props: ISummaryTitleProps): JSX.Element {
                 style={tailwind(
                   "rounded-2xl px-2.5 py-1 ml-1 flex flex-row items-center",
                 )}
+                testID="to_address_label_evm_tag"
               >
                 {props.addressType === AddressType.WalletAddress && (
                   <View style={tailwind("mr-1")}>

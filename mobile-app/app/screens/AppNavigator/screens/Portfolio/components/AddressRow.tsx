@@ -306,7 +306,7 @@ export function AddressRow({
                     >
                       {/* TODO add avatar for after updating address book design */}
                       <Text
-                        testID="evm_address_label"
+                        testID="address_input_footer_evm"
                         style={tailwind(
                           "text-mono-light-v2-00 text-xs font-semibold-v2 leading-4",
                         )}
