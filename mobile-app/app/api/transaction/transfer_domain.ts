@@ -41,6 +41,13 @@ export async function transferDomainSigner(
       ? [TRANSFER_DOMAIN_TYPE.EVM, TRANSFER_DOMAIN_TYPE.DVM]
       : [TRANSFER_DOMAIN_TYPE.DVM, TRANSFER_DOMAIN_TYPE.EVM];
 
+  function checkIfEvmToken(tokenId: string) {
+    if (tokenId.includes("-EVM")) {
+      return Number(tokenId.replace("-EVM", ""));
+    }
+    return Number(tokenId);
+  }
+
   const signed: TransactionSegWit = await builder.account.transferDomain(
     {
       items: [
@@ -48,7 +55,7 @@ export async function transferDomainSigner(
           src: {
             address: sourceScript,
             amount: {
-              token: Number(sourceTokenId),
+              token: checkIfEvmToken(sourceTokenId),
               amount,
             },
             domain: srcDomain,
@@ -56,7 +63,7 @@ export async function transferDomainSigner(
           dst: {
             address: dstScript,
             amount: {
-              token: Number(targetTokenId),
+              token: checkIfEvmToken(targetTokenId),
               amount,
             },
             domain: dstDomain,
