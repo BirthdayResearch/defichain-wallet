@@ -539,6 +539,19 @@
     "Are there other ways to submit proposals?": "还有其他的方式提交提案吗？",
     "If you own a full node wallet, you may also choose to submit using commands via CLI. Commands can be generated on DeFiScan, under Governance tab > Submit proposal.": "如果您拥有全节点钱包，你可以选择通过CLI界面使用命令进行提交。该命令可以在DeFiScan上生成，在\"Governance\" > \"Submit proposal\" 选项里。"
   },
+  "components/EvmFeatureFaq": {
+    "FREQUENTLY ASKED QUESTIONS": "常见问题",
+    "About MetaChain (EVM)": "MetaChain (EVM)",
+    "The MetaChain layer provides an EVM-compatible environment that allows developers familiar with Ethereum to seamlessly build next generation applications inside the native DeFiChain ecosystem.\n\nThe MetaChain layer provides an EVM-compatible environment that allows developers familiar with Ethereum to build applications inside the DeFiChain ecosystem.": "MetaChain 层提供了一个与 EVM 兼容的环境，允许熟悉以太坊的开发人员在 DeFiChain 生态系统内无缝构建下一代应用程序。\n\nMetaChain 层提供了一个与 EVM 兼容的环境，允许熟悉以太坊的开发人员在 DeFiChain 生态系统内构建应用程序。",
+    "What tokens are supported between DVM and EVM bidirectionally?": "DVM 和 EVM 这两个之间支持哪些双向代币？",
+    "All dTokens are accepted. dTokens consist of:\ndStocks (dTSLA, dGOOG.) + DFI\n\nFor the full list, you may refer to https://defiscan.live/tokens on any tokens under DAT category.": "所有 dToken 均被接受。 dToken 包括：\ndStocks (dTSLA, dGOOG.) + DFI\n\n有关完整列表，您可以参考 https://defiscan.live/tokens 了解 DAT 类别下的任何代币。",
+    "How can I access the MetaChain layer from the Light Wallet?": "如何从轻钱包访问MetaChain层？",
+    "Move your dTokens between native DeFiChain's native layer (DVM) and the MetaChain layer (EVM) bidirectionally.\n\nFor instance, transfer DFI/DUSD/dBTC or any other dToken from DVM to EVM and back, all directly within the Light Wallet.": "在原生 DeFiChain 的原链层 (DVM) 和 MetaChain 层 (EVM) 之间双向移动您的 dToken。\n\n例如，将 DFI/DUSD/dBTC 或任何其他 dToken 从 DVM 转移到 EVM 并返回，所有这些操作都直接在轻钱包内进行。",
+    "Why would I need to move dTokens from DVM to EVM?": "为什么我需要将 dToken 从 DVM 转移到 EVM？",
+    "Using the gateway allows you to move your dTokens from the Light Wallet to any EVM compatible wallet on the MetaChain layer (ex: MetaMask). This would allow you to interact with the constantly growing EVM ecosystem on MetaChain and the various projects on it.": "使用这路线可以让您将 dToken 从 Light Wallet 移动到 MetaChain 层上的任何 EVM 兼容钱包（例如：MetaMask）。 这将使您能够与 MetaChain 上不断发展的 EVM 生态系统及其上的各种项目进行交互。",
+    "How can I move dTokens from DVM to EVM?": "如何将 dToken 从 DVM 转移到 EVM？",
+    "You can do it through either the \"Convert\" or \"Send\" functions on Light Wallet. The \"Convert\" option allows you to convert any dTokens on DVM to your own EVM address within the Light Wallet (and vice versa).\n\nYour seed phrase can also be used to import your Light Wallet EVM address into any external wallets which support a 24 words recovery phrase like MetaMask.\n\nThe \"Send\" option allows you to send dTokens from your DVM address to any EVM address on the MetaChain layer and vice versa. Note that you do not need to convert your dTokens before sending, this process does it automatically for you.": "您可以通过 Light Wallet 上的\"转换\"或\"发送\"功能来完成此操作。 \"转换\"选项允许您将 DVM 上的任何 dToken 转换为您自己的轻钱包中的 EVM 地址（反之亦然）。\n\n您的助记词还可用于将您的轻钱包 EVM 地址导入任何支持 24 个单词恢复短语（如 MetaMask）的外部钱包。\n\n\"发送\"选项允许您将 dToken 从您的 DVM 地址发送到 MetaChain 层上的任何 EVM 地址，反之亦然。 请注意，您无需在发送前转换 dToken，此过程会自动为您完成。"
+  },
   "screens/NetworkSelectionScreen": {
     "NETWORK": "网络",
     "Select network": "切换网络",
