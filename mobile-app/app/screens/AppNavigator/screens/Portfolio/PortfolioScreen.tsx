@@ -698,6 +698,7 @@ export function PortfolioScreen({ navigation }: Props): JSX.Element {
               onButtonGroupPress: handleButtonFilter,
             }}
             denominationCurrency={denominationCurrency}
+            isEvmDomain={domain === DomainType.EVM}
           />
         )}
         {Platform.OS === "web" ? (

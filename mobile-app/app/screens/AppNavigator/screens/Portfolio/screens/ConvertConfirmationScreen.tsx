@@ -182,9 +182,10 @@ export function ConvertConfirmationScreen({ route }: Props): JSX.Element {
           )}
           amount={amount}
           testID="text_convert_amount"
-          iconA="_UTXO"
+          iconA={targetToken.displaySymbol}
           fromAddress={address}
           fromAddressLabel={addressLabel}
+          isEvmToken={convertDirection === ConvertDirection.dvmToEvm}
         />
         <NumberRowV2
           containerStyle={{

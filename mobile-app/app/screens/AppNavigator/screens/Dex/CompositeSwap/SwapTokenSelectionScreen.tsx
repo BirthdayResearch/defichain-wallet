@@ -18,6 +18,7 @@ import { useTokenPrice } from "@screens/AppNavigator/screens/Portfolio/hooks/Tok
 import { translate } from "@translations";
 import { useThemeContext } from "@waveshq/walletkit-ui";
 import { PortfolioParamList } from "@screens/AppNavigator/screens/Portfolio/PortfolioNavigator";
+import { DomainType, useDomainContext } from "@contexts/DomainContext";
 
 export enum TokenListType {
   From = "FROM",
@@ -53,6 +54,7 @@ export function SwapTokenSelectionScreen({ route }: Props): JSX.Element {
 
   const { isLight } = useThemeContext();
   const { getTokenPrice } = useTokenPrice();
+  const { domain } = useDomainContext();
 
   const [searchString, setSearchString] = useState("");
   const [isSearchFocus, setIsSearchFocus] = useState(false);
@@ -95,6 +97,7 @@ export function SwapTokenSelectionScreen({ route }: Props): JSX.Element {
       }: ListRenderItemInfo<SelectionToken>): JSX.Element => {
         return (
           <TokenItem
+            isEvmDomain={domain === DomainType.EVM}
             fromToken={fromToken}
             item={item}
             onPress={() => onTokenPress(item)}
@@ -191,6 +194,7 @@ interface TokenItemProps {
   onPress: any;
   getTokenPrice: TokenPrice;
   listType: TokenListType;
+  isEvmDomain: boolean;
 }
 
 function TokenItem({
@@ -199,13 +203,13 @@ function TokenItem({
   onPress,
   getTokenPrice,
   listType,
+  isEvmDomain,
 }: TokenItemProps): JSX.Element {
   const activePriceUSDT = getTokenPrice(
     item.token.symbol,
     new BigNumber("1"),
     item.token.isLPS,
   );
-
   return (
     <ThemedTouchableOpacityV2
       style={tailwind(
@@ -224,6 +228,7 @@ function TokenItem({
             displaySymbol: item.token.displaySymbol,
           }}
           size={36}
+          isEvmToken={isEvmDomain}
         />
         <TokenNameText
           displaySymbol={
