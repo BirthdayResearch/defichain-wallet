@@ -239,6 +239,7 @@ function ActionButton(props: ActionButtonsProps): JSX.Element {
                 color={getColor(
                   isLight ? "mono-light-v2-900" : "mono-dark-v2-900",
                 )}
+                iconSize={26}
               />
             ) : (
               <DFIIcon

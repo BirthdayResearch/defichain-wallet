@@ -38,6 +38,7 @@ import {
   TokenDropdownButtonStatus,
 } from "@components/TokenDropdownButton";
 import { DomainType, useDomainContext } from "@contexts/DomainContext";
+import { EVMLinearGradient } from "@components/EVMLinearGradient";
 import { PortfolioParamList } from "../PortfolioNavigator";
 import {
   TokenListType,
@@ -396,6 +397,7 @@ export function ConvertScreen(props: Props): JSX.Element {
             </View>
 
             <TokenDropdownButton
+              isEvmToken={sourceToken?.token.domainType === DomainType.EVM}
               symbol={sourceToken.token.displaySymbol}
               displayedTextSymbol={sourceToken.token.displayTextSymbol}
               testID={TokenListType.From}
@@ -515,6 +517,7 @@ export function ConvertScreen(props: Props): JSX.Element {
 
           {sourceToken.tokenId === "0" && (
             <TokenDropdownButton
+              isEvmToken={targetToken?.token.domainType === DomainType.EVM}
               symbol={targetToken?.token.displaySymbol}
               displayedTextSymbol={targetToken?.token.displayTextSymbol}
               testID={TokenListType.To}
@@ -529,6 +532,7 @@ export function ConvertScreen(props: Props): JSX.Element {
               testID={TokenListType.To}
               symbol={targetToken.token.displaySymbol}
               unit={targetToken.token.displayTextSymbol}
+              isEvmToken={targetToken?.token.domainType === DomainType.EVM}
             />
           )}
         </View>
@@ -703,6 +707,7 @@ function FixedTokenButton(props: {
   symbol: string;
   testID: string;
   unit: string;
+  isEvmToken?: boolean;
 }): JSX.Element {
   const Icon = getNativeIcon(props.symbol);
   return (
@@ -714,11 +719,10 @@ function FixedTokenButton(props: {
       disabled
     >
       {props.symbol !== undefined && Icon !== undefined && (
-        <>
-          <View style={tailwind("my-2")}>
+        <View style={tailwind("flex flex-row items-center")}>
+          <EVMLinearGradient isEvmToken={props.isEvmToken}>
             <Icon testID="fixed_token_icon" height={24} width={24} />
-          </View>
-
+          </EVMLinearGradient>
           <ThemedTextV2
             style={tailwind("ml-2 text-sm font-semibold-v2 my-2.5")}
             dark={tailwind("text-mono-dark-v2-900")}
@@ -727,7 +731,7 @@ function FixedTokenButton(props: {
           >
             {props.unit}
           </ThemedTextV2>
-        </>
+        </View>
       )}
     </ThemedTouchableOpacityV2>
   );
