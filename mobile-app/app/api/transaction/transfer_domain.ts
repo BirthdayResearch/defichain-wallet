@@ -32,6 +32,7 @@ export async function transferDomainSigner(
 ): Promise<CTransactionSegWit> {
   const dvmScript = await account.getScript();
   const evmScript = await account.getEvmScript();
+  const evmAddress = await account.getEvmAddress();
   const builder = account.withTransactionBuilder();
 
   const [sourceScript, dstScript] =
@@ -50,11 +51,11 @@ export async function transferDomainSigner(
   const TD_CONTRACT_ADDR = "0x0000000000000000000000000000000000000302";
   const tdIFace = new utils.Interface(TransferDomain.abi);
 
-  const from =
+  const from = evmAddress;
+  const to =
     convertDirection === ConvertDirection.evmToDvm
-      ? await account.getEvmAddress()
-      : await account.getAddress();
-  const to = TD_CONTRACT_ADDR;
+      ? TD_CONTRACT_ADDR
+      : evmAddress;
   const evmAmount = BN.from(amount.toString()).toHexString(); // "0x29a2241af62c0000"; // 3_000_000_000_000_000_000
   const native = await account.getAddress();
   const data = tdIFace.encodeFunctionData("transfer", [
