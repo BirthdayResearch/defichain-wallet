@@ -30,7 +30,7 @@ interface PortfolioCardProps {
     setActiveButtonGroup: (key: ButtonGroupTabKey) => void;
   };
   denominationCurrency: string;
-  isEVMDomain: boolean;
+  isEvmDomain: boolean;
 }
 
 export function PortfolioCard({
@@ -39,7 +39,7 @@ export function PortfolioCard({
   navigation,
   buttonGroupOptions,
   denominationCurrency,
-  isEVMDomain,
+  isEvmDomain,
 }: PortfolioCardProps): JSX.Element {
   const { hasFetchedToken } = useSelector((state: RootState) => state.wallet);
   const { domain } = useDomainContext();
@@ -73,13 +73,16 @@ export function PortfolioCard({
           onPress={() =>
             navigation.navigate({
               name: "TokenDetailScreen",
-              params: { token: item, usdAmount: item.usdAmount },
+              params: {
+                token: item,
+                usdAmount: item.usdAmount,
+              },
               merge: true,
             })
           }
           token={item}
           denominationCurrency={denominationCurrency}
-          isEVMDomain={isEVMDomain}
+          isEvmDomain={isEvmDomain}
         />
       ))}
     </View>
@@ -90,12 +93,12 @@ function PortfolioItemRow({
   token,
   onPress,
   denominationCurrency,
-  isEVMDomain,
+  isEvmDomain,
 }: {
   token: PortfolioRowToken;
   onPress: () => void;
   denominationCurrency: string;
-  isEVMDomain: boolean;
+  isEvmDomain?: boolean;
 }): JSX.Element {
   const testID = `portfolio_row_${token.id}`;
 
@@ -109,12 +112,17 @@ function PortfolioItemRow({
     >
       <View style={tailwind("flex flex-row items-start")}>
         <View style={tailwind("w-7/12 flex-row items-center")}>
-          <TokenIcon testID={`${testID}_icon`} token={token} size={36} />
+          <TokenIcon
+            testID={`${testID}_icon`}
+            token={token}
+            size={36}
+            isEvmToken={isEvmDomain}
+          />
           <TokenNameText
             displaySymbol={token.displaySymbol}
             name={token.name}
             testID={testID}
-            isEVMDomain={isEVMDomain}
+            isEVMDomain={isEvmDomain}
           />
         </View>
         <View

@@ -30,6 +30,7 @@ import { ButtonV2 } from "@components/ButtonV2";
 import { InfoTextLinkV2 } from "@components/InfoTextLink";
 import { ThemedTouchableListItem } from "@components/themed/ThemedTouchableListItem";
 import { ConvertDirection } from "@screens/enum";
+import { DomainType, useDomainContext } from "@contexts/DomainContext";
 import { PortfolioParamList } from "../PortfolioNavigator";
 import { useTokenPrice } from "../hooks/TokenPrice";
 import { useDenominationCurrency } from "../hooks/PortfolioCurrency";
@@ -105,6 +106,8 @@ const usePoolPairToken = (
 
 export function TokenDetailScreen({ route, navigation }: Props): JSX.Element {
   const { denominationCurrency } = useDenominationCurrency();
+  const { domain } = useDomainContext();
+
   const { hasFetchedToken } = useSelector((state: RootState) => state.wallet);
   const { getTokenPrice } = useTokenPrice(denominationCurrency); // input based on selected denomination from portfolio tab
   const DFIUnified = useSelector((state: RootState) =>
@@ -183,6 +186,7 @@ export function TokenDetailScreen({ route, navigation }: Props): JSX.Element {
         token={token}
         border
         usdAmount={usdAmount ?? new BigNumber(0)}
+        isEvmDomain={domain === DomainType.EVM}
       />
 
       <View style={tailwind("p-5 pb-12")}>
@@ -391,6 +395,7 @@ function TokenSummary(props: {
   token: WalletToken;
   border?: boolean;
   usdAmount: BigNumber;
+  isEvmDomain?: boolean;
 }): JSX.Element {
   const { denominationCurrency } = useDenominationCurrency();
   const { getTokenUrl } = useDeFiScanContext();
@@ -426,6 +431,7 @@ function TokenSummary(props: {
             displaySymbol: props.token.displaySymbol,
           }}
           size={40}
+          isEvmToken={props.isEvmDomain}
         />
         <View style={tailwind("flex-col ml-3")}>
           <ThemedTextV2 style={tailwind("font-semibold-v2")}>

@@ -10,6 +10,7 @@ import { DomainType } from "@contexts/DomainContext";
 import { LinearGradient } from "expo-linear-gradient";
 import { View } from ".";
 import { ThemedTextV2, ThemedViewV2 } from "./themed";
+import { EVMLinearGradient } from "./EVMLinearGradient";
 
 interface ISummaryTitleProps {
   title: string;
@@ -25,6 +26,7 @@ interface ISummaryTitleProps {
   addressType?: AddressType;
   amountTextStyle?: string;
   matchedAddress?: LocalAddress | WhitelistedAddress;
+  isEvmToken?: boolean;
 }
 
 export function SummaryTitle(props: ISummaryTitleProps): JSX.Element {
@@ -51,7 +53,12 @@ export function SummaryTitle(props: ISummaryTitleProps): JSX.Element {
               <IconB height={32} width={32} style={tailwind("-ml-3")} />
             </View>
           ) : (
-            <IconA height={32} width={32} />
+            <EVMLinearGradient isEvmToken={props.isEvmToken}>
+              <IconA
+                height={props.isEvmToken ? 28 : 32}
+                width={props.isEvmToken ? 28 : 32}
+              />
+            </EVMLinearGradient>
           )}
 
           <NumberFormat
@@ -128,7 +135,11 @@ export function SummaryTitle(props: ISummaryTitleProps): JSX.Element {
                 start={[0, 0]}
                 end={[1, 1]}
                 style={tailwind(
-                  "rounded-2xl px-2.5 py-1 ml-1 flex flex-row items-center",
+                  "flex flex-row items-center overflow-hidden rounded-full pr-2.5 py-1 ml-2",
+                  {
+                    "pl-1": props.addressType === AddressType.WalletAddress,
+                    "pl-2.5": props.addressType !== AddressType.WalletAddress,
+                  },
                 )}
                 testID="to_address_label_evm_tag"
               >

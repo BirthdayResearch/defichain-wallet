@@ -18,6 +18,9 @@ import { MATIC } from "./MATIC";
 import { dDOT } from "./dDOT";
 import { dMATIC } from "./dMATIC";
 import { dSOL } from "./dSOL";
+import { dSUI } from "./dSUI";
+import { XCHF } from "./XCHF";
+import { dXCHF } from "./dXCHF";
 
 import { EvmDFI } from "./EvmDFI";
 
@@ -46,6 +49,9 @@ const mapping: Record<string, (props: SvgProps) => JSX.Element> = {
   dDOT: dDOT,
   dMATIC: dMATIC,
   dSOL: dSOL,
+  dSUI: dSUI,
+  XCHF: XCHF,
+  dXCHF: dXCHF,
 };
 
 /**
