@@ -1,6 +1,6 @@
 import { translate } from "@translations";
 import BigNumber from "bignumber.js";
-import { ethers, utils, BigNumber as BN } from "ethers";
+import { ethers, utils } from "ethers";
 // import { providers } from "ethers"; // TODO: Uncomment
 import { DfTxSigner } from "@waveshq/walletkit-ui/dist/store";
 import { WhaleWalletAccount } from "@defichain/whale-api-wallet";
@@ -9,7 +9,8 @@ import {
   TransactionSegWit,
 } from "@defichain/jellyfish-transaction";
 import { ConvertDirection } from "@screens/enum";
-import TransferDomain from "../../contracts/TransferDomain.json";
+import { parseUnits } from "ethers/lib/utils";
+import TransferDomain from "../../contracts/TransferDomainImplV1.json";
 
 const TRANSFER_DOMAIN_TYPE = {
   DVM: 2,
@@ -45,28 +46,65 @@ export async function transferDomainSigner(
       ? [TRANSFER_DOMAIN_TYPE.EVM, TRANSFER_DOMAIN_TYPE.DVM]
       : [TRANSFER_DOMAIN_TYPE.DVM, TRANSFER_DOMAIN_TYPE.EVM];
 
+  console.log("YOHOOOOO TD SIGNER2:: ", { sourceTokenId, targetTokenId });
+  console.log("YOHOOOOO TD SIGNER2:: ", {
+    sourceTokenId,
+    targetTokenId,
+    toAddr: await account.getAddress(),
+  });
+
   /**
    * TODO: Start of EvmTx signer here
    * */
-  const TD_CONTRACT_ADDR = "0x0000000000000000000000000000000000000302";
+  const TD_CONTRACT_ADDR = "0xdf00000000000000000000000000000000000001";
   const tdIFace = new utils.Interface(TransferDomain.abi);
 
+  let data;
   const from = evmAddress;
   const to =
     convertDirection === ConvertDirection.evmToDvm
       ? TD_CONTRACT_ADDR
       : evmAddress;
-  const evmAmount = BN.from(amount.toString()).toHexString(); // "0x29a2241af62c0000"; // 3_000_000_000_000_000_000
-  const native = await account.getAddress();
-  const data = tdIFace.encodeFunctionData("transfer", [
+  const parsedAmount = parseUnits(amount.toString(), 18);
+  const vmAddress = await account.getAddress();
+  console.log("YOHOOOOO TD SIGNER3:: ", {
     from,
     to,
-    evmAmount,
-    native,
-  ]);
+    parsedAmount,
+    vmAddress,
+  });
+
+  // const to = "0xb04Aa766ECe6F9e92c6E909DD99Bb1fA1c6C0412";
+  if (sourceTokenId === "0" || targetTokenId === "0-EVM") {
+    console.log("YOHOOOOO NATIVE DFI TOKEN....");
+    data = tdIFace.encodeFunctionData("transfer", [
+      from,
+      to,
+      parsedAmount,
+      vmAddress,
+    ]);
+  } else {
+    // DST20 - BTC
+    console.log("YOHOOOOO NON-DFI TOKEN....");
+
+    /**
+     * TODO: Either construct the token address based on `ain` logic or add a config file to map the address for each token
+     */
+    const DST_20_CONTRACT_ADDR_BTC =
+      "0xff00000000000000000000000000000000000001";
+    data = tdIFace.encodeFunctionData("transferDST20", [
+      DST_20_CONTRACT_ADDR_BTC,
+      from,
+      to,
+      parsedAmount,
+      vmAddress,
+    ]);
+  }
+
   // const ethRpc = new providers.JsonRpcProvider("http://localhost:19551"); // TODO: Uncomment
   const privateKey = await account.privateKey();
   const wallet = new ethers.Wallet(privateKey);
+  console.log("YOHOOO-WALLETADDR: ", { address: wallet.address, privateKey });
 
   /* TODO: Figure out CORS issue when using the ethRpc
   const tx: any = {
@@ -78,7 +116,6 @@ export async function transferDomainSigner(
     gasLimit: 100_000,
     gasPrice: (await ethRpc.getFeeData()).gasPrice, // base fee
   }; */
-
   const tx: any = {
     to: TD_CONTRACT_ADDR,
     nonce: 0,
@@ -92,6 +129,7 @@ export async function transferDomainSigner(
   const evmtxSigned = (await wallet.signTransaction(tx)).substring(2); // rm prefix `0x`
   const evmTx =
     new Uint8Array(Buffer.from(evmtxSigned, "hex")) || new Uint8Array([]);
+  console.log("YOHOOOOO EVMTX: ", { evmTx });
 
   const signed: TransactionSegWit = await builder.account.transferDomain(
     {
@@ -146,6 +184,8 @@ export function transferDomainCrafter(
   ) {
     throw new Error("Unexpected transfer domain");
   }
+
+  console.log("YOHOOOO TD CRAFTER");
 
   const [symbolA, symbolB] =
     convertDirection === ConvertDirection.dvmToEvm
