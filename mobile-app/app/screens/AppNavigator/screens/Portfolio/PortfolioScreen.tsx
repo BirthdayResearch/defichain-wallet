@@ -365,12 +365,6 @@ export function PortfolioScreen({ navigation }: Props): JSX.Element {
           sortTokensFunc = (a, b) => b.usdAmount.minus(a.usdAmount).toNumber();
       }
 
-      // Filter out LP tokens on EVM domain
-      if (domain === DomainType.EVM) {
-        return filteredTokens
-          .filter((tokenType) => !tokenType.isLPS)
-          .sort(sortTokensFunc);
-      }
       return filteredTokens.sort(sortTokensFunc);
     },
     [domain, filteredTokens, assetSortType, denominationCurrency],
