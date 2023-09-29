@@ -70,6 +70,7 @@ export async function transferDomainSigner(
   console.log("YOHOOOOO TD SIGNER3:: ", {
     from,
     to,
+    amount,
     parsedAmount,
     vmAddress,
   });
@@ -138,7 +139,7 @@ export async function transferDomainSigner(
           src: {
             address: sourceScript,
             amount: {
-              token: Number(sourceTokenId),
+              token: Number(sourceTokenId.split("-EVM")[0]),
               amount,
             },
             domain: srcDomain,
@@ -150,7 +151,7 @@ export async function transferDomainSigner(
           dst: {
             address: dstScript,
             amount: {
-              token: Number(targetTokenId),
+              token: Number(targetTokenId.split("-EVM")[0]),
               amount,
             },
             domain: dstDomain,
