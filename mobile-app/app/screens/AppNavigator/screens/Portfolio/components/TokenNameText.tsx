@@ -7,14 +7,14 @@ export function TokenNameText({
   testID,
   displaySymbol,
   name,
-  isEVMDomain,
+  isEvmDomain,
 }: {
   testID: string;
   displaySymbol: string;
   name: string;
-  isEVMDomain?: boolean;
+  isEvmDomain?: boolean;
 }): JSX.Element {
-  const domainTypeText = isEVMDomain ? "for EVM" : "";
+  const domainTypeText = isEvmDomain ? "for EVM" : "";
   const tokenName = `${name} ${domainTypeText}`;
   return (
     <View style={tailwind("ml-2 flex-auto")}>

@@ -122,7 +122,7 @@ function PortfolioItemRow({
             displaySymbol={token.displaySymbol}
             name={token.name}
             testID={testID}
-            isEVMDomain={isEvmDomain}
+            isEvmDomain={isEvmDomain}
           />
         </View>
         <View

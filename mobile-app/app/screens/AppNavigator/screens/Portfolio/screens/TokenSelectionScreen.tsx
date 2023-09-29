@@ -222,7 +222,7 @@ function TokenSelectionRow({
           displaySymbol={item.token.displaySymbol}
           name={item.token.name}
           testID={item.token.displaySymbol}
-          isEVMDomain={domain === DomainType.EVM}
+          isEvmDomain={domain === DomainType.EVM}
         />
       </View>
       <View style={tailwind("flex flex-col items-end")}>
