@@ -12,17 +12,21 @@ services:
     ports:
       - "19553:80"
       - "19552:8080"
-      - "19551:8082"
+      # - "19551:8082"
     volumes:
       - "/var/run/docker.sock:/var/run/docker.sock:ro"
 
   defi-blockchain:
-    image: defi/defichain:master-91a01aea0
+    image: defi/defichain:4.0.0-beta13
+    ports:
+      - "19554:19554"
+      - "19551:19551"
     command: >
       defid
       -printtoconsole
       -rpcallowip=0.0.0.0/0
       -rpcbind=0.0.0.0
+      -ethrpcbind=0.0.0.0
       -rpcuser=playground
       -rpcpassword=playground
       -rpcworkqueue=512
@@ -55,10 +59,9 @@ services:
       -grandcentralheight=16
       -grandcentralepilogueheight=17
       -nextnetworkupgradeheight=18
-      -changiintermediateheight=19
 
   defi-playground:
-    image: ghcr.io/birthdayresearch/playground-api:3.34.0
+    image: ghcr.io/birthdayresearch/playground-api:4.0.0-rc.1.2
     depends_on:
       - defi-blockchain
     ports:
@@ -71,7 +74,7 @@ services:
       - "traefik.http.routers.playground.entrypoints=web"
 
   defi-whale:
-    image: ghcr.io/birthdayresearch/whale-api:3.34.0
+    image: ghcr.io/birthdayresearch/whale-api:4.0.0-rc.1.2
     depends_on:
       - defi-blockchain
     ports:
