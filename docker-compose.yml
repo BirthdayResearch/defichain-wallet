@@ -59,6 +59,8 @@ services:
       -grandcentralheight=16
       -grandcentralepilogueheight=17
       -nextnetworkupgradeheight=18
+    environment:
+      - RUST_LOG=debug
 
   defi-playground:
     image: ghcr.io/birthdayresearch/playground-api:4.0.0-rc.1.2

@@ -1,16 +1,15 @@
 import { translate } from "@translations";
 import BigNumber from "bignumber.js";
-import { ethers, utils } from "ethers";
-// import { providers } from "ethers"; // TODO: Uncomment
+import { ethers, providers, utils } from "ethers";
 import { DfTxSigner } from "@waveshq/walletkit-ui/dist/store";
 import { WhaleWalletAccount } from "@defichain/whale-api-wallet";
 import {
   CTransactionSegWit,
-  TransactionSegWit,
+  TransferDomain,
 } from "@defichain/jellyfish-transaction";
 import { ConvertDirection } from "@screens/enum";
 import { parseUnits } from "ethers/lib/utils";
-import TransferDomain from "../../contracts/TransferDomainImplV1.json";
+import TransferDomainV1 from "../../contracts/TransferDomainV1.json";
 
 const TRANSFER_DOMAIN_TYPE = {
   DVM: 2,
@@ -32,137 +31,102 @@ export async function transferDomainSigner(
   convertDirection: ConvertDirection,
 ): Promise<CTransactionSegWit> {
   const dvmScript = await account.getScript();
+  const dvmAddress = await account.getAddress();
   const evmScript = await account.getEvmScript();
   const evmAddress = await account.getEvmAddress();
   const builder = account.withTransactionBuilder();
 
-  const [sourceScript, dstScript] =
-    convertDirection === ConvertDirection.evmToDvm
-      ? [evmScript, dvmScript]
-      : [dvmScript, evmScript];
+  const isEvmToDvm = convertDirection === ConvertDirection.evmToDvm;
 
-  const [srcDomain, dstDomain] =
-    convertDirection === ConvertDirection.evmToDvm
-      ? [TRANSFER_DOMAIN_TYPE.EVM, TRANSFER_DOMAIN_TYPE.DVM]
-      : [TRANSFER_DOMAIN_TYPE.DVM, TRANSFER_DOMAIN_TYPE.EVM];
+  const [sourceScript, dstScript] = isEvmToDvm
+    ? [evmScript, dvmScript]
+    : [dvmScript, evmScript];
 
-  console.log("YOHOOOOO TD SIGNER2:: ", { sourceTokenId, targetTokenId });
-  console.log("YOHOOOOO TD SIGNER2:: ", {
-    sourceTokenId,
-    targetTokenId,
-    toAddr: await account.getAddress(),
-  });
+  const [srcDomain, dstDomain] = isEvmToDvm
+    ? [TRANSFER_DOMAIN_TYPE.EVM, TRANSFER_DOMAIN_TYPE.DVM]
+    : [TRANSFER_DOMAIN_TYPE.DVM, TRANSFER_DOMAIN_TYPE.EVM];
 
   /**
    * TODO: Start of EvmTx signer here
    * */
   const TD_CONTRACT_ADDR = "0xdf00000000000000000000000000000000000001";
-  const tdIFace = new utils.Interface(TransferDomain.abi);
+  const DST_20_CONTRACT_ADDR_BTC = "0xff00000000000000000000000000000000000001";
+  const tdFace = new utils.Interface(TransferDomainV1.abi);
 
   let data;
-  const from = evmAddress;
-  const to =
-    convertDirection === ConvertDirection.evmToDvm
-      ? TD_CONTRACT_ADDR
-      : evmAddress;
-  const parsedAmount = parseUnits(amount.toString(), 18);
-  const vmAddress = await account.getAddress();
-  console.log("YOHOOOOO TD SIGNER3:: ", {
-    from,
-    to,
-    amount,
-    parsedAmount,
-    vmAddress,
-  });
+  const from = isEvmToDvm ? evmAddress : TD_CONTRACT_ADDR;
+  const to = isEvmToDvm ? TD_CONTRACT_ADDR : evmAddress;
+  const parsedAmount = parseUnits(amount.toString(), 18); // TODO: Get decimals from token contract
+  const vmAddress = dvmAddress;
 
-  // const to = "0xb04Aa766ECe6F9e92c6E909DD99Bb1fA1c6C0412";
   if (sourceTokenId === "0" || targetTokenId === "0-EVM") {
-    console.log("YOHOOOOO NATIVE DFI TOKEN....");
-    data = tdIFace.encodeFunctionData("transfer", [
-      from,
-      to,
-      parsedAmount,
-      vmAddress,
-    ]);
-  } else {
-    // DST20 - BTC
-    console.log("YOHOOOOO NON-DFI TOKEN....");
-
     /**
+     * For DFI, use `transfer` function
+     */
+    const transferDfi = [from, to, parsedAmount, vmAddress];
+    data = tdFace.encodeFunctionData("transfer", transferDfi);
+  } else {
+    /**
+     * For DST20 - BTC, use `transferDST20` function
      * TODO: Either construct the token address based on `ain` logic or add a config file to map the address for each token
      */
-    const DST_20_CONTRACT_ADDR_BTC =
-      "0xff00000000000000000000000000000000000001";
-    data = tdIFace.encodeFunctionData("transferDST20", [
-      DST_20_CONTRACT_ADDR_BTC,
-      from,
-      to,
-      parsedAmount,
-      vmAddress,
-    ]);
+    const contractAddress = DST_20_CONTRACT_ADDR_BTC;
+    const transferDST20 = [contractAddress, from, to, parsedAmount, vmAddress];
+    data = tdFace.encodeFunctionData("transferDST20", transferDST20);
   }
 
   // const ethRpc = new providers.JsonRpcProvider("http://localhost:19551"); // TODO: Uncomment
   const privateKey = await account.privateKey();
   const wallet = new ethers.Wallet(privateKey);
-  console.log("YOHOOO-WALLETADDR: ", { address: wallet.address, privateKey });
 
-  /* TODO: Figure out CORS issue when using the ethRpc
-  const tx: any = {
+  /* TODO: Figure out CORS issue when using the ethRpc */
+  const tx: providers.TransactionRequest = {
     to: TD_CONTRACT_ADDR,
-    nonce: await ethRpc.getTransactionCount(from),
-    value: 0,
-    chainId: (await ethRpc.getNetwork()).chainId,
+    nonce: 0, // await ethRpc.getTransactionCount(from) // TODO: Remove hardcoded data
+    chainId: 1133, // (await rpc.getNetwork()).chainId, // TODO: Remove hardcoded data
     data: data,
-    gasLimit: 100_000,
-    gasPrice: (await ethRpc.getFeeData()).gasPrice, // base fee
-  }; */
-  const tx: any = {
-    to: TD_CONTRACT_ADDR,
-    nonce: 0,
     value: 0,
-    chainId: 1133,
-    data: data,
-    gasLimit: 100_000,
-    gasPrice: 1000, // base fee
+    gasLimit: 0,
+    gasPrice: 0,
+    type: 0,
   };
 
   const evmtxSigned = (await wallet.signTransaction(tx)).substring(2); // rm prefix `0x`
-  const evmTx =
-    new Uint8Array(Buffer.from(evmtxSigned, "hex")) || new Uint8Array([]);
-  console.log("YOHOOOOO EVMTX: ", { evmTx });
+  const evmTx = new Uint8Array(Buffer.from(evmtxSigned, "hex") || []);
 
-  const signed: TransactionSegWit = await builder.account.transferDomain(
-    {
-      items: [
-        {
-          src: {
-            address: sourceScript,
-            amount: {
-              token: Number(sourceTokenId.split("-EVM")[0]),
-              amount,
-            },
-            domain: srcDomain,
-            data:
-              convertDirection === ConvertDirection.evmToDvm
-                ? evmTx
-                : new Uint8Array([]),
+  const transferDomain: TransferDomain = {
+    items: [
+      {
+        src: {
+          address: sourceScript,
+          domain: srcDomain,
+          amount: {
+            token: stripEvmSuffixFromTokenId(sourceTokenId),
+            amount: amount,
           },
-          dst: {
-            address: dstScript,
-            amount: {
-              token: Number(targetTokenId.split("-EVM")[0]),
-              amount,
-            },
-            domain: dstDomain,
-            data:
-              convertDirection === ConvertDirection.dvmToEvm
-                ? evmTx
-                : new Uint8Array([]),
-          },
+          data:
+            convertDirection === ConvertDirection.evmToDvm
+              ? evmTx
+              : new Uint8Array([]),
         },
-      ],
-    },
+        dst: {
+          address: dstScript,
+          domain: dstDomain,
+          amount: {
+            token: stripEvmSuffixFromTokenId(targetTokenId),
+            amount: amount,
+          },
+          data:
+            convertDirection === ConvertDirection.dvmToEvm
+              ? evmTx
+              : new Uint8Array([]),
+        },
+      },
+    ],
+  };
+
+  const signed = await builder.account.transferDomain(
+    transferDomain,
     dvmScript,
   );
 
@@ -185,8 +149,6 @@ export function transferDomainCrafter(
   ) {
     throw new Error("Unexpected transfer domain");
   }
-
-  console.log("YOHOOOO TD CRAFTER");
 
   const [symbolA, symbolB] =
     convertDirection === ConvertDirection.dvmToEvm
@@ -239,4 +201,11 @@ export function transferDomainCrafter(
         ? translate("screens/ConvertConfirmScreen", submitButtonLabel)
         : undefined,
   };
+}
+
+function stripEvmSuffixFromTokenId(tokenId: string) {
+  if (tokenId.includes("-EVM")) {
+    return Number(tokenId.replace("-EVM", ""));
+  }
+  return Number(tokenId);
 }
