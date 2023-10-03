@@ -99,10 +99,7 @@ export async function transferDomainSigner(
             token: stripEvmSuffixFromTokenId(sourceTokenId),
             amount: amount,
           },
-          data:
-            convertDirection === ConvertDirection.evmToDvm
-              ? evmTx
-              : new Uint8Array([]),
+          data: isEvmToDvm ? evmTx : new Uint8Array([]),
         },
         dst: {
           address: dstScript,
@@ -111,10 +108,7 @@ export async function transferDomainSigner(
             token: stripEvmSuffixFromTokenId(targetTokenId),
             amount: amount,
           },
-          data:
-            convertDirection === ConvertDirection.dvmToEvm
-              ? evmTx
-              : new Uint8Array([]),
+          data: isEvmToDvm ? new Uint8Array([]) : evmTx,
         },
       },
     ],

@@ -367,12 +367,17 @@ export function PortfolioScreen({ navigation }: Props): JSX.Element {
 
       return filteredTokens.sort(sortTokensFunc);
     },
-    [filteredTokens, assetSortType, denominationCurrency],
+    [domain, filteredTokens, assetSortType, denominationCurrency],
   );
 
   useEffect(() => {
     setAssetSortType(PortfolioSortType.HighestDenominationValue); // reset sorting state upon denominationCurrency change
   }, [denominationCurrency]);
+
+  // Reset button group in EVM domain
+  useEffect(() => {
+    setActiveButtonGroup(ButtonGroupTabKey.AllTokens);
+  }, [domain]);
 
   // token tab items
   const [activeButtonGroup, setActiveButtonGroup] = useState<ButtonGroupTabKey>(
