@@ -64,12 +64,8 @@ export enum ButtonGroupTabKey {
 }
 
 export function AddressBookScreen({ route, navigation }: Props): JSX.Element {
-  const {
-    selectedAddress,
-    onAddressSelect,
-    disabledTab,
-    addressDomainType = DomainType.DVM,
-  } = route.params;
+  const { selectedAddress, onAddressSelect, disabledTab, addressDomainType } =
+    route.params;
   const { isLight } = useThemeContext();
   const { network } = useNetworkContext();
   const dispatch = useAppDispatch();
@@ -284,11 +280,14 @@ export function AddressBookScreen({ route, navigation }: Props): JSX.Element {
       onAddressSelect?: (address: string) => void;
     }): JSX.Element => {
       const { item, index, testIDSuffix } = props;
-      // to disable address select of non compatible address type
       const isDisabledToSelect = !!(
-        enableAddressSelect &&
-        activeButtonGroup === ButtonGroupTabKey.Whitelisted &&
-        (item as WhitelistedAddress).addressDomainType !== addressDomainType
+        (
+          enableAddressSelect &&
+          activeButtonGroup === ButtonGroupTabKey.Whitelisted &&
+          (item as WhitelistedAddress).addressDomainType ===
+            addressDomainType &&
+          addressDomainType === DomainType.EVM
+        ) // disable address selection if its from the same EVM domain
       );
 
       const onChangeAddress = (

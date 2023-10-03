@@ -42,7 +42,7 @@ import {
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { AddressRow } from "@screens/AppNavigator/screens/Portfolio/components/AddressRow";
-import { DomainType } from "@contexts/DomainContext";
+import { useDomainContext } from "@contexts/DomainContext";
 import { ConvertDirection } from "@screens/enum";
 import { useTokenPrice } from "../hooks/TokenPrice";
 import { ActiveUSDValueV2 } from "../../Loans/VaultDetail/components/ActiveUSDValueV2";
@@ -92,6 +92,7 @@ export function SendScreen({ route, navigation }: Props): JSX.Element {
   const DFIToken = useSelector((state: RootState) =>
     DFITokenSelector(state.wallet),
   );
+  const { domain } = useDomainContext();
 
   const [token, setToken] = useState(route.params?.token);
   const [matchedAddress, setMatchedAddress] = useState<
@@ -264,6 +265,7 @@ export function SendScreen({ route, navigation }: Props): JSX.Element {
       fee,
       toAddressLabel: matchedAddress?.label,
       addressType,
+      matchedAddress,
     };
 
     if (isConversionRequired) {
@@ -415,7 +417,7 @@ export function SendScreen({ route, navigation }: Props): JSX.Element {
                   name: "AddressBookScreen",
                   params: {
                     selectedAddress: getValues("address"),
-                    addressDomainType: DomainType.DVM,
+                    addressDomainType: domain,
                     onAddressSelect,
                   },
                   merge: true,
@@ -444,6 +446,8 @@ export function SendScreen({ route, navigation }: Props): JSX.Element {
               address={address}
               onMatchedAddress={setMatchedAddress}
               onAddressType={setAddressType}
+              matchedAddress={matchedAddress}
+              setMatchedAddress={setMatchedAddress}
             />
           </View>
         )}

@@ -5,6 +5,9 @@ import { getNativeIcon } from "@components/icons/assets";
 import { translate } from "@translations";
 import { RandomAvatar } from "@screens/AppNavigator/screens/Portfolio/components/RandomAvatar";
 import { AddressType } from "@waveshq/walletkit-ui/dist/store";
+import { LocalAddress, WhitelistedAddress } from "@store/userPreferences";
+import { DomainType } from "@contexts/DomainContext";
+import { LinearGradient } from "expo-linear-gradient";
 import { View } from ".";
 import { ThemedTextV2, ThemedViewV2 } from "./themed";
 import { EVMLinearGradient } from "./EVMLinearGradient";
@@ -22,6 +25,7 @@ interface ISummaryTitleProps {
   iconB?: string;
   addressType?: AddressType;
   amountTextStyle?: string;
+  matchedAddress?: LocalAddress | WhitelistedAddress;
   isEvmToken?: boolean;
 }
 
@@ -123,39 +127,81 @@ export function SummaryTitle(props: ISummaryTitleProps): JSX.Element {
             >
               {props.customToAddressTitle ?? translate("screens/common", "To")}
             </ThemedTextV2>
-            <ThemedViewV2
-              dark={tailwind("bg-mono-dark-v2-200")}
-              light={tailwind("bg-mono-light-v2-200")}
-              style={tailwind(
-                "flex flex-row items-center overflow-hidden rounded-full pr-2.5 py-1 ml-2",
-                {
-                  "pl-1": props.addressType === AddressType.WalletAddress,
-                  "pl-2.5": props.addressType !== AddressType.WalletAddress,
-                },
-              )}
-            >
-              {props.addressType === AddressType.WalletAddress && (
-                <View style={tailwind("mr-1")}>
-                  <RandomAvatar name={props.toAddress} size={20} />
-                </View>
-              )}
-              <ThemedTextV2
-                ellipsizeMode="middle"
-                numberOfLines={1}
-                style={[
-                  tailwind("text-sm font-normal-v2"),
+            {/* TODO @chloe cater for selection of evm addr from addr pair */}
+            {(props.matchedAddress as WhitelistedAddress)?.addressDomainType ===
+            DomainType.EVM ? (
+              <LinearGradient
+                colors={["#42F9C2", "#3B57CF"]}
+                start={[0, 0]}
+                end={[1, 1]}
+                style={tailwind(
+                  "flex flex-row items-center overflow-hidden rounded-full pr-2.5 py-1 ml-2",
                   {
-                    minWidth: 10,
-                    maxWidth: 108,
+                    "pl-1": props.addressType === AddressType.WalletAddress,
+                    "pl-2.5": props.addressType !== AddressType.WalletAddress,
                   },
-                ]}
-                testID="summary_to_value"
+                )}
+                testID="to_address_label_evm_tag"
               >
-                {props.toAddressLabel != null && props.toAddressLabel.length > 0
-                  ? props.toAddressLabel
-                  : props.toAddress}
-              </ThemedTextV2>
-            </ThemedViewV2>
+                {props.addressType === AddressType.WalletAddress && (
+                  <View style={tailwind("mr-1")}>
+                    <RandomAvatar name={props.toAddress} size={20} />
+                  </View>
+                )}
+                <ThemedTextV2
+                  ellipsizeMode="middle"
+                  numberOfLines={1}
+                  style={[
+                    tailwind("text-sm font-normal-v2"),
+                    {
+                      minWidth: 10,
+                      maxWidth: 108,
+                    },
+                  ]}
+                  testID="summary_to_value"
+                >
+                  {props.toAddressLabel != null &&
+                  props.toAddressLabel.length > 0
+                    ? props.toAddressLabel
+                    : props.toAddress}
+                </ThemedTextV2>
+              </LinearGradient>
+            ) : (
+              <ThemedViewV2
+                dark={tailwind("bg-mono-dark-v2-200")}
+                light={tailwind("bg-mono-light-v2-200")}
+                style={tailwind(
+                  "flex flex-row items-center overflow-hidden rounded-full pr-2.5 py-1 ml-2",
+                  {
+                    "pl-1": props.addressType === AddressType.WalletAddress,
+                    "pl-2.5": props.addressType !== AddressType.WalletAddress,
+                  },
+                )}
+              >
+                {props.addressType === AddressType.WalletAddress && (
+                  <View style={tailwind("mr-1")}>
+                    <RandomAvatar name={props.toAddress} size={20} />
+                  </View>
+                )}
+                <ThemedTextV2
+                  ellipsizeMode="middle"
+                  numberOfLines={1}
+                  style={[
+                    tailwind("text-sm font-normal-v2"),
+                    {
+                      minWidth: 10,
+                      maxWidth: 108,
+                    },
+                  ]}
+                  testID="summary_to_value"
+                >
+                  {props.toAddressLabel != null &&
+                  props.toAddressLabel.length > 0
+                    ? props.toAddressLabel
+                    : props.toAddress}
+                </ThemedTextV2>
+              </ThemedViewV2>
+            )}
           </View>
         )}
       </View>

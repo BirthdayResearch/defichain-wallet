@@ -62,13 +62,14 @@ export function SendConfirmationScreen({ route }: Props): JSX.Element {
     toAddressLabel,
     addressType,
     originScreen,
+    matchedAddress,
   } = route.params;
   const logger = useLogger();
   const hasPendingJob = useSelector((state: RootState) =>
-    hasTxQueued(state.transactionQueue)
+    hasTxQueued(state.transactionQueue),
   );
   const hasPendingBroadcastJob = useSelector((state: RootState) =>
-    hasOceanTXQueued(state.ocean)
+    hasOceanTXQueued(state.ocean),
   );
   const dispatch = useAppDispatch();
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -101,7 +102,7 @@ export function SendConfirmationScreen({ route }: Props): JSX.Element {
       () => {
         onTransactionBroadcast(isOnPage, navigation.dispatch);
       },
-      logger
+      logger,
     );
     setIsSubmitting(false);
   }
@@ -112,7 +113,7 @@ export function SendConfirmationScreen({ route }: Props): JSX.Element {
         title: translate("screens/Settings", "Cancel transaction"),
         message: translate(
           "screens/Settings",
-          "By cancelling, you will lose any changes you made for your transaction."
+          "By cancelling, you will lose any changes you made for your transaction.",
         ),
         buttons: [
           {
@@ -126,7 +127,7 @@ export function SendConfirmationScreen({ route }: Props): JSX.Element {
               navigation.navigate(
                 originScreen === ScreenName.DEX_screen
                   ? ScreenName.DEX_screen
-                  : ScreenName.PORTFOLIO_screen
+                  : ScreenName.PORTFOLIO_screen,
               );
             },
           },
@@ -149,6 +150,7 @@ export function SendConfirmationScreen({ route }: Props): JSX.Element {
           toAddress={destination}
           toAddressLabel={toAddressLabel}
           addressType={addressType}
+          matchedAddress={matchedAddress}
         />
 
         {conversion?.isConversionRequired === true && (
@@ -164,7 +166,7 @@ export function SendConfirmationScreen({ route }: Props): JSX.Element {
               lhs={{
                 value: translate(
                   "screens/SendConfirmationScreen",
-                  "Amount to convert"
+                  "Amount to convert",
                 ),
                 testID: "amount_to_convert",
                 themedProps: {
@@ -184,7 +186,7 @@ export function SendConfirmationScreen({ route }: Props): JSX.Element {
             />
             <View
               style={tailwind(
-                "flex flex-row text-right items-center justify-end"
+                "flex flex-row text-right items-center justify-end",
               )}
             >
               <ThemedTextV2
@@ -198,7 +200,7 @@ export function SendConfirmationScreen({ route }: Props): JSX.Element {
                   conversion?.isConversionRequired &&
                     conversion?.isConverted !== true
                     ? "Converting"
-                    : "Converted"
+                    : "Converted",
                 )}
               </ThemedTextV2>
               {conversion?.isConverted !== true && (
@@ -221,7 +223,7 @@ export function SendConfirmationScreen({ route }: Props): JSX.Element {
           containerStyle={{
             style: tailwind(
               "flex-row items-start w-full bg-transparent border-t-0.5 pt-5",
-              { "mt-8": conversion?.isConversionRequired !== true }
+              { "mt-8": conversion?.isConversionRequired !== true },
             ),
             light: tailwind("bg-transparent border-mono-light-v2-300"),
             dark: tailwind("bg-transparent border-mono-dark-v2-300"),
@@ -229,7 +231,7 @@ export function SendConfirmationScreen({ route }: Props): JSX.Element {
           lhs={{
             value: translate(
               "screens/SendConfirmationScreen",
-              "Transaction fee"
+              "Transaction fee",
             ),
             testID: "transaction_fee",
             themedProps: {
@@ -250,7 +252,7 @@ export function SendConfirmationScreen({ route }: Props): JSX.Element {
         <NumberRowV2
           containerStyle={{
             style: tailwind(
-              "flex-row items-start w-full bg-transparent mt-5 border-b-0.5 pb-5"
+              "flex-row items-start w-full bg-transparent mt-5 border-b-0.5 pb-5",
             ),
             light: tailwind("bg-transparent border-mono-light-v2-300"),
             dark: tailwind("bg-transparent border-mono-dark-v2-300"),
@@ -258,7 +260,7 @@ export function SendConfirmationScreen({ route }: Props): JSX.Element {
           lhs={{
             value: translate(
               "screens/SendConfirmationScreen",
-              "Amount to send"
+              "Amount to send",
             ),
             testID: "text_amount",
             themedProps: {
@@ -335,7 +337,7 @@ function LpAcknowledgeSwitch(props: {
         >
           {translate(
             "screens/SendConfirmationScreen",
-            "I acknowledge that sending LP tokens to addresses that are not DeFiChain compatible wallets may result in irreversible loss of funds."
+            "I acknowledge that sending LP tokens to addresses that are not DeFiChain compatible wallets may result in irreversible loss of funds.",
           )}
         </ThemedTextV2>
       </TouchableOpacity>
@@ -353,13 +355,13 @@ async function send(
   { address, token, amount, networkName }: SendForm,
   dispatch: Dispatch<any>,
   onBroadcast: () => void,
-  logger: NativeLoggingProps
+  logger: NativeLoggingProps,
 ): Promise<void> {
   try {
     const to = DeFiAddress.from(networkName, address).getScript();
 
     const signer = async (
-      account: WhaleWalletAccount
+      account: WhaleWalletAccount,
     ): Promise<CTransactionSegWit> => {
       const script = await account.getScript();
       const builder = account.withTransactionBuilder();
@@ -385,7 +387,7 @@ async function send(
               },
             ],
           },
-          script
+          script,
         );
       }
       return new CTransactionSegWit(signed);
@@ -401,7 +403,7 @@ async function send(
             amount: amount.toFixed(8),
             displaySymbol: token.displaySymbol,
             toAddress: address,
-          }
+          },
         ),
         drawerMessages: {
           preparing: translate("screens/OceanInterface", "Preparing to send…"),
@@ -411,7 +413,7 @@ async function send(
             {
               amount: amount.toFixed(8),
               displaySymbol: token.displaySymbol,
-            }
+            },
           ),
           complete: translate(
             "screens/OceanInterface",
@@ -419,11 +421,11 @@ async function send(
             {
               amount: amount.toFixed(8),
               displaySymbol: token.displaySymbol,
-            }
+            },
           ),
         },
         onBroadcast,
-      })
+      }),
     );
   } catch (e) {
     logger.error(e);

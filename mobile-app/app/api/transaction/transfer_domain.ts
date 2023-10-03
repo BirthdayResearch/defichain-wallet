@@ -48,18 +48,20 @@ export async function transferDomainSigner(
           src: {
             address: sourceScript,
             amount: {
-              token: Number(sourceTokenId),
+              token: stripEvmSuffixFromTokenId(sourceTokenId),
               amount,
             },
             domain: srcDomain,
+            data: new Uint8Array([]),
           },
           dst: {
             address: dstScript,
             amount: {
-              token: Number(targetTokenId),
+              token: stripEvmSuffixFromTokenId(targetTokenId),
               amount,
             },
             domain: dstDomain,
+            data: new Uint8Array([]),
           },
         },
       ],
@@ -138,4 +140,11 @@ export function transferDomainCrafter(
         ? translate("screens/ConvertConfirmScreen", submitButtonLabel)
         : undefined,
   };
+}
+
+function stripEvmSuffixFromTokenId(tokenId: string) {
+  if (tokenId.includes("-EVM")) {
+    return Number(tokenId.replace("-EVM", ""));
+  }
+  return Number(tokenId);
 }

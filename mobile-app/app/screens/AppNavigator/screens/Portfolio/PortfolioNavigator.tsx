@@ -9,7 +9,7 @@ import { BarCodeScanner } from "@components/BarCodeScanner";
 import { HeaderTitle } from "@components/HeaderTitle";
 import { tailwind } from "@tailwind";
 import { translate } from "@translations";
-import { WhitelistedAddress } from "@store/userPreferences";
+import { LocalAddress, WhitelistedAddress } from "@store/userPreferences";
 import { FutureSwapData } from "@store/futureSwap";
 import { TransactionsScreen } from "@screens/AppNavigator/screens/Transactions/TransactionsScreen";
 import { TransactionDetailScreen } from "@screens/AppNavigator/screens/Transactions/screens/TransactionDetailScreen";
@@ -78,6 +78,7 @@ export interface PortfolioParamList {
     toAddressLabel?: string;
     addressType?: AddressType;
     originScreen?: ScreenName;
+    matchedAddress?: WhitelistedAddress | LocalAddress;
   };
   TokenDetailScreen: { token: WalletToken };
   ConvertScreen: {

@@ -12,7 +12,7 @@ const validateAmountButtonResult = (value: string, usdValue: string): void => {
   });
   cy.getByTestID("amount_input_in_usd").should(
     "have.text",
-    `$${usdValueWithThousandSep}`
+    `$${usdValueWithThousandSep}`,
   );
 };
 
@@ -21,7 +21,7 @@ const validateInfotext = (
     | "insufficient_balance"
     | "lp_warning"
     | "utxo_warning"
-    | "minimal_fee_warning"
+    | "minimal_fee_warning",
 ): void => {
   const infoText = {
     insufficient_balance: "Insufficient balance",
@@ -86,7 +86,7 @@ context("Wallet - Send", () => {
       cy.getByTestID("amount_input").type("0.1");
       cy.getByTestID("button_confirm_send_continue").should(
         "not.have.attr",
-        "disabled"
+        "disabled",
       );
       cy.getByTestID("amount_input").clear();
 
@@ -94,17 +94,17 @@ context("Wallet - Send", () => {
       cy.getByTestID("address_input").type("z");
       cy.getByTestID("address_error_text").should(
         "have.text",
-        "Invalid address. Make sure the address is correct to avoid irrecoverable losses"
+        "Invalid address. Make sure the address is correct to avoid irrecoverable losses",
       );
       cy.getByTestID("button_confirm_send_continue").should(
         "have.attr",
-        "aria-disabled"
+        "aria-disabled",
       );
       cy.wait(1000);
       cy.getByTestID("address_input_clear_button").click();
       cy.getByTestID("button_confirm_send_continue").should(
         "have.attr",
-        "aria-disabled"
+        "aria-disabled",
       );
 
       // Invalid amount - Character, over max amount, zero
@@ -112,17 +112,17 @@ context("Wallet - Send", () => {
       cy.getByTestID("amount_input").clear().type("a");
       cy.getByTestID("button_confirm_send_continue").should(
         "have.attr",
-        "aria-disabled"
+        "aria-disabled",
       );
       cy.getByTestID("amount_input").clear().type("12");
       cy.getByTestID("button_confirm_send_continue").should(
         "have.attr",
-        "aria-disabled"
+        "aria-disabled",
       );
       cy.getByTestID("amount_input").clear().type("0");
       cy.getByTestID("button_confirm_send_continue").should(
         "have.attr",
-        "aria-disabled"
+        "aria-disabled",
       );
     });
 
@@ -133,7 +133,7 @@ context("Wallet - Send", () => {
       cy.getByTestID("token_search_input").clear().type("xxx").wait(2000);
       cy.getByTestID("empty_search_result_text").should(
         "have.text",
-        "Search results for “xxx”"
+        "Search results for “xxx”",
       );
       cy.getByTestID("select_DFI").should("not.exist");
       cy.getByTestID("select_dBTC-DFI").should("not.exist");
@@ -142,7 +142,7 @@ context("Wallet - Send", () => {
       cy.getByTestID("token_search_input").clear().type("btc").wait(2000);
       cy.getByTestID("empty_search_result_text").should(
         "have.text",
-        "Search results for “btc”"
+        "Search results for “btc”",
       );
       cy.getByTestID("select_DFI").should("not.exist");
       cy.getByTestID("select_dBTC-DFI").should("exist");
@@ -189,11 +189,11 @@ context("Wallet - Send", () => {
             cy.getByTestID(`${key}_amount_button`).click();
             const availableBalance = new BigNumber(text);
             const inputAfterButtonPress = availableBalance.multipliedBy(
-              amountButtons[key]
+              amountButtons[key],
             );
             validateAmountButtonResult(
               inputAfterButtonPress.toFixed(8),
-              inputAfterButtonPress.multipliedBy(10000).toFixed(2)
+              inputAfterButtonPress.multipliedBy(10000).toFixed(2),
             );
           });
       });
@@ -213,7 +213,7 @@ context("Wallet - Send", () => {
               cy.getByTestID("amount_input").clear().type(sendAmount);
               cy.getByTestID("button_confirm_send_continue").should(
                 "not.have.attr",
-                "disabled"
+                "disabled",
               );
               cy.getByTestID("button_confirm_send_continue").click();
               // Check txn value
@@ -222,14 +222,14 @@ context("Wallet - Send", () => {
                 .then((textAmount) => {
                   const amount = textAmount.replace(" DFI", "");
                   expect(new BigNumber(amount).toFixed(8)).eq(
-                    new BigNumber(sendAmount).toFixed(8)
+                    new BigNumber(sendAmount).toFixed(8),
                   );
                   cy.getByTestID("text_fee")
                     .invoke("text")
                     .then((textFeeValue) => {
                       const textFee = textFeeValue.replace(" DFI", "");
                       expect(new BigNumber(transactionFee).toFixed(8)).eq(
-                        new BigNumber(textFee).toFixed(8)
+                        new BigNumber(textFee).toFixed(8),
                       );
                       // Check computed pending balance
                       cy.getByTestID("resulting_DFI")
@@ -237,14 +237,14 @@ context("Wallet - Send", () => {
                         .then((pendingBalanceValue) => {
                           const pendingBalance = pendingBalanceValue.replace(
                             " DFI",
-                            ""
+                            "",
                           );
                           expect(
                             new BigNumber(balance)
                               .plus(slippage)
                               .minus(transactionFee)
                               .minus(sendAmount)
-                              .toFixed(8)
+                              .toFixed(8),
                           ).eq(pendingBalance);
                           cy.getByTestID("button_cancel_send").click();
                         });
@@ -264,7 +264,7 @@ context("Wallet - Send", () => {
         cy.getByTestID("amount_input").clear().type("1");
         cy.getByTestID("button_confirm_send_continue").should(
           "not.have.attr",
-          "disabled"
+          "disabled",
         );
         cy.getByTestID("button_confirm_send_continue").click();
         cy.getByTestID("confirm_title").contains("You are sending");
@@ -301,7 +301,7 @@ context("Wallet - Send", () => {
       cy.getByTestID("amount_input").clear().type(oldAmount);
       cy.getByTestID("button_confirm_send_continue").should(
         "not.have.attr",
-        "disabled"
+        "disabled",
       );
       cy.getByTestID("button_confirm_send_continue").click();
 
@@ -309,7 +309,7 @@ context("Wallet - Send", () => {
       cy.getByTestID("confirm_title").contains("You are sending");
       cy.getByTestID("text_send_amount").should(
         "have.text",
-        new BigNumber(oldAmount).toFixed(8)
+        new BigNumber(oldAmount).toFixed(8),
       );
 
       // Address
@@ -318,26 +318,26 @@ context("Wallet - Send", () => {
       // Transaction details
       cy.getByTestID("transaction_fee_label").should(
         "have.text",
-        "Transaction fee"
+        "Transaction fee",
       );
       cy.getByTestID("transaction_fee_value").should("exist");
       cy.getByTestID("text_amount_label").should("have.text", "Amount to send");
       cy.getByTestID("text_amount").contains(oldAmount);
       const usdValueWithThousandSep = Number(
-        new BigNumber(oldAmount).multipliedBy(10000).toFixed(2)
+        new BigNumber(oldAmount).multipliedBy(10000).toFixed(2),
       ).toLocaleString(undefined, {
         minimumFractionDigits: 2,
         maximumFractionDigits: 2,
       });
       cy.getByTestID("text_amount_rhsUsdAmount").should(
         "have.text",
-        `$${usdValueWithThousandSep}`
+        `$${usdValueWithThousandSep}`,
       );
       cy.getByTestID("button_confirm_send").click().wait(5000);
 
       // Check for authorization page description
       cy.getByTestID("txn_authorization_title").contains(
-        `Sending ${new BigNumber(oldAmount).toFixed(8)} DFI to ${oldAddress}`
+        `Sending ${new BigNumber(oldAmount).toFixed(8)} DFI to ${oldAddress}`,
       );
       // Cancel send on authorisation page
       cy.getByTestID("cancel_authorization").click();
@@ -354,7 +354,7 @@ context("Wallet - Send", () => {
       cy.getByTestID("amount_input").clear().type(newAmount);
       cy.getByTestID("button_confirm_send_continue").should(
         "not.have.attr",
-        "disabled"
+        "disabled",
       );
       cy.getByTestID("button_confirm_send_continue").click();
       // Check address and amount in confirm send page
@@ -364,7 +364,7 @@ context("Wallet - Send", () => {
       cy.getByTestID("button_confirm_send").click().wait(3000);
       // Check for authorization page description
       cy.getByTestID("txn_authorization_title").contains(
-        `Sending ${new BigNumber(newAmount).toFixed(8)} DFI to ${newAddress}`
+        `Sending ${new BigNumber(newAmount).toFixed(8)} DFI to ${newAddress}`,
       );
       cy.closeOceanInterface();
     });
@@ -404,7 +404,7 @@ context("Wallet - Send", () => {
         cy.getByTestID("button_confirm_send_continue").click();
         cy.getByTestID("button_confirm_send").should(
           "have.attr",
-          "aria-disabled"
+          "aria-disabled",
         );
         cy.getByTestID("lp_ack_switch").click();
         cy.getByTestID("button_confirm_send").click().wait(3000);
@@ -452,21 +452,21 @@ context("Wallet - Send - Max Values", () => {
       cy.getByTestID("MAX_amount_button").click();
       cy.getByTestID("button_confirm_send_continue").should(
         "not.have.attr",
-        "disabled"
+        "disabled",
       );
       cy.getByTestID("button_confirm_send_continue").click();
       cy.getByTestID("confirm_title").contains("You are sending");
       cy.getByTestID("text_send_amount").contains("9.90000000");
       cy.getByTestID("text_amount").contains("9.90000000 DFI");
       const usdValueWithThousandSep = Number(
-        new BigNumber(9.9).multipliedBy(10000).toFixed(2)
+        new BigNumber(9.9).multipliedBy(10000).toFixed(2),
       ).toLocaleString(undefined, {
         minimumFractionDigits: 2,
         maximumFractionDigits: 2,
       });
       cy.getByTestID("text_amount_rhsUsdAmount").should(
         "have.text",
-        `$${usdValueWithThousandSep}`
+        `$${usdValueWithThousandSep}`,
       );
       cy.getByTestID("button_confirm_send").click().wait(3000);
       cy.closeOceanInterface();
@@ -516,40 +516,40 @@ context("Wallet - Send - with Conversion", () => {
       cy.getByTestID("amount_input").type("12");
       cy.getByTestID("transaction_details_info_text").should(
         "contain",
-        "By continuing, the required amount of DFI will be converted"
+        "By continuing, the required amount of DFI will be converted",
       );
 
       cy.getByTestID("button_confirm_send_continue").click();
       cy.getByTestID("txn_authorization_title").contains(
-        `Convert ${new BigNumber("2.1").toFixed(8)} DFI to UTXO`
+        `Convert ${new BigNumber("2.1").toFixed(8)} DFI to UTXO`,
       );
       cy.closeOceanInterface().wait(3000);
 
       cy.getByTestID("amount_to_convert_label").should(
         "have.text",
-        "Amount to convert"
+        "Amount to convert",
       );
       cy.getByTestID("amount_to_convert_value").should(
         "contain",
-        "2.10000000 DFI"
+        "2.10000000 DFI",
       );
       cy.getByTestID("conversion_status").should("have.text", "Converted");
       cy.getByTestID("transaction_fee_label").should(
         "have.text",
-        "Transaction fee"
+        "Transaction fee",
       );
       cy.getByTestID("transaction_fee_value").should("exist");
 
       cy.getByTestID("text_amount").should("have.text", "12.00000000 DFI");
       const usdValueWithThousandSep = Number(
-        new BigNumber(12).multipliedBy(10000).toFixed(2)
+        new BigNumber(12).multipliedBy(10000).toFixed(2),
       ).toLocaleString(undefined, {
         minimumFractionDigits: 2,
         maximumFractionDigits: 2,
       });
       cy.getByTestID("text_amount_rhsUsdAmount").should(
         "have.text",
-        `$${usdValueWithThousandSep}`
+        `$${usdValueWithThousandSep}`,
       );
 
       cy.getByTestID("text_send_amount").should("contain", "12.00000000");
@@ -584,7 +584,7 @@ context("Wallet - Send - Switch token", () => {
     cy.getByTestID("select_DFI").click();
     cy.getByTestID("button_confirm_send_continue").should(
       "have.attr",
-      "aria-disabled"
+      "aria-disabled",
     );
     cy.getByTestID("max_value").should("have.text", "19.90000000");
     cy.getByTestID("max_value_display_symbol").contains("DFI");
@@ -598,7 +598,7 @@ context("Wallet - Send - Switch token", () => {
     cy.getByTestID("max_value_display_symbol").contains("dBTC");
     cy.getByTestID("button_confirm_send_continue").should(
       "have.attr",
-      "aria-disabled"
+      "aria-disabled",
     );
   });
 
@@ -661,10 +661,10 @@ context("Wallet - Send - Address book", () => {
       cy.getByTestID("address_input_clear_button").click();
       cy.getByTestID("address_book_button").click();
       cy.getByTestID(`address_row_label_${index}_WHITELISTED`).contains(
-        labels[index]
+        labels[index],
       );
       cy.getByTestID(`address_row_text_${index}_WHITELISTED`).contains(
-        addresses[index]
+        addresses[index],
       );
       // cy.getByTestID('address_book_address_input').clear().type(addresses[index]).blur()
     });
@@ -704,15 +704,15 @@ context("Wallet - Send - Address book", () => {
     cy.getByTestID("address_book_address_input").type("fake address");
     cy.getByTestID("save_address_label").should("have.attr", "aria-disabled");
     cy.getByTestID("address_book_address_input_error").contains(
-      "Please enter a valid address"
+      "Please enter a valid address",
     );
     cy.getByTestID("address_book_label_input_clear_button").click();
     cy.getByTestID("address_book_label_input_error").contains(
-      "Required field. Please enter a label. Maximum of 40 characters."
+      "Required field. Please enter a label. Maximum of 40 characters.",
     );
     cy.getByTestID("address_book_address_input").clear();
     cy.getByTestID("address_book_address_input_error").contains(
-      "Please enter a valid address"
+      "Please enter a valid address",
     );
     cy.getByTestID("save_address_label").should("have.attr", "aria-disabled");
   });
@@ -758,7 +758,7 @@ context("Wallet - Send - Address book", () => {
         .type(addresses[index])
         .blur();
       cy.getByTestID("address_book_address_input_error").contains(
-        "This address already exists in your address book, please enter a different address"
+        "This address already exists in your address book, please enter a different address",
       );
       cy.go("back");
     });
@@ -776,7 +776,7 @@ context("Wallet - Send - Address book", () => {
           .type(walletAddress)
           .blur();
         cy.getByTestID("address_book_address_input_error").contains(
-          "This address already exists in your address book, please enter a different address"
+          "This address already exists in your address book, please enter a different address",
         );
       });
   });
@@ -804,7 +804,7 @@ context("Wallet - Send - Address book", () => {
       .should("exist")
       .then(() => {
         const walletUserPreference = JSON.parse(
-          localStorage.getItem("Local.WALLET.SETTINGS") ?? "{}"
+          localStorage.getItem("Local.WALLET.SETTINGS") ?? "{}",
         );
         expect(walletUserPreference).to.have.deep.property("addressBook", {});
       });
@@ -827,9 +827,207 @@ context("Wallet - Send - Address book", () => {
       .should("exist")
       .then(() => {
         const walletUserPreference = JSON.parse(
-          localStorage.getItem("Local.WALLET.SETTINGS") ?? "{}"
+          localStorage.getItem("Local.WALLET.SETTINGS") ?? "{}",
         );
         expect(walletUserPreference).to.have.deep.property("addressBook", {});
       });
+  });
+});
+
+context.only("(dvm -> dvm) Wallet - Send - Address book", () => {
+  before(() => {
+    cy.createEmptyWallet(true);
+    cy.sendDFItoWallet().sendDFITokentoWallet().wait(6000);
+    cy.getByTestID("bottom_tab_portfolio").click();
+
+    // Portfolio -> Send action btn -> Address book
+    cy.getByTestID("action_button_group").should("exist");
+    cy.getByTestID("send_balance_button").click().wait(3000);
+    cy.getByTestID("select_DFI").click().wait(3000);
+    cy.getByTestID("address_book_button").click();
+    cy.getByTestID("address_row_0_WHITELISTED").should("not.exist");
+    cy.getByTestID("button_add_address").should("exist");
+  });
+
+  const labels = ["DVMAddress", "EVMAddress"];
+  const addresses = [
+    "bcrt1q8rfsfny80jx78cmk4rsa069e2ckp6rn83u6ut9",
+    "0x2DeC425BF3c289C9B7452aD54E2F9877F21e0316",
+  ];
+
+  function validateMatchAddress(address: string, label: string): void {
+    cy.getByTestID("address_input").contains(address);
+    if (label === labels[0]) {
+      cy.getByTestID("address_input_footer").contains(label);
+    } else {
+      cy.getByTestID("address_input_footer_evm").contains(label);
+    }
+  }
+
+  function populateAddressBook(): void {
+    cy.createEmptyWallet(true);
+    cy.sendDFItoWallet().sendDFITokentoWallet().wait(6000);
+    cy.getByTestID("action_button_group").should("exist");
+    cy.getByTestID("send_balance_button").click().wait(3000);
+    cy.getByTestID("select_DFI").click().wait(3000);
+    cy.getByTestID("address_book_button").click();
+    cy.wrap(labels).each((_v, index: number) => {
+      if (index === 0) {
+        cy.getByTestID("button_add_address").click();
+      } else {
+        cy.getByTestID("add_new_address").click();
+      }
+      // Select EVM address type
+      if (index === 1) {
+        cy.getByTestID("address_book_address_type_EVM").click();
+      }
+      cy.getByTestID("address_book_label_input").type(labels[index]);
+      cy.getByTestID("address_book_label_input_error").should("not.exist");
+      cy.getByTestID("address_book_address_input")
+        .clear()
+        .type(addresses[index])
+        .blur();
+      cy.getByTestID("address_book_address_input_error").should("not.exist");
+      cy.getByTestID("save_address_label").click().wait(1000);
+      cy.getByTestID("pin_authorize").type("000000").wait(2000);
+      validateMatchAddress(addresses[index], labels[index]);
+      cy.wait(1000);
+      cy.getByTestID("address_input_clear_button").click();
+      cy.getByTestID("address_book_button").click();
+      cy.getByTestID(`address_row_label_${index}_WHITELISTED`).contains(
+        labels[index],
+      );
+      cy.getByTestID(`address_row_text_${index}_WHITELISTED`).contains(
+        addresses[index],
+      );
+      // cy.getByTestID('address_book_address_input').clear().type(addresses[index]).blur()
+    });
+  }
+
+  it("should enable selection for both DVM and EVM whitelisted wallet addresses", () => {
+    populateAddressBook();
+
+    // check if cards are enabled
+    cy.getByTestID("address_row_0_WHITELISTED").should(
+      "not.have.attr",
+      "aria-disabled",
+    );
+    cy.getByTestID("address_row_1_WHITELISTED").should(
+      "not.have.attr",
+      "aria-disabled",
+    );
+  });
+
+  it.only("should display evm tag when EVM address is selected in DVM domain", () => {
+    populateAddressBook();
+    cy.getByTestID("address_row_text_1_WHITELISTED").click();
+
+    // expect to see evm tag in address input
+    cy.getByTestID("address_input_footer_evm").contains(labels[1]);
+
+    cy.getByTestID("amount_input").type("0.1");
+    cy.getByTestID("button_confirm_send_continue").click();
+
+    // expect to see evm tag in confirm screen
+    cy.getByTestID("to_address_label_evm_tag").should("exist");
+  });
+});
+
+context("(evm -> dvm) Wallet - Send - Address book", () => {
+  const isEvmDomain = true;
+  before(() => {
+    cy.createEmptyWallet(true);
+    cy.sendDFItoWallet().sendDFITokentoWallet().wait(6000);
+    cy.getByTestID("bottom_tab_portfolio").click();
+
+    // Portfolio -> Send btn -> Address book
+    cy.getByTestID("action_button_group").should("exist");
+    cy.getByTestID("send_balance_button").click().wait(3000);
+    cy.getByTestID("select_DFI").click().wait(3000);
+    cy.getByTestID("address_book_button").click();
+    cy.getByTestID("address_row_0_WHITELISTED").should("not.exist");
+    cy.getByTestID("button_add_address").should("exist");
+  });
+
+  const labels = ["DVMAddress", "EVMAddress"];
+  const addresses = [
+    "bcrt1q8rfsfny80jx78cmk4rsa069e2ckp6rn83u6ut9",
+    "0x2DeC425BF3c289C9B7452aD54E2F9877F21e0316",
+  ];
+
+  function validateMatchAddress(address: string, label: string): void {
+    cy.getByTestID("address_input").contains(address);
+    if (label === labels[0]) {
+      cy.getByTestID("address_input_footer").contains(label);
+    } else {
+      cy.getByTestID("address_input_footer_evm").contains(label);
+    }
+  }
+
+  function populateAddressBook(): void {
+    cy.createEmptyWallet(true);
+    cy.getByTestID("domain_switch").click(); // Switch to EVM domain
+    cy.sendDFItoWallet().sendDFITokentoWallet().wait(6000);
+    cy.getByTestID("action_button_group").should("exist");
+    cy.getByTestID("send_balance_button").click().wait(3000);
+    cy.getByTestID("select_DFI").click().wait(3000);
+    cy.getByTestID("address_book_button").click();
+    cy.wrap(labels).each((_v, index: number) => {
+      if (index === 0) {
+        cy.getByTestID("button_add_address").click();
+      } else {
+        cy.getByTestID("add_new_address").click();
+      }
+      if (isEvmDomain && index === 0) {
+        cy.getByTestID("address_book_address_type_DVM").click();
+      }
+      cy.getByTestID("address_book_label_input").type(labels[index]);
+      cy.getByTestID("address_book_label_input_error").should("not.exist");
+      cy.getByTestID("address_book_address_input")
+        .clear()
+        .type(addresses[index])
+        .blur();
+      cy.getByTestID("address_book_address_input_error").should("not.exist");
+      cy.getByTestID("save_address_label").click().wait(1000);
+      cy.getByTestID("pin_authorize").type("000000").wait(2000);
+      validateMatchAddress(addresses[index], labels[index]);
+      cy.wait(1000);
+      cy.getByTestID("address_input_clear_button").click();
+      cy.getByTestID("address_book_button").click();
+
+      // Skip test below since the order of address is rearranged
+      if (isEvmDomain && index === 1) {
+        return;
+      }
+      cy.getByTestID(`address_row_label_${index}_WHITELISTED`).contains(
+        labels[index],
+      );
+      cy.getByTestID(`address_row_text_${index}_WHITELISTED`).contains(
+        addresses[index],
+      );
+
+      // cy.getByTestID('address_book_address_input').clear().type(addresses[index]).blur()
+    });
+  }
+
+  it("should enable selection only for DVM whitelisted wallet addresses in EVM domain", () => {
+    populateAddressBook();
+
+    // EVM address
+    cy.getByTestID("address_row_label_0_WHITELISTED").contains(labels[1]);
+    cy.getByTestID("address_row_text_0_WHITELISTED").contains(addresses[1]);
+    cy.getByTestID("address_row_0_WHITELISTED").should(
+      "have.attr",
+      "aria-disabled",
+    );
+
+    // DVM address
+    cy.getByTestID("address_row_label_1_WHITELISTED").contains(labels[0]);
+    cy.getByTestID("address_row_text_1_WHITELISTED").contains(addresses[0]);
+    cy.getByTestID("address_row_label_0_WHITELISTED_EVM_tag").should("exist");
+    cy.getByTestID("address_row_1_WHITELISTED").should(
+      "not.have.attr",
+      "aria-disabled",
+    );
   });
 });
