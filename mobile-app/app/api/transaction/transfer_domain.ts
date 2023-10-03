@@ -59,7 +59,7 @@ export async function transferDomainSigner(
   const parsedAmount = parseUnits(amount.toString(), 18); // TODO: Get decimals from token contract
   const vmAddress = dvmAddress;
 
-  if (sourceTokenId === "0" || targetTokenId === "0-EVM") {
+  if (sourceTokenId === "0" || targetTokenId === "0") {
     /**
      * For DFI, use `transfer` function
      */
