@@ -305,6 +305,8 @@ export function AddressBookScreen({ route, navigation }: Props): JSX.Element {
                 : addressDetail.address,
             );
           }
+        } else {
+          onDFIAddressClick();
         }
       };
 
@@ -340,9 +342,7 @@ export function AddressBookScreen({ route, navigation }: Props): JSX.Element {
           ]}
           testID={`address_row_${index}_${testIDSuffix}`}
           disabled={isDisabledToSelect}
-          onPress={async () => {
-            onChangeAddress(item);
-          }}
+          onPress={async () => onChangeAddress(item)}
         >
           <View
             style={tailwind("flex flex-row items-center flex-grow", {
@@ -380,14 +380,7 @@ export function AddressBookScreen({ route, navigation }: Props): JSX.Element {
             <View style={tailwind("flex flex-row items-center flex-auto")}>
               <View style={tailwind("flex flex-auto mr-1")}>
                 {item.label !== "" && (
-                  <TouchableOpacity
-                    activeOpacity={0.7}
-                    onPress={onDFIAddressClick}
-                    style={tailwind("flex flex-row items-center")}
-                    disabled={
-                      activeButtonGroup === ButtonGroupTabKey.YourAddress
-                    }
-                  >
+                  <>
                     <ThemedTextV2
                       style={tailwind("font-semibold-v2 text-sm min-w-0")}
                       testID={`address_row_label_${index}_${testIDSuffix}`}
@@ -413,7 +406,7 @@ export function AddressBookScreen({ route, navigation }: Props): JSX.Element {
                           </Text>
                         </LinearGradient>
                       )}
-                  </TouchableOpacity>
+                  </>
                 )}
                 {/* for DFI address */}
                 <YourAddressLink
@@ -423,7 +416,7 @@ export function AddressBookScreen({ route, navigation }: Props): JSX.Element {
                   displayIcon={
                     activeButtonGroup === ButtonGroupTabKey.YourAddress
                   }
-                  onClick={onDFIAddressClick}
+                  onClick={async () => onChangeAddress(item)}
                 />
                 {/* for EVM address */}
                 {activeButtonGroup === ButtonGroupTabKey.YourAddress && (
@@ -442,19 +435,13 @@ export function AddressBookScreen({ route, navigation }: Props): JSX.Element {
               </View>
               {!enableAddressSelect &&
                 activeButtonGroup === ButtonGroupTabKey.Whitelisted && (
-                  <TouchableOpacity
-                    activeOpacity={0.7}
-                    onPress={onDFIAddressClick}
-                    style={tailwind("flex flex-row items-center")}
-                  >
-                    <ThemedIcon
-                      dark={tailwind("text-mono-dark-v2-700")}
-                      light={tailwind("text-mono-light-v2-700")}
-                      iconType="Feather"
-                      name="chevron-right"
-                      size={18}
-                    />
-                  </TouchableOpacity>
+                  <ThemedIcon
+                    dark={tailwind("text-mono-dark-v2-700")}
+                    light={tailwind("text-mono-light-v2-700")}
+                    iconType="Feather"
+                    name="chevron-right"
+                    size={18}
+                  />
                 )}
             </View>
           </View>
