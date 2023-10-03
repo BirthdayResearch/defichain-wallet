@@ -11,6 +11,8 @@ import { ConvertDirection } from "@screens/enum";
 import { parseUnits } from "ethers/lib/utils";
 import TransferDomainV1 from "../../contracts/TransferDomainV1.json";
 
+const TD_CONTRACT_ADDR = "0xdf00000000000000000000000000000000000001";
+
 const TRANSFER_DOMAIN_TYPE = {
   DVM: 2,
   EVM: 3,
@@ -46,31 +48,24 @@ export async function transferDomainSigner(
     ? [TRANSFER_DOMAIN_TYPE.EVM, TRANSFER_DOMAIN_TYPE.DVM]
     : [TRANSFER_DOMAIN_TYPE.DVM, TRANSFER_DOMAIN_TYPE.EVM];
 
-  /**
-   * TODO: Start of EvmTx signer here
-   * */
-  const TD_CONTRACT_ADDR = "0xdf00000000000000000000000000000000000001";
-  const DST_20_CONTRACT_ADDR_BTC = "0xff00000000000000000000000000000000000001";
+  /* Start of EvmTx signer here */
   const tdFace = new utils.Interface(TransferDomainV1.abi);
 
   let data;
   const from = isEvmToDvm ? evmAddress : TD_CONTRACT_ADDR;
   const to = isEvmToDvm ? TD_CONTRACT_ADDR : evmAddress;
+  // TODO: round off parsedAmount to 8 decimals
   const parsedAmount = parseUnits(amount.toString(), 18); // TODO: Get decimals from token contract
   const vmAddress = dvmAddress;
 
   if (sourceTokenId === "0" || targetTokenId === "0") {
-    /**
-     * For DFI, use `transfer` function
-     */
+    /* For DFI, use `transfer` function */
     const transferDfi = [from, to, parsedAmount, vmAddress];
     data = tdFace.encodeFunctionData("transfer", transferDfi);
   } else {
-    /**
-     * For DST20 - BTC, use `transferDST20` function
-     * TODO: Either construct the token address based on `ain` logic or add a config file to map the address for each token
-     */
-    const contractAddress = DST_20_CONTRACT_ADDR_BTC;
+    /* For DST20, use `transferDST20` function */
+    const dst20TokenId = stripEvmSuffixFromTokenId(sourceTokenId);
+    const contractAddress = getAddressFromDST20TokenId(dst20TokenId);
     const transferDST20 = [contractAddress, from, to, parsedAmount, vmAddress];
     data = tdFace.encodeFunctionData("transferDST20", transferDST20);
   }
@@ -208,4 +203,17 @@ function stripEvmSuffixFromTokenId(tokenId: string) {
     return Number(tokenId.replace("-EVM", ""));
   }
   return Number(tokenId);
+}
+
+/**
+ *  Get DST20 contract address
+ *  https://github.com/DeFiCh/ain/blob/f5a671362f9899080d0a0dddbbcdcecb7c19d9e3/lib/ain-contracts/src/lib.rs#L79
+ */
+function getAddressFromDST20TokenId(tokenId: number): string {
+  const parsedTokenId = BigInt(tokenId);
+  const numberStr = parsedTokenId.toString(16); // Convert parsedTokenId to hexadecimal
+  const paddedNumberStr = numberStr.padStart(38, "0"); // Pad with zeroes to the left
+  const finalStr = `ff${paddedNumberStr}`;
+  const tokenContractAddess = utils.getAddress(finalStr);
+  return tokenContractAddess;
 }
