@@ -52,6 +52,7 @@ export async function transferDomainSigner(
               amount,
             },
             domain: srcDomain,
+            data: new Uint8Array([]),
           },
           dst: {
             address: dstScript,
@@ -60,6 +61,7 @@ export async function transferDomainSigner(
               amount,
             },
             domain: dstDomain,
+            data: new Uint8Array([]),
           },
         },
       ],
