@@ -146,14 +146,13 @@ export function FeatureFlagProvider(
     updateEnabledFeatures,
     isFeatureAvailable,
     isBetaFeature,
-    hasBetaFeatures: true,
-    // hasBetaFeatures: featureFlags.some(
-    //   (flag) =>
-    //     satisfies(appVersion, flag.version) &&
-    //     flag.networks?.includes(network) &&
-    //     flag.platforms?.includes(Platform.OS) &&
-    //     flag.stage === "beta"
-    // ),
+    hasBetaFeatures: featureFlags.some(
+      (flag) =>
+        satisfies(appVersion, flag.version) &&
+        flag.networks?.includes(network) &&
+        flag.platforms?.includes(Platform.OS) &&
+        flag.stage === "beta",
+    ),
   };
 
   if (isError && !isLoading && retries < MAX_RETRY) {
