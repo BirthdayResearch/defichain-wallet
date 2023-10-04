@@ -380,7 +380,7 @@ export function AddressBookScreen({ route, navigation }: Props): JSX.Element {
             <View style={tailwind("flex flex-row items-center flex-auto")}>
               <View style={tailwind("flex flex-auto mr-1")}>
                 {item.label !== "" && (
-                  <>
+                  <View style={tailwind("flex flex-row items-center")}>
                     <ThemedTextV2
                       style={tailwind("font-semibold-v2 text-sm min-w-0")}
                       testID={`address_row_label_${index}_${testIDSuffix}`}
@@ -406,7 +406,7 @@ export function AddressBookScreen({ route, navigation }: Props): JSX.Element {
                           </Text>
                         </LinearGradient>
                       )}
-                  </>
+                  </View>
                 )}
                 {/* for DFI address */}
                 <YourAddressLink
