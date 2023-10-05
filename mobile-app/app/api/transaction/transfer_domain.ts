@@ -6,7 +6,10 @@ import { WhaleWalletAccount } from "@defichain/whale-api-wallet";
 import {
   CTransactionSegWit,
   TransferDomain,
+  Script,
 } from "@defichain/jellyfish-transaction";
+import { fromAddress, Eth } from "@defichain/jellyfish-address";
+import { NetworkName } from "@defichain/jellyfish-network";
 import { ConvertDirection } from "@screens/enum";
 import { parseUnits } from "ethers/lib/utils";
 import TransferDomainV1 from "../../contracts/TransferDomainV1.json";
@@ -25,17 +28,29 @@ export interface TransferDomainToken {
   balance: BigNumber;
 }
 
-export async function transferDomainSigner(
-  account: WhaleWalletAccount,
-  sourceTokenId: string,
-  targetTokenId: string,
-  amount: BigNumber,
-  convertDirection: ConvertDirection,
-): Promise<CTransactionSegWit> {
-  const dvmScript = await account.getScript();
-  const dvmAddress = await account.getAddress();
-  const evmScript = await account.getEvmScript();
-  const evmAddress = await account.getEvmAddress();
+interface TransferDomainSigner {
+  account: WhaleWalletAccount;
+  sourceTokenId: string;
+  targetTokenId: string;
+  amount: BigNumber;
+  convertDirection: ConvertDirection;
+  dvmAddress: string;
+  evmAddress: string;
+  networkName: NetworkName;
+}
+
+export async function transferDomainSigner({
+  account,
+  sourceTokenId,
+  targetTokenId,
+  amount,
+  convertDirection,
+  dvmAddress,
+  evmAddress,
+  networkName,
+}: TransferDomainSigner): Promise<CTransactionSegWit> {
+  const dvmScript = fromAddress(dvmAddress, networkName)?.script as Script;
+  const evmScript = Eth.fromAddress(evmAddress) as Script;
   const builder = account.withTransactionBuilder();
 
   const isEvmToDvm = convertDirection === ConvertDirection.evmToDvm;
@@ -77,7 +92,7 @@ export async function transferDomainSigner(
   /* TODO: Figure out CORS issue when using the ethRpc */
   const tx: providers.TransactionRequest = {
     to: TD_CONTRACT_ADDR,
-    nonce: 0, // await ethRpc.getTransactionCount(from) // TODO: Remove hardcoded data
+    nonce: 0, // await ethRpc.getTransactionCount(from), // TODO: Remove hardcoded data
     chainId: 1133, // (await rpc.getNetwork()).chainId, // TODO: Remove hardcoded data
     data: data,
     value: 0,
@@ -127,6 +142,7 @@ export function transferDomainCrafter(
   convertDirection: ConvertDirection,
   sourceToken: TransferDomainToken,
   targetToken: TransferDomainToken,
+  networkName: NetworkName,
   onBroadcast: () => any,
   onConfirmation: () => void,
   submitButtonLabel?: string,
@@ -146,13 +162,16 @@ export function transferDomainCrafter(
 
   return {
     sign: async (account: WhaleWalletAccount) =>
-      await transferDomainSigner(
+      await transferDomainSigner({
         account,
-        sourceToken.tokenId,
-        targetToken.tokenId,
         amount,
         convertDirection,
-      ),
+        networkName,
+        sourceTokenId: sourceToken.tokenId,
+        targetTokenId: targetToken.tokenId,
+        dvmAddress: await account.getAddress(),
+        evmAddress: await account.getEvmAddress(),
+      }),
     title: translate(
       "screens/ConvertConfirmScreen",
       "Convert {{amount}} {{symbolA}} to {{symbolB}} tokens",

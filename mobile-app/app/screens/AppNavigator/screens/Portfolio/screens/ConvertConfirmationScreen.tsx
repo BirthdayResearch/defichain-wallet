@@ -31,6 +31,8 @@ import {
   TransferDomainToken,
   transferDomainCrafter,
 } from "@api/transaction/transfer_domain";
+import { useNetworkContext } from "@waveshq/walletkit-ui";
+import { NetworkName } from "@defichain/jellyfish-network";
 import { PortfolioParamList } from "../PortfolioNavigator";
 
 type Props = StackScreenProps<PortfolioParamList, "ConvertConfirmationScreen">;
@@ -44,6 +46,7 @@ export function ConvertConfirmationScreen({ route }: Props): JSX.Element {
     targetToken,
     originScreen,
   } = route.params;
+  const { networkName } = useNetworkContext();
   const { address } = useWalletContext();
   const addressLabel = useAddressLabel(address);
   const hasPendingJob = useSelector((state: RootState) =>
@@ -123,6 +126,7 @@ export function ConvertConfirmationScreen({ route }: Props): JSX.Element {
           convertDirection,
           sourceToken,
           targetToken,
+          networkName,
         },
         dispatch,
         () => {
@@ -337,11 +341,13 @@ async function constructSignedTransferDomain(
     convertDirection,
     sourceToken,
     targetToken,
+    networkName,
   }: {
     convertDirection: ConvertDirection;
     sourceToken: TransferDomainToken;
     targetToken: TransferDomainToken;
     amount: BigNumber;
+    networkName: NetworkName;
   },
   dispatch: Dispatch<any>,
   onBroadcast: () => void,
@@ -355,6 +361,7 @@ async function constructSignedTransferDomain(
           convertDirection,
           sourceToken,
           targetToken,
+          networkName,
           onBroadcast,
           () => {},
         ),
