@@ -1,4 +1,4 @@
-import { View } from "react-native";
+import { Text, View } from "react-native";
 import { tailwind } from "@tailwind";
 import { translate } from "@translations";
 import { AddressType } from "@waveshq/walletkit-ui/dist/store";
@@ -8,28 +8,27 @@ import {
   ThemedTouchableOpacity,
   ThemedViewV2,
 } from "@components/themed";
-import { RandomAvatar } from "@screens/AppNavigator/screens/Portfolio/components/RandomAvatar";
 import { WalletTextInputV2 } from "@components/WalletTextInputV2";
 import { Control, Controller } from "react-hook-form";
 import { NetworkName } from "@defichain/jellyfish-network";
 import { fromAddress } from "@defichain/jellyfish-address";
 import {
   LocalAddress,
-  WhitelistedAddress,
   selectAllLabeledWalletAddress,
+  WhitelistedAddress,
 } from "@store/userPreferences";
 import { debounce } from "lodash";
 import { useEffect, useMemo, useState } from "react";
 import { useSelector } from "react-redux";
 import { RootState } from "@store";
-import { WalletAddressI, useWalletAddress } from "@hooks/useWalletAddress";
+import { useWalletAddress, WalletAddressI } from "@hooks/useWalletAddress";
 import { DomainType, useDomainContext } from "@contexts/DomainContext";
-import { LinearGradient } from "expo-linear-gradient";
 import {
-  getAddressType,
   AddressType as JellyfishAddressType,
+  getAddressType,
 } from "@waveshq/walletkit-core";
-import { Text } from "@components";
+import { RandomAvatar } from "@screens/AppNavigator/screens/Portfolio/components/RandomAvatar";
+import { AddressEvmTag } from "@components/AddressEvmTag";
 
 export function AddressRow({
   control,
@@ -94,6 +93,15 @@ export function AddressRow({
     return true;
   }, [onlyLocalAddress, addressType, address]);
 
+  const addressObj = jellyfishWalletAddress.find(
+    (e: WalletAddressI) => e.dvm === address || e.evm === address,
+  );
+
+  const displayAddressLabel =
+    matchedAddress?.label !== ""
+      ? matchedAddress?.label
+      : addressObj?.generatedLabel;
+
   const debounceMatchAddress = debounce(() => {
     // Check if address input field is not empty
     if (address !== undefined && setMatchedAddress !== undefined) {
@@ -110,10 +118,6 @@ export function AddressRow({
         setAddressType(AddressType.WalletAddress);
         return;
       }
-
-      const addressObj = jellyfishWalletAddress.find(
-        (e: WalletAddressI) => e.dvm === address || e.evm === address,
-      );
 
       if (addressObj) {
         // Your addresses - Unlabelled
@@ -270,7 +274,7 @@ export function AddressRow({
       <View style={tailwind("ml-5 my-2 items-center flex flex-row")}>
         {addressType !== undefined && (
           <>
-            {/* Verified tag for DVM/EVM address */}
+            {/* Verified tag for unsaved but verified DVM/EVM address */}
             {addressType === AddressType.OthersButValid && (
               <>
                 <ThemedIcon
@@ -291,37 +295,42 @@ export function AddressRow({
                 </ThemedTextV2>
               </>
             )}
+
+            {/* Whitelisted and Yours Addresses */}
             {addressType !== AddressType.OthersButValid &&
               validLocalAddress && (
                 <>
-                  {/* TODO @chloe cater for selection of evm addr from addr pair */}
+                  {/* Checks if selected address is  a Whitelisted EVM address */}
                   {(matchedAddress as WhitelistedAddress)?.addressDomainType ===
-                  DomainType.EVM ? (
-                    // || (matchedAddress as LocalAddress)?.evmAddress ?
-                    <LinearGradient
-                      colors={["#42F9C2", "#3B57CF"]}
-                      start={[0, 0]}
-                      end={[1, 1]}
-                      style={tailwind("rounded-lg px-2 py-0.5 ml-1")}
-                    >
-                      {/* TODO add avatar for after updating address book design */}
-                      <Text
-                        testID="address_input_footer_evm"
-                        style={tailwind(
-                          "text-mono-light-v2-00 text-xs font-semibold-v2 leading-4",
+                    DomainType.EVM ||
+                  //   Check if selected address from Your Addresses is EVM address
+                  getAddressType(address, networkName) ===
+                    JellyfishAddressType.ETH ? (
+                    <AddressEvmTag>
+                      <>
+                        {addressType === AddressType.WalletAddress && (
+                          <View style={tailwind("rounded-l-2xl mr-1")}>
+                            <RandomAvatar
+                              name={matchedAddress?.address}
+                              size={12}
+                            />
+                          </View>
                         )}
-                      >
-                        {matchedAddress?.label || matchedAddress?.address}
-                      </Text>
-                    </LinearGradient>
+                        <Text
+                          testID="address_input_footer_evm"
+                          style={tailwind(
+                            "text-mono-light-v2-00 text-xs font-semibold-v2 leading-4",
+                          )}
+                        >
+                          {displayAddressLabel}
+                        </Text>
+                      </>
+                    </AddressEvmTag>
                   ) : (
+                    // Whitelisted address - DVM
                     <ThemedViewV2
                       style={tailwind(
-                        "flex flex-row items-center overflow-hidden rounded-lg py-0.5",
-                        {
-                          "px-1": addressType === AddressType.WalletAddress,
-                          "px-2": addressType === AddressType.Whitelisted,
-                        },
+                        "flex flex-row items-center overflow-hidden rounded-lg py-0.5 px-2",
                       )}
                       light={tailwind("bg-mono-light-v2-200")}
                       dark={tailwind("bg-mono-dark-v2-200")}
@@ -349,7 +358,7 @@ export function AddressRow({
                         dark={tailwind("text-mono-dark-v2-500")}
                         testID="address_input_footer"
                       >
-                        {matchedAddress?.label || matchedAddress?.address}
+                        {displayAddressLabel}
                       </ThemedTextV2>
                     </ThemedViewV2>
                   )}
