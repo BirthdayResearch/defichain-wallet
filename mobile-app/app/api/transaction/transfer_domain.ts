@@ -63,46 +63,15 @@ export async function transferDomainSigner({
     ? [TRANSFER_DOMAIN_TYPE.EVM, TRANSFER_DOMAIN_TYPE.DVM]
     : [TRANSFER_DOMAIN_TYPE.DVM, TRANSFER_DOMAIN_TYPE.EVM];
 
-  /* Start of EvmTx signer here */
-  const tdFace = new utils.Interface(TransferDomainV1.abi);
-
-  let data;
-  const from = isEvmToDvm ? evmAddress : TD_CONTRACT_ADDR;
-  const to = isEvmToDvm ? TD_CONTRACT_ADDR : evmAddress;
-  // TODO: round off parsedAmount to 8 decimals
-  const parsedAmount = parseUnits(amount.toString(), 18); // TODO: Get decimals from token contract
-  const vmAddress = dvmAddress;
-
-  if (sourceTokenId === "0" || targetTokenId === "0") {
-    /* For DFI, use `transfer` function */
-    const transferDfi = [from, to, parsedAmount, vmAddress];
-    data = tdFace.encodeFunctionData("transfer", transferDfi);
-  } else {
-    /* For DST20, use `transferDST20` function */
-    const dst20TokenId = stripEvmSuffixFromTokenId(sourceTokenId);
-    const contractAddress = getAddressFromDST20TokenId(dst20TokenId);
-    const transferDST20 = [contractAddress, from, to, parsedAmount, vmAddress];
-    data = tdFace.encodeFunctionData("transferDST20", transferDST20);
-  }
-
-  // const ethRpc = new providers.JsonRpcProvider("http://localhost:19551"); // TODO: Uncomment
-  const privateKey = await account.privateKey();
-  const wallet = new ethers.Wallet(privateKey);
-
-  /* TODO: Figure out CORS issue when using the ethRpc */
-  const tx: providers.TransactionRequest = {
-    to: TD_CONTRACT_ADDR,
-    nonce: 0, // await ethRpc.getTransactionCount(from), // TODO: Remove hardcoded data
-    chainId: 1133, // (await rpc.getNetwork()).chainId, // TODO: Remove hardcoded data
-    data: data,
-    value: 0,
-    gasLimit: 0,
-    gasPrice: 0,
-    type: 0,
-  };
-
-  const evmtxSigned = (await wallet.signTransaction(tx)).substring(2); // rm prefix `0x`
-  const evmTx = new Uint8Array(Buffer.from(evmtxSigned, "hex") || []);
+  const signedEvmTxData = await createSignedEvmTx({
+    isEvmToDvm,
+    sourceTokenId,
+    targetTokenId,
+    amount,
+    dvmAddress,
+    evmAddress,
+    privateKey: await account.privateKey(),
+  });
 
   const transferDomain: TransferDomain = {
     items: [
@@ -114,7 +83,7 @@ export async function transferDomainSigner({
             token: stripEvmSuffixFromTokenId(sourceTokenId),
             amount: amount,
           },
-          data: isEvmToDvm ? evmTx : new Uint8Array([]),
+          data: isEvmToDvm ? signedEvmTxData : new Uint8Array([]),
         },
         dst: {
           address: dstScript,
@@ -123,7 +92,7 @@ export async function transferDomainSigner({
             token: stripEvmSuffixFromTokenId(targetTokenId),
             amount: amount,
           },
-          data: isEvmToDvm ? new Uint8Array([]) : evmTx,
+          data: isEvmToDvm ? new Uint8Array([]) : signedEvmTxData,
         },
       },
     ],
@@ -209,6 +178,64 @@ export function transferDomainCrafter(
         ? translate("screens/ConvertConfirmScreen", submitButtonLabel)
         : undefined,
   };
+}
+
+interface EvmTxSigner {
+  isEvmToDvm: boolean;
+  sourceTokenId: string;
+  targetTokenId: string;
+  amount: BigNumber;
+  dvmAddress: string;
+  evmAddress: string;
+  privateKey: Buffer;
+}
+
+async function createSignedEvmTx({
+  isEvmToDvm,
+  sourceTokenId,
+  targetTokenId,
+  amount,
+  dvmAddress,
+  evmAddress,
+  privateKey,
+}: EvmTxSigner): Promise<Uint8Array> {
+  let data;
+  const tdFace = new utils.Interface(TransferDomainV1.abi);
+  const from = isEvmToDvm ? evmAddress : TD_CONTRACT_ADDR;
+  const to = isEvmToDvm ? TD_CONTRACT_ADDR : evmAddress;
+  // TODO: round off parsedAmount to 8 decimals
+  const parsedAmount = parseUnits(amount.toString(), 18); // TODO: Get decimals from token contract
+  const vmAddress = dvmAddress;
+
+  if (sourceTokenId === "0" || targetTokenId === "0") {
+    /* For DFI, use `transfer` function */
+    const transferDfi = [from, to, parsedAmount, vmAddress];
+    data = tdFace.encodeFunctionData("transfer", transferDfi);
+  } else {
+    /* For DST20, use `transferDST20` function */
+    const dst20TokenId = stripEvmSuffixFromTokenId(sourceTokenId);
+    const contractAddress = getAddressFromDST20TokenId(dst20TokenId);
+    const transferDST20 = [contractAddress, from, to, parsedAmount, vmAddress];
+    data = tdFace.encodeFunctionData("transferDST20", transferDST20);
+  }
+
+  // const ethRpc = new providers.JsonRpcProvider("http://localhost:19551"); // TODO: Uncomment
+  // const privateKey = await account.privateKey();
+  const wallet = new ethers.Wallet(privateKey);
+
+  /* TODO: Figure out CORS issue when using the ethRpc */
+  const tx: providers.TransactionRequest = {
+    to: TD_CONTRACT_ADDR,
+    nonce: 3, // await ethRpc.getTransactionCount(from), // TODO: Remove hardcoded data
+    chainId: 1133, // (await rpc.getNetwork()).chainId, // TODO: Remove hardcoded data
+    data: data,
+    value: 0,
+    gasLimit: 0,
+    gasPrice: 0,
+    type: 0,
+  };
+  const evmtxSigned = (await wallet.signTransaction(tx)).substring(2); // rm prefix `0x`
+  return new Uint8Array(Buffer.from(evmtxSigned, "hex") || []);
 }
 
 function stripEvmSuffixFromTokenId(tokenId: string) {
