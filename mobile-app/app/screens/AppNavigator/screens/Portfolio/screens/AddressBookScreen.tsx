@@ -71,7 +71,7 @@ export function AddressBookScreen({ route, navigation }: Props): JSX.Element {
   const { network } = useNetworkContext();
   const dispatch = useAppDispatch();
   const logger = useLogger();
-  // condition to hide icon from send page
+  // condition to hide icon if not from send page
   const enableAddressSelect =
     selectedAddress !== undefined && onAddressSelect !== undefined;
   const userPreferencesFromStore = useSelector(
@@ -397,7 +397,7 @@ export function AddressBookScreen({ route, navigation }: Props): JSX.Element {
                 />
                 {/* for EVM address */}
               </View>
-              {!enableAddressSelect && (
+              {enableAddressSelect && (
                 <TouchableOpacity
                   activeOpacity={0.7}
                   onPress={onDFIAddressClick}
@@ -452,11 +452,12 @@ export function AddressBookScreen({ route, navigation }: Props): JSX.Element {
       };
 
       return (
+        // Your Address card
         <ThemedViewV2
           key={item.address}
           light={tailwind("bg-mono-light-v2-00")}
           dark={tailwind("bg-mono-dark-v2-00")}
-          style={tailwind("py-4.5 pl-5 pr-4 mb-2 rounded-lg-v2")}
+          style={tailwind("py-4.5 pl-5 pr-4 mb-2 rounded-lg-v2 ")}
           testID={`address_row_${index}_${testIDSuffix}`}
         >
           <View
@@ -493,15 +494,16 @@ export function AddressBookScreen({ route, navigation }: Props): JSX.Element {
                   <RandomAvatar name={item.address} size={24} />
                 </View>
 
-                {/* DVM address */}
+                {/* DVM address card */}
                 <YourAddressLink
                   address={item.address}
                   testIDSuffix={`${index}_${testIDSuffix}`}
                   onClick={async () => {
                     onChangeAddress(item.address);
                   }}
+                  enableAddressSelect={enableAddressSelect}
                 />
-                {/* EVM address */}
+                {/* EVM address card */}
                 <YourAddressLink
                   disabled={addressDomainType === DomainType.EVM}
                   testIDSuffix={`${index}_${testIDSuffix}_EVM`}
@@ -510,6 +512,7 @@ export function AddressBookScreen({ route, navigation }: Props): JSX.Element {
                   onClick={async () => {
                     onChangeAddress(item.evmAddress);
                   }}
+                  enableAddressSelect={enableAddressSelect}
                 />
               </View>
             </View>
@@ -817,12 +820,14 @@ function YourAddressLink({
   address,
   isEvmAddress,
   testIDSuffix,
+  enableAddressSelect,
 }: {
   disabled?: boolean;
   onClick: () => Promise<void>;
   address: string;
   isEvmAddress?: boolean;
   testIDSuffix: string;
+  enableAddressSelect: boolean;
 }) {
   return (
     <TouchableOpacity
@@ -848,13 +853,15 @@ function YourAddressLink({
         </ThemedTextV2>
         {isEvmAddress && <EvmTag index={1} testIDSuffix={testIDSuffix} />}
       </View>
-      <ThemedIcon
-        light={tailwind("text-mono-light-v2-700")}
-        dark={tailwind("text-mono-dark-v2-700")}
-        iconType="Feather"
-        name="chevron-right"
-        size={24}
-      />
+      {enableAddressSelect && (
+        <ThemedIcon
+          light={tailwind("text-mono-light-v2-700")}
+          dark={tailwind("text-mono-dark-v2-700")}
+          iconType="Feather"
+          name="chevron-right"
+          size={24}
+        />
+      )}
     </TouchableOpacity>
   );
 }
