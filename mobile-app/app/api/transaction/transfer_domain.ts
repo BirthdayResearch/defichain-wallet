@@ -221,7 +221,6 @@ async function createSignedEvmTx({
 
   // TODO: Make ETH RPC URL dynamic based on network
   // const ethRpc = new providers.JsonRpcProvider("http://localhost:19551"); // TODO: Uncomment
-  // const privateKey = await account.privateKey();
   const wallet = new ethers.Wallet(privateKey);
 
   /* TODO: Figure out CORS issue when using the ethRpc */
