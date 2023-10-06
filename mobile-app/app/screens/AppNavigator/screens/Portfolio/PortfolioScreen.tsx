@@ -105,7 +105,7 @@ export function PortfolioScreen({ navigation }: Props): JSX.Element {
   const height = useBottomTabBarHeight();
   const client = useWhaleApiClient();
   const whaleRpcClient = useWhaleRpcClient();
-  const { address, addressLength, evmAddress } = useWalletContext();
+  const { address } = useWalletContext();
   const { denominationCurrency, setDenominationCurrency } =
     useDenominationCurrency();
 
@@ -634,11 +634,7 @@ export function PortfolioScreen({ navigation }: Props): JSX.Element {
           dark={tailwind("bg-mono-dark-v2-00")}
           style={tailwind("px-5 flex flex-row items-center")}
         >
-          <AddressSelectionButtonV2
-            address={domain === DomainType.EVM ? evmAddress : address}
-            addressLength={addressLength}
-            onPress={() => expandModal(false)}
-          />
+          <AddressSelectionButtonV2 onPress={() => expandModal(false)} />
           <ThemedTouchableOpacityV2
             testID="toggle_balance"
             style={tailwind("ml-2")}

@@ -17,12 +17,14 @@ services:
       - "/var/run/docker.sock:/var/run/docker.sock:ro"
 
   defi-blockchain:
-    image: defi/defichain:master-b352814976
+    image: defi/defichain:4.0.0-beta13
     command: >
       defid
       -printtoconsole
       -rpcallowip=0.0.0.0/0
       -rpcbind=0.0.0.0
+      -ethrpcbind=0.0.0.0
+      -ethrpcport=20551
       -rpcuser=playground
       -rpcpassword=playground
       -rpcworkqueue=512

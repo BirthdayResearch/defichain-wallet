@@ -5,19 +5,22 @@ import {
 } from "@components/themed";
 import { tailwind } from "@tailwind";
 import { useAddressLabel } from "@hooks/useAddressLabel";
+import { DomainType, useDomainContext } from "@contexts/DomainContext";
+import { useWalletContext } from "@shared-contexts/WalletContext";
 import { RandomAvatar } from "./RandomAvatar";
 
 interface AddressSelectionButtonProps {
-  address: string;
-  addressLength: number;
   onPress?: () => void;
   disabled?: boolean;
 }
 
 export function AddressSelectionButtonV2(
-  props: AddressSelectionButtonProps
+  props: AddressSelectionButtonProps,
 ): JSX.Element {
-  const addressLabel = useAddressLabel(props.address);
+  const { domain } = useDomainContext();
+  const { address, evmAddress } = useWalletContext();
+  const displayAddress = domain === DomainType.EVM ? evmAddress : address;
+  const addressLabel = useAddressLabel(displayAddress);
   return (
     <ThemedTouchableOpacityV2
       light={tailwind("bg-transparent")}
@@ -32,7 +35,7 @@ export function AddressSelectionButtonV2(
         dark={tailwind("bg-mono-dark-v2-900")}
         style={tailwind("p-0.5 rounded-full")}
       >
-        <RandomAvatar name={props.address} size={24} />
+        <RandomAvatar name={address} size={24} />
       </ThemedViewV2>
       <ThemedTextV2
         ellipsizeMode="middle"
@@ -43,7 +46,7 @@ export function AddressSelectionButtonV2(
         ]}
         testID="wallet_address"
       >
-        {addressLabel != null ? addressLabel : props.address}
+        {addressLabel != null ? addressLabel : displayAddress}
       </ThemedTextV2>
     </ThemedTouchableOpacityV2>
   );
