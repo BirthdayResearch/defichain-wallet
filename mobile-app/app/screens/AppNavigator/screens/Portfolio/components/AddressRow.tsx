@@ -1,4 +1,4 @@
-import { Text, View } from "react-native";
+import { View } from "react-native";
 import { tailwind } from "@tailwind";
 import { translate } from "@translations";
 import { AddressType } from "@waveshq/walletkit-ui/dist/store";
@@ -46,6 +46,7 @@ export function AddressRow({
   onlyLocalAddress,
   matchedAddress,
   setMatchedAddress,
+  setAddressLabel,
 }: {
   control: Control;
   networkName: NetworkName;
@@ -64,6 +65,7 @@ export function AddressRow({
   onlyLocalAddress?: boolean;
   matchedAddress?: LocalAddress | WhitelistedAddress | undefined;
   setMatchedAddress?: (address?: LocalAddress | WhitelistedAddress) => void;
+  setAddressLabel: React.Dispatch<React.SetStateAction<string | undefined>>;
 }): JSX.Element {
   const { fetchWalletAddresses } = useWalletAddress();
   const { domain } = useDomainContext();
@@ -148,6 +150,10 @@ export function AddressRow({
       }
     }
   }, 200);
+
+  useEffect(() => {
+    setAddressLabel(displayAddressLabel);
+  }, [displayAddressLabel]);
 
   useEffect(() => {
     debounceMatchAddress();
@@ -306,7 +312,7 @@ export function AddressRow({
                   //   Check if selected address from Your Addresses is EVM address
                   getAddressType(address, networkName) ===
                     JellyfishAddressType.ETH ? (
-                    <AddressEvmTag>
+                    <AddressEvmTag testID="address_input_footer">
                       <>
                         {addressType === AddressType.WalletAddress && (
                           <View style={tailwind("rounded-l-2xl mr-1")}>
@@ -316,14 +322,16 @@ export function AddressRow({
                             />
                           </View>
                         )}
-                        <Text
+                        <ThemedTextV2
                           testID="address_input_footer_evm"
                           style={tailwind(
-                            "text-mono-light-v2-00 text-xs font-semibold-v2 leading-4",
+                            "text-mono-light-v2-00 text-xs font-normal-v2 tracking-[0.24]",
                           )}
+                          light={tailwind("text-mono-light-v2-1000")}
+                          dark={tailwind("text-mono-dark-v2-1000")}
                         >
                           {displayAddressLabel}
-                        </Text>
+                        </ThemedTextV2>
                       </>
                     </AddressEvmTag>
                   ) : (
@@ -354,8 +362,8 @@ export function AddressRow({
                             maxWidth: 108,
                           },
                         ]}
-                        light={tailwind("text-mono-light-v2-500")}
-                        dark={tailwind("text-mono-dark-v2-500")}
+                        light={tailwind("text-mono-light-v2-900")}
+                        dark={tailwind("text-mono-dark-v2-900")}
                         testID="address_input_footer"
                       >
                         {displayAddressLabel}
