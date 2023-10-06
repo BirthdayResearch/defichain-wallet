@@ -57,7 +57,7 @@ interface BottomSheetAddressDetailProps {
 }
 
 export const BottomSheetAddressDetailV2 = (
-  props: BottomSheetAddressDetailProps
+  props: BottomSheetAddressDetailProps,
 ): React.MemoExoticComponent<() => JSX.Element> =>
   memo(() => {
     const { isLight } = useThemeContext();
@@ -89,16 +89,16 @@ export const BottomSheetAddressDetailV2 = (
     const { domain } = useDomainContext();
     const blockCount = useSelector((state: RootState) => state.block.count);
     const hasPendingJob = useSelector((state: RootState) =>
-      hasTxQueued(state.transactionQueue)
+      hasTxQueued(state.transactionQueue),
     );
     const hasPendingBroadcastJob = useSelector((state: RootState) =>
-      hasOceanTXQueued(state.ocean)
+      hasOceanTXQueued(state.ocean),
     );
     const navigation =
       useNavigation<NavigationProp<BottomSheetWithNavRouteParam>>();
     const { network } = useNetworkContext();
     const userPreferences = useSelector(
-      (state: RootState) => state.userPreferences
+      (state: RootState) => state.userPreferences,
     );
     const labeledAddresses = userPreferences.addresses;
     const activeLabel = useAddressLabel(props.address);
@@ -112,7 +112,7 @@ export const BottomSheetAddressDetailV2 = (
         setShowToast(true);
         setTimeout(() => setShowToast(false), TOAST_DURATION);
       }, 500),
-      [showToast]
+      [showToast],
     );
 
     useEffect(() => {
@@ -168,7 +168,7 @@ export const BottomSheetAddressDetailV2 = (
           >
             {translate(
               "components/BottomSheetAddressDetail",
-              "Create wallet address"
+              "Create wallet address",
             )}
           </ThemedTextV2>
         </ThemedTouchableOpacityV2>
@@ -209,7 +209,7 @@ export const BottomSheetAddressDetailV2 = (
           <ThemedTouchableOpacityV2
             key={item.dvm}
             style={tailwind(
-              "px-5 py-4.5 flex flex-row items-center justify-between border-0 mx-5 rounded-lg-v2 h-20"
+              "px-5 py-4.5 flex flex-row items-center justify-between border-0 mx-5 rounded-lg-v2 h-20",
             )}
             dark={tailwind("bg-mono-dark-v2-00")}
             light={tailwind("bg-mono-light-v2-00")}
@@ -266,7 +266,7 @@ export const BottomSheetAddressDetailV2 = (
                     }
                     disabled={!isSelected}
                     style={tailwind(
-                      "border-0 flex flex-1 flex-row items-center"
+                      "border-0 flex flex-1 flex-row items-center",
                     )}
                   >
                     <ThemedTextV2
@@ -319,7 +319,7 @@ export const BottomSheetAddressDetailV2 = (
                                 ...userPreferences,
                                 addresses,
                               },
-                            })
+                            }),
                           );
                         });
                         navigation.goBack();
@@ -342,12 +342,12 @@ export const BottomSheetAddressDetailV2 = (
           </ThemedTouchableOpacityV2>
         );
       },
-      [labeledAddresses, domain]
+      [labeledAddresses, domain],
     );
 
     const AddressDetailHeader = useCallback(() => {
       const activeAddress = availableAddresses.find(
-        ({ dvm }) => dvm === props.address
+        ({ dvm }) => dvm === props.address,
       );
       return (
         <ThemedViewV2
@@ -376,7 +376,7 @@ export const BottomSheetAddressDetailV2 = (
           />
           <View
             style={tailwind(
-              "mt-12 px-5 flex flex-row items-center justify-between w-full"
+              "mt-12 px-5 flex flex-row items-center justify-between w-full",
             )}
           >
             <WalletCounterDisplay />

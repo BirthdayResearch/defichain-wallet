@@ -49,20 +49,20 @@ export function CreateVaultScreen({ navigation, route }: Props): JSX.Element {
   const { network } = useNetworkContext();
   const { address } = useWalletContext();
   const loanSchemes = useSelector((state: RootState) =>
-    ascColRatioLoanScheme(state.loans)
+    ascColRatioLoanScheme(state.loans),
   );
   const hasFetchedLoanSchemes = useSelector(
-    (state: RootState) => state.loans.hasFetchedLoanSchemes
+    (state: RootState) => state.loans.hasFetchedLoanSchemes,
   );
   const logger = useLogger();
   const hasPendingJob = useSelector((state: RootState) =>
-    hasTxQueued(state.transactionQueue)
+    hasTxQueued(state.transactionQueue),
   );
   const hasPendingBroadcastJob = useSelector((state: RootState) =>
-    hasOceanTXQueued(state.ocean)
+    hasOceanTXQueued(state.ocean),
   );
   const DFIUtxo = useSelector((state: RootState) =>
-    DFIUtxoSelector(state.wallet)
+    DFIUtxoSelector(state.wallet),
   );
 
   const RESERVE_AMOUNT = 2.1;
@@ -73,7 +73,7 @@ export function CreateVaultScreen({ navigation, route }: Props): JSX.Element {
   const [conversionStatus, setConversionStatus] = useState<ConversionStatus>(
     new BigNumber(RESERVE_AMOUNT).gt(DFIUtxo.amount)
       ? ConversionStatus.Required
-      : ConversionStatus.Not_Required
+      : ConversionStatus.Not_Required,
   );
   const [conversionAmount, setConversionAmount] = useState<
     BigNumber | undefined
@@ -85,7 +85,7 @@ export function CreateVaultScreen({ navigation, route }: Props): JSX.Element {
     network === EnvironmentNetwork.TestNet ||
     network === EnvironmentNetwork.DevNet
       ? 2
-      : 1
+      : 1,
   );
 
   const onSubmit = async (): Promise<void> => {
@@ -112,7 +112,7 @@ export function CreateVaultScreen({ navigation, route }: Props): JSX.Element {
         logger,
         () => {
           setConversionStatus(ConversionStatus.Completed);
-        }
+        },
       );
     } else {
       if (hasPendingJob || hasPendingBroadcastJob) {
@@ -132,10 +132,10 @@ export function CreateVaultScreen({ navigation, route }: Props): JSX.Element {
             fetchVaults({
               address,
               client,
-            })
+            }),
           );
         },
-        logger
+        logger,
       );
     }
   };
@@ -168,7 +168,7 @@ export function CreateVaultScreen({ navigation, route }: Props): JSX.Element {
 
     const needsConvert = new BigNumber(RESERVE_AMOUNT).gt(DFIUtxo.amount);
     setConversionStatus(
-      needsConvert ? ConversionStatus.Required : ConversionStatus.Not_Required
+      needsConvert ? ConversionStatus.Required : ConversionStatus.Not_Required,
     );
     if (needsConvert) {
       setConversionAmount(undefined);
@@ -185,7 +185,7 @@ export function CreateVaultScreen({ navigation, route }: Props): JSX.Element {
       >
         {translate(
           "screens/CreateVaultScreen",
-          "Select a loan scheme for your vault."
+          "Select a loan scheme for your vault.",
         )}
       </ThemedTextV2>
 
@@ -223,7 +223,7 @@ export function CreateVaultScreen({ navigation, route }: Props): JSX.Element {
           "screens/CreateVaultScreen",
           conversionStatus === ConversionStatus.Required
             ? "Continue"
-            : "Create vault"
+            : "Create vault",
         )}
         onPress={onSubmit}
         styleProps="mt-0 mx-7"
@@ -250,7 +250,7 @@ function ButtonActionMessage(props: {
             "screens/CreateVaultScreen",
             props.isConversionRequired
               ? "By continuing, the required amount of DFI will be converted"
-              : "Monitor your vault’s collateralization to prevent liquidation."
+              : "Monitor your vault’s collateralization to prevent liquidation.",
           )}
         </ThemedTextV2>
       )}
@@ -268,11 +268,11 @@ async function createVault(
   dispatch: Dispatch<any>,
   onBroadcast: () => void,
   onConfirmation: () => void,
-  logger: NativeLoggingProps
+  logger: NativeLoggingProps,
 ): Promise<void> {
   try {
     const signer = async (
-      account: WhaleWalletAccount
+      account: WhaleWalletAccount,
     ): Promise<CTransactionSegWit> => {
       const script = await account.getScript();
       const builder = account.withTransactionBuilder();
@@ -281,7 +281,7 @@ async function createVault(
           ownerAddress: script,
           schemeId: loanScheme.id,
         },
-        script
+        script,
       );
       return new CTransactionSegWit(signed);
     };
@@ -293,14 +293,14 @@ async function createVault(
         drawerMessages: {
           preparing: translate(
             "screens/OceanInterface",
-            "Preparing to create vault…"
+            "Preparing to create vault…",
           ),
           waiting: translate("screens/OceanInterface", "Creating vault"),
           complete: translate("screens/OceanInterface", "Vault created"),
         },
         onBroadcast,
         onConfirmation,
-      })
+      }),
     );
   } catch (e) {
     logger.error(e);

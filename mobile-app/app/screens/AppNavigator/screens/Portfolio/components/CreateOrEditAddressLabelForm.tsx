@@ -36,7 +36,7 @@ export const CreateOrEditAddressLabelForm = memo(
     const [walletAddress, setWalletAddress] = useState<WalletAddressI[]>([]);
     const { fetchWalletAddresses } = useWalletAddress();
     const walletAddressFromStore = useSelector(
-      (state: RootState) => state.userPreferences.addresses
+      (state: RootState) => state.userPreferences.addresses,
     );
     const [labelInput, setLabelInput] = useState(addressLabel?.label);
     const bottomSheetComponents = {
@@ -160,7 +160,7 @@ export const CreateOrEditAddressLabelForm = memo(
           }}
           placeholder={translate(
             "components/CreateOrEditAddressLabelForm",
-            "Enter label"
+            "Enter label",
           )}
           style={tailwind("h-9 w-6/12 flex-grow")}
           hasBottomSheet
@@ -169,7 +169,7 @@ export const CreateOrEditAddressLabelForm = memo(
             type: "error",
             text: translate(
               "components/CreateOrEditAddressLabelForm",
-              labelInputErrorMessage
+              labelInputErrorMessage,
             ),
           }}
           testID="address_book_label_input"
@@ -183,7 +183,7 @@ export const CreateOrEditAddressLabelForm = memo(
             {translate(
               "components/CreateOrEditAddressLabelForm",
               "{{length}}/40 characters",
-              { length: labelInputLength.toString() }
+              { length: labelInputLength.toString() },
             )}
           </ThemedTextV2>
         )}
@@ -194,7 +194,7 @@ export const CreateOrEditAddressLabelForm = memo(
             isCancelDisabled={false}
             label={translate(
               "components/CreateOrEditAddressLabelForm",
-              "Save changes"
+              "Save changes",
             )}
             onCancel={() => navigation.goBack()}
             onSubmit={handleEditSubmit}
@@ -204,7 +204,7 @@ export const CreateOrEditAddressLabelForm = memo(
         </View>
       </ScrollView>
     );
-  }
+  },
 );
 
 function AddressDisplay({
@@ -220,7 +220,7 @@ function AddressDisplay({
       <ThemedTextV2
         style={tailwind(
           "mt-2 flex-1 font-normal-v2 text-sm text-center w-3/5",
-          { "w-10/12": Platform.OS === "web" }
+          { "w-10/12": Platform.OS === "web" },
         )}
       >
         {label}

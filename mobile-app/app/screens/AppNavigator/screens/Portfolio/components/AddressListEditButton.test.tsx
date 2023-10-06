@@ -34,7 +34,7 @@ describe("Address List Edit Button", () => {
     const rendered = render(
       <Provider store={store}>
         <AddressListEditButton isEditing handleOnPress={jest.fn} />
-      </Provider>
+      </Provider>,
     );
 
     expect(rendered.toJSON()).toMatchSnapshot();

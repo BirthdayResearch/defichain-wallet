@@ -23,6 +23,13 @@ import { useEffect, useMemo, useState } from "react";
 import { useSelector } from "react-redux";
 import { RootState } from "@store";
 import { WalletAddressI, useWalletAddress } from "@hooks/useWalletAddress";
+import { DomainType, useDomainContext } from "@contexts/DomainContext";
+import { LinearGradient } from "expo-linear-gradient";
+import {
+  getAddressType,
+  AddressType as JellyfishAddressType,
+} from "@waveshq/walletkit-core";
+import { Text } from "@components";
 
 export function AddressRow({
   control,
@@ -38,6 +45,8 @@ export function AddressRow({
   onAddressType,
   showQrButton = true,
   onlyLocalAddress,
+  matchedAddress,
+  setMatchedAddress,
 }: {
   control: Control;
   networkName: NetworkName;
@@ -49,30 +58,32 @@ export function AddressRow({
   title: string;
   address: string;
   onMatchedAddress?: (
-    matchedAddress?: LocalAddress | WhitelistedAddress
+    matchedAddress?: LocalAddress | WhitelistedAddress,
   ) => void;
   onAddressType?: (addressType?: AddressType) => void;
   showQrButton?: boolean;
   onlyLocalAddress?: boolean;
+  matchedAddress?: LocalAddress | WhitelistedAddress | undefined;
+  setMatchedAddress?: (address?: LocalAddress | WhitelistedAddress) => void;
 }): JSX.Element {
   const { fetchWalletAddresses } = useWalletAddress();
+  const { domain } = useDomainContext();
 
   const defaultValue = "";
 
   const addressBook = useSelector(
-    (state: RootState) => state.userPreferences.addressBook
+    (state: RootState) => state.userPreferences.addressBook,
   );
   const walletAddress = useSelector((state: RootState) =>
-    selectAllLabeledWalletAddress(state.userPreferences)
+    selectAllLabeledWalletAddress(state.userPreferences),
   );
 
   const [jellyfishWalletAddress, setJellyfishWalletAddresses] = useState<
     WalletAddressI[]
   >([]);
-  const [matchedAddress, setMatchedAddress] = useState<
-    LocalAddress | WhitelistedAddress
-  >();
   const [addressType, setAddressType] = useState<AddressType>();
+  const [validEvmAddress, setValidEvmAddress] = useState<boolean>(false);
+
   const validLocalAddress = useMemo(() => {
     if (address === "") {
       return true;
@@ -84,26 +95,28 @@ export function AddressRow({
   }, [onlyLocalAddress, addressType, address]);
 
   const debounceMatchAddress = debounce(() => {
-    if (
-      address !== undefined &&
-      addressBook !== undefined &&
-      addressBook[address] !== undefined
-    ) {
-      setMatchedAddress(addressBook[address]);
-      setAddressType(AddressType.Whitelisted);
-    } else if (
-      address !== undefined &&
-      walletAddress !== undefined &&
-      walletAddress[address] !== undefined
-    ) {
-      setMatchedAddress(walletAddress[address]);
-      setAddressType(AddressType.WalletAddress);
-    } else {
+    // Check if address input field is not empty
+    if (address !== undefined && setMatchedAddress !== undefined) {
+      if (addressBook !== undefined && addressBook[address] !== undefined) {
+        // Whitelisted Addresses
+        setMatchedAddress(addressBook[address]);
+        setAddressType(AddressType.Whitelisted);
+        return;
+      }
+
+      // Your Address - Labelled
+      if (walletAddress !== undefined && walletAddress[address] !== undefined) {
+        setMatchedAddress(walletAddress[address]);
+        setAddressType(AddressType.WalletAddress);
+        return;
+      }
+
       const addressObj = jellyfishWalletAddress.find(
-        (e: WalletAddressI) => e.dvm === address || e.evm === address
+        (e: WalletAddressI) => e.dvm === address || e.evm === address,
       );
-      if (address !== undefined && addressObj) {
-        // wallet address that does not have a label
+
+      if (addressObj) {
+        // Your addresses - Unlabelled
         setMatchedAddress({
           address: addressObj.dvm,
           evmAddress: addressObj.evm,
@@ -111,14 +124,21 @@ export function AddressRow({
         });
         setAddressType(AddressType.WalletAddress);
       } else {
-        setMatchedAddress(undefined);
+        setMatchedAddress(undefined); // Unsaved valid DVM address
         if (onlyLocalAddress) {
           setAddressType(undefined);
+        } else if (
+          getAddressType(address, networkName) === JellyfishAddressType.ETH
+        ) {
+          // Unsaved and valid EVM address
+          setAddressType(AddressType.OthersButValid);
+          setValidEvmAddress(true);
         } else {
+          setValidEvmAddress(false);
           setAddressType(
             fromAddress(address, networkName) !== undefined
               ? AddressType.OthersButValid
-              : undefined
+              : undefined,
           );
         }
       }
@@ -131,7 +151,7 @@ export function AddressRow({
 
   useEffect(() => {
     fetchWalletAddresses().then((walletAddresses) =>
-      setJellyfishWalletAddresses(walletAddresses)
+      setJellyfishWalletAddresses(walletAddresses),
     );
   }, [fetchWalletAddresses]);
 
@@ -225,7 +245,7 @@ export function AddressRow({
                 >
                   {translate(
                     "screens/SendScreen",
-                    "Invalid address. Make sure the address is correct to avoid irrecoverable losses"
+                    "Invalid address. Make sure the address is correct to avoid irrecoverable losses",
                   )}
                 </ThemedTextV2>
               )}
@@ -236,78 +256,108 @@ export function AddressRow({
           required: true,
           validate: {
             isValidAddress: (address) =>
-              fromAddress(address, networkName) !== undefined &&
-              (!onlyLocalAddress ||
-                jellyfishWalletAddress.includes(address) ||
-                (walletAddress !== undefined &&
-                  walletAddress[address] !== undefined)),
+              // Check if its either a valid EVM/DVM address &&
+              !!getAddressType(address, networkName) &&
+              // EVM -> EVM domain transfer is not allowed
+              !(
+                getAddressType(address, networkName) ===
+                  JellyfishAddressType.ETH && domain === DomainType.EVM
+              ),
           },
         }}
       />
 
-      {addressType !== undefined && (
-        <View style={tailwind("ml-5 my-2 items-center flex flex-row")}>
-          {addressType === AddressType.OthersButValid ? (
-            <>
-              <ThemedIcon
-                light={tailwind("text-success-500")}
-                dark={tailwind("text-darksuccess-500")}
-                iconType="MaterialIcons"
-                name="check-circle"
-                size={16}
-              />
-              <ThemedTextV2
-                style={tailwind("text-xs mx-1 font-normal-v2")}
-                light={tailwind("text-mono-light-v2-500")}
-                dark={tailwind("text-mono-dark-v2-500")}
-              >
-                {translate("screens/SendScreen", "Verified")}
-              </ThemedTextV2>
-            </>
-          ) : (
-            addressType !== undefined &&
-            validLocalAddress && (
-              <ThemedViewV2
-                style={tailwind(
-                  "flex flex-row items-center overflow-hidden rounded-lg py-0.5",
-                  {
-                    "px-1": addressType === AddressType.WalletAddress,
-                    "px-2": addressType === AddressType.Whitelisted,
-                  }
-                )}
-                light={tailwind("bg-mono-light-v2-200")}
-                dark={tailwind("bg-mono-dark-v2-200")}
-              >
-                {addressType === AddressType.WalletAddress && (
-                  <View style={tailwind("rounded-l-2xl mr-1")}>
-                    <RandomAvatar name={matchedAddress?.address} size={12} />
-                  </View>
-                )}
-
+      <View style={tailwind("ml-5 my-2 items-center flex flex-row")}>
+        {addressType !== undefined && (
+          <>
+            {/* Verified tag for DVM/EVM address */}
+            {addressType === AddressType.OthersButValid && (
+              <>
+                <ThemedIcon
+                  light={tailwind("text-success-500")}
+                  dark={tailwind("text-darksuccess-500")}
+                  iconType="MaterialIcons"
+                  name="check-circle"
+                  size={16}
+                />
                 <ThemedTextV2
-                  ellipsizeMode="middle"
-                  numberOfLines={1}
-                  style={[
-                    tailwind("text-xs font-normal-v2"),
-                    // eslint-disable-next-line react-native/no-inline-styles
-                    {
-                      minWidth: 10,
-                      maxWidth: 108,
-                    },
-                  ]}
+                  style={tailwind("text-xs mx-1 font-normal-v2")}
                   light={tailwind("text-mono-light-v2-500")}
                   dark={tailwind("text-mono-dark-v2-500")}
-                  testID="address_input_footer"
                 >
-                  {matchedAddress?.label !== ""
-                    ? matchedAddress?.label
-                    : matchedAddress.address}
+                  {translate("screens/SendScreen", "Verified {{text}}", {
+                    text: validEvmAddress ? "MetaChain (EVM) address" : "",
+                  })}
                 </ThemedTextV2>
-              </ThemedViewV2>
-            )
-          )}
-        </View>
-      )}
+              </>
+            )}
+            {addressType !== AddressType.OthersButValid &&
+              validLocalAddress && (
+                <>
+                  {/* TODO @chloe cater for selection of evm addr from addr pair */}
+                  {(matchedAddress as WhitelistedAddress)?.addressDomainType ===
+                  DomainType.EVM ? (
+                    // || (matchedAddress as LocalAddress)?.evmAddress ?
+                    <LinearGradient
+                      colors={["#42F9C2", "#3B57CF"]}
+                      start={[0, 0]}
+                      end={[1, 1]}
+                      style={tailwind("rounded-lg px-2 py-0.5 ml-1")}
+                    >
+                      {/* TODO add avatar for after updating address book design */}
+                      <Text
+                        testID="address_input_footer_evm"
+                        style={tailwind(
+                          "text-mono-light-v2-00 text-xs font-semibold-v2 leading-4",
+                        )}
+                      >
+                        {matchedAddress?.label || matchedAddress?.address}
+                      </Text>
+                    </LinearGradient>
+                  ) : (
+                    <ThemedViewV2
+                      style={tailwind(
+                        "flex flex-row items-center overflow-hidden rounded-lg py-0.5",
+                        {
+                          "px-1": addressType === AddressType.WalletAddress,
+                          "px-2": addressType === AddressType.Whitelisted,
+                        },
+                      )}
+                      light={tailwind("bg-mono-light-v2-200")}
+                      dark={tailwind("bg-mono-dark-v2-200")}
+                    >
+                      {addressType === AddressType.WalletAddress && (
+                        <View style={tailwind("rounded-l-2xl mr-1")}>
+                          <RandomAvatar
+                            name={matchedAddress?.address}
+                            size={12}
+                          />
+                        </View>
+                      )}
+                      <ThemedTextV2
+                        ellipsizeMode="middle"
+                        numberOfLines={1}
+                        style={[
+                          tailwind("text-xs font-normal-v2"),
+                          // eslint-disable-next-line react-native/no-inline-styles
+                          {
+                            minWidth: 10,
+                            maxWidth: 108,
+                          },
+                        ]}
+                        light={tailwind("text-mono-light-v2-500")}
+                        dark={tailwind("text-mono-dark-v2-500")}
+                        testID="address_input_footer"
+                      >
+                        {matchedAddress?.label || matchedAddress?.address}
+                      </ThemedTextV2>
+                    </ThemedViewV2>
+                  )}
+                </>
+              )}
+          </>
+        )}
+      </View>
     </View>
   );
 }

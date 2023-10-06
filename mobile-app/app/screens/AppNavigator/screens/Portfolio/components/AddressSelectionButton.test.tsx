@@ -40,7 +40,7 @@ describe("Address Selection Button", () => {
           onPress={onPress}
           hasCount
         />
-      </Provider>
+      </Provider>,
     );
 
     expect(rendered.toJSON()).toMatchSnapshot();

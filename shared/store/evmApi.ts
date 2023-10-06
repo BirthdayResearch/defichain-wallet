@@ -20,7 +20,7 @@ export const evmApi = createApi({
     >({
       query: ({ network = EnvironmentNetwork.TestNet, evmAddress }) => ({
         url: `${getEthRpcUrl(
-          network
+          network,
         )}/api/v2/addresses/${evmAddress}/token-balances`,
         method: "GET",
       }),
@@ -39,12 +39,12 @@ const getEthRpcUrl = (network: EnvironmentNetwork) => {
     case EnvironmentNetwork.LocalPlayground:
     case EnvironmentNetwork.RemotePlayground:
     case EnvironmentNetwork.DevNet:
-      return "https://changi.ocean.jellyfishsdk.com";
+      return "https://blockscout.changi.ocean.jellyfishsdk.com";
     case EnvironmentNetwork.TestNet:
-      return "https://changi.ocean.jellyfishsdk.com";
+      return "https://blockscout.changi.ocean.jellyfishsdk.com";
     case EnvironmentNetwork.MainNet:
     default:
-      return "https://changi.ocean.jellyfishsdk.com";
+      return "https://blockscout.changi.ocean.jellyfishsdk.com";
   }
 };
 

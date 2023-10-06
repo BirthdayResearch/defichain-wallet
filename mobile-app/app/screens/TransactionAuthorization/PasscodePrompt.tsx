@@ -59,7 +59,7 @@ const PromptContent = React.memo((props: PasscodePromptProps): JSX.Element => {
         style={tailwind("items-end pt-5 px-5 rounded-t-xl-v2")}
         testID="cancel_authorization"
         disabled={[TransactionStatus.BLOCK, TransactionStatus.SIGNING].includes(
-          props.status
+          props.status,
         )}
       >
         <ThemedIcon
@@ -105,7 +105,7 @@ const PromptContent = React.memo((props: PasscodePromptProps): JSX.Element => {
         )}
         <View style={tailwind("text-sm text-center mb-14 mt-4 px-10")}>
           {([TransactionStatus.SIGNING, TransactionStatus.AUTHORIZED].includes(
-            props.status
+            props.status,
           ) ||
             (props.status === TransactionStatus.PIN && !props.isRetry)) && (
             <ThemedTextV2
@@ -158,7 +158,7 @@ const PromptContent = React.memo((props: PasscodePromptProps): JSX.Element => {
                         ? "Incorrect passcode.\n{{attemptsRemaining}} attempts remaining"
                         : "{{attemptsRemaining}} attempts remaining"
                     }`,
-                    { attemptsRemaining: props.attemptsRemaining }
+                    { attemptsRemaining: props.attemptsRemaining },
                   )}
                 </ThemedTextV2>
               )
@@ -251,7 +251,7 @@ export const PasscodePrompt = React.memo(
         </SafeAreaView>
       </BottomSheetModal>
     );
-  }
+  },
 );
 
 function EmptyHandleComponent(): JSX.Element {

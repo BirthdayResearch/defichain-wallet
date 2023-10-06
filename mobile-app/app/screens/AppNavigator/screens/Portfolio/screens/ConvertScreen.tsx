@@ -38,6 +38,7 @@ import {
   TokenDropdownButtonStatus,
 } from "@components/TokenDropdownButton";
 import { DomainType, useDomainContext } from "@contexts/DomainContext";
+import { EVMLinearGradient } from "@components/EVMLinearGradient";
 import { PortfolioParamList } from "../PortfolioNavigator";
 import {
   TokenListType,
@@ -61,34 +62,34 @@ export function ConvertScreen(props: Props): JSX.Element {
   const client = useWhaleApiClient();
   const logger = useLogger();
   const tokens = useSelector((state: RootState) =>
-    tokensSelector(state.wallet)
+    tokensSelector(state.wallet),
   );
   const toast = useToast();
   const TOAST_DURATION = 2000;
 
   // global state
   const hasPendingJob = useSelector((state: RootState) =>
-    hasTxQueued(state.transactionQueue)
+    hasTxQueued(state.transactionQueue),
   );
   const hasPendingBroadcastJob = useSelector((state: RootState) =>
-    hasOceanTXQueued(state.ocean)
+    hasOceanTXQueued(state.ocean),
   );
   const navigation = useNavigation<NavigationProp<PortfolioParamList>>();
   const [convertDirection, setConvertDirection] = useState(
-    props.route.params.convertDirection
+    props.route.params.convertDirection,
   );
   const [sourceToken, setSourceToken] = useState<DomainToken>(
-    props.route.params.sourceToken
+    props.route.params.sourceToken,
   );
   const [targetToken, setTargetToken] = useState<DomainToken | undefined>(
-    props.route.params.targetToken
+    props.route.params.targetToken,
   );
 
   const [convAmount, setConvAmount] = useState<string>("0");
   const [fee, setFee] = useState<BigNumber>(new BigNumber(0.0001));
   const [amount, setAmount] = useState<string>("");
   const [inlineTextStatus, setInlineTextStatus] = useState<InlineTextStatus>(
-    InlineTextStatus.Default
+    InlineTextStatus.Default,
   );
 
   const { dvmTokens, evmTokens } = useTokenBalance();
@@ -164,7 +165,7 @@ export function ConvertScreen(props: Props): JSX.Element {
           displaySymbol: sourceToken.token.displaySymbol,
           balance: BigNumber.maximum(
             new BigNumber(sourceToken.available).minus(convAmount),
-            0
+            0,
           ),
           displayTextSymbol: sourceToken.token.displayTextSymbol,
         },
@@ -173,7 +174,7 @@ export function ConvertScreen(props: Props): JSX.Element {
           displaySymbol: targetToken.token.displaySymbol,
           balance: BigNumber.maximum(
             new BigNumber(targetToken.available).plus(convAmount),
-            0
+            0,
           ),
           displayTextSymbol: targetToken.token.displayTextSymbol,
         },
@@ -202,7 +203,7 @@ export function ConvertScreen(props: Props): JSX.Element {
         "screens/ConvertScreen",
         `${sourceToken.token.displayTextSymbol}${
           domain === DomainType.EVM ? "-EVM" : ""
-        }`
+        }`,
       ),
       percent: type,
     };
@@ -274,12 +275,12 @@ export function ConvertScreen(props: Props): JSX.Element {
       } else if (domain === DomainType.EVM) {
         // If EVM -> choose DVM equivalent
         updatedTargetToken = dvmTokens.find(
-          (token) => token.tokenId === item.tokenId.replace("-EVM", "")
+          (token) => token.tokenId === item.tokenId.replace("-EVM", ""),
         );
       } else if (domain === DomainType.DVM) {
         // If DVM -> choose EVM equivalent
         updatedTargetToken = evmTokens.find(
-          (token) => token.tokenId === `${item.tokenId}-EVM`
+          (token) => token.tokenId === `${item.tokenId}-EVM`,
         );
       }
       /* End of what will be moved into a hook */
@@ -319,7 +320,7 @@ export function ConvertScreen(props: Props): JSX.Element {
     <ThemedScrollViewV2 testID="convert_screen">
       <ThemedTextV2
         style={tailwind(
-          "mx-10 text-xs font-normal-v2 mt-8 mb-4 tracking-wide-v2"
+          "mx-10 text-xs font-normal-v2 mt-8 mb-4 tracking-wide-v2",
         )}
         light={tailwind("text-mono-light-v2-500")}
         dark={tailwind("text-mono-dark-v2-500")}
@@ -337,7 +338,7 @@ export function ConvertScreen(props: Props): JSX.Element {
               convertDirection === ConvertDirection.evmToDvm
                 ? `${sourceToken.token.displayTextSymbol}-EVM`
                 : sourceToken.token.displayTextSymbol,
-          }
+          },
         )}
       </ThemedTextV2>
       <View style={tailwind("mx-5")}>
@@ -371,14 +372,14 @@ export function ConvertScreen(props: Props): JSX.Element {
                 onChangeText={setAmount}
                 placeholder="0.00"
                 placeholderTextColor={getColor(
-                  isLight ? "mono-light-v2-900" : "mono-dark-v2-900"
+                  isLight ? "mono-light-v2-900" : "mono-dark-v2-900",
                 )}
                 testID="convert_input"
               />
               <NumberFormat
                 value={getNumberFormatValue(
                   getTokenPrice(sourceToken.token.symbol, BigNumber(amount)),
-                  2
+                  2,
                 )}
                 thousandSeparator
                 displayType="text"
@@ -396,6 +397,7 @@ export function ConvertScreen(props: Props): JSX.Element {
             </View>
 
             <TokenDropdownButton
+              isEvmToken={sourceToken?.token.domainType === DomainType.EVM}
               symbol={sourceToken.token.displaySymbol}
               displayedTextSymbol={sourceToken.token.displayTextSymbol}
               testID={TokenListType.From}
@@ -433,7 +435,7 @@ export function ConvertScreen(props: Props): JSX.Element {
             {
               amount: new BigNumber(sourceToken.available).toFixed(8),
               unit: sourceToken.token.displaySymbol,
-            }
+            },
           )}
         </ThemedTextV2>
 
@@ -460,12 +462,12 @@ export function ConvertScreen(props: Props): JSX.Element {
           dark={tailwind("text-mono-dark-v2-500")}
           testID="tokenB_displaySymbol"
         >
-          {translate("screens/ConvertScreen", "TO RECEIVE")}
+          {translate("screens/ConvertScreen", "TO CONVERT")}
         </ThemedTextV2>
 
         <View
           style={tailwind(
-            "flex flex-row justify-between items-center pl-5 mt-4"
+            "flex flex-row justify-between items-center pl-5 mt-4",
           )}
         >
           <View style={tailwind("w-6/12 mr-2")}>
@@ -494,9 +496,9 @@ export function ConvertScreen(props: Props): JSX.Element {
                   ? 0
                   : getTokenPrice(
                       targetToken.token.symbol,
-                      BigNumber(convAmount)
+                      BigNumber(convAmount),
                     ),
-                2
+                2,
               )}
               thousandSeparator
               displayType="text"
@@ -515,6 +517,7 @@ export function ConvertScreen(props: Props): JSX.Element {
 
           {sourceToken.tokenId === "0" && (
             <TokenDropdownButton
+              isEvmToken={targetToken?.token.domainType === DomainType.EVM}
               symbol={targetToken?.token.displaySymbol}
               displayedTextSymbol={targetToken?.token.displayTextSymbol}
               testID={TokenListType.To}
@@ -529,6 +532,7 @@ export function ConvertScreen(props: Props): JSX.Element {
               testID={TokenListType.To}
               symbol={targetToken.token.displaySymbol}
               unit={targetToken.token.displayTextSymbol}
+              isEvmToken={targetToken?.token.domainType === DomainType.EVM}
             />
           )}
         </View>
@@ -544,7 +548,7 @@ export function ConvertScreen(props: Props): JSX.Element {
                 amount !== ""
                   ? BigNumber.maximum(
                       targetToken.available.plus(convAmount),
-                      0
+                      0,
                     ).toFixed(8)
                   : "-"
               }
@@ -557,7 +561,7 @@ export function ConvertScreen(props: Props): JSX.Element {
               >
                 {translate(
                   "screens/ConvertScreen",
-                  "Review full details in the next screen"
+                  "Review full details in the next screen",
                 )}
               </ThemedTextV2>
             )}
@@ -703,6 +707,7 @@ function FixedTokenButton(props: {
   symbol: string;
   testID: string;
   unit: string;
+  isEvmToken?: boolean;
 }): JSX.Element {
   const Icon = getNativeIcon(props.symbol);
   return (
@@ -714,11 +719,10 @@ function FixedTokenButton(props: {
       disabled
     >
       {props.symbol !== undefined && Icon !== undefined && (
-        <>
-          <View style={tailwind("my-2")}>
+        <View style={tailwind("flex flex-row items-center")}>
+          <EVMLinearGradient isEvmToken={props.isEvmToken}>
             <Icon testID="fixed_token_icon" height={24} width={24} />
-          </View>
-
+          </EVMLinearGradient>
           <ThemedTextV2
             style={tailwind("ml-2 text-sm font-semibold-v2 my-2.5")}
             dark={tailwind("text-mono-dark-v2-900")}
@@ -727,7 +731,7 @@ function FixedTokenButton(props: {
           >
             {props.unit}
           </ThemedTextV2>
-        </>
+        </View>
       )}
     </ThemedTouchableOpacityV2>
   );

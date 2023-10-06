@@ -104,7 +104,14 @@ exports[`DFI Balance Card should match snapshot 1`] = `
           vbWidth={32}
           width={36}
         >
-          <RNSVGGroup>
+          <RNSVGGroup
+            fill={
+              {
+                "payload": 4278190080,
+                "type": 0,
+              }
+            }
+          >
             <RNSVGCircle
               cx="16"
               cy="16"
@@ -200,7 +207,7 @@ exports[`DFI Balance Card should match snapshot 1`] = `
             }
             testID="total_dfi_label_name"
           >
-            DeFiChain
+            DeFiChain 
           </Text>
         </View>
       </View>

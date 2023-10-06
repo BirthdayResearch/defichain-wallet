@@ -9,7 +9,7 @@ import { BarCodeScanner } from "@components/BarCodeScanner";
 import { HeaderTitle } from "@components/HeaderTitle";
 import { tailwind } from "@tailwind";
 import { translate } from "@translations";
-import { WhitelistedAddress } from "@store/userPreferences";
+import { LocalAddress, WhitelistedAddress } from "@store/userPreferences";
 import { FutureSwapData } from "@store/futureSwap";
 import { TransactionsScreen } from "@screens/AppNavigator/screens/Transactions/TransactionsScreen";
 import { TransactionDetailScreen } from "@screens/AppNavigator/screens/Transactions/screens/TransactionDetailScreen";
@@ -78,6 +78,7 @@ export interface PortfolioParamList {
     toAddressLabel?: string;
     addressType?: AddressType;
     originScreen?: ScreenName;
+    matchedAddress?: WhitelistedAddress | LocalAddress;
   };
   TokenDetailScreen: { token: WalletToken };
   ConvertScreen: {
@@ -235,7 +236,7 @@ export function PortfolioNavigator(): JSX.Element {
           headerLeft: () => (
             <View
               style={tailwind(
-                "flex flex-row bg-transparent items-center w-full"
+                "flex flex-row bg-transparent items-center w-full",
               )}
             >
               <DomainSwitch testID="domain_switch" />
@@ -500,7 +501,7 @@ export function PortfolioNavigator(): JSX.Element {
             <HeaderTitle
               text={translate(
                 "screens/AddOrEditAddressBookScreen",
-                "Add New Address"
+                "Add New Address",
               )}
             />
           ),
@@ -539,7 +540,7 @@ export function PortfolioNavigator(): JSX.Element {
           ...screenOptions,
           headerTitle: translate(
             "screens/WithdrawFutureSwapScreen",
-            "Withdraw"
+            "Withdraw",
           ),
           headerRight: () => (
             <HeaderNetworkStatus onPress={goToNetworkSelect} />
@@ -580,7 +581,7 @@ export function PortfolioNavigator(): JSX.Element {
           ...screenOptions,
           headerTitle: translate(
             "screens/ConfirmWithdrawFutureSwapScreen",
-            "Confirm"
+            "Confirm",
           ),
           headerRight: () => (
             <HeaderNetworkStatus onPress={goToNetworkSelect} />
@@ -623,7 +624,7 @@ export function PortfolioNavigator(): JSX.Element {
           ),
           headerTitle: translate(
             "screens/TransactionDetailScreen",
-            "Transaction"
+            "Transaction",
           ),
         }}
       />
@@ -634,7 +635,7 @@ export function PortfolioNavigator(): JSX.Element {
           ...screenOptions,
           headerTitle: translate(
             "components/UtxoVsTokenFaq",
-            "About UTXO And Tokens"
+            "About UTXO And Tokens",
           ),
         }}
       />
