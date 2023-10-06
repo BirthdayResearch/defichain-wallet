@@ -111,7 +111,7 @@ export function PortfolioScreen({ navigation }: Props): JSX.Element {
 
   const { getTokenPrice } = useTokenPrice(denominationCurrency);
   const prices = useSelector((state: RootState) =>
-    dexPricesSelectorByDenomination(state.wallet, denominationCurrency)
+    dexPricesSelectorByDenomination(state.wallet, denominationCurrency),
   );
   const { wallets } = useWalletPersistenceContext();
   const lockedTokens = useTokenLockedBalance({ denominationCurrency }) as Map<
@@ -124,14 +124,14 @@ export function PortfolioScreen({ navigation }: Props): JSX.Element {
   } = useDisplayBalancesContext();
   const blockCount = useSelector((state: RootState) => state.block.count);
   const vaults = useSelector((state: RootState) =>
-    activeVaultsSelector(state.loans)
+    activeVaultsSelector(state.loans),
   );
 
   const dispatch = useAppDispatch();
   const [refreshing, setRefreshing] = useState(false);
   const [isZeroBalance, setIsZeroBalance] = useState(true);
   const { hasFetchedToken, allTokens } = useSelector(
-    (state: RootState) => state.wallet
+    (state: RootState) => state.wallet,
   );
   const ref = useRef(null);
   const logger = useLogger();
@@ -148,7 +148,7 @@ export function PortfolioScreen({ navigation }: Props): JSX.Element {
           fetchFutureSwaps({
             client: whaleRpcClient,
             address,
-          })
+          }),
         );
         dispatch(fetchExecutionBlock({ client: whaleRpcClient }));
       });
@@ -169,13 +169,13 @@ export function PortfolioScreen({ navigation }: Props): JSX.Element {
         fetchTokens({
           client,
           address,
-        })
+        }),
       );
       dispatch(
         fetchVaults({
           client,
           address,
-        })
+        }),
       );
     });
   };
@@ -187,7 +187,7 @@ export function PortfolioScreen({ navigation }: Props): JSX.Element {
       fetchDexPrice({
         client,
         denomination: denominationCurrency,
-      })
+      }),
     );
   }, [blockCount, denominationCurrency]);
 
@@ -198,7 +198,7 @@ export function PortfolioScreen({ navigation }: Props): JSX.Element {
   }, [address, client, dispatch]);
 
   const tokens = useSelector((state: RootState) =>
-    tokensSelector(state.wallet)
+    tokensSelector(state.wallet),
   );
   const { totalAvailableValue, dstTokens } = useMemo(() => {
     return tokens.reduce(
@@ -207,12 +207,12 @@ export function PortfolioScreen({ navigation }: Props): JSX.Element {
           totalAvailableValue,
           dstTokens,
         }: { totalAvailableValue: BigNumber; dstTokens: PortfolioRowToken[] },
-        token
+        token,
       ) => {
         const usdAmount = getTokenPrice(
           token.symbol,
           new BigNumber(token.amount),
-          token.isLPS
+          token.isLPS,
         );
         if (token.symbol === "DFI") {
           return {
@@ -226,7 +226,7 @@ export function PortfolioScreen({ navigation }: Props): JSX.Element {
         }
         return {
           totalAvailableValue: totalAvailableValue.plus(
-            usdAmount.isNaN() ? 0 : usdAmount
+            usdAmount.isNaN() ? 0 : usdAmount,
           ),
           dstTokens: [
             ...dstTokens,
@@ -240,7 +240,7 @@ export function PortfolioScreen({ navigation }: Props): JSX.Element {
       {
         totalAvailableValue: new BigNumber(0),
         dstTokens: [],
-      }
+      },
     );
   }, [prices, tokens]);
 
@@ -283,7 +283,7 @@ export function PortfolioScreen({ navigation }: Props): JSX.Element {
   const [filteredTokens, setFilteredTokens] = useState(combinedTokens);
   // portfolio tab items
   const onPortfolioButtonGroupChange = (
-    portfolioButtonGroupTabKey: PortfolioButtonGroupTabKey
+    portfolioButtonGroupTabKey: PortfolioButtonGroupTabKey,
   ): void => {
     setDenominationCurrency(portfolioButtonGroupTabKey);
   };
@@ -329,7 +329,7 @@ export function PortfolioScreen({ navigation }: Props): JSX.Element {
 
   // Asset sort bottom sheet list
   const [assetSortType, setAssetSortType] = useState<PortfolioSortType>(
-    PortfolioSortType.HighestDenominationValue
+    PortfolioSortType.HighestDenominationValue,
   ); // to display selected sorted type text
   const [isSorted, setIsSorted] = useState<boolean>(false); // to display acsending/descending icon
   const [showAssetSortBottomSheet, setShowAssetSortBottomSheet] =
@@ -338,7 +338,7 @@ export function PortfolioScreen({ navigation }: Props): JSX.Element {
     (assetSortType: PortfolioSortType): PortfolioRowToken[] => {
       let sortTokensFunc: (
         a: PortfolioRowToken,
-        b: PortfolioRowToken
+        b: PortfolioRowToken,
       ) => number;
       switch (assetSortType) {
         case PortfolioSortType.HighestDenominationValue:
@@ -367,16 +367,21 @@ export function PortfolioScreen({ navigation }: Props): JSX.Element {
 
       return filteredTokens.sort(sortTokensFunc);
     },
-    [filteredTokens, assetSortType, denominationCurrency]
+    [domain, filteredTokens, assetSortType, denominationCurrency],
   );
 
   useEffect(() => {
     setAssetSortType(PortfolioSortType.HighestDenominationValue); // reset sorting state upon denominationCurrency change
   }, [denominationCurrency]);
 
+  // Reset button group in EVM domain
+  useEffect(() => {
+    setActiveButtonGroup(ButtonGroupTabKey.AllTokens);
+  }, [domain]);
+
   // token tab items
   const [activeButtonGroup, setActiveButtonGroup] = useState<ButtonGroupTabKey>(
-    ButtonGroupTabKey.AllTokens
+    ButtonGroupTabKey.AllTokens,
   );
   const handleButtonFilter = useCallback(
     (buttonGroupTabKey: ButtonGroupTabKey) => {
@@ -395,7 +400,7 @@ export function PortfolioScreen({ navigation }: Props): JSX.Element {
       });
       setFilteredTokens(filterTokens);
     },
-    [combinedTokens]
+    [combinedTokens],
   );
 
   const totalLockedValue = useMemo(() => {
@@ -405,7 +410,7 @@ export function PortfolioScreen({ navigation }: Props): JSX.Element {
     return [...lockedTokens.values()].reduce(
       (totalLockedValue: BigNumber, value: LockedBalance) =>
         totalLockedValue.plus(value.tokenValue.isNaN() ? 0 : value.tokenValue),
-      new BigNumber(0)
+      new BigNumber(0),
     );
   }, [lockedTokens, prices]);
 
@@ -419,19 +424,21 @@ export function PortfolioScreen({ navigation }: Props): JSX.Element {
           (totalVaultLoansValue, loanToken) => {
             const tokenValue = getTokenPrice(
               loanToken.symbol,
-              new BigNumber(loanToken.amount)
+              new BigNumber(loanToken.amount),
             );
             return totalVaultLoansValue.plus(
-              new BigNumber(tokenValue).isNaN() ? 0 : tokenValue
+              new BigNumber(tokenValue).isNaN() ? 0 : tokenValue,
             );
           },
-          new BigNumber(0)
+          new BigNumber(0),
         );
         return totalLoansValue.plus(
-          new BigNumber(totalVaultLoansValue).isNaN() ? 0 : totalVaultLoansValue
+          new BigNumber(totalVaultLoansValue).isNaN()
+            ? 0
+            : totalVaultLoansValue,
         );
       },
-      new BigNumber(0)
+      new BigNumber(0),
     );
   }, [prices, vaults]);
 
@@ -442,7 +449,7 @@ export function PortfolioScreen({ navigation }: Props): JSX.Element {
 
   useEffect(() => {
     setIsZeroBalance(
-      !tokens.some((token) => new BigNumber(token.amount).isGreaterThan(0))
+      !tokens.some((token) => new BigNumber(token.amount).isGreaterThan(0)),
     );
   }, [tokens]);
 
@@ -527,7 +534,7 @@ export function PortfolioScreen({ navigation }: Props): JSX.Element {
               dark={tailwind("bg-mono-dark-v2-00 border-mono-dark-v2-200")}
               light={tailwind("bg-mono-light-v2-00 border-mono-light-v2-200")}
               style={tailwind(
-                "flex flex-row items-center rounded-2xl border-0.5 px-4 py-2"
+                "flex flex-row items-center rounded-2xl border-0.5 px-4 py-2",
               )}
             >
               <View
@@ -566,7 +573,7 @@ export function PortfolioScreen({ navigation }: Props): JSX.Element {
     navigation.dispatch(
       CommonActions.reset({
         routes: bottomTabDefaultRoutes,
-      })
+      }),
     );
   };
 
@@ -696,6 +703,7 @@ export function PortfolioScreen({ navigation }: Props): JSX.Element {
               onButtonGroupPress: handleButtonFilter,
             }}
             denominationCurrency={denominationCurrency}
+            isEvmDomain={domain === DomainType.EVM}
           />
         )}
         {Platform.OS === "web" ? (
@@ -747,12 +755,12 @@ function AssetSortRow(props: {
   const highestCurrencyValue = translate(
     "screens/PortfolioScreen",
     "Highest value ({{denominationCurrency}})",
-    { denominationCurrency: props.denominationCurrency }
+    { denominationCurrency: props.denominationCurrency },
   );
   const lowestCurrencyValue = translate(
     "screens/PortfolioScreen",
     "Lowest value ({{denominationCurrency}})",
-    { denominationCurrency: props.denominationCurrency }
+    { denominationCurrency: props.denominationCurrency },
   );
   const getDisplayedSortText = (text: PortfolioSortType): string => {
     if (text === PortfolioSortType.HighestDenominationValue) {
@@ -792,7 +800,7 @@ function AssetSortRow(props: {
               "screens/PortfolioScreen",
               props.isSorted
                 ? getDisplayedSortText(props.assetSortType)
-                : "Sort by"
+                : "Sort by",
             )}
           </ThemedTextV2>
           <ThemedIcon

@@ -78,7 +78,7 @@ export function PoolPairCards({
     useFavouritePoolpairContext();
   const sortedPairs = sortPoolpairsByFavourite(
     availablePairs,
-    isFavouritePoolpair
+    isFavouritePoolpair,
   );
   const { tvl } = useSelector((state: RootState) => state.block);
   const [filteredYourPairs, setFilteredYourPairs] =
@@ -89,7 +89,7 @@ export function PoolPairCards({
 
   const pairSortingFn = (
     pairA: DexItem<WalletToken>,
-    pairB: DexItem<WalletToken>
+    pairB: DexItem<WalletToken>,
   ): number =>
     availablePairs.findIndex((x) => x.data.id === pairA.data.id) -
     availablePairs.findIndex((x) => x.data.id === pairB.data.id);
@@ -109,9 +109,9 @@ export function PoolPairCards({
           .filter((pair) =>
             pair.data.displaySymbol
               .toLowerCase()
-              .includes(debouncedSearchTerm.trim().toLowerCase())
+              .includes(debouncedSearchTerm.trim().toLowerCase()),
           )
-          .sort(pairSortingFn)
+          .sort(pairSortingFn),
       );
     } else {
       setFilteredYourPairs([]);
@@ -166,7 +166,7 @@ export function PoolPairCards({
                 title={translate("screens/DexScreen", "No favorites added")}
                 subtitle={translate(
                   "screens/DexScreen",
-                  "Tap the star icon to add your favorite pools here"
+                  "Tap the star icon to add your favorite pools here",
                 )}
               />
             )}
@@ -198,7 +198,7 @@ export function PoolPairCards({
                   dark={tailwind("text-mono-dark-v2-500")}
                   light={tailwind("text-mono-light-v2-500")}
                   style={tailwind(
-                    "font-normal-v2 text-xs uppercase pl-10 mb-2"
+                    "font-normal-v2 text-xs uppercase pl-10 mb-2",
                   )}
                 >
                   {translate("screens/DexScreen", "Available pairs")}
@@ -243,7 +243,7 @@ function PoolCard({
   const isFavoritePair = isFavouritePoolpair(yourPair.id);
 
   const poolPairData = pairs.find(
-    (pr) => pr.data.symbol === (yourPair as AddressToken).symbol
+    (pr) => pr.data.symbol === (yourPair as AddressToken).symbol,
   );
   const mappedPair = poolPairData?.data;
 
@@ -291,7 +291,7 @@ function PoolCard({
               walletTokenPrice={getTokenPrice(
                 yourPair.symbol,
                 new BigNumber((yourPair as WalletToken).amount),
-                true
+                true,
               )}
             />
           )}
@@ -353,7 +353,7 @@ function AvailablePool(props: AvailablePoolProps): JSX.Element {
             isFavouritePair={props.isFavouritePair}
             onPress={() => {
               showToast(
-                props.isFavouritePair ? "UNSET_FAVOURITE" : "SET_FAVOURITE"
+                props.isFavouritePair ? "UNSET_FAVOURITE" : "SET_FAVOURITE",
               );
               props.setFavouritePoolpair(props.pair.id);
             }}
@@ -381,7 +381,7 @@ function AvailablePool(props: AvailablePoolProps): JSX.Element {
               label={translate("screens/DexScreen", "APR")}
               value={{
                 text: new BigNumber(
-                  isNaN(props.pair.apr.total) ? 0 : props.pair.apr.total
+                  isNaN(props.pair.apr.total) ? 0 : props.pair.apr.total,
                 )
                   .times(100)
                   .toFixed(2),
@@ -445,7 +445,9 @@ function YourPoolPair(props: YourPoolPairProps): JSX.Element {
               label={translate("screens/DexScreen", "APR")}
               value={{
                 text: new BigNumber(
-                  isNaN(props.poolPair.apr.total) ? 0 : props.poolPair.apr.total
+                  isNaN(props.poolPair.apr.total)
+                    ? 0
+                    : props.poolPair.apr.total,
                 )
                   .times(100)
                   .toFixed(2),
@@ -499,7 +501,7 @@ function getSortedPriceRates({
 
 function sortPoolpairsByFavourite(
   pairs: Array<DexItem<PoolPairData>>,
-  isFavouritePair: (id: string) => boolean
+  isFavouritePair: (id: string) => boolean,
 ): Array<DexItem<PoolPairData>> {
   return pairs.slice().sort((firstPair, secondPair) => {
     if (isFavouritePair(firstPair.data.id)) {
@@ -566,7 +568,7 @@ function NewPoolsSection({
           onActionPress={() =>
             onActionPress(
               pairItem.data as PoolPairData,
-              pairItem.data as WalletToken
+              pairItem.data as WalletToken,
             )
           }
           onPress={() => onPress(pairItem.data.id)}

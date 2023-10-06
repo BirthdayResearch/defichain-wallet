@@ -64,12 +64,8 @@ export enum ButtonGroupTabKey {
 }
 
 export function AddressBookScreen({ route, navigation }: Props): JSX.Element {
-  const {
-    selectedAddress,
-    onAddressSelect,
-    disabledTab,
-    addressDomainType = DomainType.DVM,
-  } = route.params;
+  const { selectedAddress, onAddressSelect, disabledTab, addressDomainType } =
+    route.params;
   const { isLight } = useThemeContext();
   const { network } = useNetworkContext();
   const dispatch = useAppDispatch();
@@ -77,16 +73,16 @@ export function AddressBookScreen({ route, navigation }: Props): JSX.Element {
   const enableAddressSelect =
     selectedAddress !== undefined && onAddressSelect !== undefined;
   const userPreferencesFromStore = useSelector(
-    (state: RootState) => state.userPreferences
+    (state: RootState) => state.userPreferences,
   );
   const addressBook: WhitelistedAddress[] = useSelector((state: RootState) =>
-    selectAddressBookArray(state.userPreferences)
+    selectAddressBookArray(state.userPreferences),
   );
   const walletAddressFromStore: LocalAddress[] = useSelector(
-    (state: RootState) => selectLocalWalletAddressArray(state.userPreferences)
+    (state: RootState) => selectLocalWalletAddressArray(state.userPreferences),
   ); // not all wallet address are stored in userPreference
   const [walletAddress, setWalletAddress] = useState<LocalAddress[]>(
-    walletAddressFromStore
+    walletAddressFromStore,
   ); // combine labeled wallet address with jellyfish's api wallet
   const [isSearchFocus, setIsSearchFocus] = useState(false);
   const { headerStyle }: StackNavigationOptions = useNavigatorScreenOptions();
@@ -116,7 +112,7 @@ export function AddressBookScreen({ route, navigation }: Props): JSX.Element {
   const [activeButtonGroup, setActiveButtonGroup] = useState<ButtonGroupTabKey>(
     disabledTab === ButtonGroupTabKey.Whitelisted
       ? ButtonGroupTabKey.YourAddress
-      : ButtonGroupTabKey.Whitelisted
+      : ButtonGroupTabKey.Whitelisted,
   );
 
   useEffect(() => {
@@ -127,7 +123,7 @@ export function AddressBookScreen({ route, navigation }: Props): JSX.Element {
         const addresses: LocalAddress[] = [];
         walletAddresses.forEach((address: WalletAddressI) => {
           const storedWalletAddress = walletAddressFromStore.find(
-            (a) => a.address === address.dvm
+            (a) => a.address === address.dvm,
           );
 
           if (selectedAddress === address.dvm) {
@@ -166,8 +162,8 @@ export function AddressBookScreen({ route, navigation }: Props): JSX.Element {
             address.label
               .toLowerCase()
               .includes(searchString?.trim().toLowerCase()) ||
-            address.address.includes(searchString?.trim().toLowerCase())
-        )
+            address.address.includes(searchString?.trim().toLowerCase()),
+        ),
       );
       setFilteredWalletAddress(
         walletAddress.filter(
@@ -176,16 +172,16 @@ export function AddressBookScreen({ route, navigation }: Props): JSX.Element {
               .toLowerCase()
               .includes(searchString?.trim().toLowerCase()) ||
             address.address.includes(searchString?.trim().toLowerCase()) ||
-            address.evmAddress.includes(searchString?.trim().toLowerCase())
-        ) as LocalAddress[]
+            address.evmAddress.includes(searchString?.trim().toLowerCase()),
+        ) as LocalAddress[],
       );
     }, 200),
-    [addressBook, walletAddress, searchString, activeButtonGroup]
+    [addressBook, walletAddress, searchString, activeButtonGroup],
   );
 
   // Favourite
   const onFavouriteAddress = async (
-    localAddress: WhitelistedAddress
+    localAddress: WhitelistedAddress,
   ): Promise<void> => {
     const labeledAddress = {
       [localAddress.address]: {
@@ -200,7 +196,7 @@ export function AddressBookScreen({ route, navigation }: Props): JSX.Element {
   };
 
   const sortByFavourite = (
-    localAddresses: WhitelistedAddress[]
+    localAddresses: WhitelistedAddress[],
   ): WhitelistedAddress[] => {
     return [...localAddresses]
       .sort((curr, next) => {
@@ -236,7 +232,7 @@ export function AddressBookScreen({ route, navigation }: Props): JSX.Element {
         setUserPreferences({
           network,
           preferences: userPreferencesFromStore,
-        })
+        }),
       );
     };
     updateLocalStorage().catch(Logging.error);
@@ -284,15 +280,18 @@ export function AddressBookScreen({ route, navigation }: Props): JSX.Element {
       onAddressSelect?: (address: string) => void;
     }): JSX.Element => {
       const { item, index, testIDSuffix } = props;
-      // to disable address select of non compatible address type
       const isDisabledToSelect = !!(
-        enableAddressSelect &&
-        activeButtonGroup === ButtonGroupTabKey.Whitelisted &&
-        (item as WhitelistedAddress).addressDomainType !== addressDomainType
+        (
+          enableAddressSelect &&
+          activeButtonGroup === ButtonGroupTabKey.Whitelisted &&
+          (item as WhitelistedAddress).addressDomainType ===
+            addressDomainType &&
+          addressDomainType === DomainType.EVM
+        ) // disable address selection if its from the same EVM domain
       );
 
       const onChangeAddress = (
-        addressDetail: LocalAddress | WhitelistedAddress
+        addressDetail: LocalAddress | WhitelistedAddress,
       ): void => {
         if (onAddressSelect) {
           // for whitelisted address
@@ -303,9 +302,11 @@ export function AddressBookScreen({ route, navigation }: Props): JSX.Element {
             onAddressSelect(
               addressDomainType === DomainType.EVM
                 ? (addressDetail as LocalAddress).evmAddress
-                : addressDetail.address
+                : addressDetail.address,
             );
           }
+        } else {
+          onDFIAddressClick();
         }
       };
 
@@ -341,9 +342,7 @@ export function AddressBookScreen({ route, navigation }: Props): JSX.Element {
           ]}
           testID={`address_row_${index}_${testIDSuffix}`}
           disabled={isDisabledToSelect}
-          onPress={async () => {
-            onChangeAddress(item);
-          }}
+          onPress={async () => onChangeAddress(item)}
         >
           <View
             style={tailwind("flex flex-row items-center flex-grow", {
@@ -381,14 +380,7 @@ export function AddressBookScreen({ route, navigation }: Props): JSX.Element {
             <View style={tailwind("flex flex-row items-center flex-auto")}>
               <View style={tailwind("flex flex-auto mr-1")}>
                 {item.label !== "" && (
-                  <TouchableOpacity
-                    activeOpacity={0.7}
-                    onPress={onDFIAddressClick}
-                    style={tailwind("flex flex-row items-center")}
-                    disabled={
-                      activeButtonGroup === ButtonGroupTabKey.YourAddress
-                    }
-                  >
+                  <View style={tailwind("flex flex-row items-center")}>
                     <ThemedTextV2
                       style={tailwind("font-semibold-v2 text-sm min-w-0")}
                       testID={`address_row_label_${index}_${testIDSuffix}`}
@@ -407,14 +399,14 @@ export function AddressBookScreen({ route, navigation }: Props): JSX.Element {
                           <Text
                             testID={`address_row_label_${index}_${testIDSuffix}_EVM_tag`}
                             style={tailwind(
-                              "text-mono-light-v2-00 text-2xs font-semibold-v2 leading-3"
+                              "text-mono-light-v2-00 text-2xs font-semibold-v2 leading-3",
                             )}
                           >
                             EVM
                           </Text>
                         </LinearGradient>
                       )}
-                  </TouchableOpacity>
+                  </View>
                 )}
                 {/* for DFI address */}
                 <YourAddressLink
@@ -424,7 +416,7 @@ export function AddressBookScreen({ route, navigation }: Props): JSX.Element {
                   displayIcon={
                     activeButtonGroup === ButtonGroupTabKey.YourAddress
                   }
-                  onClick={onDFIAddressClick}
+                  onClick={async () => onChangeAddress(item)}
                 />
                 {/* for EVM address */}
                 {activeButtonGroup === ButtonGroupTabKey.YourAddress && (
@@ -435,7 +427,7 @@ export function AddressBookScreen({ route, navigation }: Props): JSX.Element {
                     disabled={enableAddressSelect}
                     onClick={async () => {
                       await openURL(
-                        getAddressUrl((item as LocalAddress).evmAddress)
+                        getAddressUrl((item as LocalAddress).evmAddress),
                       );
                     }}
                   />
@@ -443,26 +435,20 @@ export function AddressBookScreen({ route, navigation }: Props): JSX.Element {
               </View>
               {!enableAddressSelect &&
                 activeButtonGroup === ButtonGroupTabKey.Whitelisted && (
-                  <TouchableOpacity
-                    activeOpacity={0.7}
-                    onPress={onDFIAddressClick}
-                    style={tailwind("flex flex-row items-center")}
-                  >
-                    <ThemedIcon
-                      dark={tailwind("text-mono-dark-v2-700")}
-                      light={tailwind("text-mono-light-v2-700")}
-                      iconType="Feather"
-                      name="chevron-right"
-                      size={18}
-                    />
-                  </TouchableOpacity>
+                  <ThemedIcon
+                    dark={tailwind("text-mono-dark-v2-700")}
+                    light={tailwind("text-mono-light-v2-700")}
+                    iconType="Feather"
+                    name="chevron-right"
+                    size={18}
+                  />
                 )}
             </View>
           </View>
         </ThemedTouchableOpacityV2>
       );
     },
-    [filteredAddressBook, filteredWalletAddress, activeButtonGroup]
+    [filteredAddressBook, filteredWalletAddress, activeButtonGroup],
   );
 
   const goToAddAddressForm = (): void => {
@@ -488,7 +474,7 @@ export function AddressBookScreen({ route, navigation }: Props): JSX.Element {
         light={tailwind("bg-mono-light-v2-00 border-mono-light-v2-100")}
         dark={tailwind("bg-mono-dark-v2-00 border-mono-dark-v2-100")}
         style={tailwind(
-          "flex flex-col items-center pt-1 rounded-b-2xl border-b"
+          "flex flex-col items-center pt-1 rounded-b-2xl border-b",
         )}
       >
         <View style={tailwind("w-full px-5")}>
@@ -521,7 +507,7 @@ export function AddressBookScreen({ route, navigation }: Props): JSX.Element {
                     : {
                         "border-mono-light-v2-00": isLight,
                         "border-mono-dark-v2-00": !isLight,
-                      }
+                      },
                 ),
               ]}
               inputStyle={{
@@ -530,7 +516,7 @@ export function AddressBookScreen({ route, navigation }: Props): JSX.Element {
               }}
               placeholder={translate(
                 "screens/AddressBookScreen",
-                "Search address book"
+                "Search address book",
               )}
               showClearButton={searchString !== ""}
               onClearInput={() => {
@@ -557,7 +543,7 @@ export function AddressBookScreen({ route, navigation }: Props): JSX.Element {
                 dark={tailwind("bg-mono-dark-v2-900")}
                 testID="add_new_address"
                 style={tailwind(
-                  "flex h-10 w-10 flex-row items-center justify-center rounded-full"
+                  "flex h-10 w-10 flex-row items-center justify-center rounded-full",
                 )}
               >
                 <ThemedIcon
@@ -585,11 +571,11 @@ export function AddressBookScreen({ route, navigation }: Props): JSX.Element {
                 ? translate(
                     "screens/AddressBookScreen",
                     "Search results for “{{input}}”",
-                    { input: searchString?.trim() }
+                    { input: searchString?.trim() },
                   )
                 : translate(
                     "screens/AddressBookScreen",
-                    "Search with label or address"
+                    "Search with label or address",
                   )}
             </ThemedTextV2>
           </View>
@@ -660,7 +646,7 @@ function EmptyDisplay({ onPress }: { onPress: () => void }): JSX.Element {
       >
         {translate(
           "screens/AddressBookScreen",
-          "Add your preferred / commonly-used address."
+          "Add your preferred / commonly-used address.",
         )}
       </ThemedTextV2>
       <ButtonV2
@@ -687,7 +673,7 @@ export function DiscoverWalletAddressV2({
       light={tailwind("bg-mono-light-v2-900")}
       dark={tailwind("bg-mono-dark-v2-900")}
       style={tailwind(
-        "flex h-10 w-10 flex-row items-center justify-center rounded-full"
+        "flex h-10 w-10 flex-row items-center justify-center rounded-full",
       )}
     >
       <RefreshIcon

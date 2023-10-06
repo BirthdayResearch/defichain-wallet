@@ -19,6 +19,7 @@ function addLocalStorageFeatureFlag(): void {
 
 context("Wallet - Addresses", () => {
   let whale: WhaleApiClient;
+  let address: string;
 
   before(() => {
     addLocalStorageFeatureFlag();
@@ -56,10 +57,14 @@ context("Wallet - Addresses", () => {
   it("should not present create new address when wallet is freshly setup", () => {
     const network: string = localStorage.getItem("Development.NETWORK");
     expect(
-      localStorage.getItem(`Development.${network}.WALLET_ADDRESS.INDEX.active`)
+      localStorage.getItem(
+        `Development.${network}.WALLET_ADDRESS.INDEX.active`,
+      ),
     ).to.eq(null);
     expect(
-      localStorage.getItem(`Development.${network}.WALLET_ADDRESS.INDEX.length`)
+      localStorage.getItem(
+        `Development.${network}.WALLET_ADDRESS.INDEX.length`,
+      ),
     ).to.eq(null);
     cy.getByTestID("address_row_text_0")
       .invoke("text")
@@ -88,6 +93,10 @@ context("Wallet - Addresses", () => {
         cy.getByTestID("bottomsheet-address-header").contains("EVM");
         cy.getByTestID("close_bottom_sheet_button").click();
       });
+
+    // Toggled back to DVM for next test
+    cy.getByTestID("domain_switch_EVM").should("exist");
+    cy.getByTestID("domain_switch").click();
   });
 
   it("should be able to create new address when all available address are active", () => {
@@ -108,13 +117,13 @@ context("Wallet - Addresses", () => {
         const network: string = localStorage.getItem("Development.NETWORK");
         expect(
           localStorage.getItem(
-            `Development.${network}.WALLET_ADDRESS.INDEX.active`
-          )
+            `Development.${network}.WALLET_ADDRESS.INDEX.active`,
+          ),
         ).to.eq("1");
         expect(
           localStorage.getItem(
-            `Development.${network}.WALLET_ADDRESS.INDEX.length`
-          )
+            `Development.${network}.WALLET_ADDRESS.INDEX.length`,
+          ),
         ).to.eq("1");
       });
     cy.wait(3000);
@@ -149,16 +158,13 @@ context("Wallet - Addresses", () => {
           .click()
           .wait(1000);
         cy.getByTestID(`address_active_indicator_${activeAddress}`).should(
-          "exist"
+          "exist",
         );
         cy.getByTestID("close_bottom_sheet_button").click();
         cy.getByTestID("receive_balance_button").click();
         cy.getByTestID("address_text").contains(activeAddress);
       });
-  });
 
-  context("Wallet - Addresses transfer dfi between addresses", () => {
-    let address: string;
     it("should able to transfer dfi between addresses", () => {
       cy.getByTestID("bottom_tab_portfolio").click();
       cy.getByTestID("switch_account_button")
@@ -174,17 +180,17 @@ context("Wallet - Addresses", () => {
             .click()
             .should(() => {
               const network: string = localStorage.getItem(
-                "Development.NETWORK"
+                "Development.NETWORK",
               );
               expect(
                 localStorage.getItem(
-                  `Development.${network}.WALLET_ADDRESS.INDEX.active`
-                )
+                  `Development.${network}.WALLET_ADDRESS.INDEX.active`,
+                ),
               ).to.eq("0");
               expect(
                 localStorage.getItem(
-                  `Development.${network}.WALLET_ADDRESS.INDEX.length`
-                )
+                  `Development.${network}.WALLET_ADDRESS.INDEX.length`,
+                ),
               ).to.eq("1");
             });
           cy.getByTestID("dfi_total_balance_amount").contains("10.00000000");
@@ -195,7 +201,7 @@ context("Wallet - Addresses", () => {
           cy.getByTestID("amount_input").clear().type("1");
           cy.getByTestID("button_confirm_send_continue").should(
             "not.have.attr",
-            "disabled"
+            "disabled",
           );
           cy.getByTestID("button_confirm_send_continue").click();
           cy.getByTestID("confirm_title").contains("You are sending");
@@ -228,13 +234,13 @@ context("Wallet - Addresses", () => {
           const network: string = localStorage.getItem("Development.NETWORK");
           expect(
             localStorage.getItem(
-              `Development.${network}.WALLET_ADDRESS.INDEX.active`
-            )
+              `Development.${network}.WALLET_ADDRESS.INDEX.active`,
+            ),
           ).to.eq("1");
           expect(
             localStorage.getItem(
-              `Development.${network}.WALLET_ADDRESS.INDEX.length`
-            )
+              `Development.${network}.WALLET_ADDRESS.INDEX.length`,
+            ),
           ).to.eq("1");
         });
       cy.getByTestID("dfi_total_balance_amount").contains("1.00000000");
@@ -296,20 +302,20 @@ context(
           const network: string = localStorage.getItem("Development.NETWORK");
           expect(
             localStorage.getItem(
-              `Development.${network}.WALLET_ADDRESS.INDEX.active`
-            )
+              `Development.${network}.WALLET_ADDRESS.INDEX.active`,
+            ),
           ).to.eq("0");
           expect(
             localStorage.getItem(
-              `Development.${network}.WALLET_ADDRESS.INDEX.length`
-            )
+              `Development.${network}.WALLET_ADDRESS.INDEX.length`,
+            ),
           ).to.eq("0");
         });
       cy.getByTestID("address_row_0").should("exist");
       cy.getByTestID("address_row_text_0").contains(address);
       cy.getByTestID(`address_active_indicator_${address}`).should("exist");
     });
-  }
+  },
 );
 
 context(
@@ -347,10 +353,10 @@ context(
         .should(() => {
           const network: string = localStorage.getItem("Development.NETWORK");
           maxAddress = localStorage.getItem(
-            `Development.${network}.WALLET_ADDRESS.INDEX.length`
+            `Development.${network}.WALLET_ADDRESS.INDEX.length`,
           );
           const activeAddress = localStorage.getItem(
-            `Development.${network}.WALLET_ADDRESS.INDEX.active`
+            `Development.${network}.WALLET_ADDRESS.INDEX.active`,
           );
           expect(activeAddress).to.eq("1");
           expect(maxAddress).to.eq("1");
@@ -389,13 +395,13 @@ context(
           const network: string = localStorage.getItem("Development.NETWORK");
           expect(
             localStorage.getItem(
-              `Development.${network}.WALLET_ADDRESS.INDEX.active`
-            )
+              `Development.${network}.WALLET_ADDRESS.INDEX.active`,
+            ),
           ).to.eq(null);
           expect(
             localStorage.getItem(
-              `Development.${network}.WALLET_ADDRESS.INDEX.length`
-            )
+              `Development.${network}.WALLET_ADDRESS.INDEX.length`,
+            ),
           ).to.eq(maxAddress);
         });
       addresses.forEach((address, index) => {
@@ -403,10 +409,10 @@ context(
         cy.getByTestID(`address_row_text_${index}`).contains(address);
       });
       cy.getByTestID(`address_active_indicator_${addresses[0]}`).should(
-        "exist"
+        "exist",
       );
     });
-  }
+  },
 );
 
 context("Wallet - Addresses should able to create maximum 10 addresses", () => {
@@ -486,7 +492,7 @@ context("Wallet - should be able to discover Wallet Addresses", () => {
     cy.getByTestID("amount_input").clear().type("1");
     cy.getByTestID("button_confirm_send_continue").should(
       "not.have.attr",
-      "disabled"
+      "disabled",
     );
     cy.getByTestID("button_confirm_send_continue").click();
     cy.getByTestID("button_confirm_send").click().wait(3000);
@@ -505,13 +511,13 @@ context("Wallet - Address Label", () => {
     if (shouldAllow) {
       cy.getByTestID("button_confirm_save_address_label").should(
         "not.have.attr",
-        "aria-disabled"
+        "aria-disabled",
       );
       cy.getByTestID("address_book_label_input_error").should("not.exist");
     } else {
       cy.getByTestID("button_confirm_save_address_label").should(
         "have.attr",
-        "aria-disabled"
+        "aria-disabled",
       );
       cy.getByTestID("address_book_label_input_error").should("exist");
     }
@@ -527,7 +533,7 @@ context("Wallet - Address Label", () => {
         cy.getByTestID("address_book_label_input").clear().type(label);
         cy.getByTestID("button_confirm_save_address_label").should(
           "not.have.attr",
-          "aria-disabled"
+          "aria-disabled",
         );
         cy.getByTestID("button_confirm_save_address_label").click().wait(1000);
         cy.getByTestID(`list_address_label_${address}`).contains(label);
@@ -568,7 +574,7 @@ context("Wallet - Address Label", () => {
         validateLabel("abcdefghijklmnopqrstuvwxyz12345678910ABCD", false); // block >40 char
         validateLabel(
           "😀🙌👶👩🏻‍💻🐶🌵🌝🍏🥨⚽️🪂🚗⌚😀🙌👶👩🏻‍💻🐶🌵🌝🍏🥨⚽️🪂🚗⌚😀🙌👶👩🏻‍💻️  ",
-          false
+          false,
         ); // not all emoji equivalent to 1 char
         // allow
         validateLabel("abcdefghijklmnopqrstuvwxyz1234", true);
@@ -604,7 +610,7 @@ context("Wallet - Address Label", () => {
         cy.getByTestID("address_book_label_input").clear().type(inputLabel);
         cy.getByTestID("button_confirm_save_address_label").should(
           "not.have.attr",
-          "aria-disabled"
+          "aria-disabled",
         );
         cy.getByTestID("button_confirm_save_address_label").click();
         cy.getByTestID(`list_address_label_${address}`).contains(trimmedLabel);

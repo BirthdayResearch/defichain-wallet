@@ -419,7 +419,7 @@ context("Wallet - Portfolio page", () => {
     cy.getByTestID("empty_tokens_title").should("have.text", "Empty portfolio");
     cy.getByTestID("empty_tokens_subtitle").should(
       "have.text",
-      "Add DFI and other tokens to get started"
+      "Add DFI and other tokens to get started",
     );
   });
 });
@@ -598,7 +598,7 @@ context("Wallet - Portfolio - No balance", () => {
   it("should enabled send button", () => {
     cy.getByTestID("send_balance_button").should(
       "not.have.attr",
-      "aria-disabled"
+      "aria-disabled",
     );
   });
 
@@ -650,7 +650,7 @@ context("Wallet - Portfolio - No balance", () => {
         .invoke("text")
         .then((price: string) => {
           expect(price).to.equal(
-            `$${new BigNumber(response.price.aggregated.amount).toFixed(2)}`
+            `$${new BigNumber(response.price.aggregated.amount).toFixed(2)}`,
           );
         });
     });
@@ -1024,7 +1024,7 @@ context(
       });
       cy.getByTestID("toggle_sorting_assets").should("exist");
       cy.getByTestID("portfolio_button_group_ALL_TOKENS_active").should(
-        "exist"
+        "exist",
       );
       cy.getByTestID("portfolio_row_1").should("exist"); // dBTC = row 1
       cy.getByTestID("portfolio_button_group_CRYPTO").click();
@@ -1034,21 +1034,21 @@ context(
       cy.getByTestID("portfolio_button_group_LP_TOKENS_active").should("exist");
       cy.getByTestID("empty_tokens_title").should(
         "have.text",
-        "No LP tokens found"
+        "No LP tokens found",
       );
       cy.getByTestID("empty_tokens_subtitle").should(
         "have.text",
-        "Add liquidity to get started"
+        "Add liquidity to get started",
       );
       cy.getByTestID("portfolio_button_group_d_TOKENS").click();
       cy.getByTestID("portfolio_button_group_d_TOKENS_active").should("exist");
       cy.getByTestID("empty_tokens_title").should(
         "have.text",
-        "No dTokens found"
+        "No dTokens found",
       );
       cy.getByTestID("empty_tokens_subtitle").should(
         "have.text",
-        "Mint dTokens to get started"
+        "Mint dTokens to get started",
       );
     });
     it("should exist in All tokens and dTokens tabs, should not exist in LP tokens and Crypto tabs", () => {
@@ -1072,34 +1072,34 @@ context(
       cy.getByTestID("toggle_sorting_assets").should("exist");
       cy.getByTestID("portfolio_button_group_ALL_TOKENS").click();
       cy.getByTestID("portfolio_button_group_ALL_TOKENS_active").should(
-        "exist"
+        "exist",
       );
       cy.getByTestID("portfolio_row_14").should("exist"); // DUSD = row 14
       cy.getByTestID("portfolio_button_group_LP_TOKENS").click();
       cy.getByTestID("portfolio_button_group_LP_TOKENS_active").should("exist");
       cy.getByTestID("empty_tokens_title").should(
         "have.text",
-        "No LP tokens found"
+        "No LP tokens found",
       );
       cy.getByTestID("empty_tokens_subtitle").should(
         "have.text",
-        "Add liquidity to get started"
+        "Add liquidity to get started",
       );
       cy.getByTestID("portfolio_button_group_CRYPTO").click();
       cy.getByTestID("portfolio_button_group_CRYPTO_active").should("exist");
       cy.getByTestID("empty_tokens_title").should(
         "have.text",
-        "No crypto found"
+        "No crypto found",
       );
       cy.getByTestID("empty_tokens_subtitle").should(
         "have.text",
-        "Add crypto to get started"
+        "Add crypto to get started",
       );
       cy.getByTestID("portfolio_button_group_d_TOKENS").click();
       cy.getByTestID("portfolio_button_group_d_TOKENS_active").should("exist");
       cy.getByTestID("portfolio_row_14").should("exist"); // DUSD = row 14
     });
-  }
+  },
 );
 
 context("Wallet - Portfolio - Portfolio group tab", () => {
@@ -1119,7 +1119,7 @@ context("Wallet - Portfolio - Portfolio group tab", () => {
       "$100,000.00",
       "$100,000.00",
       "$100,000.00",
-      "$1,000.00"
+      "$1,000.00",
     );
   });
 
@@ -1133,7 +1133,7 @@ context("Wallet - Portfolio - Portfolio group tab", () => {
       "10.00 DFI",
       "10.00 DFI",
       "10.00 DFI",
-      "0.10000000 DFI"
+      "0.10000000 DFI",
     );
   });
 
@@ -1147,7 +1147,7 @@ context("Wallet - Portfolio - Portfolio group tab", () => {
       "10.00 BTC",
       "10.00 BTC",
       "10.00 BTC",
-      "0.10000000 BTC"
+      "0.10000000 BTC",
     );
   });
 });
@@ -1180,7 +1180,7 @@ function checkPortfolioPageDenominationValues(
   DfiTotalBalUsdAmt: string,
   DfiAvailableAmt: string,
   BtcUsdAmt: string,
-  EthUsdAmt: string
+  EthUsdAmt: string,
 ): void {
   // TotalPortfolio
   cy.getByTestID("total_usd_amount").contains(totalUsdAmt);
@@ -1213,7 +1213,7 @@ function checkPortfolioPageDenominationValues(
 function checkAssetsSortingOrder(
   sortedType: string,
   firstToken: string,
-  lastToken: string
+  lastToken: string,
 ): void {
   const containerTestID = '[data-testid="card_balance_row_container"]';
   const arrowTestID = "your_assets_dropdown_arrow";
@@ -1282,7 +1282,7 @@ context(
     it("should sort assets based on Lowest value (DFI)", () => {
       checkAssetsSortingOrder("Lowest value (DFI)", "dLTC", "dBTC");
     });
-  }
+  },
 );
 
 function interceptTokensForSorting(data: {}): void {
@@ -1311,7 +1311,7 @@ context(
       interceptTokensForSorting(addLPTokens);
       checkAssetsSortingOrder("Lowest value (DFI)", "dUSDT-DFI", "dBTC-DFI");
     });
-  }
+  },
 );
 
 context(
@@ -1332,7 +1332,7 @@ context(
       interceptTokensForSorting(addCrypto);
       checkAssetsSortingOrder("Lowest value (DFI)", "dETH", "dBTC");
     });
-  }
+  },
 );
 
 context(
@@ -1353,7 +1353,7 @@ context(
       interceptTokensForSorting(addDTokens);
       checkAssetsSortingOrder("Lowest value (DFI)", "DUSD", "dTD10");
     });
-  }
+  },
 );
 
 context(
@@ -1373,7 +1373,7 @@ context(
     it("should sort assets based on Lowest value (BTC)", () => {
       checkAssetsSortingOrder("Lowest value (BTC)", "DUSD", "dBTC");
     });
-  }
+  },
 );
 
 context("Wallet - Portfolio - Skeleton Loader", () => {
@@ -1548,3 +1548,54 @@ context("Wallet - Portfolio - portfolio", () => {
     });
   });
 });
+
+context(
+  "Transfer domain - Wallet - Portfolio - Portfolio group tab - DFI currency",
+  () => {
+    before(() => {
+      cy.createEmptyWallet(true);
+      cy.getByTestID("header_settings").click();
+      cy.getByTestID("bottom_tab_portfolio").click();
+
+      cy.intercept("**/address/**/tokens?size=*", {
+        body: {
+          data: [
+            {
+              amount: "5.00000000",
+              displaySymbol: "dBTC",
+              id: "1",
+              isDAT: true,
+              isLPS: false,
+              isLoanToken: false,
+              name: "Playground BTC",
+              symbol: "BTC",
+              symbolKey: "BTC",
+            },
+            {
+              id: "24",
+              amount: "10.00000000",
+              symbol: "TU10-DUSD",
+              symbolKey: "TU10-DUSD",
+              name: "Decentralized TU10-Decentralized USD",
+              isDAT: true,
+              isLPS: true,
+              isLoanToken: false,
+              displaySymbol: "dTU10-DUSD",
+            },
+          ],
+        },
+      });
+    });
+
+    it("should display all tokens in dvm domain", () => {
+      cy.getByTestID("portfolio_row_1").should("exist");
+      cy.getByTestID("portfolio_row_24").should("exist");
+    });
+
+    it("should only display non LP tokens in evm domain", () => {
+      cy.getByTestID("domain_switch").click();
+      cy.getByTestID("portfolio_row_1").should("exist");
+      cy.getByTestID("portfolio_row_24").should("not.exist");
+    });
+  },
+);

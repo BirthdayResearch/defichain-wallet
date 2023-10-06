@@ -15,7 +15,7 @@ export function DomainSwitch({ testID }: { testID: string }): JSX.Element {
 
   const toggleDomain = async () => {
     await setDomain(
-      domain === DomainType.DVM ? DomainType.EVM : DomainType.DVM
+      domain === DomainType.DVM ? DomainType.EVM : DomainType.DVM,
     );
   };
   return (
@@ -30,7 +30,7 @@ export function DomainSwitch({ testID }: { testID: string }): JSX.Element {
       {domain === DomainType.DVM && (
         <View
           style={tailwind(
-            "flex-1 flex-row justify-center rounded-full items-center p-0 absolute left-0"
+            "flex-1 flex-row justify-center rounded-full items-center p-0 absolute left-0",
           )}
         >
           <View
@@ -58,7 +58,7 @@ export function DomainSwitch({ testID }: { testID: string }): JSX.Element {
       {domain === DomainType.EVM && (
         <View
           style={tailwind(
-            "flex-1 rounded-full flex-row justify-center items-center absolute right-0"
+            "flex-1 rounded-full flex-row justify-center items-center absolute right-0",
           )}
         >
           <LinearGradient
@@ -70,7 +70,7 @@ export function DomainSwitch({ testID }: { testID: string }): JSX.Element {
             <View style={tailwind("rounded-full p-1 flex-row items-center")}>
               <View
                 style={tailwind(
-                  "flex items-center justify-center rounded-full w-5 h-5"
+                  "flex items-center justify-center rounded-full w-5 h-5",
                 )}
               >
                 <EvmDFIIcon width={20} height={20} />
@@ -78,7 +78,7 @@ export function DomainSwitch({ testID }: { testID: string }): JSX.Element {
 
               <Text
                 style={tailwind(
-                  "text-mono-light-v2-00 text-xs ml-1 w-9 font-normal-v2"
+                  "text-mono-light-v2-00 text-xs ml-1 w-9 font-normal-v2",
                 )}
                 testID={`${testID}_EVM`}
               >

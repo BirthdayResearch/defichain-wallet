@@ -117,7 +117,14 @@ exports[`Vault info should render label with token icon group 1`] = `
           vbWidth={32}
           width={16}
         >
-          <RNSVGGroup>
+          <RNSVGGroup
+            fill={
+              {
+                "payload": 4278190080,
+                "type": 0,
+              }
+            }
+          >
             <RNSVGPath
               d="M31.521 19.87c-2.137 8.572-10.82 13.788-19.393 11.651C3.558 29.384-1.659 20.702.479 12.131 2.616 3.56 11.298-1.659 19.87.48c8.573 2.137 13.79 10.82 11.652 19.392z"
               fill={
@@ -196,7 +203,14 @@ exports[`Vault info should render label with token icon group 1`] = `
           vbWidth={32}
           width={16}
         >
-          <RNSVGGroup>
+          <RNSVGGroup
+            fill={
+              {
+                "payload": 4278190080,
+                "type": 0,
+              }
+            }
+          >
             <RNSVGPath
               d="M16 0C7.163 0 0 7.163 0 16s7.163 16 16 16c8.838 0 16-7.163 16-16S24.838 0 16 0z"
               fill={
@@ -275,38 +289,93 @@ exports[`Vault info should render label with token icon group 1`] = `
           vbWidth={32}
           width={16}
         >
-          <RNSVGGroup>
+          <RNSVGGroup
+            fill={
+              {
+                "payload": 4278190080,
+                "type": 0,
+              }
+            }
+          >
             <RNSVGDefs>
               <RNSVGPath
                 d="M16 0C7.163 0 0 7.163 0 16s7.163 16 16 16 16-7.163 16-16S24.837 0 16 0z"
+                fill={
+                  {
+                    "payload": 4278190080,
+                    "type": 0,
+                  }
+                }
                 name="dDOGE_svg__a"
               />
               <RNSVGPath
                 d="M0 .217h1v.566H0z"
+                fill={
+                  {
+                    "payload": 4278190080,
+                    "type": 0,
+                  }
+                }
                 name="dDOGE_svg__c"
               />
               <RNSVGPath
                 d="M0 0h22.745v11.504H0z"
+                fill={
+                  {
+                    "payload": 4278190080,
+                    "type": 0,
+                  }
+                }
                 name="dDOGE_svg__e"
               />
               <RNSVGPath
                 d="M0 0h1.433v4.492H0z"
+                fill={
+                  {
+                    "payload": 4278190080,
+                    "type": 0,
+                  }
+                }
                 name="dDOGE_svg__g"
               />
               <RNSVGPath
                 d="M.013 0h.975v1H.013z"
+                fill={
+                  {
+                    "payload": 4278190080,
+                    "type": 0,
+                  }
+                }
                 name="dDOGE_svg__i"
               />
               <RNSVGPath
                 d="M.018 0h.964v1H.018z"
+                fill={
+                  {
+                    "payload": 4278190080,
+                    "type": 0,
+                  }
+                }
                 name="dDOGE_svg__k"
               />
               <RNSVGPath
                 d="M0 0h4.597v7.792H0z"
+                fill={
+                  {
+                    "payload": 4278190080,
+                    "type": 0,
+                  }
+                }
                 name="dDOGE_svg__m"
               />
               <RNSVGPath
                 d="M0 .001h1v.998H0z"
+                fill={
+                  {
+                    "payload": 4278190080,
+                    "type": 0,
+                  }
+                }
                 name="dDOGE_svg__o"
               />
             </RNSVGDefs>
@@ -357,6 +426,12 @@ exports[`Vault info should render label with token icon group 1`] = `
                 y="0%"
               >
                 <RNSVGUse
+                  fill={
+                    {
+                      "payload": 4278190080,
+                      "type": 0,
+                    }
+                  }
                   height="0"
                   href="dDOGE_svg__a"
                   width="0"
@@ -365,6 +440,12 @@ exports[`Vault info should render label with token icon group 1`] = `
                 />
               </RNSVGMask>
               <RNSVGGroup
+                fill={
+                  {
+                    "payload": 4278190080,
+                    "type": 0,
+                  }
+                }
                 mask="dDOGE_svg__b"
               >
                 <RNSVGPath
@@ -384,6 +465,12 @@ exports[`Vault info should render label with token icon group 1`] = `
                   }
                 />
                 <RNSVGGroup
+                  fill={
+                    {
+                      "payload": 4278190080,
+                      "type": 0,
+                    }
+                  }
                   matrix={
                     [
                       1,
@@ -416,6 +503,12 @@ exports[`Vault info should render label with token icon group 1`] = `
                     y="0%"
                   >
                     <RNSVGUse
+                      fill={
+                        {
+                          "payload": 4278190080,
+                          "type": 0,
+                        }
+                      }
                       height="0"
                       href="dDOGE_svg__c"
                       width="0"
@@ -442,6 +535,12 @@ exports[`Vault info should render label with token icon group 1`] = `
                   />
                 </RNSVGGroup>
                 <RNSVGGroup
+                  fill={
+                    {
+                      "payload": 4278190080,
+                      "type": 0,
+                    }
+                  }
                   matrix={
                     [
                       1,
@@ -474,6 +573,12 @@ exports[`Vault info should render label with token icon group 1`] = `
                     y="0%"
                   >
                     <RNSVGUse
+                      fill={
+                        {
+                          "payload": 4278190080,
+                          "type": 0,
+                        }
+                      }
                       height="0"
                       href="dDOGE_svg__e"
                       width="0"
@@ -532,6 +637,12 @@ exports[`Vault info should render label with token icon group 1`] = `
                   }
                 />
                 <RNSVGGroup
+                  fill={
+                    {
+                      "payload": 4278190080,
+                      "type": 0,
+                    }
+                  }
                   matrix={
                     [
                       1,
@@ -564,6 +675,12 @@ exports[`Vault info should render label with token icon group 1`] = `
                     y="0%"
                   >
                     <RNSVGUse
+                      fill={
+                        {
+                          "payload": 4278190080,
+                          "type": 0,
+                        }
+                      }
                       height="0"
                       href="dDOGE_svg__g"
                       width="0"
@@ -750,6 +867,12 @@ exports[`Vault info should render label with token icon group 1`] = `
                   }
                 />
                 <RNSVGGroup
+                  fill={
+                    {
+                      "payload": 4278190080,
+                      "type": 0,
+                    }
+                  }
                   matrix={
                     [
                       1,
@@ -782,6 +905,12 @@ exports[`Vault info should render label with token icon group 1`] = `
                     y="0%"
                   >
                     <RNSVGUse
+                      fill={
+                        {
+                          "payload": 4278190080,
+                          "type": 0,
+                        }
+                      }
                       height="0"
                       href="dDOGE_svg__i"
                       width="0"
@@ -808,6 +937,12 @@ exports[`Vault info should render label with token icon group 1`] = `
                   />
                 </RNSVGGroup>
                 <RNSVGGroup
+                  fill={
+                    {
+                      "payload": 4278190080,
+                      "type": 0,
+                    }
+                  }
                   matrix={
                     [
                       1,
@@ -840,6 +975,12 @@ exports[`Vault info should render label with token icon group 1`] = `
                     y="0%"
                   >
                     <RNSVGUse
+                      fill={
+                        {
+                          "payload": 4278190080,
+                          "type": 0,
+                        }
+                      }
                       height="0"
                       href="dDOGE_svg__k"
                       width="0"
@@ -962,6 +1103,12 @@ exports[`Vault info should render label with token icon group 1`] = `
                   }
                 />
                 <RNSVGGroup
+                  fill={
+                    {
+                      "payload": 4278190080,
+                      "type": 0,
+                    }
+                  }
                   matrix={
                     [
                       1,
@@ -994,6 +1141,12 @@ exports[`Vault info should render label with token icon group 1`] = `
                     y="0%"
                   >
                     <RNSVGUse
+                      fill={
+                        {
+                          "payload": 4278190080,
+                          "type": 0,
+                        }
+                      }
                       height="0"
                       href="dDOGE_svg__m"
                       width="0"
@@ -1132,6 +1285,12 @@ exports[`Vault info should render label with token icon group 1`] = `
                   }
                 />
                 <RNSVGGroup
+                  fill={
+                    {
+                      "payload": 4278190080,
+                      "type": 0,
+                    }
+                  }
                   matrix={
                     [
                       1,
@@ -1164,6 +1323,12 @@ exports[`Vault info should render label with token icon group 1`] = `
                     y="0%"
                   >
                     <RNSVGUse
+                      fill={
+                        {
+                          "payload": 4278190080,
+                          "type": 0,
+                        }
+                      }
                       height="0"
                       href="dDOGE_svg__o"
                       width="0"
@@ -6777,7 +6942,14 @@ exports[`Vault info should render label with token icon group 1`] = `
           vbWidth={32}
           width={16}
         >
-          <RNSVGGroup>
+          <RNSVGGroup
+            fill={
+              {
+                "payload": 4278190080,
+                "type": 0,
+              }
+            }
+          >
             <RNSVGCircle
               cx="16"
               cy="16"
@@ -6918,7 +7090,14 @@ exports[`Vault info should render label with token icon group 1`] = `
           vbWidth={32}
           width={16}
         >
-          <RNSVGGroup>
+          <RNSVGGroup
+            fill={
+              {
+                "payload": 4278190080,
+                "type": 0,
+              }
+            }
+          >
             <RNSVGCircle
               cx="16"
               cy="16"

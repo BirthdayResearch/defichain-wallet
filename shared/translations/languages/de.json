@@ -328,6 +328,7 @@
     "Available {{unit}}": "Verfügbare {{unit}}",
     "Resulting {{unit}}": "Resultierende {{unit}}",
     "TO RECEIVE": "ZU ERHALTEN",
+    "TO CONVERT": "UMWANDELN",
     "tokens": "Token"
   },
   "screens/ConvertConfirmScreen": {
@@ -347,11 +348,13 @@
     "CONFIRM TRANSACTION": "TRANSAKTION BESTÄTIGEN",
     "You are converting to {{unit}}": "Du wandelst in {{unit}} um",
     "Transaction fee": "Transaktionsgebühren",
+    "Resulting Tokens (EVM)": "Resultierende Token (EVM)",
     "Resulting Tokens": "Resultierende Token",
     "Resulting UTXO": "Resultierende UTXO",
     "Convert {{amount}} DFI to {{target}}": "Wandle {{amount}} DFI in {{target}} um",
     "Converting": "Umwandeln",
-    "Converted": "Umgewandelt"
+    "Converted": "Umgewandelt",
+    "Convert {{amount}} {{symbolA}} to {{symbolB}} tokens": "{{amount}} {{symbolA}}- in {{symbolB}}-Token umwandeln"
   },
   "screens/SettingsNavigator": {
     "Settings": "Einstellungen"
@@ -833,7 +836,9 @@
     "Borrowing {{amount}} {{symbol}} with vault {{vaultId}}": "Darlehensaufnahme von {{amount}} {{symbol}} mit Vault {{vaultId}}",
     "Borrowed {{amount}} {{symbol}}": "{{amount}} {{symbol}} ausgeliehen",
     "Requested amount is higher than available amount.": "Der beantragte Betrag ist höher als der verfügbare Betrag.",
-    "tokens": "Token"
+    "tokens": "Token",
+    "Converting {{amount}} {{symbolA}} to {{symbolB}} tokens": "Umwandlung von {{amount}} {{symbolA}}- in {{symbolB}}-Token",
+    "{{amount}} {{symbolA}} converted to {{symbolB}} tokens": "{{amount}} {{symbolA}}- in {{symbolB}}-Token umgewandelt"
   },
   "components/BarCodeScanner": {
     "Requesting for camera permission": "Kameranutzung erlauben",
@@ -842,6 +847,10 @@
   "components/max": {
     "HALF": "1/2",
     "MAX": "MAX"
+  },
+  "components/ConversionDetailsRow": {
+    "Resulting UTXO": "Resultierende UTXO",
+    "Resulting Tokens": "Resultierende Token"
   },
   "screens/common": {
     "CANCEL": "ABBRECHEN",
@@ -2199,7 +2208,9 @@
     "Swap": "Tausch",
     "Transactions": "Transaktionen",
     "Future swap": "Future Swap",
-    "Get DFI": "DFI erhalten"
+    "Get DFI": "DFI erhalten",
+    "Convert": "Umwandeln",
+    "Governance": "Governance"
   },
   "screens/PoolPairDetailsScreen": {
     "{{poolPair}} Pool": "{{poolPair}}-Pool",

@@ -9,7 +9,7 @@ export function useAddressBook(): {
 } {
   const { network } = useNetworkContext();
   const userPreferences = useSelector(
-    (state: RootState) => state.userPreferences
+    (state: RootState) => state.userPreferences,
   );
   const dispatch = useAppDispatch();
   const clearAddressBook = (): void => {
@@ -24,7 +24,7 @@ export function useAddressBook(): {
             ...userPreferences,
             addressBook: emptyAddressBook,
           },
-        })
+        }),
       );
     });
   };

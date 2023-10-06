@@ -41,7 +41,7 @@ export const fetchUserPreferences = createAsyncThunk(
     const { addresses, addressBook } =
       await LocalStorageProvider.getUserPreferences(network);
     return { addresses, addressBook: prePopulateWhitelistedField(addressBook) };
-  }
+  },
 );
 
 export const setUserPreferences = createAsyncThunk(
@@ -54,21 +54,21 @@ export const setUserPreferences = createAsyncThunk(
     preferences: UserPreferences;
   }) => {
     await LocalStorageProvider.setUserPreferences(network, preferences);
-  }
+  },
 );
 
 export const setAddresses = createAsyncThunk(
   "userPreferences/setAddresses",
   async (addresses: LabeledAddress) => {
     return addresses;
-  }
+  },
 );
 
 export const setAddressBook = createAsyncThunk(
   "userPreferences/setAddressBook",
   async (addressBook: LabeledAddress) => {
     return addressBook;
-  }
+  },
 );
 
 export const userPreferences = createSlice({
@@ -92,21 +92,21 @@ export const userPreferences = createSlice({
       (state, action: PayloadAction<UserPreferences>) => {
         state = action.payload;
         return state;
-      }
+      },
     );
     builder.addCase(
       setAddresses.fulfilled,
       (state, action: PayloadAction<LabeledAddress>) => {
         state.addresses = action.payload;
         return state;
-      }
+      },
     );
     builder.addCase(
       setAddressBook.fulfilled,
       (state, action: PayloadAction<LabeledAddress>) => {
         state.addressBook = action.payload;
         return state;
-      }
+      },
     );
   },
 });
@@ -115,14 +115,14 @@ export const selectAddressBookArray = createSelector(
   (state: UserPreferences) => state.addressBook,
   (addressBook): WhitelistedAddress[] => {
     return prePopulateField(addressBook) as WhitelistedAddress[];
-  }
+  },
 );
 
 export const selectLocalWalletAddressArray = createSelector(
   (state: UserPreferences) => state.addresses,
   (walletAddress): LocalAddress[] => {
     return prePopulateField(walletAddress) as LocalAddress[];
-  }
+  },
 );
 
 // to get wallet label for saved all (DFI and EVM) wallet address, adding all relevant address type in object
@@ -137,13 +137,13 @@ export const selectAllLabeledWalletAddress = createSelector(
           [each.evmAddress]: each,
         };
       },
-      {}
+      {},
     );
-  }
+  },
 );
 
 const prePopulateField = (
-  addresses: LabeledAddress
+  addresses: LabeledAddress,
 ): (LocalAddress | WhitelistedAddress)[] => {
   const _addresses: LabeledAddress = { ...addresses };
 
@@ -162,7 +162,7 @@ const prePopulateField = (
 };
 
 const prePopulateWhitelistedField = (
-  addressBook: LabeledAddress
+  addressBook: LabeledAddress,
 ): LabeledAddress => {
   const address = Object.values(addressBook);
   return (address as WhitelistedAddress[]).reduce(
@@ -177,6 +177,6 @@ const prePopulateWhitelistedField = (
         },
       };
     },
-    {}
+    {},
   );
 };

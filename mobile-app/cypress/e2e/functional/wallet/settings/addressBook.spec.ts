@@ -33,10 +33,10 @@ context("Wallet - Settings - Address Book", () => {
       cy.getByTestID("save_address_label").click().wait(1000);
       cy.getByTestID("pin_authorize").type("000000").wait(2000);
       cy.getByTestID(`address_row_label_${index}_WHITELISTED`).contains(
-        labels[index]
+        labels[index],
       );
       cy.getByTestID(`address_row_text_${index}_WHITELISTED`).contains(
-        addresses[index]
+        addresses[index],
       );
     });
   }
@@ -66,7 +66,7 @@ context("Wallet - Settings - Address Book", () => {
             cy.getByTestID("address_button_group_WHITELISTED").click();
             cy.getByTestID("add_new_address").click();
             cy.getByTestID("address_book_address_type_DFI_checked").should(
-              "exist"
+              "exist",
             );
             // check for DFI address
             cy.getByTestID("address_book_address_input")
@@ -74,7 +74,7 @@ context("Wallet - Settings - Address Book", () => {
               .type(walletDFIAddress)
               .blur();
             cy.getByTestID("address_book_address_input_error").contains(
-              "This address already exists in your address book, please enter a different address"
+              "This address already exists in your address book, please enter a different address",
             );
             // check for evm address
             cy.getByTestID("address_book_address_input")
@@ -82,12 +82,12 @@ context("Wallet - Settings - Address Book", () => {
               .type(walletETHAddress)
               .blur();
             cy.getByTestID("address_book_address_input_error").contains(
-              "Please enter a valid address"
+              "Please enter a valid address",
             );
             // change domain type
             cy.getByTestID("address_book_address_type_EVM").click();
             cy.getByTestID("address_book_address_input_error").contains(
-              "This address already exists in your address book, please enter a different address"
+              "This address already exists in your address book, please enter a different address",
             );
           });
       });
@@ -127,7 +127,7 @@ context("Wallet - Settings - Address Book", () => {
       cy.getByTestID("search_title").contains(`Search results for “${label}`);
       cy.getByTestID("address_row_label_0_WHITELISTED").contains(label);
       cy.getByTestID("address_row_text_0_WHITELISTED").contains(
-        addresses[index]
+        addresses[index],
       );
       cy.getByTestID("address_search_input").clear();
       cy.getByTestID("search_title").contains("Search with label or address");
@@ -162,10 +162,10 @@ context("Wallet - Settings - Address Book", () => {
     cy.getByTestID("pin_authorize").type("000000").wait(2000);
     cy.wrap(modifiedLabels).each((_v, index: number) => {
       cy.getByTestID(`address_row_label_${index}_WHITELISTED`).contains(
-        modifiedLabels[index]
+        modifiedLabels[index],
       );
       cy.getByTestID(`address_row_text_${index}_WHITELISTED`).contains(
-        addresses[index]
+        addresses[index],
       );
     });
   });

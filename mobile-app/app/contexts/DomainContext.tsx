@@ -62,7 +62,7 @@ export function useDomainContext(): Domain {
 }
 
 export function DomainProvider(
-  props: DomainContextI & PropsWithChildren<any>
+  props: DomainContextI & PropsWithChildren<any>,
 ): JSX.Element | null {
   const { api } = props;
   const { domain } = useDomain({ api });

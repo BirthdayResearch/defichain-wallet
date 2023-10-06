@@ -25,7 +25,7 @@ export async function transferDomainSigner(
   sourceTokenId: string,
   targetTokenId: string,
   amount: BigNumber,
-  convertDirection: ConvertDirection
+  convertDirection: ConvertDirection,
 ): Promise<CTransactionSegWit> {
   const dvmScript = await account.getScript();
   const evmScript = await account.getEvmScript();
@@ -48,23 +48,25 @@ export async function transferDomainSigner(
           src: {
             address: sourceScript,
             amount: {
-              token: Number(sourceTokenId),
+              token: stripEvmSuffixFromTokenId(sourceTokenId),
               amount,
             },
             domain: srcDomain,
+            data: new Uint8Array([]),
           },
           dst: {
             address: dstScript,
             amount: {
-              token: Number(targetTokenId),
+              token: stripEvmSuffixFromTokenId(targetTokenId),
               amount,
             },
             domain: dstDomain,
+            data: new Uint8Array([]),
           },
         },
       ],
     },
-    dvmScript
+    dvmScript,
   );
 
   return new CTransactionSegWit(signed);
@@ -77,11 +79,11 @@ export function transferDomainCrafter(
   targetToken: TransferDomainToken,
   onBroadcast: () => any,
   onConfirmation: () => void,
-  submitButtonLabel?: string
+  submitButtonLabel?: string,
 ): DfTxSigner {
   if (
     ![ConvertDirection.evmToDvm, ConvertDirection.dvmToEvm].includes(
-      convertDirection
+      convertDirection,
     )
   ) {
     throw new Error("Unexpected transfer domain");
@@ -99,7 +101,7 @@ export function transferDomainCrafter(
         sourceToken.tokenId,
         targetToken.tokenId,
         amount,
-        convertDirection
+        convertDirection,
       ),
     title: translate(
       "screens/ConvertConfirmScreen",
@@ -108,7 +110,7 @@ export function transferDomainCrafter(
         amount: amount.toFixed(8),
         symbolA,
         symbolB,
-      }
+      },
     ),
     drawerMessages: {
       preparing: translate("screens/OceanInterface", "Preparing to convert…"),
@@ -119,7 +121,7 @@ export function transferDomainCrafter(
           symbolA: symbolA,
           symbolB: symbolB,
           amount: amount.toFixed(8),
-        }
+        },
       ),
       complete: translate(
         "screens/OceanInterface",
@@ -128,7 +130,7 @@ export function transferDomainCrafter(
           symbolA: symbolA,
           symbolB: symbolB,
           amount: amount.toFixed(8),
-        }
+        },
       ),
     },
     onBroadcast,
@@ -138,4 +140,11 @@ export function transferDomainCrafter(
         ? translate("screens/ConvertConfirmScreen", submitButtonLabel)
         : undefined,
   };
+}
+
+function stripEvmSuffixFromTokenId(tokenId: string) {
+  if (tokenId.includes("-EVM")) {
+    return Number(tokenId.replace("-EVM", ""));
+  }
+  return Number(tokenId);
 }

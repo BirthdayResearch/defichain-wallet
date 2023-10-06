@@ -112,9 +112,21 @@ exports[`Empty bids should match snapshot 1`] = `
         />
         <RNSVGGroup
           clipPath="clip0_6907_95952"
+          fill={
+            {
+              "payload": 4278190080,
+              "type": 0,
+            }
+          }
         >
           <RNSVGGroup
             clipPath="clip1_6907_95952"
+            fill={
+              {
+                "payload": 4278190080,
+                "type": 0,
+              }
+            }
           >
             <RNSVGPath
               d="M42.7773 77.0052C58.5175 77.0052 71.2773 64.2454 71.2773 48.5052C71.2773 32.7651 58.5175 20.0052 42.7773 20.0052C27.0372 20.0052 14.2773 32.7651 14.2773 48.5052C14.2773 64.2454 27.0372 77.0052 42.7773 77.0052Z"
@@ -263,6 +275,12 @@ exports[`Empty bids should match snapshot 1`] = `
         />
         <RNSVGDefs>
           <RNSVGClipPath
+            fill={
+              {
+                "payload": 4278190080,
+                "type": 0,
+              }
+            }
             name="clip0_6907_95952"
           >
             <RNSVGRect
@@ -294,6 +312,12 @@ exports[`Empty bids should match snapshot 1`] = `
             />
           </RNSVGClipPath>
           <RNSVGClipPath
+            fill={
+              {
+                "payload": 4278190080,
+                "type": 0,
+              }
+            }
             name="clip1_6907_95952"
           >
             <RNSVGRect

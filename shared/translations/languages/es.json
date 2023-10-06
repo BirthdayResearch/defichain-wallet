@@ -338,7 +338,8 @@
     "Available {{unit}}": "Disponible {{unit}}",
     "Resulting {{unit}}": "Resultando {{unit}}",
     "TO RECEIVE": "A RECIBIR",
-    "tokens": "tokens"
+    "tokens": "tokens",
+    "TO CONVERT": "TO CONVERT"
   },
   "screens/ConvertConfirmScreen": {
     "Confirm": "Confirmar",
@@ -357,11 +358,13 @@
     "CONFIRM TRANSACTION": "CONFIRMAR TRANSACCIÓN",
     "You are converting to {{unit}}": "Esta convirtiendo a {{unit}}",
     "Transaction fee": "Comisión de transacción",
+    "Resulting Tokens (EVM)": "Resultando Tokens (EVM)",
     "Resulting Tokens": "Resultando Tokens",
     "Resulting UTXO": "Resultando UTXO",
     "Convert {{amount}} DFI to {{target}}": "Convirtiendo {{amount}} DFI a {{target}}",
     "Converting": "Convirtiendo",
-    "Converted": "Convertido"
+    "Converted": "Convertido",
+    "Convert {{amount}} {{symbolA}} to {{symbolB}} tokens": "Convert {{amount}} {{symbolA}} to {{symbolB}} tokens"
   },
   "screens/SettingsNavigator": {
     "Settings": "Configuración"
@@ -852,7 +855,9 @@
     "Borrowing {{amount}} {{symbol}} with vault {{vaultId}}": "Borrowing {{amount}} {{symbol}} with vault {{vaultId}}",
     "Borrowed {{amount}} {{symbol}}": "Borrowed {{amount}} {{symbol}}",
     "Requested amount is higher than available amount.": "Requested amount is higher than available amount.",
-    "tokens": "tokens"
+    "tokens": "tokens",
+    "Converting {{amount}} {{symbolA}} to {{symbolB}} tokens": "Converting {{amount}} {{symbolA}} to {{symbolB}} tokens",
+    "{{amount}} {{symbolA}} converted to {{symbolB}} tokens": "{{amount}} {{symbolA}} converted to {{symbolB}} tokens"
   },
   "components/BarCodeScanner": {
     "Requesting for camera permission": "Pidiendo acceso a la cámara",
@@ -2232,7 +2237,9 @@
     "Swap": "Cambiar",
     "Transactions": "Transacciones",
     "Future swap": "Cambio a futuros",
-    "Get DFI": "Obtener DFI"
+    "Get DFI": "Obtener DFI",
+    "Convert": "Convertir",
+    "Governance": "Governance"
   },
   "screens/PoolPairDetailsScreen": {
     "{{poolPair}} Pool": "{{poolPair}} Pool",
@@ -2262,6 +2269,10 @@
     "Select Token": "Select Token",
     "Search with token name": "Buscar por nombre de token",
     "Search results for “{{searchTerm}}”": "Buscar resultados para “{{searchTerm}}”"
+  },
+  "components/ConversionDetailsRow": {
+    "Resulting UTXO": "Resultando UTXO",
+    "Resulting Tokens": "Resultando Tokens"
   },
   "screens/OCGProposalsScreen": {
     "Governance": "Governance",

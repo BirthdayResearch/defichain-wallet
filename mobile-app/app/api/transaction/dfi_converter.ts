@@ -11,7 +11,7 @@ import { ConvertDirection } from "@screens/enum";
 export async function dfiConversionSigner(
   account: WhaleWalletAccount,
   amount: BigNumber,
-  mode: ConvertDirection
+  mode: ConvertDirection,
 ): Promise<CTransactionSegWit> {
   const script = await account.getScript();
   const builder = account.withTransactionBuilder();
@@ -31,7 +31,7 @@ export async function dfiConversionSigner(
           },
         ],
       },
-      script
+      script,
     );
   } else {
     signed = await builder.account.accountToUtxos(
@@ -45,7 +45,7 @@ export async function dfiConversionSigner(
         ],
         mintingOutputsStart: 2, // 0: DfTx, 1: change, 2: minted utxos (mandated by jellyfish-tx)
       },
-      script
+      script,
     );
   }
   return new CTransactionSegWit(signed);
@@ -56,7 +56,7 @@ export function dfiConversionCrafter(
   convertDirection: ConvertDirection,
   onBroadcast: () => any,
   onConfirmation: () => void,
-  submitButtonLabel?: string
+  submitButtonLabel?: string,
 ): DfTxSigner {
   if (
     ![
@@ -81,7 +81,7 @@ export function dfiConversionCrafter(
         amount: amount.toFixed(8),
         symbolA,
         symbolB,
-      }
+      },
     ),
     drawerMessages: {
       preparing: translate("screens/OceanInterface", "Preparing to convert…"),
@@ -92,7 +92,7 @@ export function dfiConversionCrafter(
           symbolA: symbolA,
           symbolB: symbolB,
           amount: amount.toFixed(8),
-        }
+        },
       ),
       complete: translate(
         "screens/OceanInterface",
@@ -101,7 +101,7 @@ export function dfiConversionCrafter(
           symbolA,
           symbolB,
           amount: amount.toFixed(8),
-        }
+        },
       ),
     },
     onBroadcast,

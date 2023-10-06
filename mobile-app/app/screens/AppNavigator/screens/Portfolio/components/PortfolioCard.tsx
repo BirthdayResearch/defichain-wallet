@@ -30,6 +30,7 @@ interface PortfolioCardProps {
     setActiveButtonGroup: (key: ButtonGroupTabKey) => void;
   };
   denominationCurrency: string;
+  isEvmDomain: boolean;
 }
 
 export function PortfolioCard({
@@ -38,6 +39,7 @@ export function PortfolioCard({
   navigation,
   buttonGroupOptions,
   denominationCurrency,
+  isEvmDomain,
 }: PortfolioCardProps): JSX.Element {
   const { hasFetchedToken } = useSelector((state: RootState) => state.wallet);
   const { domain } = useDomainContext();
@@ -45,7 +47,7 @@ export function PortfolioCard({
   if (isZeroBalance) {
     const screenDetails = getEmptyScreenDetails(
       ButtonGroupTabKey.AllTokens,
-      domain
+      domain,
     );
     return <EmptyTokensScreen {...screenDetails} testID="empty_portfolio" />;
   }
@@ -58,7 +60,7 @@ export function PortfolioCard({
   ) {
     const screenDetails = getEmptyScreenDetails(
       buttonGroupOptions?.activeButtonGroup,
-      domain
+      domain,
     );
     return <EmptyTokensScreen {...screenDetails} testID="empty_portfolio" />;
   }
@@ -71,12 +73,16 @@ export function PortfolioCard({
           onPress={() =>
             navigation.navigate({
               name: "TokenDetailScreen",
-              params: { token: item, usdAmount: item.usdAmount },
+              params: {
+                token: item,
+                usdAmount: item.usdAmount,
+              },
               merge: true,
             })
           }
           token={item}
           denominationCurrency={denominationCurrency}
+          isEvmDomain={isEvmDomain}
         />
       ))}
     </View>
@@ -87,10 +93,12 @@ function PortfolioItemRow({
   token,
   onPress,
   denominationCurrency,
+  isEvmDomain,
 }: {
   token: PortfolioRowToken;
   onPress: () => void;
   denominationCurrency: string;
+  isEvmDomain?: boolean;
 }): JSX.Element {
   const testID = `portfolio_row_${token.id}`;
 
@@ -104,11 +112,17 @@ function PortfolioItemRow({
     >
       <View style={tailwind("flex flex-row items-start")}>
         <View style={tailwind("w-7/12 flex-row items-center")}>
-          <TokenIcon testID={`${testID}_icon`} token={token} size={36} />
+          <TokenIcon
+            testID={`${testID}_icon`}
+            token={token}
+            size={36}
+            isEvmToken={isEvmDomain}
+          />
           <TokenNameText
             displaySymbol={token.displaySymbol}
             name={token.name}
             testID={testID}
+            isEvmDomain={isEvmDomain}
           />
         </View>
         <View
@@ -130,7 +144,7 @@ function PortfolioItemRow({
 
 function getEmptyScreenDetails(
   type?: ButtonGroupTabKey,
-  domain?: string
+  domain?: string,
 ): {
   icon: () => JSX.Element;
   title: string;
@@ -143,7 +157,7 @@ function getEmptyScreenDetails(
         title: translate("components/EmptyPortfolio", "No crypto found"),
         subtitle: translate(
           "components/EmptyPortfolio",
-          "Add crypto to get started"
+          "Add crypto to get started",
         ),
       };
     case ButtonGroupTabKey.LPTokens:
@@ -152,7 +166,7 @@ function getEmptyScreenDetails(
         title: translate("components/EmptyPortfolio", "No LP tokens found"),
         subtitle: translate(
           "components/EmptyPortfolio",
-          "Add liquidity to get started"
+          "Add liquidity to get started",
         ),
       };
     case ButtonGroupTabKey.dTokens:
@@ -161,7 +175,7 @@ function getEmptyScreenDetails(
         title: translate("components/EmptyPortfolio", "No dTokens found"),
         subtitle: translate(
           "components/EmptyPortfolio",
-          "Mint dTokens to get started"
+          "Mint dTokens to get started",
         ),
       };
     case ButtonGroupTabKey.AllTokens:
@@ -176,11 +190,11 @@ function getEmptyScreenDetails(
           domain === DomainType.DVM
             ? translate(
                 "components/EmptyPortfolio",
-                "Add DFI and other tokens to get started"
+                "Add DFI and other tokens to get started",
               )
             : translate(
                 "components/EmptyPortfolio",
-                "Add to your balance by converting DFI to the EVM layer"
+                "Add to your balance by converting DFI to the EVM layer",
               ),
       };
   }
