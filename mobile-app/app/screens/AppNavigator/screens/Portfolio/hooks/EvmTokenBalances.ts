@@ -1,7 +1,6 @@
-import BigNumber from "bignumber.js";
 import { useEffect, useState } from "react";
 import { formatEther, formatUnits } from "viem";
-import { useNetworkContext } from "@waveshq/walletkit-ui";
+import { WalletToken, useNetworkContext } from "@waveshq/walletkit-ui";
 import { utils } from "ethers";
 import {
   useGetEvmAddressDetailsMutation,
@@ -11,16 +10,19 @@ import { DomainType, useDomainContext } from "@contexts/DomainContext";
 import { useSelector } from "react-redux";
 import { RootState } from "@store";
 import { useIsFocused } from "@react-navigation/native";
+import { TokenData } from "@defichain/whale-api-client/dist/api/tokens";
 import { useLogger } from "@shared-contexts/NativeLoggingProvider";
-import { DomainToken } from "./TokenBalance";
+import { useWalletContext } from "@shared-contexts/WalletContext";
 
-const GWEI_DECIMAL = 9; // Source: https://docs.ethers.org/v5/api/utils/display-logic/
+interface AssociatedToken {
+  [key: string]: TokenData;
+}
 
-export function useEvmTokenBalances(): { evmTokens: DomainToken[] } {
-  // const { evmAddress } = useWalletContext();
-  const evmAddress = "0x6aA59C49B27D9a3cBd9f976f7e6179F84be53C05";
-  const [evmTokens, setEvmTokens] = useState<DomainToken[]>([]);
-  const [allTokensWithAddress, setAllTokensWithAddress] = useState({});
+export function useEvmTokenBalances(): { evmTokens: WalletToken[] } {
+  const { evmAddress } = useWalletContext();
+  const [evmTokens, setEvmTokens] = useState<WalletToken[]>([]);
+  const [allTokensWithAddress, setAllTokensWithAddress] =
+    useState<AssociatedToken>({});
   const [getEvmAddressDetails] = useGetEvmAddressDetailsMutation();
   const [getTokenBalances] = useGetEvmTokenBalancesMutation();
   const blockCount = useSelector((state: RootState) => state.block.count);
@@ -40,32 +42,18 @@ export function useEvmTokenBalances(): { evmTokens: DomainToken[] } {
       }, {}),
     );
   }, [allTokens]);
-  // eslint-disable-next-line no-console
-  console.log({ allTokensWithAddress });
   const getEvmTokens = async () => {
-    // const dfiToken = {
-    //   id: "0-EVM",
-    //   symbol: "DFI",
-    //   symbolKey: "DFI",
-    //   isDAT: true,
-    //   isLPS: false,
-    //   isLoanToken: false,
-    //   amount: "0",
-    //   name: "DeFiChain",
-    //   displaySymbol: "EvmDFI",
-    //   avatarSymbol: "EvmDFI",
-    // }
-    const evmDfiToken: DomainToken = {
-      tokenId: "0-EVM",
-      available: new BigNumber(0),
-      token: {
-        name: "DFI for EVM",
-        displaySymbol: "EvmDFI",
-        displayTextSymbol: "DFI",
-        symbol: "DFI",
-        isLPS: false,
-        domainType: DomainType.EVM,
-      },
+    const dfiToken: WalletToken = {
+      id: "0-EVM",
+      symbol: "DFI",
+      symbolKey: "DFI",
+      isDAT: true,
+      isLPS: false,
+      isLoanToken: false,
+      amount: "0",
+      name: "DeFiChain for EVM",
+      displaySymbol: "EvmDFI",
+      avatarSymbol: "EvmDFI",
     };
     try {
       const details = await getEvmAddressDetails({
@@ -73,68 +61,44 @@ export function useEvmTokenBalances(): { evmTokens: DomainToken[] } {
         evmAddress,
       }).unwrap();
       const evmDfiBalance = formatEther(BigInt(details.coin_balance ?? 0));
-      evmDfiToken.available = new BigNumber(evmDfiBalance);
       const tokensBalances = await getTokenBalances({
         network,
         evmAddress,
       }).unwrap();
-      // console.log({tokensBalances})
-      // const evmTokens = tokensBalances.reduce((current, each) => {
-      //   const tokenAddress = each?.token?.address
-      //   const tokenDetails = allTokensWithAddress[tokenAddress] ?? null;
-      //   if (tokenDetails) {
-      //     return [...current, {
-      //         id: "0-EVM",
-      //         symbol: "DFI",
-      //         symbolKey: "DFI",
-      //         isDAT: true,
-      //         isLPS: false,
-      //         isLoanToken: false,
-      //         amount: "0",
-      //         name: "DeFiChain",
-      //         displaySymbol: "EvmDFI",
-      //         avatarSymbol: "EvmDFI",
-      //       }]
-      //   }
-      //   return current
-      //   // {
-      //   //   id: "0-EVM",
-      //   //   symbol: "DFI",
-      //   //   symbolKey: "DFI",
-      //   //   isDAT: true,
-      //   //   isLPS: false,
-      //   //   isLoanToken: false,
-      //   //   amount: "0",
-      //   //   name: "DeFiChain",
-      //   //   displaySymbol: "EvmDFI",
-      //   //   avatarSymbol: "EvmDFI",
-      //   // }
-      // }, [])
-
-      const evmAddressTokens: DomainToken[] = tokensBalances
-        // .filter(({ token }) => token.type === "DST20") // TODO (lyka): Add filter to only get DST20 tokens
-        .map(({ token_id, value, token }) => ({
-          tokenId: `${token_id}-EVM`,
-          available: new BigNumber(
-            formatUnits(
-              BigInt(value ?? "0"),
-              Number(token.decimals ?? GWEI_DECIMAL),
-            ),
-          ),
-          token: {
-            name: `${token.name} for EVM`,
-            displaySymbol: token.symbol,
-            displayTextSymbol: token.symbol,
-            symbol: token.symbol,
-            isLPS: false,
-            domainType: DomainType.EVM,
+      dfiToken.amount = evmDfiBalance;
+      setEvmTokens(
+        tokensBalances.reduce(
+          (current: WalletToken[], each) => {
+            const tokenAddress = each?.token?.address;
+            const tokenDetails = allTokensWithAddress[tokenAddress] ?? null;
+            if (tokenDetails) {
+              return [
+                ...current,
+                {
+                  id: `${tokenDetails.id}-EVM`,
+                  symbol: tokenDetails.symbol,
+                  symbolKey: tokenDetails.symbolKey,
+                  isDAT: tokenDetails.isDAT,
+                  isLPS: tokenDetails.isLPS,
+                  isLoanToken: tokenDetails.isLoanToken,
+                  name: `${tokenDetails.name} for EVM`,
+                  displaySymbol: tokenDetails.displaySymbol,
+                  avatarSymbol: tokenDetails.symbol,
+                  amount: formatUnits(
+                    BigInt(each.value),
+                    +each?.token?.decimals,
+                  ),
+                },
+              ];
+            }
+            return current;
           },
-        }));
-
-      setEvmTokens([evmDfiToken, ...evmAddressTokens]);
+          [dfiToken],
+        ),
+      );
     } catch (e) {
       logger.error(e);
-      setEvmTokens([evmDfiToken]);
+      setEvmTokens([dfiToken]);
     }
   };
 
@@ -146,14 +110,6 @@ export function useEvmTokenBalances(): { evmTokens: DomainToken[] } {
 
   return { evmTokens };
 }
-
-// function getTokenIdFromAddress(ethAddress: string): string {
-//   if (!ethAddress.startsWith('0xff') || ethAddress.length !== 42) {
-//       throw new Error('Invalid Ethereum address format');
-//   }
-//   const hexTokenId = ethAddress.slice(4); // Remove '0xff' prefix
-//   return BigInt(`0x${hexTokenId}`).toString();
-// }
 
 function getAddressFromDST20TokenId(tokenId: string): string {
   const parsedTokenId = BigInt(tokenId);

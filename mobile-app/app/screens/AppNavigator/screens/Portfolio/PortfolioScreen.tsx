@@ -91,6 +91,7 @@ import {
 } from "./components/TotalPortfolio";
 import { useTokenPrice } from "./hooks/TokenPrice";
 import { PortfolioParamList } from "./PortfolioNavigator";
+import { useEvmTokenBalances } from "./hooks/EvmTokenBalances";
 
 type Props = StackScreenProps<PortfolioParamList, "PortfolioScreen">;
 
@@ -200,8 +201,9 @@ export function PortfolioScreen({ navigation }: Props): JSX.Element {
   const tokens = useSelector((state: RootState) =>
     tokensSelector(state.wallet),
   );
+  const { evmTokens } = useEvmTokenBalances();
   const { totalAvailableValue, dstTokens } = useMemo(() => {
-    return tokens.reduce(
+    return (domain === DomainType.EVM ? evmTokens : tokens).reduce(
       (
         {
           totalAvailableValue,
@@ -242,7 +244,7 @@ export function PortfolioScreen({ navigation }: Props): JSX.Element {
         dstTokens: [],
       },
     );
-  }, [prices, tokens]);
+  }, [prices, tokens, domain, evmTokens]);
 
   // add token that are 100% locked as collateral into dstTokens
   const combinedTokens = useMemo(() => {

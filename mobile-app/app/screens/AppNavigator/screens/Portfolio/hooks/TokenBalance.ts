@@ -39,6 +39,20 @@ export function useTokenBalance(): {
   );
 
   const { evmTokens } = useEvmTokenBalances();
+  const evmTokenList = evmTokens.map((token) => {
+    return {
+      tokenId: token.id,
+      available: new BigNumber(token.amount),
+      token: {
+        name: token.name,
+        displaySymbol: token.symbol,
+        displayTextSymbol: token.symbol,
+        symbol: token.symbol,
+        isLPS: token.isLPS,
+        domainType: DomainType.EVM,
+      },
+    };
+  });
   const { dvmTokens } = useMemo(() => {
     return tokens.reduce(
       (
@@ -83,7 +97,7 @@ export function useTokenBalance(): {
 
   return {
     dvmTokens,
-    evmTokens,
+    evmTokens: evmTokenList,
   };
 }
 
