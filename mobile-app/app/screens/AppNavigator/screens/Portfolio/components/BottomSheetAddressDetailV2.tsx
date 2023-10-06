@@ -207,7 +207,7 @@ export const BottomSheetAddressDetailV2 = (
         const isSelected = item.dvm === props.address;
         const displayAddress = domain === DomainType.EVM ? item.evm : item.dvm;
 
-        // if existing address label, then display label from generatedAddress key
+        // if no existing address label, then display label from generatedAddress key
         const displayAddressLabel =
           labeledAddresses?.[item.dvm]?.label ?? item.generatedLabel;
 
