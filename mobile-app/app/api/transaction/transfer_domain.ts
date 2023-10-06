@@ -226,7 +226,7 @@ async function createSignedEvmTx({
   /* TODO: Figure out CORS issue when using the ethRpc */
   const tx: providers.TransactionRequest = {
     to: TD_CONTRACT_ADDR,
-    nonce: 3, // await ethRpc.getTransactionCount(from), // TODO: Remove hardcoded data
+    nonce: 0, // await ethRpc.getTransactionCount(from), // TODO: Remove hardcoded data
     chainId: 1133, // (await rpc.getNetwork()).chainId, // TODO: Remove hardcoded data
     data: data,
     value: 0,
