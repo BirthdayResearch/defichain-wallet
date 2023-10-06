@@ -219,6 +219,7 @@ async function createSignedEvmTx({
     data = tdFace.encodeFunctionData("transferDST20", transferDST20);
   }
 
+  // TODO: Make ETH RPC URL dynamic based on network
   // const ethRpc = new providers.JsonRpcProvider("http://localhost:19551"); // TODO: Uncomment
   // const privateKey = await account.privateKey();
   const wallet = new ethers.Wallet(privateKey);
