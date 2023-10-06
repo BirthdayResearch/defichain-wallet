@@ -162,12 +162,10 @@ export function AddressBookScreen({ route, navigation }: Props): JSX.Element {
     return () => {
       isSubscribed = false;
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [wallet, addressLength, walletAddressFromStore]);
 
   // Search
   const [searchString, setSearchString] = useState("");
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   const filterAddress = useCallback(
     debounce((searchString: string): void => {
       setFilteredAddressBook(
@@ -241,7 +239,6 @@ export function AddressBookScreen({ route, navigation }: Props): JSX.Element {
 
   useEffect(() => {
     fetchAddresses().catch(logger.error);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
@@ -255,7 +252,6 @@ export function AddressBookScreen({ route, navigation }: Props): JSX.Element {
       );
     };
     updateLocalStorage().catch(Logging.error);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [userPreferencesFromStore]);
 
   useEffect(() => {
@@ -269,7 +265,6 @@ export function AddressBookScreen({ route, navigation }: Props): JSX.Element {
     } else {
       setFilteredWalletAddress(walletAddress);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [
     addressBook,
     walletAddress,
@@ -286,7 +281,6 @@ export function AddressBookScreen({ route, navigation }: Props): JSX.Element {
         { shadowOpacity: 0 },
       ],
     });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const WhitelistedAddressItem = useCallback(
@@ -423,7 +417,6 @@ export function AddressBookScreen({ route, navigation }: Props): JSX.Element {
         </ThemedTouchableOpacityV2>
       );
     },
-    // eslint-disable-next-line react-hooks/exhaustive-deps
     [filteredAddressBook, filteredWalletAddress, activeButtonGroup],
   );
 
@@ -524,7 +517,6 @@ export function AddressBookScreen({ route, navigation }: Props): JSX.Element {
         </ThemedViewV2>
       );
     },
-    // eslint-disable-next-line react-hooks/exhaustive-deps
     [filteredAddressBook, filteredWalletAddress, activeButtonGroup],
   );
 

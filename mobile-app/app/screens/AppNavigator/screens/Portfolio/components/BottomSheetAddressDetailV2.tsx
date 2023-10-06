@@ -104,7 +104,6 @@ export const BottomSheetAddressDetailV2 = (
     const activeLabel = useAddressLabel(props.address);
     const { getAddressUrl } = useDeFiScanContext();
 
-    // eslint-disable-next-line react-hooks/exhaustive-deps
     const onActiveAddressPress = useCallback(
       debounce(() => {
         if (showToast) {
@@ -145,12 +144,10 @@ export const BottomSheetAddressDetailV2 = (
 
     useEffect(() => {
       fetchAddresses().catch(logger.error);
-      // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [wallet, addressLength]);
 
     useEffect(() => {
       isNextAddressUsable().catch(logger.error);
-      // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [blockCount]);
 
     const CreateAddressButton = useCallback(() => {
@@ -176,7 +173,6 @@ export const BottomSheetAddressDetailV2 = (
           </ThemedTextV2>
         </ThemedTouchableOpacityV2>
       );
-      // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [canCreateAddress, addressLength]);
 
     const onChangeAddress = async (index: number): Promise<void> => {
@@ -335,7 +331,6 @@ export const BottomSheetAddressDetailV2 = (
           </ThemedTouchableOpacityV2>
         );
       },
-      // eslint-disable-next-line react-hooks/exhaustive-deps
       [labeledAddresses, domain],
     );
 
@@ -381,7 +376,6 @@ export const BottomSheetAddressDetailV2 = (
           </View>
         </ThemedViewV2>
       );
-      // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [props, addressLength, activeLabel, domain, availableAddresses]);
 
     return (
