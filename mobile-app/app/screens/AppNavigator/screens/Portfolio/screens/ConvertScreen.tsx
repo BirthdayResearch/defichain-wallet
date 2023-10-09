@@ -23,7 +23,6 @@ import {
 import { getColor, tailwind } from "@tailwind";
 import { translate } from "@translations";
 import { useLogger } from "@shared-contexts/NativeLoggingProvider";
-import { getNativeIcon } from "@components/icons/assets";
 import { ButtonV2 } from "@components/ButtonV2";
 import {
   AmountButtonTypes,
@@ -38,7 +37,6 @@ import {
   TokenDropdownButtonStatus,
 } from "@components/TokenDropdownButton";
 import { DomainType, useDomainContext } from "@contexts/DomainContext";
-import { EVMLinearGradient } from "@components/EVMLinearGradient";
 import { PortfolioParamList } from "../PortfolioNavigator";
 import {
   TokenListType,
@@ -526,26 +524,16 @@ export function ConvertScreen(props: Props): JSX.Element {
             />
           </View>
 
-          {sourceToken.tokenId === "0" && (
-            <TokenDropdownButton
-              isEvmToken={targetToken?.token.domainType === DomainType.EVM}
-              symbol={targetToken?.token.displaySymbol}
-              displayedTextSymbol={targetToken?.token.displayTextSymbol}
-              testID={TokenListType.To}
-              onPress={() => {
-                navigateToTokenSelectionScreen(TokenListType.To);
-              }}
-              status={TokenDropdownButtonStatus.Enabled}
-            />
-          )}
-          {sourceToken.tokenId !== "0" && targetToken && (
-            <FixedTokenButton
-              testID={TokenListType.To}
-              symbol={targetToken.token.displaySymbol}
-              unit={targetToken.token.displayTextSymbol}
-              isEvmToken={targetToken?.token.domainType === DomainType.EVM}
-            />
-          )}
+          <TokenDropdownButton
+            isEvmToken={targetToken?.token.domainType === DomainType.EVM}
+            symbol={targetToken?.token.displaySymbol}
+            displayedTextSymbol={targetToken?.token.displayTextSymbol}
+            testID={TokenListType.To}
+            onPress={() => {
+              navigateToTokenSelectionScreen(TokenListType.To);
+            }}
+            status={TokenDropdownButtonStatus.Enabled}
+          />
         </View>
 
         {targetToken !== undefined && (
@@ -711,39 +699,5 @@ function canConvert(amount: string, balance: BigNumber): boolean {
     new BigNumber(balance).gte(amount) &&
     !new BigNumber(amount).isZero() &&
     new BigNumber(amount).isPositive()
-  );
-}
-
-function FixedTokenButton(props: {
-  symbol: string;
-  testID: string;
-  unit: string;
-  isEvmToken?: boolean;
-}): JSX.Element {
-  const Icon = getNativeIcon(props.symbol);
-  return (
-    <ThemedTouchableOpacityV2
-      testID={`token_select_button_${props.testID}`}
-      dark={tailwind("bg-mono-dark-v2-00 text-mono-dark-v2-500")}
-      light={tailwind("bg-mono-light-v2-00 text-mono-light-v2-500")}
-      style={tailwind("flex flex-row rounded-lg-v2 px-3")}
-      disabled
-    >
-      {props.symbol !== undefined && Icon !== undefined && (
-        <View style={tailwind("flex flex-row items-center")}>
-          <EVMLinearGradient isEvmToken={props.isEvmToken}>
-            <Icon testID="fixed_token_icon" height={24} width={24} />
-          </EVMLinearGradient>
-          <ThemedTextV2
-            style={tailwind("ml-2 text-sm font-semibold-v2 my-2.5")}
-            dark={tailwind("text-mono-dark-v2-900")}
-            light={tailwind("text-mono-light-v2-900")}
-            testID={`convert_token_button_${props.testID}_display_symbol`}
-          >
-            {props.unit}
-          </ThemedTextV2>
-        </View>
-      )}
-    </ThemedTouchableOpacityV2>
   );
 }
