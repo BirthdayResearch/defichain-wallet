@@ -20,11 +20,11 @@ import {
 } from "@shared-contexts/WalletContext";
 import { useLogger } from "@shared-contexts/NativeLoggingProvider";
 import { BottomSheetFlatList } from "@gorhom/bottom-sheet";
-import { useThemeContext, useNetworkContext } from "@waveshq/walletkit-ui";
+import { useNetworkContext, useThemeContext } from "@waveshq/walletkit-ui";
 import {
-  wallet as walletReducer,
-  hasTxQueued,
   hasOceanTXQueued,
+  hasTxQueued,
+  wallet as walletReducer,
 } from "@waveshq/walletkit-ui/dist/store";
 import { useSelector } from "react-redux";
 import { loans } from "@store/loans";
@@ -36,12 +36,12 @@ import {
   setAddresses,
   setUserPreferences,
 } from "@store/userPreferences";
-import { useAddressLabel } from "@hooks/useAddressLabel";
 import { useAppDispatch } from "@hooks/useAppDispatch";
 import { openURL } from "@api/linking";
 import { ThemedFlatListV2 } from "@components/themed/ThemedFlatListV2";
-import { WalletAddressI, useWalletAddress } from "@hooks/useWalletAddress";
+import { useWalletAddress, WalletAddressI } from "@hooks/useWalletAddress";
 import { DomainType, useDomainContext } from "@contexts/DomainContext";
+import { useAddressLabel } from "@hooks/useAddressLabel";
 import { RandomAvatar } from "./RandomAvatar";
 
 interface BottomSheetAddressDetailProps {
@@ -183,7 +183,6 @@ export const BottomSheetAddressDetailV2 = (
       ) {
         return;
       }
-
       dispatch(walletReducer.actions.setHasFetchedToken(false));
       dispatch(loans.actions.setHasFetchedVaultsData(false));
       await setIndex(index);
@@ -192,19 +191,22 @@ export const BottomSheetAddressDetailV2 = (
     };
 
     const AddressListItem = useCallback(
-      // eslint-disable-next-line react/no-unused-prop-types
       ({
         item,
         index,
       }: {
+        // eslint-disable-next-line react/no-unused-prop-types
         item: WalletAddressI;
+        // eslint-disable-next-line react/no-unused-prop-types
         index: number;
       }): JSX.Element => {
         const isSelected = item.dvm === props.address;
-        const hasLabel =
-          labeledAddresses?.[item.dvm]?.label != null &&
-          labeledAddresses?.[item.dvm]?.label !== "";
         const displayAddress = domain === DomainType.EVM ? item.evm : item.dvm;
+
+        // if no existing address label, then display label from generatedAddress key
+        const displayAddressLabel =
+          labeledAddresses?.[item.dvm]?.label ?? item.generatedLabel;
+
         return (
           <ThemedTouchableOpacityV2
             key={item.dvm}
@@ -226,40 +228,27 @@ export const BottomSheetAddressDetailV2 = (
             >
               <RandomAvatar name={item.dvm} size={36} />
               <View style={tailwind("ml-3 flex-auto")}>
-                {hasLabel && (
-                  <View style={tailwind("flex-row items-center")}>
-                    <ThemedTextV2
-                      style={tailwind("font-semibold-v2 text-sm max-w-3/4")}
-                      testID={`list_address_label_${item}`}
-                      numberOfLines={1}
-                    >
-                      {labeledAddresses[item.dvm]?.label}
-                    </ThemedTextV2>
-                    {isSelected && (
-                      <ThemedIcon
-                        iconType="MaterialIcons"
-                        name="check-circle"
-                        size={16}
-                        light={tailwind("text-green-v2")}
-                        dark={tailwind("text-green-v2")}
-                        style={tailwind("ml-1")}
-                        testID={`address_active_indicator_${displayAddress}`}
-                      />
-                    )}
-                  </View>
-                )}
                 <View style={tailwind("flex-row items-center")}>
-                  {isSelected && !hasLabel && (
+                  <ThemedTextV2
+                    style={tailwind("font-semibold-v2 text-sm max-w-3/4")}
+                    testID={`list_address_label_${item}`}
+                    numberOfLines={1}
+                  >
+                    {displayAddressLabel}
+                  </ThemedTextV2>
+                  {isSelected && (
                     <ThemedIcon
                       iconType="MaterialIcons"
                       name="check-circle"
                       size={16}
                       light={tailwind("text-green-v2")}
                       dark={tailwind("text-green-v2")}
-                      style={tailwind("mr-1")}
+                      style={tailwind("ml-1")}
                       testID={`address_active_indicator_${displayAddress}`}
                     />
                   )}
+                </View>
+                <View style={tailwind("flex-row items-center")}>
                   <ThemedTouchableOpacityV2
                     onPress={async () =>
                       await openURL(getAddressUrl(displayAddress))
@@ -349,6 +338,11 @@ export const BottomSheetAddressDetailV2 = (
       const activeAddress = availableAddresses.find(
         ({ dvm }) => dvm === props.address,
       );
+      const displayAddressLabel =
+        activeLabel === null
+          ? activeAddress?.generatedLabel
+          : labeledAddresses?.[props.address]?.label;
+
       const activeDomainAddress =
         domain === DomainType.DVM ? activeAddress?.dvm : activeAddress?.evm;
       return (
@@ -356,18 +350,16 @@ export const BottomSheetAddressDetailV2 = (
           style={tailwind("flex flex-col w-full px-5 py-2 items-center")}
         >
           <RandomAvatar name={props.address} size={64} />
-          {activeLabel != null && (
-            <View style={tailwind("mt-2 w-4/5")}>
-              <ThemedText
-                light={tailwind("text-mono-light-v2-900")}
-                dark={tailwind("text-mono-dark-v2-900")}
-                style={tailwind("font-semibold-v2 text-base text-center")}
-                testID="list_header_address_label"
-              >
-                {activeLabel}
-              </ThemedText>
-            </View>
-          )}
+          <View style={tailwind("mt-2 w-4/5")}>
+            <ThemedText
+              light={tailwind("text-mono-light-v2-900")}
+              dark={tailwind("text-mono-dark-v2-900")}
+              style={tailwind("font-semibold-v2 text-base text-center")}
+              testID="list_header_address_label"
+            >
+              {displayAddressLabel}
+            </ThemedText>
+          </View>
           <ActiveAddress
             address={activeDomainAddress ?? ""}
             onPress={() => onActiveAddressPress(activeDomainAddress ?? "")}
