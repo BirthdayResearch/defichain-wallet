@@ -105,10 +105,11 @@ export const BottomSheetAddressDetailV2 = (
     const { getAddressUrl } = useDeFiScanContext();
 
     const onActiveAddressPress = useCallback(
-      debounce(() => {
+      debounce((addressToCopy: string) => {
         if (showToast) {
           return;
         }
+        Clipboard.setString(addressToCopy);
         setShowToast(true);
         setTimeout(() => setShowToast(false), TOAST_DURATION);
       }, 500),
@@ -117,7 +118,6 @@ export const BottomSheetAddressDetailV2 = (
 
     useEffect(() => {
       if (showToast) {
-        Clipboard.setString(props.address);
         toast.show(translate("components/toaster", "Address copied"), {
           type: "wallet_toast",
           placement: "top",
@@ -126,7 +126,7 @@ export const BottomSheetAddressDetailV2 = (
       } else {
         toast.hideAll();
       }
-    }, [showToast, props.address]);
+    }, [showToast]);
 
     // Getting addresses
     const fetchAddresses = async (): Promise<void> => {
@@ -343,6 +343,8 @@ export const BottomSheetAddressDetailV2 = (
           ? activeAddress?.generatedLabel
           : labeledAddresses?.[props.address]?.label;
 
+      const activeDomainAddress =
+        domain === DomainType.DVM ? activeAddress?.dvm : activeAddress?.evm;
       return (
         <ThemedViewV2
           style={tailwind("flex flex-col w-full px-5 py-2 items-center")}
@@ -359,12 +361,8 @@ export const BottomSheetAddressDetailV2 = (
             </ThemedText>
           </View>
           <ActiveAddress
-            address={
-              (domain === DomainType.DVM
-                ? activeAddress?.dvm
-                : activeAddress?.evm) ?? ""
-            }
-            onPress={onActiveAddressPress}
+            address={activeDomainAddress ?? ""}
+            onPress={() => onActiveAddressPress(activeDomainAddress ?? "")}
           />
           <View
             style={tailwind(
