@@ -102,6 +102,7 @@ export function SendScreen({ route, navigation }: Props): JSX.Element {
   const [transactionCardStatus, setTransactionCardStatus] = useState(
     TransactionCardStatus.Default,
   );
+  const [addressLabel, setAddressLabel] = useState<string | undefined>("");
 
   // form
   const { control, setValue, formState, getValues, trigger, watch } = useForm({
@@ -263,7 +264,7 @@ export function SendScreen({ route, navigation }: Props): JSX.Element {
       amount: new BigNumber(values.amount),
       amountInUsd: amountInUSDValue,
       fee,
-      toAddressLabel: matchedAddress?.label,
+      toAddressLabel: addressLabel,
       addressType,
       matchedAddress,
     };
@@ -448,6 +449,7 @@ export function SendScreen({ route, navigation }: Props): JSX.Element {
               onAddressType={setAddressType}
               matchedAddress={matchedAddress}
               setMatchedAddress={setMatchedAddress}
+              setAddressLabel={setAddressLabel}
             />
           </View>
         )}

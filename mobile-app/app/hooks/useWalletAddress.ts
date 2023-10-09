@@ -4,6 +4,7 @@ import { useCallback } from "react";
 export interface WalletAddressI {
   dvm: string;
   evm: string;
+  generatedLabel: string;
 }
 
 export function useWalletAddress(): {
@@ -19,7 +20,8 @@ export function useWalletAddress(): {
       const account = wallet.get(i);
       const dvm = await account.getAddress();
       const evm = await account.getEvmAddress();
-      addresses.push({ dvm, evm });
+      const generatedLabel = `Address ${i + 1}`;
+      addresses.push({ dvm, evm, generatedLabel });
     }
     return addresses;
   }, [wallet, addressLength]);

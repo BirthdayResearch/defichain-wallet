@@ -7,10 +7,16 @@ import { RandomAvatar } from "@screens/AppNavigator/screens/Portfolio/components
 import { AddressType } from "@waveshq/walletkit-ui/dist/store";
 import { LocalAddress, WhitelistedAddress } from "@store/userPreferences";
 import { DomainType } from "@contexts/DomainContext";
-import { LinearGradient } from "expo-linear-gradient";
+
+import {
+  AddressType as JellyfishAddressType,
+  getAddressType,
+} from "@waveshq/walletkit-core";
+import { useNetworkContext } from "@waveshq/walletkit-ui";
 import { View } from ".";
 import { ThemedTextV2, ThemedViewV2 } from "./themed";
 import { EVMLinearGradient } from "./EVMLinearGradient";
+import { AddressEvmTag } from "./AddressEvmTag";
 
 interface ISummaryTitleProps {
   title: string;
@@ -33,6 +39,7 @@ export function SummaryTitle(props: ISummaryTitleProps): JSX.Element {
   const IconA = getNativeIcon(props.iconA);
   const IconB =
     props.iconB !== undefined ? getNativeIcon(props.iconB) : undefined;
+  const { networkName } = useNetworkContext();
 
   return (
     <>
@@ -127,60 +134,47 @@ export function SummaryTitle(props: ISummaryTitleProps): JSX.Element {
             >
               {props.customToAddressTitle ?? translate("screens/common", "To")}
             </ThemedTextV2>
-            {/* TODO @chloe cater for selection of evm addr from addr pair */}
+
+            {/* Checks if selected address is  a Whitelisted EVM address */}
             {(props.matchedAddress as WhitelistedAddress)?.addressDomainType ===
-            DomainType.EVM ? (
-              <LinearGradient
-                colors={["#42F9C2", "#3B57CF"]}
-                start={[0, 0]}
-                end={[1, 1]}
-                style={tailwind(
-                  "flex flex-row items-center overflow-hidden rounded-full pr-2.5 py-1 ml-2",
-                  {
-                    "pl-1": props.addressType === AddressType.WalletAddress,
-                    "pl-2.5": props.addressType !== AddressType.WalletAddress,
-                  },
-                )}
-                testID="to_address_label_evm_tag"
+              DomainType.EVM ||
+            //   Check if selected address from Your Addresses is EVM address
+            getAddressType(props.toAddress, networkName) ===
+              JellyfishAddressType.ETH ? (
+              <AddressEvmTag
+                customStyle="rounded-full pr-2.5 py-1 ml-2"
+                testID="to_address_label"
               >
-                {props.addressType === AddressType.WalletAddress && (
-                  <View style={tailwind("mr-1")}>
-                    <RandomAvatar name={props.toAddress} size={20} />
-                  </View>
-                )}
-                <ThemedTextV2
-                  ellipsizeMode="middle"
-                  numberOfLines={1}
-                  style={[
-                    tailwind("text-sm font-normal-v2"),
-                    {
-                      minWidth: 10,
-                      maxWidth: 108,
-                    },
-                  ]}
-                  testID="summary_to_value"
-                >
-                  {props.toAddressLabel != null &&
-                  props.toAddressLabel.length > 0
-                    ? props.toAddressLabel
-                    : props.toAddress}
-                </ThemedTextV2>
-              </LinearGradient>
+                <>
+                  {props.addressType === AddressType.WalletAddress && (
+                    <View style={tailwind("rounded-l-2xl mr-1")}>
+                      <RandomAvatar name={props.toAddress} size={12} />
+                    </View>
+                  )}
+                  <ThemedTextV2
+                    testID="address_input_footer_evm"
+                    style={tailwind(
+                      "text-mono-light-v2-00 text-sm font-normal-v2 tracking-[0.24]",
+                    )}
+                    light={tailwind("text-mono-light-v2-1000")}
+                    dark={tailwind("text-mono-dark-v2-1000")}
+                  >
+                    {props.toAddressLabel}
+                  </ThemedTextV2>
+                </>
+              </AddressEvmTag>
             ) : (
+              // Whitelisted address - DVM
               <ThemedViewV2
-                dark={tailwind("bg-mono-dark-v2-200")}
-                light={tailwind("bg-mono-light-v2-200")}
                 style={tailwind(
                   "flex flex-row items-center overflow-hidden rounded-full pr-2.5 py-1 ml-2",
-                  {
-                    "pl-1": props.addressType === AddressType.WalletAddress,
-                    "pl-2.5": props.addressType !== AddressType.WalletAddress,
-                  },
                 )}
+                light={tailwind("bg-mono-light-v2-200")}
+                dark={tailwind("bg-mono-dark-v2-200")}
               >
                 {props.addressType === AddressType.WalletAddress && (
-                  <View style={tailwind("mr-1")}>
-                    <RandomAvatar name={props.toAddress} size={20} />
+                  <View style={tailwind("mx-1")}>
+                    <RandomAvatar name={props.toAddress} size={18} />
                   </View>
                 )}
                 <ThemedTextV2
@@ -188,17 +182,17 @@ export function SummaryTitle(props: ISummaryTitleProps): JSX.Element {
                   numberOfLines={1}
                   style={[
                     tailwind("text-sm font-normal-v2"),
+                    // eslint-disable-next-line react-native/no-inline-styles
                     {
                       minWidth: 10,
                       maxWidth: 108,
                     },
                   ]}
-                  testID="summary_to_value"
+                  light={tailwind("text-mono-light-v2-900")}
+                  dark={tailwind("text-mono-dark-v2-900")}
+                  testID="address_input_footer"
                 >
-                  {props.toAddressLabel != null &&
-                  props.toAddressLabel.length > 0
-                    ? props.toAddressLabel
-                    : props.toAddress}
+                  {props.toAddressLabel}
                 </ThemedTextV2>
               </ThemedViewV2>
             )}

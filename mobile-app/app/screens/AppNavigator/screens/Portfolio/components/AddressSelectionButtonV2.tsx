@@ -21,6 +21,7 @@ export function AddressSelectionButtonV2(
   const { address, evmAddress } = useWalletContext();
   const displayAddress = domain === DomainType.EVM ? evmAddress : address;
   const addressLabel = useAddressLabel(displayAddress);
+
   return (
     <ThemedTouchableOpacityV2
       light={tailwind("bg-transparent")}
