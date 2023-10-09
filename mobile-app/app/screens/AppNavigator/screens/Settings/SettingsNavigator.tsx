@@ -30,6 +30,7 @@ import {
   ButtonGroupTabKey,
 } from "../Portfolio/screens/AddressBookScreen";
 import { AddOrEditAddressBookScreen } from "../Portfolio/screens/AddOrEditAddressBookScreen";
+import { EvmFeatureFaq } from "../Portfolio/screens/EvmFeatureFaq";
 
 export interface SettingsParamList {
   SettingsScreen: undefined;
@@ -276,6 +277,17 @@ export function SettingsNavigator(): JSX.Element {
           headerTitle: translate(
             "components/CfpDfipProposalsFaq",
             "About Governance",
+          ),
+        }}
+      />
+
+      <SettingsStack.Screen
+        component={EvmFeatureFaq}
+        name="EvmFeatureFaq"
+        options={{
+          headerTitle: translate(
+            "components/EvmFeatureFaq",
+            "About MetaChain (EVM)",
           ),
         }}
       />

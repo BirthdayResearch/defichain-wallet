@@ -392,7 +392,9 @@ async function send(
             const tokenId = token.id === "0_unified" ? "0" : token.id;
             const sourceTokenId = isEvmToDvm ? `${tokenId}-EVM` : tokenId;
             const targetTokenId = isEvmToDvm ? tokenId : `${tokenId}-EVM`;
-            const dvmAddress = tokenId ? address : await account.getAddress();
+            const dvmAddress = isEvmToDvm
+              ? address
+              : await account.getAddress();
             const evmAddress = isEvmToDvm
               ? await account.getEvmAddress()
               : address;
