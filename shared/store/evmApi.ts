@@ -1,5 +1,6 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { EnvironmentNetwork } from "@waveshq/walletkit-core";
+import { SecuredStoreAPI } from "@api";
 
 export const evmApi = createApi({
   reducerPath: "evmApi",
@@ -10,7 +11,7 @@ export const evmApi = createApi({
       { network: EnvironmentNetwork; evmAddress: string }
     >({
       query: ({ network = EnvironmentNetwork.TestNet, evmAddress }) => ({
-        url: `${getEthRpcUrl(network)}/api/v2/addresses/${evmAddress}`,
+        url: `${getBlockscoutUrl(network)}/api/v2/addresses/${evmAddress}`,
         method: "GET",
       }),
     }),
@@ -19,7 +20,7 @@ export const evmApi = createApi({
       { network: EnvironmentNetwork; evmAddress: string }
     >({
       query: ({ network = EnvironmentNetwork.TestNet, evmAddress }) => ({
-        url: `${getEthRpcUrl(
+        url: `${getBlockscoutUrl(
           network,
         )}/api/v2/addresses/${evmAddress}/token-balances`,
         method: "GET",
@@ -33,18 +34,37 @@ export const {
   useGetEvmTokenBalancesMutation,
 } = evmApi;
 
-const getEthRpcUrl = (network: EnvironmentNetwork) => {
-  // TODO: Add proper ethereum RPC URLs for each network
+const getBlockscoutUrl = (network: EnvironmentNetwork) => {
+  // TODO: Add proper blockscout url for each network
   switch (network) {
     case EnvironmentNetwork.LocalPlayground:
     case EnvironmentNetwork.RemotePlayground:
     case EnvironmentNetwork.DevNet:
-      return "http://34.22.222.153:4000";
+    case EnvironmentNetwork.Changi:
+      return "http://34.87.158.111:4000"; // TODO: add final blockscout url for playground and devnet
     case EnvironmentNetwork.TestNet:
       return "https://blockscout.changi.ocean.jellyfishsdk.com";
     case EnvironmentNetwork.MainNet:
     default:
       return "https://blockscout.changi.ocean.jellyfishsdk.com";
+  }
+};
+
+export const getEthRpcUrl = async () => {
+  const network = await SecuredStoreAPI.getNetwork();
+  // TODO: Add proper ethereum RPC URLs for each network
+  switch (network) {
+    case EnvironmentNetwork.LocalPlayground:
+      return "http://localhost:19551";
+    case EnvironmentNetwork.RemotePlayground:
+    case EnvironmentNetwork.DevNet:
+    case EnvironmentNetwork.Changi:
+      return "http://34.34.156.49:20551"; // TODO: add final eth rpc url for changi, devnet and remote playground
+    case EnvironmentNetwork.TestNet:
+      return "https://changi.dfi.team"; // TODO: add final eth rpc url for testnet, with proper domain name
+    case EnvironmentNetwork.MainNet:
+    default:
+      return "https://changi.dfi.team"; // TODO: add final eth rpc url for mainnet, with proper domain name
   }
 };
 
