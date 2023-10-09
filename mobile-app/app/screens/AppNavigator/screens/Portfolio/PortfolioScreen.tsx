@@ -663,7 +663,7 @@ export function PortfolioScreen({ navigation }: Props): JSX.Element {
           setDenominationCurrency={setDenominationCurrency}
         />
         <ActionButtons />
-        {domain === DomainType.DVM && <Announcements />}
+        <Announcements />
 
         {domain === DomainType.DVM && (
           <AssetsFilterRow

@@ -39,7 +39,7 @@ const getEthRpcUrl = (network: EnvironmentNetwork) => {
     case EnvironmentNetwork.LocalPlayground:
     case EnvironmentNetwork.RemotePlayground:
     case EnvironmentNetwork.DevNet:
-      return "https://blockscout.changi.ocean.jellyfishsdk.com";
+      return "http://34.22.222.153:4000";
     case EnvironmentNetwork.TestNet:
       return "https://blockscout.changi.ocean.jellyfishsdk.com";
     case EnvironmentNetwork.MainNet:
