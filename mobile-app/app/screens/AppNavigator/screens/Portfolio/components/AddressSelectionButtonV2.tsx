@@ -5,6 +5,9 @@ import {
 } from "@components/themed";
 import { tailwind } from "@tailwind";
 import { useAddressLabel } from "@hooks/useAddressLabel";
+import { useWalletAddress, WalletAddressI } from "@hooks/useWalletAddress";
+import { useEffect, useState } from "react";
+import { useLogger } from "@shared-contexts/NativeLoggingProvider";
 import { RandomAvatar } from "./RandomAvatar";
 
 interface AddressSelectionButtonProps {
@@ -15,9 +18,33 @@ interface AddressSelectionButtonProps {
 }
 
 export function AddressSelectionButtonV2(
-  props: AddressSelectionButtonProps
+  props: AddressSelectionButtonProps,
 ): JSX.Element {
   const addressLabel = useAddressLabel(props.address);
+  const logger = useLogger();
+  const { fetchWalletAddresses } = useWalletAddress();
+  const [availableAddresses, setAvailableAddresses] = useState<
+    WalletAddressI[]
+  >([]);
+  const generatedAddressLabel = availableAddresses.find(
+    (address) => address.dvm === props.address,
+  )?.generatedLabel;
+
+  const displayAddressLabel =
+    addressLabel === "" || addressLabel === null
+      ? generatedAddressLabel
+      : addressLabel;
+
+  // Getting addresses
+  const fetchAddresses = async (): Promise<void> => {
+    const addresses = await fetchWalletAddresses();
+    setAvailableAddresses(addresses);
+  };
+
+  useEffect(() => {
+    fetchAddresses().catch(logger.error);
+  }, [props.address]);
+
   return (
     <ThemedTouchableOpacityV2
       light={tailwind("bg-transparent")}
@@ -43,7 +70,7 @@ export function AddressSelectionButtonV2(
         ]}
         testID="wallet_address"
       >
-        {addressLabel != null ? addressLabel : props.address}
+        {displayAddressLabel}
       </ThemedTextV2>
     </ThemedTouchableOpacityV2>
   );
