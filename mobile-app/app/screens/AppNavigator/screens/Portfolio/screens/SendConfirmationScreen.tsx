@@ -32,7 +32,7 @@ import {
 import { useAppDispatch } from "@hooks/useAppDispatch";
 import { useAddressLabel } from "@hooks/useAddressLabel";
 import { View } from "@components";
-import { ScreenName } from "@screens/enum";
+import { ConvertDirection, ScreenName } from "@screens/enum";
 import {
   ThemedActivityIndicatorV2,
   ThemedIcon,
@@ -44,11 +44,18 @@ import {
 import { SummaryTitle } from "@components/SummaryTitle";
 import { NumberRowV2 } from "@components/NumberRowV2";
 import { SubmitButtonGroup } from "@components/SubmitButtonGroup";
+import { transferDomainSigner } from "@api/transaction/transfer_domain";
+import {
+  getAddressType,
+  AddressType as JellyfishAddressType,
+} from "@waveshq/walletkit-core";
+import { DomainType, useDomainContext } from "@contexts/DomainContext";
 import { PortfolioParamList } from "../PortfolioNavigator";
 
 type Props = StackScreenProps<PortfolioParamList, "SendConfirmationScreen">;
 
 export function SendConfirmationScreen({ route }: Props): JSX.Element {
+  const { domain } = useDomainContext();
   const { address } = useWalletContext();
   const addressLabel = useAddressLabel(address);
   const network = useNetworkContext();
@@ -96,6 +103,7 @@ export function SendConfirmationScreen({ route }: Props): JSX.Element {
         address: destination,
         token,
         amount,
+        domain,
         networkName: network.networkName,
       },
       dispatch,
@@ -348,54 +356,59 @@ interface SendForm {
   amount: BigNumber;
   address: string;
   token: WalletToken;
+  domain: DomainType;
   networkName: NetworkName;
 }
 
 async function send(
-  { address, token, amount, networkName }: SendForm,
+  { address, token, amount, domain, networkName }: SendForm,
   dispatch: Dispatch<any>,
   onBroadcast: () => void,
   logger: NativeLoggingProps,
 ): Promise<void> {
   try {
-    const to = DeFiAddress.from(networkName, address).getScript();
-
-    const signer = async (
-      account: WhaleWalletAccount,
-    ): Promise<CTransactionSegWit> => {
-      const script = await account.getScript();
-      const builder = account.withTransactionBuilder();
-
-      let signed: TransactionSegWit;
-      if (token.symbol === "DFI") {
-        /* if (amount.gte(token.amount)) signed = await builder.utxo.sendAll(to)
-        else */
-        signed = await builder.utxo.send(amount, to, script);
-      } else {
-        signed = await builder.account.accountToAccount(
-          {
-            from: script,
-            to: [
-              {
-                script: to,
-                balances: [
-                  {
-                    token: +token.id,
-                    amount,
-                  },
-                ],
-              },
-            ],
-          },
-          script,
-        );
-      }
-      return new CTransactionSegWit(signed);
-    };
+    const jellyfishAddressType = getAddressType(address, networkName);
+    const isDvmToDvmSend =
+      domain === DomainType.DVM &&
+      jellyfishAddressType !== JellyfishAddressType.ETH;
 
     dispatch(
       transactionQueue.actions.push({
-        sign: signer,
+        sign: async (account: WhaleWalletAccount) => {
+          if (isDvmToDvmSend) {
+            return await dvmToDvmSendSigner(
+              account,
+              token,
+              amount,
+              address,
+              networkName,
+            );
+          } else {
+            const sendDirection =
+              domain === DomainType.DVM
+                ? ConvertDirection.dvmToEvm
+                : ConvertDirection.evmToDvm;
+            const isEvmToDvm = sendDirection === ConvertDirection.evmToDvm;
+            const tokenId = token.id === "0_unified" ? "0" : token.id;
+            const sourceTokenId = isEvmToDvm ? `${tokenId}-EVM` : tokenId;
+            const targetTokenId = isEvmToDvm ? tokenId : `${tokenId}-EVM`;
+            const dvmAddress = tokenId ? address : await account.getAddress();
+            const evmAddress = isEvmToDvm
+              ? await account.getEvmAddress()
+              : address;
+
+            return await transferDomainSigner({
+              account,
+              sourceTokenId,
+              targetTokenId,
+              amount,
+              dvmAddress,
+              evmAddress,
+              networkName,
+              convertDirection: sendDirection,
+            });
+          }
+        },
         title: translate(
           "screens/SendConfirmationScreen",
           "Sending {{amount}} {{displaySymbol}} to {{toAddress}}",
@@ -430,4 +443,42 @@ async function send(
   } catch (e) {
     logger.error(e);
   }
+}
+
+async function dvmToDvmSendSigner(
+  account: WhaleWalletAccount,
+  token: WalletToken,
+  amount: BigNumber,
+  address: string,
+  networkName: NetworkName,
+): Promise<CTransactionSegWit> {
+  const to = DeFiAddress.from(networkName, address).getScript();
+  const script = await account.getScript();
+  const builder = account.withTransactionBuilder();
+
+  let signed: TransactionSegWit;
+  if (token.symbol === "DFI") {
+    /* if (amount.gte(token.amount)) signed = await builder.utxo.sendAll(to)
+    else */
+    signed = await builder.utxo.send(amount, to, script);
+  } else {
+    signed = await builder.account.accountToAccount(
+      {
+        from: script,
+        to: [
+          {
+            script: to,
+            balances: [
+              {
+                token: +token.id,
+                amount,
+              },
+            ],
+          },
+        ],
+      },
+      script,
+    );
+  }
+  return new CTransactionSegWit(signed);
 }

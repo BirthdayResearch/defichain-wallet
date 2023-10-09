@@ -43,7 +43,7 @@ export function useFeatureFlagContext(): FeatureFlagContextI {
 }
 
 export function FeatureFlagProvider(
-  props: React.PropsWithChildren<any>
+  props: React.PropsWithChildren<any>,
 ): JSX.Element | null {
   const { network } = useNetworkContext();
   const { url, isCustomUrl } = useServiceProviderContext();
@@ -80,7 +80,7 @@ export function FeatureFlagProvider(
         satisfies(appVersion, flag.version) &&
         flag.networks?.includes(network) &&
         flag.id === featureId &&
-        flag.stage === "beta"
+        flag.stage === "beta",
     );
   }
 
@@ -118,7 +118,7 @@ export function FeatureFlagProvider(
   }
 
   const updateEnabledFeatures = async (
-    flags: FeatureFlagID[]
+    flags: FeatureFlagID[],
   ): Promise<void> => {
     setEnabledFeatures(flags);
     await FeatureFlagPersistence.set(flags);
@@ -151,7 +151,7 @@ export function FeatureFlagProvider(
         satisfies(appVersion, flag.version) &&
         flag.networks?.includes(network) &&
         flag.platforms?.includes(Platform.OS) &&
-        flag.stage === "beta"
+        flag.stage === "beta",
     ),
   };
 

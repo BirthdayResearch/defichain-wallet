@@ -106,6 +106,7 @@ export const CreateOrEditAddressLabelForm = memo(
     const isSaveDisabled = (): boolean => {
       if (
         labelInput === undefined ||
+        labelInput === "" || // disable if label is empty or no change in label
         labelInput === addressLabel?.label ||
         labelInputErrorMessage !== ""
       ) {
