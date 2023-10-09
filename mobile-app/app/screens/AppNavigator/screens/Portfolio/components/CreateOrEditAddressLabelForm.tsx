@@ -77,7 +77,10 @@ export const CreateOrEditAddressLabelForm = memo(
 
         // check if label exists in address book
         if (
-          walletAddress.some((item) => item.generatedLabel === trimmedInput)
+          walletAddress.some(
+            (item) =>
+              item.generatedLabel === trimmedInput && item.dvm !== address,
+          )
         ) {
           setLabelInputErrorMessage("Use a unique wallet label.");
           return false;
@@ -86,7 +89,7 @@ export const CreateOrEditAddressLabelForm = memo(
         // Check walletAddressFromStore object
         if (
           Object.values(walletAddressFromStore).some(
-            (item) => item.label === trimmedInput,
+            (item) => item.label === trimmedInput && item.address !== address,
           )
         ) {
           setLabelInputErrorMessage("Use a unique wallet label");
