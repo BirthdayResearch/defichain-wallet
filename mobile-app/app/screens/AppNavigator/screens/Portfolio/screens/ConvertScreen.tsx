@@ -225,9 +225,18 @@ export function ConvertScreen(props: Props): JSX.Element {
 
   function getListByDomain(listType: TokenListType): DomainToken[] {
     if (listType === TokenListType.To) {
+      const defaultEvmTargetToken = {
+        tokenId: `${sourceToken.tokenId}-EVM`,
+        available: sourceToken.available,
+        token: {
+          ...sourceToken.token,
+          name: `${sourceToken.token.name} for EVM`,
+          domainType: DomainType.EVM,
+        },
+      };
       if (domain === DomainType.DVM && sourceToken.tokenId === "0") {
         return [
-          ...evmTokens.filter((token) => token.tokenId === "0-EVM"),
+          defaultEvmTargetToken,
           ...dvmTokens.filter((token) => token.tokenId === "0_utxo"),
         ];
       } else if (
@@ -235,6 +244,8 @@ export function ConvertScreen(props: Props): JSX.Element {
         sourceToken.tokenId === "0_utxo"
       ) {
         return dvmTokens.filter((token) => token.tokenId === "0");
+      } else if (domain === DomainType.DVM) {
+        return [defaultEvmTargetToken];
       } else if (domain === DomainType.EVM && sourceToken.tokenId === "0-EVM") {
         return dvmTokens.filter((token) => token.tokenId === "0");
       }
