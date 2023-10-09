@@ -17,7 +17,7 @@ services:
       - "/var/run/docker.sock:/var/run/docker.sock:ro"
 
   defi-blockchain:
-    image: defi/defichain:4.0.0-beta14
+    image: defi/defichain:HEAD-420563c450
     ports:
       - "19554:19554"
       - "19551:19551"
@@ -27,6 +27,7 @@ services:
       -rpcallowip=0.0.0.0/0
       -rpcbind=0.0.0.0
       -ethrpcbind=0.0.0.0
+      -rpcallowcors=http://localhost:8081
       -rpcuser=playground
       -rpcpassword=playground
       -rpcworkqueue=512

@@ -70,6 +70,7 @@ export async function transferDomainSigner({
     amount,
     dvmAddress,
     evmAddress,
+    accountEvmAddress: await account.getEvmAddress(),
     privateKey: await account.privateKey(),
   });
 
@@ -187,6 +188,7 @@ interface EvmTxSigner {
   amount: BigNumber;
   dvmAddress: string;
   evmAddress: string;
+  accountEvmAddress: string;
   privateKey: Buffer;
 }
 
@@ -197,6 +199,7 @@ async function createSignedEvmTx({
   amount,
   dvmAddress,
   evmAddress,
+  accountEvmAddress,
   privateKey,
 }: EvmTxSigner): Promise<Uint8Array> {
   let data;
@@ -220,14 +223,14 @@ async function createSignedEvmTx({
   }
 
   // TODO: Make ETH RPC URL dynamic based on network
-  // const ethRpc = new providers.JsonRpcProvider("http://localhost:19551"); // TODO: Uncomment
+  const ethRpc = new providers.JsonRpcProvider("http://localhost:19551"); // TODO: Get Eth rpc url based on network
   const wallet = new ethers.Wallet(privateKey);
 
   /* TODO: Figure out CORS issue when using the ethRpc */
   const tx: providers.TransactionRequest = {
     to: TD_CONTRACT_ADDR,
-    nonce: 0, // await ethRpc.getTransactionCount(from), // TODO: Remove hardcoded data
-    chainId: 1133, // (await rpc.getNetwork()).chainId, // TODO: Remove hardcoded data
+    nonce: await ethRpc.getTransactionCount(accountEvmAddress),
+    chainId: (await ethRpc.getNetwork()).chainId,
     data: data,
     value: 0,
     gasLimit: 0,
