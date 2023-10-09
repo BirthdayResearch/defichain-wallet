@@ -5,14 +5,11 @@ import {
 } from "@components/themed";
 import { tailwind } from "@tailwind";
 import { useAddressLabel } from "@hooks/useAddressLabel";
-import { useWalletAddress, WalletAddressI } from "@hooks/useWalletAddress";
-import { useEffect, useState } from "react";
-import { useLogger } from "@shared-contexts/NativeLoggingProvider";
+import { DomainType, useDomainContext } from "@contexts/DomainContext";
+import { useWalletContext } from "@shared-contexts/WalletContext";
 import { RandomAvatar } from "./RandomAvatar";
 
 interface AddressSelectionButtonProps {
-  address: string;
-  addressLength: number;
   onPress?: () => void;
   disabled?: boolean;
 }
@@ -20,30 +17,10 @@ interface AddressSelectionButtonProps {
 export function AddressSelectionButtonV2(
   props: AddressSelectionButtonProps,
 ): JSX.Element {
-  const addressLabel = useAddressLabel(props.address);
-  const logger = useLogger();
-  const { fetchWalletAddresses } = useWalletAddress();
-  const [availableAddresses, setAvailableAddresses] = useState<
-    WalletAddressI[]
-  >([]);
-  const generatedAddressLabel = availableAddresses.find(
-    (address) => address.dvm === props.address,
-  )?.generatedLabel;
-
-  const displayAddressLabel =
-    addressLabel === "" || addressLabel === null
-      ? generatedAddressLabel
-      : addressLabel;
-
-  // Getting addresses
-  const fetchAddresses = async (): Promise<void> => {
-    const addresses = await fetchWalletAddresses();
-    setAvailableAddresses(addresses);
-  };
-
-  useEffect(() => {
-    fetchAddresses().catch(logger.error);
-  }, [props.address]);
+  const { domain } = useDomainContext();
+  const { address, evmAddress } = useWalletContext();
+  const displayAddress = domain === DomainType.EVM ? evmAddress : address;
+  const addressLabel = useAddressLabel(displayAddress);
 
   return (
     <ThemedTouchableOpacityV2
@@ -59,7 +36,7 @@ export function AddressSelectionButtonV2(
         dark={tailwind("bg-mono-dark-v2-900")}
         style={tailwind("p-0.5 rounded-full")}
       >
-        <RandomAvatar name={props.address} size={24} />
+        <RandomAvatar name={address} size={24} />
       </ThemedViewV2>
       <ThemedTextV2
         ellipsizeMode="middle"
@@ -70,7 +47,7 @@ export function AddressSelectionButtonV2(
         ]}
         testID="wallet_address"
       >
-        {displayAddressLabel}
+        {addressLabel != null ? addressLabel : displayAddress}
       </ThemedTextV2>
     </ThemedTouchableOpacityV2>
   );

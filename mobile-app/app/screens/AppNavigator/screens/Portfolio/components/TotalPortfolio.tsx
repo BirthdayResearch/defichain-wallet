@@ -45,17 +45,20 @@ interface PortfolioButtonGroup {
 export function TotalPortfolio(props: TotalPortfolioProps): JSX.Element {
   const { hasFetchedToken } = useSelector((state: RootState) => state.wallet);
   const { domain } = useDomainContext();
+  const isEvmDomain = domain === DomainType.EVM;
   const { hasFetchedVaultsData } = useSelector(
     (state: RootState) => state.loans,
   );
   const [isExpanded, setIsExpanded] = useState<boolean>(false);
   const denominationCurrency = props.denominationCurrency; // for 'BTC' or 'DFI' denomination
-  const totalPortfolioValue = BigNumber.max(
-    0,
-    new BigNumber(props.totalAvailableValue)
-      .plus(props.totalLockedValue)
-      .minus(props.totalLoansValue),
-  );
+  const totalPortfolioValue = isEvmDomain
+    ? new BigNumber(props.totalAvailableValue)
+    : BigNumber.max(
+        0,
+        new BigNumber(props.totalAvailableValue)
+          .plus(props.totalLockedValue)
+          .minus(props.totalLoansValue),
+      );
   const [activeButtonGroup, setActiveButtonGroup] =
     useState<PortfolioButtonGroup>();
   const onCurrencySwitch = (): void => {
@@ -123,7 +126,7 @@ export function TotalPortfolio(props: TotalPortfolioProps): JSX.Element {
               }
             />
           </TouchableOpacity>
-          {domain === DomainType.DVM && (
+          {!isEvmDomain && (
             <TouchableOpacity
               activeOpacity={0.7}
               onPress={() => setIsExpanded(!isExpanded)}

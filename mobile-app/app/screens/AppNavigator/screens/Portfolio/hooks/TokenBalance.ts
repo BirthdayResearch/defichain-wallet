@@ -2,6 +2,7 @@ import { useSelector } from "react-redux";
 import BigNumber from "bignumber.js";
 import { RootState } from "@store";
 import {
+  WalletToken,
   dexPricesSelectorByDenomination,
   tokensSelector,
 } from "@waveshq/walletkit-ui/dist/store";
@@ -39,6 +40,20 @@ export function useTokenBalance(): {
   );
 
   const { evmTokens } = useEvmTokenBalances();
+  const mapDomainToken = (token: WalletToken) => {
+    return {
+      tokenId: token.id,
+      available: new BigNumber(token.amount),
+      token: {
+        name: token.name,
+        displaySymbol: token.symbol,
+        displayTextSymbol: token.symbol,
+        symbol: token.symbol,
+        isLPS: token.isLPS,
+        domainType: DomainType.EVM,
+      },
+    };
+  };
   const { dvmTokens } = useMemo(() => {
     return tokens.reduce(
       (
@@ -83,7 +98,7 @@ export function useTokenBalance(): {
 
   return {
     dvmTokens,
-    evmTokens,
+    evmTokens: evmTokens.map(mapDomainToken),
   };
 }
 
