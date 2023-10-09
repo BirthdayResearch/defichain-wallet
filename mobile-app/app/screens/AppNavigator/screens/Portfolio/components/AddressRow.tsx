@@ -65,7 +65,7 @@ export function AddressRow({
   onlyLocalAddress?: boolean;
   matchedAddress?: LocalAddress | WhitelistedAddress | undefined;
   setMatchedAddress?: (address?: LocalAddress | WhitelistedAddress) => void;
-  setAddressLabel: React.Dispatch<React.SetStateAction<string | undefined>>;
+  setAddressLabel?: React.Dispatch<React.SetStateAction<string | undefined>>;
 }): JSX.Element {
   const { fetchWalletAddresses } = useWalletAddress();
   const { domain } = useDomainContext();
@@ -152,7 +152,9 @@ export function AddressRow({
   }, 200);
 
   useEffect(() => {
-    setAddressLabel(displayAddressLabel);
+    if (setAddressLabel !== undefined) {
+      setAddressLabel(displayAddressLabel);
+    }
   }, [displayAddressLabel]);
 
   useEffect(() => {
