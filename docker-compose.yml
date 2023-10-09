@@ -12,17 +12,21 @@ services:
     ports:
       - "19553:80"
       - "19552:8080"
-      - "19551:8082"
+      # - "19551:8082"
     volumes:
       - "/var/run/docker.sock:/var/run/docker.sock:ro"
 
   defi-blockchain:
-    image: defi/defichain:master-b352814976
+    image: defi/defichain:4.0.0-beta14
+    ports:
+      - "19554:19554"
+      - "19551:19551"
     command: >
       defid
       -printtoconsole
       -rpcallowip=0.0.0.0/0
       -rpcbind=0.0.0.0
+      -ethrpcbind=0.0.0.0
       -rpcuser=playground
       -rpcpassword=playground
       -rpcworkqueue=512
@@ -55,6 +59,8 @@ services:
       -grandcentralheight=16
       -grandcentralepilogueheight=17
       -nextnetworkupgradeheight=18
+    environment:
+      - RUST_LOG=debug
 
   defi-playground:
     image: ghcr.io/birthdayresearch/playground-api:4.0.0-rc.1.2
