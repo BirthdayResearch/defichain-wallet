@@ -29,14 +29,16 @@ import { RootState } from "@store";
 import { ButtonV2 } from "@components/ButtonV2";
 import { InfoTextLinkV2 } from "@components/InfoTextLink";
 import { ThemedTouchableListItem } from "@components/themed/ThemedTouchableListItem";
+import { ConvertDirection } from "@screens/enum";
+import { DomainType, useDomainContext } from "@contexts/DomainContext";
 import { PortfolioParamList } from "../PortfolioNavigator";
-import { ConversionMode } from "./ConvertScreen";
 import { useTokenPrice } from "../hooks/TokenPrice";
 import { useDenominationCurrency } from "../hooks/PortfolioCurrency";
 import { TokenBreakdownDetailsV2 } from "../components/TokenBreakdownDetailsV2";
 import { getPrecisedTokenValue } from "../../Auctions/helpers/precision-token-value";
 import { PortfolioButtonGroupTabKey } from "../components/TotalPortfolio";
 import { TokenIcon } from "../components/TokenIcon";
+import { useTokenBalance } from "../hooks/TokenBalance";
 
 interface TokenActionItems {
   title: string;
@@ -50,7 +52,7 @@ interface TokenActionItems {
 type Props = StackScreenProps<PortfolioParamList, "TokenDetailScreen">;
 
 const usePoolPairToken = (
-  tokenParam: WalletToken
+  tokenParam: WalletToken,
 ): {
   pair?: PoolPairData;
   token: WalletToken;
@@ -58,7 +60,7 @@ const usePoolPairToken = (
 } => {
   const pairs = useSelector((state: RootState) => state.wallet.poolpairs);
   const tokens = useSelector((state: RootState) =>
-    tokensSelector(state.wallet)
+    tokensSelector(state.wallet),
   );
 
   // state
@@ -104,24 +106,28 @@ const usePoolPairToken = (
 
 export function TokenDetailScreen({ route, navigation }: Props): JSX.Element {
   const { denominationCurrency } = useDenominationCurrency();
+  const { domain } = useDomainContext();
+
   const { hasFetchedToken } = useSelector((state: RootState) => state.wallet);
   const { getTokenPrice } = useTokenPrice(denominationCurrency); // input based on selected denomination from portfolio tab
   const DFIUnified = useSelector((state: RootState) =>
-    unifiedDFISelector(state.wallet)
+    unifiedDFISelector(state.wallet),
   );
   const availableValue = getTokenPrice(
     DFIUnified.symbol,
-    new BigNumber(DFIUnified.amount)
+    new BigNumber(DFIUnified.amount),
   );
   const DFIToken = useSelector((state: RootState) =>
-    DFITokenSelector(state.wallet)
+    DFITokenSelector(state.wallet),
   );
   const DFIUtxo = useSelector((state: RootState) =>
-    DFIUtxoSelector(state.wallet)
+    DFIUtxoSelector(state.wallet),
   );
   const { pair, token, swapTokenDisplaySymbol } = usePoolPairToken(
-    route.params.token
+    route.params.token,
   );
+
+  const { dvmTokens } = useTokenBalance();
 
   // usdAmount for crypto tokens, undefined for DFI token
   const { usdAmount } = route.params.token;
@@ -180,6 +186,7 @@ export function TokenDetailScreen({ route, navigation }: Props): JSX.Element {
         token={token}
         border
         usdAmount={usdAmount ?? new BigNumber(0)}
+        isEvmDomain={domain === DomainType.EVM}
       />
 
       <View style={tailwind("p-5 pb-12")}>
@@ -239,7 +246,7 @@ export function TokenDetailScreen({ route, navigation }: Props): JSX.Element {
                   testID="send_button"
                   title={translate(
                     "screens/TokenDetailScreen",
-                    "Send to other wallet"
+                    "Send to other wallet",
                   )}
                 />
 
@@ -249,7 +256,7 @@ export function TokenDetailScreen({ route, navigation }: Props): JSX.Element {
                   isLast={false}
                   onPress={() => navigation.navigate("Receive")}
                   testID="receive_button"
-                  title={`${translate("screens/TokenDetailScreen", "Receive")}`}
+                  title={translate("screens/TokenDetailScreen", "Receive")}
                 />
               </>
             )}
@@ -259,20 +266,38 @@ export function TokenDetailScreen({ route, navigation }: Props): JSX.Element {
                 icon="swap-calls"
                 iconType="MaterialIcons"
                 onPress={() => {
-                  const mode: ConversionMode =
-                    token.id === "0_utxo" ? "utxosToAccount" : "accountToUtxos";
+                  const convertDirection: ConvertDirection =
+                    token.id === "0_utxo"
+                      ? ConvertDirection.utxosToAccount
+                      : ConvertDirection.accountToUtxos;
+
+                  const utxoToken = dvmTokens.find(
+                    (token) => token.tokenId === "0_utxo",
+                  );
+                  const dfiToken = dvmTokens.find(
+                    (token) => token.tokenId === "0",
+                  );
+                  const [sourceToken, targetToken] =
+                    convertDirection === ConvertDirection.utxosToAccount
+                      ? [utxoToken, dfiToken]
+                      : [dfiToken, utxoToken];
+
                   navigation.navigate({
                     name: "ConvertScreen",
-                    params: { mode },
+                    params: {
+                      sourceToken,
+                      targetToken,
+                      convertDirection,
+                    },
                     merge: true,
                   });
                 }}
                 testID="convert_button"
-                title={`${translate(
+                title={translate(
                   "screens/TokenDetailScreen",
                   "Convert to {{symbol}}",
-                  { symbol: `${token.id === "0_utxo" ? "Token" : "UTXO"}` }
-                )}`}
+                  { symbol: `${token.id === "0_utxo" ? "Token" : "UTXO"}` },
+                )}
               />
             )}
             {token.isLPS && pair !== undefined && (
@@ -289,7 +314,7 @@ export function TokenDetailScreen({ route, navigation }: Props): JSX.Element {
                 testID="remove_liquidity_button"
                 title={translate(
                   "screens/TokenDetailScreen",
-                  "Remove liquidity"
+                  "Remove liquidity",
                 )}
               />
             )}
@@ -325,7 +350,7 @@ export function TokenDetailScreen({ route, navigation }: Props): JSX.Element {
                   testID="add_liquidity_button"
                   label={translate(
                     "screens/TokenDetailScreen",
-                    "Add liquidity"
+                    "Add liquidity",
                   )}
                 />
               </View>
@@ -370,6 +395,7 @@ function TokenSummary(props: {
   token: WalletToken;
   border?: boolean;
   usdAmount: BigNumber;
+  isEvmDomain?: boolean;
 }): JSX.Element {
   const { denominationCurrency } = useDenominationCurrency();
   const { getTokenUrl } = useDeFiScanContext();
@@ -383,13 +409,13 @@ function TokenSummary(props: {
   };
 
   const DFIUnified = useSelector((state: RootState) =>
-    unifiedDFISelector(state.wallet)
+    unifiedDFISelector(state.wallet),
   );
   const { getTokenPrice } = useTokenPrice(denominationCurrency); // input based on selected denomination from portfolio tab
   const dfiUsdAmount = getTokenPrice(
     DFIUnified.symbol,
     new BigNumber(DFIUnified.amount),
-    DFIUnified.isLPS
+    DFIUnified.isLPS,
   );
 
   return (
@@ -405,6 +431,7 @@ function TokenSummary(props: {
             displaySymbol: props.token.displaySymbol,
           }}
           size={40}
+          isEvmToken={props.isEvmDomain}
         />
         <View style={tailwind("flex-col ml-3")}>
           <ThemedTextV2 style={tailwind("font-semibold-v2")}>
@@ -466,7 +493,7 @@ function TokenSummary(props: {
               renderText={(value) => (
                 <ThemedTextV2
                   style={tailwind(
-                    "flex-wrap text-sm font-normal-v2 text-right"
+                    "flex-wrap text-sm font-normal-v2 text-right",
                   )}
                   light={tailwind("text-mono-light-v2-700")}
                   dark={tailwind("text-mono-dark-v2-700")}

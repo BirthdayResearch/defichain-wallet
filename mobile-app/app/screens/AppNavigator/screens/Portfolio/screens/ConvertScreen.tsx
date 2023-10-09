@@ -1,4 +1,3 @@
-import { AddressToken } from "@defichain/whale-api-client/dist/api/address";
 import { NavigationProp, useNavigation } from "@react-navigation/native";
 import { StackScreenProps } from "@react-navigation/stack";
 import BigNumber from "bignumber.js";
@@ -33,16 +32,22 @@ import {
 import { useToast } from "react-native-toast-notifications";
 import { NumericFormat as NumberFormat } from "react-number-format";
 import { getNumberFormatValue } from "@api/number-format-value";
+import { ConvertDirection } from "@screens/enum";
+import {
+  TokenDropdownButton,
+  TokenDropdownButtonStatus,
+} from "@components/TokenDropdownButton";
+import { DomainType, useDomainContext } from "@contexts/DomainContext";
+import { EVMLinearGradient } from "@components/EVMLinearGradient";
 import { PortfolioParamList } from "../PortfolioNavigator";
-import { TokenListType } from "../../Dex/CompositeSwap/SwapTokenSelectionScreen";
+import {
+  TokenListType,
+  SelectionToken,
+} from "../../Dex/CompositeSwap/SwapTokenSelectionScreen";
 import { useTokenPrice } from "../hooks/TokenPrice";
+import { DomainToken, useTokenBalance } from "../hooks/TokenBalance";
 
-export type ConversionMode = "utxosToAccount" | "accountToUtxos";
 type Props = StackScreenProps<PortfolioParamList, "ConvertScreen">;
-
-interface ConversionIO extends AddressToken {
-  unit: ConvertTokenUnit;
-}
 
 enum InlineTextStatus {
   Default,
@@ -50,39 +55,44 @@ enum InlineTextStatus {
   Error,
 }
 
-export enum ConvertTokenUnit {
-  UTXO = "UTXO",
-  Token = "Token",
-}
-
 export function ConvertScreen(props: Props): JSX.Element {
   const { getTokenPrice } = useTokenPrice();
   const { isLight } = useThemeContext();
+  const { domain } = useDomainContext();
   const client = useWhaleApiClient();
   const logger = useLogger();
   const tokens = useSelector((state: RootState) =>
-    tokensSelector(state.wallet)
+    tokensSelector(state.wallet),
   );
   const toast = useToast();
   const TOAST_DURATION = 2000;
 
   // global state
   const hasPendingJob = useSelector((state: RootState) =>
-    hasTxQueued(state.transactionQueue)
+    hasTxQueued(state.transactionQueue),
   );
   const hasPendingBroadcastJob = useSelector((state: RootState) =>
-    hasOceanTXQueued(state.ocean)
+    hasOceanTXQueued(state.ocean),
   );
   const navigation = useNavigation<NavigationProp<PortfolioParamList>>();
-  const [mode, setMode] = useState(props.route.params.mode);
-  const [sourceToken, setSourceToken] = useState<ConversionIO>();
-  const [targetToken, setTargetToken] = useState<ConversionIO>();
+  const [convertDirection, setConvertDirection] = useState(
+    props.route.params.convertDirection,
+  );
+  const [sourceToken, setSourceToken] = useState<DomainToken>(
+    props.route.params.sourceToken,
+  );
+  const [targetToken, setTargetToken] = useState<DomainToken | undefined>(
+    props.route.params.targetToken,
+  );
+
   const [convAmount, setConvAmount] = useState<string>("0");
   const [fee, setFee] = useState<BigNumber>(new BigNumber(0.0001));
   const [amount, setAmount] = useState<string>("");
   const [inlineTextStatus, setInlineTextStatus] = useState<InlineTextStatus>(
-    InlineTextStatus.Default
+    InlineTextStatus.Default,
   );
+
+  const { dvmTokens, evmTokens } = useTokenBalance();
 
   useEffect(() => {
     client.fee
@@ -92,54 +102,82 @@ export function ConvertScreen(props: Props): JSX.Element {
   }, []);
 
   useEffect(() => {
-    const [source, target] = getDFIBalances(mode, tokens);
-    setSourceToken(source);
-    setTargetToken(target);
-    const sourceNum = new BigNumber(
-      source?.amount !== undefined && source.amount !== "" ? source.amount : 0
-    );
     const conversionNum = new BigNumber(amount).isNaN()
       ? new BigNumber(0)
       : new BigNumber(amount);
     const conversion = conversionNum.toString();
     setConvAmount(conversion);
-    if (conversionNum.gt(sourceNum)) {
+
+    if (conversionNum.gt(sourceToken.available)) {
       setInlineTextStatus(InlineTextStatus.Error);
     } else if (
-      isUtxoToAccount(mode) &&
-      !sourceNum.isZero() &&
-      conversionNum.toFixed(8) === sourceNum.toFixed(8)
+      convertDirection === ConvertDirection.utxosToAccount &&
+      !sourceToken.available.isZero() &&
+      conversionNum.toFixed(8) === sourceToken.available.toFixed(8)
     ) {
       setInlineTextStatus(InlineTextStatus.Warning);
     } else {
       setInlineTextStatus(InlineTextStatus.Default);
     }
-  }, [mode, JSON.stringify(tokens), amount]);
+  }, [convertDirection, JSON.stringify(tokens), amount]);
 
-  if (sourceToken === undefined || targetToken === undefined) {
+  useEffect(() => {
+    let updatedConvertDirection: ConvertDirection = convertDirection;
+
+    if (sourceToken.tokenId === "0_utxo" && targetToken?.tokenId === "0") {
+      updatedConvertDirection = ConvertDirection.utxosToAccount;
+    } else if (
+      sourceToken.tokenId === "0" &&
+      targetToken?.tokenId === "0_utxo"
+    ) {
+      updatedConvertDirection = ConvertDirection.accountToUtxos;
+    } else if (
+      sourceToken.token.domainType === DomainType.DVM &&
+      targetToken?.token.domainType === DomainType.EVM
+    ) {
+      updatedConvertDirection = ConvertDirection.dvmToEvm;
+    } else if (
+      sourceToken.token.domainType === DomainType.EVM &&
+      targetToken?.token.domainType === DomainType.DVM
+    ) {
+      updatedConvertDirection = ConvertDirection.evmToDvm;
+    }
+
+    setConvertDirection(updatedConvertDirection);
+  }, [sourceToken, targetToken]);
+
+  if (sourceToken === undefined) {
     return <></>;
   }
 
-  function convert(sourceToken: ConversionIO, targetToken: ConversionIO): void {
-    if (hasPendingJob || hasPendingBroadcastJob) {
+  function convert(sourceToken: DomainToken, targetToken?: DomainToken): void {
+    if (hasPendingJob || hasPendingBroadcastJob || targetToken === undefined) {
       return;
     }
     navigation.navigate({
       name: "ConvertConfirmationScreen",
       params: {
-        sourceUnit: sourceToken.unit,
-        sourceBalance: BigNumber.maximum(
-          new BigNumber(sourceToken.amount).minus(convAmount),
-          0
-        ),
-        targetUnit: targetToken.unit,
-        targetBalance: BigNumber.maximum(
-          new BigNumber(targetToken.amount).plus(convAmount),
-          0
-        ),
-        mode,
         amount: new BigNumber(amount),
+        convertDirection,
         fee,
+        sourceToken: {
+          tokenId: sourceToken.tokenId,
+          displaySymbol: sourceToken.token.displaySymbol,
+          balance: BigNumber.maximum(
+            new BigNumber(sourceToken.available).minus(convAmount),
+            0,
+          ),
+          displayTextSymbol: sourceToken.token.displayTextSymbol,
+        },
+        targetToken: {
+          tokenId: targetToken.tokenId,
+          displaySymbol: targetToken.token.displaySymbol,
+          balance: BigNumber.maximum(
+            new BigNumber(targetToken.available).plus(convAmount),
+            0,
+          ),
+          displayTextSymbol: targetToken.token.displayTextSymbol,
+        },
       },
       merge: true,
     });
@@ -147,10 +185,10 @@ export function ConvertScreen(props: Props): JSX.Element {
 
   function onPercentagePress(amount: string, type: AmountButtonTypes): void {
     setAmount(amount);
-    showToast(type);
+    showToast(type, domain);
   }
 
-  function showToast(type: AmountButtonTypes): void {
+  function showToast(type: AmountButtonTypes, domain: DomainType): void {
     if (sourceToken === undefined) {
       return;
     }
@@ -163,7 +201,9 @@ export function ConvertScreen(props: Props): JSX.Element {
     const toastOption = {
       unit: translate(
         "screens/ConvertScreen",
-        getDisplayUnit(sourceToken.unit)
+        `${sourceToken.token.displayTextSymbol}${
+          domain === DomainType.EVM ? "-EVM" : ""
+        }`,
       ),
       percent: type,
     };
@@ -175,15 +215,112 @@ export function ConvertScreen(props: Props): JSX.Element {
   }
 
   function onTogglePress(): void {
-    setMode(isUtxoToAccount(mode) ? "accountToUtxos" : "utxosToAccount");
+    if (!targetToken || !sourceToken) {
+      return;
+    }
+    setSourceToken(targetToken);
+    setTargetToken(sourceToken);
     setAmount("");
+  }
+
+  function getListByDomain(listType: TokenListType): DomainToken[] {
+    if (listType === TokenListType.To) {
+      if (domain === DomainType.DVM && sourceToken.tokenId === "0") {
+        return [
+          ...evmTokens.filter((token) => token.tokenId === "0-EVM"),
+          ...dvmTokens.filter((token) => token.tokenId === "0_utxo"),
+        ];
+      } else if (
+        domain === DomainType.DVM &&
+        sourceToken.tokenId === "0_utxo"
+      ) {
+        return dvmTokens.filter((token) => token.tokenId === "0");
+      } else if (domain === DomainType.EVM && sourceToken.tokenId === "0-EVM") {
+        return dvmTokens.filter((token) => token.tokenId === "0");
+      }
+    }
+
+    return domain === DomainType.DVM ? dvmTokens : evmTokens;
+  }
+
+  function onTokenSelect(item: SelectionToken, listType: TokenListType): void {
+    let updatedConvertDirection = convertDirection;
+    if (
+      sourceToken.tokenId === "0" &&
+      listType === TokenListType.To &&
+      item.tokenId === "0_utxo"
+    ) {
+      // If from:DFI-DVM -> to: accountToUtxos
+      updatedConvertDirection = ConvertDirection.accountToUtxos;
+    } else if (
+      sourceToken.tokenId === "0_utxo" &&
+      listType === TokenListType.To &&
+      item.tokenId === "0"
+    ) {
+      // If from:DFI-UTXO -> to: utxosToAccount
+      updatedConvertDirection = ConvertDirection.utxosToAccount;
+    }
+
+    let updatedTargetToken: SelectionToken | undefined = targetToken;
+
+    if (listType === TokenListType.From) {
+      /* Move to a hook since it's used in portfolio page and convert screen */
+      if (domain === DomainType.DVM && item.tokenId === "0_utxo") {
+        // If DFI UTXO -> choose DFI Token
+
+        updatedTargetToken = dvmTokens.find((token) => token.tokenId === "0");
+      } else if (domain === DomainType.DVM && item.tokenId === "0") {
+        // If DFI Token -> no default
+        updatedTargetToken = undefined;
+      } else if (domain === DomainType.EVM) {
+        // If EVM -> choose DVM equivalent
+        updatedTargetToken = dvmTokens.find(
+          (token) => token.tokenId === item.tokenId.replace("-EVM", ""),
+        );
+      } else if (domain === DomainType.DVM) {
+        // If DVM -> choose EVM equivalent
+        updatedTargetToken = evmTokens.find(
+          (token) => token.tokenId === `${item.tokenId}-EVM`,
+        );
+      }
+      /* End of what will be moved into a hook */
+    } else {
+      updatedTargetToken = item;
+    }
+
+    navigation.navigate({
+      name: "ConvertScreen",
+      params: {
+        sourceToken: listType === TokenListType.From ? item : sourceToken,
+        targetToken: updatedTargetToken,
+        convertDirection: updatedConvertDirection,
+      },
+      merge: true,
+    });
+  }
+
+  function navigateToTokenSelectionScreen(listType: TokenListType): void {
+    navigation.navigate("SwapTokenSelectionScreen", {
+      fromToken: {
+        symbol: sourceToken.token.symbol,
+        displaySymbol: sourceToken.token.displaySymbol,
+      },
+      listType: listType,
+      list: getListByDomain(listType),
+      onTokenPress: (item) => {
+        onTokenSelect(item, listType);
+      },
+      isFutureSwap: false,
+      isConvert: true,
+      isSearchDTokensOnly: false,
+    });
   }
 
   return (
     <ThemedScrollViewV2 testID="convert_screen">
       <ThemedTextV2
         style={tailwind(
-          "mx-10 text-xs font-normal-v2 mt-8 mb-4 tracking-wide-v2 uppercase"
+          "mx-10 text-xs font-normal-v2 mt-8 mb-4 tracking-wide-v2",
         )}
         light={tailwind("text-mono-light-v2-500")}
         dark={tailwind("text-mono-dark-v2-500")}
@@ -195,15 +332,18 @@ export function ConvertScreen(props: Props): JSX.Element {
           {
             totalAmount:
               sourceToken != null
-                ? BigNumber(sourceToken.amount).toFixed(8)
+                ? BigNumber(sourceToken.available).toFixed(8)
                 : "",
-            token: sourceToken != null ? sourceToken.unit : "",
-          }
+            token:
+              convertDirection === ConvertDirection.evmToDvm
+                ? `${sourceToken.token.displayTextSymbol}-EVM`
+                : sourceToken.token.displayTextSymbol,
+          },
         )}
       </ThemedTextV2>
       <View style={tailwind("mx-5")}>
         <TransactionCard
-          maxValue={new BigNumber(sourceToken.amount)}
+          maxValue={sourceToken.available}
           onChange={onPercentagePress}
           componentStyle={{
             light: tailwind("bg-transparent"),
@@ -232,14 +372,14 @@ export function ConvertScreen(props: Props): JSX.Element {
                 onChangeText={setAmount}
                 placeholder="0.00"
                 placeholderTextColor={getColor(
-                  isLight ? "mono-light-v2-900" : "mono-dark-v2-900"
+                  isLight ? "mono-light-v2-900" : "mono-dark-v2-900",
                 )}
                 testID="convert_input"
               />
               <NumberFormat
                 value={getNumberFormatValue(
-                  getTokenPrice(sourceToken.symbol, BigNumber(amount)),
-                  2
+                  getTokenPrice(sourceToken.token.symbol, BigNumber(amount)),
+                  2,
                 )}
                 thousandSeparator
                 displayType="text"
@@ -255,10 +395,16 @@ export function ConvertScreen(props: Props): JSX.Element {
                 )}
               />
             </View>
-            <FixedTokenButton
+
+            <TokenDropdownButton
+              isEvmToken={sourceToken?.token.domainType === DomainType.EVM}
+              symbol={sourceToken.token.displaySymbol}
+              displayedTextSymbol={sourceToken.token.displayTextSymbol}
               testID={TokenListType.From}
-              symbol={sourceToken?.displaySymbol}
-              unit={sourceToken.unit}
+              onPress={() => {
+                navigateToTokenSelectionScreen(TokenListType.From);
+              }}
+              status={TokenDropdownButtonStatus.Enabled}
             />
           </View>
         </TransactionCard>
@@ -287,9 +433,9 @@ export function ConvertScreen(props: Props): JSX.Element {
               ? "A small amount of UTXO is reserved for fees"
               : "",
             {
-              amount: new BigNumber(sourceToken.amount).toFixed(8),
-              unit: getDisplayUnit(sourceToken.unit),
-            }
+              amount: new BigNumber(sourceToken.available).toFixed(8),
+              unit: sourceToken.token.displaySymbol,
+            },
           )}
         </ThemedTextV2>
 
@@ -299,7 +445,10 @@ export function ConvertScreen(props: Props): JSX.Element {
             light={tailwind("border-mono-light-v2-300")}
             style={tailwind("border-b-0.5 flex-1 h-1/2")}
           />
-          <ConvertToggleButton onPress={onTogglePress} />
+          <ConvertToggleButton
+            onPress={onTogglePress}
+            isDisabled={!sourceToken || !targetToken}
+          />
           <ThemedViewV2
             dark={tailwind("border-mono-dark-v2-300")}
             light={tailwind("border-mono-light-v2-300")}
@@ -313,12 +462,12 @@ export function ConvertScreen(props: Props): JSX.Element {
           dark={tailwind("text-mono-dark-v2-500")}
           testID="tokenB_displaySymbol"
         >
-          {translate("screens/ConvertScreen", "TO RECEIVE")}
+          {translate("screens/ConvertScreen", "TO CONVERT")}
         </ThemedTextV2>
 
         <View
           style={tailwind(
-            "flex flex-row justify-between items-center pl-5 mt-4"
+            "flex flex-row justify-between items-center pl-5 mt-4",
           )}
         >
           <View style={tailwind("w-6/12 mr-2")}>
@@ -343,8 +492,13 @@ export function ConvertScreen(props: Props): JSX.Element {
             />
             <NumberFormat
               value={getNumberFormatValue(
-                getTokenPrice(targetToken.symbol, BigNumber(convAmount)),
-                2
+                targetToken === undefined
+                  ? 0
+                  : getTokenPrice(
+                      targetToken.token.symbol,
+                      BigNumber(convAmount),
+                    ),
+                2,
               )}
               thousandSeparator
               displayType="text"
@@ -360,51 +514,70 @@ export function ConvertScreen(props: Props): JSX.Element {
               )}
             />
           </View>
-          <FixedTokenButton
-            testID={TokenListType.To}
-            symbol={targetToken?.displaySymbol}
-            unit={targetToken.unit}
-          />
-        </View>
 
-        <View style={tailwind("flex-col w-full")}>
-          <ConversionResultCard
-            unit={getDisplayUnit(targetToken.unit)}
-            oriTargetAmount={targetToken.amount}
-            totalTargetAmount={
-              amount !== ""
-                ? BigNumber.maximum(
-                    new BigNumber(targetToken.amount).plus(convAmount),
-                    0
-                  ).toFixed(8)
-                : "-"
-            }
-          />
-
-          {canConvert(convAmount, sourceToken.amount) && (
-            <ThemedTextV2
-              style={tailwind("font-normal-v2 text-xs text-center pt-12")}
-              light={tailwind("text-mono-light-v2-500")}
-              dark={tailwind("text-mono-dark-v2-500")}
-            >
-              {`${translate(
-                "screens/ConvertScreen",
-                "Review full details in the next screen"
-              )}`}
-            </ThemedTextV2>
+          {sourceToken.tokenId === "0" && (
+            <TokenDropdownButton
+              isEvmToken={targetToken?.token.domainType === DomainType.EVM}
+              symbol={targetToken?.token.displaySymbol}
+              displayedTextSymbol={targetToken?.token.displayTextSymbol}
+              testID={TokenListType.To}
+              onPress={() => {
+                navigateToTokenSelectionScreen(TokenListType.To);
+              }}
+              status={TokenDropdownButtonStatus.Enabled}
+            />
+          )}
+          {sourceToken.tokenId !== "0" && targetToken && (
+            <FixedTokenButton
+              testID={TokenListType.To}
+              symbol={targetToken.token.displaySymbol}
+              unit={targetToken.token.displayTextSymbol}
+              isEvmToken={targetToken?.token.domainType === DomainType.EVM}
+            />
           )}
         </View>
+
+        {targetToken !== undefined && (
+          <View style={tailwind("flex-col w-full")}>
+            <ConversionResultCard
+              unit={`${targetToken.token.displayTextSymbol}${
+                convertDirection === ConvertDirection.dvmToEvm ? " (EVM)" : ""
+              }`}
+              oriTargetAmount={targetToken.available}
+              totalTargetAmount={
+                amount !== ""
+                  ? BigNumber.maximum(
+                      targetToken.available.plus(convAmount),
+                      0,
+                    ).toFixed(8)
+                  : "-"
+              }
+            />
+            {canConvert(convAmount, sourceToken.available) && (
+              <ThemedTextV2
+                style={tailwind("font-normal-v2 text-xs text-center pt-12")}
+                light={tailwind("text-mono-light-v2-500")}
+                dark={tailwind("text-mono-dark-v2-500")}
+              >
+                {translate(
+                  "screens/ConvertScreen",
+                  "Review full details in the next screen",
+                )}
+              </ThemedTextV2>
+            )}
+          </View>
+        )}
       </View>
       <View
         style={tailwind("w-full px-12 pb-10 mt-20", {
-          "mt-5": canConvert(convAmount, sourceToken.amount),
+          "mt-5": canConvert(convAmount, sourceToken.available),
         })}
       >
         <ButtonV2
           fillType="fill"
           label={translate("components/Button", "Continue")}
           disabled={
-            !canConvert(convAmount, sourceToken.amount) ||
+            !canConvert(convAmount, sourceToken.available) ||
             hasPendingJob ||
             hasPendingBroadcastJob
           }
@@ -417,46 +590,21 @@ export function ConvertScreen(props: Props): JSX.Element {
   );
 }
 
-function getDFIBalances(
-  mode: ConversionMode,
-  tokens: AddressToken[]
-): [source: ConversionIO, target: ConversionIO] {
-  const source: AddressToken = isUtxoToAccount(mode)
-    ? (tokens.find((tk) => tk.id === "0_utxo") as AddressToken)
-    : (tokens.find((tk) => tk.id === "0") as AddressToken);
-  const sourceUnit = isUtxoToAccount(mode)
-    ? ConvertTokenUnit.UTXO
-    : ConvertTokenUnit.Token;
-
-  const target: AddressToken = isUtxoToAccount(mode)
-    ? (tokens.find((tk) => tk.id === "0") as AddressToken)
-    : (tokens.find((tk) => tk.id === "0_utxo") as AddressToken);
-  const targetUnit = isUtxoToAccount(mode)
-    ? ConvertTokenUnit.Token
-    : ConvertTokenUnit.UTXO;
-
-  return [
-    {
-      ...source,
-      unit: sourceUnit,
-      amount: getConvertibleUtxoAmount(mode, source),
-    },
-    {
-      ...target,
-      unit: targetUnit,
-    },
-  ];
-}
-
-function ConvertToggleButton(props: { onPress: () => void }): JSX.Element {
+function ConvertToggleButton(props: {
+  isDisabled: boolean;
+  onPress: () => void;
+}): JSX.Element {
   return (
     <ThemedTouchableOpacityV2
       style={tailwind("border-0 items-center")}
       onPress={props.onPress}
+      disabled={props.isDisabled}
     >
       <ThemedViewV2
         testID="button_convert_mode_toggle"
-        style={tailwind("w-10 h-10 rounded-full items-center justify-center")}
+        style={tailwind("w-10 h-10 rounded-full items-center justify-center", {
+          "opacity-30": props.isDisabled,
+        })}
         light={tailwind("bg-mono-light-v2-900")}
         dark={tailwind("bg-mono-dark-v2-900")}
       >
@@ -474,7 +622,7 @@ function ConvertToggleButton(props: { onPress: () => void }): JSX.Element {
 
 function ConversionResultCard(props: {
   unit: string;
-  oriTargetAmount: string;
+  oriTargetAmount: BigNumber;
   totalTargetAmount: string;
 }): JSX.Element {
   return (
@@ -491,9 +639,9 @@ function ConversionResultCard(props: {
           light={tailwind("text-mono-light-v2-500")}
           dark={tailwind("text-mono-dark-v2-500")}
         >
-          {`${translate("screens/ConvertScreen", "Available {{unit}}", {
+          {translate("screens/ConvertScreen", "Available {{unit}}", {
             unit: translate("screens/ConvertScreen", props.unit),
-          })}`}
+          })}
         </ThemedTextV2>
         <NumberFormat
           displayType="text"
@@ -522,9 +670,9 @@ function ConversionResultCard(props: {
           light={tailwind("text-mono-light-v2-500")}
           dark={tailwind("text-mono-dark-v2-500")}
         >
-          {`${translate("screens/ConvertScreen", "Resulting {{unit}}", {
+          {translate("screens/ConvertScreen", "Resulting {{unit}}", {
             unit: translate("screens/ConvertScreen", props.unit),
-          })}`}
+          })}
         </ThemedTextV2>
         <NumberFormat
           decimalScale={8}
@@ -547,7 +695,7 @@ function ConversionResultCard(props: {
   );
 }
 
-function canConvert(amount: string, balance: string): boolean {
+function canConvert(amount: string, balance: BigNumber): boolean {
   return (
     new BigNumber(balance).gte(amount) &&
     !new BigNumber(amount).isZero() &&
@@ -555,36 +703,11 @@ function canConvert(amount: string, balance: string): boolean {
   );
 }
 
-function getConvertibleUtxoAmount(
-  mode: ConversionMode,
-  source: AddressToken
-): string {
-  if (mode === "accountToUtxos") {
-    return source.amount;
-  }
-
-  const utxoToReserve = "0.1";
-  const leftover = new BigNumber(source.amount).minus(
-    new BigNumber(utxoToReserve)
-  );
-  return leftover.isLessThan(0) ? "0" : leftover.toFixed();
-}
-
-function isUtxoToAccount(mode: ConversionMode): boolean {
-  return mode === "utxosToAccount";
-}
-
-export function getDisplayUnit(unit: ConvertTokenUnit): "UTXO" | "tokens" {
-  if (unit === ConvertTokenUnit.Token) {
-    return "tokens";
-  }
-  return unit;
-}
-
 function FixedTokenButton(props: {
   symbol: string;
   testID: string;
   unit: string;
+  isEvmToken?: boolean;
 }): JSX.Element {
   const Icon = getNativeIcon(props.symbol);
   return (
@@ -596,11 +719,10 @@ function FixedTokenButton(props: {
       disabled
     >
       {props.symbol !== undefined && Icon !== undefined && (
-        <>
-          <View style={tailwind("my-2")}>
+        <View style={tailwind("flex flex-row items-center")}>
+          <EVMLinearGradient isEvmToken={props.isEvmToken}>
             <Icon testID="fixed_token_icon" height={24} width={24} />
-          </View>
-
+          </EVMLinearGradient>
           <ThemedTextV2
             style={tailwind("ml-2 text-sm font-semibold-v2 my-2.5")}
             dark={tailwind("text-mono-dark-v2-900")}
@@ -609,7 +731,7 @@ function FixedTokenButton(props: {
           >
             {props.unit}
           </ThemedTextV2>
-        </>
+        </View>
       )}
     </ThemedTouchableOpacityV2>
   );

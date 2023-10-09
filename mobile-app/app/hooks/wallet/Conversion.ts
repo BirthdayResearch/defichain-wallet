@@ -8,11 +8,9 @@ import {
   unifiedDFISelector,
   transactionQueue,
 } from "@waveshq/walletkit-ui/dist/store";
-import {
-  ConversionMode,
-  dfiConversionCrafter,
-} from "@api/transaction/dfi_converter";
+import { dfiConversionCrafter } from "@api/transaction/dfi_converter";
 import { NativeLoggingProps } from "@shared-contexts/NativeLoggingProvider";
+import { ConvertDirection } from "@screens/enum";
 
 interface useConversionProps {
   inputToken: InputToken;
@@ -36,13 +34,13 @@ export function useConversion(props: useConversionProps): ConversionResult {
   const [isConversionRequired, setIsConversionRequired] = useState(false);
   const [conversionAmount, setConversionAmount] = useState(new BigNumber("0"));
   const DFIUnified = useSelector((state: RootState) =>
-    unifiedDFISelector(state.wallet)
+    unifiedDFISelector(state.wallet),
   );
   const DFIToken = useSelector((state: RootState) =>
-    DFITokenSelector(state.wallet)
+    DFITokenSelector(state.wallet),
   );
   const DFIUtxo = useSelector((state: RootState) =>
-    DFIUtxoSelector(state.wallet)
+    DFIUtxoSelector(state.wallet),
   );
   const unifiedAmount = new BigNumber(DFIUnified.amount);
   const reservedDFI = 0.1;
@@ -63,7 +61,7 @@ export function useConversion(props: useConversionProps): ConversionResult {
       setConversionAmount(
         amount
           .minus(type === "utxo" ? DFIUtxo.amount : DFIToken.amount)
-          .plus(type === "utxo" ? reservedDFI : 0)
+          .plus(type === "utxo" ? reservedDFI : 0),
       );
       setIsConversionRequired(true);
     } else {
@@ -78,11 +76,11 @@ export function useConversion(props: useConversionProps): ConversionResult {
 }
 
 export function queueConvertTransaction(
-  { mode, amount }: { mode: ConversionMode; amount: BigNumber },
+  { mode, amount }: { mode: ConvertDirection; amount: BigNumber },
   dispatch: Dispatch<any>,
   onBroadcast: () => void,
   logger: NativeLoggingProps,
-  onConfirmation: () => void = () => {}
+  onConfirmation: () => void = () => {},
 ): void {
   try {
     dispatch(
@@ -92,9 +90,9 @@ export function queueConvertTransaction(
           mode,
           onBroadcast,
           onConfirmation,
-          "CONVERTING"
-        )
-      )
+          "CONVERTING",
+        ),
+      ),
     );
   } catch (e) {
     logger.error(e);

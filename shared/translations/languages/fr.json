@@ -109,7 +109,8 @@
     "AVAILABLE ASSETS": "ACTIFS DISPONIBLES",
     "Asset value": "Valeur des actifs",
     "Sort by": "Trier par",
-    "ASSETS": "ACTIFS"
+    "ASSETS": "ACTIFS",
+    "network": "réseau"
   },
   "screens/GetDFIScreen": {
     "Get DFI": "Obtenir DFI",
@@ -215,7 +216,8 @@
     "Address deleted!": "Adresse supprimée !",
     "It may take a few seconds to delete": "La suppression peut prendre quelques secondes",
     "It may take a few seconds to update": "La mise à jour peut prendre quelques secondes",
-    "It may take a few seconds to save": "La sauvegarde peut prendre quelques secondes"
+    "It may take a few seconds to save": "La sauvegarde peut prendre quelques secondes",
+    "ADDRESS TYPE": "TYPE D’ADRESSE"
   },
   "screens/AddressControlScreen": {
     "CREATE WALLET ADDRESS": "CRÉER UNE ADRESSE DE PORTEFEUILLE",
@@ -336,6 +338,7 @@
     "Available {{unit}}": "{{unit}} Disponible",
     "Resulting {{unit}}": "{{unit}} Restants",
     "TO RECEIVE": "A RECEVOIR",
+    "TO CONVERT": "CONVERTIR",
     "tokens": "tokens"
   },
   "screens/ConvertConfirmScreen": {
@@ -355,11 +358,13 @@
     "CONFIRM TRANSACTION": "VALIDEZ LA TRANSACTION",
     "You are converting to {{unit}}": "Vous convertissez en {{unit}}",
     "Transaction fee": "Frais de transaction",
+    "Resulting Tokens (EVM)": "Tokens restants (EVM)",
     "Resulting Tokens": "Tokens restants",
     "Resulting UTXO": "UTXO restants",
     "Convert {{amount}} DFI to {{target}}": "Conversion de {{amount}} DFI en {{target}}",
     "Converting": "Conversion",
-    "Converted": "Converti"
+    "Converted": "Converti",
+    "Convert {{amount}} {{symbolA}} to {{symbolB}} tokens": "Convertir {{montant}} de tokens {{symbolA}} en {{symbolB}}"
   },
   "screens/SettingsNavigator": {
     "Settings": "Paramètres"
@@ -465,7 +470,7 @@
     "Liquidity Mining": "Liquidity mining",
     "Liquidity mining": "Liquidity mining",
     "UTXO and Tokens": "UTXO et tokens",
-    "Governance": "Governance"
+    "Governance": "Gouvernance"
   },
   "components/UtxoVsTokenFaq": {
     "About UTXO And Tokens": "UTXO et tokens",
@@ -856,7 +861,9 @@
     "Borrowing {{amount}} {{symbol}} with vault {{vaultId}}": "Emprunt de {{amount}} {{symbol}} avec le vault {{vaultId}}",
     "Borrowed {{amount}} {{symbol}}": "{{amount}} {{symbol}} empruntés",
     "Requested amount is higher than available amount.": "Le montant demandé est supérieur au montant disponible.",
-    "tokens": "tokens"
+    "tokens": "tokens",
+    "Converting {{amount}} {{symbolA}} to {{symbolB}} tokens": "Conversion de {{amount}} de tokens {{symbolA}} en {{symbolB}}",
+    "{{amount}} {{symbolA}} converted to {{symbolB}} tokens": "{{amount}} de tokens {{symbolA}} converti en {{symbolB}}"
   },
   "components/BarCodeScanner": {
     "Requesting for camera permission": "Demande d'accès à votre caméra",
@@ -2224,7 +2231,9 @@
     "Swap": "Échanger",
     "Transactions": "Transactions",
     "Future swap": "Échange à terme",
-    "Get DFI": "Obtenir DFI"
+    "Get DFI": "Obtenir DFI",
+    "Convert": "Convertir",
+    "Governance": "Gouvernance"
   },
   "screens/PoolPairDetailsScreen": {
     "{{poolPair}} Pool": "Pool {{poolPair}}",
@@ -2255,8 +2264,12 @@
     "Search with token name": "Recherche avec le nom du token",
     "Search results for “{{searchTerm}}”": "Résultats de la recherche pour “{{searchTerm}}”"
   },
+  "components/ConversionDetailsRow": {
+    "Resulting UTXO": "UTXO restants",
+    "Resulting Tokens": "Tokens restants"
+  },
   "screens/OCGProposalsScreen": {
-    "Governance": "Governance",
+    "Governance": "Gouvernance",
     "Community Funding Proposal": "Community Funding Proposal",
     "Proposal to build on top of the DeFiChain blockchain, and funded by the Community Development Fund.": "Proposition de construire sur la blockchain DeFiChain, et financée par le fonds de développement communautaire, le Community Development Fund.",
     "DeFiChain Improvement Proposal": "DeFiChain Improvement Proposal",

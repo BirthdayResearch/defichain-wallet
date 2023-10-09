@@ -207,7 +207,7 @@ exports[`DFI Balance Card should match snapshot 1`] = `
             }
             testID="total_dfi_label_name"
           >
-            DeFiChain
+            DeFiChain 
           </Text>
         </View>
       </View>

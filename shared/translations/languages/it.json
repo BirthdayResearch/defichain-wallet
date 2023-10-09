@@ -114,7 +114,8 @@
     "AVAILABLE ASSETS": "ASSET DISPONIBILI",
     "Asset value": "Valore degli asset",
     "Sort by": "Sort by",
-    "ASSETS": "ASSETS"
+    "ASSETS": "ASSETS",
+    "network": "rete"
   },
   "screens/GetDFIScreen": {
     "Get DFI": "Get DFI",
@@ -223,7 +224,8 @@
     "Address deleted!": "Address deleted!",
     "It may take a few seconds to delete": "It may take a few seconds to delete",
     "It may take a few seconds to update": "It may take a few seconds to update",
-    "It may take a few seconds to save": "It may take a few seconds to save"
+    "It may take a few seconds to save": "It may take a few seconds to save",
+    "ADDRESS TYPE": "ADDRESS TYPE"
   },
   "screens/ReceiveScreen": {
     "Receive": "Ricevi",
@@ -283,7 +285,7 @@
     "You are sending": "Stai inviando",
     "TRANSACTION DETAILS": "DETTAGLI TRANSAZIONE",
     "Recipient address": "Indirizzo del destinatario",
-    "Network": "Network",
+    "Network": "Rete",
     "Amount": "Importo",
     "Estimated fee": "Commissione stimata",
     "Remaining balance": "Saldo rimanente",
@@ -337,6 +339,7 @@
     "Available {{unit}}": "Disponibile {{unit}}",
     "Resulting {{unit}}": "Risultato {{unit}}",
     "TO RECEIVE": "TO RECEIVE",
+    "TO CONVERT": "TO CONVERT",
     "tokens": "tokens"
   },
   "screens/ConvertConfirmScreen": {
@@ -356,11 +359,13 @@
     "CONFIRM TRANSACTION": "CONFERMA LA TRANSAZIONE",
     "You are converting to {{unit}}": "You are converting to {{unit}}",
     "Transaction fee": "Transaction fee",
+    "Resulting Tokens (EVM)": "Risultato Tokens (EVM)",
     "Resulting Tokens": "Risultato Tokens",
     "Resulting UTXO": "Risultato UTXO",
     "Convert {{amount}} DFI to {{target}}": "Conversione {{amount}} DFI in {{target}}",
     "Converting": "Conversione",
-    "Converted": "Converted"
+    "Converted": "Converted",
+    "Convert {{amount}} {{symbolA}} to {{symbolB}} tokens": "Convert {{amount}} {{symbolA}} to {{symbolB}} tokens"
   },
   "screens/SettingsNavigator": {
     "Settings": "Impostazioni"
@@ -862,7 +867,9 @@
     "Borrowing {{amount}} {{symbol}} with vault {{vaultId}}": "Borrowing {{amount}} {{symbol}} with vault {{vaultId}}",
     "Borrowed {{amount}} {{symbol}}": "Borrowed {{amount}} {{symbol}}",
     "Requested amount is higher than available amount.": "Requested amount is higher than available amount.",
-    "tokens": "tokens"
+    "tokens": "tokens",
+    "Converting {{amount}} {{symbolA}} to {{symbolB}} tokens": "Converting {{amount}} {{symbolA}} to {{symbolB}} tokens",
+    "{{amount}} {{symbolA}} converted to {{symbolB}} tokens": "{{amount}} {{symbolA}} converted to {{symbolB}} tokens"
   },
   "components/BarCodeScanner": {
     "Requesting for camera permission": "Richiesta di accesso alla fotocamera",
@@ -2238,7 +2245,9 @@
     "Swap": "Scambia",
     "Transactions": "Transazioni",
     "Future swap": "Future swap",
-    "Get DFI": "Get DFI"
+    "Get DFI": "Get DFI",
+    "Convert": "Converti",
+    "Governance": "Governance"
   },
   "screens/PoolPairDetailsScreen": {
     "{{poolPair}} Pool": "{{poolPair}} Pool",
@@ -2268,6 +2277,10 @@
     "Select Token": "Select Token",
     "Search with token name": "Search with token name",
     "Search results for “{{searchTerm}}”": "Search results for “{{searchTerm}}”"
+  },
+  "components/ConversionDetailsRow": {
+    "Resulting UTXO": "Risultato UTXO",
+    "Resulting Tokens": "Risultato Tokens"
   },
   "screens/OCGProposalsScreen": {
     "Governance": "Governance",

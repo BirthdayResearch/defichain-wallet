@@ -7,8 +7,7 @@ import {
   ThemedTouchableOpacityV2,
   ThemedViewV2,
 } from "@components/themed";
-import { fromAddress } from "@defichain/jellyfish-address";
-import { useWalletAddress } from "@hooks/useWalletAddress";
+import { WalletAddressI, useWalletAddress } from "@hooks/useWalletAddress";
 import { useAppDispatch } from "@hooks/useAppDispatch";
 import { StackScreenProps } from "@react-navigation/stack";
 import { useLogger } from "@shared-contexts/NativeLoggingProvider";
@@ -27,7 +26,9 @@ import { ButtonV2 } from "@components/ButtonV2";
 import { useDeFiScanContext } from "@shared-contexts/DeFiScanContext";
 import { useToast } from "react-native-toast-notifications";
 import { debounce } from "lodash";
+import { AddressType, getAddressType } from "@waveshq/walletkit-core";
 import * as Clipboard from "expo-clipboard";
+import { DomainType } from "@contexts/DomainContext";
 import { SettingsParamList } from "../../Settings/SettingsNavigator";
 
 type Props = StackScreenProps<SettingsParamList, "AddOrEditAddressBookScreen">;
@@ -36,19 +37,41 @@ export function AddOrEditAddressBookScreen({
   route,
   navigation,
 }: Props): JSX.Element {
-  const { title, onSaveButtonPress, address, addressLabel, isAddNew } =
-    route.params;
+  const {
+    title,
+    onSaveButtonPress,
+    address,
+    addressDomainType,
+    addressLabel,
+    isAddNew,
+  } = route.params;
   const [labelInput, setLabelInput] = useState(addressLabel?.label);
   const [addressInput, setAddressInput] = useState<string | undefined>(address);
   const [isEditable, setIsEditable] = useState(isAddNew);
   const { networkName } = useNetworkContext();
   const addressBook = useSelector(
-    (state: RootState) => state.userPreferences.addressBook
+    (state: RootState) => state.userPreferences.addressBook,
   );
   const [labelInputErrorMessage, setLabelInputErrorMessage] = useState("");
   const [addressInputErrorMessage, setAddressInputErrorMessage] = useState("");
   const { fetchWalletAddresses } = useWalletAddress();
+  // array of all wallet addresses
   const [walletAddress, setWalletAddress] = useState<string[]>([]);
+
+  const AddressDomains = [
+    {
+      label: "DeFiChain (DVM)",
+      value: DomainType.DVM,
+    },
+    {
+      label: "MetaChain (EVM)",
+      value: DomainType.EVM,
+    },
+  ];
+
+  const [selectedAddressDomainType, setSelectedAddressDomainType] = useState(
+    addressDomainType ?? DomainType.DVM,
+  );
 
   const validateLabelInput = (input: string): boolean => {
     if (
@@ -56,7 +79,7 @@ export function AddOrEditAddressBookScreen({
       (input !== undefined && input.trim().length > 40)
     ) {
       setLabelInputErrorMessage(
-        "Required field. Please enter a label. Maximum of 40 characters."
+        "Required field. Please enter a label. Maximum of 40 characters.",
       );
       return false;
     }
@@ -77,11 +100,18 @@ export function AddOrEditAddressBookScreen({
   };
 
   const validateAddressInput = (input: string): boolean => {
-    const decodedAddress = fromAddress(input, networkName);
-    if (decodedAddress === undefined) {
+    const addressType = getAddressType(input, networkName);
+    if (
+      addressType === undefined ||
+      (selectedAddressDomainType === DomainType.DVM &&
+        addressType === AddressType.ETH) ||
+      (selectedAddressDomainType === DomainType.EVM &&
+        addressType !== AddressType.ETH)
+    ) {
       setAddressInputErrorMessage("Please enter a valid address");
       return false;
     }
+
     if (
       (addressBook?.[input.trim()] !== undefined &&
         (isAddNew || (!isAddNew && input.trim() !== address))) ||
@@ -90,7 +120,7 @@ export function AddOrEditAddressBookScreen({
       // check for unique address when adding new, or only when new address is different from current during edit
       // or when address exists in local address
       setAddressInputErrorMessage(
-        "This address already exists in your address book, please enter a different address"
+        "This address already exists in your address book, please enter a different address",
       );
       return false;
     }
@@ -142,8 +172,8 @@ export function AddOrEditAddressBookScreen({
         const editedAddress = {
           [addressInput]: {
             address: addressInput,
+            addressDomainType: selectedAddressDomainType,
             label: labelInput,
-            isMine: false,
             isFavourite: addressLabel?.isFavourite,
           },
         };
@@ -166,18 +196,18 @@ export function AddOrEditAddressBookScreen({
         isAddNew
           ? "Add address to address book?\n{{address}}"
           : "Update address label for\n{{address}}",
-        { address: addressInput }
+        { address: addressInput },
       ),
       message: translate("screens/Settings", "Enter passcode to continue"),
       loading: translate(
         "screens/AddOrEditAddressBookScreen",
         isAddNew
           ? "It may take a few seconds to save"
-          : "It may take a few seconds to update"
+          : "It may take a few seconds to update",
       ),
       successMessage: translate(
         "screens/AddOrEditAddressBookScreen",
-        isAddNew ? "Address saved!" : "Address label updated!"
+        isAddNew ? "Address saved!" : "Address label updated!",
       ),
     };
     dispatch(authentication.actions.prompt(auth));
@@ -197,21 +227,21 @@ export function AddOrEditAddressBookScreen({
         onError: (e) => logger.error(e),
         title: translate(
           "screens/AddOrEditAddressBookScreen",
-          "Are you sure you want to delete the address?"
+          "Are you sure you want to delete the address?",
         ),
         message: translate("screens/Settings", "Enter passcode to continue"),
         loading: translate(
           "screens/AddOrEditAddressBookScreen",
-          "It may take a few seconds to delete"
+          "It may take a few seconds to delete",
         ),
         successMessage: translate(
           "screens/AddOrEditAddressBookScreen",
-          "Address deleted!"
+          "Address deleted!",
         ),
       };
       dispatch(authentication.actions.prompt(auth));
     },
-    [navigation, dispatch, isEncrypted]
+    [navigation, dispatch, isEncrypted],
   );
 
   useLayoutEffect(() => {
@@ -226,13 +256,19 @@ export function AddOrEditAddressBookScreen({
       return;
     }
     validateAddressInput(addressInput);
-  }, [addressInput]);
+  }, [addressInput, selectedAddressDomainType]);
 
   useEffect(() => {
     let isSubscribed = true;
-    void fetchWalletAddresses().then((walletAddress) => {
+    fetchWalletAddresses().then((walletAddress: WalletAddressI[]) => {
       if (isSubscribed) {
-        setWalletAddress(walletAddress);
+        const allWalletAddresses = walletAddress.reduce(
+          (allAddress: string[], each: WalletAddressI) => {
+            return [...allAddress, ...Object.values(each)];
+          },
+          [],
+        );
+        setWalletAddress(allWalletAddresses);
       }
     });
     return () => {
@@ -245,6 +281,65 @@ export function AddOrEditAddressBookScreen({
       contentContainerStyle={tailwind("px-5 pb-16")}
       style={tailwind("flex-1")}
     >
+      <ThemedViewV2
+        light={tailwind("bg-transparent")}
+        dark={tailwind("bg-transparent")}
+        style={tailwind("w-full flex-col")}
+      >
+        <ThemedSectionTitleV2
+          testID="address_book_address_type_header"
+          text={translate("screens/AddOrEditAddressBookScreen", "ADDRESS TYPE")}
+        />
+        <ThemedViewV2
+          light={tailwind("bg-mono-light-v2-00 border-mono-light-v2-00")}
+          dark={tailwind("bg-mono-dark-v2-00 border-mono-dark-v2-00")}
+          style={tailwind("flex-col w-full border-0.5 rounded-lg-v2")}
+        >
+          {AddressDomains.map((addressDomain, index) => {
+            const isChecked = selectedAddressDomainType === addressDomain.value;
+            return (
+              <ThemedTouchableOpacityV2
+                key={addressDomain.value}
+                light={tailwind("border-mono-light-v2-300")}
+                dark={tailwind("border-mono-dark-v2-300")}
+                style={[
+                  tailwind("flex flex-row mx-5 py-4"),
+                  index !== AddressDomains.length - 1 &&
+                    tailwind("border-b-0.5"),
+                ]}
+                activeOpacity={0.7}
+                disabled={!isAddNew}
+                onPress={() => {
+                  setSelectedAddressDomainType(addressDomain.value);
+                }}
+                testID={`address_book_address_type_${addressDomain.value}${
+                  isChecked ? "_checked" : ""
+                }`}
+              >
+                <ThemedIcon
+                  size={20}
+                  name={isChecked ? "check-circle" : "radio-button-off"}
+                  light={tailwind(
+                    isChecked ? "text-green-v2 " : "text-mono-light-v2-700",
+                  )}
+                  dark={tailwind(
+                    isChecked ? "text-green-v2" : "text-mono-dark-v2-700",
+                  )}
+                  iconType="MaterialIcons"
+                  testID="address_book_address_type_header"
+                />
+                <ThemedTextV2 style={tailwind("pl-4 text-sm font-normal-v2")}>
+                  {translate(
+                    "screens/AddOrEditAddressBookScreen",
+                    addressDomain.label,
+                  )}
+                </ThemedTextV2>
+              </ThemedTouchableOpacityV2>
+            );
+          })}
+        </ThemedViewV2>
+      </ThemedViewV2>
+
       {isAddNew ? (
         <WalletTextInputV2
           value={addressInput}
@@ -265,7 +360,7 @@ export function AddOrEditAddressBookScreen({
           title={translate("screens/AddOrEditAddressBookScreen", "ADDRESS")}
           placeholder={translate(
             "screens/AddOrEditAddressBookScreen",
-            "Enter address"
+            "Enter address",
           )}
           style={tailwind("font-normal-v2 py-2.5 flex-1")}
           valid={addressInputErrorMessage === ""}
@@ -274,7 +369,7 @@ export function AddOrEditAddressBookScreen({
             type: "error",
             text: translate(
               "screens/AddOrEditAddressBookScreen",
-              addressInputErrorMessage
+              addressInputErrorMessage,
             ),
             style: tailwind("px-5"),
           }}
@@ -318,7 +413,7 @@ export function AddOrEditAddressBookScreen({
         inputContainerStyle={tailwind("px-5")}
         placeholder={translate(
           "screens/AddOrEditAddressBookScreen",
-          "Enter label"
+          "Enter label",
         )}
         style={tailwind("font-normal-v2 flex-1 py-2.5")}
         title={translate("screens/AddOrEditAddressBookScreen", "LABEL")}
@@ -327,7 +422,7 @@ export function AddOrEditAddressBookScreen({
           type: "error",
           text: translate(
             "screens/AddOrEditAddressBookScreen",
-            labelInputErrorMessage
+            labelInputErrorMessage,
           ),
           style: tailwind("px-5"),
         }}
@@ -359,7 +454,7 @@ export function AddOrEditAddressBookScreen({
         >
           {translate(
             "screens/AddOrEditAddressBookScreen",
-            "Maximum of 40 characters."
+            "Maximum of 40 characters.",
           )}
         </ThemedTextV2>
       )}
@@ -369,7 +464,7 @@ export function AddOrEditAddressBookScreen({
             light={tailwind("bg-mono-light-v2-00")}
             dark={tailwind("bg-mono-dark-v2-00 ")}
             style={tailwind(
-              "border-0 p-4.5 flex-row justify-center rounded-lg-v2 mt-6"
+              "border-0 p-4.5 flex-row justify-center rounded-lg-v2 mt-6",
             )}
             testID="delete_address"
             onPress={async () => await onDelete(address)}
@@ -377,7 +472,7 @@ export function AddOrEditAddressBookScreen({
             <Text style={tailwind("font-normal-v2 text-sm text-red-v2")}>
               {translate(
                 "screens/AddOrEditAddressBookScreen",
-                "Delete address"
+                "Delete address",
               )}
             </Text>
           </ThemedTouchableOpacityV2>
@@ -388,7 +483,7 @@ export function AddOrEditAddressBookScreen({
           >
             {translate(
               "screens/ServiceProviderScreen",
-              "This will delete the whitelisted address\nfrom your address book."
+              "This will delete the whitelisted address\nfrom your address book.",
             )}
           </ThemedTextV2>
         </>
@@ -397,7 +492,7 @@ export function AddOrEditAddressBookScreen({
           disabled={isSaveDisabled()}
           label={translate(
             "screens/AddOrEditAddressBookScreen",
-            isAddNew ? "Save address" : "Save changes"
+            isAddNew ? "Save address" : "Save changes",
           )}
           onPress={handleSubmit}
           testID="save_address_label"
@@ -422,7 +517,7 @@ function CopyAddressComponent(props: { address: string }): JSX.Element {
       setShowToast(true);
       setTimeout(() => setShowToast(false), TOAST_DURATION);
     }, 500),
-    [showToast]
+    [showToast],
   );
 
   useEffect(() => {
@@ -453,7 +548,7 @@ function CopyAddressComponent(props: { address: string }): JSX.Element {
       >
         <View
           style={tailwind(
-            "flex flex-row items-center py-4.5 px-5 justify-between"
+            "flex flex-row items-center py-4.5 px-5 justify-between",
           )}
         >
           <TouchableOpacity

@@ -9,7 +9,7 @@ import { useLogger } from "@shared-contexts/NativeLoggingProvider";
 
 interface DomainLoader {
   isDomainLoaded: boolean;
-  domain: NonNullable<string>;
+  domain: NonNullable<DomainType>;
 }
 
 interface DomainContextI {
@@ -20,23 +20,23 @@ interface DomainContextI {
 }
 
 export enum DomainType {
-  DFI = "DFI",
+  DVM = "DVM",
   EVM = "EVM",
 }
 
 export function useDomain({ api }: DomainContextI): DomainLoader {
-  const defaultDomain = DomainType.DFI;
+  const defaultDomain = DomainType.DVM;
   const logger = useLogger();
   const [isDomainLoaded, setIsDomainLoaded] = useState<boolean>(false);
-  const [domain, setDomain] = useState<NonNullable<string>>(defaultDomain);
+  const [domain, setDomain] = useState<NonNullable<DomainType>>(defaultDomain);
 
   useEffect(() => {
     api
       .get()
       .then((l) => {
-        let currentDomain: NonNullable<string> = defaultDomain;
+        let currentDomain: NonNullable<DomainType> = defaultDomain;
         if (l !== null && l !== undefined) {
-          currentDomain = l;
+          currentDomain = l as DomainType; // TODO fix this hardcoded typing if possible
         }
         setDomain(currentDomain);
       })
@@ -51,8 +51,8 @@ export function useDomain({ api }: DomainContextI): DomainLoader {
 }
 
 interface Domain {
-  domain: NonNullable<string>;
-  setDomain: (domain: NonNullable<string>) => Promise<void>;
+  domain: NonNullable<DomainType>;
+  setDomain: (domain: NonNullable<DomainType>) => Promise<void>;
 }
 
 const DomainContext = createContext<Domain>(undefined as any);
@@ -62,12 +62,12 @@ export function useDomainContext(): Domain {
 }
 
 export function DomainProvider(
-  props: DomainContextI & PropsWithChildren<any>
+  props: DomainContextI & PropsWithChildren<any>,
 ): JSX.Element | null {
   const { api } = props;
   const { domain } = useDomain({ api });
   const [currentDomain, setCurrentDomain] =
-    useState<NonNullable<string>>(domain);
+    useState<NonNullable<DomainType>>(domain);
 
   useEffect(() => {
     setCurrentDomain(domain);
@@ -79,11 +79,11 @@ export function DomainProvider(
         setDomain(DomainType.EVM);
         break;
       default:
-        setDomain(DomainType.DFI);
+        setDomain(DomainType.DVM);
     }
   }, [currentDomain]);
 
-  const setDomain = async (domain: string): Promise<void> => {
+  const setDomain = async (domain: DomainType): Promise<void> => {
     setCurrentDomain(domain);
     await api.set(domain);
   };
