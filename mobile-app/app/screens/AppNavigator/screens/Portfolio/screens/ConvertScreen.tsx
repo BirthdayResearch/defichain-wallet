@@ -37,6 +37,8 @@ import {
   TokenDropdownButtonStatus,
 } from "@components/TokenDropdownButton";
 import { DomainType, useDomainContext } from "@contexts/DomainContext";
+import { getNativeIcon } from "@components/icons/assets";
+import { EVMLinearGradient } from "@components/EVMLinearGradient";
 import { PortfolioParamList } from "../PortfolioNavigator";
 import {
   TokenListType,
@@ -225,26 +227,31 @@ export function ConvertScreen(props: Props): JSX.Element {
     if (listType === TokenListType.To) {
       const defaultEvmTargetToken = {
         tokenId: `${sourceToken.tokenId}-EVM`,
-        available: sourceToken.available,
+        available: new BigNumber(0),
         token: {
           ...sourceToken.token,
           name: `${sourceToken.token.name} for EVM`,
           domainType: DomainType.EVM,
         },
       };
+
+      // Display UTXO and the source Token
       if (domain === DomainType.DVM && sourceToken.tokenId === "0") {
         return [
           defaultEvmTargetToken,
           ...dvmTokens.filter((token) => token.tokenId === "0_utxo"),
         ];
       } else if (
+        // Display DFI (DVM)
         domain === DomainType.DVM &&
         sourceToken.tokenId === "0_utxo"
       ) {
         return dvmTokens.filter((token) => token.tokenId === "0");
       } else if (domain === DomainType.DVM) {
+        // Display EVM equivalent
         return [defaultEvmTargetToken];
       } else if (domain === DomainType.EVM && sourceToken.tokenId === "0-EVM") {
+        // Display DFI (DVM)
         return dvmTokens.filter((token) => token.tokenId === "0");
       }
     }
@@ -270,27 +277,44 @@ export function ConvertScreen(props: Props): JSX.Element {
       updatedConvertDirection = ConvertDirection.utxosToAccount;
     }
 
-    let updatedTargetToken: SelectionToken | undefined = targetToken;
+    let updatedTargetToken: SelectionToken | undefined;
+    const defaultTargetToken = {
+      tokenId:
+        domain === DomainType.DVM
+          ? `${item.tokenId}-EVM`
+          : item.tokenId.replace("-EVM", ""),
+      available: new BigNumber(0),
+      token: {
+        ...item.token,
+        name:
+          domain === DomainType.DVM
+            ? `${item.token.name} for EVM`
+            : item.token.name,
+        domainType: DomainType.EVM,
+      },
+    };
 
     if (listType === TokenListType.From) {
       /* Move to a hook since it's used in portfolio page and convert screen */
       if (domain === DomainType.DVM && item.tokenId === "0_utxo") {
         // If DFI UTXO -> choose DFI Token
-
-        updatedTargetToken = dvmTokens.find((token) => token.tokenId === "0");
+        updatedTargetToken =
+          dvmTokens.find((token) => token.tokenId === "0") ??
+          defaultTargetToken;
       } else if (domain === DomainType.DVM && item.tokenId === "0") {
         // If DFI Token -> no default
         updatedTargetToken = undefined;
       } else if (domain === DomainType.EVM) {
         // If EVM -> choose DVM equivalent
-        updatedTargetToken = dvmTokens.find(
-          (token) => token.tokenId === item.tokenId.replace("-EVM", ""),
-        );
+        updatedTargetToken =
+          dvmTokens.find(
+            (token) => token.tokenId === item.tokenId.replace("-EVM", ""),
+          ) ?? defaultTargetToken;
       } else if (domain === DomainType.DVM) {
         // If DVM -> choose EVM equivalent
-        updatedTargetToken = evmTokens.find(
-          (token) => token.tokenId === `${item.tokenId}-EVM`,
-        );
+        updatedTargetToken =
+          evmTokens.find((token) => token.tokenId === `${item.tokenId}-EVM`) ??
+          defaultTargetToken;
       }
       /* End of what will be moved into a hook */
     } else {
@@ -524,16 +548,26 @@ export function ConvertScreen(props: Props): JSX.Element {
             />
           </View>
 
-          <TokenDropdownButton
-            isEvmToken={targetToken?.token.domainType === DomainType.EVM}
-            symbol={targetToken?.token.displaySymbol}
-            displayedTextSymbol={targetToken?.token.displayTextSymbol}
-            testID={TokenListType.To}
-            onPress={() => {
-              navigateToTokenSelectionScreen(TokenListType.To);
-            }}
-            status={TokenDropdownButtonStatus.Enabled}
-          />
+          {sourceToken.tokenId === "0" && (
+            <TokenDropdownButton
+              isEvmToken={targetToken?.token.domainType === DomainType.EVM}
+              symbol={targetToken?.token.displaySymbol}
+              displayedTextSymbol={targetToken?.token.displayTextSymbol}
+              testID={TokenListType.To}
+              onPress={() => {
+                navigateToTokenSelectionScreen(TokenListType.To);
+              }}
+              status={TokenDropdownButtonStatus.Enabled}
+            />
+          )}
+          {sourceToken.tokenId !== "0" && targetToken && (
+            <FixedTokenButton
+              testID={TokenListType.To}
+              symbol={targetToken.token.displaySymbol}
+              unit={targetToken.token.displayTextSymbol}
+              isEvmToken={targetToken?.token.domainType === DomainType.EVM}
+            />
+          )}
         </View>
 
         {targetToken !== undefined && (
@@ -699,5 +733,39 @@ function canConvert(amount: string, balance: BigNumber): boolean {
     new BigNumber(balance).gte(amount) &&
     !new BigNumber(amount).isZero() &&
     new BigNumber(amount).isPositive()
+  );
+}
+
+function FixedTokenButton(props: {
+  symbol: string;
+  testID: string;
+  unit: string;
+  isEvmToken?: boolean;
+}): JSX.Element {
+  const Icon = getNativeIcon(props.symbol);
+  return (
+    <ThemedTouchableOpacityV2
+      testID={`token_select_button_${props.testID}`}
+      dark={tailwind("bg-mono-dark-v2-00 text-mono-dark-v2-500")}
+      light={tailwind("bg-mono-light-v2-00 text-mono-light-v2-500")}
+      style={tailwind("flex flex-row rounded-lg-v2 px-3")}
+      disabled
+    >
+      {props.symbol !== undefined && Icon !== undefined && (
+        <View style={tailwind("flex flex-row items-center")}>
+          <EVMLinearGradient isEvmToken={props.isEvmToken}>
+            <Icon testID="fixed_token_icon" height={24} width={24} />
+          </EVMLinearGradient>
+          <ThemedTextV2
+            style={tailwind("ml-2 text-sm font-semibold-v2 my-2.5")}
+            dark={tailwind("text-mono-dark-v2-900")}
+            light={tailwind("text-mono-light-v2-900")}
+            testID={`convert_token_button_${props.testID}_display_symbol`}
+          >
+            {props.unit}
+          </ThemedTextV2>
+        </View>
+      )}
+    </ThemedTouchableOpacityV2>
   );
 }
