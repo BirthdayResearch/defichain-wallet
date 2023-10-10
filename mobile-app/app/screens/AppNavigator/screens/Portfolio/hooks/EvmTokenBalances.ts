@@ -2,10 +2,8 @@ import { useEffect, useState } from "react";
 import { formatEther, formatUnits } from "viem";
 import { WalletToken, useNetworkContext } from "@waveshq/walletkit-ui";
 import { utils } from "ethers";
-import { DomainType, useDomainContext } from "@contexts/DomainContext";
 import { batch, useSelector } from "react-redux";
 import { RootState } from "@store";
-import { useIsFocused } from "@react-navigation/native";
 import { TokenData } from "@defichain/whale-api-client/dist/api/tokens";
 import { useLogger } from "@shared-contexts/NativeLoggingProvider";
 import { useWalletContext } from "@shared-contexts/WalletContext";
@@ -23,8 +21,6 @@ export function useEvmTokenBalances(): { evmTokens: WalletToken[] } {
     useState<AssociatedToken>({});
   const blockCount = useSelector((state: RootState) => state.block.count);
   const { network } = useNetworkContext();
-  const isFocused = useIsFocused();
-  const { domain } = useDomainContext();
   const logger = useLogger();
 
   const { allTokens } = useSelector((state: RootState) => state.wallet);
@@ -32,23 +28,6 @@ export function useEvmTokenBalances(): { evmTokens: WalletToken[] } {
     (state: RootState) => state.evm,
   );
   const dispatch = useAppDispatch();
-
-  useEffect(() => {
-    batch(() => {
-      dispatch(fetchEvmWalletDetails({ network, evmAddress }));
-      dispatch(fetchEvmTokenBalances({ network, evmAddress }));
-    });
-  }, [network, evmAddress, blockCount]);
-
-  useEffect(() => {
-    setAllTokensWithAddress(
-      Object.keys(allTokens).reduce((current, each) => {
-        const tokenDetails = allTokens[each];
-        const key = getAddressFromDST20TokenId(tokenDetails.id);
-        return Object.assign(current, { [key]: tokenDetails });
-      }, {}),
-    );
-  }, [allTokens]);
 
   const getEvmTokens = async () => {
     const dfiToken: WalletToken = {
@@ -105,10 +84,25 @@ export function useEvmTokenBalances(): { evmTokens: WalletToken[] } {
   };
 
   useEffect(() => {
-    if (isFocused && domain === DomainType.EVM) {
-      getEvmTokens();
-    }
-  }, [evmAddress, blockCount, isFocused, domain, evmWalletDetails]);
+    batch(() => {
+      dispatch(fetchEvmWalletDetails({ network, evmAddress }));
+      dispatch(fetchEvmTokenBalances({ network, evmAddress }));
+    });
+  }, [network, evmAddress, blockCount]);
+
+  useEffect(() => {
+    setAllTokensWithAddress(
+      Object.keys(allTokens).reduce((current, each) => {
+        const tokenDetails = allTokens[each];
+        const key = getAddressFromDST20TokenId(tokenDetails.id);
+        return Object.assign(current, { [key]: tokenDetails });
+      }, {}),
+    );
+  }, [allTokens]);
+
+  useEffect(() => {
+    getEvmTokens();
+  }, [evmWalletDetails]);
 
   return { evmTokens };
 }
