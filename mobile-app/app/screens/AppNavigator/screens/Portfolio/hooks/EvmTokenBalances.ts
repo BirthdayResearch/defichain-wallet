@@ -3,7 +3,7 @@ import { formatEther, formatUnits } from "viem";
 import { WalletToken, useNetworkContext } from "@waveshq/walletkit-ui";
 import { utils } from "ethers";
 import { DomainType, useDomainContext } from "@contexts/DomainContext";
-import { useSelector } from "react-redux";
+import { batch, useSelector } from "react-redux";
 import { RootState } from "@store";
 import { useIsFocused } from "@react-navigation/native";
 import { TokenData } from "@defichain/whale-api-client/dist/api/tokens";
@@ -34,8 +34,10 @@ export function useEvmTokenBalances(): { evmTokens: WalletToken[] } {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    dispatch(fetchEvmWalletDetails({ network, evmAddress }));
-    dispatch(fetchEvmTokenBalances({ network, evmAddress }));
+    batch(() => {
+      dispatch(fetchEvmWalletDetails({ network, evmAddress }));
+      dispatch(fetchEvmTokenBalances({ network, evmAddress }));
+    });
   }, [network, evmAddress, blockCount]);
 
   useEffect(() => {
