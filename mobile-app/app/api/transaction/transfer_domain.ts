@@ -12,7 +12,7 @@ import { fromAddress, Eth } from "@defichain/jellyfish-address";
 import { NetworkName } from "@defichain/jellyfish-network";
 import { ConvertDirection } from "@screens/enum";
 import { parseUnits } from "ethers/lib/utils";
-import { getEthRpcUrl } from "@store/evmApi";
+import { getEthRpcUrl } from "@store/evm";
 import TransferDomainV1 from "../../contracts/TransferDomainV1.json";
 
 const TD_CONTRACT_ADDR = "0xdf00000000000000000000000000000000000001";
