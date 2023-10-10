@@ -12,6 +12,7 @@ import { fromAddress, Eth } from "@defichain/jellyfish-address";
 import { NetworkName } from "@defichain/jellyfish-network";
 import { ConvertDirection } from "@screens/enum";
 import { parseUnits } from "ethers/lib/utils";
+import { getEthRpcUrl } from "@store/evmApi";
 import TransferDomainV1 from "../../contracts/TransferDomainV1.json";
 
 const TD_CONTRACT_ADDR = "0xdf00000000000000000000000000000000000001";
@@ -222,8 +223,7 @@ async function createSignedEvmTx({
     data = tdFace.encodeFunctionData("transferDST20", transferDST20);
   }
 
-  // TODO: Make ETH RPC URL dynamic based on network
-  const ethRpc = new providers.JsonRpcProvider("http://localhost:19551"); // TODO: Get Eth rpc url based on network
+  const ethRpc = new providers.JsonRpcProvider(await getEthRpcUrl());
   const wallet = new ethers.Wallet(privateKey);
 
   /* TODO: Figure out CORS issue when using the ethRpc */
