@@ -47,6 +47,7 @@ import { WalletToast } from "@components/WalletToast";
 import { ServiceProviderPersistence } from "@api/wallet/service_provider";
 import { FavouritePoolpairProvider } from "@contexts/FavouritePoolpairContext";
 import BigNumber from "bignumber.js";
+import { EVMProvider } from "@contexts/EVMProvider";
 
 /**
  * Loads
@@ -120,7 +121,9 @@ export default function App(): JSX.Element | null {
                                       >
                                         <ToastProvider renderType={customToast}>
                                           <FavouritePoolpairProvider>
-                                            <Main />
+                                            <EVMProvider>
+                                              <Main />
+                                            </EVMProvider>
                                           </FavouritePoolpairProvider>
                                         </ToastProvider>
                                       </GestureHandlerRootView>

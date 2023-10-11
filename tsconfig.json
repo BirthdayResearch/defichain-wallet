@@ -25,6 +25,8 @@
       "@shared-api/*": ["../../shared/api/*"],
       "@shared-contexts": ["../../shared/contexts"],
       "@shared-contexts/*": ["../../shared/contexts/*"],
+      "@shared-contracts": ["../../shared/contracts"],
+      "@shared-contracts/*": ["../../shared/contracts/*"],
       "@shared-types": ["../../shared/types"],
       "@shared-types/*": ["../../shared/types/*"],
       "@screens/*": ["screens/*"],
