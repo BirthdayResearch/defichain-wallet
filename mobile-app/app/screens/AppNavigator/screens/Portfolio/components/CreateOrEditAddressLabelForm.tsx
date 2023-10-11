@@ -10,7 +10,7 @@ import { LabeledAddress, LocalAddress } from "@store/userPreferences";
 import { useThemeContext } from "@waveshq/walletkit-ui";
 import { WalletTextInputV2 } from "@components/WalletTextInputV2";
 import { SubmitButtonGroup } from "@components/SubmitButtonGroup";
-import { WalletAddressI, useWalletAddress } from "@hooks/useWalletAddress";
+import { useWalletAddress, WalletAddressI } from "@hooks/useWalletAddress";
 import { useSelector } from "react-redux";
 import { RootState } from "@store";
 import { DomainType, useDomainContext } from "@contexts/DomainContext";
@@ -63,9 +63,36 @@ export const CreateOrEditAddressLabelForm = memo(
     }, [labelInput]);
 
     const validateLabelInput = (input: string): boolean => {
-      if (input !== undefined) {
+      const trimmedInput = input.trim();
+      if (trimmedInput !== undefined) {
         if (input.trim().length > 40) {
           setLabelInputErrorMessage("Invalid label. Maximum of 40 characters.");
+          return false;
+        }
+
+        if (trimmedInput === "") {
+          setLabelInputErrorMessage("Label cannot be empty.");
+          return false;
+        }
+
+        // check if label exists in address book
+        if (
+          walletAddress.some(
+            (item) =>
+              item.generatedLabel === trimmedInput && item.dvm !== address,
+          )
+        ) {
+          setLabelInputErrorMessage("Use a unique wallet label.");
+          return false;
+        }
+
+        // Check walletAddressFromStore object
+        if (
+          Object.values(walletAddressFromStore).some(
+            (item) => item.label === trimmedInput && item.address !== address,
+          )
+        ) {
+          setLabelInputErrorMessage("Use a unique wallet label");
           return false;
         }
       }
@@ -104,16 +131,12 @@ export const CreateOrEditAddressLabelForm = memo(
     };
 
     const isSaveDisabled = (): boolean => {
-      if (
+      return (
         labelInput === undefined ||
-        labelInput === "" || // disable if label is empty or no change in label
+        labelInput === "" ||
         labelInput === addressLabel?.label ||
         labelInputErrorMessage !== ""
-      ) {
-        return true;
-      }
-
-      return false;
+      );
     };
 
     return (
