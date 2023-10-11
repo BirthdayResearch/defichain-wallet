@@ -103,7 +103,7 @@ export function useEvmTokenBalances(): { evmTokens: WalletToken[] } {
         );
       });
     }
-  }, [network, evmAddress, blockCount, isFocused, tokenIds]);
+  }, [network, evmAddress, blockCount, isFocused]);
 
   useEffect(() => {
     setAllTokensWithAddress(
