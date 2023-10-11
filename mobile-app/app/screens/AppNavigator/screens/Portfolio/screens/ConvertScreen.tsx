@@ -23,7 +23,6 @@ import {
 import { getColor, tailwind } from "@tailwind";
 import { translate } from "@translations";
 import { useLogger } from "@shared-contexts/NativeLoggingProvider";
-import { getNativeIcon } from "@components/icons/assets";
 import { ButtonV2 } from "@components/ButtonV2";
 import {
   AmountButtonTypes,
@@ -38,6 +37,7 @@ import {
   TokenDropdownButtonStatus,
 } from "@components/TokenDropdownButton";
 import { DomainType, useDomainContext } from "@contexts/DomainContext";
+import { getNativeIcon } from "@components/icons/assets";
 import { EVMLinearGradient } from "@components/EVMLinearGradient";
 import { PortfolioParamList } from "../PortfolioNavigator";
 import {
@@ -225,17 +225,33 @@ export function ConvertScreen(props: Props): JSX.Element {
 
   function getListByDomain(listType: TokenListType): DomainToken[] {
     if (listType === TokenListType.To) {
+      const defaultEvmTargetToken = {
+        tokenId: `${sourceToken.tokenId}-EVM`,
+        available: new BigNumber(0),
+        token: {
+          ...sourceToken.token,
+          name: `${sourceToken.token.name} for EVM`,
+          domainType: DomainType.EVM,
+        },
+      };
+
+      // Display UTXO and the source Token
       if (domain === DomainType.DVM && sourceToken.tokenId === "0") {
         return [
-          ...evmTokens.filter((token) => token.tokenId === "0-EVM"),
+          defaultEvmTargetToken,
           ...dvmTokens.filter((token) => token.tokenId === "0_utxo"),
         ];
       } else if (
+        // Display DFI (DVM)
         domain === DomainType.DVM &&
         sourceToken.tokenId === "0_utxo"
       ) {
         return dvmTokens.filter((token) => token.tokenId === "0");
+      } else if (domain === DomainType.DVM) {
+        // Display EVM equivalent
+        return [defaultEvmTargetToken];
       } else if (domain === DomainType.EVM && sourceToken.tokenId === "0-EVM") {
+        // Display DFI (DVM)
         return dvmTokens.filter((token) => token.tokenId === "0");
       }
     }
@@ -261,27 +277,44 @@ export function ConvertScreen(props: Props): JSX.Element {
       updatedConvertDirection = ConvertDirection.utxosToAccount;
     }
 
-    let updatedTargetToken: SelectionToken | undefined = targetToken;
+    let updatedTargetToken: SelectionToken | undefined;
+    const defaultTargetToken = {
+      tokenId:
+        domain === DomainType.DVM
+          ? `${item.tokenId}-EVM`
+          : item.tokenId.replace("-EVM", ""),
+      available: new BigNumber(0),
+      token: {
+        ...item.token,
+        name:
+          domain === DomainType.DVM
+            ? `${item.token.name} for EVM`
+            : item.token.name,
+        domainType: DomainType.EVM,
+      },
+    };
 
     if (listType === TokenListType.From) {
       /* Move to a hook since it's used in portfolio page and convert screen */
       if (domain === DomainType.DVM && item.tokenId === "0_utxo") {
         // If DFI UTXO -> choose DFI Token
-
-        updatedTargetToken = dvmTokens.find((token) => token.tokenId === "0");
+        updatedTargetToken =
+          dvmTokens.find((token) => token.tokenId === "0") ??
+          defaultTargetToken;
       } else if (domain === DomainType.DVM && item.tokenId === "0") {
         // If DFI Token -> no default
         updatedTargetToken = undefined;
       } else if (domain === DomainType.EVM) {
         // If EVM -> choose DVM equivalent
-        updatedTargetToken = dvmTokens.find(
-          (token) => token.tokenId === item.tokenId.replace("-EVM", ""),
-        );
+        updatedTargetToken =
+          dvmTokens.find(
+            (token) => token.tokenId === item.tokenId.replace("-EVM", ""),
+          ) ?? defaultTargetToken;
       } else if (domain === DomainType.DVM) {
         // If DVM -> choose EVM equivalent
-        updatedTargetToken = evmTokens.find(
-          (token) => token.tokenId === `${item.tokenId}-EVM`,
-        );
+        updatedTargetToken =
+          evmTokens.find((token) => token.tokenId === `${item.tokenId}-EVM`) ??
+          defaultTargetToken;
       }
       /* End of what will be moved into a hook */
     } else {

@@ -32,6 +32,7 @@ import { PortfolioParamList } from "../PortfolioNavigator";
 import { ActiveUSDValueV2 } from "../../Loans/VaultDetail/components/ActiveUSDValueV2";
 import { TokenIcon } from "../components/TokenIcon";
 import { TokenNameText } from "../components/TokenNameText";
+import { useEvmTokenBalances } from "../hooks/EvmTokenBalances";
 
 export interface TokenSelectionItem extends BottomSheetToken {
   usdAmount: BigNumber;
@@ -57,6 +58,8 @@ export function TokenSelectionScreen(): JSX.Element {
   const tokens = useSelector((state: RootState) =>
     tokensSelector(state.wallet),
   );
+  const { evmTokens } = useEvmTokenBalances();
+
   const { hasFetchedToken } = useSelector((state: RootState) => state.wallet);
   const [searchString, setSearchString] = useState("");
   const { getTokenPrice } = useTokenPrice();
@@ -65,8 +68,7 @@ export function TokenSelectionScreen(): JSX.Element {
   const [isSearchFocus, setIsSearchFocus] = useState(false);
   const searchRef = useRef<TextInput>();
 
-  const filteredTokensByDomain =
-    domain === DomainType.EVM ? tokens.filter((t) => !t.isLPS) : tokens;
+  const filteredTokensByDomain = domain === DomainType.EVM ? evmTokens : tokens;
 
   const tokensWithBalance = getTokensWithBalance(
     filteredTokensByDomain,

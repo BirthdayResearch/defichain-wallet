@@ -119,7 +119,7 @@ function NavigateItemRow({
       onPress={onPress}
       style={tailwind(
         "flex ml-5 mr-4 py-4.5 flex-row items-center justify-between",
-        { "border-b": border }
+        { "border-b": border },
       )}
       testID={testID}
     >

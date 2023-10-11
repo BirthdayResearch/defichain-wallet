@@ -47,6 +47,7 @@ export function ActionButtons(): JSX.Element {
   const isEvmDomain = domain === DomainType.EVM;
 
   const { dvmTokens, evmTokens } = useTokenBalance();
+
   const navigation = useNavigation<NavigationProp<PortfolioParamList>>();
   const futureSwaps = useSelector((state: RootState) =>
     futureSwapSelector(state),
@@ -83,6 +84,22 @@ export function ActionButtons(): JSX.Element {
       listType: listType,
       list: domain === DomainType.EVM ? evmTokens : dvmTokens,
       onTokenPress: (item) => {
+        const defaultTargetToken = {
+          tokenId:
+            domain === DomainType.DVM
+              ? `${item.tokenId}-EVM`
+              : item.tokenId.replace("-EVM", ""),
+          available: new BigNumber(0),
+          token: {
+            ...item.token,
+            name:
+              domain === DomainType.DVM
+                ? `${item.token.name} for EVM`
+                : item.token.name,
+            domainType: DomainType.EVM,
+          },
+        };
+
         let targetToken: SelectionToken | undefined;
         if (domain === DomainType.DVM && item.tokenId === "0_utxo") {
           // If DFI UTXO -> choose DFI Token
@@ -92,14 +109,16 @@ export function ActionButtons(): JSX.Element {
           targetToken = undefined;
         } else if (domain === DomainType.EVM) {
           // If EVM -> choose DVM equivalent
-          targetToken = dvmTokens.find(
-            (token) => token.tokenId === item.tokenId.replace("-EVM", ""),
-          );
+          targetToken =
+            dvmTokens.find(
+              (token) => token.tokenId === item.tokenId.replace("-EVM", ""),
+            ) ?? defaultTargetToken;
         } else if (domain === DomainType.DVM) {
           // If DVM -> choose EVM equivalent
-          targetToken = evmTokens.find(
-            (token) => token.tokenId === `${item.tokenId}-EVM`,
-          );
+          targetToken =
+            evmTokens.find(
+              (token) => token.tokenId === `${item.tokenId}-EVM`,
+            ) ?? defaultTargetToken;
         }
 
         navigation.navigate({

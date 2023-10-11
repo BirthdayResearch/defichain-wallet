@@ -225,7 +225,7 @@
     "Copy": "Kopieren",
     "Share": "Teilen",
     "WALLET ADDRESS": "WALLETADRESSE",
-    "Use QR or Wallet address to receive any tokens (DST) or DFI": "Verwende den QR-Code oder die Wallet-Adresse, um Token (DST) oder DFI zu erhalten",
+    "Scan QR code to receive any dTokens (eg. DUSD,dBTC..) or DFI": "Scanne den QR-Code, um dToken (z.B. DUSD, dBTC...) oder DFI zu erhalten",
     "Get DFI": "DFI erwerben"
   },
   "components/toaster": {

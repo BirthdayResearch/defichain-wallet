@@ -91,6 +91,7 @@ import {
 } from "./components/TotalPortfolio";
 import { useTokenPrice } from "./hooks/TokenPrice";
 import { PortfolioParamList } from "./PortfolioNavigator";
+import { useEvmTokenBalances } from "./hooks/EvmTokenBalances";
 
 type Props = StackScreenProps<PortfolioParamList, "PortfolioScreen">;
 
@@ -105,7 +106,7 @@ export function PortfolioScreen({ navigation }: Props): JSX.Element {
   const height = useBottomTabBarHeight();
   const client = useWhaleApiClient();
   const whaleRpcClient = useWhaleRpcClient();
-  const { address, addressLength } = useWalletContext();
+  const { address } = useWalletContext();
   const { denominationCurrency, setDenominationCurrency } =
     useDenominationCurrency();
 
@@ -200,8 +201,9 @@ export function PortfolioScreen({ navigation }: Props): JSX.Element {
   const tokens = useSelector((state: RootState) =>
     tokensSelector(state.wallet),
   );
+  const { evmTokens } = useEvmTokenBalances();
   const { totalAvailableValue, dstTokens } = useMemo(() => {
-    return tokens.reduce(
+    return (domain === DomainType.EVM ? evmTokens : tokens).reduce(
       (
         {
           totalAvailableValue,
@@ -242,7 +244,7 @@ export function PortfolioScreen({ navigation }: Props): JSX.Element {
         dstTokens: [],
       },
     );
-  }, [prices, tokens]);
+  }, [prices, tokens, domain, evmTokens]);
 
   // add token that are 100% locked as collateral into dstTokens
   const combinedTokens = useMemo(() => {
@@ -634,11 +636,7 @@ export function PortfolioScreen({ navigation }: Props): JSX.Element {
           dark={tailwind("bg-mono-dark-v2-00")}
           style={tailwind("px-5 flex flex-row items-center")}
         >
-          <AddressSelectionButtonV2
-            address={address}
-            addressLength={addressLength}
-            onPress={() => expandModal(false)}
-          />
+          <AddressSelectionButtonV2 onPress={() => expandModal(false)} />
           <ThemedTouchableOpacityV2
             testID="toggle_balance"
             style={tailwind("ml-2")}
@@ -665,7 +663,7 @@ export function PortfolioScreen({ navigation }: Props): JSX.Element {
           setDenominationCurrency={setDenominationCurrency}
         />
         <ActionButtons />
-        {domain === DomainType.DVM && <Announcements />}
+        <Announcements />
 
         {domain === DomainType.DVM && (
           <AssetsFilterRow
