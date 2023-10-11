@@ -116,6 +116,7 @@ export function SwapTokenSelectionScreen({ route }: Props): JSX.Element {
               "screens/SwapTokenSelectionScreen",
               "Search token",
             )}
+            testID="search_input"
             containerStyle={tailwind([
               "border-0.5",
               isSearchFocus
