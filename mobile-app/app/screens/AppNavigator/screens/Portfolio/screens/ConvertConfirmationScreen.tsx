@@ -239,7 +239,7 @@ export function ConvertConfirmationScreen({ route }: Props): JSX.Element {
               fee,
             }),
             suffix: ` ${sourceToken.displayTextSymbol}${
-              convertDirection === ConvertDirection.dvmToEvm ? "" : "-EVM"
+              convertDirection !== ConvertDirection.evmToDvm ? "" : "-EVM"
             }`,
             testID: "resulting_tokens_value",
             themedProps: {
