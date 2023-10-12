@@ -56,6 +56,7 @@ enum InlineTextStatus {
 }
 
 export function ConvertScreen(props: Props): JSX.Element {
+  const isEVMFeatureEnabled = true;
   const { getTokenPrice } = useTokenPrice();
   const { isLight } = useThemeContext();
   const { domain } = useDomainContext();
@@ -235,24 +236,21 @@ export function ConvertScreen(props: Props): JSX.Element {
         },
       };
 
-      // Display UTXO and the source Token
-      if (domain === DomainType.DVM && sourceToken.tokenId === "0") {
-        return [
-          defaultEvmTargetToken,
-          ...dvmTokens.filter((token) => token.tokenId === "0_utxo"),
-        ];
-      } else if (
-        // Display DFI (DVM)
-        domain === DomainType.DVM &&
-        sourceToken.tokenId === "0_utxo"
-      ) {
-        return dvmTokens.filter((token) => token.tokenId === "0");
-      } else if (domain === DomainType.DVM) {
-        // Display EVM equivalent
-        return [defaultEvmTargetToken];
+      if (domain === DomainType.DVM) {
+        if (sourceToken.tokenId === "0") {
+          return isEVMFeatureEnabled
+            ? [
+                defaultEvmTargetToken,
+                ...dvmTokens.filter((token) => token.tokenId === "0_utxo"),
+              ]
+            : dvmTokens.filter((token) => token.tokenId === "0_utxo");
+        } else if (sourceToken.tokenId === "0_utxo") {
+          return dvmTokens.filter((token) => token.tokenId === "0");
+        } else {
+          return isEVMFeatureEnabled ? [defaultEvmTargetToken] : [];
+        }
       } else if (domain === DomainType.EVM && sourceToken.tokenId === "0-EVM") {
-        // Display DFI (DVM)
-        return dvmTokens.filter((token) => token.tokenId === "0");
+        return isEVMFeatureEnabled ? [defaultEvmTargetToken] : [];
       }
     }
 
@@ -429,16 +427,26 @@ export function ConvertScreen(props: Props): JSX.Element {
               />
             </View>
 
-            <TokenDropdownButton
-              isEvmToken={sourceToken?.token.domainType === DomainType.EVM}
-              symbol={sourceToken.token.displaySymbol}
-              displayedTextSymbol={sourceToken.token.displayTextSymbol}
-              testID={TokenListType.From}
-              onPress={() => {
-                navigateToTokenSelectionScreen(TokenListType.From);
-              }}
-              status={TokenDropdownButtonStatus.Enabled}
-            />
+            {isEVMFeatureEnabled && (
+              <TokenDropdownButton
+                isEvmToken={sourceToken?.token.domainType === DomainType.EVM}
+                symbol={sourceToken.token.displaySymbol}
+                displayedTextSymbol={sourceToken.token.displayTextSymbol}
+                testID={TokenListType.From}
+                onPress={() => {
+                  navigateToTokenSelectionScreen(TokenListType.From);
+                }}
+                status={TokenDropdownButtonStatus.Enabled}
+              />
+            )}
+            {!isEVMFeatureEnabled && (
+              <FixedTokenButton
+                testID={TokenListType.From}
+                symbol={sourceToken.token.displaySymbol}
+                unit={sourceToken.token.displayTextSymbol}
+                isEvmToken={false}
+              />
+            )}
           </View>
         </TransactionCard>
 
@@ -548,7 +556,7 @@ export function ConvertScreen(props: Props): JSX.Element {
             />
           </View>
 
-          {sourceToken.tokenId === "0" && (
+          {sourceToken.tokenId === "0" && isEVMFeatureEnabled && (
             <TokenDropdownButton
               isEvmToken={targetToken?.token.domainType === DomainType.EVM}
               symbol={targetToken?.token.displaySymbol}
@@ -560,7 +568,8 @@ export function ConvertScreen(props: Props): JSX.Element {
               status={TokenDropdownButtonStatus.Enabled}
             />
           )}
-          {sourceToken.tokenId !== "0" && targetToken && (
+          {((sourceToken.tokenId !== "0" && targetToken) ||
+            (!isEVMFeatureEnabled && targetToken)) && (
             <FixedTokenButton
               testID={TokenListType.To}
               symbol={targetToken.token.displaySymbol}

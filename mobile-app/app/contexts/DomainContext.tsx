@@ -52,6 +52,7 @@ export function useDomain({ api }: DomainContextI): DomainLoader {
 
 interface Domain {
   domain: NonNullable<DomainType>;
+  isEnabled: boolean;
   setDomain: (domain: NonNullable<DomainType>) => Promise<void>;
 }
 
@@ -64,6 +65,7 @@ export function useDomainContext(): Domain {
 export function DomainProvider(
   props: DomainContextI & PropsWithChildren<any>,
 ): JSX.Element | null {
+  const isEnabled = false;
   const { api } = props;
   const { domain } = useDomain({ api });
   const [currentDomain, setCurrentDomain] =
@@ -89,7 +91,8 @@ export function DomainProvider(
   };
 
   const context: Domain = {
-    domain: currentDomain,
+    domain: isEnabled ? currentDomain : DomainType.DVM,
+    isEnabled,
     setDomain,
   };
 

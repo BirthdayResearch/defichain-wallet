@@ -62,6 +62,7 @@ import { CFPDetailScreen } from "./screens/OCG/CFPDetailScreen";
 import { DFIPDetailScreen } from "./screens/OCG/DFIPDetailScreen";
 import { OCGConfirmScreen } from "./screens/OCG/OCGConfirmScreen";
 import { DomainToken } from "./hooks/TokenBalance";
+// import { useFeatureFlagContext } from "@contexts/FeatureFlagContext";
 
 export interface PortfolioParamList {
   PortfolioScreen: undefined;
@@ -192,6 +193,7 @@ const PortfolioStack = createStackNavigator<PortfolioParamList>();
 export function PortfolioNavigator(): JSX.Element {
   const navigation = useNavigation<NavigationProp<PortfolioParamList>>();
   const { isLight } = useThemeContext();
+  // const { isFeatureAvailable } = useFeatureFlagContext();
   const goToNetworkSelect = (): void => {
     navigation.navigate("NetworkSelectionScreenPortfolio");
   };
@@ -239,7 +241,12 @@ export function PortfolioNavigator(): JSX.Element {
                 "flex flex-row bg-transparent items-center w-full",
               )}
             >
-              <DomainSwitch testID="domain_switch" />
+              {
+                /* isFeatureAvailable("evm") && */ false && (
+                  <DomainSwitch testID="domain_switch" />
+                )
+              }
+
               <HeaderSettingButton />
             </View>
           ),
