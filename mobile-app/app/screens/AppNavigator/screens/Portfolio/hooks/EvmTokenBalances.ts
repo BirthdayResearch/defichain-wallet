@@ -9,6 +9,8 @@ import { useLogger } from "@shared-contexts/NativeLoggingProvider";
 import { useWalletContext } from "@shared-contexts/WalletContext";
 import { useAppDispatch } from "@hooks/useAppDispatch";
 import { fetchEvmWalletDetails, fetchEvmTokenBalances } from "@store/evm";
+import { useEVMProvider } from "@contexts/EVMProvider";
+import { useIsFocused } from "@react-navigation/native";
 
 interface AssociatedToken {
   [key: string]: TokenData;
@@ -21,9 +23,18 @@ export function useEvmTokenBalances(): { evmTokens: WalletToken[] } {
     useState<AssociatedToken>({});
   const blockCount = useSelector((state: RootState) => state.block.count);
   const { network } = useNetworkContext();
+  const { provider } = useEVMProvider();
   const logger = useLogger();
+  const isFocused = useIsFocused();
 
   const { allTokens } = useSelector((state: RootState) => state.wallet);
+  const tokenIds = Object.keys(allTokens).reduce((current: string[], key) => {
+    const token = allTokens[key];
+    if (token.id !== "0" && token.isDAT && !token.isLPS) {
+      return [...current, token.id];
+    }
+    return current;
+  }, []);
   const { evmWalletDetails, evmTokenBalances } = useSelector(
     (state: RootState) => state.evm,
   );
@@ -84,11 +95,15 @@ export function useEvmTokenBalances(): { evmTokens: WalletToken[] } {
   };
 
   useEffect(() => {
-    batch(() => {
-      dispatch(fetchEvmWalletDetails({ network, evmAddress }));
-      dispatch(fetchEvmTokenBalances({ network, evmAddress }));
-    });
-  }, [network, evmAddress, blockCount]);
+    if (isFocused) {
+      batch(() => {
+        dispatch(fetchEvmWalletDetails({ network, evmAddress, provider }));
+        dispatch(
+          fetchEvmTokenBalances({ network, evmAddress, provider, tokenIds }),
+        );
+      });
+    }
+  }, [network, evmAddress, blockCount, isFocused]);
 
   useEffect(() => {
     setAllTokensWithAddress(
@@ -107,7 +122,7 @@ export function useEvmTokenBalances(): { evmTokens: WalletToken[] } {
   return { evmTokens };
 }
 
-function getAddressFromDST20TokenId(tokenId: string): string {
+export function getAddressFromDST20TokenId(tokenId: string): string {
   const parsedTokenId = BigInt(tokenId);
   const numberStr = parsedTokenId.toString(16); // Convert parsedTokenId to hexadecimal
   const paddedNumberStr = numberStr.padStart(38, "0"); // Pad with zeroes to the left
