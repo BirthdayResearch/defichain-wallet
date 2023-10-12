@@ -51,14 +51,13 @@ import {
 } from "@waveshq/walletkit-core";
 import { DomainType, useDomainContext } from "@contexts/DomainContext";
 import { useEVMProvider } from "@contexts/EVMProvider";
-import { providers } from "ethers";
 import { PortfolioParamList } from "../PortfolioNavigator";
 
 type Props = StackScreenProps<PortfolioParamList, "SendConfirmationScreen">;
 
 export function SendConfirmationScreen({ route }: Props): JSX.Element {
   const { domain } = useDomainContext();
-  const { address } = useWalletContext();
+  const { address, evmAddress } = useWalletContext();
   const addressLabel = useAddressLabel(address);
   const network = useNetworkContext();
   const {
@@ -101,14 +100,15 @@ export function SendConfirmationScreen({ route }: Props): JSX.Element {
       return;
     }
     setIsSubmitting(true);
+    const nonce = await provider.getTransactionCount(evmAddress);
     await send(
       {
         address: destination,
         token,
         amount,
         domain,
-        provider,
         chainId,
+        nonce,
         networkName: network.networkName,
       },
       dispatch,
@@ -362,13 +362,13 @@ interface SendForm {
   address: string;
   token: WalletToken;
   domain: DomainType;
-  provider: providers.JsonRpcProvider;
+  nonce: number;
   chainId?: number;
   networkName: NetworkName;
 }
 
 async function send(
-  { address, token, amount, domain, networkName, provider, chainId }: SendForm,
+  { address, token, amount, domain, networkName, nonce, chainId }: SendForm,
   dispatch: Dispatch<any>,
   onBroadcast: () => void,
   logger: NativeLoggingProps,
@@ -414,7 +414,7 @@ async function send(
               dvmAddress,
               evmAddress,
               networkName,
-              provider,
+              nonce,
               chainId,
               convertDirection: sendDirection,
             });

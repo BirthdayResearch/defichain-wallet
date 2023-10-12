@@ -33,7 +33,6 @@ import {
 } from "@api/transaction/transfer_domain";
 import { useNetworkContext } from "@waveshq/walletkit-ui";
 import { NetworkName } from "@defichain/jellyfish-network";
-import { providers } from "ethers";
 import { useEVMProvider } from "@contexts/EVMProvider";
 import { PortfolioParamList } from "../PortfolioNavigator";
 
@@ -49,7 +48,7 @@ export function ConvertConfirmationScreen({ route }: Props): JSX.Element {
     originScreen,
   } = route.params;
   const { networkName } = useNetworkContext();
-  const { address } = useWalletContext();
+  const { address, evmAddress } = useWalletContext();
   const { provider, chainId } = useEVMProvider();
   const addressLabel = useAddressLabel(address);
   const hasPendingJob = useSelector((state: RootState) =>
@@ -123,6 +122,7 @@ export function ConvertConfirmationScreen({ route }: Props): JSX.Element {
         logger,
       );
     } else {
+      const nonce = await provider.getTransactionCount(evmAddress);
       await constructSignedTransferDomain(
         {
           amount,
@@ -130,8 +130,10 @@ export function ConvertConfirmationScreen({ route }: Props): JSX.Element {
           sourceToken,
           targetToken,
           networkName,
-          provider,
           chainId,
+          nonce,
+          evmAddress,
+          dvmAddress: address,
         },
         dispatch,
         () => {
@@ -347,16 +349,20 @@ async function constructSignedTransferDomain(
     sourceToken,
     targetToken,
     networkName,
-    provider,
     chainId,
+    dvmAddress,
+    evmAddress,
+    nonce,
   }: {
     convertDirection: ConvertDirection;
     sourceToken: TransferDomainToken;
     targetToken: TransferDomainToken;
     amount: BigNumber;
     networkName: NetworkName;
-    provider: providers.JsonRpcProvider;
     chainId?: number;
+    dvmAddress: string;
+    evmAddress: string;
+    nonce: number;
   },
   dispatch: Dispatch<any>,
   onBroadcast: () => void,
@@ -374,7 +380,9 @@ async function constructSignedTransferDomain(
           onBroadcast,
           onConfirmation: () => {},
           chainId,
-          provider,
+          dvmAddress,
+          evmAddress,
+          nonce,
         }),
       ),
     );
