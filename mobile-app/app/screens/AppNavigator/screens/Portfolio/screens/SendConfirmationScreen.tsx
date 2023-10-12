@@ -50,6 +50,8 @@ import {
   AddressType as JellyfishAddressType,
 } from "@waveshq/walletkit-core";
 import { DomainType, useDomainContext } from "@contexts/DomainContext";
+import { useEVMProvider } from "@contexts/EVMProvider";
+import { providers } from "ethers";
 import { PortfolioParamList } from "../PortfolioNavigator";
 
 type Props = StackScreenProps<PortfolioParamList, "SendConfirmationScreen">;
@@ -79,6 +81,7 @@ export function SendConfirmationScreen({ route }: Props): JSX.Element {
     hasOceanTXQueued(state.ocean),
   );
   const dispatch = useAppDispatch();
+  const { provider } = useEVMProvider();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const navigation = useNavigation<NavigationProp<PortfolioParamList>>();
   const [isOnPage, setIsOnPage] = useState<boolean>(true);
@@ -104,6 +107,7 @@ export function SendConfirmationScreen({ route }: Props): JSX.Element {
         token,
         amount,
         domain,
+        provider,
         networkName: network.networkName,
       },
       dispatch,
@@ -357,11 +361,12 @@ interface SendForm {
   address: string;
   token: WalletToken;
   domain: DomainType;
+  provider: providers.JsonRpcProvider;
   networkName: NetworkName;
 }
 
 async function send(
-  { address, token, amount, domain, networkName }: SendForm,
+  { address, token, amount, domain, networkName, provider }: SendForm,
   dispatch: Dispatch<any>,
   onBroadcast: () => void,
   logger: NativeLoggingProps,
@@ -407,6 +412,7 @@ async function send(
               dvmAddress,
               evmAddress,
               networkName,
+              provider,
               convertDirection: sendDirection,
             });
           }

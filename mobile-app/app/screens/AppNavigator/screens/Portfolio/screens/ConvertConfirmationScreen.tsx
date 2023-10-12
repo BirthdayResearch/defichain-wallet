@@ -33,6 +33,7 @@ import {
 } from "@api/transaction/transfer_domain";
 import { useNetworkContext } from "@waveshq/walletkit-ui";
 import { NetworkName } from "@defichain/jellyfish-network";
+import { providers } from "ethers";
 import { PortfolioParamList } from "../PortfolioNavigator";
 
 type Props = StackScreenProps<PortfolioParamList, "ConvertConfirmationScreen">;
@@ -342,12 +343,14 @@ async function constructSignedTransferDomain(
     sourceToken,
     targetToken,
     networkName,
+    provider,
   }: {
     convertDirection: ConvertDirection;
     sourceToken: TransferDomainToken;
     targetToken: TransferDomainToken;
     amount: BigNumber;
     networkName: NetworkName;
+    provider: providers.JsonRpcProvider;
   },
   dispatch: Dispatch<any>,
   onBroadcast: () => void,
@@ -364,6 +367,7 @@ async function constructSignedTransferDomain(
           networkName,
           onBroadcast,
           () => {},
+          provider,
         ),
       ),
     );
