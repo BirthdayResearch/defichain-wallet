@@ -95,7 +95,7 @@
     "tailwindcss": "^2.2.19"
   },
   "devDependencies": {
-    "@babel/core": "^7.22.10",
+    "@babel/core": "^7.23.2",
     "@babel/plugin-transform-private-methods": "^7.22.5",
     "@cypress/code-coverage": "^3.11.0",
     "@expo/metro-config": "0.10.7",
