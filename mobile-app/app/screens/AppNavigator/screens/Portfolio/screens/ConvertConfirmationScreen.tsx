@@ -50,7 +50,7 @@ export function ConvertConfirmationScreen({ route }: Props): JSX.Element {
   } = route.params;
   const { networkName } = useNetworkContext();
   const { address } = useWalletContext();
-  const { provider } = useEVMProvider();
+  const { provider, chainId } = useEVMProvider();
   const addressLabel = useAddressLabel(address);
   const hasPendingJob = useSelector((state: RootState) =>
     hasTxQueued(state.transactionQueue),
@@ -131,6 +131,7 @@ export function ConvertConfirmationScreen({ route }: Props): JSX.Element {
           targetToken,
           networkName,
           provider,
+          chainId,
         },
         dispatch,
         () => {
@@ -347,6 +348,7 @@ async function constructSignedTransferDomain(
     targetToken,
     networkName,
     provider,
+    chainId,
   }: {
     convertDirection: ConvertDirection;
     sourceToken: TransferDomainToken;
@@ -354,6 +356,7 @@ async function constructSignedTransferDomain(
     amount: BigNumber;
     networkName: NetworkName;
     provider: providers.JsonRpcProvider;
+    chainId?: number;
   },
   dispatch: Dispatch<any>,
   onBroadcast: () => void,
@@ -362,16 +365,17 @@ async function constructSignedTransferDomain(
   try {
     dispatch(
       transactionQueue.actions.push(
-        transferDomainCrafter(
+        transferDomainCrafter({
           amount,
           convertDirection,
           sourceToken,
           targetToken,
           networkName,
           onBroadcast,
-          () => {},
+          onConfirmation: () => {},
+          chainId,
           provider,
-        ),
+        }),
       ),
     );
   } catch (e) {

@@ -81,7 +81,7 @@ export function SendConfirmationScreen({ route }: Props): JSX.Element {
     hasOceanTXQueued(state.ocean),
   );
   const dispatch = useAppDispatch();
-  const { provider } = useEVMProvider();
+  const { provider, chainId } = useEVMProvider();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const navigation = useNavigation<NavigationProp<PortfolioParamList>>();
   const [isOnPage, setIsOnPage] = useState<boolean>(true);
@@ -108,6 +108,7 @@ export function SendConfirmationScreen({ route }: Props): JSX.Element {
         amount,
         domain,
         provider,
+        chainId,
         networkName: network.networkName,
       },
       dispatch,
@@ -362,11 +363,12 @@ interface SendForm {
   token: WalletToken;
   domain: DomainType;
   provider: providers.JsonRpcProvider;
+  chainId?: number;
   networkName: NetworkName;
 }
 
 async function send(
-  { address, token, amount, domain, networkName, provider }: SendForm,
+  { address, token, amount, domain, networkName, provider, chainId }: SendForm,
   dispatch: Dispatch<any>,
   onBroadcast: () => void,
   logger: NativeLoggingProps,
@@ -413,6 +415,7 @@ async function send(
               evmAddress,
               networkName,
               provider,
+              chainId,
               convertDirection: sendDirection,
             });
           }

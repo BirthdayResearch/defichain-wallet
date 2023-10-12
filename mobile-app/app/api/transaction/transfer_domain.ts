@@ -37,6 +37,7 @@ interface TransferDomainSigner {
   dvmAddress: string;
   evmAddress: string;
   provider: providers.JsonRpcProvider;
+  chainId?: number;
   networkName: NetworkName;
 }
 
@@ -48,6 +49,7 @@ export async function transferDomainSigner({
   convertDirection,
   dvmAddress,
   evmAddress,
+  chainId,
   provider,
   networkName,
 }: TransferDomainSigner): Promise<CTransactionSegWit> {
@@ -75,6 +77,7 @@ export async function transferDomainSigner({
     accountEvmAddress: await account.getEvmAddress(),
     privateKey: await account.privateKey(),
     provider,
+    chainId,
   });
 
   const transferDomain: TransferDomain = {
@@ -110,17 +113,29 @@ export async function transferDomainSigner({
   return new CTransactionSegWit(signed);
 }
 
-export function transferDomainCrafter(
-  amount: BigNumber,
-  convertDirection: ConvertDirection,
-  sourceToken: TransferDomainToken,
-  targetToken: TransferDomainToken,
-  networkName: NetworkName,
-  onBroadcast: () => any,
-  onConfirmation: () => void,
-  provider: providers.JsonRpcProvider,
-  submitButtonLabel?: string,
-): DfTxSigner {
+export function transferDomainCrafter({
+  amount,
+  convertDirection,
+  sourceToken,
+  targetToken,
+  networkName,
+  onBroadcast,
+  onConfirmation,
+  chainId,
+  provider,
+  submitButtonLabel,
+}: {
+  amount: BigNumber;
+  convertDirection: ConvertDirection;
+  sourceToken: TransferDomainToken;
+  targetToken: TransferDomainToken;
+  networkName: NetworkName;
+  onBroadcast: () => any;
+  onConfirmation: () => void;
+  chainId?: number;
+  provider: providers.JsonRpcProvider;
+  submitButtonLabel?: string;
+}): DfTxSigner {
   if (
     ![ConvertDirection.evmToDvm, ConvertDirection.dvmToEvm].includes(
       convertDirection,
@@ -144,6 +159,7 @@ export function transferDomainCrafter(
         sourceTokenId: sourceToken.tokenId,
         targetTokenId: targetToken.tokenId,
         dvmAddress: await account.getAddress(),
+        chainId,
         provider,
         evmAddress: await account.getEvmAddress(),
       }),
@@ -196,6 +212,7 @@ interface EvmTxSigner {
   accountEvmAddress: string;
   privateKey: Buffer;
   provider: providers.JsonRpcProvider;
+  chainId?: number;
 }
 
 async function createSignedEvmTx({
@@ -208,6 +225,7 @@ async function createSignedEvmTx({
   accountEvmAddress,
   privateKey,
   provider,
+  chainId,
 }: EvmTxSigner): Promise<Uint8Array> {
   let data;
   const tdFace = new utils.Interface(TransferDomainV1.abi);
@@ -234,7 +252,7 @@ async function createSignedEvmTx({
   const tx: providers.TransactionRequest = {
     to: TD_CONTRACT_ADDR,
     nonce: await provider.getTransactionCount(accountEvmAddress),
-    chainId: (await provider.getNetwork()).chainId,
+    chainId,
     data: data,
     value: 0,
     gasLimit: 0,
