@@ -287,7 +287,7 @@ export function SettingsNavigator(): JSX.Element {
         options={{
           headerTitle: translate(
             "components/EvmFeatureFaq",
-            "About MetaChain (EVM)"
+            "About MetaChain (EVM)",
           ),
         }}
       />

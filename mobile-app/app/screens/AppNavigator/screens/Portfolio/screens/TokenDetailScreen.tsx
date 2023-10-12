@@ -253,7 +253,13 @@ export function TokenDetailScreen({ route, navigation }: Props): JSX.Element {
                 <TokenActionRow
                   icon="arrow-down-left"
                   iconType="Feather"
-                  isLast={false}
+                  isLast={
+                    !(
+                      token.symbol === "DFI" ||
+                      (token.isLPS && pair !== undefined) ||
+                      (pair !== undefined && !token.isLPS)
+                    )
+                  }
                   onPress={() => navigation.navigate("Receive")}
                   testID="receive_button"
                   title={translate("screens/TokenDetailScreen", "Receive")}

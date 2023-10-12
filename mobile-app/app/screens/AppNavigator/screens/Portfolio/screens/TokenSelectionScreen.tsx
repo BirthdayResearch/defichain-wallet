@@ -32,6 +32,7 @@ import { PortfolioParamList } from "../PortfolioNavigator";
 import { ActiveUSDValueV2 } from "../../Loans/VaultDetail/components/ActiveUSDValueV2";
 import { TokenIcon } from "../components/TokenIcon";
 import { TokenNameText } from "../components/TokenNameText";
+import { useEvmTokenBalances } from "../hooks/EvmTokenBalances";
 
 export interface TokenSelectionItem extends BottomSheetToken {
   usdAmount: BigNumber;
@@ -57,7 +58,10 @@ export function TokenSelectionScreen(): JSX.Element {
   const tokens = useSelector((state: RootState) =>
     tokensSelector(state.wallet),
   );
+  const { evmTokens } = useEvmTokenBalances();
+
   const { hasFetchedToken } = useSelector((state: RootState) => state.wallet);
+  const { hasFetchedEvmTokens } = useSelector((state: RootState) => state.evm);
   const [searchString, setSearchString] = useState("");
   const { getTokenPrice } = useTokenPrice();
   const debouncedSearchTerm = useDebounce(searchString, 250);
@@ -65,8 +69,7 @@ export function TokenSelectionScreen(): JSX.Element {
   const [isSearchFocus, setIsSearchFocus] = useState(false);
   const searchRef = useRef<TextInput>();
 
-  const filteredTokensByDomain =
-    domain === DomainType.EVM ? tokens.filter((t) => !t.isLPS) : tokens;
+  const filteredTokensByDomain = domain === DomainType.EVM ? evmTokens : tokens;
 
   const tokensWithBalance = getTokensWithBalance(
     filteredTokensByDomain,
@@ -76,7 +79,9 @@ export function TokenSelectionScreen(): JSX.Element {
     return filterTokensBySearchTerm(tokensWithBalance, debouncedSearchTerm);
   }, [tokensWithBalance, debouncedSearchTerm]);
 
-  if (hasFetchedToken && tokensWithBalance.length === 0) {
+  const hasFetchedDvmEvmTokens =
+    hasFetchedToken || (domain === DomainType.EVM && hasFetchedEvmTokens);
+  if (hasFetchedDvmEvmTokens && tokensWithBalance.length === 0) {
     return <EmptyAsset navigation={navigation} />;
   }
 
@@ -149,7 +154,7 @@ export function TokenSelectionScreen(): JSX.Element {
             ref={searchRef}
           />
 
-          {(!hasFetchedToken || debouncedSearchTerm.trim() === "") && (
+          {(!hasFetchedDvmEvmTokens || debouncedSearchTerm.trim() === "") && (
             <ThemedTextV2
               style={tailwind("text-xs pl-5 mt-6 mb-2 font-normal-v2")}
               light={tailwind("text-mono-light-v2-500")}
@@ -159,7 +164,7 @@ export function TokenSelectionScreen(): JSX.Element {
             </ThemedTextV2>
           )}
 
-          {hasFetchedToken && debouncedSearchTerm.trim() !== "" && (
+          {hasFetchedDvmEvmTokens && debouncedSearchTerm.trim() !== "" && (
             <ThemedTextV2
               style={tailwind("text-xs pl-5 mt-6 mb-2 font-normal-v2")}
               light={tailwind("text-mono-light-v2-700")}
@@ -174,7 +179,7 @@ export function TokenSelectionScreen(): JSX.Element {
             </ThemedTextV2>
           )}
 
-          {!hasFetchedToken && (
+          {!hasFetchedDvmEvmTokens && (
             <SkeletonLoader
               row={5}
               screen={SkeletonLoaderScreen.TokenSelection}

@@ -30,6 +30,10 @@ interface WalletContextI {
    */
   address: string;
   /**
+   * Default EVM address of the above wallet
+   */
+  evmAddress: string;
+  /**
    * Available address length of the above wallet
    */
   addressLength: number;
@@ -71,6 +75,7 @@ export function WalletContextProvider(
   const logger = useLogger();
   const { provider } = useWalletNodeContext();
   const [address, setAddress] = useState<string>();
+  const [evmAddress, setEvmAddress] = useState<string>("");
   const [account, setAccount] = useState<WhaleWalletAccount>();
   const [addressIndex, setAddressIndex] = useState<number>();
   const [addressLength, setAddressLength] = useState<number>(0);
@@ -88,11 +93,20 @@ export function WalletContextProvider(
   useEffect(() => {
     if (addressIndex !== undefined) {
       const account = wallet.get(addressIndex);
+      // DVM address
       account
         .getAddress()
         .then((address) => {
           setAccount(account);
           setAddress(address);
+        })
+        .catch(logger.error);
+
+      // EVM address
+      account
+        .getEvmAddress()
+        .then((evmAddress) => {
+          setEvmAddress(evmAddress);
         })
         .catch(logger.error);
     }
@@ -142,6 +156,7 @@ export function WalletContextProvider(
     wallet: wallet,
     account: account,
     address: address,
+    evmAddress: evmAddress,
     activeAddressIndex: addressIndex,
     setIndex: setIndex,
     addressLength: addressLength,

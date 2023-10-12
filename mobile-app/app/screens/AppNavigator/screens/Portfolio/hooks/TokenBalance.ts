@@ -2,12 +2,14 @@ import { useSelector } from "react-redux";
 import BigNumber from "bignumber.js";
 import { RootState } from "@store";
 import {
+  WalletToken,
   dexPricesSelectorByDenomination,
   tokensSelector,
 } from "@waveshq/walletkit-ui/dist/store";
 import { useMemo } from "react";
 import { DomainType } from "@contexts/DomainContext";
 import { useDenominationCurrency } from "./PortfolioCurrency";
+import { useEvmTokenBalances } from "./EvmTokenBalances";
 
 export interface DomainToken {
   tokenId: string;
@@ -37,17 +39,29 @@ export function useTokenBalance(): {
     dexPricesSelectorByDenomination(state.wallet, denominationCurrency),
   );
 
-  const { dvmTokens, evmTokens } = useMemo(() => {
+  const { evmTokens } = useEvmTokenBalances();
+  const mapDomainToken = (token: WalletToken) => {
+    return {
+      tokenId: token.id,
+      available: new BigNumber(token.amount),
+      token: {
+        name: token.name,
+        displaySymbol: token.symbol,
+        displayTextSymbol: token.symbol,
+        symbol: token.symbol,
+        isLPS: token.isLPS,
+        domainType: DomainType.EVM,
+      },
+    };
+  };
+  const { dvmTokens } = useMemo(() => {
     return tokens.reduce(
       (
-        {
-          dvmTokens,
-          evmTokens,
-        }: { dvmTokens: DomainToken[]; evmTokens: DomainToken[] },
+        { dvmTokens }: { dvmTokens: DomainToken[] },
         token,
-      ): { dvmTokens: DomainToken[]; evmTokens: DomainToken[] } => {
+      ): { dvmTokens: DomainToken[] } => {
         if (token.isLPS || token.id === "0_unified") {
-          return { dvmTokens, evmTokens };
+          return { dvmTokens };
         }
 
         return {
@@ -74,36 +88,17 @@ export function useTokenBalance(): {
               },
             },
           ],
-          // TODO: Update balance and use a separate useMemo since it has different source
-          evmTokens: [
-            ...evmTokens,
-            {
-              tokenId: `${token.id}-EVM`,
-              available: new BigNumber(token.amount).plus(69),
-              token: {
-                name: `${token.name} for EVM`,
-                displaySymbol: token.displaySymbol,
-                displayTextSymbol:
-                  token.symbol === "DFI" ? "DFI" : token.displaySymbol,
-                symbol: token.symbol,
-                isLPS: false,
-                domainType: DomainType.EVM,
-              },
-            },
-          ],
         };
       },
       {
         dvmTokens: [],
-        evmTokens: [],
       },
     );
   }, [prices, tokens]);
 
   return {
     dvmTokens,
-    // TODO(pierregee): remove this. temp added for testing
-    evmTokens: evmTokens.filter((token) => token.tokenId !== "0_utxo-EVM"),
+    evmTokens: evmTokens.map(mapDomainToken),
   };
 }
 
