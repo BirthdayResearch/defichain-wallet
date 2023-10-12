@@ -687,7 +687,8 @@ export function PortfolioScreen({ navigation }: Props): JSX.Element {
         {activeButtonGroup === ButtonGroupTabKey.AllTokens && (
           <DFIBalanceCard denominationCurrency={denominationCurrency} />
         )}
-        {!(hasFetchedToken && hasFetchedEvmTokens) ? (
+        {!hasFetchedToken ||
+        (domain === DomainType.EVM && !hasFetchedEvmTokens) ? (
           <View style={tailwind("px-5")}>
             <SkeletonLoader row={2} screen={SkeletonLoaderScreen.Portfolio} />
           </View>

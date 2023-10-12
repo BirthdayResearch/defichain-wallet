@@ -93,7 +93,7 @@ export function DFIBalanceCard({
               "pt-0.5": Platform.OS === "android",
             })}
           >
-            {hasFetchedToken && hasFetchedEvmTokens ? (
+            {hasFetchedToken || (isEvmDomain && hasFetchedEvmTokens) ? (
               <TokenAmountText
                 tokenAmount={tokenAmount.toString()}
                 usdAmount={usdAmount}

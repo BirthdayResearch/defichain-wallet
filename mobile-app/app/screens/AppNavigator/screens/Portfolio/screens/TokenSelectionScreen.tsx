@@ -79,7 +79,8 @@ export function TokenSelectionScreen(): JSX.Element {
     return filterTokensBySearchTerm(tokensWithBalance, debouncedSearchTerm);
   }, [tokensWithBalance, debouncedSearchTerm]);
 
-  const hasFetchedDvmEvmTokens = hasFetchedToken && hasFetchedEvmTokens;
+  const hasFetchedDvmEvmTokens =
+    hasFetchedToken || (domain === DomainType.EVM && hasFetchedEvmTokens);
   if (hasFetchedDvmEvmTokens && tokensWithBalance.length === 0) {
     return <EmptyAsset navigation={navigation} />;
   }
