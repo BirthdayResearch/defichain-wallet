@@ -44,6 +44,10 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { AddressRow } from "@screens/AppNavigator/screens/Portfolio/components/AddressRow";
 import { useDomainContext } from "@contexts/DomainContext";
 import { ConvertDirection } from "@screens/enum";
+import {
+  AddressType as AddressCategory,
+  getAddressType as getAddressCategory,
+} from "@waveshq/walletkit-core";
 import { useTokenPrice } from "../hooks/TokenPrice";
 import { ActiveUSDValueV2 } from "../../Loans/VaultDetail/components/ActiveUSDValueV2";
 import { PortfolioParamList } from "../PortfolioNavigator";
@@ -139,9 +143,23 @@ export function SendScreen({ route, navigation }: Props): JSX.Element {
     let infoText;
     let themedProps;
     let status = TransactionCardStatus.Default;
+    const isEvmAddress =
+      getAddressCategory(getValues("address"), networkName) ===
+      AddressCategory.ETH;
 
     if (new BigNumber(amountToSend).isGreaterThan(token?.amount ?? 0)) {
       infoText = "Insufficient balance";
+      themedProps = {
+        dark: tailwind("text-red-v2"),
+        light: tailwind("text-red-v2"),
+      };
+      status = TransactionCardStatus.Error;
+    } else if (
+      isEvmAddress &&
+      (token?.isDAT === false || token?.isLPS === true)
+    ) {
+      infoText =
+        "Transferring non-DAT tokens or LP tokens to an EVM address is not supported";
       themedProps = {
         dark: tailwind("text-red-v2"),
         light: tailwind("text-red-v2"),
@@ -179,7 +197,7 @@ export function SendScreen({ route, navigation }: Props): JSX.Element {
         style: tailwind("text-xs mt-2 ml-5 font-normal-v2"),
       },
     };
-  }, [token, isReservedUtxoUsed, amountToSend]);
+  }, [token, isReservedUtxoUsed, amountToSend, address]);
 
   useEffect(() => {
     setToken(route.params.token);
