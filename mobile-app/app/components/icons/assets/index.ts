@@ -21,7 +21,6 @@ import { dSOL } from "./dSOL";
 import { dSUI } from "./dSUI";
 import { XCHF } from "./XCHF";
 import { dXCHF } from "./dXCHF";
-
 import { EvmDFI } from "./EvmDFI";
 
 const mapping: Record<string, (props: SvgProps) => JSX.Element> = {
