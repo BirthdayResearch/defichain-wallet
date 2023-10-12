@@ -34,6 +34,7 @@ import {
 import { useNetworkContext } from "@waveshq/walletkit-ui";
 import { NetworkName } from "@defichain/jellyfish-network";
 import { providers } from "ethers";
+import { useEVMProvider } from "@contexts/EVMProvider";
 import { PortfolioParamList } from "../PortfolioNavigator";
 
 type Props = StackScreenProps<PortfolioParamList, "ConvertConfirmationScreen">;
@@ -49,6 +50,7 @@ export function ConvertConfirmationScreen({ route }: Props): JSX.Element {
   } = route.params;
   const { networkName } = useNetworkContext();
   const { address } = useWalletContext();
+  const { provider } = useEVMProvider();
   const addressLabel = useAddressLabel(address);
   const hasPendingJob = useSelector((state: RootState) =>
     hasTxQueued(state.transactionQueue),
@@ -128,6 +130,7 @@ export function ConvertConfirmationScreen({ route }: Props): JSX.Element {
           sourceToken,
           targetToken,
           networkName,
+          provider,
         },
         dispatch,
         () => {
