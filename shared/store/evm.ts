@@ -30,11 +30,13 @@ interface EvmTokenBalance {
 interface EvmState {
   evmWalletDetails: EvmWalletDetails | null;
   evmTokenBalances: EvmTokenBalance[];
+  hasFetchedEvmTokens: boolean;
 }
 
 const initialState: EvmState = {
   evmWalletDetails: null,
   evmTokenBalances: [],
+  hasFetchedEvmTokens: false,
 };
 
 export const fetchEvmWalletDetails = createAsyncThunk(
@@ -84,6 +86,7 @@ export const evm = createSlice({
       fetchEvmTokenBalances.fulfilled,
       (state, action: PayloadAction<EvmTokenBalance[]>) => {
         state.evmTokenBalances = action.payload;
+        state.hasFetchedEvmTokens = true;
       },
     );
   },

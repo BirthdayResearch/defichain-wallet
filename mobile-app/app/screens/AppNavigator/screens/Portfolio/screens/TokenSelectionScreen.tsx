@@ -61,6 +61,7 @@ export function TokenSelectionScreen(): JSX.Element {
   const { evmTokens } = useEvmTokenBalances();
 
   const { hasFetchedToken } = useSelector((state: RootState) => state.wallet);
+  const { hasFetchedEvmTokens } = useSelector((state: RootState) => state.evm);
   const [searchString, setSearchString] = useState("");
   const { getTokenPrice } = useTokenPrice();
   const debouncedSearchTerm = useDebounce(searchString, 250);
@@ -78,7 +79,8 @@ export function TokenSelectionScreen(): JSX.Element {
     return filterTokensBySearchTerm(tokensWithBalance, debouncedSearchTerm);
   }, [tokensWithBalance, debouncedSearchTerm]);
 
-  if (hasFetchedToken && tokensWithBalance.length === 0) {
+  const hasFetchedDvmEvmTokens = hasFetchedToken && hasFetchedEvmTokens;
+  if (hasFetchedDvmEvmTokens && tokensWithBalance.length === 0) {
     return <EmptyAsset navigation={navigation} />;
   }
 
@@ -151,7 +153,7 @@ export function TokenSelectionScreen(): JSX.Element {
             ref={searchRef}
           />
 
-          {(!hasFetchedToken || debouncedSearchTerm.trim() === "") && (
+          {(!hasFetchedDvmEvmTokens || debouncedSearchTerm.trim() === "") && (
             <ThemedTextV2
               style={tailwind("text-xs pl-5 mt-6 mb-2 font-normal-v2")}
               light={tailwind("text-mono-light-v2-500")}
@@ -161,7 +163,7 @@ export function TokenSelectionScreen(): JSX.Element {
             </ThemedTextV2>
           )}
 
-          {hasFetchedToken && debouncedSearchTerm.trim() !== "" && (
+          {hasFetchedDvmEvmTokens && debouncedSearchTerm.trim() !== "" && (
             <ThemedTextV2
               style={tailwind("text-xs pl-5 mt-6 mb-2 font-normal-v2")}
               light={tailwind("text-mono-light-v2-700")}
@@ -176,7 +178,7 @@ export function TokenSelectionScreen(): JSX.Element {
             </ThemedTextV2>
           )}
 
-          {!hasFetchedToken && (
+          {!hasFetchedDvmEvmTokens && (
             <SkeletonLoader
               row={5}
               screen={SkeletonLoaderScreen.TokenSelection}
