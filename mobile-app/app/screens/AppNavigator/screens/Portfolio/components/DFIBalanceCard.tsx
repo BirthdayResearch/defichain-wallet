@@ -42,6 +42,7 @@ export function DFIBalanceCard({
     unifiedDFISelector(state.wallet),
   );
   const { hasFetchedToken } = useSelector((state: RootState) => state.wallet);
+  const { hasFetchedEvmTokens } = useSelector((state: RootState) => state.evm);
   const { getTokenPrice } = useTokenPrice(denominationCurrency); // input based on selected denomination from portfolio tab
   const isEvmDomain = domain === DomainType.EVM;
   const tokenAmount = isEvmDomain
@@ -92,7 +93,7 @@ export function DFIBalanceCard({
               "pt-0.5": Platform.OS === "android",
             })}
           >
-            {hasFetchedToken ? (
+            {hasFetchedToken || (isEvmDomain && hasFetchedEvmTokens) ? (
               <TokenAmountText
                 tokenAmount={tokenAmount.toString()}
                 usdAmount={usdAmount}

@@ -134,6 +134,7 @@ export function PortfolioScreen({ navigation }: Props): JSX.Element {
   const { hasFetchedToken, allTokens } = useSelector(
     (state: RootState) => state.wallet,
   );
+  const { hasFetchedEvmTokens } = useSelector((state: RootState) => state.evm);
   const ref = useRef(null);
   const logger = useLogger();
   useScrollToTop(ref);
@@ -686,7 +687,8 @@ export function PortfolioScreen({ navigation }: Props): JSX.Element {
         {activeButtonGroup === ButtonGroupTabKey.AllTokens && (
           <DFIBalanceCard denominationCurrency={denominationCurrency} />
         )}
-        {!hasFetchedToken ? (
+        {!hasFetchedToken ||
+        (domain === DomainType.EVM && !hasFetchedEvmTokens) ? (
           <View style={tailwind("px-5")}>
             <SkeletonLoader row={2} screen={SkeletonLoaderScreen.Portfolio} />
           </View>
