@@ -75,6 +75,7 @@ export function DFIBalanceCard({
                   amount: tokenAmount,
                   usdAmount,
                   ...(isEvmDomain && {
+                    name: `${DFIUnified.name} for EVM`,
                     displaySymbol: "DFI (EVM)",
                     id: "0_evm",
                   }),
