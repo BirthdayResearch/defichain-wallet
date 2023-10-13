@@ -186,7 +186,10 @@ export function ConvertConfirmationScreen({ route }: Props): JSX.Element {
               unit: translate(
                 "screens/ConvertScreen",
                 `${targetToken.displayTextSymbol}${
-                  convertDirection === ConvertDirection.dvmToEvm ? "_evm" : ""
+                  convertDirection === ConvertDirection.dvmToEvm &&
+                  targetToken.tokenId !== "0_evm"
+                    ? "(EVM)"
+                    : ""
                 }`,
               ),
             },
@@ -246,7 +249,10 @@ export function ConvertConfirmationScreen({ route }: Props): JSX.Element {
               fee,
             }),
             suffix: ` ${sourceToken.displayTextSymbol}${
-              convertDirection !== ConvertDirection.evmToDvm ? "" : "_evm"
+              convertDirection !== ConvertDirection.evmToDvm &&
+              sourceToken.tokenId !== "0_evm"
+                ? ""
+                : "(EVM)"
             }`,
             testID: "resulting_tokens_value",
             themedProps: {
@@ -288,7 +294,10 @@ export function ConvertConfirmationScreen({ route }: Props): JSX.Element {
               fee,
             }),
             suffix: ` ${targetToken.displayTextSymbol}${
-              convertDirection === ConvertDirection.dvmToEvm ? "_evm" : ""
+              convertDirection === ConvertDirection.dvmToEvm &&
+              targetToken.tokenId !== "0_evm"
+                ? "(EVM)"
+                : ""
             }`,
             testID: "resulting_utxo_value",
             themedProps: {

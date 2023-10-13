@@ -150,8 +150,14 @@ export function transferDomainCrafter({
 
   const [symbolA, symbolB] =
     convertDirection === ConvertDirection.dvmToEvm
-      ? [sourceToken.displayTextSymbol, `${targetToken.displayTextSymbol}_evm`]
-      : [`${targetToken.displayTextSymbol}_evm`, sourceToken.displayTextSymbol];
+      ? [
+          sourceToken.displayTextSymbol,
+          `${targetToken.displayTextSymbol} (EVM)`,
+        ]
+      : [
+          `${targetToken.displayTextSymbol} (EVM)`,
+          sourceToken.displayTextSymbol,
+        ];
 
   return {
     sign: async (account: WhaleWalletAccount) =>

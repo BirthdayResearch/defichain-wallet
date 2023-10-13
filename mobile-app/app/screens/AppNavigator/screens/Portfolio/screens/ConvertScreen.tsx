@@ -202,7 +202,9 @@ export function ConvertScreen(props: Props): JSX.Element {
       unit: translate(
         "screens/ConvertScreen",
         `${sourceToken.token.displayTextSymbol}${
-          domain === DomainType.EVM ? "_evm" : ""
+          domain === DomainType.EVM && sourceToken.tokenId !== "0_evm"
+            ? "(EVM)"
+            : ""
         }`,
       ),
       percent: type,
@@ -371,8 +373,9 @@ export function ConvertScreen(props: Props): JSX.Element {
                 ? BigNumber(sourceToken.available).toFixed(8)
                 : "",
             token:
-              convertDirection === ConvertDirection.evmToDvm
-                ? `${sourceToken.token.displayTextSymbol}_evm`
+              convertDirection === ConvertDirection.evmToDvm &&
+              sourceToken.tokenId !== "0_evm"
+                ? `${sourceToken.token.displayTextSymbol} (EVM)`
                 : sourceToken.token.displayTextSymbol,
           },
         )}
@@ -577,7 +580,10 @@ export function ConvertScreen(props: Props): JSX.Element {
           <View style={tailwind("flex-col w-full")}>
             <ConversionResultCard
               unit={`${targetToken.token.displayTextSymbol}${
-                convertDirection === ConvertDirection.dvmToEvm ? " (EVM)" : ""
+                convertDirection === ConvertDirection.dvmToEvm &&
+                targetToken.tokenId !== "0_evm"
+                  ? " (EVM)"
+                  : ""
               }`}
               oriTargetAmount={targetToken.available}
               totalTargetAmount={
