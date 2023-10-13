@@ -58,7 +58,6 @@ context("Portfolio - Send - Address Book", () => {
       // cy.getByTestID('address_book_address_input').clear().type(addresses[index]).blur()
     });
   }
-
   function verifyWhitelistedAddressRowItems(index: number) {
     cy.getByTestID(`address_row_label_${index}_WHITELISTED`).should(
       "have.text",
@@ -101,11 +100,30 @@ context("Portfolio - Send - Address Book", () => {
     cy.getByTestID(`address_row_${index}_YOUR_ADDRESS_caret`).should("exist");
   }
 
+  // Send DFI tokens dvm -> evm
+  function topUpDfiInEvmDomain() {
+    cy.getByTestID("bottom_tab_portfolio").click();
+    cy.getByTestID("send_balance_button").click();
+    cy.getByTestID("select_DFI").click();
+    cy.getByTestID("25%_amount_button").click();
+    cy.getByTestID("address_book_button").click();
+    cy.getByTestID("address_button_group_YOUR_ADDRESS").click();
+    cy.getByTestID("address_row_text_0_YOUR_ADDRESS_EVM").click();
+    cy.getByTestID("button_confirm_send_continue").click();
+
+    // Send confirmation screen
+    cy.getByTestID("button_confirm_send").click();
+    cy.getByTestID("pin_authorize").type("000000").wait(4000);
+  }
+
   describe("Whitelisted and Your Addresses tab", () => {
     before(() => {
       cy.createEmptyWallet(true);
-      cy.sendDFItoWallet().wait(4000);
+      cy.sendDFItoWallet().sendDFITokentoWallet().wait(4000);
       cy.getByTestID("bottom_tab_portfolio").click();
+
+      topUpDfiInEvmDomain();
+      cy.getByTestID("oceanInterface_close").click(); // Close ocean interface popup
 
       populateYourAddresses(); // Generate new wallet Address 2
     });
@@ -122,12 +140,11 @@ context("Portfolio - Send - Address Book", () => {
     });
     it("(dvm) Your Addresses - should display evm tag for evm addresses", () => {
       verifyYourAddressRowItems(1);
+      cy.getByTestID("bottom_tab_portfolio").click();
     });
 
     // Switch to evm domain
     it("(evm) Whitelisted - should disable evm addresses in evm domain", () => {
-      cy.getByTestID("bottom_tab_portfolio").click();
-
       // Go back to portfolio page to switch domain
       cy.getByTestID("domain_switch").click();
 
@@ -153,7 +170,6 @@ function populateYourAddresses(): void {
   // Create new wallet address - only available if there is DFI UTXO
   cy.getByTestID("bottom_tab_portfolio").click();
   cy.getByTestID("wallet_address").click();
-
   cy.getByTestID("create_new_address").should("exist").click(); // Generate Address 2 wallet address
 
   // Go back to previous Address 1
@@ -164,7 +180,7 @@ function populateYourAddresses(): void {
 function goToAddressBook() {
   cy.getByTestID("action_button_group").should("exist");
   cy.getByTestID("send_balance_button").click().wait(3000);
-  cy.getByTestID("select_DFI").click().wait(3000);
+  cy.getByTestID("select_EvmDFI").click().wait(3000);
   cy.getByTestID("address_book_button").click();
 }
 
