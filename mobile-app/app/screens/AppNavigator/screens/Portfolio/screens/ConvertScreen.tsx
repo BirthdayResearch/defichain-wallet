@@ -202,7 +202,7 @@ export function ConvertScreen(props: Props): JSX.Element {
       unit: translate(
         "screens/ConvertScreen",
         `${sourceToken.token.displayTextSymbol}${
-          domain === DomainType.EVM ? "-EVM" : ""
+          domain === DomainType.EVM ? "_evm" : ""
         }`,
       ),
       percent: type,
@@ -225,11 +225,14 @@ export function ConvertScreen(props: Props): JSX.Element {
 
   function getListByDomain(listType: TokenListType): DomainToken[] {
     if (listType === TokenListType.To) {
+      const evmDFIToken = evmTokens.find(({ tokenId }) => tokenId === "0_evm");
       const defaultEvmTargetToken = {
-        tokenId: `${sourceToken.tokenId}-EVM`,
-        available: new BigNumber(0),
+        tokenId: `${sourceToken.tokenId}_evm`,
+        available: new BigNumber(evmDFIToken?.available ?? 0),
         token: {
           ...sourceToken.token,
+          displaySymbol: "DFI (EVM)",
+          displayTextSymbol: "DFI (EVM)",
           name: `${sourceToken.token.name} for EVM`,
           domainType: DomainType.EVM,
         },
@@ -250,7 +253,7 @@ export function ConvertScreen(props: Props): JSX.Element {
       } else if (domain === DomainType.DVM) {
         // Display EVM equivalent
         return [defaultEvmTargetToken];
-      } else if (domain === DomainType.EVM && sourceToken.tokenId === "0-EVM") {
+      } else if (domain === DomainType.EVM && sourceToken.tokenId === "0_evm") {
         // Display DFI (DVM)
         return dvmTokens.filter((token) => token.tokenId === "0");
       }
@@ -281,8 +284,8 @@ export function ConvertScreen(props: Props): JSX.Element {
     const defaultTargetToken = {
       tokenId:
         domain === DomainType.DVM
-          ? `${item.tokenId}-EVM`
-          : item.tokenId.replace("-EVM", ""),
+          ? `${item.tokenId}_evm`
+          : item.tokenId.replace("_evm", ""),
       available: new BigNumber(0),
       token: {
         ...item.token,
@@ -308,12 +311,12 @@ export function ConvertScreen(props: Props): JSX.Element {
         // If EVM -> choose DVM equivalent
         updatedTargetToken =
           dvmTokens.find(
-            (token) => token.tokenId === item.tokenId.replace("-EVM", ""),
+            (token) => token.tokenId === item.tokenId.replace("_evm", ""),
           ) ?? defaultTargetToken;
       } else if (domain === DomainType.DVM) {
         // If DVM -> choose EVM equivalent
         updatedTargetToken =
-          evmTokens.find((token) => token.tokenId === `${item.tokenId}-EVM`) ??
+          evmTokens.find((token) => token.tokenId === `${item.tokenId}_evm`) ??
           defaultTargetToken;
       }
       /* End of what will be moved into a hook */
@@ -369,7 +372,7 @@ export function ConvertScreen(props: Props): JSX.Element {
                 : "",
             token:
               convertDirection === ConvertDirection.evmToDvm
-                ? `${sourceToken.token.displayTextSymbol}-EVM`
+                ? `${sourceToken.token.displayTextSymbol}_evm`
                 : sourceToken.token.displayTextSymbol,
           },
         )}

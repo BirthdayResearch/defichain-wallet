@@ -30,7 +30,7 @@ export function DFIBalanceCard({
 }: DFIBalaceCardProps): JSX.Element {
   const { domain } = useDomainContext();
   const { evmTokens } = useEvmTokenBalances();
-  const evmDFIToken = evmTokens.find(({ id }) => id === "0-EVM");
+  const evmDFIToken = evmTokens.find(({ id }) => id === "0_evm");
   const navigation = useNavigation<NavigationProp<PortfolioParamList>>();
   const DFIToken = useSelector((state: RootState) =>
     DFITokenSelector(state.wallet),
@@ -69,7 +69,17 @@ export function DFIBalanceCard({
           onPress={() =>
             navigation.navigate({
               name: "TokenDetailScreen",
-              params: { token: DFIUnified, usdAmount },
+              params: {
+                token: {
+                  ...DFIUnified,
+                  amount: tokenAmount,
+                  usdAmount,
+                  ...(isEvmDomain && {
+                    displaySymbol: "DFI (EVM)",
+                    id: "0_evm",
+                  }),
+                },
+              },
               merge: true,
             })
           }

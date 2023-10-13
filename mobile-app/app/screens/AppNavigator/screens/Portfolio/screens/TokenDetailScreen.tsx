@@ -407,22 +407,14 @@ function TokenSummary(props: {
   const { getTokenUrl } = useDeFiScanContext();
   const onTokenUrlPressed = async (): Promise<void> => {
     const id =
-      props.token.id === "0_utxo" || props.token.id === "0_unified"
+      props.token.id === "0_utxo" ||
+      props.token.id === "0_unified" ||
+      props.token.id === "0_evm"
         ? 0
         : props.token.id;
     const url = getTokenUrl(id);
     await Linking.openURL(url);
   };
-
-  const DFIUnified = useSelector((state: RootState) =>
-    unifiedDFISelector(state.wallet),
-  );
-  const { getTokenPrice } = useTokenPrice(denominationCurrency); // input based on selected denomination from portfolio tab
-  const dfiUsdAmount = getTokenPrice(
-    DFIUnified.symbol,
-    new BigNumber(DFIUnified.amount),
-    DFIUnified.isLPS,
-  );
 
   return (
     <ThemedViewV2
@@ -509,11 +501,7 @@ function TokenSummary(props: {
                 </ThemedTextV2>
               )}
               thousandSeparator
-              value={
-                props.token.symbol === "DFI"
-                  ? getPrecisedTokenValue(dfiUsdAmount)
-                  : getPrecisedTokenValue(props.usdAmount)
-              }
+              value={getPrecisedTokenValue(props.usdAmount)}
             />
           </View>
         )}
