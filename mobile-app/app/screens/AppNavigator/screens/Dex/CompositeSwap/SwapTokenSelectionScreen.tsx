@@ -229,7 +229,7 @@ function TokenItem({
             displaySymbol: item.token.displaySymbol,
           }}
           size={36}
-          isEvmToken={isEvmDomain || item.token.domainType === DomainType.EVM}
+          isEvmToken={item.token.domainType === DomainType.EVM}
         />
         <TokenNameText
           displaySymbol={
