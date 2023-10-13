@@ -76,7 +76,7 @@ export function DFIBalanceCard({
                   usdAmount,
                   ...(isEvmDomain && {
                     name: `${DFIUnified.name} for EVM`,
-                    displaySymbol: "DFI (EVM)",
+                    displaySymbol: "DFI",
                     id: "0_evm",
                   }),
                 },
@@ -94,7 +94,7 @@ export function DFIBalanceCard({
               <EvmDFIIcon width={36} height={36} />
             )}
             <TokenNameText
-              displaySymbol={isEvmDomain ? "DFI (EVM)" : "DFI"}
+              displaySymbol="DFI"
               name={isEvmDomain ? "DFI for EVM" : "DeFiChain"}
               testID="total_dfi_label"
             />

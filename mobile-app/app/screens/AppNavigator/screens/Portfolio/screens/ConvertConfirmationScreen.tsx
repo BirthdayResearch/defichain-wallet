@@ -186,17 +186,18 @@ export function ConvertConfirmationScreen({ route }: Props): JSX.Element {
               unit: translate(
                 "screens/ConvertScreen",
                 `${targetToken.displayTextSymbol}${
-                  convertDirection === ConvertDirection.dvmToEvm &&
-                  targetToken.tokenId !== "0_evm"
-                    ? " (EVM)"
-                    : ""
+                  convertDirection === ConvertDirection.dvmToEvm ? " (EVM)" : ""
                 }`,
               ),
             },
           )}
           amount={amount}
           testID="text_convert_amount"
-          iconA={targetToken.displaySymbol}
+          iconA={
+            targetToken.tokenId === "0_evm"
+              ? "DFI (EVM)"
+              : targetToken.displaySymbol
+          }
           fromAddress={address}
           fromAddressLabel={addressLabel}
           isEvmToken={convertDirection === ConvertDirection.dvmToEvm}
@@ -249,10 +250,7 @@ export function ConvertConfirmationScreen({ route }: Props): JSX.Element {
               fee,
             }),
             suffix: ` ${sourceToken.displayTextSymbol}${
-              convertDirection !== ConvertDirection.evmToDvm &&
-              sourceToken.tokenId !== "0_evm"
-                ? ""
-                : " (EVM)"
+              convertDirection !== ConvertDirection.evmToDvm ? "" : " (EVM)"
             }`,
             testID: "resulting_tokens_value",
             themedProps: {
@@ -294,10 +292,7 @@ export function ConvertConfirmationScreen({ route }: Props): JSX.Element {
               fee,
             }),
             suffix: ` ${targetToken.displayTextSymbol}${
-              convertDirection === ConvertDirection.dvmToEvm &&
-              targetToken.tokenId !== "0_evm"
-                ? " (EVM)"
-                : ""
+              convertDirection === ConvertDirection.dvmToEvm ? " (EVM)" : ""
             }`,
             testID: "resulting_utxo_value",
             themedProps: {

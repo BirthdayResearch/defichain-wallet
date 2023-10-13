@@ -50,8 +50,8 @@ export function useEvmTokenBalances(): { evmTokens: WalletToken[] } {
       isLoanToken: false,
       amount: "0",
       name: "DeFiChain for EVM",
-      displaySymbol: "DFI (EVM)",
-      avatarSymbol: "DFI (EVM)",
+      displaySymbol: "DFI",
+      avatarSymbol: "DFI",
     };
     try {
       const evmDfiBalance = formatEther(

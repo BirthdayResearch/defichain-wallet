@@ -220,6 +220,7 @@ function TokenSelectionRow({
           token={{
             isLPS: item.token.isLPS,
             displaySymbol: item.token.displaySymbol,
+            id: item.tokenId,
           }}
           size={36}
         />

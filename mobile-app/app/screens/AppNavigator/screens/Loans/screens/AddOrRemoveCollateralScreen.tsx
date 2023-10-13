@@ -516,6 +516,7 @@ export function AddOrRemoveCollateralScreen({ route }: Props): JSX.Element {
 
             <TokenDropdownButton
               symbol={selectedCollateralItem.token.displaySymbol}
+              tokenId={selectedCollateralItem.token.id}
               testID="add_remove_collateral_quick_input"
               onPress={() => {
                 setBottomSheetScreen([

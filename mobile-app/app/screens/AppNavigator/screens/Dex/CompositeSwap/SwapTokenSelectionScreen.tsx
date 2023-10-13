@@ -223,6 +223,7 @@ function TokenItem({
           token={{
             isLPS: item.token.isLPS,
             displaySymbol: item.token.displaySymbol,
+            id: item.tokenId,
           }}
           size={36}
           isEvmToken={item.token.domainType === DomainType.EVM}

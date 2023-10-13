@@ -202,9 +202,7 @@ export function ConvertScreen(props: Props): JSX.Element {
       unit: translate(
         "screens/ConvertScreen",
         `${sourceToken.token.displayTextSymbol}${
-          domain === DomainType.EVM && sourceToken.tokenId !== "0_evm"
-            ? " (EVM)"
-            : ""
+          domain === DomainType.EVM ? " (EVM)" : ""
         }`,
       ),
       percent: type,
@@ -233,8 +231,8 @@ export function ConvertScreen(props: Props): JSX.Element {
         available: new BigNumber(evmDFIToken?.available ?? 0),
         token: {
           ...sourceToken.token,
-          displaySymbol: "DFI (EVM)",
-          displayTextSymbol: "DFI (EVM)",
+          displaySymbol: "DFI",
+          displayTextSymbol: "DFI",
           name: `${sourceToken.token.name} for EVM`,
           domainType: DomainType.EVM,
         },
@@ -373,8 +371,7 @@ export function ConvertScreen(props: Props): JSX.Element {
                 ? BigNumber(sourceToken.available).toFixed(8)
                 : "",
             token:
-              convertDirection === ConvertDirection.evmToDvm &&
-              sourceToken.tokenId !== "0_evm"
+              convertDirection === ConvertDirection.evmToDvm
                 ? `${sourceToken.token.displayTextSymbol} (EVM)`
                 : sourceToken.token.displayTextSymbol,
           },
@@ -436,6 +433,7 @@ export function ConvertScreen(props: Props): JSX.Element {
             </View>
 
             <TokenDropdownButton
+              tokenId={sourceToken.tokenId}
               isEvmToken={sourceToken?.token.domainType === DomainType.EVM}
               symbol={sourceToken.token.displaySymbol}
               displayedTextSymbol={sourceToken.token.displayTextSymbol}
@@ -556,6 +554,7 @@ export function ConvertScreen(props: Props): JSX.Element {
 
           {sourceToken.tokenId === "0" && (
             <TokenDropdownButton
+              tokenId={targetToken?.tokenId}
               isEvmToken={targetToken?.token.domainType === DomainType.EVM}
               symbol={targetToken?.token.displaySymbol}
               displayedTextSymbol={targetToken?.token.displayTextSymbol}
@@ -580,10 +579,7 @@ export function ConvertScreen(props: Props): JSX.Element {
           <View style={tailwind("flex-col w-full")}>
             <ConversionResultCard
               unit={`${targetToken.token.displayTextSymbol}${
-                convertDirection === ConvertDirection.dvmToEvm &&
-                targetToken.tokenId !== "0_evm"
-                  ? " (EVM)"
-                  : ""
+                convertDirection === ConvertDirection.dvmToEvm ? " (EVM)" : ""
               }`}
               oriTargetAmount={targetToken.available}
               totalTargetAmount={

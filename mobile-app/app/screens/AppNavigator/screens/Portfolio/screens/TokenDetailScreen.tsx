@@ -427,6 +427,7 @@ function TokenSummary(props: {
           token={{
             isLPS: props.token.isLPS,
             displaySymbol: props.token.displaySymbol,
+            id: props.token.id,
           }}
           size={40}
           isEvmToken={props.isEvmDomain}
