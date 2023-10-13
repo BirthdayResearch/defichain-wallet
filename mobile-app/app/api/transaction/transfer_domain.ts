@@ -12,8 +12,6 @@ import { fromAddress, Eth } from "@defichain/jellyfish-address";
 import { NetworkName } from "@defichain/jellyfish-network";
 import { ConvertDirection } from "@screens/enum";
 import { parseUnits } from "ethers/lib/utils";
-import { getEthRpcUrl } from "@store/evm";
-import { SecuredStoreAPI } from "@api/secured";
 import TransferDomainV1 from "@shared-contracts/TransferDomainV1.json";
 
 const TD_CONTRACT_ADDR = "0xdf00000000000000000000000000000000000001";
@@ -38,7 +36,9 @@ interface TransferDomainSigner {
   convertDirection: ConvertDirection;
   dvmAddress: string;
   evmAddress: string;
+  chainId?: number;
   networkName: NetworkName;
+  nonce: number;
 }
 
 export async function transferDomainSigner({
@@ -49,7 +49,9 @@ export async function transferDomainSigner({
   convertDirection,
   dvmAddress,
   evmAddress,
+  chainId,
   networkName,
+  nonce,
 }: TransferDomainSigner): Promise<CTransactionSegWit> {
   const dvmScript = fromAddress(dvmAddress, networkName)?.script as Script;
   const evmScript = Eth.fromAddress(evmAddress) as Script;
@@ -74,6 +76,8 @@ export async function transferDomainSigner({
     evmAddress,
     accountEvmAddress: await account.getEvmAddress(),
     privateKey: await account.privateKey(),
+    chainId,
+    nonce,
   });
 
   const transferDomain: TransferDomain = {
@@ -109,16 +113,33 @@ export async function transferDomainSigner({
   return new CTransactionSegWit(signed);
 }
 
-export function transferDomainCrafter(
-  amount: BigNumber,
-  convertDirection: ConvertDirection,
-  sourceToken: TransferDomainToken,
-  targetToken: TransferDomainToken,
-  networkName: NetworkName,
-  onBroadcast: () => any,
-  onConfirmation: () => void,
-  submitButtonLabel?: string,
-): DfTxSigner {
+export function transferDomainCrafter({
+  amount,
+  convertDirection,
+  sourceToken,
+  targetToken,
+  networkName,
+  onBroadcast,
+  onConfirmation,
+  chainId,
+  submitButtonLabel,
+  dvmAddress,
+  evmAddress,
+  nonce,
+}: {
+  amount: BigNumber;
+  convertDirection: ConvertDirection;
+  sourceToken: TransferDomainToken;
+  targetToken: TransferDomainToken;
+  networkName: NetworkName;
+  onBroadcast: () => any;
+  onConfirmation: () => void;
+  chainId?: number;
+  submitButtonLabel?: string;
+  dvmAddress: string;
+  evmAddress: string;
+  nonce: number;
+}): DfTxSigner {
   if (
     ![ConvertDirection.evmToDvm, ConvertDirection.dvmToEvm].includes(
       convertDirection,
@@ -141,8 +162,10 @@ export function transferDomainCrafter(
         networkName,
         sourceTokenId: sourceToken.tokenId,
         targetTokenId: targetToken.tokenId,
-        dvmAddress: await account.getAddress(),
-        evmAddress: await account.getEvmAddress(),
+        dvmAddress,
+        evmAddress,
+        chainId,
+        nonce,
       }),
     title: translate(
       "screens/ConvertConfirmScreen",
@@ -192,6 +215,8 @@ interface EvmTxSigner {
   evmAddress: string;
   accountEvmAddress: string;
   privateKey: Buffer;
+  chainId?: number;
+  nonce: number;
 }
 
 async function createSignedEvmTx({
@@ -201,8 +226,9 @@ async function createSignedEvmTx({
   amount,
   dvmAddress,
   evmAddress,
-  accountEvmAddress,
   privateKey,
+  chainId,
+  nonce,
 }: EvmTxSigner): Promise<Uint8Array> {
   let data;
   const tdFace = new utils.Interface(TransferDomainV1.abi);
@@ -223,15 +249,13 @@ async function createSignedEvmTx({
     const transferDST20 = [contractAddress, from, to, parsedAmount, vmAddress];
     data = tdFace.encodeFunctionData("transferDST20", transferDST20);
   }
-  const network = await SecuredStoreAPI.getNetwork();
-  const ethRpc = new providers.JsonRpcProvider(getEthRpcUrl(network));
   const wallet = new ethers.Wallet(privateKey);
 
   /* TODO: Figure out CORS issue when using the ethRpc */
   const tx: providers.TransactionRequest = {
     to: TD_CONTRACT_ADDR,
-    nonce: await ethRpc.getTransactionCount(accountEvmAddress),
-    chainId: (await ethRpc.getNetwork()).chainId,
+    nonce,
+    chainId,
     data: data,
     value: 0,
     gasLimit: 0,

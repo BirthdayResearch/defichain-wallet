@@ -33,6 +33,7 @@ import {
 } from "@api/transaction/transfer_domain";
 import { useNetworkContext } from "@waveshq/walletkit-ui";
 import { NetworkName } from "@defichain/jellyfish-network";
+import { useEVMProvider } from "@contexts/EVMProvider";
 import { PortfolioParamList } from "../PortfolioNavigator";
 
 type Props = StackScreenProps<PortfolioParamList, "ConvertConfirmationScreen">;
@@ -47,7 +48,8 @@ export function ConvertConfirmationScreen({ route }: Props): JSX.Element {
     originScreen,
   } = route.params;
   const { networkName } = useNetworkContext();
-  const { address } = useWalletContext();
+  const { address, evmAddress } = useWalletContext();
+  const { provider, chainId } = useEVMProvider();
   const addressLabel = useAddressLabel(address);
   const hasPendingJob = useSelector((state: RootState) =>
     hasTxQueued(state.transactionQueue),
@@ -120,6 +122,7 @@ export function ConvertConfirmationScreen({ route }: Props): JSX.Element {
         logger,
       );
     } else {
+      const nonce = await provider.getTransactionCount(evmAddress);
       await constructSignedTransferDomain(
         {
           amount,
@@ -127,6 +130,10 @@ export function ConvertConfirmationScreen({ route }: Props): JSX.Element {
           sourceToken,
           targetToken,
           networkName,
+          chainId,
+          nonce,
+          evmAddress,
+          dvmAddress: address,
         },
         dispatch,
         () => {
@@ -342,12 +349,20 @@ async function constructSignedTransferDomain(
     sourceToken,
     targetToken,
     networkName,
+    chainId,
+    dvmAddress,
+    evmAddress,
+    nonce,
   }: {
     convertDirection: ConvertDirection;
     sourceToken: TransferDomainToken;
     targetToken: TransferDomainToken;
     amount: BigNumber;
     networkName: NetworkName;
+    chainId?: number;
+    dvmAddress: string;
+    evmAddress: string;
+    nonce: number;
   },
   dispatch: Dispatch<any>,
   onBroadcast: () => void,
@@ -356,15 +371,19 @@ async function constructSignedTransferDomain(
   try {
     dispatch(
       transactionQueue.actions.push(
-        transferDomainCrafter(
+        transferDomainCrafter({
           amount,
           convertDirection,
           sourceToken,
           targetToken,
           networkName,
           onBroadcast,
-          () => {},
-        ),
+          onConfirmation: () => {},
+          chainId,
+          dvmAddress,
+          evmAddress,
+          nonce,
+        }),
       ),
     );
   } catch (e) {

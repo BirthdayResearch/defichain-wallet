@@ -1,10 +1,11 @@
-import React, { createContext, useContext, useMemo } from "react";
+import React, { createContext, useContext, useMemo, useState } from "react";
 import { providers } from "ethers";
 import { useNetworkContext } from "@waveshq/walletkit-ui";
 import { getEthRpcUrl } from "@store/evm";
 
 interface EVMProviderContextI {
   provider: providers.JsonRpcProvider;
+  chainId?: number;
 }
 const EVMProviderContext = createContext<EVMProviderContextI>(undefined as any);
 
@@ -16,11 +17,20 @@ export function EVMProvider({
   children,
 }: React.PropsWithChildren<any>): JSX.Element | null {
   const { network } = useNetworkContext();
+  const [chainId, setChainId] = useState<number>();
+
+  const getProvider = () => {
+    const provider = new providers.JsonRpcProvider(getEthRpcUrl(network));
+    provider.getNetwork().then(({ chainId }) => setChainId(chainId));
+    return provider;
+  };
+
   const client = useMemo(
     () => ({
-      provider: new providers.JsonRpcProvider(getEthRpcUrl(network)),
+      provider: getProvider(),
+      chainId,
     }),
-    [network],
+    [network, chainId],
   );
 
   return (
