@@ -203,7 +203,7 @@ export function ConvertScreen(props: Props): JSX.Element {
         "screens/ConvertScreen",
         `${sourceToken.token.displayTextSymbol}${
           domain === DomainType.EVM && sourceToken.tokenId !== "0_evm"
-            ? "(EVM)"
+            ? " (EVM)"
             : ""
         }`,
       ),

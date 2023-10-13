@@ -188,7 +188,7 @@ export function ConvertConfirmationScreen({ route }: Props): JSX.Element {
                 `${targetToken.displayTextSymbol}${
                   convertDirection === ConvertDirection.dvmToEvm &&
                   targetToken.tokenId !== "0_evm"
-                    ? "(EVM)"
+                    ? " (EVM)"
                     : ""
                 }`,
               ),
@@ -252,7 +252,7 @@ export function ConvertConfirmationScreen({ route }: Props): JSX.Element {
               convertDirection !== ConvertDirection.evmToDvm &&
               sourceToken.tokenId !== "0_evm"
                 ? ""
-                : "(EVM)"
+                : " (EVM)"
             }`,
             testID: "resulting_tokens_value",
             themedProps: {
@@ -296,7 +296,7 @@ export function ConvertConfirmationScreen({ route }: Props): JSX.Element {
             suffix: ` ${targetToken.displayTextSymbol}${
               convertDirection === ConvertDirection.dvmToEvm &&
               targetToken.tokenId !== "0_evm"
-                ? "(EVM)"
+                ? " (EVM)"
                 : ""
             }`,
             testID: "resulting_utxo_value",
