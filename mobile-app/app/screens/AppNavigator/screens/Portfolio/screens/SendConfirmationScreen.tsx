@@ -50,13 +50,14 @@ import {
   AddressType as JellyfishAddressType,
 } from "@waveshq/walletkit-core";
 import { DomainType, useDomainContext } from "@contexts/DomainContext";
+import { useEVMProvider } from "@contexts/EVMProvider";
 import { PortfolioParamList } from "../PortfolioNavigator";
 
 type Props = StackScreenProps<PortfolioParamList, "SendConfirmationScreen">;
 
 export function SendConfirmationScreen({ route }: Props): JSX.Element {
   const { domain } = useDomainContext();
-  const { address } = useWalletContext();
+  const { address, evmAddress } = useWalletContext();
   const addressLabel = useAddressLabel(address);
   const network = useNetworkContext();
   const {
@@ -79,6 +80,7 @@ export function SendConfirmationScreen({ route }: Props): JSX.Element {
     hasOceanTXQueued(state.ocean),
   );
   const dispatch = useAppDispatch();
+  const { provider, chainId } = useEVMProvider();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const navigation = useNavigation<NavigationProp<PortfolioParamList>>();
   const [isOnPage, setIsOnPage] = useState<boolean>(true);
@@ -98,12 +100,15 @@ export function SendConfirmationScreen({ route }: Props): JSX.Element {
       return;
     }
     setIsSubmitting(true);
+    const nonce = await provider.getTransactionCount(evmAddress);
     await send(
       {
         address: destination,
         token,
         amount,
         domain,
+        chainId,
+        nonce,
         networkName: network.networkName,
       },
       dispatch,
@@ -357,11 +362,13 @@ interface SendForm {
   address: string;
   token: WalletToken;
   domain: DomainType;
+  nonce: number;
+  chainId?: number;
   networkName: NetworkName;
 }
 
 async function send(
-  { address, token, amount, domain, networkName }: SendForm,
+  { address, token, amount, domain, networkName, nonce, chainId }: SendForm,
   dispatch: Dispatch<any>,
   onBroadcast: () => void,
   logger: NativeLoggingProps,
@@ -407,6 +414,8 @@ async function send(
               dvmAddress,
               evmAddress,
               networkName,
+              nonce,
+              chainId,
               convertDirection: sendDirection,
             });
           }
