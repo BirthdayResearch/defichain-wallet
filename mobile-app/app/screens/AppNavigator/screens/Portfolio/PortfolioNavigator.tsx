@@ -62,7 +62,6 @@ import { CFPDetailScreen } from "./screens/OCG/CFPDetailScreen";
 import { DFIPDetailScreen } from "./screens/OCG/DFIPDetailScreen";
 import { OCGConfirmScreen } from "./screens/OCG/OCGConfirmScreen";
 import { DomainToken } from "./hooks/TokenBalance";
-// import { useFeatureFlagContext } from "@contexts/FeatureFlagContext";
 
 export interface PortfolioParamList {
   PortfolioScreen: undefined;
