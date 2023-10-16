@@ -1,13 +1,19 @@
 import { SecuredStoreAPI } from "@api";
+import { CustomServiceProviderType } from "@contexts/CustomServiceProvider";
 
 const KEY = "WALLET.SERVICE_PROVIDER_URL";
 
-async function set(url: NonNullable<string>): Promise<void> {
-  await SecuredStoreAPI.setItem(KEY, url);
+async function set(
+  url: NonNullable<string>,
+  type: CustomServiceProviderType = "dvm",
+): Promise<void> {
+  await SecuredStoreAPI.setItem(`${KEY}.${type}`, url);
 }
 
-async function get(): Promise<string | undefined> {
-  const val = await SecuredStoreAPI.getItem(KEY);
+async function get(
+  type: CustomServiceProviderType = "dvm",
+): Promise<string | undefined> {
+  const val = await SecuredStoreAPI.getItem(`${KEY}.${type}`);
   return val != null ? val : undefined;
 }
 

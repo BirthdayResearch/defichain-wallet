@@ -1,7 +1,7 @@
 import React, { createContext, useContext, useMemo, useState } from "react";
 import { providers } from "ethers";
 import { useNetworkContext } from "@waveshq/walletkit-ui";
-import { getEthRpcUrl } from "@store/evm";
+import { useCustomServiceProviderContext } from "./CustomServiceProvider";
 
 interface EVMProviderContextI {
   provider: providers.JsonRpcProvider;
@@ -16,11 +16,12 @@ export function useEVMProvider(): EVMProviderContextI {
 export function EVMProvider({
   children,
 }: React.PropsWithChildren<any>): JSX.Element | null {
+  const { ethRpcUrl } = useCustomServiceProviderContext();
   const { network } = useNetworkContext();
   const [chainId, setChainId] = useState<number>();
 
   const getProvider = () => {
-    const provider = new providers.JsonRpcProvider(getEthRpcUrl(network));
+    const provider = new providers.JsonRpcProvider(ethRpcUrl);
     provider.getNetwork().then(({ chainId }) => setChainId(chainId));
     return provider;
   };

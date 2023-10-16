@@ -48,6 +48,7 @@ import { ServiceProviderPersistence } from "@api/wallet/service_provider";
 import { FavouritePoolpairProvider } from "@contexts/FavouritePoolpairContext";
 import BigNumber from "bignumber.js";
 import { EVMProvider } from "@contexts/EVMProvider";
+import { CustomServiceProvider } from "@contexts/CustomServiceProvider";
 
 /**
  * Loads
@@ -92,52 +93,59 @@ export default function App(): JSX.Element | null {
                 api={ServiceProviderPersistence}
                 logger={Logging}
               >
-                <WhaleProvider>
-                  <DeFiScanProvider>
-                    <WalletPersistenceProvider
-                      api={{
-                        ...WalletPersistence,
-                        ...WalletAddressIndexPersistence,
-                      }}
-                      logger={Logging}
-                    >
-                      <StoreProvider>
-                        <StatsProvider>
-                          <FeatureFlagProvider>
-                            <ThemeProvider
-                              api={ThemePersistence}
-                              colorScheme={colorScheme}
-                              logger={Logging}
-                            >
-                              <LanguageProvider
-                                api={LanguagePersistence}
-                                locale={Localization.locale}
+                <CustomServiceProvider
+                  api={ServiceProviderPersistence}
+                  logger={Logging}
+                >
+                  <WhaleProvider>
+                    <DeFiScanProvider>
+                      <WalletPersistenceProvider
+                        api={{
+                          ...WalletPersistence,
+                          ...WalletAddressIndexPersistence,
+                        }}
+                        logger={Logging}
+                      >
+                        <StoreProvider>
+                          <StatsProvider>
+                            <FeatureFlagProvider>
+                              <ThemeProvider
+                                api={ThemePersistence}
+                                colorScheme={colorScheme}
+                                logger={Logging}
                               >
-                                <DomainProvider api={DomainPersistence}>
-                                  <DisplayBalancesProvider>
-                                    <ConnectionBoundary>
-                                      <GestureHandlerRootView
-                                        style={tailwind("flex-1")}
-                                      >
-                                        <ToastProvider renderType={customToast}>
-                                          <FavouritePoolpairProvider>
-                                            <EVMProvider>
-                                              <Main />
-                                            </EVMProvider>
-                                          </FavouritePoolpairProvider>
-                                        </ToastProvider>
-                                      </GestureHandlerRootView>
-                                    </ConnectionBoundary>
-                                  </DisplayBalancesProvider>
-                                </DomainProvider>
-                              </LanguageProvider>
-                            </ThemeProvider>
-                          </FeatureFlagProvider>
-                        </StatsProvider>
-                      </StoreProvider>
-                    </WalletPersistenceProvider>
-                  </DeFiScanProvider>
-                </WhaleProvider>
+                                <LanguageProvider
+                                  api={LanguagePersistence}
+                                  locale={Localization.locale}
+                                >
+                                  <DomainProvider api={DomainPersistence}>
+                                    <DisplayBalancesProvider>
+                                      <ConnectionBoundary>
+                                        <GestureHandlerRootView
+                                          style={tailwind("flex-1")}
+                                        >
+                                          <ToastProvider
+                                            renderType={customToast}
+                                          >
+                                            <FavouritePoolpairProvider>
+                                              <EVMProvider>
+                                                <Main />
+                                              </EVMProvider>
+                                            </FavouritePoolpairProvider>
+                                          </ToastProvider>
+                                        </GestureHandlerRootView>
+                                      </ConnectionBoundary>
+                                    </DisplayBalancesProvider>
+                                  </DomainProvider>
+                                </LanguageProvider>
+                              </ThemeProvider>
+                            </FeatureFlagProvider>
+                          </StatsProvider>
+                        </StoreProvider>
+                      </WalletPersistenceProvider>
+                    </DeFiScanProvider>
+                  </WhaleProvider>
+                </CustomServiceProvider>
               </StoreServiceProvider>
             </NetworkProvider>
           </PrivacyLockContextProvider>
