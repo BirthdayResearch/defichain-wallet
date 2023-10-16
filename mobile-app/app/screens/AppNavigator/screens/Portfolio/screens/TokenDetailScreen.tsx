@@ -201,7 +201,7 @@ export function TokenDetailScreen({ route, navigation }: Props): JSX.Element {
           usdAmount={usdAmount ?? new BigNumber(0)}
           pair={pair}
         />
-        {token.symbol === "DFI" && (
+        {token.symbol === "DFI" && !token.id.includes("_evm") && (
           <ThemedViewV2
             dark={tailwind("border-mono-dark-v2-300")}
             light={tailwind("border-mono-light-v2-300")}
