@@ -46,7 +46,7 @@ import { ButtonV2 } from "@components/ButtonV2";
 import { useNavigatorScreenOptions } from "@hooks/useNavigatorScreenOptions";
 import { SearchInput } from "@components/SearchInput";
 import { RefreshIcon } from "@screens/WalletNavigator/assets/RefreshIcon";
-import { DomainType } from "@contexts/DomainContext";
+import { DomainType, useDomainContext } from "@contexts/DomainContext";
 import { RandomAvatar } from "@screens/AppNavigator/screens/Portfolio/components/RandomAvatar";
 import { EvmTag } from "@components/EvmTag";
 import { useLogger } from "@shared-contexts/NativeLoggingProvider";
@@ -69,6 +69,7 @@ export function AddressBookScreen({ route, navigation }: Props): JSX.Element {
     route.params;
   const { isLight } = useThemeContext();
   const { network } = useNetworkContext();
+  const { isEvmFeatureEnabled } = useDomainContext();
   const dispatch = useAppDispatch();
   const logger = useLogger();
   // condition to hide icon if not from send page
@@ -79,7 +80,13 @@ export function AddressBookScreen({ route, navigation }: Props): JSX.Element {
   );
   const addressBook: WhitelistedAddress[] = useSelector((state: RootState) =>
     selectAddressBookArray(state.userPreferences),
-  );
+  )?.filter((addr) => {
+    return (
+      isEvmFeatureEnabled ||
+      (!isEvmFeatureEnabled && addr.addressDomainType === DomainType.DVM)
+    );
+  });
+
   const walletAddressFromStore: LocalAddress[] = useSelector(
     (state: RootState) => selectLocalWalletAddressArray(state.userPreferences),
   ); // not all wallet address are stored in userPreference
@@ -453,71 +460,81 @@ export function AddressBookScreen({ route, navigation }: Props): JSX.Element {
 
       return (
         // Your Address card
-        <ThemedViewV2
-          key={item.address}
-          light={tailwind("bg-mono-light-v2-00")}
-          dark={tailwind("bg-mono-dark-v2-00")}
-          style={tailwind("py-4.5 pl-5 pr-4 mb-2 rounded-lg-v2 ")}
-          testID={`address_row_${index}_${testIDSuffix}`}
+        <TouchableOpacity
+          activeOpacity={0.7}
+          onPress={() => onChangeAddress(item.address)}
+          disabled={isEvmFeatureEnabled}
         >
-          <View
-            style={tailwind("flex flex-row items-center flex-grow", {
-              "flex-auto": Platform.OS === "web",
-            })}
+          <ThemedViewV2
+            key={item.address}
+            light={tailwind("bg-mono-light-v2-00")}
+            dark={tailwind("bg-mono-dark-v2-00")}
+            style={tailwind("py-4.5 pl-5 pr-4 mb-2 rounded-lg-v2 ")}
+            testID={`address_row_${index}_${testIDSuffix}`}
           >
-            <View style={tailwind("flex flex-row items-center flex-auto")}>
-              <View style={tailwind("flex flex-auto")}>
-                <View
-                  style={tailwind("flex flex-row justify-between items-center")}
-                >
-                  <TouchableOpacity
-                    activeOpacity={0.7}
-                    onPress={onDFIAddressClick}
-                    style={tailwind("flex flex-row items-center")}
-                  >
-                    {item.label !== "" ? (
-                      <ThemedTextV2
-                        style={tailwind("font-semibold-v2 text-sm min-w-0")}
-                        testID={`address_row_label_${index}_${testIDSuffix}`}
-                      >
-                        {item.label}
-                      </ThemedTextV2>
-                    ) : (
-                      <ThemedTextV2
-                        style={tailwind("font-semibold-v2 text-sm min-w-0")}
-                        testID={`address_row_label_${index}_${testIDSuffix}`}
-                      >
-                        {displayAddressLabel}
-                      </ThemedTextV2>
+            <View
+              style={tailwind("flex flex-row items-center flex-grow", {
+                "flex-auto": Platform.OS === "web",
+              })}
+            >
+              <View style={tailwind("flex flex-row items-center flex-auto")}>
+                <View style={tailwind("flex flex-auto")}>
+                  <View
+                    style={tailwind(
+                      "flex flex-row justify-between items-center",
                     )}
-                  </TouchableOpacity>
-                  <RandomAvatar name={item.address} size={24} />
-                </View>
+                  >
+                    <TouchableOpacity
+                      activeOpacity={0.7}
+                      onPress={onDFIAddressClick}
+                      style={tailwind("flex flex-row items-center")}
+                    >
+                      {item.label !== "" ? (
+                        <ThemedTextV2
+                          style={tailwind("font-semibold-v2 text-sm min-w-0")}
+                          testID={`address_row_label_${index}_${testIDSuffix}`}
+                        >
+                          {item.label}
+                        </ThemedTextV2>
+                      ) : (
+                        <ThemedTextV2
+                          style={tailwind("font-semibold-v2 text-sm min-w-0")}
+                          testID={`address_row_label_${index}_${testIDSuffix}`}
+                        >
+                          {displayAddressLabel}
+                        </ThemedTextV2>
+                      )}
+                    </TouchableOpacity>
+                    <RandomAvatar name={item.address} size={24} />
+                  </View>
 
-                {/* DVM address card */}
-                <YourAddressLink
-                  address={item.address}
-                  testIDSuffix={`${index}_${testIDSuffix}`}
-                  onClick={async () => {
-                    onChangeAddress(item.address);
-                  }}
-                  enableAddressSelect={enableAddressSelect}
-                />
-                {/* EVM address card */}
-                <YourAddressLink
-                  disabled={addressDomainType === DomainType.EVM}
-                  testIDSuffix={`${index}_${testIDSuffix}_EVM`}
-                  address={(item as LocalAddress).evmAddress}
-                  isEvmAddress
-                  onClick={async () => {
-                    onChangeAddress(item.evmAddress);
-                  }}
-                  enableAddressSelect={enableAddressSelect}
-                />
+                  {/* DVM address card */}
+                  <YourAddressLink
+                    address={item.address}
+                    testIDSuffix={`${index}_${testIDSuffix}`}
+                    onClick={async () => {
+                      onChangeAddress(item.address);
+                    }}
+                    enableAddressSelect={enableAddressSelect}
+                  />
+                  {/* EVM address card */}
+                  {isEvmFeatureEnabled && (
+                    <YourAddressLink
+                      disabled={addressDomainType === DomainType.EVM}
+                      testIDSuffix={`${index}_${testIDSuffix}_EVM`}
+                      address={(item as LocalAddress).evmAddress}
+                      isEvmAddress
+                      onClick={async () => {
+                        onChangeAddress(item.evmAddress);
+                      }}
+                      enableAddressSelect={enableAddressSelect}
+                    />
+                  )}
+                </View>
               </View>
             </View>
-          </View>
-        </ThemedViewV2>
+          </ThemedViewV2>
+        </TouchableOpacity>
       );
     },
     [filteredAddressBook, filteredWalletAddress, activeButtonGroup],
