@@ -12,7 +12,6 @@ import { Prevout } from "@defichain/jellyfish-transaction-builder";
 import { fromAddress, Eth } from "@defichain/jellyfish-address";
 import { NetworkName } from "@defichain/jellyfish-network";
 import { ConvertDirection } from "@screens/enum";
-import { parseUnits } from "ethers/lib/utils";
 import TransferDomainV1 from "@shared-contracts/TransferDomainV1.json";
 
 const TD_CONTRACT_ADDR = "0xdf00000000000000000000000000000000000001";
@@ -273,7 +272,7 @@ async function createSignedEvmTx({
   const from = isEvmToDvm ? evmAddress : TD_CONTRACT_ADDR;
   const to = isEvmToDvm ? TD_CONTRACT_ADDR : evmAddress;
   // TODO: round off parsedAmount to 8 decimals
-  const parsedAmount = parseUnits(amount.toString(), 18); // TODO: Get decimals from token contract
+  const parsedAmount = utils.parseUnits(amount.toString(), 18); // TODO: Get decimals from token contract
   const vmAddress = dvmAddress;
 
   if (sourceTokenId === "0" || targetTokenId === "0") {
@@ -315,7 +314,7 @@ function stripEvmSuffixFromTokenId(tokenId: string) {
  *  Get DST20 contract address
  *  https://github.com/DeFiCh/ain/blob/f5a671362f9899080d0a0dddbbcdcecb7c19d9e3/lib/ain-contracts/src/lib.rs#L79
  */
-function getAddressFromDST20TokenId(tokenId: number): string {
+export function getAddressFromDST20TokenId(tokenId: number | string): string {
   const parsedTokenId = BigInt(tokenId);
   const numberStr = parsedTokenId.toString(16); // Convert parsedTokenId to hexadecimal
   const paddedNumberStr = numberStr.padStart(38, "0"); // Pad with zeroes to the left

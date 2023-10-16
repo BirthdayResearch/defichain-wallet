@@ -1,5 +1,7 @@
 global.Buffer = require("buffer").Buffer;
 global.process = require("process");
+global.TextEncoder = require('text-encoding').TextEncoder;
+global.TextDecoder = require('text-encoding').TextDecoder;
 
 // eslint-disable-next-line
 import 'react-native-get-random-values';
