@@ -8,6 +8,7 @@ import {
   TransferDomain,
   Script,
 } from "@defichain/jellyfish-transaction";
+import { Prevout } from "@defichain/jellyfish-transaction-builder";
 import { fromAddress, Eth } from "@defichain/jellyfish-address";
 import { NetworkName } from "@defichain/jellyfish-network";
 import { ConvertDirection } from "@screens/enum";
@@ -105,12 +106,43 @@ export async function transferDomainSigner({
     ],
   };
 
-  const signed = await builder.account.transferDomain(
-    transferDomain,
-    dvmScript,
+  const { utxos, walletOwnerDvmScript } = await getTransferDomainVin(
+    account,
+    networkName,
   );
 
+  const signed = await builder.account.transferDomain(
+    transferDomain,
+    walletOwnerDvmScript,
+    utxos,
+  );
   return new CTransactionSegWit(signed);
+}
+
+async function getTransferDomainVin(
+  account: WhaleWalletAccount,
+  networkName: NetworkName,
+): Promise<{ utxos: Prevout[]; walletOwnerDvmScript: Script }> {
+  const walletOwnerDvmAddress = await account.getAddress();
+  const walletOwnerDvmScript = fromAddress(walletOwnerDvmAddress, networkName)
+    ?.script as Script;
+
+  const utxoList = await account.client.address.listTransactionUnspent(
+    walletOwnerDvmAddress,
+  );
+
+  const utxos: Prevout[] = [];
+  if (utxoList.length > 0) {
+    utxos.push({
+      txid: utxoList[0].vout.txid,
+      vout: utxoList[0].vout.n,
+      value: new BigNumber(utxoList[0].vout.value),
+      script: walletOwnerDvmScript,
+      tokenId: utxoList[0].vout.tokenId ?? 0,
+    });
+  }
+
+  return { utxos, walletOwnerDvmScript };
 }
 
 export function transferDomainCrafter({
