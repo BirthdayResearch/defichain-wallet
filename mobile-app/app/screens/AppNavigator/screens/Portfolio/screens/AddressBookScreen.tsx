@@ -21,7 +21,7 @@ import {
 } from "@store/userPreferences";
 import { getColor, tailwind } from "@tailwind";
 import { translate } from "@translations";
-import { createRef, useCallback, useEffect, useState } from "react";
+import { createRef, useCallback, useEffect, useState, useMemo } from "react";
 import {
   Platform,
   ScrollView,
@@ -78,14 +78,18 @@ export function AddressBookScreen({ route, navigation }: Props): JSX.Element {
   const userPreferencesFromStore = useSelector(
     (state: RootState) => state.userPreferences,
   );
-  const addressBook: WhitelistedAddress[] = useSelector((state: RootState) =>
-    selectAddressBookArray(state.userPreferences),
-  )?.filter((addr) => {
-    return (
-      isEvmFeatureEnabled ||
-      (!isEvmFeatureEnabled && addr.addressDomainType === DomainType.DVM)
-    );
-  });
+  const whitelistedAddresses: WhitelistedAddress[] = useSelector(
+    (state: RootState) => selectAddressBookArray(state.userPreferences),
+  );
+
+  const addressBook = useMemo(() => {
+    return whitelistedAddresses?.filter((addr) => {
+      return (
+        isEvmFeatureEnabled ||
+        (!isEvmFeatureEnabled && addr.addressDomainType === DomainType.DVM)
+      );
+    });
+  }, [whitelistedAddresses]);
 
   const walletAddressFromStore: LocalAddress[] = useSelector(
     (state: RootState) => selectLocalWalletAddressArray(state.userPreferences),
