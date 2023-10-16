@@ -94,8 +94,7 @@
     "smart-buffer": "^4.2.0",
     "stream-browserify": "^3.0.0",
     "tailwind-rn": "^3.0.1",
-    "tailwindcss": "^2.2.19",
-    "text-encoding": "^0.7.0"
+    "tailwindcss": "^2.2.19"
   },
   "devDependencies": {
     "@babel/core": "^7.22.10",
