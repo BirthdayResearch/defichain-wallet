@@ -30,7 +30,7 @@ import {
   TokenListType,
 } from "@screens/AppNavigator/screens/Dex/CompositeSwap/SwapTokenSelectionScreen";
 import { ConvertDirection, ScreenName } from "@screens/enum";
-import { DomainType } from "@contexts/DomainContext";
+import { DomainType, useDomainContext } from "@contexts/DomainContext";
 import { NetworkDetails } from "../Settings/screens/NetworkDetails";
 import { PortfolioScreen } from "./PortfolioScreen";
 import { ReceiveScreen } from "./screens/ReceiveScreen";
@@ -193,7 +193,7 @@ const PortfolioStack = createStackNavigator<PortfolioParamList>();
 export function PortfolioNavigator(): JSX.Element {
   const navigation = useNavigation<NavigationProp<PortfolioParamList>>();
   const { isLight } = useThemeContext();
-  // const { isFeatureAvailable } = useFeatureFlagContext();
+  const { isEvmFeatureEnabled } = useDomainContext();
   const goToNetworkSelect = (): void => {
     navigation.navigate("NetworkSelectionScreenPortfolio");
   };
@@ -241,11 +241,7 @@ export function PortfolioNavigator(): JSX.Element {
                 "flex flex-row bg-transparent items-center w-full",
               )}
             >
-              {
-                /* isFeatureAvailable("evm") && */ false && (
-                  <DomainSwitch testID="domain_switch" />
-                )
-              }
+              {isEvmFeatureEnabled && <DomainSwitch testID="domain_switch" />}
 
               <HeaderSettingButton />
             </View>

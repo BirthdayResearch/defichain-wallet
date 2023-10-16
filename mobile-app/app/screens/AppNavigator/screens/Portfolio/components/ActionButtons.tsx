@@ -42,9 +42,8 @@ export interface ActionButtonsProps {
 }
 
 export function ActionButtons(): JSX.Element {
-  const isEvmEnabled = false;
   const { isFeatureAvailable } = useFeatureFlagContext();
-  const { domain } = useDomainContext();
+  const { domain, isEvmFeatureEnabled } = useDomainContext();
   const isEvmDomain = domain === DomainType.EVM;
 
   const { dvmTokens, evmTokens } = useTokenBalance();
@@ -192,7 +191,7 @@ export function ActionButtons(): JSX.Element {
             }
           />
         )}
-        {isEvmEnabled && (
+        {isEvmFeatureEnabled && (
           <ActionButton
             name={translate("components/ActionButtons", "Convert")}
             iconSize={28}

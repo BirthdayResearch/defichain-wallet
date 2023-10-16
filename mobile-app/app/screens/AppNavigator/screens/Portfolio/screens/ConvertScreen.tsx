@@ -56,10 +56,9 @@ enum InlineTextStatus {
 }
 
 export function ConvertScreen(props: Props): JSX.Element {
-  const isEVMFeatureEnabled = true;
   const { getTokenPrice } = useTokenPrice();
   const { isLight } = useThemeContext();
-  const { domain } = useDomainContext();
+  const { domain, isEvmFeatureEnabled } = useDomainContext();
   const client = useWhaleApiClient();
   const logger = useLogger();
   const tokens = useSelector((state: RootState) =>
@@ -238,7 +237,7 @@ export function ConvertScreen(props: Props): JSX.Element {
 
       if (domain === DomainType.DVM) {
         if (sourceToken.tokenId === "0") {
-          return isEVMFeatureEnabled
+          return isEvmFeatureEnabled
             ? [
                 defaultEvmTargetToken,
                 ...dvmTokens.filter((token) => token.tokenId === "0_utxo"),
@@ -247,10 +246,10 @@ export function ConvertScreen(props: Props): JSX.Element {
         } else if (sourceToken.tokenId === "0_utxo") {
           return dvmTokens.filter((token) => token.tokenId === "0");
         } else {
-          return isEVMFeatureEnabled ? [defaultEvmTargetToken] : [];
+          return isEvmFeatureEnabled ? [defaultEvmTargetToken] : [];
         }
       } else if (domain === DomainType.EVM && sourceToken.tokenId === "0-EVM") {
-        return isEVMFeatureEnabled ? [defaultEvmTargetToken] : [];
+        return isEvmFeatureEnabled ? [defaultEvmTargetToken] : [];
       }
     }
 
@@ -427,7 +426,7 @@ export function ConvertScreen(props: Props): JSX.Element {
               />
             </View>
 
-            {isEVMFeatureEnabled && (
+            {isEvmFeatureEnabled && (
               <TokenDropdownButton
                 isEvmToken={sourceToken?.token.domainType === DomainType.EVM}
                 symbol={sourceToken.token.displaySymbol}
@@ -439,7 +438,7 @@ export function ConvertScreen(props: Props): JSX.Element {
                 status={TokenDropdownButtonStatus.Enabled}
               />
             )}
-            {!isEVMFeatureEnabled && (
+            {!isEvmFeatureEnabled && (
               <FixedTokenButton
                 testID={TokenListType.From}
                 symbol={sourceToken.token.displaySymbol}
@@ -556,7 +555,7 @@ export function ConvertScreen(props: Props): JSX.Element {
             />
           </View>
 
-          {sourceToken.tokenId === "0" && isEVMFeatureEnabled && (
+          {sourceToken.tokenId === "0" && isEvmFeatureEnabled && (
             <TokenDropdownButton
               isEvmToken={targetToken?.token.domainType === DomainType.EVM}
               symbol={targetToken?.token.displaySymbol}
@@ -569,7 +568,7 @@ export function ConvertScreen(props: Props): JSX.Element {
             />
           )}
           {((sourceToken.tokenId !== "0" && targetToken) ||
-            (!isEVMFeatureEnabled && targetToken)) && (
+            (!isEvmFeatureEnabled && targetToken)) && (
             <FixedTokenButton
               testID={TokenListType.To}
               symbol={targetToken.token.displaySymbol}

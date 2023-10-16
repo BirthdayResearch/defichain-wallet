@@ -6,6 +6,7 @@ import React, {
   PropsWithChildren,
 } from "react";
 import { useLogger } from "@shared-contexts/NativeLoggingProvider";
+import { useFeatureFlagContext } from "./FeatureFlagContext";
 
 interface DomainLoader {
   isDomainLoaded: boolean;
@@ -52,7 +53,7 @@ export function useDomain({ api }: DomainContextI): DomainLoader {
 
 interface Domain {
   domain: NonNullable<DomainType>;
-  isEnabled: boolean;
+  isEvmFeatureEnabled: boolean;
   setDomain: (domain: NonNullable<DomainType>) => Promise<void>;
 }
 
@@ -65,7 +66,7 @@ export function useDomainContext(): Domain {
 export function DomainProvider(
   props: DomainContextI & PropsWithChildren<any>,
 ): JSX.Element | null {
-  const isEnabled = false;
+  const { isFeatureAvailable } = useFeatureFlagContext();
   const { api } = props;
   const { domain } = useDomain({ api });
   const [currentDomain, setCurrentDomain] =
@@ -91,8 +92,8 @@ export function DomainProvider(
   };
 
   const context: Domain = {
-    domain: isEnabled ? currentDomain : DomainType.DVM,
-    isEnabled,
+    domain: isFeatureAvailable("evm") ? currentDomain : DomainType.DVM,
+    isEvmFeatureEnabled: isFeatureAvailable("evm"),
     setDomain,
   };
 
