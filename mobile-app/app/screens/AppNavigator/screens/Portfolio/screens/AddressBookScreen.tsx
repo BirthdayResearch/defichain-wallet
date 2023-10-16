@@ -402,6 +402,7 @@ export function AddressBookScreen({ route, navigation }: Props): JSX.Element {
                   activeOpacity={0.7}
                   onPress={onDFIAddressClick}
                   style={tailwind("flex flex-row items-center")}
+                  testID={`address_row_${index}_${testIDSuffix}_caret`}
                 >
                   <ThemedIcon
                     dark={tailwind("text-mono-dark-v2-700")}
@@ -833,7 +834,7 @@ function YourAddressLink({
     <TouchableOpacity
       activeOpacity={0.7}
       onPress={onClick}
-      testID={`address_action_${address}`}
+      testID={`address_row_text_${testIDSuffix}`}
       style={[
         tailwind("flex flex-row justify-between items-center mt-4"),
         disabled && tailwind("opacity-30"),
@@ -847,7 +848,6 @@ function YourAddressLink({
           dark={tailwind("text-mono-dark-v2-700")}
           ellipsizeMode="middle"
           numberOfLines={1}
-          testID={`address_row_text_${testIDSuffix}`}
         >
           {address}
         </ThemedTextV2>
@@ -855,6 +855,7 @@ function YourAddressLink({
       </View>
       {enableAddressSelect && (
         <ThemedIcon
+          testID={`address_row_${testIDSuffix}_caret`}
           light={tailwind("text-mono-light-v2-700")}
           dark={tailwind("text-mono-dark-v2-700")}
           iconType="Feather"
