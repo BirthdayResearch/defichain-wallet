@@ -965,6 +965,7 @@ export function CompositeSwapScreen({ route }: Props): JSX.Element {
 
                 <TokenDropdownButton
                   symbol={selectedTokenA?.displaySymbol}
+                  tokenId={selectedTokenA?.id}
                   testID={TokenListType.From}
                   onPress={() =>
                     navigateToTokenSelectionScreen(TokenListType.From)
@@ -1103,6 +1104,7 @@ export function CompositeSwapScreen({ route }: Props): JSX.Element {
                 )}
                 <TokenDropdownButton
                   symbol={selectedTokenB?.displaySymbol}
+                  tokenId={selectedTokenB?.id}
                   testID={TokenListType.To}
                   onPress={() =>
                     navigateToTokenSelectionScreen(TokenListType.To)

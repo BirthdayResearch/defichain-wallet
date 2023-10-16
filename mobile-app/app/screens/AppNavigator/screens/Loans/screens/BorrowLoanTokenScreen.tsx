@@ -80,23 +80,23 @@ export function BorrowLoanTokenScreen({
   const blockCount = useSelector((state: RootState) => state.block.count);
   const vaults = useSelector((state: RootState) => vaultsSelector(state.loans));
   const loanTokens = useSelector((state: RootState) =>
-    loanTokensSelector(state.loans)
+    loanTokensSelector(state.loans),
   );
   const [vault, setVault] = useState<LoanVaultActive>(route.params.vault);
   const [loanToken, setLoanToken] = useState<LoanToken>(route.params.loanToken);
   const [totalAnnualInterest, setTotalAnnualInterest] = useState(
-    new BigNumber(NaN)
+    new BigNumber(NaN),
   );
   const [fee, setFee] = useState<BigNumber>(new BigNumber(0.0001));
   const interestPerBlock = useInterestPerBlock(
     new BigNumber(vault.loanScheme.interestRate ?? NaN),
-    new BigNumber(loanToken.interest)
+    new BigNumber(loanToken.interest),
   );
 
   const { requiredTokensShare } = useValidCollateralRatio(
     vault.collateralAmounts,
     new BigNumber(vault.collateralValue),
-    new BigNumber(vault.loanValue)
+    new BigNumber(vault.loanValue),
   );
 
   const maxLoanAmount = useMaxLoan({
@@ -105,16 +105,16 @@ export function BorrowLoanTokenScreen({
     existingLoanValue: new BigNumber(vault.loanValue),
     minColRatio: new BigNumber(vault.loanScheme.minColRatio),
     loanActivePrice: new BigNumber(
-      getActivePrice(loanToken.token.symbol, loanToken.activePrice)
+      getActivePrice(loanToken.token.symbol, loanToken.activePrice),
     ),
     interestPerBlock: interestPerBlock,
   });
   const blocksPerDay = useBlocksPerDay();
   const hasPendingJob = useSelector((state: RootState) =>
-    hasTxQueued(state.transactionQueue)
+    hasTxQueued(state.transactionQueue),
   );
   const hasPendingBroadcastJob = useSelector((state: RootState) =>
-    hasOceanTXQueued(state.ocean)
+    hasOceanTXQueued(state.ocean),
   );
 
   // Form Input
@@ -129,9 +129,9 @@ export function BorrowLoanTokenScreen({
       ? new BigNumber(0)
       : new BigNumber(borrowAmount),
     new BigNumber(
-      getActivePrice(loanToken.token.symbol, loanToken.activePrice)
+      getActivePrice(loanToken.token.symbol, loanToken.activePrice),
     ),
-    interestPerBlock
+    interestPerBlock,
   );
   const [disableContinue, setDisableContinue] = useState(false);
   const { isDFILessThanHalfOfRequiredCollateral } =
@@ -142,13 +142,13 @@ export function BorrowLoanTokenScreen({
       loanValue: new BigNumber(vault.loanValue).plus(
         new BigNumber(borrowAmount).isNaN()
           ? new BigNumber(0)
-          : new BigNumber(borrowAmount)
+          : new BigNumber(borrowAmount),
       ),
       loanToken: loanToken,
       minColRatio: vault.loanScheme.minColRatio,
     });
   const { atRiskThreshold } = useColRatioThreshold(
-    new BigNumber(vault.loanScheme.minColRatio)
+    new BigNumber(vault.loanScheme.minColRatio),
   );
 
   // Bottom sheet
@@ -172,7 +172,7 @@ export function BorrowLoanTokenScreen({
             <BottomSheetTokenListHeader
               headerLabel={translate(
                 "screens/BorrowLoanTokenScreen",
-                "Select Vault"
+                "Select Vault",
               )}
               onCloseButtonPress={dismissModal}
             />
@@ -201,7 +201,7 @@ export function BorrowLoanTokenScreen({
             <BottomSheetTokenListHeader
               headerLabel={translate(
                 "components/BottomSheetLoanTokensList",
-                "Select Token"
+                "Select Token",
               )}
               onCloseButtonPress={dismissModal}
             />
@@ -233,7 +233,7 @@ export function BorrowLoanTokenScreen({
 
   async function onPercentagePress(
     amount: string,
-    type: AmountButtonTypes
+    type: AmountButtonTypes,
   ): Promise<void> {
     setValue("borrowAmount", amount);
     await trigger("borrowAmount");
@@ -259,14 +259,14 @@ export function BorrowLoanTokenScreen({
         type: "wallet_toast",
         placement: "top",
         duration: TOAST_DURATION,
-      }
+      },
     );
   }
 
   const updateInterestAmount = (): void => {
     const loanTokenPrice = getActivePrice(
       loanToken.token.symbol,
-      loanToken.activePrice
+      loanToken.activePrice,
     );
     if (borrowAmount === undefined || loanTokenPrice === "0") {
       return;
@@ -336,14 +336,14 @@ export function BorrowLoanTokenScreen({
         fetchVaults({
           address,
           client,
-        })
+        }),
       );
     }
   }, [blockCount, address, isFocused]);
 
   useEffect(() => {
     const updatedVault = vaults.find(
-      (v) => v.vaultId === vault.vaultId
+      (v) => v.vaultId === vault.vaultId,
     ) as LoanVaultActive;
     setVault(updatedVault);
   }, [vaults]);
@@ -358,7 +358,7 @@ export function BorrowLoanTokenScreen({
       resultingColRatio.isLessThan(vault.loanScheme.minColRatio) ||
         hasPendingJob ||
         hasPendingBroadcastJob ||
-        !formState.isValid
+        !formState.isValid,
     );
   }, [
     resultingColRatio,
@@ -379,7 +379,7 @@ export function BorrowLoanTokenScreen({
     <View style={tailwind("flex-1")} ref={containerRef}>
       <ThemedScrollViewV2
         contentContainerStyle={tailwind(
-          "flex flex-col justify-between pb-8 mb-8 px-4"
+          "flex flex-col justify-between pb-8 mb-8 px-4",
         )}
       >
         <View>
@@ -411,7 +411,7 @@ export function BorrowLoanTokenScreen({
           >
             <View
               style={tailwind(
-                "flex flex-row justify-between items-center mt-4"
+                "flex flex-row justify-between items-center mt-4",
               )}
             >
               <View style={tailwind("w-6/12 mr-2 pl-5")}>
@@ -436,7 +436,7 @@ export function BorrowLoanTokenScreen({
                       }}
                       placeholder="0.00"
                       placeholderTextColor={getColor(
-                        isLight ? "mono-light-v2-500" : "mono-dark-v2-500"
+                        isLight ? "mono-light-v2-500" : "mono-dark-v2-500",
                       )}
                       testID="text_input_borrow_amount"
                     />
@@ -448,7 +448,7 @@ export function BorrowLoanTokenScreen({
                     validate: {
                       greaterThanZero: (value: string) =>
                         new BigNumber(
-                          value !== undefined && value !== "" ? value : 0
+                          value !== undefined && value !== "" ? value : 0,
                         ).isGreaterThan(0),
                       hasDFIandDUSDCollateral: () =>
                         requiredTokensShare.isGreaterThan(0), // need >0 DFI and or DUSD to take loan
@@ -461,12 +461,12 @@ export function BorrowLoanTokenScreen({
                   price={new BigNumber(
                     typeof borrowAmount === "string" && borrowAmount.length > 0
                       ? borrowAmount
-                      : 0
+                      : 0,
                   ).multipliedBy(
                     getActivePrice(
                       loanToken.token.symbol,
-                      loanToken.activePrice
-                    )
+                      loanToken.activePrice,
+                    ),
                   )}
                   style={tailwind("text-sm")}
                   testId="borrow_amount_in_usd"
@@ -476,6 +476,7 @@ export function BorrowLoanTokenScreen({
 
               <TokenDropdownButton
                 symbol={loanToken.token.displaySymbol}
+                tokenId={loanToken.token.id}
                 testID="loan_token_dropdown"
                 onPress={() => {
                   setBottomSheetScreen(bottomSheetLoanTokenList);
@@ -494,7 +495,7 @@ export function BorrowLoanTokenScreen({
             >
               {translate(
                 "screens/BorrowLoanTokenScreen",
-                "Amount entered will result in vault liquidation"
+                "Amount entered will result in vault liquidation",
               )}
             </ThemedTextV2>
           )}
@@ -536,7 +537,7 @@ export function BorrowLoanTokenScreen({
             >
               {translate(
                 "screens/BorrowLoanTokenScreen",
-                inputValidationMessage.message
+                inputValidationMessage.message,
               )}
             </ThemedTextV2>
           ) : (
@@ -549,7 +550,7 @@ export function BorrowLoanTokenScreen({
               >
                 {translate(
                   "screens/BorrowLoanTokenScreen",
-                  "Review full details in the next screen"
+                  "Review full details in the next screen",
                 )}
               </ThemedTextV2>
             )
@@ -611,7 +612,7 @@ function VaultInput(props: VaultInputProps): JSX.Element {
       />
       <ThemedTouchableOpacityV2
         style={tailwind(
-          "py-3.5 px-5 flex-row justify-between items-center rounded-lg-v2"
+          "py-3.5 px-5 flex-row justify-between items-center rounded-lg-v2",
         )}
         light={tailwind("bg-mono-light-v2-00")}
         dark={tailwind("bg-mono-dark-v2-00")}
@@ -652,7 +653,7 @@ interface TransactionDetailsProps {
 }
 
 export function TransactionDetailsSection(
-  props: TransactionDetailsProps
+  props: TransactionDetailsProps,
 ): JSX.Element {
   const isEmptyBorrowAmount =
     new BigNumber(props.borrowAmount).isNaN() ||
@@ -676,7 +677,7 @@ export function TransactionDetailsSection(
           title: translate("screens/BorrowLoanTokenScreen", "Max Loan Amount"),
           message: translate(
             "screens/BorrowLoanTokenScreen",
-            "This is the current loan amount available for this vault."
+            "This is the current loan amount available for this vault.",
           ),
         }}
         rhs={{
@@ -693,8 +694,8 @@ export function TransactionDetailsSection(
             : props.maxLoanAmount.multipliedBy(
                 getActivePrice(
                   props.loanToken.token.symbol,
-                  props.loanToken.activePrice
-                )
+                  props.loanToken.activePrice,
+                ),
               ),
           usdTextStyle: tailwind("text-sm mt-1"),
         }}
@@ -712,8 +713,8 @@ export function TransactionDetailsSection(
           value: getPrecisedCurrencyValue(
             getActivePrice(
               props.loanToken.token.symbol,
-              props.loanToken.activePrice
-            )
+              props.loanToken.activePrice,
+            ),
           ),
           testID: "price_value",
           prefix: "$",
@@ -740,7 +741,7 @@ export function TransactionDetailsSection(
           title: translate("screens/BorrowLoanTokenScreen", "Annual Interest"),
           message: translate(
             "screens/BorrowLoanTokenScreen",
-            "This includes both interest from the token and vault selected. Price is provided by price oracles."
+            "This includes both interest from the token and vault selected. Price is provided by price oracles.",
           ),
         }}
         rhs={{
@@ -757,8 +758,8 @@ export function TransactionDetailsSection(
             : props.totalAnnualInterest.multipliedBy(
                 getActivePrice(
                   props.loanToken.token.symbol,
-                  props.loanToken.activePrice
-                )
+                  props.loanToken.activePrice,
+                ),
               ),
           usdTextStyle: tailwind("text-sm mt-1"),
         }}
@@ -777,7 +778,7 @@ export function TransactionDetailsSection(
           .plus(
             isEmptyBorrowAmount
               ? new BigNumber(0)
-              : new BigNumber(props.borrowAmount)
+              : new BigNumber(props.borrowAmount),
           )
           .toFixed(8)}
         collateralValue={props.vault.collateralValue}

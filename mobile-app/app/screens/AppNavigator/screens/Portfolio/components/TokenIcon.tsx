@@ -7,6 +7,7 @@ interface TokenIconProps {
   testID?: string;
   token: {
     isLPS?: boolean;
+    id: string;
     displaySymbol: string;
   };
   size: number;
@@ -28,7 +29,10 @@ export function TokenIcon(props: TokenIconProps): JSX.Element {
       />
     );
   }
-  const Icon = getNativeIcon(token.displaySymbol);
+  const Icon =
+    token.id === "0_evm"
+      ? getNativeIcon("DFI (EVM)")
+      : getNativeIcon(token.displaySymbol);
   const evmIconSize = isEvmToken ? size - 4 : size;
   return (
     <EVMLinearGradient isEvmToken={isEvmToken}>
