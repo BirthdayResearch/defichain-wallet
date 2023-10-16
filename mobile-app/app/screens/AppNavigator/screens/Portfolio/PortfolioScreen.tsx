@@ -13,18 +13,18 @@ import {
 import { useDisplayBalancesContext } from "@contexts/DisplayBalancesContext";
 import { useWalletContext } from "@shared-contexts/WalletContext";
 import {
-  useWalletPersistenceContext,
   useThemeContext,
+  useWalletPersistenceContext,
   useWhaleApiClient,
   useWhaleRpcClient,
 } from "@waveshq/walletkit-ui";
 import { useBottomTabBarHeight } from "@react-navigation/bottom-tabs";
 import { StackScreenProps } from "@react-navigation/stack";
 import {
-  ocean,
   dexPricesSelectorByDenomination,
   fetchDexPrice,
   fetchTokens,
+  ocean,
   tokensSelector,
   WalletToken,
 } from "@waveshq/walletkit-ui/dist/store";
@@ -72,7 +72,7 @@ import { BottomSheetHeader } from "@components/BottomSheetHeader";
 import * as SplashScreen from "expo-splash-screen";
 import { useLogger } from "@shared-contexts/NativeLoggingProvider";
 import { bottomTabDefaultRoutes } from "@screens/AppNavigator/constants/DefaultRoutes";
-import { useDomainContext, DomainType } from "@contexts/DomainContext";
+import { DomainType, useDomainContext } from "@contexts/DomainContext";
 import { AddressSelectionButtonV2 } from "./components/AddressSelectionButtonV2";
 import { ActionButtons } from "./components/ActionButtons";
 import {

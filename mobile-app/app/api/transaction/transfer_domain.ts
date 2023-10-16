@@ -182,8 +182,14 @@ export function transferDomainCrafter({
 
   const [symbolA, symbolB] =
     convertDirection === ConvertDirection.dvmToEvm
-      ? [sourceToken.displayTextSymbol, `${targetToken.displayTextSymbol}-EVM`]
-      : [`${targetToken.displayTextSymbol}-EVM`, sourceToken.displayTextSymbol];
+      ? [
+          sourceToken.displayTextSymbol,
+          `${targetToken.displayTextSymbol} (EVM)`,
+        ]
+      : [
+          `${targetToken.displayTextSymbol} (EVM)`,
+          sourceToken.displayTextSymbol,
+        ];
 
   return {
     sign: async (account: WhaleWalletAccount) =>
@@ -299,8 +305,8 @@ async function createSignedEvmTx({
 }
 
 function stripEvmSuffixFromTokenId(tokenId: string) {
-  if (tokenId.includes("-EVM")) {
-    return Number(tokenId.replace("-EVM", ""));
+  if (tokenId.includes("_evm")) {
+    return Number(tokenId.replace("_evm", ""));
   }
   return Number(tokenId);
 }
