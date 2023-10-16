@@ -278,6 +278,12 @@ export function ConvertScreen(props: Props): JSX.Element {
     ) {
       // If from:DFI-UTXO -> to: utxosToAccount
       updatedConvertDirection = ConvertDirection.utxosToAccount;
+    } else if (
+      sourceToken.tokenId === "0" &&
+      listType === TokenListType.To &&
+      item.tokenId === "0_evm"
+    ) {
+      updatedConvertDirection = ConvertDirection.dvmToEvm;
     }
 
     let updatedTargetToken: SelectionToken | undefined;
@@ -331,6 +337,7 @@ export function ConvertScreen(props: Props): JSX.Element {
         targetToken: updatedTargetToken,
         convertDirection: updatedConvertDirection,
       },
+      key: updatedTargetToken?.tokenId,
       merge: true,
     });
   }
