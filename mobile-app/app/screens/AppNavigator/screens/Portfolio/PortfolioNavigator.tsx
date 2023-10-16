@@ -3,12 +3,13 @@ import { createStackNavigator } from "@react-navigation/stack";
 import { AddressType, WalletToken } from "@waveshq/walletkit-ui/dist/store";
 import BigNumber from "bignumber.js";
 import { Image } from "expo-image";
-import { Platform } from "react-native";
+import { Platform, View } from "react-native";
+import { DomainSwitch } from "@components/DomainSwitch";
 import { BarCodeScanner } from "@components/BarCodeScanner";
 import { HeaderTitle } from "@components/HeaderTitle";
 import { tailwind } from "@tailwind";
 import { translate } from "@translations";
-import { LocalAddress } from "@store/userPreferences";
+import { LocalAddress, WhitelistedAddress } from "@store/userPreferences";
 import { FutureSwapData } from "@store/futureSwap";
 import { TransactionsScreen } from "@screens/AppNavigator/screens/Transactions/TransactionsScreen";
 import { TransactionDetailScreen } from "@screens/AppNavigator/screens/Transactions/screens/TransactionDetailScreen";
@@ -18,11 +19,7 @@ import { useThemeContext } from "@waveshq/walletkit-ui";
 import GridBackgroundImageLight from "@assets/images/onboarding/grid-background-light.png";
 import GridBackgroundImageDark from "@assets/images/onboarding/grid-background-dark.png";
 import { HeaderNetworkStatus } from "@components/HeaderNetworkStatus";
-import {
-  ConversionMode,
-  ConvertScreen,
-  ConvertTokenUnit,
-} from "@screens/AppNavigator/screens/Portfolio/screens/ConvertScreen";
+import { ConvertScreen } from "@screens/AppNavigator/screens/Portfolio/screens/ConvertScreen";
 import { ConvertConfirmationScreen } from "@screens/AppNavigator/screens/Portfolio/screens/ConvertConfirmationScreen";
 import { FutureSwapScreen } from "@screens/AppNavigator/screens/Portfolio/screens/FutureSwapScreen";
 import { WithdrawFutureSwapScreen } from "@screens/AppNavigator/screens/Portfolio/screens/WithdrawFutureSwapScreen";
@@ -32,7 +29,8 @@ import {
   SwapTokenSelectionScreen,
   TokenListType,
 } from "@screens/AppNavigator/screens/Dex/CompositeSwap/SwapTokenSelectionScreen";
-import { ScreenName } from "@screens/enum";
+import { ConvertDirection, ScreenName } from "@screens/enum";
+import { DomainType } from "@contexts/DomainContext";
 import { NetworkDetails } from "../Settings/screens/NetworkDetails";
 import { PortfolioScreen } from "./PortfolioScreen";
 import { ReceiveScreen } from "./screens/ReceiveScreen";
@@ -63,6 +61,7 @@ import {
 import { CFPDetailScreen } from "./screens/OCG/CFPDetailScreen";
 import { DFIPDetailScreen } from "./screens/OCG/DFIPDetailScreen";
 import { OCGConfirmScreen } from "./screens/OCG/OCGConfirmScreen";
+import { DomainToken } from "./hooks/TokenBalance";
 
 export interface PortfolioParamList {
   PortfolioScreen: undefined;
@@ -79,18 +78,31 @@ export interface PortfolioParamList {
     toAddressLabel?: string;
     addressType?: AddressType;
     originScreen?: ScreenName;
+    matchedAddress?: WhitelistedAddress | LocalAddress;
   };
   TokenDetailScreen: { token: WalletToken };
-  ConvertScreen: { mode: ConversionMode };
+  ConvertScreen: {
+    sourceToken: DomainToken;
+    targetToken?: DomainToken;
+    convertDirection: ConvertDirection;
+  };
   ConvertConfirmationScreen: {
     amount: BigNumber;
-    mode: ConversionMode;
-    sourceUnit: ConvertTokenUnit;
-    sourceBalance: BigNumber;
-    targetUnit: ConvertTokenUnit;
-    targetBalance: BigNumber;
+    convertDirection: ConvertDirection;
     fee: BigNumber;
     originScreen: ScreenName;
+    sourceToken: {
+      tokenId: string;
+      displaySymbol: string;
+      balance: BigNumber;
+      displayTextSymbol: string;
+    };
+    targetToken: {
+      tokenId: string;
+      displaySymbol: string;
+      balance: BigNumber;
+      displayTextSymbol: string;
+    };
   };
   BarCodeScanner: {
     onQrScanned: (value: string) => void;
@@ -104,7 +116,8 @@ export interface PortfolioParamList {
   AddOrEditAddressBookScreen: {
     title: string;
     onSaveButtonPress: (address?: string) => void;
-    addressLabel?: LocalAddress;
+    addressLabel?: WhitelistedAddress;
+    addressDomainType?: DomainType;
     address?: string;
     isAddNew: boolean;
   };
@@ -146,7 +159,8 @@ export interface PortfolioParamList {
     };
     listType: TokenListType;
     list: any;
-    onTokenPress: (item: SelectionToken) => {};
+    onTokenPress: (item: SelectionToken) => void;
+    isConvert?: boolean;
     isFutureSwap?: boolean;
     isSearchDTokensOnly?: boolean;
   };
@@ -211,6 +225,7 @@ export function PortfolioNavigator(): JSX.Element {
               source={
                 isLight ? GridBackgroundImageLight : GridBackgroundImageDark
               }
+              // eslint-disable-next-line react-native/no-inline-styles
               style={{
                 height: 220,
                 width: "100%",
@@ -218,7 +233,16 @@ export function PortfolioNavigator(): JSX.Element {
               contentFit="cover"
             />
           ),
-          headerLeft: () => <HeaderSettingButton />,
+          headerLeft: () => (
+            <View
+              style={tailwind(
+                "flex flex-row bg-transparent items-center w-full",
+              )}
+            >
+              <DomainSwitch testID="domain_switch" />
+              <HeaderSettingButton />
+            </View>
+          ),
           headerLeftContainerStyle: tailwind("pl-5", {
             "pb-2": Platform.OS === "ios",
             "pb-1.5": Platform.OS !== "ios",
@@ -341,7 +365,7 @@ export function PortfolioNavigator(): JSX.Element {
           headerRight: () => (
             <HeaderNetworkStatus onPress={goToNetworkSelect} />
           ),
-          headerTitle: translate("screens/ConvertScreen", "Convert DFI"),
+          headerTitle: translate("screens/ConvertScreen", "Convert"),
         }}
       />
 
@@ -477,7 +501,7 @@ export function PortfolioNavigator(): JSX.Element {
             <HeaderTitle
               text={translate(
                 "screens/AddOrEditAddressBookScreen",
-                "Add New Address"
+                "Add New Address",
               )}
             />
           ),
@@ -516,7 +540,7 @@ export function PortfolioNavigator(): JSX.Element {
           ...screenOptions,
           headerTitle: translate(
             "screens/WithdrawFutureSwapScreen",
-            "Withdraw"
+            "Withdraw",
           ),
           headerRight: () => (
             <HeaderNetworkStatus onPress={goToNetworkSelect} />
@@ -557,7 +581,7 @@ export function PortfolioNavigator(): JSX.Element {
           ...screenOptions,
           headerTitle: translate(
             "screens/ConfirmWithdrawFutureSwapScreen",
-            "Confirm"
+            "Confirm",
           ),
           headerRight: () => (
             <HeaderNetworkStatus onPress={goToNetworkSelect} />
@@ -600,7 +624,7 @@ export function PortfolioNavigator(): JSX.Element {
           ),
           headerTitle: translate(
             "screens/TransactionDetailScreen",
-            "Transaction"
+            "Transaction",
           ),
         }}
       />
@@ -611,7 +635,7 @@ export function PortfolioNavigator(): JSX.Element {
           ...screenOptions,
           headerTitle: translate(
             "components/UtxoVsTokenFaq",
-            "About UTXO And Tokens"
+            "About UTXO And Tokens",
           ),
         }}
       />

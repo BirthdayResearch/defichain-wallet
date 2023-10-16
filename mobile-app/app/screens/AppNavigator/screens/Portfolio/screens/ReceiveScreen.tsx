@@ -17,10 +17,11 @@ import {
   useLogger,
 } from "@shared-contexts/NativeLoggingProvider";
 import { debounce } from "lodash";
+import { DomainType, useDomainContext } from "@contexts/DomainContext";
 
 export async function onShare(
   address: string,
-  logger: NativeLoggingProps
+  logger: NativeLoggingProps,
 ): Promise<void> {
   try {
     await Share.share({
@@ -33,10 +34,12 @@ export async function onShare(
 
 export function ReceiveScreen(): JSX.Element {
   const logger = useLogger();
-  const { address } = useWalletContext();
+  const { address, evmAddress } = useWalletContext();
   const [showToast, setShowToast] = useState(false);
   const toast = useToast();
+  const { domain } = useDomainContext();
   const TOAST_DURATION = 2000;
+  const receiveAddress = domain === DomainType.EVM ? evmAddress : address;
 
   const copyToClipboard = useCallback(
     debounce(() => {
@@ -46,7 +49,7 @@ export function ReceiveScreen(): JSX.Element {
       setShowToast(true);
       setTimeout(() => setShowToast(false), TOAST_DURATION);
     }, 500),
-    [showToast]
+    [showToast],
   );
 
   useEffect(() => {
@@ -59,7 +62,7 @@ export function ReceiveScreen(): JSX.Element {
     } else {
       toast.hideAll();
     }
-  }, [showToast, address]);
+  }, [showToast, receiveAddress]);
 
   return (
     <ThemedScrollViewV2
@@ -71,13 +74,13 @@ export function ReceiveScreen(): JSX.Element {
       >
         {translate(
           "screens/ReceiveScreen",
-          "Use QR or Wallet address to receive any tokens (DST) or DFI"
+          "Scan QR code to receive any dTokens (eg. DUSD,dBTC..) or DFI",
         )}
       </ThemedTextV2>
 
       <View style={tailwind("m-2 items-center")} testID="qr_code_container">
         <View style={tailwind("bg-white p-4 rounded-md")}>
-          <QRCode size={196} value={address} />
+          <QRCode size={196} value={receiveAddress} />
         </View>
       </View>
 
@@ -99,14 +102,14 @@ export function ReceiveScreen(): JSX.Element {
           style={tailwind("font-normal-v2 text-sm text-center pb-12 px-5")}
           testID="address_text"
         >
-          {address}
+          {receiveAddress}
         </ThemedTextV2>
       </View>
 
       <TouchableOpacity
         onPress={async () => {
           copyToClipboard();
-          await Clipboard.setStringAsync(address);
+          await Clipboard.setStringAsync(receiveAddress);
         }}
         testID="copy_button"
       >
@@ -119,7 +122,7 @@ export function ReceiveScreen(): JSX.Element {
             dark={tailwind("border-mono-dark-v2-300")}
             light={tailwind("border-mono-light-v2-300")}
             style={tailwind(
-              "py-4 mx-5 flex-row justify-center items-center border-b"
+              "py-4 mx-5 flex-row justify-center items-center border-b",
             )}
           >
             <ThemedTextV2
@@ -141,7 +144,7 @@ export function ReceiveScreen(): JSX.Element {
       </TouchableOpacity>
       <TouchableOpacity
         onPress={async () => {
-          await onShare(address, logger);
+          await onShare(receiveAddress, logger);
         }}
         testID="share_button"
       >

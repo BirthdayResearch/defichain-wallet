@@ -305,6 +305,157 @@ exports[`create wallet guidelines v2 should match snapshot 1`] = `
             "alignItems": "flex-start",
             "display": "flex",
             "flexDirection": "row",
+            "marginBottom": 12,
+            "marginTop": 12,
+          }
+        }
+      >
+        <View
+          style={
+            [
+              {
+                "alignItems": "center",
+                "borderBottomLeftRadius": 9999,
+                "borderBottomRightRadius": 9999,
+                "borderTopLeftRadius": 9999,
+                "borderTopRightRadius": 9999,
+                "display": "flex",
+                "flexDirection": "row",
+                "height": 24,
+                "justifyContent": "center",
+                "marginTop": 4,
+                "width": 24,
+              },
+              {
+                "backgroundColor": "rgba(89, 89, 89, 1)",
+              },
+            ]
+          }
+        >
+          <RNSVGSvgView
+            align="xMidYMid"
+            bbHeight="12"
+            bbWidth="12"
+            color="rgba(255, 255, 255, 1)"
+            fill="none"
+            focusable={false}
+            height="12"
+            meetOrSlice={0}
+            minX={0}
+            minY={0}
+            style={
+              [
+                {
+                  "backgroundColor": "transparent",
+                  "borderWidth": 0,
+                },
+                {
+                  "flex": 0,
+                  "height": 12,
+                  "width": 12,
+                },
+              ]
+            }
+            tintColor="rgba(255, 255, 255, 1)"
+            vbHeight={12}
+            vbWidth={12}
+            width="12"
+          >
+            <RNSVGGroup
+              fill={null}
+              propList={
+                [
+                  "fill",
+                ]
+              }
+            >
+              <RNSVGRect
+                fill={
+                  {
+                    "payload": 4278190080,
+                    "type": 0,
+                  }
+                }
+                height="9"
+                propList={
+                  [
+                    "stroke",
+                    "strokeWidth",
+                  ]
+                }
+                rx="1"
+                stroke={
+                  {
+                    "payload": 4294967295,
+                    "type": 0,
+                  }
+                }
+                strokeWidth="1.5"
+                width="9.53"
+                x="1"
+                y="2"
+              />
+              <RNSVGPath
+                d="M5.75 6.5C5.75 6.08579 6.08579 5.75 6.5 5.75H9.25V7.25H6.5C6.08579 7.25 5.75 6.91421 5.75 6.5Z"
+                fill={
+                  {
+                    "payload": 4278190080,
+                    "type": 0,
+                  }
+                }
+                propList={
+                  [
+                    "stroke",
+                    "strokeWidth",
+                  ]
+                }
+                stroke={
+                  {
+                    "payload": 4294967295,
+                    "type": 0,
+                  }
+                }
+                strokeWidth="1.5"
+              />
+            </RNSVGGroup>
+          </RNSVGSvgView>
+        </View>
+        <Text
+          style={
+            [
+              {
+                "fontFamily": "RegularFont",
+                "fontSize": 16,
+                "fontWeight": "400",
+                "lineHeight": 24,
+              },
+              [
+                {
+                  "flexBasis": "0%",
+                  "flexGrow": 1,
+                  "flexShrink": 1,
+                  "fontFamily": "SoraRegular",
+                  "fontSize": 12,
+                  "fontWeight": "400",
+                  "lineHeight": 16,
+                  "marginLeft": 16,
+                },
+                {
+                  "color": "rgba(89, 89, 89, 1)",
+                },
+              ],
+            ]
+          }
+        >
+          A mapped EVM address will be generated to ensure seamless transfers between DeFiChain and MetaChain.
+        </Text>
+      </View>
+      <View
+        style={
+          {
+            "alignItems": "flex-start",
+            "display": "flex",
+            "flexDirection": "row",
             "marginTop": 12,
           }
         }

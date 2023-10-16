@@ -31,7 +31,7 @@ export function InputHelperText(props: InputHelperTextProps): JSX.Element {
         dark={tailwind("text-gray-500")}
         style={[tailwind("text-sm"), props.labelStyleProps]}
       >
-        {`${props.label}`}
+        {props.label}
       </ThemedText>
 
       <NumberFormat
@@ -67,7 +67,7 @@ export function InputHelperTextV2(props: InputHelperTextProps): JSX.Element {
         dark={tailwind("text-mono-light-v2-500")}
         style={[tailwind("text-xs font-normal-v2"), props.labelStyleProps]}
       >
-        {`${props.label}`}
+        {props.label}
       </ThemedTextV2>
 
       <NumberFormat

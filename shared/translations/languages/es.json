@@ -112,7 +112,8 @@
     "AVAILABLE ASSETS": "ACTIVOS DISPONIBLES",
     "Asset value": "Valor del activo",
     "Sort by": "Ordenar por",
-    "ASSETS": "ACTIVOS"
+    "ASSETS": "ACTIVOS",
+    "network": "red"
   },
   "screens/GetDFIScreen": {
     "Get DFI": "Obtener DFI",
@@ -221,7 +222,8 @@
     "Address deleted!": "Dirección borrada!",
     "It may take a few seconds to delete": "Puede tardar unos segundos en borrarse",
     "It may take a few seconds to update": "Puede tardar unos segundos en actualizarse",
-    "It may take a few seconds to save": "Puede tardar unos segundos en guardarse"
+    "It may take a few seconds to save": "Puede tardar unos segundos en guardarse",
+    "ADDRESS TYPE": "ADDRESS TYPE"
   },
   "screens/ReceiveScreen": {
     "Receive": "Recibir",
@@ -232,7 +234,7 @@
     "Copy": "Copiar",
     "Share": "Compartir",
     "WALLET ADDRESS": "DIRECCIÓN DE LA BILLETERA",
-    "Use QR or Wallet address to receive any tokens (DST) or DFI": "Usar QR or direccion de billetera para recibir cualquier token (DST) o DFI",
+    "Scan QR code to receive any dTokens (eg. DUSD,dBTC..) or DFI": "Scan QR code to receive any dTokens (eg. DUSD,dBTC..) or DFI",
     "Get DFI": "Get DFI"
   },
   "components/toaster": {
@@ -336,7 +338,8 @@
     "Available {{unit}}": "Disponible {{unit}}",
     "Resulting {{unit}}": "Resultando {{unit}}",
     "TO RECEIVE": "A RECIBIR",
-    "tokens": "tokens"
+    "tokens": "tokens",
+    "TO CONVERT": "TO CONVERT"
   },
   "screens/ConvertConfirmScreen": {
     "Confirm": "Confirmar",
@@ -355,11 +358,13 @@
     "CONFIRM TRANSACTION": "CONFIRMAR TRANSACCIÓN",
     "You are converting to {{unit}}": "Esta convirtiendo a {{unit}}",
     "Transaction fee": "Comisión de transacción",
+    "Resulting Tokens (EVM)": "Resultando Tokens (EVM)",
     "Resulting Tokens": "Resultando Tokens",
     "Resulting UTXO": "Resultando UTXO",
     "Convert {{amount}} DFI to {{target}}": "Convirtiendo {{amount}} DFI a {{target}}",
     "Converting": "Convirtiendo",
-    "Converted": "Convertido"
+    "Converted": "Convertido",
+    "Convert {{amount}} {{symbolA}} to {{symbolB}} tokens": "Convert {{amount}} {{symbolA}} to {{symbolB}} tokens"
   },
   "screens/SettingsNavigator": {
     "Settings": "Configuración"
@@ -554,6 +559,19 @@
     "Are there other ways to submit proposals?": "Are there other ways to submit proposals?",
     "If you own a full node wallet, you may also choose to submit using commands via CLI. Commands can be generated on DeFiScan, under Governance tab > Submit proposal.": "If you own a full node wallet, you may also choose to submit using commands via CLI. Commands can be generated on DeFiScan, under Governance tab > Submit proposal."
   },
+  "components/EvmFeatureFaq": {
+    "FREQUENTLY ASKED QUESTIONS": "PREGUNTAS FRECUENTES",
+    "About MetaChain (EVM)": "About MetaChain (EVM)",
+    "The MetaChain layer provides an EVM-compatible environment that allows developers familiar with Ethereum to seamlessly build next generation applications inside the native DeFiChain ecosystem.\n\nThe MetaChain layer provides an EVM-compatible environment that allows developers familiar with Ethereum to build applications inside the DeFiChain ecosystem.": "The MetaChain layer provides an EVM-compatible environment that allows developers familiar with Ethereum to seamlessly build next generation applications inside the native DeFiChain ecosystem.\n\nThe MetaChain layer provides an EVM-compatible environment that allows developers familiar with Ethereum to build applications inside the DeFiChain ecosystem.",
+    "What tokens are supported between DVM and EVM bidirectionally?": "What tokens are supported between DVM and EVM bidirectionally?",
+    "All dTokens are accepted. dTokens consist of:\ndStocks (dTSLA, dGOOG.) + DFI\n\nFor the full list, you may refer to https://defiscan.live/tokens on any tokens under DAT category.": "All dTokens are accepted. dTokens consist of:\ndStocks (dTSLA, dGOOG.) + DFI\n\nFor the full list, you may refer to https://defiscan.live/tokens on any tokens under DAT category.",
+    "How can I access the MetaChain layer from the Light Wallet?": "How can I access the MetaChain layer from the Light Wallet?",
+    "Move your dTokens between native DeFiChain's native layer (DVM) and the MetaChain layer (EVM) bidirectionally.\n\nFor instance, transfer DFI/DUSD/dBTC or any other dToken from DVM to EVM and back, all directly within the Light Wallet.": "Move your dTokens between native DeFiChain's native layer (DVM) and the MetaChain layer (EVM) bidirectionally.\n\nFor instance, transfer DFI/DUSD/dBTC or any other dToken from DVM to EVM and back, all directly within the Light Wallet.",
+    "Why would I need to move dTokens from DVM to EVM?": "Why would I need to move dTokens from DVM to EVM?",
+    "Using the gateway allows you to move your dTokens from the Light Wallet to any EVM compatible wallet on the MetaChain layer (ex: MetaMask). This would allow you to interact with the constantly growing EVM ecosystem on MetaChain and the various projects on it.": "Using the gateway allows you to move your dTokens from the Light Wallet to any EVM compatible wallet on the MetaChain layer (ex: MetaMask). This would allow you to interact with the constantly growing EVM ecosystem on MetaChain and the various projects on it.",
+    "How can I move dTokens from DVM to EVM?": "How can I move dTokens from DVM to EVM?",
+    "You can do it through either the \"Convert\" or \"Send\" functions on Light Wallet. The \"Convert\" option allows you to convert any dTokens on DVM to your own EVM address within the Light Wallet (and vice versa).\n\nYour seed phrase can also be used to import your Light Wallet EVM address into any external wallets which support a 24 words recovery phrase like MetaMask.\n\nThe \"Send\" option allows you to send dTokens from your DVM address to any EVM address on the MetaChain layer and vice versa. Note that you do not need to convert your dTokens before sending, this process does it automatically for you.": "You can do it through either the \"Convert\" or \"Send\" functions on Light Wallet. The \"Convert\" option allows you to convert any dTokens on DVM to your own EVM address within the Light Wallet (and vice versa).\n\nYour seed phrase can also be used to import your Light Wallet EVM address into any external wallets which support a 24 words recovery phrase like MetaMask.\n\nThe \"Send\" option allows you to send dTokens from your DVM address to any EVM address on the MetaChain layer and vice versa. Note that you do not need to convert your dTokens before sending, this process does it automatically for you."
+  },
   "screens/NetworkSelectionScreen": {
     "NETWORK": "RED",
     "Select network": "Seleccionar red",
@@ -625,6 +643,8 @@
     "Trade on the DEX and earn rewards from liquidity mining with crypto and dTokens.": "Intercambia tokens para obtener recompensas del liquidity mining con los tokens descentralizados.",
     "Decentralized loans": "Préstamos descentralizados",
     "Access financial opportunities with dTokens minted through decentralized vaults.": "Crea y accede a nuevos dTokens usando Vaults sobre-colateralizados",
+    "EVM compatible": "EVM compatible",
+    "Seamless transfers between DeFiChain and MetaChain via generated EVM address.": "Seamless transfers between DeFiChain and MetaChain via generated EVM address.",
     "DeFiChain Wallet is fully non-custodial. Only you will have access to your fund.": "La Billeter DeFiChain es non-custodial. Solo tu tendrás acceso a tus fondos."
   },
   "screens/CreateMnemonicWallet": {
@@ -660,7 +680,8 @@
     "Create wallet": "Crear Billetera",
     "You will be shown 24 recovery words on the next screen. Keep your 24-word recovery safe as it will allow you to recover access to the wallet.": "Vas a ver 24 palabras de recuperación en la siguiente pantalla. Manten estas 24 palabras de recuperación seguras ya que estas te permitiran recuperar el acceso a tu billetera.",
     "Write the words on paper. Take note of their correct spelling and order.": "Escribe las palabras en papel. Manten el orden y la ortografía correctos.",
-    "Secure them in a safe place. Store them offline at a place only you have access. Keep them private and do not share it with anyone.": "Guardalas en un lugar seguro. Mantenlas offline en un sitio al que solo tu tengas acceso. Mantenlas privadas y no las compartas con nadie."
+    "Secure them in a safe place. Store them offline at a place only you have access. Keep them private and do not share it with anyone.": "Guardalas en un lugar seguro. Mantenlas offline en un sitio al que solo tu tengas acceso. Mantenlas privadas y no las compartas con nadie.",
+    "A mapped EVM address will be generated to ensure seamless transfers between DeFiChain and MetaChain.": "A mapped EVM address will be generated to ensure seamless transfers between DeFiChain and MetaChain."
   },
   "screens/GuidelinesRecoveryWords": {
     "What are recovery words?": "Qúe son las palabras de recuperación?(Seed Phrase)",
@@ -847,7 +868,9 @@
     "Borrowing {{amount}} {{symbol}} with vault {{vaultId}}": "Borrowing {{amount}} {{symbol}} with vault {{vaultId}}",
     "Borrowed {{amount}} {{symbol}}": "Borrowed {{amount}} {{symbol}}",
     "Requested amount is higher than available amount.": "Requested amount is higher than available amount.",
-    "tokens": "tokens"
+    "tokens": "tokens",
+    "Converting {{amount}} {{symbolA}} to {{symbolB}} tokens": "Converting {{amount}} {{symbolA}} to {{symbolB}} tokens",
+    "{{amount}} {{symbolA}} converted to {{symbolB}} tokens": "{{amount}} {{symbolA}} converted to {{symbolB}} tokens"
   },
   "components/BarCodeScanner": {
     "Requesting for camera permission": "Pidiendo acceso a la cámara",
@@ -2227,7 +2250,9 @@
     "Swap": "Cambiar",
     "Transactions": "Transacciones",
     "Future swap": "Cambio a futuros",
-    "Get DFI": "Obtener DFI"
+    "Get DFI": "Obtener DFI",
+    "Convert": "Convertir",
+    "Governance": "Governance"
   },
   "screens/PoolPairDetailsScreen": {
     "{{poolPair}} Pool": "{{poolPair}} Pool",
@@ -2257,6 +2282,10 @@
     "Select Token": "Select Token",
     "Search with token name": "Buscar por nombre de token",
     "Search results for “{{searchTerm}}”": "Buscar resultados para “{{searchTerm}}”"
+  },
+  "components/ConversionDetailsRow": {
+    "Resulting UTXO": "Resultando UTXO",
+    "Resulting Tokens": "Resultando Tokens"
   },
   "screens/OCGProposalsScreen": {
     "Governance": "Governance",

@@ -109,7 +109,8 @@
     "AVAILABLE ASSETS": "可用资产",
     "Asset value": "资产价值",
     "Sort by": "Sort by",
-    "ASSETS": "ASSETS"
+    "ASSETS": "ASSETS",
+    "network": "网络"
   },
   "screens/GetDFIScreen": {
     "Get DFI": "获取 DFI",
@@ -210,9 +211,10 @@
     "Address saved!": "Address saved!",
     "Address label updated!": "Address label updated!",
     "Address deleted!": "Address deleted!",
-    "It may take a few seconds to delete": "It may take a few seconds to delete",
-    "It may take a few seconds to update": "It may take a few seconds to update",
-    "It may take a few seconds to save": "It may take a few seconds to save"
+    "It may take a few seconds to delete": "可能需要几秒钟进行删除",
+    "It may take a few seconds to update": "可能需要几秒钟进行更新",
+    "It may take a few seconds to save": "可能需要几秒钟进行保存",
+    "ADDRESS TYPE": "地址类型"
   },
   "screens/ReceiveScreen": {
     "Receive": "接收",
@@ -223,7 +225,7 @@
     "Copy": "复制地址",
     "Share": "转发地址",
     "WALLET ADDRESS": "钱包地址",
-    "Use QR or Wallet address to receive any tokens (DST) or DFI": "Use QR or Wallet address to receive any tokens (DST) or DFI",
+    "Scan QR code to receive any dTokens (eg. DUSD,dBTC..) or DFI": "扫描二维码以接收任何 dToken（例如 DUSD、dBTC..）或 DFI",
     "Get DFI": "获得 DFI"
   },
   "components/toaster": {
@@ -258,7 +260,7 @@
     "SEND TO": "SEND TO",
     "Paste address": "Paste address",
     "I WANT TO SEND": "I WANT TO SEND",
-    "Review full details in the next screen": "Review full details in the next screen",
+    "Review full details in the next screen": "在下一个屏幕中查看完整详细信息",
     "Verified": "Verified",
     "{{percent}} of available {{unit}} entered": "{{percent}} of available {{unit}} entered",
     "Max available {{unit}} entered": "Max available {{unit}} entered",
@@ -319,13 +321,14 @@
     "I WANT TO CONVERT": "I WANT TO CONVERT",
     "Insufficient balance": "Insufficient balance",
     "Available: ": "可转换资金: ",
-    "Review full details in the next screen": "Review full details in the next screen",
+    "Review full details in the next screen": "在下一个屏幕中查看完整详细信息",
     "Max available {{unit}} entered": "Max available {{unit}} entered",
     "{{percent}} of available {{unit}} entered": "{{percent}} of available {{unit}} entered",
     "A small amount of UTXO is reserved for fees": "保留少量 UTXO 用于交易费用",
     "Available {{unit}}": "可转换资金 {{unit}}",
     "Resulting {{unit}}": "转换后 {{unit}}",
     "TO RECEIVE": "TO RECEIVE",
+    "TO CONVERT": "转换",
     "tokens": "代币"
   },
   "screens/ConvertConfirmScreen": {
@@ -343,13 +346,15 @@
     "Convert": "转换",
     "{{token}} to receive": "{{token}} 将会收到",
     "CONFIRM TRANSACTION": "确认发出",
-    "You are converting to {{unit}}": "You are converting to {{unit}}",
+    "You are converting to {{unit}}": "您正在转换为 {{unit}}",
     "Transaction fee": "交易費用",
+    "Resulting Tokens (EVM)": "转换后 Tokens (EVM)",
     "Resulting Tokens": "转换后 Tokens",
     "Resulting UTXO": "转换后 UTXO",
     "Convert {{amount}} DFI to {{target}}": "转换 {{amount}} DFI 至 {{target}}",
     "Converting": "转换中",
-    "Converted": "Converted"
+    "Converted": "Converted",
+    "Convert {{amount}} {{symbolA}} to {{symbolB}} tokens": "转换 {{amount}} {{symbolA}} 到 {{symbolB}} 代币"
   },
   "screens/SettingsNavigator": {
     "Settings": "设置"
@@ -413,7 +418,7 @@
     "This will unlink your wallet from the app.": "这将取消您的钱包与应用程式的绑定。",
     "DISPLAY & LANGUAGE": "显示和语言",
     "Provide your passcode to\nview recovery words.": "Provide your passcode to\nview recovery words.",
-    "Passcode verified!": "Passcode verified!",
+    "Passcode verified!": "密码已验证!",
     "Provider": "Provider",
     "Custom": "Custom",
     "Default": "Default",
@@ -539,6 +544,19 @@
     "Are there other ways to submit proposals?": "还有其他的方式提交提案吗？",
     "If you own a full node wallet, you may also choose to submit using commands via CLI. Commands can be generated on DeFiScan, under Governance tab > Submit proposal.": "如果您拥有全节点钱包，你可以选择通过CLI界面使用命令进行提交。该命令可以在DeFiScan上生成，在\"Governance\" > \"Submit proposal\" 选项里。"
   },
+  "components/EvmFeatureFaq": {
+    "FREQUENTLY ASKED QUESTIONS": "常见问题",
+    "About MetaChain (EVM)": "MetaChain (EVM)",
+    "The MetaChain layer provides an EVM-compatible environment that allows developers familiar with Ethereum to seamlessly build next generation applications inside the native DeFiChain ecosystem.\n\nThe MetaChain layer provides an EVM-compatible environment that allows developers familiar with Ethereum to build applications inside the DeFiChain ecosystem.": "MetaChain 层提供了一个与 EVM 兼容的环境，允许熟悉以太坊的开发人员在 DeFiChain 生态系统内无缝构建下一代应用程序。\n\nMetaChain 层提供了一个与 EVM 兼容的环境，允许熟悉以太坊的开发人员在 DeFiChain 生态系统内构建应用程序。",
+    "What tokens are supported between DVM and EVM bidirectionally?": "DVM 和 EVM 这两个之间支持哪些双向代币？",
+    "All dTokens are accepted. dTokens consist of:\ndStocks (dTSLA, dGOOG.) + DFI\n\nFor the full list, you may refer to https://defiscan.live/tokens on any tokens under DAT category.": "所有 dToken 均被接受。 dToken 包括：\ndStocks (dTSLA, dGOOG.) + DFI\n\n有关完整列表，您可以参考 https://defiscan.live/tokens 了解 DAT 类别下的任何代币。",
+    "How can I access the MetaChain layer from the Light Wallet?": "如何从轻钱包访问MetaChain层？",
+    "Move your dTokens between native DeFiChain's native layer (DVM) and the MetaChain layer (EVM) bidirectionally.\n\nFor instance, transfer DFI/DUSD/dBTC or any other dToken from DVM to EVM and back, all directly within the Light Wallet.": "在原生 DeFiChain 的原链层 (DVM) 和 MetaChain 层 (EVM) 之间双向移动您的 dToken。\n\n例如，将 DFI/DUSD/dBTC 或任何其他 dToken 从 DVM 转移到 EVM 并返回，所有这些操作都直接在轻钱包内进行。",
+    "Why would I need to move dTokens from DVM to EVM?": "为什么我需要将 dToken 从 DVM 转移到 EVM？",
+    "Using the gateway allows you to move your dTokens from the Light Wallet to any EVM compatible wallet on the MetaChain layer (ex: MetaMask). This would allow you to interact with the constantly growing EVM ecosystem on MetaChain and the various projects on it.": "使用这路线可以让您将 dToken 从 Light Wallet 移动到 MetaChain 层上的任何 EVM 兼容钱包（例如：MetaMask）。 这将使您能够与 MetaChain 上不断发展的 EVM 生态系统及其上的各种项目进行交互。",
+    "How can I move dTokens from DVM to EVM?": "如何将 dToken 从 DVM 转移到 EVM？",
+    "You can do it through either the \"Convert\" or \"Send\" functions on Light Wallet. The \"Convert\" option allows you to convert any dTokens on DVM to your own EVM address within the Light Wallet (and vice versa).\n\nYour seed phrase can also be used to import your Light Wallet EVM address into any external wallets which support a 24 words recovery phrase like MetaMask.\n\nThe \"Send\" option allows you to send dTokens from your DVM address to any EVM address on the MetaChain layer and vice versa. Note that you do not need to convert your dTokens before sending, this process does it automatically for you.": "您可以通过 Light Wallet 上的\"转换\"或\"发送\"功能来完成此操作。 \"转换\"选项允许您将 DVM 上的任何 dToken 转换为您自己的轻钱包中的 EVM 地址（反之亦然）。\n\n您的助记词还可用于将您的轻钱包 EVM 地址导入任何支持 24 个单词恢复短语（如 MetaMask）的外部钱包。\n\n\"发送\"选项允许您将 dToken 从您的 DVM 地址发送到 MetaChain 层上的任何 EVM 地址，反之亦然。 请注意，您无需在发送前转换 dToken，此过程会自动为您完成。"
+  },
   "screens/NetworkSelectionScreen": {
     "NETWORK": "网络",
     "Select network": "切换网络",
@@ -610,6 +628,8 @@
     "Trade on the DEX and earn rewards from liquidity mining with crypto and dTokens.": "在 DEX 上进行交易并使用加密货币和 dToken 从流动性挖矿中获得奖励 ",
     "Decentralized loans": "去中心化资产贷款",
     "Access financial opportunities with dTokens minted through decentralized vaults.": "透过去中心化金库铸造的 dToken 获得交易机会",
+    "EVM compatible": "EVM 兼容",
+    "Seamless transfers between DeFiChain and MetaChain via generated EVM address.": "通过生成的 EVM 地址在 DeFiChain 和 MetaChain 之间无缝传输。",
     "DeFiChain Wallet is fully non-custodial. Only you will have access to your fund.": "DeFiChain 钱包是完全非托管的。个人资金只供您私人操作。"
   },
   "screens/CreateMnemonicWallet": {
@@ -643,7 +663,8 @@
     "Create wallet": "Create wallet",
     "You will be shown 24 recovery words on the next screen. Keep your 24-word recovery safe as it will allow you to recover access to the wallet.": "You will be shown 24 recovery words on the next screen. Keep your 24-word recovery safe as it will allow you to recover access to the wallet.",
     "Write the words on paper. Take note of their correct spelling and order.": "Write the words on paper. Take note of their correct spelling and order.",
-    "Secure them in a safe place. Store them offline at a place only you have access. Keep them private and do not share it with anyone.": "Secure them in a safe place. Store them offline at a place only you have access. Keep them private and do not share it with anyone."
+    "Secure them in a safe place. Store them offline at a place only you have access. Keep them private and do not share it with anyone.": "Secure them in a safe place. Store them offline at a place only you have access. Keep them private and do not share it with anyone.",
+    "A mapped EVM address will be generated to ensure seamless transfers between DeFiChain and MetaChain.": "将生成映射的 EVM 地址，以确保 DeFiChain 和 MetaChain 之间的无缝传输。"
   },
   "screens/GuidelinesRecoveryWords": {
     "What are recovery words?": "「恢复字组」是什么?",
@@ -831,7 +852,9 @@
     "Borrowing {{amount}} {{symbol}} with vault {{vaultId}}": "Borrowing {{amount}} {{symbol}} with vault {{vaultId}}",
     "Borrowed {{amount}} {{symbol}}": "Borrowed {{amount}} {{symbol}}",
     "Requested amount is higher than available amount.": "您请求的金额高于可用金额。",
-    "tokens": "代币"
+    "tokens": "代币",
+    "Converting {{amount}} {{symbolA}} to {{symbolB}} tokens": "正在转换 {{amount}} {{symbolA}} 到 {{symbolB}} 代币 ",
+    "{{amount}} {{symbolA}} converted to {{symbolB}} tokens": "{{amount}} {{symbolA}} 已经成功转换成 {{symbolB}}代币"
   },
   "components/BarCodeScanner": {
     "Requesting for camera permission": "请许可程序使用相机",
@@ -880,7 +903,7 @@
     "Pooled {{symbol}}": "池中总 {{symbol}}",
     "View pool share": "View pool share",
     "View pool info": "View pool info",
-    "Review full details in the next screen": "Review full details in the next screen",
+    "Review full details in the next screen": "在下一个屏幕中查看完整详细信息",
     "Insufficient balance": "Insufficient balance",
     "APR": "APR",
     "Shares to add": "Shares to add",
@@ -1064,9 +1087,9 @@
     "You are buying dTokens at 5% more than the oracle price at settlement block.": "You are buying dTokens at 5% more than the oracle price at settlement block.",
     "You are buying {{displaySymbol}} at 5% more than the oracle price at settlement block.": "You are buying {{displaySymbol}} at 5% more than the oracle price at settlement block.",
     "You are selling your {{displaySymbol}} at 5% less than the oracle price at settlement block.": "You are selling your {{displaySymbol}} at 5% less than the oracle price at settlement block.",
-    "Review full details in the next screen": "Review full details in the next screen",
+    "Review full details in the next screen": "在下一个屏幕中查看完整详细信息",
     "By continuing, the required amount of DFI will be converted": "By continuing, the required amount of DFI will be converted",
-    "I HAVE {{totalAmount}} {{token}}": "I HAVE {{totalAmount}} {{token}}",
+    "I HAVE {{totalAmount}} {{token}}": "我有 {{totalAmount}} {{token}}",
     "I WANT {{token}}": "I WANT {{token}}",
     "incl. stabilization fee ({{dexStabilizationFee}}%)": "incl. stabilization fee ({{dexStabilizationFee}}%)",
     "Total fees": "Total fees",
@@ -1152,7 +1175,7 @@
     "Sign to verify access": "签下以确认使用",
     "Success!": "成功！",
     "It may take a few seconds to verify": "It may take a few seconds to verify",
-    "Passcode verified!": "Passcode verified!",
+    "Passcode verified!": "密码已验证!",
     "Provide your passcode to view recovery words.": "Provide your passcode to view recovery words.",
     "Provide existing passcode to change passcode.": "Provide existing passcode to change passcode."
   },
@@ -1748,7 +1771,7 @@
     "Insufficient DFI and/or DUSD in vault to maintain active loans": "Insufficient DFI and/or DUSD in vault to maintain active loans",
     "Active DUSD loans require 50% DFI collaterals": "Active DUSD loans require 50% DFI collaterals",
     "By continuing, the required amount of DFI will be converted": "By continuing, the required amount of DFI will be converted",
-    "Review full details in the next screen": "Review full details in the next screen"
+    "Review full details in the next screen": "在下一个屏幕中查看完整详细信息"
   },
   "screens/ConfirmEditCollateralScreen": {
     "You are adding collateral to": "向金库增加抵押品",
@@ -1791,7 +1814,7 @@
     "I WANT TO PAY": "I WANT TO PAY",
     "I WANT TO PAY WITH DUSD COLLATERAL": "I WANT TO PAY WITH DUSD COLLATERAL",
     "Available: ": "现有可使用: ",
-    "Review full details in the next screen": "Review full details in the next screen",
+    "Review full details in the next screen": "在下一个屏幕中查看完整详细信息",
     "Use your DUSD collaterals to fully pay off your DUSD loan.": "Use your DUSD collaterals to fully pay off your DUSD loan.",
     "Continue": "继续",
     "Max available {{unit}} entered": "Max available {{unit}} entered",
@@ -1880,7 +1903,7 @@
     "Amount entered may liquidate the vault. Proceed at your own risk.": "Amount entered may liquidate the vault. Proceed at your own risk.",
     "Insufficient DFI and/or DUSD in vault. Add more to start minting dTokens.": "Insufficient DFI and/or DUSD in vault. Add more to start minting dTokens.",
     "Insufficient DFI in vault. Add more to borrow DUSD.": "Insufficient DFI in vault. Add more to borrow DUSD.",
-    "Review full details in the next screen": "Review full details in the next screen",
+    "Review full details in the next screen": "在下一个屏幕中查看完整详细信息",
     "Max loan amount entered": "已输入最高贷款金额",
     "{{percent}} of max loan amount entered": "已输入最高贷款金额的 {{percent}}%",
     "SELECT VAULT FOR COLLATERAL": "选择金库抵押",
@@ -1951,7 +1974,7 @@
     "Continue": "继续",
     "Confirm your vault details in next screen": "在下一页确认金库的细行",
     "AVAILABLE SCHEMES": "AVAILABLE SCHEMES",
-    "Review full details in the next screen": "Review full details in the next screen",
+    "Review full details in the next screen": "在下一个屏幕中查看完整详细信息",
     "VAULT DETAILS": "VAULT DETAILS",
     "{{interestRate}}% Interest": "{{interestRate}}% Interest",
     "min. ": "min. ",
@@ -2048,7 +2071,7 @@
     "The value of the tokens you are placing is considerably higher than the total auction value.": "您正要出的价钱比拍卖价值还高，请检查和确认",
     "Collateral for auction": "待拍賣的抵押品",
     "I HAVE {{ownedAmount}} {{symbol}}": "I HAVE {{ownedAmount}} {{symbol}}",
-    "Review full details in the next screen": "Review full details in the next screen",
+    "Review full details in the next screen": "在下一个屏幕中查看完整详细信息",
     "Transaction fee": "Transaction fee",
     "The minimum next bid is {{amount}} {{symbol}} (100%)": "The minimum next bid is {{amount}} {{symbol}} (100%)",
     "{{percent}} min bid entered": "{{percent}} 最低竞投出价输入",
@@ -2077,7 +2100,7 @@
     "Preparing placing {{amount}} {{token}} bid": "Preparing placing {{amount}} {{token}} bid",
     "Placed {{amount}} {{token}} bid": "Placed {{amount}} {{token}} bid",
     "It may take a few seconds to verify": "It may take a few seconds to verify",
-    "Passcode verified!": "Passcode verified!"
+    "Passcode verified!": "密码已验证!"
   },
   "screens/WithdrawFutureSwapScreen": {
     "Withdraw": "Withdraw",
@@ -2095,7 +2118,7 @@
     "Withdraw from": "Withdraw from",
     "Insufficient Balance": "Insufficient Balance",
     "Transaction fee": "交易費用",
-    "Review full details in the next screen": "Review full details in the next screen",
+    "Review full details in the next screen": "在下一个屏幕中查看完整详细信息",
     "Max available {{unit}} entered": "Max available {{unit}} entered",
     "{{percent}} of available {{unit}} entered": "{{percent}} of available {{unit}} entered",
     "Amount to swap": "Amount to swap",
@@ -2204,7 +2227,9 @@
     "Swap": "兑换",
     "Transactions": "交易纪录",
     "Future swap": "Future swap",
-    "Get DFI": "获取 DFI"
+    "Get DFI": "获取 DFI",
+    "Convert": "转换",
+    "Governance": "治理"
   },
   "screens/PoolPairDetailsScreen": {
     "{{poolPair}} Pool": "Pool {{poolPair}}",
@@ -2235,8 +2260,12 @@
     "Search with token name": "使用代币名称搜索",
     "Search results for “{{searchTerm}}”": "Search results for “{{searchTerm}}”"
   },
+  "components/ConversionDetailsRow": {
+    "Resulting UTXO": "转换后 UTXO",
+    "Resulting Tokens": "转换后 Tokens"
+  },
   "screens/OCGProposalsScreen": {
-    "Governance": "Governance",
+    "Governance": "治理",
     "Community Funding Proposal": "社区资助提案 (CFP)",
     "Proposal to build on top of the DeFiChain blockchain, and funded by the Community Development Fund.": "该选项是用于搭建在DeFiChain区块链之上且由社区发展基金资助",
     "DeFiChain Improvement Proposal": "DeFiChain 改进提案 (DFIP)",

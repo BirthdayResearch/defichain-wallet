@@ -13,6 +13,7 @@ import { authentication } from "./authentication";
 import { loans } from "./loans";
 import { auctions } from "./auctions";
 import { futureSwaps } from "./futureSwap";
+import { evm } from "./evm";
 /**
  * RootState for DeFiChain Wallet App
  *
@@ -36,6 +37,7 @@ export function initializeStore() {
       [statusWebsiteSlice.reducerPath]: statusWebsiteSlice.reducer,
       userPreferences: userPreferences.reducer,
       futureSwaps: futureSwaps.reducer,
+      evm: evm.reducer,
     },
     middleware: (getDefaultMiddleware) =>
       getDefaultMiddleware({ serializableCheck: false })

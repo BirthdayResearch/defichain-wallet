@@ -27,10 +27,12 @@ import {
   SkeletonLoaderScreen,
 } from "@components/SkeletonLoader";
 import { ListRenderItemInfo } from "@shopify/flash-list";
+import { DomainType, useDomainContext } from "@contexts/DomainContext";
 import { PortfolioParamList } from "../PortfolioNavigator";
 import { ActiveUSDValueV2 } from "../../Loans/VaultDetail/components/ActiveUSDValueV2";
 import { TokenIcon } from "../components/TokenIcon";
 import { TokenNameText } from "../components/TokenNameText";
+import { useEvmTokenBalances } from "../hooks/EvmTokenBalances";
 
 export interface TokenSelectionItem extends BottomSheetToken {
   usdAmount: BigNumber;
@@ -51,11 +53,15 @@ export interface BottomSheetToken {
 
 export function TokenSelectionScreen(): JSX.Element {
   const { isLight } = useThemeContext();
+  const { domain } = useDomainContext();
   const navigation = useNavigation<NavigationProp<PortfolioParamList>>();
   const tokens = useSelector((state: RootState) =>
-    tokensSelector(state.wallet)
+    tokensSelector(state.wallet),
   );
+  const { evmTokens } = useEvmTokenBalances();
+
   const { hasFetchedToken } = useSelector((state: RootState) => state.wallet);
+  const { hasFetchedEvmTokens } = useSelector((state: RootState) => state.evm);
   const [searchString, setSearchString] = useState("");
   const { getTokenPrice } = useTokenPrice();
   const debouncedSearchTerm = useDebounce(searchString, 250);
@@ -63,12 +69,19 @@ export function TokenSelectionScreen(): JSX.Element {
   const [isSearchFocus, setIsSearchFocus] = useState(false);
   const searchRef = useRef<TextInput>();
 
-  const tokensWithBalance = getTokensWithBalance(tokens, getTokenPrice);
+  const filteredTokensByDomain = domain === DomainType.EVM ? evmTokens : tokens;
+
+  const tokensWithBalance = getTokensWithBalance(
+    filteredTokensByDomain,
+    getTokenPrice,
+  );
   const filteredTokensWithBalance = useMemo(() => {
     return filterTokensBySearchTerm(tokensWithBalance, debouncedSearchTerm);
   }, [tokensWithBalance, debouncedSearchTerm]);
 
-  if (hasFetchedToken && tokensWithBalance.length === 0) {
+  const hasFetchedDvmEvmTokens =
+    hasFetchedToken || (domain === DomainType.EVM && hasFetchedEvmTokens);
+  if (hasFetchedDvmEvmTokens && tokensWithBalance.length === 0) {
     return <EmptyAsset navigation={navigation} />;
   }
 
@@ -84,11 +97,14 @@ export function TokenSelectionScreen(): JSX.Element {
         return (
           <TokenSelectionRow
             item={item}
+            domain={domain}
             onPress={() => {
               navigation.navigate({
                 name: "SendScreen",
                 params: {
-                  token: tokens.find((t) => item.tokenId === t.id),
+                  token: filteredTokensByDomain.find(
+                    (t) => t.id === item.tokenId,
+                  ),
                 },
                 merge: true,
               });
@@ -118,7 +134,7 @@ export function TokenSelectionScreen(): JSX.Element {
             }}
             placeholder={translate(
               "screens/TokenSelectionScreen",
-              "Search token"
+              "Search token",
             )}
             showClearButton={debouncedSearchTerm !== ""}
             onClearInput={() => {
@@ -138,7 +154,7 @@ export function TokenSelectionScreen(): JSX.Element {
             ref={searchRef}
           />
 
-          {(!hasFetchedToken || debouncedSearchTerm.trim() === "") && (
+          {(!hasFetchedDvmEvmTokens || debouncedSearchTerm.trim() === "") && (
             <ThemedTextV2
               style={tailwind("text-xs pl-5 mt-6 mb-2 font-normal-v2")}
               light={tailwind("text-mono-light-v2-500")}
@@ -148,7 +164,7 @@ export function TokenSelectionScreen(): JSX.Element {
             </ThemedTextV2>
           )}
 
-          {hasFetchedToken && debouncedSearchTerm.trim() !== "" && (
+          {hasFetchedDvmEvmTokens && debouncedSearchTerm.trim() !== "" && (
             <ThemedTextV2
               style={tailwind("text-xs pl-5 mt-6 mb-2 font-normal-v2")}
               light={tailwind("text-mono-light-v2-700")}
@@ -158,12 +174,12 @@ export function TokenSelectionScreen(): JSX.Element {
               {translate(
                 "screens/TokenSelectionScreen",
                 "Search results for “{{searchTerm}}”",
-                { searchTerm: debouncedSearchTerm }
+                { searchTerm: debouncedSearchTerm },
               )}
             </ThemedTextV2>
           )}
 
-          {!hasFetchedToken && (
+          {!hasFetchedDvmEvmTokens && (
             <SkeletonLoader
               row={5}
               screen={SkeletonLoaderScreen.TokenSelection}
@@ -179,11 +195,13 @@ export function TokenSelectionScreen(): JSX.Element {
 interface TokenSelectionRowProps {
   item: TokenSelectionItem;
   onPress: any;
+  domain: DomainType;
 }
 
 function TokenSelectionRow({
   item,
   onPress,
+  domain,
 }: TokenSelectionRowProps): JSX.Element {
   return (
     <ThemedTouchableOpacityV2
@@ -192,7 +210,7 @@ function TokenSelectionRow({
       light={tailwind("bg-mono-light-v2-00")}
       dark={tailwind("bg-mono-dark-v2-00")}
       style={tailwind(
-        "mx-5 mb-2 p-4 flex flex-row items-center justify-between rounded-lg"
+        "mx-5 mb-2 p-4 flex flex-row items-center justify-between rounded-lg",
       )}
       testID={`select_${item.token.displaySymbol}`}
     >
@@ -202,6 +220,7 @@ function TokenSelectionRow({
           token={{
             isLPS: item.token.isLPS,
             displaySymbol: item.token.displaySymbol,
+            id: item.tokenId,
           }}
           size={36}
         />
@@ -209,6 +228,7 @@ function TokenSelectionRow({
           displaySymbol={item.token.displaySymbol}
           name={item.token.name}
           testID={item.token.displaySymbol}
+          isEvmDomain={domain === DomainType.EVM}
         />
       </View>
       <View style={tailwind("flex flex-col items-end")}>
@@ -242,7 +262,7 @@ function EmptyAsset({
   return (
     <ThemedScrollViewV2
       contentContainerStyle={tailwind(
-        "flex items-center justify-between mx-12 h-full"
+        "flex items-center justify-between mx-12 h-full",
       )}
     >
       <View style={tailwind("flex items-center")}>
@@ -268,7 +288,7 @@ function EmptyAsset({
         >
           {translate(
             "screens/TokenSelectionScreen",
-            "Add assets to get started"
+            "Add assets to get started",
           )}
         </ThemedTextV2>
       </View>
@@ -286,8 +306,8 @@ function getTokensWithBalance(
   getTokenPrice: (
     symbol: string,
     amount: BigNumber,
-    isLPS?: boolean | undefined
-  ) => BigNumber
+    isLPS?: boolean | undefined,
+  ) => BigNumber,
 ): TokenSelectionItem[] {
   const reservedFees = 0.1;
   const filteredTokens: TokenSelectionItem[] = [];
@@ -296,7 +316,7 @@ function getTokensWithBalance(
     const available = new BigNumber(
       t.displaySymbol === "DFI"
         ? new BigNumber(t.amount).minus(reservedFees).toFixed(8)
-        : t.amount
+        : t.amount,
     );
     if (available.isLessThan(0) || t.id === "0" || t.id === "0_utxo") {
       return;
@@ -318,17 +338,17 @@ function getTokensWithBalance(
   });
 
   return filteredTokens.sort((a, b) =>
-    b.usdAmount.minus(a.usdAmount).toNumber()
+    b.usdAmount.minus(a.usdAmount).toNumber(),
   );
 }
 
 function filterTokensBySearchTerm(
   tokens: TokenSelectionItem[],
-  searchTerm: string
+  searchTerm: string,
 ): TokenSelectionItem[] {
   return tokens.filter((t) =>
     [t.token.displaySymbol, t.token.name].some((searchItem) =>
-      searchItem.toLowerCase().includes(searchTerm.trim().toLowerCase())
-    )
+      searchItem.toLowerCase().includes(searchTerm.trim().toLowerCase()),
+    ),
   );
 }

@@ -25,7 +25,7 @@ export function BottomSheetTokenListHeader({
           <ThemedIcon
             iconType="Feather"
             name="x-circle"
-            size={20}
+            size={22}
             dark={tailwind("text-mono-dark-v2-900")}
             light={tailwind("text-mono-light-v2-900")}
           />

@@ -14,6 +14,7 @@ module.exports = function (api) {
           "@shared-api": "./shared/api",
           "@shared-contexts": "./shared/contexts",
           "@shared-types": "./shared/types",
+          "@shared-contracts": "./shared/contracts",
           "@screens": "./mobile-app/app/screens",
           "@store": "./shared/store",
           "@translations": "./shared/translations",
@@ -22,6 +23,9 @@ module.exports = function (api) {
       },
     ],
     "@babel/plugin-proposal-export-namespace-from",
+    "@babel/plugin-transform-private-methods",
+    "@babel/plugin-transform-class-properties",
+    "@babel/plugin-transform-private-property-in-object",
     "react-native-reanimated/plugin",
   ];
 

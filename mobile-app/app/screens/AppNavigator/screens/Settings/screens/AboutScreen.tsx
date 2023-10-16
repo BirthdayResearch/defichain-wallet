@@ -162,14 +162,14 @@ export function AboutScreen(): JSX.Element {
           <View style={tailwind("flex-col mt-16")}>
             <ThemedTextV2
               style={tailwind(
-                "text-2xs leading-4 font-normal-v2 uppercase text-center"
+                "text-2xs leading-4 font-normal-v2 uppercase text-center",
               )}
             >
               {translate("screens/AboutScreen", "Developed by")}
             </ThemedTextV2>
             <ThemedTextV2
               style={tailwind(
-                "text-2xs leading-4 font-normal-v2 uppercase text-center"
+                "text-2xs leading-4 font-normal-v2 uppercase text-center",
               )}
             >
               {translate("screens/AboutScreen", "Birthday Research")}
@@ -216,7 +216,7 @@ export function AboutScreen(): JSX.Element {
       >
         {translate(
           "screens/CommunityScreen",
-          "DeFiChain is a community-driven and open project. The DeFiChain Foundation does not provide direct support."
+          "DeFiChain is a community-driven and open project. The DeFiChain Foundation does not provide direct support.",
         )}
       </ThemedTextV2>
     </ThemedScrollViewV2>
@@ -246,7 +246,7 @@ function LinkItemRow({
       light={tailwind("bg-mono-light-v2-00")}
       onPress={handlePress}
       style={tailwind(
-        "flex-row px-5 py-4 items-center rounded-lg-v2 mb-2 mx-5 border-0"
+        "flex-row px-5 py-4 items-center rounded-lg-v2 mb-2 mx-5 border-0",
       )}
       testID={testID}
     >
@@ -288,7 +288,7 @@ function SocialLink({
       light={tailwind("bg-mono-light-v2-900")}
       onPress={handlePress}
       style={tailwind(
-        "justify-center items-center rounded-full w-10 h-10 mx-4 border-0"
+        "justify-center items-center rounded-full w-10 h-10 mx-4 border-0",
       )}
       testID={testID}
     >
