@@ -158,7 +158,7 @@ export function SendConfirmationScreen({ route }: Props): JSX.Element {
           testID="text_send_amount"
           iconA={tokenADisplaySymbol}
           iconB={tokenBDisplaySymbol}
-          fromAddress={address}
+          fromAddress={domain === DomainType.DVM ? address : evmAddress}
           fromAddressLabel={addressLabel}
           toAddress={destination}
           toAddressLabel={toAddressLabel}
