@@ -71,6 +71,7 @@ export interface BottomSheetToken {
 export function SendScreen({ route, navigation }: Props): JSX.Element {
   const dispatch = useAppDispatch();
   const logger = useLogger();
+  const { isEvmFeatureEnabled } = useDomainContext();
   const { networkName } = useNetworkContext();
   const client = useWhaleApiClient();
   const { isLight } = useThemeContext();
@@ -149,6 +150,14 @@ export function SendScreen({ route, navigation }: Props): JSX.Element {
 
     if (new BigNumber(amountToSend).isGreaterThan(token?.amount ?? 0)) {
       infoText = "Insufficient balance";
+      themedProps = {
+        dark: tailwind("text-red-v2"),
+        light: tailwind("text-red-v2"),
+      };
+      status = TransactionCardStatus.Error;
+    } else if (isEvmAddress && !isEvmFeatureEnabled) {
+      infoText =
+        "Transferring non-DAT tokens or LP tokens to an EVM address is not enabled";
       themedProps = {
         dark: tailwind("text-red-v2"),
         light: tailwind("text-red-v2"),
