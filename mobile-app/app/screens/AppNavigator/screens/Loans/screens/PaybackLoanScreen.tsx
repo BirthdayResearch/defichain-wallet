@@ -61,10 +61,10 @@ export function PaybackLoanScreen({ navigation, route }: Props): JSX.Element {
   const dispatch = useAppDispatch();
   const [vault, setVault] = useState(routeParams.vault);
   const [loanTokenAmount, setLoanTokenAmount] = useState(
-    routeParams.loanTokenAmount
+    routeParams.loanTokenAmount,
   );
   const vaults = useSelector((state: RootState) =>
-    activeVaultsSelector(state.loans)
+    activeVaultsSelector(state.loans),
   );
 
   useEffect(() => {
@@ -72,7 +72,7 @@ export function PaybackLoanScreen({ navigation, route }: Props): JSX.Element {
   }, []);
 
   const collateralTokens = useSelector(
-    (state: RootState) => state.loans.collateralTokens
+    (state: RootState) => state.loans.collateralTokens,
   );
 
   useEffect(() => {
@@ -81,7 +81,7 @@ export function PaybackLoanScreen({ navigation, route }: Props): JSX.Element {
       setVault(vault);
     }
     const loanTokenAmount = vault?.loanAmounts.find(
-      (l: LoanVaultTokenAmount) => l.id === routeParams.loanTokenAmount.id
+      (l: LoanVaultTokenAmount) => l.id === routeParams.loanTokenAmount.id,
     );
     if (loanTokenAmount !== undefined) {
       setLoanTokenAmount(loanTokenAmount);
@@ -89,7 +89,7 @@ export function PaybackLoanScreen({ navigation, route }: Props): JSX.Element {
   }, [vaults]);
 
   const tokens = useSelector((state: RootState) =>
-    tokensSelector(state.wallet)
+    tokensSelector(state.wallet),
   );
   const toast = useToast();
   const TOAST_DURATION = 2000;
@@ -102,7 +102,7 @@ export function PaybackLoanScreen({ navigation, route }: Props): JSX.Element {
     });
   }
   const loanToken = useSelector((state: RootState) =>
-    loanTokenByTokenId(state.loans, loanTokenAmount.id)
+    loanTokenByTokenId(state.loans, loanTokenAmount.id),
   );
   const { isLight } = useThemeContext();
   const canUseOperations = useLoanOperations(vault?.state);
@@ -112,7 +112,7 @@ export function PaybackLoanScreen({ navigation, route }: Props): JSX.Element {
   });
   const { amountToPay } = watch();
   const collateralDUSD = vault?.collateralAmounts?.find(
-    ({ symbol }) => symbol === "DUSD"
+    ({ symbol }) => symbol === "DUSD",
   );
   const collateralDUSDAmount = collateralDUSD?.amount ?? "0";
   const [fee, setFee] = useState<BigNumber>(new BigNumber(0.0001));
@@ -129,14 +129,14 @@ export function PaybackLoanScreen({ navigation, route }: Props): JSX.Element {
     if (routeParams.isPaybackDUSDUsingCollateral) {
       setValue(
         "amountToPay",
-        BigNumber.min(collateralDUSDAmount, loanTokenAmount.amount).toFixed(8)
+        BigNumber.min(collateralDUSDAmount, loanTokenAmount.amount).toFixed(8),
       );
     }
   }, [loanTokenAmount, collateralDUSDAmount]);
 
   const interestPerBlock = useInterestPerBlock(
     new BigNumber(vault?.loanScheme.interestRate ?? NaN),
-    new BigNumber(loanToken?.interest ?? NaN)
+    new BigNumber(loanToken?.interest ?? NaN),
   );
   const token = tokens?.find((t) => t.id === loanTokenAmount.id);
   const tokenBalance =
@@ -152,21 +152,23 @@ export function PaybackLoanScreen({ navigation, route }: Props): JSX.Element {
       ? collateralFactor
       : undefined,
     undefined,
-    routeParams.isPaybackDUSDUsingCollateral === true ? "COLLATERAL" : undefined
+    routeParams.isPaybackDUSDUsingCollateral === true
+      ? "COLLATERAL"
+      : undefined,
   );
 
   const hasPendingJob = useSelector((state: RootState) =>
-    hasTxQueued(state.transactionQueue)
+    hasTxQueued(state.transactionQueue),
   );
   const hasPendingBroadcastJob = useSelector((state: RootState) =>
-    hasOceanTXQueued(state.ocean)
+    hasOceanTXQueued(state.ocean),
   );
 
   const getCollateralValue = (collateralValue: string) => {
     if (routeParams.isPaybackDUSDUsingCollateral) {
       // In case of DUSD payment using collateral
       return new BigNumber(collateralValue).minus(
-        new BigNumber(amountToPay).multipliedBy(loanTokenActivePriceInUSD)
+        new BigNumber(amountToPay).multipliedBy(loanTokenActivePriceInUSD),
       );
     }
     return new BigNumber(collateralValue);
@@ -177,10 +179,10 @@ export function PaybackLoanScreen({ navigation, route }: Props): JSX.Element {
     new BigNumber(vault?.loanValue ?? NaN),
     BigNumber.min(
       new BigNumber(amountToPay).isNaN() ? "0" : amountToPay,
-      loanTokenAmount.amount
+      loanTokenAmount.amount,
     ).multipliedBy(-1),
     new BigNumber(loanTokenActivePriceInUSD),
-    interestPerBlock
+    interestPerBlock,
   );
 
   const navigateToConfirmScreen = async (): Promise<void> => {
@@ -202,7 +204,7 @@ export function PaybackLoanScreen({ navigation, route }: Props): JSX.Element {
 
   const onChangeFromAmount = async (
     amount: string,
-    type: AmountButtonTypes
+    type: AmountButtonTypes,
   ): Promise<void> => {
     const isMax = type === AmountButtonTypes.Max;
     const toastMessage = isMax
@@ -214,7 +216,7 @@ export function PaybackLoanScreen({ navigation, route }: Props): JSX.Element {
       percent: type,
     };
     showToast(
-      translate("screens/PaybackLoanScreen", toastMessage, toastOption)
+      translate("screens/PaybackLoanScreen", toastMessage, toastOption),
     );
     await trigger("amountToPay");
   };
@@ -238,7 +240,7 @@ export function PaybackLoanScreen({ navigation, route }: Props): JSX.Element {
           "screens/PaybackLoanScreen",
           routeParams.isPaybackDUSDUsingCollateral
             ? "I WANT TO PAY WITH DUSD COLLATERAL"
-            : "I WANT TO PAY"
+            : "I WANT TO PAY",
         )}
       </ThemedTextV2>
 
@@ -266,7 +268,7 @@ export function PaybackLoanScreen({ navigation, route }: Props): JSX.Element {
         >
           <View
             style={tailwind(
-              "flex flex-row justify-between items-center pl-5 mt-4"
+              "flex flex-row justify-between items-center pl-5 mt-4",
             )}
           >
             <View style={tailwind("w-6/12 mr-2")}>
@@ -276,7 +278,7 @@ export function PaybackLoanScreen({ navigation, route }: Props): JSX.Element {
                   routeParams.isPaybackDUSDUsingCollateral
                     ? BigNumber.min(
                         collateralDUSDAmount,
-                        loanTokenAmount.amount
+                        loanTokenAmount.amount,
                       ).toFixed(8)
                     : ""
                 }
@@ -309,7 +311,7 @@ export function PaybackLoanScreen({ navigation, route }: Props): JSX.Element {
                         }}
                         placeholder="0.00"
                         placeholderTextColor={getColor(
-                          isLight ? "mono-light-v2-500" : "mono-dark-v2-500"
+                          isLight ? "mono-light-v2-500" : "mono-dark-v2-500",
                         )}
                         testID="payback_input_text"
                         editable={amountToPay !== undefined}
@@ -323,7 +325,7 @@ export function PaybackLoanScreen({ navigation, route }: Props): JSX.Element {
                   validate: {
                     greaterThanZero: (value: string) =>
                       new BigNumber(
-                        value !== undefined && value !== "" ? value : 0
+                        value !== undefined && value !== "" ? value : 0,
                       ).isGreaterThan(0),
                     notSufficientFunds: (value) =>
                       new BigNumber(tokenBalance).gte(value),
@@ -335,7 +337,7 @@ export function PaybackLoanScreen({ navigation, route }: Props): JSX.Element {
                   new BigNumber(amountToPay).isNaN()
                     ? new BigNumber(0)
                     : new BigNumber(amountToPay).multipliedBy(
-                        loanTokenActivePriceInUSD
+                        loanTokenActivePriceInUSD,
                       )
                 }
                 style={tailwind("text-sm")}
@@ -344,6 +346,7 @@ export function PaybackLoanScreen({ navigation, route }: Props): JSX.Element {
               />
             </View>
             <TokenDropdownButton
+              tokenId={loanTokenAmount.id}
               symbol={loanTokenAmount.displaySymbol}
               testID="loan_token_symbol"
               status={TokenDropdownButtonStatus.Locked}
@@ -408,7 +411,7 @@ export function PaybackLoanScreen({ navigation, route }: Props): JSX.Element {
                 ? "Use your DUSD collaterals to fully pay off your DUSD loan."
                 : new BigNumber(loanTokenOutstandingBal).lt(amountToPay)
                 ? "Any excess payment will be returned."
-                : "Review full details in the next screen"
+                : "Review full details in the next screen",
             )}
           </ThemedTextV2>
         )}
@@ -467,7 +470,7 @@ function TransactionDetailsSection({
   };
   const loanRemaining = BigNumber.max(
     new BigNumber(outstandingBalance).minus(amountToPay),
-    0
+    0,
   );
   return (
     <ThemedViewV2
@@ -504,7 +507,7 @@ function TransactionDetailsSection({
           usdAmount: new BigNumber(loanRemaining).isNaN()
             ? new BigNumber(0)
             : new BigNumber(loanRemaining).multipliedBy(
-                loanTokenActivePriceInUSD
+                loanTokenActivePriceInUSD,
               ),
           themedProps: rowStyle.rhsThemedProps,
         }}
@@ -516,7 +519,7 @@ function TransactionDetailsSection({
           lhs={{
             value: translate(
               "screens/PaybackLoanScreen",
-              "Resulting collateral"
+              "Resulting collateral",
             ),
             testID: "resulting_collateral_amount_label",
             themedProps: rowStyle.lhsThemedProps,
@@ -528,7 +531,7 @@ function TransactionDetailsSection({
             testID: "resulting_collateral_amount",
             suffix: ` ${loanTokenAmount.displaySymbol}`,
             usdAmount: new BigNumber(
-              new BigNumber(collateralDUSDAmount ?? 0).minus(amountToPay)
+              new BigNumber(collateralDUSDAmount ?? 0).minus(amountToPay),
             ).multipliedBy(loanTokenActivePriceInUSD),
             themedProps: rowStyle.rhsThemedProps,
           }}

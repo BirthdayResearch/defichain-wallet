@@ -16,6 +16,7 @@ export enum TokenDropdownButtonStatus {
 }
 
 export function TokenDropdownButton(props: {
+  tokenId?: string;
   symbol?: string;
   displayedTextSymbol?: string;
   testID: string;
@@ -24,7 +25,11 @@ export function TokenDropdownButton(props: {
   isEvmToken?: boolean;
 }): JSX.Element {
   const Icon =
-    props.symbol !== undefined ? getNativeIcon(props.symbol) : undefined;
+    props.symbol !== undefined
+      ? props.tokenId === "0_evm"
+        ? getNativeIcon("DFI (EVM)")
+        : getNativeIcon(props.symbol)
+      : undefined;
   return (
     <ThemedTouchableOpacityV2
       onPress={props.onPress}

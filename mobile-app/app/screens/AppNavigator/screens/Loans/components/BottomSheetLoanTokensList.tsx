@@ -40,7 +40,7 @@ export const BottomSheetLoanTokensList = ({
       return filterLoanTokensBySearchTerm(
         loanTokens,
         debouncedSearchTerm,
-        isSearchFocus
+        isSearchFocus,
       );
     }, [debouncedSearchTerm, isSearchFocus]);
 
@@ -64,12 +64,12 @@ export const BottomSheetLoanTokensList = ({
         keyExtractor={(item) => item.tokenId}
         renderItem={({ item }: ListRenderItemInfo<LoanToken>): JSX.Element => {
           const currentPrice = getPrecisedTokenValue(
-            getActivePrice(item.token.symbol, item.activePrice)
+            getActivePrice(item.token.symbol, item.activePrice),
           );
           return (
             <ThemedTouchableOpacityV2
               style={tailwind(
-                "flex flex-row p-5 mt-2 border-0 rounded-lg-v2 items-center justify-between"
+                "flex flex-row p-5 mt-2 border-0 rounded-lg-v2 items-center justify-between",
               )}
               light={tailwind("bg-mono-light-v2-00")}
               dark={tailwind("bg-mono-dark-v2-00")}
@@ -84,6 +84,7 @@ export const BottomSheetLoanTokensList = ({
                   token={{
                     isLPS: item.token.isLPS,
                     displaySymbol: item.token.displaySymbol,
+                    id: item.tokenId,
                   }}
                   size={36}
                 />
@@ -101,7 +102,7 @@ export const BottomSheetLoanTokensList = ({
                   renderText={(value) => (
                     <ThemedTextV2
                       style={tailwind(
-                        "w-full flex-wrap font-semibold-v2 text-sm text-right"
+                        "w-full flex-wrap font-semibold-v2 text-sm text-right",
                       )}
                       testID={`select_${item.token.displaySymbol}_value`}
                     >
@@ -117,7 +118,7 @@ export const BottomSheetLoanTokensList = ({
                     renderText={(value) => (
                       <ThemedTextV2
                         style={tailwind(
-                          "flex-wrap font-normal-v2 text-xs text-right"
+                          "flex-wrap font-normal-v2 text-xs text-right",
                         )}
                         testID={`select_${item.token.displaySymbol}_sub_value`}
                         light={tailwind("text-mono-light-v2-700")}
@@ -128,7 +129,7 @@ export const BottomSheetLoanTokensList = ({
                     )}
                     suffix={translate(
                       "components/BottomSheetLoanTokensList",
-                      "% interest"
+                      "% interest",
                     )}
                   />
                 </View>
@@ -145,7 +146,7 @@ export const BottomSheetLoanTokensList = ({
               showClearButton={searchString !== ""}
               placeholder={translate(
                 "components/BottomSheetLoanTokensList",
-                "Search with token name"
+                "Search with token name",
               )}
               containerStyle={tailwind([
                 "border-0.5",
@@ -184,12 +185,12 @@ export const BottomSheetLoanTokensList = ({
                   {searchString.trim() === ""
                     ? translate(
                         "components/BottomSheetLoanTokensList",
-                        "Search with token name"
+                        "Search with token name",
                       )
                     : translate(
                         "components/BottomSheetLoanTokensList",
                         "Search results for “{{searchTerm}}”",
-                        { searchTerm: searchString }
+                        { searchTerm: searchString },
                       )}
                 </ThemedTextV2>
               </View>
@@ -210,14 +211,14 @@ export const BottomSheetLoanTokensList = ({
 function filterLoanTokensBySearchTerm(
   loanTokens: LoanToken[],
   searchTerm: string,
-  isFocused: boolean
+  isFocused: boolean,
 ): LoanToken[] {
   if (searchTerm === "") {
     return isFocused ? [] : loanTokens;
   }
   return loanTokens.filter((t) => {
     return [t.token.displaySymbol].some((searchItem) =>
-      searchItem.toLowerCase().includes(searchTerm.trim().toLowerCase())
+      searchItem.toLowerCase().includes(searchTerm.trim().toLowerCase()),
     );
   });
 }

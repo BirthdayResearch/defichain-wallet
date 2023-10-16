@@ -397,8 +397,8 @@ async function send(
                 : ConvertDirection.evmToDvm;
             const isEvmToDvm = sendDirection === ConvertDirection.evmToDvm;
             const tokenId = token.id === "0_unified" ? "0" : token.id;
-            const sourceTokenId = isEvmToDvm ? `${tokenId}-EVM` : tokenId;
-            const targetTokenId = isEvmToDvm ? tokenId : `${tokenId}-EVM`;
+            const sourceTokenId = isEvmToDvm ? `${tokenId}_evm` : tokenId;
+            const targetTokenId = isEvmToDvm ? tokenId : `${tokenId}_evm`;
             const dvmAddress = isEvmToDvm
               ? address
               : await account.getAddress();

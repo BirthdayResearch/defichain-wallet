@@ -42,7 +42,7 @@ export function useEvmTokenBalances(): { evmTokens: WalletToken[] } {
 
   const getEvmTokens = async () => {
     const dfiToken: WalletToken = {
-      id: "0-EVM",
+      id: "0_evm",
       symbol: "DFI",
       symbolKey: "DFI",
       isDAT: true,
@@ -50,8 +50,8 @@ export function useEvmTokenBalances(): { evmTokens: WalletToken[] } {
       isLoanToken: false,
       amount: "0",
       name: "DeFiChain for EVM",
-      displaySymbol: "EvmDFI",
-      avatarSymbol: "EvmDFI",
+      displaySymbol: "DFI",
+      avatarSymbol: "DFI",
     };
     try {
       const evmDfiBalance = formatEther(
@@ -67,7 +67,7 @@ export function useEvmTokenBalances(): { evmTokens: WalletToken[] } {
               return [
                 ...current,
                 {
-                  id: `${tokenDetails.id}-EVM`,
+                  id: `${tokenDetails.id}_evm`,
                   symbol: tokenDetails.symbol,
                   symbolKey: tokenDetails.symbolKey,
                   isDAT: tokenDetails.isDAT,

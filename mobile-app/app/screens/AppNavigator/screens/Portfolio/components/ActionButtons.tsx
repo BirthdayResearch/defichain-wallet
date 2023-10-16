@@ -87,8 +87,8 @@ export function ActionButtons(): JSX.Element {
         const defaultTargetToken = {
           tokenId:
             domain === DomainType.DVM
-              ? `${item.tokenId}-EVM`
-              : item.tokenId.replace("-EVM", ""),
+              ? `${item.tokenId}_evm`
+              : item.tokenId.replace("_evm", ""),
           available: new BigNumber(0),
           token: {
             ...item.token,
@@ -111,13 +111,13 @@ export function ActionButtons(): JSX.Element {
           // If EVM -> choose DVM equivalent
           targetToken =
             dvmTokens.find(
-              (token) => token.tokenId === item.tokenId.replace("-EVM", ""),
+              (token) => token.tokenId === item.tokenId.replace("_evm", ""),
             ) ?? defaultTargetToken;
         } else if (domain === DomainType.DVM) {
           // If DVM -> choose EVM equivalent
           targetToken =
             evmTokens.find(
-              (token) => token.tokenId === `${item.tokenId}-EVM`,
+              (token) => token.tokenId === `${item.tokenId}_evm`,
             ) ?? defaultTargetToken;
         }
 
