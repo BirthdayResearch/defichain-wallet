@@ -127,7 +127,7 @@ export function TokenDetailScreen({ route, navigation }: Props): JSX.Element {
     route.params.token,
   );
 
-  const { dvmTokens } = useTokenBalance();
+  const { dvmTokens, evmTokens } = useTokenBalance();
 
   // usdAmount for crypto tokens, undefined for DFI token
   const { usdAmount } = route.params.token;
@@ -267,7 +267,7 @@ export function TokenDetailScreen({ route, navigation }: Props): JSX.Element {
               </>
             )}
 
-            {token.symbol === "DFI" && (
+            {token.symbol === "DFI" && token.id !== "0_evm" && (
               <TokenActionRow
                 icon="swap-calls"
                 iconType="MaterialIcons"
@@ -302,7 +302,47 @@ export function TokenDetailScreen({ route, navigation }: Props): JSX.Element {
                 title={translate(
                   "screens/TokenDetailScreen",
                   "Convert to {{symbol}}",
-                  { symbol: `${token.id === "0_utxo" ? "Token" : "UTXO"}` },
+                  { symbol: "Token/UTXO" },
+                )}
+              />
+            )}
+
+            {token.id === "0_evm" && (
+              <TokenActionRow
+                icon="swap-calls"
+                iconType="MaterialIcons"
+                onPress={() => {
+                  const convertDirection: ConvertDirection =
+                    domain === DomainType.DVM
+                      ? ConvertDirection.dvmToEvm
+                      : ConvertDirection.evmToDvm;
+
+                  const evmToken = evmTokens.find(
+                    (token) => token.tokenId === "0_evm",
+                  );
+                  const dfiToken = dvmTokens.find(
+                    (token) => token.tokenId === "0",
+                  );
+                  const [sourceToken, targetToken] =
+                    convertDirection === ConvertDirection.evmToDvm
+                      ? [evmToken, dfiToken]
+                      : [dfiToken, evmToken];
+
+                  navigation.navigate({
+                    name: "ConvertScreen",
+                    params: {
+                      sourceToken,
+                      targetToken,
+                      convertDirection,
+                    },
+                    merge: true,
+                  });
+                }}
+                testID="convert_button"
+                title={translate(
+                  "screens/TokenDetailScreen",
+                  "Convert to {{symbol}}",
+                  { symbol: "Token" },
                 )}
               />
             )}
