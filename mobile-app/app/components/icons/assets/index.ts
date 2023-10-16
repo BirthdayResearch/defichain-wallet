@@ -27,6 +27,7 @@ const mapping: Record<string, (props: SvgProps) => JSX.Element> = {
   _UTXO: DFI,
   DFI: DFI,
   "DFI (UTXO)": DFI,
+  "DFI (EVM)": EvmDFI,
   "DFI (Token)": DFI,
   BTC: BTC,
   DOT: DOT,

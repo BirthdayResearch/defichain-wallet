@@ -231,7 +231,7 @@ export const BottomSheetAddressDetailV2 = (
                 <View style={tailwind("flex-row items-center")}>
                   <ThemedTextV2
                     style={tailwind("font-semibold-v2 text-sm max-w-3/4")}
-                    testID={`list_address_label_${item}`}
+                    testID={`list_address_label_${index}`}
                     numberOfLines={1}
                   >
                     {displayAddressLabel}
@@ -325,6 +325,7 @@ export const BottomSheetAddressDetailV2 = (
                   name="edit-2"
                   light={tailwind("text-mono-light-v2-700")}
                   dark={tailwind("text-mono-dark-v2-700")}
+                  testID={`address_edit_icon_address_row_${index}`}
                 />
               </ThemedTouchableOpacityV2>
             </View>

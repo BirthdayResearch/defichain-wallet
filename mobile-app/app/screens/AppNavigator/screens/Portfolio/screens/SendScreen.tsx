@@ -563,6 +563,7 @@ function AmountCard({
               token={{
                 isLPS: token.isLPS,
                 displaySymbol: token.displaySymbol,
+                id: token.id,
               }}
               size={32}
               iconBStyle={tailwind("-ml-3")}

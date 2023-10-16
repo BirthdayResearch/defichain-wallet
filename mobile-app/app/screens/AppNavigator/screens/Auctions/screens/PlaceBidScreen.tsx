@@ -47,13 +47,13 @@ type Props = StackScreenProps<AuctionsParamList, "PlaceBidScreen">;
 export function PlaceBidScreen(props: Props): JSX.Element {
   const { batch, vault } = props.route.params;
   const tokens = useSelector((state: RootState) =>
-    tokensSelector(state.wallet)
+    tokensSelector(state.wallet),
   );
   const ownedToken = tokens.find((token) => token.id === batch.loan.id);
 
   const { minNextBidInToken, totalCollateralsValueInUSD } = useAuctionBidValue(
     batch,
-    vault.liquidationPenalty
+    vault.liquidationPenalty,
   );
   const [fee, setFee] = useState<BigNumber>(new BigNumber(0.0001));
   const { bottomSheetRef, containerRef, isModalDisplayed, bottomSheetScreen } =
@@ -61,15 +61,15 @@ export function PlaceBidScreen(props: Props): JSX.Element {
 
   const navigation = useNavigation<NavigationProp<AuctionsParamList>>();
   const hasPendingJob = useSelector((state: RootState) =>
-    hasTxQueued(state.transactionQueue)
+    hasTxQueued(state.transactionQueue),
   );
   const hasPendingBroadcastJob = useSelector((state: RootState) =>
-    hasOceanTXQueued(state.ocean)
+    hasOceanTXQueued(state.ocean),
   );
   const blockCount = useSelector((state: RootState) => state.block.count) ?? 0;
   const { blocksRemaining } = useAuctionTime(
     vault.liquidationHeight,
-    blockCount
+    blockCount,
   );
   const logger = useLogger();
   const client = useWhaleApiClient();
@@ -100,7 +100,7 @@ export function PlaceBidScreen(props: Props): JSX.Element {
 
   async function onBidPercentagePress(
     amount: BigNumber,
-    type: BidAmountButtonTypes
+    type: BidAmountButtonTypes,
   ): Promise<void> {
     setValue("bidAmount", amount.toFixed(8));
     await trigger("bidAmount");
@@ -117,7 +117,7 @@ export function PlaceBidScreen(props: Props): JSX.Element {
         type: "wallet_toast",
         placement: "top",
         duration: TOAST_DURATION,
-      }
+      },
     );
   }
 
@@ -137,7 +137,7 @@ export function PlaceBidScreen(props: Props): JSX.Element {
 
   const ownedTokenAmount = ownedToken === undefined ? "0" : ownedToken.amount;
   const displayHigherBidWarning = getAmountInUSDValue(bidAmount).gte(
-    totalCollateralsValueInUSD.times(1.2)
+    totalCollateralsValueInUSD.times(1.2),
   );
   const displayMinBidError = formState.errors.bidAmount?.type === "min";
   const displayMinBidMessage =
@@ -149,7 +149,7 @@ export function PlaceBidScreen(props: Props): JSX.Element {
       <ThemedScrollViewV2
         testID="place_bid_screen"
         contentContainerStyle={tailwind(
-          "flex flex-col justify-between pb-8 px-4 h-full"
+          "flex flex-col justify-between pb-8 px-4 h-full",
         )}
       >
         <View>
@@ -165,12 +165,12 @@ export function PlaceBidScreen(props: Props): JSX.Element {
               {
                 ownedAmount: ownedToken?.amount ?? "0.00",
                 symbol: batch.loan.displaySymbol,
-              }
+              },
             )}
           </ThemedTextV2>
           <View
             style={tailwind(
-              "flex flex-row justify-between items-center mt-4 ml-6 mr-1"
+              "flex flex-row justify-between items-center mt-4 ml-6 mr-1",
             )}
           >
             <View style={tailwind("w-6/12 mr-2")}>
@@ -207,6 +207,7 @@ export function PlaceBidScreen(props: Props): JSX.Element {
             </View>
             <TokenDropdownButton
               symbol={batch.loan.displaySymbol}
+              tokenId={batch.loan.id}
               testID="place_bid_quick_input"
               onPress={() => {}}
               status={TokenDropdownButtonStatus.Locked}
@@ -216,7 +217,7 @@ export function PlaceBidScreen(props: Props): JSX.Element {
             light={tailwind("bg-mono-light-v2-00")}
             dark={tailwind("bg-mono-dark-v2-00")}
             style={tailwind(
-              "flex flex-row justify-around items-center py-3 mt-6 mx-1 rounded-xl-v2 font-normal-v2"
+              "flex flex-row justify-around items-center py-3 mt-6 mx-1 rounded-xl-v2 font-normal-v2",
             )}
           >
             {Object.values(BidAmountButtonTypes).map(
@@ -230,7 +231,7 @@ export function PlaceBidScreen(props: Props): JSX.Element {
                     hasBorder={length - 1 !== index}
                   />
                 );
-              }
+              },
             )}
           </ThemedViewV2>
 
@@ -251,7 +252,7 @@ export function PlaceBidScreen(props: Props): JSX.Element {
                 {
                   amount: minNextBidInToken.toFixed(8),
                   symbol: batch.loan.symbol,
-                }
+                },
               )}
             </ThemedTextV2>
           )}
@@ -271,13 +272,13 @@ export function PlaceBidScreen(props: Props): JSX.Element {
               renderText={(value: string) => (
                 <Text
                   style={tailwind(
-                    "text-xs pt-2 mx-6 font-normal-v2 text-orange-v2"
+                    "text-xs pt-2 mx-6 font-normal-v2 text-orange-v2",
                   )}
                 >
                   {translate(
                     "components/QuickBid",
                     "Your bid is higher than the auction's collateral value of {{currency}}{{amount}}",
-                    { amount: value, currency: "$" }
+                    { amount: value, currency: "$" },
                   )}
                 </Text>
               )}
@@ -291,7 +292,7 @@ export function PlaceBidScreen(props: Props): JSX.Element {
               dark={tailwind("border-gray-700")}
               light={tailwind("border-gray-300")}
               style={tailwind(
-                "p-5 border-0.5 rounded-lg-v2 mx-1 my-6 font-normal-v2"
+                "p-5 border-0.5 rounded-lg-v2 mx-1 my-6 font-normal-v2",
               )}
             >
               <NumberRowV2
@@ -319,7 +320,7 @@ export function PlaceBidScreen(props: Props): JSX.Element {
               light={tailwind("text-red-v2")}
               dark={tailwind("text-red-v2")}
               style={tailwind(
-                "text-red-v2 text-center text-xs font-normal-v2 mb-4"
+                "text-red-v2 text-center text-xs font-normal-v2 mb-4",
               )}
             >
               {translate("screens/PlaceBidScreen", "Auction timeout")}
@@ -332,7 +333,7 @@ export function PlaceBidScreen(props: Props): JSX.Element {
           >
             {translate(
               "screens/PlaceBidScreen",
-              "Review full details in the next screen"
+              "Review full details in the next screen",
             )}
           </ThemedTextV2>
           <ButtonV2
