@@ -7,6 +7,11 @@ import { tailwind } from "@tailwind";
 import { useAddressLabel } from "@hooks/useAddressLabel";
 import { DomainType, useDomainContext } from "@contexts/DomainContext";
 import { useWalletContext } from "@shared-contexts/WalletContext";
+import { useSelector } from "react-redux";
+import { RootState } from "@store";
+import { useEffect, useState } from "react";
+import { useWalletAddress, WalletAddressI } from "@hooks/useWalletAddress";
+import { useLogger } from "@shared-contexts/NativeLoggingProvider";
 import { RandomAvatar } from "./RandomAvatar";
 
 interface AddressSelectionButtonProps {
@@ -20,7 +25,34 @@ export function AddressSelectionButtonV2(
   const { domain } = useDomainContext();
   const { address, evmAddress } = useWalletContext();
   const displayAddress = domain === DomainType.EVM ? evmAddress : address;
-  const addressLabel = useAddressLabel(displayAddress);
+  const activeLabel = useAddressLabel(displayAddress);
+  const { fetchWalletAddresses } = useWalletAddress();
+
+  const userPreferences = useSelector(
+    (state: RootState) => state.userPreferences,
+  );
+  const labeledAddresses = userPreferences.addresses;
+  const logger = useLogger();
+
+  const [availableAddresses, setAvailableAddresses] = useState<
+    WalletAddressI[]
+  >([]);
+
+  // Getting addresses
+  const fetchAddresses = async (): Promise<void> => {
+    const addresses = await fetchWalletAddresses();
+    setAvailableAddresses(addresses);
+  };
+
+  const activeAddress = availableAddresses.find(({ dvm }) => dvm === address);
+  const displayAddressLabel =
+    activeLabel === null
+      ? activeAddress?.generatedLabel
+      : labeledAddresses?.[address]?.label;
+
+  useEffect(() => {
+    fetchAddresses().catch(logger.error);
+  }, [address]);
 
   return (
     <ThemedTouchableOpacityV2
@@ -47,7 +79,7 @@ export function AddressSelectionButtonV2(
         ]}
         testID="wallet_address"
       >
-        {addressLabel != null ? addressLabel : displayAddress}
+        {displayAddressLabel}
       </ThemedTextV2>
     </ThemedTouchableOpacityV2>
   );
