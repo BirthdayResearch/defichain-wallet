@@ -7,20 +7,19 @@ async function set(
   url: NonNullable<string>,
   type: CustomServiceProviderType = CustomServiceProviderType.DVM,
 ): Promise<void> {
-  const STORAGE_KEY =
-    type === CustomServiceProviderType.DVM ? KEY : `${KEY}.${type}`;
-  await SecuredStoreAPI.setItem(STORAGE_KEY, url);
+  await SecuredStoreAPI.setItem(`${KEY}.${type}`, url);
 }
 
 async function get(
   type: CustomServiceProviderType = CustomServiceProviderType.DVM,
 ): Promise<string | undefined> {
-  const val = await SecuredStoreAPI.getItem(`${KEY}.${type}`);
+  const PROVIDER_KEY = `${KEY}.${type}`;
+  const val = await SecuredStoreAPI.getItem(PROVIDER_KEY);
 
   if (type === CustomServiceProviderType.DVM && val === null) {
     const existingDvm = await SecuredStoreAPI.getItem(KEY);
     if (existingDvm !== null) {
-      await set(existingDvm, CustomServiceProviderType.DVM);
+      await SecuredStoreAPI.setItem(PROVIDER_KEY, existingDvm);
       await SecuredStoreAPI.removeItem(KEY);
       return existingDvm;
     }
