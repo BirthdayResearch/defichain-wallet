@@ -31,7 +31,7 @@ export function EVMProvider({
       provider: getProvider(),
       chainId,
     }),
-    [network, chainId],
+    [network, chainId, ethRpcUrl],
   );
 
   return (
