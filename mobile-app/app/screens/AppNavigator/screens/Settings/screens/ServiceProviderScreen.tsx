@@ -17,6 +17,7 @@ import {
   CustomServiceProviderType,
   useCustomServiceProviderContext,
 } from "@contexts/CustomServiceProvider";
+import { useDomainContext } from "@contexts/DomainContext";
 import { SettingsParamList } from "../SettingsNavigator";
 import { ResetButton } from "../components/ResetButton";
 import {
@@ -33,6 +34,7 @@ type CustomUrlInputState = {
 };
 
 export function ServiceProviderScreen({ navigation }: Props): JSX.Element {
+  const { isEvmFeatureEnabled } = useDomainContext();
   const logger = useLogger();
   const dispatch = useAppDispatch();
   // show all content for small screen and web to adjust margins and paddings
@@ -113,8 +115,9 @@ export function ServiceProviderScreen({ navigation }: Props): JSX.Element {
         const { dvm, evm, ethrpc } = urlInputValues;
         await Promise.all([
           setDvmUrl(dvm.url),
-          setCustomUrl(evm.url, "evm"),
-          setCustomUrl(ethrpc.url, "ethrpc"),
+          ...(isEvmFeatureEnabled
+            ? [setCustomUrl(evm.url, "evm"), setCustomUrl(ethrpc.url, "ethrpc")]
+            : []),
         ]);
         navigation.pop();
       },
@@ -167,10 +170,13 @@ export function ServiceProviderScreen({ navigation }: Props): JSX.Element {
           <CustomUrlInput
             {...provider}
             inputValue={urlInputValues[provider.type]}
-            handleUrlInputChange={handleUrlInputChange}
             activeInput={activeInput}
             setActiveInput={setActiveInput}
             setShowActionButtons={setShowActionButtons}
+            handleUrlInputChange={handleUrlInputChange}
+            isDisabled={
+              !isEvmFeatureEnabled && ["evm", "ethrpc"].includes(provider.type)
+            }
           />
         ))}
       </View>

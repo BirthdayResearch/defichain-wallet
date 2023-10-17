@@ -19,10 +19,11 @@ export interface CustomServiceProvider {
 }
 
 interface Props extends CustomServiceProvider {
+  inputValue: { url: string; isValid: boolean };
+  isDisabled: boolean;
   activeInput: CustomServiceProviderType | undefined;
   setActiveInput: (type: CustomServiceProviderType | undefined) => void;
   setShowActionButtons: (show: boolean) => void;
-  inputValue: { url: string; isValid: boolean };
   handleUrlInputChange: (
     type: CustomServiceProviderType,
     value: string,
@@ -35,10 +36,11 @@ export function CustomUrlInput({
   defaultUrl,
   label,
   helperText,
+  inputValue,
+  isDisabled,
   activeInput,
   setActiveInput,
   setShowActionButtons,
-  inputValue,
   handleUrlInputChange,
 }: Props): JSX.Element {
   const [isUnlocked, setIsUnlocked] = useState<boolean>(false);
@@ -112,14 +114,16 @@ export function CustomUrlInput({
           }}
           light={tailwind("bg-mono-light-v2-900", {
             "bg-opacity-70": isUnlocked,
-            "bg-opacity-30": !isUnlocked && activeInput !== undefined,
+            "bg-opacity-30":
+              (!isUnlocked && activeInput !== undefined) || isDisabled,
           })}
           dark={tailwind("bg-mono-dark-v2-900", {
             "bg-opacity-70": isUnlocked,
-            "bg-opacity-30": !isUnlocked && activeInput !== undefined,
+            "bg-opacity-30":
+              (!isUnlocked && activeInput !== undefined) || isDisabled,
           })}
           style={tailwind("ml-3 h-10 w-10 p-2.5 text-center rounded-full")}
-          disabled={isUnlocked}
+          disabled={isUnlocked || isDisabled}
           testID={`${type}_edit_service_provider`}
         >
           <ThemedIcon

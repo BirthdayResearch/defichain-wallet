@@ -15,9 +15,11 @@ import {
 import { useServiceProviderContext } from "@waveshq/walletkit-ui";
 import { ButtonV2 } from "@components/ButtonV2";
 import { useCustomServiceProviderContext } from "@contexts/CustomServiceProvider";
+import { useDomainContext } from "@contexts/DomainContext";
 import { SettingsParamList } from "../SettingsNavigator";
 
 export function ResetButton(): JSX.Element {
+  const { isEvmFeatureEnabled } = useDomainContext();
   const navigation = useNavigation<NavigationProp<SettingsParamList>>();
   const logger = useLogger();
   const dispatch = useAppDispatch();
@@ -50,8 +52,12 @@ export function ResetButton(): JSX.Element {
       onAuthenticated: async () => {
         await Promise.all([
           setDvmUrl(defaultDvmUrl),
-          setCustomUrl(defaultEvmUrl, "evm"),
-          setCustomUrl(defaultEthRpcUrl, "ethrpc"),
+          ...(isEvmFeatureEnabled
+            ? [
+                setCustomUrl(defaultEvmUrl, "evm"),
+                setCustomUrl(defaultEthRpcUrl, "ethrpc"),
+              ]
+            : []),
         ]);
         navigation.goBack();
       },
