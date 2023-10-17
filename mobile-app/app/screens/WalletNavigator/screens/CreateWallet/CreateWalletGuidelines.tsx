@@ -91,7 +91,7 @@ export function CreateWalletGuidelines({ navigation }: Props): JSX.Element {
       >
         {translate(
           "screens/Guidelines",
-          "You will be shown 24 recovery words on the next screen. Keep your 24-word recovery safe as it will allow you to recover access to the wallet."
+          "You will be shown 24 recovery words on the next screen. Keep your 24-word recovery safe as it will allow you to recover access to the wallet.",
         )}
       </ThemedTextV2>
       <LearnMoreCTA
@@ -105,7 +105,7 @@ export function CreateWalletGuidelines({ navigation }: Props): JSX.Element {
               light={tailwind("bg-mono-light-v2-700")}
               dark={tailwind("bg-mono-dark-v2-700")}
               style={tailwind(
-                "flex h-6 w-6 flex-row items-center justify-center rounded-full mt-1"
+                "flex h-6 w-6 flex-row items-center justify-center rounded-full mt-1",
               )}
             >
               {g.Icon?.()}
@@ -140,7 +140,7 @@ export function CreateWalletGuidelines({ navigation }: Props): JSX.Element {
             >
               {translate(
                 "screens/Guidelines",
-                "I understand it is my responsibility to keep my recovery words secure. Losing them will result in the irrecoverable loss of access to my wallet funds."
+                "I understand it is my responsibility to keep my recovery words secure. Losing them will result in the irrecoverable loss of access to my wallet funds.",
               )}
             </ThemedTextV2>
           </ThemedTouchableOpacityV2>

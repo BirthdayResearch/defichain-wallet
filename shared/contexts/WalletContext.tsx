@@ -69,7 +69,7 @@ export function useWalletContext(): WalletContextI {
 }
 
 export function WalletContextProvider(
-  props: WalletContextProviderProps
+  props: WalletContextProviderProps,
 ): JSX.Element | null {
   const { api } = props;
   const logger = useLogger();
@@ -143,7 +143,7 @@ export function WalletContextProvider(
     const lastDiscoveredAddressIndex = Math.max(
       0,
       activeAddress.length - 1,
-      addressLength
+      addressLength,
     );
     await setWalletAddressLength(lastDiscoveredAddressIndex);
   };
