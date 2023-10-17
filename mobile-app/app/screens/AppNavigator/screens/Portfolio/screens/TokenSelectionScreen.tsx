@@ -222,6 +222,7 @@ function TokenSelectionRow({
             displaySymbol: item.token.displaySymbol,
             id: item.tokenId,
           }}
+          isEvmToken={domain === DomainType.EVM}
           size={36}
         />
         <TokenNameText

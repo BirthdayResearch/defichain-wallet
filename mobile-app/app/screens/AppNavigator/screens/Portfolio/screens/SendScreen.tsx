@@ -42,7 +42,7 @@ import {
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { AddressRow } from "@screens/AppNavigator/screens/Portfolio/components/AddressRow";
-import { useDomainContext } from "@contexts/DomainContext";
+import { DomainType, useDomainContext } from "@contexts/DomainContext";
 import { ConvertDirection } from "@screens/enum";
 import {
   AddressType as AddressCategory,
@@ -532,6 +532,7 @@ function AmountCard({
   onPress,
   onAmountChange,
 }: AmountForm): JSX.Element {
+  const { domain } = useDomainContext();
   const maxAmount = BigNumber.max(token.amount, 0);
   return (
     <>
@@ -567,6 +568,7 @@ function AmountCard({
               }}
               size={32}
               iconBStyle={tailwind("-ml-3")}
+              isEvmToken={domain === DomainType.EVM}
             />
             <View style={tailwind("flex ml-2")}>
               <ThemedTextV2>
