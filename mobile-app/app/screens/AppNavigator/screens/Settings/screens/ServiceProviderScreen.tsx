@@ -51,30 +51,30 @@ export function ServiceProviderScreen({ navigation }: Props): JSX.Element {
     useCustomServiceProviderContext();
 
   const [urlInputValues, setUrlInputValues] = useState<CustomUrlInputState>({
-    dvm: { url: dvmUrl, isValid: true },
-    evm: { url: evmUrl, isValid: true },
-    ethrpc: { url: ethRpcUrl, isValid: true },
+    [CustomServiceProviderType.DVM]: { url: dvmUrl, isValid: true },
+    [CustomServiceProviderType.EVM]: { url: evmUrl, isValid: true },
+    [CustomServiceProviderType.ETHRPC]: { url: ethRpcUrl, isValid: true },
   });
   const [activeInput, setActiveInput] = useState<CustomServiceProviderType>();
   const [showActionButtons, setShowActionButtons] = useState<boolean>(false);
 
   const customProviders: CustomServiceProvider[] = [
     {
-      type: "dvm",
+      type: CustomServiceProviderType.DVM,
       url: dvmUrl,
       defaultUrl: defaultDvmUrl,
       label: "ENDPOINT URL (DVM)",
       helperText: "Used to get balance from Native DFC (MainNet and TestNet)",
     },
     {
-      type: "evm",
+      type: CustomServiceProviderType.EVM,
       url: evmUrl,
       defaultUrl: defaultEvmUrl,
       label: "ENDPOINT URL (EVM)",
       helperText: "Used to get balance from EVM (MainNet and TestNet)",
     },
     {
-      type: "ethrpc",
+      type: CustomServiceProviderType.ETHRPC,
       url: ethRpcUrl,
       defaultUrl: defaultEthRpcUrl,
       label: "ENDPOINT URL (ETH-RPC)",
@@ -85,15 +85,15 @@ export function ServiceProviderScreen({ navigation }: Props): JSX.Element {
   // Check customized urls
   const getCustomizedUrls = () => {
     const changedUrls: string[] = [];
-    const { dvm, evm, ethrpc } = urlInputValues;
-    if (dvm.url !== defaultDvmUrl) {
-      changedUrls.push(dvm.url);
+    const { DVM, EVM, ETHRPC } = urlInputValues;
+    if (DVM.url !== defaultDvmUrl) {
+      changedUrls.push(DVM.url);
     }
-    if (evm.url !== defaultEvmUrl) {
-      changedUrls.push(evm.url);
+    if (EVM.url !== defaultEvmUrl) {
+      changedUrls.push(EVM.url);
     }
-    if (ethrpc.url !== defaultEthRpcUrl) {
-      changedUrls.push(ethrpc.url);
+    if (ETHRPC.url !== defaultEthRpcUrl) {
+      changedUrls.push(ETHRPC.url);
     }
     return changedUrls;
   };
@@ -112,11 +112,14 @@ export function ServiceProviderScreen({ navigation }: Props): JSX.Element {
     const auth: Authentication<string[]> = {
       consume: async (passphrase) => await MnemonicStorage.get(passphrase),
       onAuthenticated: async () => {
-        const { dvm, evm, ethrpc } = urlInputValues;
+        const { DVM, EVM, ETHRPC } = urlInputValues;
         await Promise.all([
-          setDvmUrl(dvm.url),
+          setDvmUrl(DVM.url),
           ...(isEvmFeatureEnabled
-            ? [setCustomUrl(evm.url, "evm"), setCustomUrl(ethrpc.url, "ethrpc")]
+            ? [
+                setCustomUrl(EVM.url, CustomServiceProviderType.EVM),
+                setCustomUrl(ETHRPC.url, CustomServiceProviderType.ETHRPC),
+              ]
             : []),
         ]);
         navigation.pop();
@@ -175,7 +178,11 @@ export function ServiceProviderScreen({ navigation }: Props): JSX.Element {
             setShowActionButtons={setShowActionButtons}
             handleUrlInputChange={handleUrlInputChange}
             isDisabled={
-              !isEvmFeatureEnabled && ["evm", "ethrpc"].includes(provider.type)
+              !isEvmFeatureEnabled &&
+              [
+                CustomServiceProviderType.EVM,
+                CustomServiceProviderType.ETHRPC,
+              ].includes(provider.type)
             }
           />
         ))}
@@ -201,9 +208,9 @@ export function ServiceProviderScreen({ navigation }: Props): JSX.Element {
             onPress={async () => await submitCustomServiceProvider()}
             disabled={
               !(
-                urlInputValues.dvm.isValid &&
-                urlInputValues.evm.isValid &&
-                urlInputValues.ethrpc.isValid
+                urlInputValues.DVM.isValid &&
+                urlInputValues.EVM.isValid &&
+                urlInputValues.ETHRPC.isValid
               )
             }
           />

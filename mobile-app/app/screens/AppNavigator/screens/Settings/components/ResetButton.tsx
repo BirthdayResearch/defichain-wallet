@@ -14,7 +14,10 @@ import {
 } from "@waveshq/walletkit-ui/dist/store";
 import { useServiceProviderContext } from "@waveshq/walletkit-ui";
 import { ButtonV2 } from "@components/ButtonV2";
-import { useCustomServiceProviderContext } from "@contexts/CustomServiceProvider";
+import {
+  CustomServiceProviderType,
+  useCustomServiceProviderContext,
+} from "@contexts/CustomServiceProvider";
 import { useDomainContext } from "@contexts/DomainContext";
 import { SettingsParamList } from "../SettingsNavigator";
 
@@ -54,8 +57,11 @@ export function ResetButton(): JSX.Element {
           setDvmUrl(defaultDvmUrl),
           ...(isEvmFeatureEnabled
             ? [
-                setCustomUrl(defaultEvmUrl, "evm"),
-                setCustomUrl(defaultEthRpcUrl, "ethrpc"),
+                setCustomUrl(defaultEvmUrl, CustomServiceProviderType.EVM),
+                setCustomUrl(
+                  defaultEthRpcUrl,
+                  CustomServiceProviderType.ETHRPC,
+                ),
               ]
             : []),
         ]);

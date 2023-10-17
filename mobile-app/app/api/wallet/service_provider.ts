@@ -5,13 +5,13 @@ const KEY = "WALLET.SERVICE_PROVIDER_URL";
 
 async function set(
   url: NonNullable<string>,
-  type: CustomServiceProviderType = "dvm",
+  type: CustomServiceProviderType = CustomServiceProviderType.DVM,
 ): Promise<void> {
   await SecuredStoreAPI.setItem(`${KEY}.${type}`, url);
 }
 
 async function get(
-  type: CustomServiceProviderType = "dvm",
+  type: CustomServiceProviderType = CustomServiceProviderType.DVM,
 ): Promise<string | undefined> {
   const val = await SecuredStoreAPI.getItem(`${KEY}.${type}`);
   return val != null ? val : undefined;

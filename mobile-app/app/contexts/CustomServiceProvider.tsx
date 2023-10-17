@@ -10,7 +10,11 @@ import React, {
   useState,
 } from "react";
 
-export type CustomServiceProviderType = "dvm" | "evm" | "ethrpc";
+export enum CustomServiceProviderType {
+  DVM = "DVM",
+  EVM = "EVM",
+  ETHRPC = "ETHRPC",
+}
 
 interface CustomServiceProviderContextProps {
   api: {
@@ -126,7 +130,7 @@ export function CustomServiceProvider(
   const { url: evmUrl } = useCustomServiceProviderUrl({
     ...params,
     defaultUrl: defaultEvmUrl,
-    type: "evm",
+    type: CustomServiceProviderType.EVM,
   });
 
   // ETH-RPC
@@ -134,41 +138,51 @@ export function CustomServiceProvider(
   const { url: ethRpcUrl } = useCustomServiceProviderUrl({
     ...params,
     defaultUrl: defaultEthRpcUrl,
-    type: "ethrpc",
+    type: CustomServiceProviderType.ETHRPC,
   });
 
-  const [currentUrl, setCurrentUrl] = useState<{ evm: string; ethrpc: string }>(
-    { evm: evmUrl, ethrpc: ethRpcUrl },
-  );
+  const [currentUrl, setCurrentUrl] = useState<{
+    [key in CustomServiceProviderType]: string;
+  }>({
+    [CustomServiceProviderType.DVM]: "", // not used here, added only to satify `key` type
+    [CustomServiceProviderType.EVM]: evmUrl,
+    [CustomServiceProviderType.ETHRPC]: ethRpcUrl,
+  });
 
   useEffect(() => {
-    setCurrentUrl((prevState) => ({ ...prevState, evm: evmUrl }));
+    setCurrentUrl((prevState) => ({
+      ...prevState,
+      [CustomServiceProviderType.EVM]: evmUrl,
+    }));
   }, [evmUrl]);
 
   useEffect(() => {
-    setCurrentUrl((prevState) => ({ ...prevState, ethrpc: ethRpcUrl }));
+    setCurrentUrl((prevState) => ({
+      ...prevState,
+      [CustomServiceProviderType.ETHRPC]: ethRpcUrl,
+    }));
   }, [ethRpcUrl]);
 
   const isCustomEvmUrl = useMemo(
-    () => currentUrl.evm !== defaultEvmUrl,
-    [currentUrl.evm, defaultEvmUrl],
+    () => currentUrl.EVM !== defaultEvmUrl,
+    [currentUrl.EVM, defaultEvmUrl],
   );
   const isCustomEthRpcUrl = useMemo(
-    () => currentUrl.ethrpc !== defaultEthRpcUrl,
-    [currentUrl.ethrpc, defaultEthRpcUrl],
+    () => currentUrl.ETHRPC !== defaultEthRpcUrl,
+    [currentUrl.ETHRPC, defaultEthRpcUrl],
   );
 
   const setCustomUrl = async (
     newUrl: string,
-    type: CustomServiceProviderType = "dvm",
+    type: CustomServiceProviderType = CustomServiceProviderType.DVM,
   ): Promise<void> => {
     setCurrentUrl((prevState) => ({ ...prevState, [type]: newUrl }));
     await api.set(newUrl, type);
   };
 
   const context: CustomServiceProviderContextI = {
-    evmUrl: currentUrl.evm ?? defaultEvmUrl,
-    ethRpcUrl: currentUrl.ethrpc ?? defaultEthRpcUrl,
+    evmUrl: currentUrl.EVM ?? defaultEvmUrl,
+    ethRpcUrl: currentUrl.ETHRPC ?? defaultEthRpcUrl,
     isCustomEvmUrl,
     isCustomEthRpcUrl,
     defaultEvmUrl,
