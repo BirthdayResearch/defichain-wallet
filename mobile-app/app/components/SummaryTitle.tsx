@@ -40,7 +40,10 @@ export function SummaryTitle(props: ISummaryTitleProps): JSX.Element {
   const IconB =
     props.iconB !== undefined ? getNativeIcon(props.iconB) : undefined;
   const { networkName } = useNetworkContext();
-
+  const toAddressLabel =
+    props.toAddressLabel != null && props.toAddressLabel.length > 0
+      ? props.toAddressLabel
+      : props.toAddress;
   return (
     <>
       <ThemedTextV2
@@ -142,7 +145,7 @@ export function SummaryTitle(props: ISummaryTitleProps): JSX.Element {
             getAddressType(props.toAddress, networkName) ===
               JellyfishAddressType.ETH ? (
               <AddressEvmTag
-                customStyle="rounded-full pr-2.5 py-1 ml-2"
+                customStyle="flex flex-row items-center rounded-full pr-2.5 py-1 ml-2 overflow-hidden"
                 testID="to_address_label"
               >
                 <>
@@ -152,14 +155,22 @@ export function SummaryTitle(props: ISummaryTitleProps): JSX.Element {
                     </View>
                   )}
                   <ThemedTextV2
+                    ellipsizeMode="middle"
+                    numberOfLines={1}
                     testID="address_input_footer_evm"
-                    style={tailwind(
-                      "text-mono-light-v2-00 text-sm font-normal-v2 tracking-[0.24]",
-                    )}
+                    style={[
+                      tailwind(
+                        "text-mono-light-v2-00 text-sm font-normal-v2 tracking-[0.24]",
+                      ),
+                      {
+                        minWidth: 10,
+                        maxWidth: 108,
+                      },
+                    ]}
                     light={tailwind("text-mono-light-v2-1000")}
                     dark={tailwind("text-mono-dark-v2-1000")}
                   >
-                    {props.toAddressLabel}
+                    {toAddressLabel}
                   </ThemedTextV2>
                 </>
               </AddressEvmTag>
@@ -196,7 +207,7 @@ export function SummaryTitle(props: ISummaryTitleProps): JSX.Element {
                   dark={tailwind("text-mono-dark-v2-900")}
                   testID="address_input_footer"
                 >
-                  {props.toAddressLabel}
+                  {toAddressLabel}
                 </ThemedTextV2>
               </ThemedViewV2>
             )}
