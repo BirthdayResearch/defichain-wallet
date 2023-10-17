@@ -1,5 +1,5 @@
 import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { getAddressFromDST20TokenId } from "@screens/AppNavigator/screens/Portfolio/hooks/EvmTokenBalances";
+import { getAddressFromDST20TokenId } from "@api/transaction/transfer_domain";
 import { EnvironmentNetwork, isPlayground } from "@waveshq/walletkit-core";
 import { ethers, providers } from "ethers";
 import DST20V1 from "@shared-contracts/DST20V1.json";

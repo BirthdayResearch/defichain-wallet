@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { formatEther, formatUnits } from "viem";
 import { WalletToken, useNetworkContext } from "@waveshq/walletkit-ui";
 import { utils } from "ethers";
 import { batch, useSelector } from "react-redux";
@@ -11,6 +10,7 @@ import { useAppDispatch } from "@hooks/useAppDispatch";
 import { fetchEvmWalletDetails, fetchEvmTokenBalances } from "@store/evm";
 import { useEVMProvider } from "@contexts/EVMProvider";
 import { useIsFocused } from "@react-navigation/native";
+import { getAddressFromDST20TokenId } from "@api/transaction/transfer_domain";
 import { useCustomServiceProviderContext } from "@contexts/CustomServiceProvider";
 
 interface AssociatedToken {
@@ -56,9 +56,9 @@ export function useEvmTokenBalances(): { evmTokens: WalletToken[] } {
       avatarSymbol: "DFI",
     };
     try {
-      const evmDfiBalance = formatEther(
-        BigInt(evmWalletDetails?.coin_balance ?? 0),
-      );
+      const evmDfiBalance = utils
+        .formatEther(evmWalletDetails?.coin_balance ?? "0")
+        .toString();
       dfiToken.amount = evmDfiBalance;
       setEvmTokens(
         evmTokenBalances.reduce(
@@ -78,10 +78,9 @@ export function useEvmTokenBalances(): { evmTokens: WalletToken[] } {
                   name: `${tokenDetails.name} for EVM`,
                   displaySymbol: tokenDetails.displaySymbol,
                   avatarSymbol: tokenDetails.symbol,
-                  amount: formatUnits(
-                    BigInt(each.value),
-                    +each?.token?.decimals,
-                  ),
+                  amount: utils
+                    .formatUnits(each.value, each?.token?.decimals)
+                    .toString(),
                 },
               ];
             }
@@ -130,12 +129,4 @@ export function useEvmTokenBalances(): { evmTokens: WalletToken[] } {
   }, [evmWalletDetails]);
 
   return { evmTokens };
-}
-
-export function getAddressFromDST20TokenId(tokenId: string): string {
-  const parsedTokenId = BigInt(tokenId);
-  const numberStr = parsedTokenId.toString(16); // Convert parsedTokenId to hexadecimal
-  const paddedNumberStr = numberStr.padStart(38, "0"); // Pad with zeroes to the left
-  const finalStr = `ff${paddedNumberStr}`;
-  return utils.getAddress(finalStr);
 }
