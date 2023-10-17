@@ -8,6 +8,7 @@ import {
 } from "@waveshq/walletkit-ui";
 import { RootState } from "@store";
 import { tailwind } from "@tailwind";
+import { useCustomServiceProviderContext } from "@contexts/CustomServiceProvider";
 import { ThemedIcon, ThemedText } from "./themed";
 
 type SubHeadingType = "Status" | "NetworkSelect";
@@ -43,7 +44,7 @@ export function HeaderTitle({
       onPress={onPress ?? goToNetworkDetails}
       testID={containerTestID}
       style={tailwind(
-        `flex-col ${Platform.OS === "ios" ? "items-center" : ""}`
+        `flex-col ${Platform.OS === "ios" ? "items-center" : ""}`,
       )}
     >
       {text !== undefined && (
@@ -68,7 +69,9 @@ export function HeaderTitle({
 
 export function ConnectionStatus(): JSX.Element {
   const { network } = useNetworkContext();
-  const { isCustomUrl } = useServiceProviderContext();
+  const { isCustomUrl: isCustomDvmUrl } = useServiceProviderContext();
+  const { isCustomEvmUrl, isCustomEthRpcUrl } =
+    useCustomServiceProviderContext();
   const connected = useSelector((state: RootState) => state.block.connected);
   return (
     <View style={tailwind("flex-row items-center justify-center")}>
@@ -76,7 +79,7 @@ export function ConnectionStatus(): JSX.Element {
         style={tailwind(
           `h-2 w-2 rounded-full ${
             connected ? "bg-green-500" : "bg-red-500"
-          } mr-1.5`
+          } mr-1.5`,
         )}
         testID="header_status_indicator"
       />
@@ -90,7 +93,7 @@ export function ConnectionStatus(): JSX.Element {
           {network}
         </ThemedText>
 
-        {isCustomUrl && (
+        {(isCustomDvmUrl || isCustomEvmUrl || isCustomEthRpcUrl) && (
           <View style={tailwind("pl-0.5")}>
             <ThemedText
               dark={tailwind("text-white text-opacity-70")}

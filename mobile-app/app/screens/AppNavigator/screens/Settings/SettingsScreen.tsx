@@ -27,6 +27,7 @@ import { useAddressBook } from "@hooks/useAddressBook";
 import { useAppDispatch } from "@hooks/useAppDispatch";
 import { useFeatureFlagContext } from "@contexts/FeatureFlagContext";
 import { useLanguageContext } from "@shared-contexts/LanguageProvider";
+import { useCustomServiceProviderContext } from "@contexts/CustomServiceProvider";
 import { RowThemeItem } from "./components/RowThemeItem";
 import { SettingsParamList } from "./SettingsNavigator";
 
@@ -41,7 +42,9 @@ export function SettingsScreen({ navigation }: Props): JSX.Element {
     data: { type },
   } = useWalletNodeContext();
   const isEncrypted = type === "MNEMONIC_ENCRYPTED";
-  const { isCustomUrl } = useServiceProviderContext();
+  const { isCustomUrl: isCustomDvmUrl } = useServiceProviderContext();
+  const { isCustomEvmUrl, isCustomEthRpcUrl } =
+    useCustomServiceProviderContext();
   const { isFeatureAvailable } = useFeatureFlagContext();
   const { language } = useLanguageContext();
   const languages = getAppLanguages();
@@ -142,7 +145,11 @@ export function SettingsScreen({ navigation }: Props): JSX.Element {
             testID="setting_navigate_service_provider"
             label="Provider"
             border
-            value={isCustomUrl ? "Custom (3rd-party)" : "Default"}
+            value={
+              isCustomDvmUrl || isCustomEvmUrl || isCustomEthRpcUrl
+                ? "Custom (3rd-party)"
+                : "Default"
+            }
             onPress={() => navigation.navigate("ServiceProviderScreen", {})}
           />
         )}

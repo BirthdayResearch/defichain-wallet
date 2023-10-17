@@ -1,13 +1,8 @@
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useState } from "react";
 import { Dimensions, Platform, Text, View } from "react-native";
 import { tailwind } from "@tailwind";
 import { translate } from "@translations";
-import {
-  ThemedScrollViewV2,
-  ThemedIcon,
-  ThemedSectionTitleV2,
-  ThemedTouchableOpacityV2,
-} from "@components/themed";
+import { ThemedScrollViewV2 } from "@components/themed";
 import { ButtonV2 } from "@components/ButtonV2";
 import { authentication, Authentication } from "@store/authentication";
 import { MnemonicStorage } from "@api/wallet/mnemonic_storage";
@@ -18,11 +13,24 @@ import {
   useServiceProviderContext,
   useWalletNodeContext,
 } from "@waveshq/walletkit-ui";
-import { WalletTextInputV2 } from "@components/WalletTextInputV2";
+import {
+  CustomServiceProviderType,
+  useCustomServiceProviderContext,
+} from "@contexts/CustomServiceProvider";
 import { SettingsParamList } from "../SettingsNavigator";
 import { ResetButton } from "../components/ResetButton";
+import {
+  CustomServiceProvider,
+  CustomUrlInput,
+} from "../components/CustomUrlInput";
 
 type Props = StackScreenProps<SettingsParamList, "ServiceProviderScreen">;
+type CustomUrlInputState = {
+  [key in CustomServiceProviderType]: {
+    url: string;
+    isValid: boolean;
+  };
+};
 
 export function ServiceProviderScreen({ navigation }: Props): JSX.Element {
   const logger = useLogger();
@@ -30,13 +38,63 @@ export function ServiceProviderScreen({ navigation }: Props): JSX.Element {
   // show all content for small screen and web to adjust margins and paddings
   const isSmallScreen =
     Platform.OS === "web" || Dimensions.get("window").height <= 667;
-  const { url, defaultUrl, setUrl } = useServiceProviderContext();
 
-  const [labelInput, setLabelInput] = useState<string>(url);
-  const [isValid, setIsValid] = useState<boolean>(false);
-  const [isUnlocked, setIsUnlocked] = useState<boolean>(false);
-  const [errMsg, setErrMsg] = useState<string>("");
-  const [displayTickIcon, setDisplayTickIcon] = useState<boolean>(true);
+  // get all default urls from context
+  const {
+    url: dvmUrl,
+    defaultUrl: defaultDvmUrl,
+    setUrl: setDvmUrl,
+  } = useServiceProviderContext();
+  const { evmUrl, ethRpcUrl, defaultEvmUrl, defaultEthRpcUrl, setCustomUrl } =
+    useCustomServiceProviderContext();
+
+  const [urlInputValues, setUrlInputValues] = useState<CustomUrlInputState>({
+    dvm: { url: dvmUrl, isValid: true },
+    evm: { url: evmUrl, isValid: true },
+    ethrpc: { url: ethRpcUrl, isValid: true },
+  });
+  const [activeInput, setActiveInput] = useState<CustomServiceProviderType>();
+  const [showActionButtons, setShowActionButtons] = useState<boolean>(false);
+
+  const customProviders: CustomServiceProvider[] = [
+    {
+      type: "dvm",
+      url: dvmUrl,
+      defaultUrl: defaultDvmUrl,
+      label: "ENDPOINT URL (DVM)",
+      helperText: "Used to get balance from Native DFC (MainNet and TestNet)",
+    },
+    {
+      type: "evm",
+      url: evmUrl,
+      defaultUrl: defaultEvmUrl,
+      label: "ENDPOINT URL (EVM)",
+      helperText: "Used to get balance from EVM (MainNet and TestNet)",
+    },
+    {
+      type: "ethrpc",
+      url: ethRpcUrl,
+      defaultUrl: defaultEthRpcUrl,
+      label: "ENDPOINT URL (ETH-RPC)",
+      helperText: "Used to get Nonce and Chain ID",
+    },
+  ];
+
+  // Check customized urls
+  const getCustomizedUrls = () => {
+    const changedUrls: string[] = [];
+    const { dvm, evm, ethrpc } = urlInputValues;
+    if (dvm.url !== defaultDvmUrl) {
+      changedUrls.push(dvm.url);
+    }
+    if (evm.url !== defaultEvmUrl) {
+      changedUrls.push(evm.url);
+    }
+    if (ethrpc.url !== defaultEthRpcUrl) {
+      changedUrls.push(ethrpc.url);
+    }
+    return changedUrls;
+  };
 
   // Passcode prompt
   const {
@@ -48,152 +106,102 @@ export function ServiceProviderScreen({ navigation }: Props): JSX.Element {
       return;
     }
 
+    const customUrls = getCustomizedUrls().join(" and ");
     const auth: Authentication<string[]> = {
       consume: async (passphrase) => await MnemonicStorage.get(passphrase),
       onAuthenticated: async () => {
-        await setUrl(labelInput);
+        const { dvm, evm, ethrpc } = urlInputValues;
+        await Promise.all([
+          setDvmUrl(dvm.url),
+          setCustomUrl(evm.url, "evm"),
+          setCustomUrl(ethrpc.url, "ethrpc"),
+        ]);
         navigation.pop();
       },
       onError: (e) => logger.error(e),
-      title: translate(
+      title: `${translate(
         "screens/ServiceProviderScreen",
-        "Adding custom service provider"
-      ),
+        "Adding custom service provider",
+      )} ${customUrls}`,
       message: translate(
         "screens/ServiceProviderScreen",
-        "Enter passcode to continue"
+        "Enter passcode to continue",
       ),
       loading: translate("screens/ServiceProviderScreen", "Verifying access"),
       additionalMessage: translate("screens/ServiceProviderScreen", "Custom"),
-      additionalMessageUrl: labelInput,
+      additionalMessageUrl: customUrls,
     };
     dispatch(authentication.actions.prompt(auth));
-  }, [dispatch, isEncrypted, navigation, labelInput]);
+  }, [dispatch, isEncrypted, navigation, urlInputValues]);
 
   const validateInputlabel = (input: string): boolean => {
-    if (input === "" || !/^https/.test(input)) {
-      setIsValid(false);
-      setErrMsg("Invalid URL");
+    // TODO: Only allow `https` url
+    if (input === "" || !/^http/.test(input)) {
       return false;
     }
-    setErrMsg("");
-    setIsValid(true);
     return true;
   };
 
-  // to enable continue button
-  useEffect(() => {
-    if (validateInputlabel(labelInput)) {
-      return setIsValid(true);
-    }
-    return setIsValid(false);
-  }, [labelInput]);
-
-  // hide err msg when input is empty
-  useEffect(() => {
-    if (labelInput === "") {
-      return setErrMsg("");
-    }
-  }, [labelInput]);
-
-  // clear input on unlock and not display warning msg
-  useEffect(() => {
-    if (isUnlocked && url === defaultUrl) {
-      return setLabelInput("");
-    }
-  }, [isUnlocked]);
-
-  // to display tick icon
-  useEffect(() => {
-    if (!isUnlocked && isValid) {
-      return setDisplayTickIcon(true);
-    } else if (labelInput === "" && !isValid) {
-      return setDisplayTickIcon(false);
-    }
-  }, [labelInput, isValid]);
+  const handleUrlInputChange = (
+    type: CustomServiceProviderType,
+    value: string,
+  ) => {
+    const updatedInputValues = {
+      ...urlInputValues,
+      [type]: {
+        ...urlInputValues[type],
+        url: value,
+        isValid: validateInputlabel(value),
+      },
+    };
+    setUrlInputValues(updatedInputValues);
+  };
 
   return (
     <ThemedScrollViewV2
       contentContainerStyle={tailwind("px-5 pb-16")}
       style={tailwind("flex-1")}
     >
-      <ThemedSectionTitleV2
-        testID="endpoint_url_title"
-        text={translate("screens/ServiceProviderScreen", "ENDPOINT URL")}
-      />
-      <View style={tailwind("flex flex-row items-center w-full")}>
-        <WalletTextInputV2
-          valid={errMsg === ""}
-          editable={isUnlocked}
-          value={labelInput}
-          inputType="default"
-          onChangeText={(_text: string) => {
-            setLabelInput(_text);
-            validateInputlabel(_text);
-          }}
-          onClearButtonPress={() => {
-            setLabelInput("");
-            validateInputlabel("");
-          }}
-          placeholder={translate("screens/ServiceProviderScreen", defaultUrl)}
-          style={tailwind("font-normal-v2 flex-1 py-2.5")}
-          containerStyle="flex-1"
-          testID="endpoint_url_input"
-          inlineText={{
-            type: "error",
-            text: translate("screens/ServiceProviderScreen", errMsg),
-          }}
-          displayClearButton={
-            labelInput !== "" &&
-            labelInput !== undefined &&
-            isUnlocked &&
-            !displayTickIcon
-          }
-          displayTickIcon={displayTickIcon}
-        />
-        <ThemedTouchableOpacityV2
-          onPress={() => setIsUnlocked(true)}
-          light={tailwind("bg-mono-light-v2-900", {
-            "bg-opacity-30": isUnlocked,
-          })}
-          dark={tailwind("bg-mono-dark-v2-900", {
-            "bg-opacity-30": isUnlocked,
-          })}
-          style={tailwind("ml-3 h-10 w-10 p-2.5 text-center rounded-full")}
-          disabled={isUnlocked}
-          testID="edit_service_provider"
-        >
-          <ThemedIcon
-            dark={tailwind("text-mono-dark-v2-100")}
-            light={tailwind("text-mono-light-v2-100")}
-            iconType="Feather"
-            name="edit-2"
-            size={18}
+      <View>
+        {customProviders.map((provider) => (
+          <CustomUrlInput
+            {...provider}
+            inputValue={urlInputValues[provider.type]}
+            handleUrlInputChange={handleUrlInputChange}
+            activeInput={activeInput}
+            setActiveInput={setActiveInput}
+            setShowActionButtons={setShowActionButtons}
           />
-        </ThemedTouchableOpacityV2>
+        ))}
       </View>
-      {isUnlocked && (
-        <>
-          <View style={tailwind("mt-2 px-5 mb-6")}>
-            <Text style={tailwind("text-orange-v2 font-normal-v2 text-xs")}>
+      {showActionButtons && (
+        <View style={tailwind("mt-48", { "mt-36": isSmallScreen })}>
+          <View style={tailwind("mt-2 px-5 mb-5")}>
+            <Text
+              style={tailwind(
+                "text-orange-v2 font-normal-v2 text-xs text-center",
+              )}
+            >
               {translate(
                 "screens/ServiceProviderScreen",
-                "Only add URLs that are fully trusted and secured. Adding malicious service providers may result in irrecoverable funds. Changes do not take effect until you manually restart the app."
+                "Only add URLs that are fully trusted and secured. Adding malicious service providers may result in irrecoverable funds. Proceed at your own risk.",
               )}
             </Text>
           </View>
-          <ResetButton />
-        </>
-      )}
-      {isUnlocked && (
-        <View style={tailwind("mt-48", { "mt-36": isSmallScreen })}>
           <ButtonV2
             styleProps="mx-7 mt-2"
             label={translate("screens/ServiceProviderScreen", "Continue")}
             testID="button_submit"
             onPress={async () => await submitCustomServiceProvider()}
-            disabled={!isValid}
+            disabled={
+              !(
+                urlInputValues.dvm.isValid &&
+                urlInputValues.evm.isValid &&
+                urlInputValues.ethrpc.isValid
+              )
+            }
           />
+          <ResetButton />
         </View>
       )}
     </ThemedScrollViewV2>
