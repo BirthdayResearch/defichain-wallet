@@ -28,7 +28,7 @@ import { useToast } from "react-native-toast-notifications";
 import { debounce } from "lodash";
 import { AddressType, getAddressType } from "@waveshq/walletkit-core";
 import * as Clipboard from "expo-clipboard";
-import { DomainType } from "@contexts/DomainContext";
+import { DomainType, useDomainContext } from "@contexts/DomainContext";
 import { SettingsParamList } from "../../Settings/SettingsNavigator";
 
 type Props = StackScreenProps<SettingsParamList, "AddOrEditAddressBookScreen">;
@@ -37,6 +37,7 @@ export function AddOrEditAddressBookScreen({
   route,
   navigation,
 }: Props): JSX.Element {
+  const { isEvmFeatureEnabled } = useDomainContext();
   const {
     title,
     onSaveButtonPress,
@@ -281,64 +282,70 @@ export function AddOrEditAddressBookScreen({
       contentContainerStyle={tailwind("px-5 pb-16")}
       style={tailwind("flex-1")}
     >
-      <ThemedViewV2
-        light={tailwind("bg-transparent")}
-        dark={tailwind("bg-transparent")}
-        style={tailwind("w-full flex-col")}
-      >
-        <ThemedSectionTitleV2
-          testID="address_book_address_type_header"
-          text={translate("screens/AddOrEditAddressBookScreen", "ADDRESS TYPE")}
-        />
+      {isEvmFeatureEnabled && (
         <ThemedViewV2
-          light={tailwind("bg-mono-light-v2-00 border-mono-light-v2-00")}
-          dark={tailwind("bg-mono-dark-v2-00 border-mono-dark-v2-00")}
-          style={tailwind("flex-col w-full border-0.5 rounded-lg-v2")}
+          light={tailwind("bg-transparent")}
+          dark={tailwind("bg-transparent")}
+          style={tailwind("w-full flex-col")}
         >
-          {AddressDomains.map((addressDomain, index) => {
-            const isChecked = selectedAddressDomainType === addressDomain.value;
-            return (
-              <ThemedTouchableOpacityV2
-                key={addressDomain.value}
-                light={tailwind("border-mono-light-v2-300")}
-                dark={tailwind("border-mono-dark-v2-300")}
-                style={[
-                  tailwind("flex flex-row mx-5 py-4"),
-                  index !== AddressDomains.length - 1 &&
-                    tailwind("border-b-0.5"),
-                ]}
-                activeOpacity={0.7}
-                disabled={!isAddNew}
-                onPress={() => {
-                  setSelectedAddressDomainType(addressDomain.value);
-                }}
-                testID={`address_book_address_type_${addressDomain.value}${
-                  isChecked ? "_checked" : ""
-                }`}
-              >
-                <ThemedIcon
-                  size={20}
-                  name={isChecked ? "check-circle" : "radio-button-off"}
-                  light={tailwind(
-                    isChecked ? "text-green-v2 " : "text-mono-light-v2-700",
-                  )}
-                  dark={tailwind(
-                    isChecked ? "text-green-v2" : "text-mono-dark-v2-700",
-                  )}
-                  iconType="MaterialIcons"
-                  testID="address_book_address_type_header"
-                />
-                <ThemedTextV2 style={tailwind("pl-4 text-sm font-normal-v2")}>
-                  {translate(
-                    "screens/AddOrEditAddressBookScreen",
-                    addressDomain.label,
-                  )}
-                </ThemedTextV2>
-              </ThemedTouchableOpacityV2>
-            );
-          })}
+          <ThemedSectionTitleV2
+            testID="address_book_address_type_header"
+            text={translate(
+              "screens/AddOrEditAddressBookScreen",
+              "ADDRESS TYPE",
+            )}
+          />
+          <ThemedViewV2
+            light={tailwind("bg-mono-light-v2-00 border-mono-light-v2-00")}
+            dark={tailwind("bg-mono-dark-v2-00 border-mono-dark-v2-00")}
+            style={tailwind("flex-col w-full border-0.5 rounded-lg-v2")}
+          >
+            {AddressDomains.map((addressDomain, index) => {
+              const isChecked =
+                selectedAddressDomainType === addressDomain.value;
+              return (
+                <ThemedTouchableOpacityV2
+                  key={addressDomain.value}
+                  light={tailwind("border-mono-light-v2-300")}
+                  dark={tailwind("border-mono-dark-v2-300")}
+                  style={[
+                    tailwind("flex flex-row mx-5 py-4"),
+                    index !== AddressDomains.length - 1 &&
+                      tailwind("border-b-0.5"),
+                  ]}
+                  activeOpacity={0.7}
+                  disabled={!isAddNew}
+                  onPress={() => {
+                    setSelectedAddressDomainType(addressDomain.value);
+                  }}
+                  testID={`address_book_address_type_${addressDomain.value}${
+                    isChecked ? "_checked" : ""
+                  }`}
+                >
+                  <ThemedIcon
+                    size={20}
+                    name={isChecked ? "check-circle" : "radio-button-off"}
+                    light={tailwind(
+                      isChecked ? "text-green-v2 " : "text-mono-light-v2-700",
+                    )}
+                    dark={tailwind(
+                      isChecked ? "text-green-v2" : "text-mono-dark-v2-700",
+                    )}
+                    iconType="MaterialIcons"
+                    testID="address_book_address_type_header"
+                  />
+                  <ThemedTextV2 style={tailwind("pl-4 text-sm font-normal-v2")}>
+                    {translate(
+                      "screens/AddOrEditAddressBookScreen",
+                      addressDomain.label,
+                    )}
+                  </ThemedTextV2>
+                </ThemedTouchableOpacityV2>
+              );
+            })}
+          </ThemedViewV2>
         </ThemedViewV2>
-      </ThemedViewV2>
+      )}
 
       {isAddNew ? (
         <WalletTextInputV2
