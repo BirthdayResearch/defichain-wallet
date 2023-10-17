@@ -73,7 +73,7 @@ export function AddressBookScreen({ route, navigation }: Props): JSX.Element {
   const dispatch = useAppDispatch();
   const logger = useLogger();
   // condition to hide icon if not from send page
-  const enableAddressSelect =
+  const isAddressSelectDisabled =
     selectedAddress !== undefined && onAddressSelect !== undefined;
   const userPreferencesFromStore = useSelector(
     (state: RootState) => state.userPreferences,
@@ -233,13 +233,13 @@ export function AddressBookScreen({ route, navigation }: Props): JSX.Element {
       })
       .sort((curr, next) => {
         if (
-          enableAddressSelect &&
+          isAddressSelectDisabled &&
           curr.addressDomainType === addressDomainType
         ) {
           return -1;
         }
         if (
-          enableAddressSelect &&
+          isAddressSelectDisabled &&
           next.addressDomainType === addressDomainType
         ) {
           return 1;
@@ -308,7 +308,7 @@ export function AddressBookScreen({ route, navigation }: Props): JSX.Element {
     }): JSX.Element => {
       const { item, index, testIDSuffix } = props;
       const isDisabledToSelect =
-        enableAddressSelect &&
+        isAddressSelectDisabled &&
         activeButtonGroup === ButtonGroupTabKey.Whitelisted &&
         (item as WhitelistedAddress).addressDomainType === addressDomainType &&
         addressDomainType === DomainType.EVM; // disable address selection if its from the same EVM domain
@@ -365,7 +365,7 @@ export function AddressBookScreen({ route, navigation }: Props): JSX.Element {
                 await onFavouriteAddress(item as WhitelistedAddress)
               }
               testID={`address_row_star_${index}_${testIDSuffix}`}
-              disabled={enableAddressSelect}
+              disabled={isAddressSelectDisabled}
             >
               {item.isFavourite ? (
                 <FavoriteCheckIcon
@@ -399,7 +399,7 @@ export function AddressBookScreen({ route, navigation }: Props): JSX.Element {
                 {/* for DFI address */}
                 <WhitelistedAddressLink
                   address={item.address}
-                  disabled={enableAddressSelect}
+                  disabled={isAddressSelectDisabled}
                   testIDSuffix={`${index}_${testIDSuffix}`}
                   displayIcon={
                     activeButtonGroup === ButtonGroupTabKey.YourAddress
@@ -408,7 +408,7 @@ export function AddressBookScreen({ route, navigation }: Props): JSX.Element {
                 />
                 {/* for EVM address */}
               </View>
-              {enableAddressSelect && (
+              {!isAddressSelectDisabled && (
                 <TouchableOpacity
                   activeOpacity={0.7}
                   onPress={onDFIAddressClick}
@@ -520,7 +520,7 @@ export function AddressBookScreen({ route, navigation }: Props): JSX.Element {
                     onClick={async () => {
                       onChangeAddress(item.address);
                     }}
-                    enableAddressSelect={enableAddressSelect}
+                    isAddressSelectEnabled={false}
                   />
                   {/* EVM address card */}
                   {isEvmFeatureEnabled && (
@@ -532,7 +532,7 @@ export function AddressBookScreen({ route, navigation }: Props): JSX.Element {
                       onClick={async () => {
                         onChangeAddress(item.evmAddress);
                       }}
-                      enableAddressSelect={enableAddressSelect}
+                      isAddressSelectEnabled={false}
                     />
                   )}
                 </View>
@@ -842,14 +842,14 @@ function YourAddressLink({
   address,
   isEvmAddress,
   testIDSuffix,
-  enableAddressSelect,
+  isAddressSelectEnabled,
 }: {
   disabled?: boolean;
   onClick: () => Promise<void>;
   address: string;
   isEvmAddress?: boolean;
   testIDSuffix: string;
-  enableAddressSelect: boolean;
+  isAddressSelectEnabled: boolean;
 }) {
   return (
     <TouchableOpacity
@@ -874,7 +874,7 @@ function YourAddressLink({
         </ThemedTextV2>
         {isEvmAddress && <EvmTag index={1} testIDSuffix={testIDSuffix} />}
       </View>
-      {enableAddressSelect && (
+      {isAddressSelectEnabled && (
         <ThemedIcon
           testID={`address_row_${testIDSuffix}_caret`}
           light={tailwind("text-mono-light-v2-700")}
