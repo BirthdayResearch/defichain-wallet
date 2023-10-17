@@ -271,8 +271,10 @@ async function createSignedEvmTx({
   const tdFace = new utils.Interface(TransferDomainV1.abi);
   const from = isEvmToDvm ? evmAddress : TD_CONTRACT_ADDR;
   const to = isEvmToDvm ? TD_CONTRACT_ADDR : evmAddress;
-  // TODO: round off parsedAmount to 8 decimals
-  const parsedAmount = utils.parseUnits(amount.toString(), 18); // TODO: Get decimals from token contract
+  const parsedAmount = utils.parseUnits(
+    amount.decimalPlaces(8, BigNumber.ROUND_DOWN).toString(),
+    18,
+  ); // TODO: Get decimals from token contract
   const vmAddress = dvmAddress;
 
   if (sourceTokenId === "0" || targetTokenId === "0") {
@@ -288,7 +290,6 @@ async function createSignedEvmTx({
   }
   const wallet = new ethers.Wallet(privateKey);
 
-  /* TODO: Figure out CORS issue when using the ethRpc */
   const tx: providers.TransactionRequest = {
     to: TD_CONTRACT_ADDR,
     nonce,
