@@ -175,6 +175,7 @@ export function ServiceProviderScreen({ navigation }: Props): JSX.Element {
       <View>
         {customProviders.map((provider) => (
           <CustomUrlInput
+            key={provider.type}
             {...provider}
             inputValue={urlInputValues[provider.type]}
             activeInput={activeInput}

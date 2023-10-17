@@ -15,6 +15,9 @@ async function get(
 ): Promise<string | undefined> {
   const PROVIDER_KEY = `${KEY}.${type}`;
   const val = await SecuredStoreAPI.getItem(PROVIDER_KEY);
+  if (val !== null) {
+    return val;
+  }
 
   if (type === CustomServiceProviderType.DVM && val === null) {
     const existingDvm = await SecuredStoreAPI.getItem(KEY);
@@ -25,7 +28,7 @@ async function get(
     }
   }
 
-  return val !== null ? val : undefined;
+  return undefined;
 }
 
 /**

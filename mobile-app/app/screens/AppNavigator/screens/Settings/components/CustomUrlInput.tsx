@@ -84,7 +84,7 @@ export function CustomUrlInput({
           editable={isUnlocked}
           value={inputValue.url}
           inputType="default"
-          onChangeText={(_text: string) => handleUrlInputChange(type, _text)}
+          onChangeText={(text: string) => handleUrlInputChange(type, text)}
           onClearButtonPress={() => handleUrlInputChange(type, "")}
           placeholder={translate("screens/ServiceProviderScreen", defaultUrl)}
           style={tailwind("font-normal-v2 flex-1 py-2.5")}
