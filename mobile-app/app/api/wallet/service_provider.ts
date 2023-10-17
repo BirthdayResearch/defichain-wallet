@@ -15,10 +15,18 @@ async function set(
 async function get(
   type: CustomServiceProviderType = CustomServiceProviderType.DVM,
 ): Promise<string | undefined> {
-  const STORAGE_KEY =
-    type === CustomServiceProviderType.DVM ? KEY : `${KEY}.${type}`;
-  const val = await SecuredStoreAPI.getItem(STORAGE_KEY);
-  return val != null ? val : undefined;
+  const val = await SecuredStoreAPI.getItem(`${KEY}.${type}`);
+
+  if (type === CustomServiceProviderType.DVM && val === null) {
+    const existingDvm = await SecuredStoreAPI.getItem(KEY);
+    if (existingDvm !== null) {
+      await set(existingDvm, CustomServiceProviderType.DVM);
+      await SecuredStoreAPI.removeItem(KEY);
+      return existingDvm;
+    }
+  }
+
+  return val !== null ? val : undefined;
 }
 
 /**
