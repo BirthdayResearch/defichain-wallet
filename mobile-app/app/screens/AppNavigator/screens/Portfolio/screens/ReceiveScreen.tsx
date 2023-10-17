@@ -21,7 +21,7 @@ import { DomainType, useDomainContext } from "@contexts/DomainContext";
 
 export async function onShare(
   address: string,
-  logger: NativeLoggingProps
+  logger: NativeLoggingProps,
 ): Promise<void> {
   try {
     await Share.share({
@@ -49,7 +49,7 @@ export function ReceiveScreen(): JSX.Element {
       setShowToast(true);
       setTimeout(() => setShowToast(false), TOAST_DURATION);
     }, 500),
-    [showToast]
+    [showToast],
   );
 
   useEffect(() => {
@@ -74,7 +74,7 @@ export function ReceiveScreen(): JSX.Element {
       >
         {translate(
           "screens/ReceiveScreen",
-          "Scan QR code to receive any dTokens (eg. DUSD,dBTC..) or DFI"
+          "Scan QR code to receive any dTokens (eg. DUSD,dBTC..) or DFI",
         )}
       </ThemedTextV2>
 
@@ -122,7 +122,7 @@ export function ReceiveScreen(): JSX.Element {
             dark={tailwind("border-mono-dark-v2-300")}
             light={tailwind("border-mono-light-v2-300")}
             style={tailwind(
-              "py-4 mx-5 flex-row justify-center items-center border-b"
+              "py-4 mx-5 flex-row justify-center items-center border-b",
             )}
           >
             <ThemedTextV2
