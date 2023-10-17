@@ -124,7 +124,7 @@ export function ServiceProviderScreen({ navigation }: Props): JSX.Element {
       onError: (e) => logger.error(e),
       title: `${translate(
         "screens/ServiceProviderScreen",
-        "Adding custom service provider",
+        "Adding custom service providers",
       )} ${customUrls}`,
       message: translate(
         "screens/ServiceProviderScreen",

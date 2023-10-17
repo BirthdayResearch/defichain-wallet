@@ -142,8 +142,12 @@ export function CustomServiceProvider(
   );
 
   useEffect(() => {
-    setCurrentUrl({ evm: evmUrl, ethrpc: ethRpcUrl });
-  }, [evmUrl, ethRpcUrl]);
+    setCurrentUrl((prevState) => ({ ...prevState, evm: evmUrl }));
+  }, [evmUrl]);
+
+  useEffect(() => {
+    setCurrentUrl((prevState) => ({ ...prevState, ethrpc: ethRpcUrl }));
+  }, [ethRpcUrl]);
 
   const isCustomEvmUrl = useMemo(
     () => currentUrl.evm !== defaultEvmUrl,
@@ -158,7 +162,7 @@ export function CustomServiceProvider(
     newUrl: string,
     type: CustomServiceProviderType = "dvm",
   ): Promise<void> => {
-    setCurrentUrl({ ...currentUrl, [type]: newUrl });
+    setCurrentUrl((prevState) => ({ ...prevState, [type]: newUrl }));
     await api.set(newUrl, type);
   };
 
