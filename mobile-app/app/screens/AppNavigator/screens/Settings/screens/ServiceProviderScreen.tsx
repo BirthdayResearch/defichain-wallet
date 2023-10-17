@@ -66,20 +66,24 @@ export function ServiceProviderScreen({ navigation }: Props): JSX.Element {
       label: "ENDPOINT URL (DVM)",
       helperText: "Used to get balance from Native DFC (MainNet and TestNet)",
     },
-    {
-      type: CustomServiceProviderType.EVM,
-      url: evmUrl,
-      defaultUrl: defaultEvmUrl,
-      label: "ENDPOINT URL (EVM)",
-      helperText: "Used to get balance from EVM (MainNet and TestNet)",
-    },
-    {
-      type: CustomServiceProviderType.ETHRPC,
-      url: ethRpcUrl,
-      defaultUrl: defaultEthRpcUrl,
-      label: "ENDPOINT URL (ETH-RPC)",
-      helperText: "Used to get Nonce and Chain ID",
-    },
+    ...(isEvmFeatureEnabled
+      ? [
+          {
+            type: CustomServiceProviderType.EVM,
+            url: evmUrl,
+            defaultUrl: defaultEvmUrl,
+            label: "ENDPOINT URL (EVM)",
+            helperText: "Used to get balance from EVM (MainNet and TestNet)",
+          },
+          {
+            type: CustomServiceProviderType.ETHRPC,
+            url: ethRpcUrl,
+            defaultUrl: defaultEthRpcUrl,
+            label: "ENDPOINT URL (ETH-RPC)",
+            helperText: "Used to get Nonce and Chain ID",
+          },
+        ]
+      : []),
   ];
 
   // Check customized urls
