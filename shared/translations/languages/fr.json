@@ -2185,7 +2185,8 @@
     "Reset Service Provider": "Réinitialiser le fournisseur de services",
     "Go back": "Retour",
     "GO BACK": "RETOUR",
-    "Reset": "Réinitialiser"
+    "Reset": "Réinitialiser",
+    "Save changes": "Sauvegarder les modifications"
   },
   "components/QuickBid": {
     "QUICK BID": "ENCHÈRE RAPIDE",

@@ -2181,7 +2181,8 @@
     "Reset Service Provider": "Reset Service Provider",
     "Go back": "Go back",
     "GO BACK": "GO BACK",
-    "Reset": "Reset"
+    "Reset": "Reset",
+    "Save changes": "储存修改"
   },
   "components/QuickBid": {
     "QUICK BID": "快速标价",

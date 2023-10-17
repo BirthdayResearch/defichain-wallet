@@ -203,7 +203,7 @@ export function ServiceProviderScreen({ navigation }: Props): JSX.Element {
           </View>
           <ButtonV2
             styleProps="mx-7 mt-2"
-            label={translate("screens/ServiceProviderScreen", "Continue")}
+            label={translate("screens/ServiceProviderScreen", "Save changes")}
             testID="button_submit"
             onPress={async () => await submitCustomServiceProvider()}
             disabled={

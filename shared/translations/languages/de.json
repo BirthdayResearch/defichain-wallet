@@ -2175,7 +2175,8 @@
     "Reset Service Provider": "Dienstanbieter zurücksetzen",
     "Go back": "Zurück",
     "GO BACK": "ZURÜCK",
-    "Reset": "Zurücksetzen"
+    "Reset": "Zurücksetzen",
+    "Save changes": "Änderungen sichern"
   },
   "components/QuickBid": {
     "QUICK BID": "SCHNELLES GEBOT",
