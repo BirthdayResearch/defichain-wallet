@@ -12,7 +12,7 @@ services:
     ports:
       - "19553:80"
       - "19552:8080"
-      # - "19551:8082"
+      - "19551:8082"
     volumes:
       - "/var/run/docker.sock:/var/run/docker.sock:ro"
 
@@ -20,7 +20,7 @@ services:
     image: defi/defichain:HEAD-420563c450
     ports:
       - "19554:19554"
-      - "19551:19551"
+      # "19551:19551"
     command: >
       defid
       -printtoconsole
