@@ -168,6 +168,10 @@ export function SummaryTitle(props: ISummaryTitleProps): JSX.Element {
               <ThemedViewV2
                 style={tailwind(
                   "flex flex-row items-center overflow-hidden rounded-full pr-2.5 py-1 ml-2",
+                  {
+                    "pl-1": props.addressType === AddressType.WalletAddress,
+                    "pl-2.5": props.addressType !== AddressType.WalletAddress,
+                  },
                 )}
                 light={tailwind("bg-mono-light-v2-200")}
                 dark={tailwind("bg-mono-dark-v2-200")}
