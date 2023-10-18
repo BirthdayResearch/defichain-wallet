@@ -66,7 +66,7 @@ export const fetchEvmWalletDetails = createAsyncThunk(
     if (data.message === "Not found") {
       return {};
     }
-    return await response.json();
+    return data;
   },
 );
 
