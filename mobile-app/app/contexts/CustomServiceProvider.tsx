@@ -92,12 +92,12 @@ function getBlockscoutUrl(network: EnvironmentNetwork) {
     case EnvironmentNetwork.RemotePlayground:
     case EnvironmentNetwork.DevNet:
     case EnvironmentNetwork.Changi:
-      return "http://34.87.158.111:4000"; // TODO: add final blockscout url for playground and devnet
-    case EnvironmentNetwork.TestNet:
       return "https://blockscout.changi.ocean.jellyfishsdk.com";
+    case EnvironmentNetwork.TestNet:
+      return "https://blockscout.testnet.ocean.jellyfishsdk.com";
     case EnvironmentNetwork.MainNet:
     default:
-      return "https://blockscout.changi.ocean.jellyfishsdk.com";
+      return "https://blockscout.mainnet.ocean.jellyfishsdk.com";
   }
 }
 
