@@ -96,7 +96,7 @@ export function useEvmTokenBalances(): { evmTokens: WalletToken[] } {
   };
 
   useEffect(() => {
-    if (isFocused) {
+    if (isFocused && provider !== null) {
       batch(() => {
         dispatch(
           fetchEvmWalletDetails({ evmUrl, network, evmAddress, provider }),
@@ -112,7 +112,7 @@ export function useEvmTokenBalances(): { evmTokens: WalletToken[] } {
         );
       });
     }
-  }, [network, evmAddress, blockCount, isFocused]);
+  }, [network, evmAddress, blockCount, isFocused, provider]);
 
   useEffect(() => {
     setAllTokensWithAddress(
