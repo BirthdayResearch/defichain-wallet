@@ -101,7 +101,7 @@ export function SendConfirmationScreen({ route }: Props): JSX.Element {
       return;
     }
     setIsSubmitting(true);
-    const nonce = await provider.getTransactionCount(evmAddress);
+    const nonce = provider ? await provider.getTransactionCount(evmAddress) : 0;
     await send(
       {
         address: destination,

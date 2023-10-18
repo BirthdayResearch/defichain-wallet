@@ -4,7 +4,7 @@ import { useNetworkContext } from "@waveshq/walletkit-ui";
 import { useCustomServiceProviderContext } from "./CustomServiceProvider";
 
 interface EVMProviderContextI {
-  provider: providers.JsonRpcProvider;
+  provider: providers.JsonRpcProvider | null;
   chainId?: number;
 }
 const EVMProviderContext = createContext<EVMProviderContextI>(undefined as any);
@@ -20,15 +20,22 @@ export function EVMProvider({
   const { network } = useNetworkContext();
   const [chainId, setChainId] = useState<number>();
 
-  const getProvider = () => {
-    const provider = new providers.JsonRpcProvider(ethRpcUrl);
-    provider.getNetwork().then(({ chainId }) => setChainId(chainId));
-    return provider;
+  const getProvider = async () => {
+    try {
+      const provider = new providers.JsonRpcProvider(ethRpcUrl);
+      const { chainId } = await provider.getNetwork();
+      setChainId(chainId);
+      return provider;
+    } catch (e) {
+      // Note: Added this for cases wherein eth rpc url is invalid or unreachable
+      setChainId(0);
+      return {};
+    }
   };
 
   const client = useMemo(
-    () => ({
-      provider: getProvider(),
+    async () => ({
+      provider: await getProvider(),
       chainId,
     }),
     [network, chainId, ethRpcUrl],
