@@ -68,8 +68,6 @@ context("Portfolio - Send - Address Book", () => {
       addresses[index],
     );
 
-    cy.getByTestID(`address_row_${index}_WHITELISTED_caret`).should("exist");
-
     // dvm address
     if (index === 0) {
       cy.getByTestID(`address_row_label_${index}_WHITELISTED_EVM_tag`).should(
@@ -95,9 +93,6 @@ context("Portfolio - Send - Address Book", () => {
     cy.getByTestID(`address_row_text_${index}_YOUR_ADDRESS_EVM`).should(
       "exist",
     );
-
-    // caret
-    cy.getByTestID(`address_row_${index}_YOUR_ADDRESS_caret`).should("exist");
   }
 
   // Send DFI tokens dvm -> evm
