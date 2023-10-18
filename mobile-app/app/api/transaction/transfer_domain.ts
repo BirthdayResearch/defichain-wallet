@@ -69,8 +69,8 @@ export async function transferDomainSigner({
 
   const signedEvmTxData = await createSignedEvmTx({
     isEvmToDvm,
-    sourceTokenId,
-    targetTokenId,
+    sourceTokenId: stripEvmSuffixFromTokenId(sourceTokenId).toString(),
+    targetTokenId: stripEvmSuffixFromTokenId(targetTokenId).toString(),
     amount,
     dvmAddress,
     evmAddress,
