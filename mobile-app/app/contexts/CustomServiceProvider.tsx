@@ -9,6 +9,7 @@ import React, {
   useMemo,
   useState,
 } from "react";
+import { useDomainContext } from "./DomainContext";
 
 export enum CustomServiceProviderType {
   DVM = "DVM",
@@ -23,6 +24,7 @@ interface CustomServiceProviderContextProps {
       url: NonNullable<string>,
       type?: CustomServiceProviderType,
     ) => Promise<void>;
+    remove: (type: CustomServiceProviderType) => Promise<string | undefined>;
   };
   logger: BaseLogger;
 }
@@ -123,6 +125,7 @@ export function CustomServiceProvider(
 ): JSX.Element | null {
   const { api, children, logger } = props;
   const { network } = useNetworkContext();
+  const { isEvmFeatureEnabled } = useDomainContext();
   const params = { api, network, logger };
 
   // EVM
@@ -148,6 +151,19 @@ export function CustomServiceProvider(
     [CustomServiceProviderType.EVM]: evmUrl,
     [CustomServiceProviderType.ETHRPC]: ethRpcUrl,
   });
+
+  const resetCustomUrls = async (): Promise<void> => {
+    await Promise.all([
+      api.remove(CustomServiceProviderType.EVM),
+      api.remove(CustomServiceProviderType.ETHRPC),
+    ]);
+  };
+
+  useEffect(() => {
+    if (!isEvmFeatureEnabled) {
+      resetCustomUrls();
+    }
+  }, [isEvmFeatureEnabled]);
 
   useEffect(() => {
     setCurrentUrl((prevState) => ({

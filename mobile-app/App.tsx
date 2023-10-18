@@ -93,32 +93,32 @@ export default function App(): JSX.Element | null {
                 api={ServiceProviderPersistence}
                 logger={Logging}
               >
-                <CustomServiceProvider
-                  api={ServiceProviderPersistence}
-                  logger={Logging}
-                >
-                  <WhaleProvider>
-                    <DeFiScanProvider>
-                      <WalletPersistenceProvider
-                        api={{
-                          ...WalletPersistence,
-                          ...WalletAddressIndexPersistence,
-                        }}
-                        logger={Logging}
-                      >
-                        <StoreProvider>
-                          <StatsProvider>
-                            <FeatureFlagProvider>
-                              <ThemeProvider
-                                api={ThemePersistence}
-                                colorScheme={colorScheme}
-                                logger={Logging}
+                <WhaleProvider>
+                  <DeFiScanProvider>
+                    <WalletPersistenceProvider
+                      api={{
+                        ...WalletPersistence,
+                        ...WalletAddressIndexPersistence,
+                      }}
+                      logger={Logging}
+                    >
+                      <StoreProvider>
+                        <StatsProvider>
+                          <FeatureFlagProvider>
+                            <ThemeProvider
+                              api={ThemePersistence}
+                              colorScheme={colorScheme}
+                              logger={Logging}
+                            >
+                              <LanguageProvider
+                                api={LanguagePersistence}
+                                locale={Localization.locale}
                               >
-                                <LanguageProvider
-                                  api={LanguagePersistence}
-                                  locale={Localization.locale}
-                                >
-                                  <DomainProvider api={DomainPersistence}>
+                                <DomainProvider api={DomainPersistence}>
+                                  <CustomServiceProvider
+                                    api={ServiceProviderPersistence}
+                                    logger={Logging}
+                                  >
                                     <DisplayBalancesProvider>
                                       <ConnectionBoundary>
                                         <GestureHandlerRootView
@@ -136,16 +136,16 @@ export default function App(): JSX.Element | null {
                                         </GestureHandlerRootView>
                                       </ConnectionBoundary>
                                     </DisplayBalancesProvider>
-                                  </DomainProvider>
-                                </LanguageProvider>
-                              </ThemeProvider>
-                            </FeatureFlagProvider>
-                          </StatsProvider>
-                        </StoreProvider>
-                      </WalletPersistenceProvider>
-                    </DeFiScanProvider>
-                  </WhaleProvider>
-                </CustomServiceProvider>
+                                  </CustomServiceProvider>
+                                </DomainProvider>
+                              </LanguageProvider>
+                            </ThemeProvider>
+                          </FeatureFlagProvider>
+                        </StatsProvider>
+                      </StoreProvider>
+                    </WalletPersistenceProvider>
+                  </DeFiScanProvider>
+                </WhaleProvider>
               </StoreServiceProvider>
             </NetworkProvider>
           </PrivacyLockContextProvider>
