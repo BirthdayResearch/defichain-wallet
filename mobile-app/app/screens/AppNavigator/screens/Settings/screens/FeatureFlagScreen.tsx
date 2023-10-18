@@ -33,7 +33,7 @@ export function FeatureFlagScreen(): JSX.Element {
         }
         return features;
       },
-      []
+      [],
     );
   };
 
@@ -43,7 +43,7 @@ export function FeatureFlagScreen(): JSX.Element {
 
   const onFeatureChange = async (
     feature: FeatureFlag,
-    value: boolean
+    value: boolean,
   ): Promise<void> => {
     const message =
       feature.id === "ocg_cfp_dfip"
@@ -57,7 +57,7 @@ export function FeatureFlagScreen(): JSX.Element {
         title: translate(
           "screens/FeatureFlagScreen",
           "Enable {{feature}} (Beta)",
-          { feature: translate("screens/Settings", feature.name) }
+          { feature: translate("screens/Settings", feature.name) },
         ),
         message: translate("screens/FeatureFlagScreen", message),
         buttons: [
@@ -87,7 +87,7 @@ export function FeatureFlagScreen(): JSX.Element {
         <ThemedTextV2 style={tailwind("text-base font-normal-v2")}>
           {translate(
             "screens/FeatureFlagScreen",
-            "Light Wallet beta features are in the user acceptance testing phase. Using beta feature(s) is encouraged, but caution is advised when using your assets."
+            "Light Wallet beta features are in final testing before their official release. Using beta features are encouraged, but caution is advised when using your assets.",
           )}
         </ThemedTextV2>
       </View>
@@ -113,7 +113,7 @@ export function FeatureFlagItem({
         dark={tailwind("bg-black")}
         light={tailwind("bg-white")}
         style={tailwind(
-          "flex flex-row p-4 mx-5 items-center justify-between rounded-lg"
+          "flex flex-row p-4 mx-5 items-center justify-between rounded-lg",
         )}
       >
         <ThemedText
