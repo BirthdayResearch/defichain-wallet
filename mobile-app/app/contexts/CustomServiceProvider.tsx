@@ -111,7 +111,7 @@ function getEthRpcUrl(network: EnvironmentNetwork) {
     case EnvironmentNetwork.Changi:
       return "http://34.34.156.49:20551"; // TODO: add final eth rpc url for changi, devnet and remote playground
     case EnvironmentNetwork.TestNet:
-      return "https://changi.dfi.team"; // TODO: add final eth rpc url for testnet, with proper domain name
+      return "http://34.38.30.102:18551"; // TODO: add final eth rpc url for testnet, with proper domain name
     case EnvironmentNetwork.MainNet:
     default:
       return "https://changi.dfi.team"; // TODO: add final eth rpc url for mainnet, with proper domain name
