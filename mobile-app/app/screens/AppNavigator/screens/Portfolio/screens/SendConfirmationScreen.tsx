@@ -73,6 +73,7 @@ export function SendConfirmationScreen({ route }: Props): JSX.Element {
     matchedAddress,
   } = route.params;
   const logger = useLogger();
+  const isEvmDomain = domain === DomainType.EVM;
   const hasPendingJob = useSelector((state: RootState) =>
     hasTxQueued(state.transactionQueue),
   );
@@ -156,9 +157,10 @@ export function SendConfirmationScreen({ route }: Props): JSX.Element {
           amount={amount}
           title={translate("screens/SendConfirmationScreen", "You are sending")}
           testID="text_send_amount"
-          iconA={tokenADisplaySymbol}
+          iconA={token.id === "0_evm" ? "DFI (EVM)" : tokenADisplaySymbol}
           iconB={tokenBDisplaySymbol}
-          fromAddress={domain === DomainType.DVM ? address : evmAddress}
+          fromAddress={isEvmDomain ? evmAddress : address}
+          isEvmToken={isEvmDomain}
           fromAddressLabel={addressLabel}
           toAddress={destination}
           toAddressLabel={toAddressLabel}
@@ -378,7 +380,9 @@ async function send(
     const isDvmToDvmSend =
       domain === DomainType.DVM &&
       jellyfishAddressType !== JellyfishAddressType.ETH;
-
+    const fromDisplaySymbol = token.id.includes("_evm")
+      ? `${token.displaySymbol} (EVM)`
+      : token.displaySymbol;
     dispatch(
       transactionQueue.actions.push({
         sign: async (account: WhaleWalletAccount) => {
@@ -431,7 +435,7 @@ async function send(
           "Sending {{amount}} {{displaySymbol}} to {{toAddress}}",
           {
             amount: amount.toFixed(8),
-            displaySymbol: token.displaySymbol,
+            displaySymbol: fromDisplaySymbol,
             toAddress: address,
           },
         ),
@@ -442,7 +446,7 @@ async function send(
             "Sending {{amount}} {{displaySymbol}}",
             {
               amount: amount.toFixed(8),
-              displaySymbol: token.displaySymbol,
+              displaySymbol: fromDisplaySymbol,
             },
           ),
           complete: translate(
@@ -450,7 +454,7 @@ async function send(
             "{{amount}} {{displaySymbol}} sent",
             {
               amount: amount.toFixed(8),
-              displaySymbol: token.displaySymbol,
+              displaySymbol: fromDisplaySymbol,
             },
           ),
         },
