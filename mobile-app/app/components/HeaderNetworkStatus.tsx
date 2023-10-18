@@ -13,6 +13,7 @@ import {
   ViewStyle,
 } from "react-native";
 import { useSelector } from "react-redux";
+import { useCustomServiceProviderContext } from "@contexts/CustomServiceProvider";
 import { NetworkIcon } from "./icons/assets/NetworkIcon";
 import { ThemedTextV2 } from "./themed";
 
@@ -26,7 +27,9 @@ export function HeaderNetworkStatus({
   containerStyle?: StyleProp<ViewStyle>;
 }): JSX.Element {
   const { network } = useNetworkContext();
-  const { isCustomUrl } = useServiceProviderContext();
+  const { isCustomUrl: isCustomDvmUrl } = useServiceProviderContext();
+  const { isCustomEvmUrl, isCustomEthRpcUrl } =
+    useCustomServiceProviderContext();
   const { connected } = useSelector((state: RootState) => state.block);
 
   return (
@@ -53,7 +56,7 @@ export function HeaderNetworkStatus({
       >
         {network}
       </ThemedTextV2>
-      {isCustomUrl && (
+      {(isCustomDvmUrl || isCustomEvmUrl || isCustomEthRpcUrl) && (
         <View>
           <ThemedTextV2
             style={[tailwind("font-bold-v2 leading-4"), { fontSize: 6 }]}

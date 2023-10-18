@@ -11,6 +11,7 @@ import { fetchEvmWalletDetails, fetchEvmTokenBalances } from "@store/evm";
 import { useEVMProvider } from "@contexts/EVMProvider";
 import { useIsFocused } from "@react-navigation/native";
 import { getAddressFromDST20TokenId } from "@api/transaction/transfer_domain";
+import { useCustomServiceProviderContext } from "@contexts/CustomServiceProvider";
 
 interface AssociatedToken {
   [key: string]: TokenData;
@@ -23,6 +24,7 @@ export function useEvmTokenBalances(): { evmTokens: WalletToken[] } {
     useState<AssociatedToken>({});
   const blockCount = useSelector((state: RootState) => state.block.count);
   const { network } = useNetworkContext();
+  const { evmUrl } = useCustomServiceProviderContext();
   const { provider } = useEVMProvider();
   const logger = useLogger();
   const isFocused = useIsFocused();
@@ -96,9 +98,17 @@ export function useEvmTokenBalances(): { evmTokens: WalletToken[] } {
   useEffect(() => {
     if (isFocused) {
       batch(() => {
-        dispatch(fetchEvmWalletDetails({ network, evmAddress, provider }));
         dispatch(
-          fetchEvmTokenBalances({ network, evmAddress, provider, tokenIds }),
+          fetchEvmWalletDetails({ evmUrl, network, evmAddress, provider }),
+        );
+        dispatch(
+          fetchEvmTokenBalances({
+            evmUrl,
+            network,
+            evmAddress,
+            provider,
+            tokenIds,
+          }),
         );
       });
     }

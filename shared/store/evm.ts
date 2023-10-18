@@ -44,10 +44,12 @@ const initialState: EvmState = {
 export const fetchEvmWalletDetails = createAsyncThunk(
   "wallet/fetchEvmWalletDetails",
   async ({
+    evmUrl,
     network,
     evmAddress,
     provider,
   }: {
+    evmUrl: string;
     network: EnvironmentNetwork;
     evmAddress: string;
     provider: providers.JsonRpcProvider;
@@ -59,8 +61,7 @@ export const fetchEvmWalletDetails = createAsyncThunk(
         coin_balance: balance.toString(),
       };
     }
-    const url = getBlockscoutUrl(network);
-    const response = await fetch(`${url}/api/v2/addresses/${evmAddress}`);
+    const response = await fetch(`${evmUrl}/api/v2/addresses/${evmAddress}`);
     const data = await response.json();
     if (data.message === "Not found") {
       return {};
@@ -72,11 +73,13 @@ export const fetchEvmWalletDetails = createAsyncThunk(
 export const fetchEvmTokenBalances = createAsyncThunk(
   "wallet/fetchEvmTokenBalances",
   async ({
+    evmUrl,
     network,
     evmAddress,
     provider,
     tokenIds,
   }: {
+    evmUrl: string;
     network: EnvironmentNetwork;
     evmAddress: string;
     provider: providers.JsonRpcProvider;
@@ -101,9 +104,8 @@ export const fetchEvmTokenBalances = createAsyncThunk(
       return res.filter((each) => each.value !== "0");
     }
 
-    const url = getBlockscoutUrl(network);
     const response = await fetch(
-      `${url}/api/v2/addresses/${evmAddress}/token-balances`,
+      `${evmUrl}/api/v2/addresses/${evmAddress}/token-balances`,
     );
     const data = await response.json();
     if (data.message === "Not found") {
@@ -133,36 +135,3 @@ export const evm = createSlice({
     );
   },
 });
-
-const getBlockscoutUrl = (network: EnvironmentNetwork) => {
-  // TODO: Add proper blockscout url for each network
-  switch (network) {
-    case EnvironmentNetwork.LocalPlayground:
-    case EnvironmentNetwork.RemotePlayground:
-    case EnvironmentNetwork.DevNet:
-    case EnvironmentNetwork.Changi:
-      return "http://34.87.158.111:4000"; // TODO: add final blockscout url for playground and devnet
-    case EnvironmentNetwork.TestNet:
-      return "https://blockscout.changi.ocean.jellyfishsdk.com";
-    case EnvironmentNetwork.MainNet:
-    default:
-      return "https://blockscout.changi.ocean.jellyfishsdk.com";
-  }
-};
-
-export const getEthRpcUrl = (network: EnvironmentNetwork) => {
-  // TODO: Add proper ethereum RPC URLs for each network
-  switch (network) {
-    case EnvironmentNetwork.LocalPlayground:
-      return "http://localhost:19551";
-    case EnvironmentNetwork.RemotePlayground:
-    case EnvironmentNetwork.DevNet:
-    case EnvironmentNetwork.Changi:
-      return "http://34.34.156.49:20551"; // TODO: add final eth rpc url for changi, devnet and remote playground
-    case EnvironmentNetwork.TestNet:
-      return "https://changi.dfi.team"; // TODO: add final eth rpc url for testnet, with proper domain name
-    case EnvironmentNetwork.MainNet:
-    default:
-      return "https://changi.dfi.team"; // TODO: add final eth rpc url for mainnet, with proper domain name
-  }
-};

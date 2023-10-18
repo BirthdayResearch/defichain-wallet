@@ -1,8 +1,5 @@
-import { ThemedTextV2, ThemedTouchableOpacityV2 } from "@components/themed";
-import { tailwind } from "@tailwind";
 import { translate } from "@translations";
 import { WalletAlert } from "@components/WalletAlert";
-import { View, Text } from "react-native";
 import { NavigationProp, useNavigation } from "@react-navigation/native";
 import React, { useCallback } from "react";
 import { authentication, Authentication } from "@store/authentication";
@@ -16,21 +13,38 @@ import {
   hasOceanTXQueued,
 } from "@waveshq/walletkit-ui/dist/store";
 import { useServiceProviderContext } from "@waveshq/walletkit-ui";
+import { ButtonV2 } from "@components/ButtonV2";
+import {
+  CustomServiceProviderType,
+  useCustomServiceProviderContext,
+} from "@contexts/CustomServiceProvider";
+import { useDomainContext } from "@contexts/DomainContext";
 import { SettingsParamList } from "../SettingsNavigator";
 
 export function ResetButton(): JSX.Element {
+  const { isEvmFeatureEnabled } = useDomainContext();
   const navigation = useNavigation<NavigationProp<SettingsParamList>>();
   const logger = useLogger();
   const dispatch = useAppDispatch();
   const hasPendingJob = useSelector((state: RootState) =>
-    hasTxQueued(state.transactionQueue)
+    hasTxQueued(state.transactionQueue),
   );
   const hasPendingBroadcastJob = useSelector((state: RootState) =>
-    hasOceanTXQueued(state.ocean)
+    hasOceanTXQueued(state.ocean),
   );
-  const { url, defaultUrl, setUrl } = useServiceProviderContext();
+  const {
+    url: dvmUrl,
+    defaultUrl: defaultDvmUrl,
+    setUrl: setDvmUrl,
+  } = useServiceProviderContext();
+  const { evmUrl, ethRpcUrl, defaultEvmUrl, defaultEthRpcUrl, setCustomUrl } =
+    useCustomServiceProviderContext();
 
-  const isDisabled = url === defaultUrl;
+  const isDisabled =
+    dvmUrl === defaultDvmUrl &&
+    evmUrl === defaultEvmUrl &&
+    ethRpcUrl === defaultEthRpcUrl;
+
   const resetServiceProvider = useCallback(() => {
     // to check if user's transactions to be completed before resetting url
     if (hasPendingJob || hasPendingBroadcastJob) {
@@ -39,21 +53,36 @@ export function ResetButton(): JSX.Element {
     const auth: Authentication<string[]> = {
       consume: async (passphrase) => await MnemonicStorage.get(passphrase),
       onAuthenticated: async () => {
-        setUrl(defaultUrl);
+        await Promise.all([
+          setDvmUrl(defaultDvmUrl),
+          ...(isEvmFeatureEnabled
+            ? [
+                setCustomUrl(defaultEvmUrl, CustomServiceProviderType.EVM),
+                setCustomUrl(
+                  defaultEthRpcUrl,
+                  CustomServiceProviderType.ETHRPC,
+                ),
+              ]
+            : []),
+        ]);
         navigation.goBack();
       },
       onError: (e) => logger.error(e),
       title: translate(
         "screens/ServiceProviderScreen",
-        "Reset default service provider"
+        "Reset default service provider",
       ),
       message: translate(
         "screens/ServiceProviderScreen",
-        "Enter passcode to continue"
+        "Enter passcode to continue",
       ),
       loading: translate("screens/ServiceProviderScreen", "Verifying access"),
       additionalMessage: translate("screens/ServiceProviderScreen", "Default"),
-      additionalMessageUrl: defaultUrl,
+      additionalMessageUrl: [
+        defaultDvmUrl,
+        defaultEvmUrl,
+        defaultEthRpcUrl,
+      ].join(" and "),
     };
     dispatch(authentication.actions.prompt(auth));
   }, [dispatch, navigation]);
@@ -63,11 +92,11 @@ export function ResetButton(): JSX.Element {
     WalletAlert({
       title: translate(
         "screens/ServiceProviderScreen",
-        "Reset Service Provider"
+        "Reset Service Provider",
       ),
       message: translate(
         "screens/ServiceProviderScreen",
-        "In doing so, you will be reverted back to Light wallet's default endpoint. Would you like to continue?"
+        "In doing so, you will be reverted back to Light wallet's default endpoint. Would you like to continue?",
       ),
       buttons: [
         {
@@ -85,33 +114,13 @@ export function ResetButton(): JSX.Element {
     });
   };
   return (
-    <View>
-      <ThemedTouchableOpacityV2
-        light={tailwind("bg-mono-light-v2-00", { "bg-opacity-30": isDisabled })}
-        dark={tailwind("bg-mono-dark-v2-00 ", { "bg-opacity-30": isDisabled })}
-        style={tailwind("border-0 p-4.5 flex-row justify-center rounded-lg-v2")}
-        onPress={onPress}
-        testID="reset_button"
-        disabled={isDisabled}
-      >
-        <Text
-          style={tailwind("font-normal-v2 text-sm text-red-v2", {
-            "text-opacity-30": isDisabled,
-          })}
-        >
-          {translate("screens/ServiceProviderScreen", "Reset provider")}
-        </Text>
-      </ThemedTouchableOpacityV2>
-      <ThemedTextV2
-        light={tailwind("text-mono-light-v2-500")}
-        dark={tailwind("text-mono-dark-v2-500")}
-        style={tailwind("font-normal-v2 mt-2 text-xs text-center")}
-      >
-        {translate(
-          "screens/ServiceProviderScreen",
-          "This will reset the service provider\nto the default URL."
-        )}
-      </ThemedTextV2>
-    </View>
+    <ButtonV2
+      disabled={isDisabled}
+      fillType="flat"
+      label={translate("screens/ServiceProviderScreen", "Reset providers")}
+      styleProps="mt-3"
+      onPress={onPress}
+      testID="reset_button"
+    />
   );
 }
