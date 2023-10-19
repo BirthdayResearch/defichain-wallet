@@ -122,10 +122,10 @@ export function SendScreen({ route, navigation }: Props): JSX.Element {
   const [addressType, setAddressType] = useState<AddressType>();
 
   const getInputTokenType = () => {
-    if (isEvmAddress) {
-      return "token";
-    }
     if (token?.id === "0_unified") {
+      if (isEvmAddress) {
+        return "token";
+      }
       return "utxo";
     }
     return "others";
