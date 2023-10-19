@@ -78,7 +78,7 @@ export function CustomUrlInput({
         testID="endpoint_url_title"
         text={translate("screens/ServiceProviderScreen", label)}
       />
-      <View style={tailwind("flex flex-row items-baseline w-full")}>
+      <View style={tailwind("flex flex-row items-start w-full")}>
         <WalletTextInputV2
           valid={errMsg === undefined}
           editable={isUnlocked}
@@ -88,7 +88,7 @@ export function CustomUrlInput({
           onClearButtonPress={() => handleUrlInputChange(type, "")}
           placeholder={translate("screens/ServiceProviderScreen", defaultUrl)}
           style={tailwind("font-normal-v2 flex-1 py-2.5")}
-          containerStyle="flex-1"
+          containerStyle="flex-1 pr-3"
           testID={`${type}_endpoint_url_input`}
           inlineText={{
             type: errMsg !== undefined ? "error" : "helper",
@@ -122,7 +122,7 @@ export function CustomUrlInput({
             "bg-opacity-30":
               (!isUnlocked && activeInput !== undefined) || isDisabled,
           })}
-          style={tailwind("ml-3 h-10 w-10 p-2.5 text-center rounded-full")}
+          style={tailwind("mt-2 h-10 w-10 p-2.5 text-center rounded-full")}
           disabled={isUnlocked || isDisabled}
           testID={`${type}_edit_service_provider`}
         >
