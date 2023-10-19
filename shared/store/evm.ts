@@ -52,10 +52,10 @@ export const fetchEvmWalletDetails = createAsyncThunk(
     evmUrl: string;
     network: EnvironmentNetwork;
     evmAddress: string;
-    provider: providers.JsonRpcProvider;
+    provider: providers.JsonRpcProvider | null;
   }) => {
     // If playground then use rpc calls
-    if (isPlayground(network)) {
+    if (isPlayground(network) && provider !== null) {
       const balance = await provider.getBalance(evmAddress);
       return {
         coin_balance: balance.toString(),
@@ -82,11 +82,11 @@ export const fetchEvmTokenBalances = createAsyncThunk(
     evmUrl: string;
     network: EnvironmentNetwork;
     evmAddress: string;
-    provider: providers.JsonRpcProvider;
+    provider: providers.JsonRpcProvider | null;
     tokenIds: string[];
   }) => {
     // If playground then use rpc calls
-    if (isPlayground(network)) {
+    if (isPlayground(network) && provider !== null) {
       const tokens = tokenIds.map(async (id) => {
         const address = getAddressFromDST20TokenId(id);
         const contract = new ethers.Contract(address, DST20V1.abi, provider);
