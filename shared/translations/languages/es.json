@@ -437,7 +437,9 @@
     "Cancel transaction": "Cancel transaction",
     "By cancelling, you will lose any changes you made for your transaction.": "By cancelling, you will lose any changes you made for your transaction.",
     "View on Scan": "View on Scan",
-    "Go back": "Vuelve atrás"
+    "Go back": "Vuelve atrás",
+    "Service Providers": "Service Providers",
+    "Custom (3rd-party)": "Custom (3rd-party)"
   },
   "screens/AboutScreen": {
     "About": "Más información",
@@ -775,7 +777,9 @@
     "Display payback DUSD loan with DUSD collateral": "Mostrar pago de préstamo de DUSD con el DUSD del colateral",
     "CFP/DFIP proposal(s)": "CFP/DFIP proposal(s)",
     "Allows the submission of CFP/DFIP proposals": "Allows the submission of CFP/DFIP proposals",
-    "Upon activation, you will be able to submit CFP/DFIP proposals directly using your active mobile Light Wallet account. Do you want to continue?": "Upon activation, you will be able to submit CFP/DFIP proposals directly using your active mobile Light Wallet account. Do you want to continue?"
+    "Upon activation, you will be able to submit CFP/DFIP proposals directly using your active mobile Light Wallet account. Do you want to continue?": "Upon activation, you will be able to submit CFP/DFIP proposals directly using your active mobile Light Wallet account. Do you want to continue?",
+    "Light Wallet beta features are in final testing before their official release. Using beta features are encouraged, but caution is advised when using your assets.": "Light Wallet beta features are in final testing before their official release. Using beta features are encouraged, but caution is advised when using your assets.",
+    "Allows to customize the service providers for both DVM and EVM. Proceed with caution.": "Allows to customize the service providers for both DVM and EVM. Proceed with caution."
   },
   "BottomTabNavigator": {
     "Balances": "Saldos",
@@ -2205,7 +2209,16 @@
     "Go back": "Go back",
     "GO BACK": "GO BACK",
     "Reset": "Reset",
-    "Save changes": "Guardar cambios"
+    "Save changes": "Guardar cambios",
+    "Custom Service Provider": "Custom Service Provider",
+    "Reset providers": "Reset providers",
+    "ENDPOINT URL (DVM)": "ENDPOINT URL (DVM)",
+    "Used to get balance from Native DFC (MainNet and TestNet)": "Used to get balance from Native DFC (MainNet and TestNet)",
+    "ENDPOINT URL (EVM)": "ENDPOINT URL (EVM)",
+    "Used to get balance from EVM (MainNet and TestNet)": "Used to get balance from EVM (MainNet and TestNet)",
+    "ENDPOINT URL (ETH-RPC)": "ENDPOINT URL (ETH-RPC)",
+    "Used to get Nonce and Chain ID": "Used to get Nonce and Chain ID",
+    "Only add URLs that are fully trusted and secured. Adding malicious service providers may result in irrecoverable funds. Proceed at your own risk.": "Only add URLs that are fully trusted and secured. Adding malicious service providers may result in irrecoverable funds. Proceed at your own risk."
   },
   "components/QuickBid": {
     "QUICK BID": "OFERTA RAPIDA",

@@ -9,6 +9,7 @@ import React, {
   useMemo,
   useState,
 } from "react";
+import { useDomainContext } from "./DomainContext";
 
 export enum CustomServiceProviderType {
   DVM = "DVM",
@@ -123,6 +124,7 @@ export function CustomServiceProvider(
 ): JSX.Element | null {
   const { api, children, logger } = props;
   const { network } = useNetworkContext();
+  const { isEvmFeatureEnabled } = useDomainContext();
   const params = { api, network, logger };
 
   // EVM
@@ -150,18 +152,20 @@ export function CustomServiceProvider(
   });
 
   useEffect(() => {
+    const url = isEvmFeatureEnabled ? evmUrl : defaultEvmUrl;
     setCurrentUrl((prevState) => ({
       ...prevState,
-      [CustomServiceProviderType.EVM]: evmUrl,
+      [CustomServiceProviderType.EVM]: url,
     }));
-  }, [evmUrl]);
+  }, [evmUrl, isEvmFeatureEnabled]);
 
   useEffect(() => {
+    const url = isEvmFeatureEnabled ? ethRpcUrl : defaultEthRpcUrl;
     setCurrentUrl((prevState) => ({
       ...prevState,
-      [CustomServiceProviderType.ETHRPC]: ethRpcUrl,
+      [CustomServiceProviderType.ETHRPC]: url,
     }));
-  }, [ethRpcUrl]);
+  }, [ethRpcUrl, isEvmFeatureEnabled]);
 
   const isCustomEvmUrl = useMemo(
     () => currentUrl.EVM !== defaultEvmUrl,
