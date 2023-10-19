@@ -425,7 +425,9 @@
     "Cancel transaction": "Cancel transaction",
     "By cancelling, you will lose any changes you made for your transaction.": "By cancelling, you will lose any changes you made for your transaction.",
     "View on Scan": "往 DeFi Scan 查看",
-    "Go back": "回到上一頁"
+    "Go back": "回到上一頁",
+    "Service Providers": "服務提供者",
+    "Custom (3rd-party)": "自定義（第三方）"
   },
   "screens/AboutScreen": {
     "About": "關於",
@@ -758,7 +760,9 @@
     "Display payback DUSD loan with DUSD collateral": "Display payback DUSD loan with DUSD collateral",
     "CFP/DFIP proposal(s)": "CFP/DFIP 提案",
     "Allows the submission of CFP/DFIP proposals": "允許提交 CFP/DFIP 提案",
-    "Upon activation, you will be able to submit CFP/DFIP proposals directly using your active mobile Light Wallet account. Do you want to continue?": "激活後，您將能夠使用您活躍的移動端Light Wallet賬戶直接提交 CFP/DFIP 提案。你要繼續嗎？"
+    "Upon activation, you will be able to submit CFP/DFIP proposals directly using your active mobile Light Wallet account. Do you want to continue?": "激活後，您將能夠使用您活躍的移動端Light Wallet賬戶直接提交 CFP/DFIP 提案。你要繼續嗎？",
+    "Light Wallet beta features are in final testing before their official release. Using beta features are encouraged, but caution is advised when using your assets.": "Light Wallet beta 功能目前在正式發布前進行最終測試。 我們鼓勵使用測試版功能，但建議您在使用資產時務必小心。",
+    "Allows to customize the service providers for both DVM and EVM. Proceed with caution.": "允許為 DVM 和 EVM 自訂服務提供者。 謹慎行事。"
   },
   "BottomTabNavigator": {
     "Balances": "總資金",
@@ -2183,7 +2187,16 @@
     "Go back": "Go back",
     "GO BACK": "GO BACK",
     "Reset": "Reset",
-    "Save changes": "儲存修改"
+    "Save changes": "儲存修改",
+    "Custom Service Provider": "自定義服務供應商",
+    "Reset providers": "Reset 供應商",
+    "ENDPOINT URL (DVM)": "端點 URL (DVM)",
+    "Used to get balance from Native DFC (MainNet and TestNet)": "用於從原生DFC（主網和測試網）取得餘額",
+    "ENDPOINT URL (EVM)": "端點 URL (EVM)",
+    "Used to get balance from EVM (MainNet and TestNet)": "用於從EVM（主網和測試網）取得餘額",
+    "ENDPOINT URL (ETH-RPC)": "端點 URL (ETH-RPC)",
+    "Used to get Nonce and Chain ID": "用於取得Nonce和Chain ID",
+    "Only add URLs that are fully trusted and secured. Adding malicious service providers may result in irrecoverable funds. Proceed at your own risk.": "僅添加完全受信任且安全的 URL。 新增惡意服務提供者可能會導致資金無法收回。 繼續行動則需要您自擔風險。"
   },
   "components/QuickBid": {
     "QUICK BID": "快速標價",

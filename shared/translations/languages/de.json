@@ -424,7 +424,9 @@
     "Cancel transaction": "Transaktion abbrechen",
     "By cancelling, you will lose any changes you made for your transaction.": "Wenn du die Transaktion abbrichst, gehen alle Änderungen, die du für deine Transaktion vorgenommen hast, verloren.",
     "View on Scan": "Ansicht auf Scan",
-    "Go back": "Zurück"
+    "Go back": "Zurück",
+    "Service Providers": "Dienstanbieter",
+    "Custom (3rd-party)": "Benutzerdefiniert (\"Drittanbieter\")"
   },
   "screens/AboutScreen": {
     "About": "Über",
@@ -756,7 +758,9 @@
     "Display payback DUSD loan with DUSD collateral": "Rückzahlungen von DUSD-Darlehen mit DUSD-Sicherheiten anzeigen",
     "CFP/DFIP proposal(s)": "CFP/DFIP-Anträge",
     "Allows the submission of CFP/DFIP proposals": "Ermöglicht die Einreichung von CFP/DFIP-Anträgen",
-    "Upon activation, you will be able to submit CFP/DFIP proposals directly using your active mobile Light Wallet account. Do you want to continue?": "Nach der Aktivierung kannst du CFP/DFIP-Anträge direkt über den aktiven Account deiner mobilen Lightwallet einreichen. Möchtest du fortfahren?"
+    "Upon activation, you will be able to submit CFP/DFIP proposals directly using your active mobile Light Wallet account. Do you want to continue?": "Nach der Aktivierung kannst du CFP/DFIP-Anträge direkt über den aktiven Account deiner mobilen Lightwallet einreichen. Möchtest du fortfahren?",
+    "Light Wallet beta features are in final testing before their official release. Using beta features are encouraged, but caution is advised when using your assets.": "Die Beta-Funktionen der Lightwallet befinden sich in der Endphase der Tests, bevor sie offiziell veröffentlicht werden. Die Nutzung der Beta-Funktionen wird empfohlen, aber bei der Verwendung deiner Aktiva ist Vorsicht geboten.",
+    "Allows to customize the service providers for both DVM and EVM. Proceed with caution.": "Ermöglicht die Anpassung der Dienstanbieter für DVM und EVM. Gehe mit Vorsicht vor."
   },
   "BottomTabNavigator": {
     "Balances": "Guthaben",
@@ -2176,7 +2180,16 @@
     "Go back": "Zurück",
     "GO BACK": "ZURÜCK",
     "Reset": "Zurücksetzen",
-    "Save changes": "Änderungen sichern"
+    "Save changes": "Änderungen sichern",
+    "Custom Service Provider": "Benutzerdefinierte Dienstanbieter",
+    "Reset providers": "Dienstanbieter zurücksetzen",
+    "ENDPOINT URL (DVM)": "ENDPUNKT-URL (DVM)",
+    "Used to get balance from Native DFC (MainNet and TestNet)": "Wird verwendet, um den Native-DFC-Saldo (MainNet und TestNet) abzurufen",
+    "ENDPOINT URL (EVM)": "ENDPUNKT-URL (EVM)",
+    "Used to get balance from EVM (MainNet and TestNet)": "Wird verwendet, um den EVM-Saldo (MainNet und TestNet) abzurufen",
+    "ENDPOINT URL (ETH-RPC)": "ENDPUNKT-URL (ETH-RPC)",
+    "Used to get Nonce and Chain ID": "Wird verwendet, um Nonce und Chain ID abzurufen",
+    "Only add URLs that are fully trusted and secured. Adding malicious service providers may result in irrecoverable funds. Proceed at your own risk.": "Füge nur URLs hinzu, die vollständig vertrauenswürdig und sicher sind. Das Hinzufügen von bösartigen Dienstanbietern kann dazu führen, dass Guthaben unwiederbringlich verloren gehen. Das Vorgehen erfolgt auf eigene Gefahr."
   },
   "components/QuickBid": {
     "QUICK BID": "SCHNELLES GEBOT",
