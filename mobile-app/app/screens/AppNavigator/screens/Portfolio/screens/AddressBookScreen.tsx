@@ -49,7 +49,6 @@ import { RefreshIcon } from "@screens/WalletNavigator/assets/RefreshIcon";
 import { DomainType, useDomainContext } from "@contexts/DomainContext";
 import { RandomAvatar } from "@screens/AppNavigator/screens/Portfolio/components/RandomAvatar";
 import { EvmTag } from "@components/EvmTag";
-import { useLogger } from "@shared-contexts/NativeLoggingProvider";
 import { ButtonGroup } from "../../Dex/components/ButtonGroup";
 import {
   FavoriteCheckIcon,
@@ -71,7 +70,6 @@ export function AddressBookScreen({ route, navigation }: Props): JSX.Element {
   const { network } = useNetworkContext();
   const { isEvmFeatureEnabled } = useDomainContext();
   const dispatch = useAppDispatch();
-  const logger = useLogger();
   // condition to hide icon if not from send page
   const isAddressSelectDisabled =
     selectedAddress !== undefined && onAddressSelect !== undefined;
@@ -128,16 +126,6 @@ export function AddressBookScreen({ route, navigation }: Props): JSX.Element {
       : ButtonGroupTabKey.Whitelisted,
   );
 
-  const [availableAddresses, setAvailableAddresses] = useState<
-    WalletAddressI[]
-  >([]);
-
-  // Getting addresses
-  const fetchAddresses = async (): Promise<void> => {
-    const addresses = await fetchWalletAddresses();
-    setAvailableAddresses(addresses);
-  };
-
   useEffect(() => {
     // combine redux store and jellyfish wallet
     let isSubscribed = true;
@@ -157,7 +145,7 @@ export function AddressBookScreen({ route, navigation }: Props): JSX.Element {
             addresses.push({
               address: address.dvm,
               evmAddress: address.evm,
-              label: "",
+              label: address.generatedLabel,
             });
           } else {
             addresses.push({
@@ -196,6 +184,7 @@ export function AddressBookScreen({ route, navigation }: Props): JSX.Element {
               .includes(searchString?.trim().toLowerCase()) ||
             address.address.includes(searchString?.trim().toLowerCase()) ||
             address.evmAddress.includes(searchString?.trim().toLowerCase()),
+          // || (address.label === ""),
         ) as LocalAddress[],
       );
     }, 200),
@@ -247,10 +236,6 @@ export function AddressBookScreen({ route, navigation }: Props): JSX.Element {
         return 0;
       });
   };
-
-  useEffect(() => {
-    fetchAddresses().catch(logger.error);
-  }, []);
 
   useEffect(() => {
     // sync all store changes to local storage
@@ -446,13 +431,6 @@ export function AddressBookScreen({ route, navigation }: Props): JSX.Element {
     }): JSX.Element => {
       const { item, index, testIDSuffix } = props;
 
-      const generatedAddressLabel = availableAddresses.find(
-        (address) =>
-          address.dvm === item.address || address.evm === item.evmAddress,
-      )?.generatedLabel;
-      const displayAddressLabel =
-        item.label === "" ? generatedAddressLabel : item.label;
-
       const onChangeAddress = (addressDetail: string): void => {
         if (onAddressSelect) {
           onAddressSelect(addressDetail);
@@ -494,21 +472,12 @@ export function AddressBookScreen({ route, navigation }: Props): JSX.Element {
                       onPress={onDFIAddressClick}
                       style={tailwind("flex flex-row items-center")}
                     >
-                      {item.label !== "" ? (
-                        <ThemedTextV2
-                          style={tailwind("font-semibold-v2 text-sm min-w-0")}
-                          testID={`address_row_label_${index}_${testIDSuffix}`}
-                        >
-                          {item.label}
-                        </ThemedTextV2>
-                      ) : (
-                        <ThemedTextV2
-                          style={tailwind("font-semibold-v2 text-sm min-w-0")}
-                          testID={`address_row_label_${index}_${testIDSuffix}`}
-                        >
-                          {displayAddressLabel}
-                        </ThemedTextV2>
-                      )}
+                      <ThemedTextV2
+                        style={tailwind("font-semibold-v2 text-sm min-w-0")}
+                        testID={`address_row_label_${index}_${testIDSuffix}`}
+                      >
+                        {item.label}
+                      </ThemedTextV2>
                     </TouchableOpacity>
                     <RandomAvatar name={item.address} size={24} />
                   </View>
