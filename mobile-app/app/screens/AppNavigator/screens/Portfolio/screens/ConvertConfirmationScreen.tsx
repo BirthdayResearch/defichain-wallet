@@ -122,7 +122,9 @@ export function ConvertConfirmationScreen({ route }: Props): JSX.Element {
         logger,
       );
     } else {
-      const nonce = await provider.getTransactionCount(evmAddress);
+      const nonce = provider
+        ? await provider.getTransactionCount(evmAddress)
+        : 0;
       await constructSignedTransferDomain(
         {
           amount,
