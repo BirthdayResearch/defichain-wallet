@@ -6,10 +6,13 @@ import { configureStore } from "@reduxjs/toolkit";
 import { block } from "@waveshq/walletkit-ui/dist/store/block";
 import { loans } from "@store/loans";
 import { LoanVaultState } from "@defichain/whale-api-client/dist/api/loan";
+import { evm } from "@store/evm";
 import { DFIBalanceCard } from "./DFIBalanceCard";
 
 jest.mock("../../../../../contexts/DisplayBalancesContext");
 jest.mock("@contexts/DomainContext");
+jest.mock("@contexts/EVMProvider");
+jest.mock("@contexts/CustomServiceProvider");
 
 jest.mock("@react-navigation/native", () => ({
   useNavigation: jest.fn(),
@@ -110,6 +113,11 @@ describe("DFI Balance Card", () => {
         loanSchemes: [],
         loanTokens: [],
       },
+      evm: {
+        evmWalletDetails: null,
+        evmTokenBalances: [],
+        hasFetchedEvmTokens: true,
+      },
     };
     const store = configureStore({
       preloadedState: initialState,
@@ -117,6 +125,7 @@ describe("DFI Balance Card", () => {
         wallet: wallet.reducer,
         block: block.reducer,
         loans: loans.reducer,
+        evm: evm.reducer,
       },
     });
     const component = (
