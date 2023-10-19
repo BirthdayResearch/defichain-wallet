@@ -195,7 +195,7 @@ export function ActionButtons(): JSX.Element {
           <ActionButton
             name={translate("components/ActionButtons", "Convert")}
             iconSize={28}
-            testID="convert_button"
+            testID="convert_action_button"
             onPress={() => {
               navigateToTokenSelectionScreen(TokenListType.From);
             }}
