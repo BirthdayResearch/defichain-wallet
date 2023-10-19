@@ -9,7 +9,7 @@ import { useAppDispatch } from "@hooks/useAppDispatch";
 import { useWhaleApiClient } from "@waveshq/walletkit-ui/dist/contexts";
 
 export function StatsProvider(
-  props: PropsWithChildren<any>
+  props: PropsWithChildren<any>,
 ): JSX.Element | null {
   const { network } = useNetworkContext();
   const logger = useLogger();
@@ -24,6 +24,7 @@ export function StatsProvider(
     //  isPolling is a good indicator of background polling
     //  we can use AppState to suspend and activate polling based on user activity
     let intervalID: NodeJS.Timeout;
+    let timeoutID: NodeJS.Timeout;
 
     function refresh(): void {
       dispatch(block.actions.setPolling(true));
@@ -38,7 +39,7 @@ export function StatsProvider(
               lastSync: new Date().toString(),
               lastSuccessfulSync: new Date().toString(),
               tvl: tvl?.dex ?? 0,
-            })
+            }),
           );
           dispatch(block.actions.setConnected(true));
         })
@@ -49,7 +50,7 @@ export function StatsProvider(
               count: 0,
               masternodeCount: 0,
               lastSync: new Date().toString(),
-            })
+            }),
           );
           dispatch(block.actions.setConnected(false));
           logger.error(err);
@@ -57,13 +58,18 @@ export function StatsProvider(
     }
 
     if (!isPolling) {
-      refresh();
-      intervalID = setInterval(refresh, interval);
+      timeoutID = setTimeout(() => {
+        refresh();
+        intervalID = setInterval(refresh, interval);
+      }, 1000);
     }
     return () => {
       dispatch(block.actions.setPolling(false));
       if (intervalID !== undefined) {
         clearInterval(intervalID);
+      }
+      if (timeoutID !== undefined) {
+        clearTimeout(timeoutID);
       }
     };
   }, [api, interval, network, dispatch]);

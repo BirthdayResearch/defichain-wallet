@@ -93,12 +93,12 @@ function getBlockscoutUrl(network: EnvironmentNetwork) {
     case EnvironmentNetwork.RemotePlayground:
     case EnvironmentNetwork.DevNet:
     case EnvironmentNetwork.Changi:
-      return "http://34.87.158.111:4000"; // TODO: add final blockscout url for playground and devnet
-    case EnvironmentNetwork.TestNet:
       return "https://blockscout.changi.ocean.jellyfishsdk.com";
+    case EnvironmentNetwork.TestNet:
+      return "https://blockscout.testnet.ocean.jellyfishsdk.com";
     case EnvironmentNetwork.MainNet:
     default:
-      return "https://blockscout.changi.ocean.jellyfishsdk.com";
+      return "https://blockscout.mainnet.ocean.jellyfishsdk.com";
   }
 }
 
@@ -112,7 +112,7 @@ function getEthRpcUrl(network: EnvironmentNetwork) {
     case EnvironmentNetwork.Changi:
       return "http://34.34.156.49:20551"; // TODO: add final eth rpc url for changi, devnet and remote playground
     case EnvironmentNetwork.TestNet:
-      return "https://changi.dfi.team"; // TODO: add final eth rpc url for testnet, with proper domain name
+      return "http://34.38.30.102:18551"; // TODO: add final eth rpc url for testnet, with proper domain name
     case EnvironmentNetwork.MainNet:
     default:
       return "https://changi.dfi.team"; // TODO: add final eth rpc url for mainnet, with proper domain name
