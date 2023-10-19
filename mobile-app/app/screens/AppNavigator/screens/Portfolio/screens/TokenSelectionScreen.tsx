@@ -68,8 +68,9 @@ export function TokenSelectionScreen(): JSX.Element {
 
   const [isSearchFocus, setIsSearchFocus] = useState(false);
   const searchRef = useRef<TextInput>();
+  const isEvmDomain = domain === DomainType.EVM;
 
-  const filteredTokensByDomain = domain === DomainType.EVM ? evmTokens : tokens;
+  const filteredTokensByDomain = isEvmDomain ? evmTokens : tokens;
 
   const tokensWithBalance = getTokensWithBalance(
     filteredTokensByDomain,
@@ -80,9 +81,9 @@ export function TokenSelectionScreen(): JSX.Element {
   }, [tokensWithBalance, debouncedSearchTerm]);
 
   const hasFetchedDvmEvmTokens =
-    hasFetchedToken || (domain === DomainType.EVM && hasFetchedEvmTokens);
+    hasFetchedToken || (isEvmDomain && hasFetchedEvmTokens);
   if (hasFetchedDvmEvmTokens && tokensWithBalance.length === 0) {
-    return <EmptyAsset navigation={navigation} />;
+    return <EmptyAsset navigation={navigation} isEvmDomain={isEvmDomain} />;
   }
 
   return (
@@ -97,7 +98,7 @@ export function TokenSelectionScreen(): JSX.Element {
         return (
           <TokenSelectionRow
             item={item}
-            domain={domain}
+            isEvmDomain={isEvmDomain}
             onPress={() => {
               navigation.navigate({
                 name: "SendScreen",
@@ -195,13 +196,13 @@ export function TokenSelectionScreen(): JSX.Element {
 interface TokenSelectionRowProps {
   item: TokenSelectionItem;
   onPress: any;
-  domain: DomainType;
+  isEvmDomain: boolean;
 }
 
 function TokenSelectionRow({
   item,
   onPress,
-  domain,
+  isEvmDomain,
 }: TokenSelectionRowProps): JSX.Element {
   return (
     <ThemedTouchableOpacityV2
@@ -222,14 +223,14 @@ function TokenSelectionRow({
             displaySymbol: item.token.displaySymbol,
             id: item.tokenId,
           }}
-          isEvmToken={domain === DomainType.EVM}
+          isEvmToken={isEvmDomain}
           size={36}
         />
         <TokenNameText
           displaySymbol={item.token.displaySymbol}
           name={item.token.name}
           testID={item.token.displaySymbol}
-          isEvmDomain={domain === DomainType.EVM}
+          isEvmDomain={isEvmDomain}
         />
       </View>
       <View style={tailwind("flex flex-col items-end")}>
@@ -257,8 +258,10 @@ function TokenSelectionRow({
 
 function EmptyAsset({
   navigation,
+  isEvmDomain,
 }: {
   navigation: NavigationProp<PortfolioParamList>;
+  isEvmDomain: boolean;
 }): JSX.Element {
   return (
     <ThemedScrollViewV2
@@ -293,11 +296,13 @@ function EmptyAsset({
           )}
         </ThemedTextV2>
       </View>
-      <ButtonV2
-        onPress={() => navigation.navigate("GetDFIScreen" as any)}
-        styleProps="w-full mb-14 pb-1"
-        label={translate("screens/GetDFIScreen", "Get DFI")}
-      />
+      {!isEvmDomain && (
+        <ButtonV2
+          onPress={() => navigation.navigate("GetDFIScreen" as any)}
+          styleProps="w-full mb-14 pb-1"
+          label={translate("screens/GetDFIScreen", "Get DFI")}
+        />
+      )}
     </ThemedScrollViewV2>
   );
 }
