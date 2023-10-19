@@ -434,7 +434,9 @@
     "Cancel transaction": "Annuler la transaction",
     "By cancelling, you will lose any changes you made for your transaction.": "En annulant, vous perdrez toutes les modifications apportées à votre transaction.",
     "View on Scan": "Voir sur Scan",
-    "Go back": "Retour"
+    "Go back": "Retour",
+    "Service Providers": "Fournisseurs de services",
+    "Custom (3rd-party)": "Personnalisé (tierce partie)"
   },
   "screens/AboutScreen": {
     "About": "A propos de l'appli",
@@ -768,7 +770,9 @@
     "Display payback DUSD loan with DUSD collateral": "Afficher le remboursement du prêt DUSD avec garantie DUSD",
     "CFP/DFIP proposal(s)": "Proposition(s) CFP/DFIP",
     "Allows the submission of CFP/DFIP proposals": "Permet la soumission de propositions CFP/DFIP",
-    "Upon activation, you will be able to submit CFP/DFIP proposals directly using your active mobile Light Wallet account. Do you want to continue?": "Dès l'activation, vous pourrez soumettre des propositions CFP/DFIP directement en utilisant votre compte actif du portefeuille léger mobile. Continuer ?"
+    "Upon activation, you will be able to submit CFP/DFIP proposals directly using your active mobile Light Wallet account. Do you want to continue?": "Dès l'activation, vous pourrez soumettre des propositions CFP/DFIP directement en utilisant votre compte actif du portefeuille léger mobile. Continuer ?",
+    "Light Wallet beta features are in final testing before their official release. Using beta features are encouraged, but caution is advised when using your assets.": "Les fonctions bêta du portefeuille léger sont en phase de test final avant leur lancement officiel. L'utilisation des fonctionnalités bêta est encouragée, mais la prudence est de mise lors de l'utilisation de vos actifs.",
+    "Allows to customize the service providers for both DVM and EVM. Proceed with caution.": "Permet de personnaliser les fournisseurs de services pour DVM et EVM. Procéder avec prudence."
   },
   "BottomTabNavigator": {
     "Balances": "Soldes",
@@ -2186,7 +2190,16 @@
     "Go back": "Retour",
     "GO BACK": "RETOUR",
     "Reset": "Réinitialiser",
-    "Save changes": "Sauvegarder les modifications"
+    "Save changes": "Sauvegarder les modifications",
+    "Custom Service Provider": "Fournisseur de service personnalisé",
+    "Reset providers": "Réinitialiser les fournisseurs",
+    "ENDPOINT URL (DVM)": "URL DU POINT DE TERMINAISON (DVM)",
+    "Used to get balance from Native DFC (MainNet and TestNet)": "Utilisé pour obtenir le solde de DFC natif (MainNet et TestNet)",
+    "ENDPOINT URL (EVM)": "URL DU POINT DE TERMINAISON (EVM)",
+    "Used to get balance from EVM (MainNet and TestNet)": "Utilisé pour obtenir le solde de l'EVM (MainNet et TestNet)",
+    "ENDPOINT URL (ETH-RPC)": "URL DU POINT DE TERMINAISON (ETH-RPC)",
+    "Used to get Nonce and Chain ID": "Utilisé pour obtenir le Nonce et le Chain ID",
+    "Only add URLs that are fully trusted and secured. Adding malicious service providers may result in irrecoverable funds. Proceed at your own risk.": "N'ajoutez que des URL entièrement fiables et sécurisées. L'ajout de fournisseurs de services malveillants peut entraîner la perte de fonds. Procédez à vos risques et périls."
   },
   "components/QuickBid": {
     "QUICK BID": "ENCHÈRE RAPIDE",
