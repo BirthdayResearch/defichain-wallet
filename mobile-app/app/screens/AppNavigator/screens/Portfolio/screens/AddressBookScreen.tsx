@@ -370,7 +370,9 @@ export function AddressBookScreen({ route, navigation }: Props): JSX.Element {
                 {item.label !== "" && (
                   <View style={tailwind("flex flex-row items-center")}>
                     <ThemedTextV2
-                      style={tailwind("font-semibold-v2 text-sm min-w-0")}
+                      style={tailwind(
+                        "font-semibold-v2 text-sm min-w-0 w-10/12",
+                      )}
                       testID={`address_row_label_${index}_${testIDSuffix}`}
                     >
                       {item.label}
