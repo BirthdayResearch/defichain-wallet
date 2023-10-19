@@ -124,11 +124,11 @@ export function SendScreen({ route, navigation }: Props): JSX.Element {
   const getInputTokenType = () => {
     if (isEvmAddress) {
       return "token";
-    } else if (token?.id === "0_unified") {
-      return "utxo";
-    } else {
-      return "others";
     }
+    if (token?.id === "0_unified") {
+      return "utxo";
+    }
+    return "others";
   };
   const { isConversionRequired, conversionAmount } = useConversion({
     inputToken: {
