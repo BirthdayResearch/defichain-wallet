@@ -169,11 +169,11 @@ export function CustomServiceProvider(
 
   const isCustomEvmUrl = useMemo(
     () => currentUrl.EVM !== defaultEvmUrl,
-    [currentUrl.EVM, defaultEvmUrl, isEvmFeatureEnabled],
+    [currentUrl.EVM, defaultEvmUrl],
   );
   const isCustomEthRpcUrl = useMemo(
     () => currentUrl.ETHRPC !== defaultEthRpcUrl,
-    [currentUrl.ETHRPC, defaultEthRpcUrl, isEvmFeatureEnabled],
+    [currentUrl.ETHRPC, defaultEthRpcUrl],
   );
 
   const setCustomUrl = async (
