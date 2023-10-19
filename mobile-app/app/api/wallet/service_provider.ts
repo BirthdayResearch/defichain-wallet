@@ -31,17 +31,10 @@ async function get(
   return undefined;
 }
 
-async function remove(
-  type: CustomServiceProviderType = CustomServiceProviderType.DVM,
-): Promise<void> {
-  await SecuredStoreAPI.removeItem(`${KEY}.${type}`);
-}
-
 /**
  * Service Provider persistence layer
  */
 export const ServiceProviderPersistence = {
   get,
   set,
-  remove,
 };

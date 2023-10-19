@@ -24,7 +24,6 @@ interface CustomServiceProviderContextProps {
       url: NonNullable<string>,
       type?: CustomServiceProviderType,
     ) => Promise<void>;
-    remove: (type: CustomServiceProviderType) => Promise<string | undefined>;
   };
   logger: BaseLogger;
 }
@@ -152,40 +151,29 @@ export function CustomServiceProvider(
     [CustomServiceProviderType.ETHRPC]: ethRpcUrl,
   });
 
-  const resetCustomUrls = async (): Promise<void> => {
-    await Promise.all([
-      api.remove(CustomServiceProviderType.EVM),
-      api.remove(CustomServiceProviderType.ETHRPC),
-    ]);
-  };
-
   useEffect(() => {
-    if (!isEvmFeatureEnabled) {
-      resetCustomUrls();
-    }
-  }, [isEvmFeatureEnabled]);
-
-  useEffect(() => {
+    const url = isEvmFeatureEnabled ? evmUrl : defaultEvmUrl;
     setCurrentUrl((prevState) => ({
       ...prevState,
-      [CustomServiceProviderType.EVM]: evmUrl,
+      [CustomServiceProviderType.EVM]: url,
     }));
-  }, [evmUrl]);
+  }, [evmUrl, isEvmFeatureEnabled]);
 
   useEffect(() => {
+    const url = isEvmFeatureEnabled ? ethRpcUrl : defaultEthRpcUrl;
     setCurrentUrl((prevState) => ({
       ...prevState,
-      [CustomServiceProviderType.ETHRPC]: ethRpcUrl,
+      [CustomServiceProviderType.ETHRPC]: url,
     }));
-  }, [ethRpcUrl]);
+  }, [ethRpcUrl, isEvmFeatureEnabled]);
 
   const isCustomEvmUrl = useMemo(
-    () => currentUrl.EVM !== defaultEvmUrl,
-    [currentUrl.EVM, defaultEvmUrl],
+    () => isEvmFeatureEnabled && currentUrl.EVM !== defaultEvmUrl,
+    [currentUrl.EVM, defaultEvmUrl, isEvmFeatureEnabled],
   );
   const isCustomEthRpcUrl = useMemo(
-    () => currentUrl.ETHRPC !== defaultEthRpcUrl,
-    [currentUrl.ETHRPC, defaultEthRpcUrl],
+    () => isEvmFeatureEnabled && currentUrl.ETHRPC !== defaultEthRpcUrl,
+    [currentUrl.ETHRPC, defaultEthRpcUrl, isEvmFeatureEnabled],
   );
 
   const setCustomUrl = async (
