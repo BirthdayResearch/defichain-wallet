@@ -79,7 +79,7 @@ export function EvmFeatureFaq(): JSX.Element {
       <ThemedTextV2 style={tailwind("text-base font-normal-v2 px-5")}>
         {translate(
           "components/EvmFeatureFaq",
-          "The MetaChain layer provides an EVM-compatible environment that allows developers familiar with Ethereum to seamlessly build next generation applications inside the native DeFiChain ecosystem.\n\nThe MetaChain layer provides an EVM-compatible environment that allows developers familiar with Ethereum to build applications inside the DeFiChain ecosystem.",
+          "The MetaChain layer provides an EVM-compatible environment that allows developers familiar with Ethereum to build applications inside the DeFiChain ecosystem.",
         )}
       </ThemedTextV2>
 
