@@ -47,7 +47,6 @@ context("Portfolio - Send - Address Book", () => {
       cy.getByTestID("save_address_label").click().wait(1000);
       cy.getByTestID("pin_authorize").type("000000").wait(2000);
       cy.wait(1000);
-      cy.getByTestID("address_book_button").click();
       cy.getByTestID(`address_row_label_${index}_WHITELISTED`).contains(
         labels[index],
       );
