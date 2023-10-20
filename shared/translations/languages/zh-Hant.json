@@ -549,7 +549,7 @@
   "components/EvmFeatureFaq": {
     "FREQUENTLY ASKED QUESTIONS": "常見問題",
     "About MetaChain (EVM)": "MetaChain (EVM)",
-    "The MetaChain layer provides an EVM-compatible environment that allows developers familiar with Ethereum to seamlessly build next generation applications inside the native DeFiChain ecosystem.\n\nThe MetaChain layer provides an EVM-compatible environment that allows developers familiar with Ethereum to build applications inside the DeFiChain ecosystem.": "MetaChain 層提供了一個與EVM 兼容的環境，允許熟悉以太坊的開發人員在DeFiChain 生態系統內無縫構建下一代應用程序。\n\nMetaChain 層提供了一個與EVM 兼容的環境，允許熟悉以太坊的開發人員在DeFiChain 生態系統內構建應用程序。",
+    "The MetaChain layer provides an EVM-compatible environment that allows developers familiar with Ethereum to build applications inside the DeFiChain ecosystem.": "MetaChain 層提供了一個與EVM 兼容的環境，允許熟悉以太坊的開發人員在DeFiChain 生態系統內構建應用程序。",
     "What tokens are supported between DVM and EVM bidirectionally?": "DVM 和 EVM 這兩個之間支持哪些雙向代幣？",
     "All dTokens are accepted. dTokens consist of:\ndStocks (dTSLA, dGOOG.) + DFI\n\nFor the full list, you may refer to https://defiscan.live/tokens on any tokens under DAT category.": "所有 dToken 均被接受。 dToken 包括：\ndStocks (dTSLA, dGOOG.) + DFI\n\n有關完整列表，您可以參考https://defiscan.live/tokens 了解DAT 類別下的任何代幣。",
     "How can I access the MetaChain layer from the Light Wallet?": "如何從輕錢包訪問MetaChain層？",
