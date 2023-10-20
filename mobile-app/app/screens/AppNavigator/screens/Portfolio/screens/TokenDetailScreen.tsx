@@ -404,7 +404,7 @@ export function TokenDetailScreen({ route, navigation }: Props): JSX.Element {
               </View>
             )}
           </View>
-          {token.symbol === "DFI" && (
+          {token.symbol === "DFI" && !isEvmDomain && (
             <View style={tailwind("pt-4")}>
               <ButtonV2
                 onPress={() =>
