@@ -105,7 +105,7 @@ defichainUrlEnvs.forEach((defichainUrlEnv) => {
           "aria-disabled",
         );
         cy.getByTestID("button_submit").click().wait(3000);
-        cy.getByTestID("pin_authorize").type("000000", { delay: 1000 });
+        cy.getByTestID("pin_authorize").type("000000", { delay: 3000 });
         cy.wait(5000);
         cy.url().should("include", "app/portfolio");
         cy.getByTestID("bottom_tab_portfolio").click();
@@ -129,7 +129,7 @@ defichainUrlEnvs.forEach((defichainUrlEnv) => {
         cy.getByTestID("setting_navigate_service_provider").click();
         cy.getByTestID("DVM_edit_service_provider").click();
         cy.getByTestID("reset_button").should("exist").click().wait(3000);
-        cy.getByTestID("pin_authorize").type("000000", { delay: 1000 });
+        cy.getByTestID("pin_authorize").type("000000", { delay: 3000 });
         cy.wait(5000);
         cy.getByTestID("bottom_tab_portfolio").click();
         cy.getByTestID("header_settings").click().wait(1000);
