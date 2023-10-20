@@ -97,12 +97,12 @@ context("Wallet - DEX - disabled pool pairs", () => {
     cy.getByTestID("dex_action_button_composite_swap_button_26").should(
       "have.css",
       "opacity", // using opacity to check enable
-      "1"
+      "1",
     ); // status: true
     cy.getByTestID("dex_action_button_composite_swap_button_28").should(
       "have.css",
       "opacity", // using opacity to check disable
-      "0.3"
+      "0.3",
     ); // status: false
   });
 });
@@ -134,7 +134,8 @@ context("Wallet - DEX - Instant/Future Swap - tabs and dropdowns", () => {
   });
 
   it("should be able to choose tokens to swap", () => {
-    cy.getByTestID("composite_swap").click();
+    cy.wait(1000);
+    cy.getByTestID("composite_swap").should("exist").click();
     cy.wait(5000);
     cy.getByTestID("token_select_button_FROM").click();
     cy.getByTestID("select_DFI").click().wait(2000);
@@ -146,18 +147,18 @@ context("Wallet - DEX - Instant/Future Swap - tabs and dropdowns", () => {
     cy.getByTestID("switch_button").click();
     cy.getByTestID("token_select_button_FROM_display_symbol").should(
       "have.text",
-      "dTU10"
+      "dTU10",
     );
     cy.getByTestID("token_select_button_TO_display_symbol").should(
       "have.text",
-      "DFI"
+      "DFI",
     );
   });
 
   it("should be able to disable future swap tab if tokenA and tokenB is not a valid future swap pair", () => {
     cy.getByTestID("swap_tabs_FUTURE_SWAP").should(
       "have.attr",
-      "aria-disabled"
+      "aria-disabled",
     );
 
     /* Only DUSD <-> Loan tokens are allowed in future swap */
@@ -167,7 +168,7 @@ context("Wallet - DEX - Instant/Future Swap - tabs and dropdowns", () => {
     cy.getByTestID("select_dTU10").click();
     cy.getByTestID("swap_tabs_FUTURE_SWAP").should(
       "not.have.attr",
-      "aria-disabled"
+      "aria-disabled",
     );
   });
 
@@ -175,11 +176,11 @@ context("Wallet - DEX - Instant/Future Swap - tabs and dropdowns", () => {
     cy.getByTestID("swap_tabs_FUTURE_SWAP").click();
     cy.getByTestID("token_select_button_FROM_display_symbol").should(
       "have.text",
-      "DUSD"
+      "DUSD",
     );
     cy.getByTestID("token_select_button_TO_display_symbol").should(
       "have.text",
-      "dTU10"
+      "dTU10",
     );
   });
 
