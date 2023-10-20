@@ -115,14 +115,27 @@ export function SendScreen({ route, navigation }: Props): JSX.Element {
   });
   const { address } = watch();
   const amountToSend = getValues("amount");
+  const isEvmAddress =
+    getAddressCategory(getValues("address"), networkName) ===
+    AddressCategory.ETH;
+
   const [addressType, setAddressType] = useState<AddressType>();
 
+  const getInputTokenType = () => {
+    if (token?.id === "0_unified") {
+      if (isEvmAddress) {
+        return "token";
+      }
+      return "utxo";
+    }
+    return "others";
+  };
   const { isConversionRequired, conversionAmount } = useConversion({
     inputToken: {
-      type: token?.id === "0_unified" ? "utxo" : "others",
+      type: getInputTokenType(),
       amount: new BigNumber(amountToSend),
     },
-    deps: [amountToSend, JSON.stringify(token)],
+    deps: [amountToSend, JSON.stringify(token), isEvmAddress],
   });
 
   const reservedDFI = 0.1;
@@ -144,9 +157,6 @@ export function SendScreen({ route, navigation }: Props): JSX.Element {
     let infoText;
     let themedProps;
     let status = TransactionCardStatus.Default;
-    const isEvmAddress =
-      getAddressCategory(getValues("address"), networkName) ===
-      AddressCategory.ETH;
 
     if (new BigNumber(amountToSend).isGreaterThan(token?.amount ?? 0)) {
       infoText = "Insufficient balance";
@@ -299,7 +309,9 @@ export function SendScreen({ route, navigation }: Props): JSX.Element {
     if (isConversionRequired) {
       queueConvertTransaction(
         {
-          mode: ConvertDirection.accountToUtxos,
+          mode: isEvmAddress
+            ? ConvertDirection.utxosToAccount
+            : ConvertDirection.accountToUtxos,
           amount: conversionAmount,
         },
         dispatch,
