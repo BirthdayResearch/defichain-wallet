@@ -115,6 +115,7 @@ context("Portfolio - Send - Address Book", () => {
     before(() => {
       cy.createEmptyWallet(true);
       cy.sendDFItoWallet().sendDFITokentoWallet().wait(4000);
+      cy.getByTestID("dfi_total_balance_amount").contains("20.00000000");
       cy.getByTestID("bottom_tab_portfolio").click();
 
       topUpDfiInEvmDomain();
