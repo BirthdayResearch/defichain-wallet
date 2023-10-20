@@ -158,7 +158,7 @@ export function TotalPortfolio(props: TotalPortfolioProps): JSX.Element {
           />
         </View>
       )}
-      {isExpanded && (
+      {isExpanded && !isEvmDomain && (
         <ThemedViewV2
           style={tailwind("mt-5 border-t-0.5")}
           light={tailwind("border-mono-light-v2-300")}
