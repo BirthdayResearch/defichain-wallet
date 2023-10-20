@@ -324,12 +324,8 @@ function getTokensWithBalance(
         ? new BigNumber(t.amount).minus(reservedFees).toFixed(8)
         : t.amount,
     );
-    if (
-      available.isLessThan(0) ||
-      t.id === "0" ||
-      t.id === "0_utxo" ||
-      t.id === "0_evm"
-    ) {
+
+    if (available.isLessThanOrEqualTo(0) || t.id === "0" || t.id === "0_utxo") {
       return;
     }
 
