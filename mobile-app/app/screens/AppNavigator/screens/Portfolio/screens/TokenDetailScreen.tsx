@@ -131,7 +131,7 @@ export function TokenDetailScreen({ route, navigation }: Props): JSX.Element {
 
   // usdAmount for crypto tokens, undefined for DFI token
   const { usdAmount } = route.params.token;
-
+  const isEvmDomain = domain === DomainType.EVM;
   const onNavigateLiquidity = ({
     destination,
     pair,
@@ -186,21 +186,23 @@ export function TokenDetailScreen({ route, navigation }: Props): JSX.Element {
         token={token}
         border
         usdAmount={usdAmount ?? new BigNumber(0)}
-        isEvmDomain={domain === DomainType.EVM}
+        isEvmDomain={isEvmDomain}
       />
 
       <View style={tailwind("p-5 pb-12")}>
-        <TokenBreakdownDetailsV2
-          hasFetchedToken={hasFetchedToken}
-          availableAmount={new BigNumber(DFIUnified.amount)}
-          availableValue={availableValue}
-          testID="dfi"
-          dfiUtxo={DFIUtxo}
-          dfiToken={DFIToken}
-          token={token}
-          usdAmount={usdAmount ?? new BigNumber(0)}
-          pair={pair}
-        />
+        {!isEvmDomain && (
+          <TokenBreakdownDetailsV2
+            hasFetchedToken={hasFetchedToken}
+            availableAmount={new BigNumber(DFIUnified.amount)}
+            availableValue={availableValue}
+            testID="dfi"
+            dfiUtxo={DFIUtxo}
+            dfiToken={DFIToken}
+            token={token}
+            usdAmount={usdAmount ?? new BigNumber(0)}
+            pair={pair}
+          />
+        )}
         {token.symbol === "DFI" && token.id !== "0_evm" && (
           <ThemedViewV2
             dark={tailwind("border-mono-dark-v2-300")}
