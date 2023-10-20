@@ -145,8 +145,7 @@ export function ServiceProviderScreen({ navigation }: Props): JSX.Element {
   }, [dispatch, isEncrypted, navigation, urlInputValues]);
 
   const validateInputlabel = (input: string): boolean => {
-    // TODO: Only allow `https` url
-    if (input === "" || !/^http/.test(input)) {
+    if (input === "" || !/^https/.test(input)) {
       return false;
     }
     return true;
