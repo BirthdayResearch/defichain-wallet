@@ -44,7 +44,7 @@ export function EVMProvider({
 
   useEffect(() => {
     getProvider();
-  }, [ethRpcUrl]);
+  }, [network, ethRpcUrl]);
 
   const client = useMemo(
     () => ({

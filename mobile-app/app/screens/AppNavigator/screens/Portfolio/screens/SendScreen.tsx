@@ -244,7 +244,7 @@ export function SendScreen({ route, navigation }: Props): JSX.Element {
       setToken({
         ...t,
         amount:
-          t.displaySymbol === "DFI"
+          t.displaySymbol === "DFI" && t.id !== "0_evm"
             ? BigNumber.max(
                 new BigNumber(t.amount).minus(reservedDFI),
                 0,
