@@ -92,7 +92,7 @@ defichainUrlEnvs.forEach((defichainUrlEnv) => {
 
       it(`should type invalid custom provider URL on ${defichainUrlEnv}`, () => {
         cy.getByTestID("DVM_endpoint_url_input").type(
-          "ht://invalidcustomURL.com",
+          "http://invalidcustomURL.com",
         );
         cy.getByTestID("DVM_endpoint_url_input_error").contains("Invalid URL");
         cy.getByTestID("button_submit").should("have.attr", "aria-disabled");
