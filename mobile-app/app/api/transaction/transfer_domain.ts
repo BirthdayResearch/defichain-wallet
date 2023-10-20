@@ -272,7 +272,7 @@ async function createSignedEvmTx({
   const from = isEvmToDvm ? evmAddress : TD_CONTRACT_ADDR;
   const to = isEvmToDvm ? TD_CONTRACT_ADDR : evmAddress;
   const parsedAmount = utils.parseUnits(
-    amount.decimalPlaces(8, BigNumber.ROUND_DOWN).toString(),
+    amount.decimalPlaces(8, BigNumber.ROUND_DOWN).toFixed(),
     18,
   ); // TODO: Get decimals from token contract
   const vmAddress = dvmAddress;

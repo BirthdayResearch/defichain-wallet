@@ -56,9 +56,9 @@ export function useEvmTokenBalances(): { evmTokens: WalletToken[] } {
       avatarSymbol: "DFI",
     };
     try {
-      const evmDfiBalance = utils
-        .formatEther(evmWalletDetails?.coin_balance ?? "0")
-        .toString();
+      const evmDfiBalance = utils.formatEther(
+        evmWalletDetails?.coin_balance ?? "0",
+      );
       dfiToken.amount = evmDfiBalance;
       setEvmTokens(
         evmTokenBalances.reduce(
@@ -78,9 +78,7 @@ export function useEvmTokenBalances(): { evmTokens: WalletToken[] } {
                   name: `${tokenDetails.name} for EVM`,
                   displaySymbol: tokenDetails.displaySymbol,
                   avatarSymbol: tokenDetails.symbol,
-                  amount: utils
-                    .formatUnits(each.value, each?.token?.decimals)
-                    .toString(),
+                  amount: utils.formatUnits(each.value, each?.token?.decimals),
                 },
               ];
             }
