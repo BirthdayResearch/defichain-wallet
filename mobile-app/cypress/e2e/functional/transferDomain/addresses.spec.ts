@@ -174,8 +174,8 @@ function populateYourAddresses(): void {
 }
 function goToAddressBook() {
   cy.getByTestID("action_button_group").should("exist");
-  cy.getByTestID("send_balance_button").click().wait(3000);
-  cy.getByTestID("select_EvmDFI").click().wait(3000);
+  cy.getByTestID("send_balance_button").should("exist").click().wait(3000);
+  cy.getByTestID("select_DFI").click().wait(3000);
   cy.getByTestID("address_book_button").click();
 }
 
