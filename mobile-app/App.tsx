@@ -128,7 +128,7 @@ export default function App(): JSX.Element | null {
                                             renderType={customToast}
                                           >
                                             <FavouritePoolpairProvider>
-                                              <EVMProvider>
+                                              <EVMProvider logger={Logging}>
                                                 <Main />
                                               </EVMProvider>
                                             </FavouritePoolpairProvider>

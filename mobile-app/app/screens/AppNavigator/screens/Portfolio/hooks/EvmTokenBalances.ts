@@ -75,7 +75,7 @@ export function useEvmTokenBalances(): { evmTokens: WalletToken[] } {
                   isDAT: tokenDetails.isDAT,
                   isLPS: tokenDetails.isLPS,
                   isLoanToken: tokenDetails.isLoanToken,
-                  name: `${tokenDetails.name} for EVM`,
+                  name: `${tokenDetails.name || tokenDetails.symbol} for EVM`,
                   displaySymbol: tokenDetails.displaySymbol,
                   avatarSymbol: tokenDetails.symbol,
                   amount: utils.formatUnits(each.value, each?.token?.decimals),

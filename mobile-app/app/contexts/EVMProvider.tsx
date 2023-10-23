@@ -7,6 +7,7 @@ import React, {
 } from "react";
 import { providers } from "ethers";
 import { useNetworkContext } from "@waveshq/walletkit-ui";
+import { BaseLogger } from "@waveshq/walletkit-ui/dist/contexts/logger";
 import { useCustomServiceProviderContext } from "./CustomServiceProvider";
 
 interface EVMProviderContextI {
@@ -21,7 +22,8 @@ export function useEVMProvider(): EVMProviderContextI {
 
 export function EVMProvider({
   children,
-}: React.PropsWithChildren<any>): JSX.Element | null {
+  logger,
+}: React.PropsWithChildren<{ logger: BaseLogger }>): JSX.Element | null {
   const { ethRpcUrl } = useCustomServiceProviderContext();
   const { network } = useNetworkContext();
   const [chainId, setChainId] = useState<number>();
@@ -35,7 +37,10 @@ export function EVMProvider({
       const { chainId } = await provider.getNetwork();
       setChainId(chainId);
       setProvider(provider);
+      logger.info(`ChainID: ${chainId}`);
     } catch (e) {
+      logger.info(`Eth rpc url: ${ethRpcUrl}`);
+      logger.error(e);
       // Note: Added this for cases wherein eth rpc url is invalid or unreachable
       setChainId(0);
       setProvider(null);
