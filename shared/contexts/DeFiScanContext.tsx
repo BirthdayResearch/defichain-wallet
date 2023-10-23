@@ -1,6 +1,11 @@
 import React, { createContext, useContext, useMemo } from "react";
 import { EnvironmentNetwork } from "@waveshq/walletkit-core";
 import { useNetworkContext } from "@waveshq/walletkit-ui";
+import {
+  TD_CONTRACT_ADDR,
+  getAddressFromDST20TokenId,
+  stripEvmSuffixFromTokenId,
+} from "@api/transaction/transfer_domain";
 
 interface DeFiScanContextI {
   getTransactionUrl: (txid: string, rawtx?: string) => string;
@@ -14,13 +19,14 @@ interface DeFiScanContextI {
 
 const DeFiScanContext = createContext<DeFiScanContextI>(undefined as any);
 const baseDefiScanUrl = "https://defiscan.live";
+const baseMetaScanUrl = "https://meta.defiscan.live";
 
 export function useDeFiScanContext(): DeFiScanContextI {
   return useContext(DeFiScanContext);
 }
 
 export function DeFiScanProvider(
-  props: React.PropsWithChildren<any>
+  props: React.PropsWithChildren<any>,
 ): JSX.Element | null {
   const { network } = useNetworkContext();
 
@@ -70,6 +76,8 @@ function getNetworkParams(network: EnvironmentNetwork): string {
     case EnvironmentNetwork.LocalPlayground:
     case EnvironmentNetwork.RemotePlayground:
       return `?network=${EnvironmentNetwork.RemotePlayground}`;
+    case EnvironmentNetwork.Changi:
+      return `?network=${EnvironmentNetwork.Changi}`;
     default:
       return "";
   }
@@ -78,7 +86,7 @@ function getNetworkParams(network: EnvironmentNetwork): string {
 export function getTxURLByNetwork(
   network: EnvironmentNetwork,
   txid: string,
-  rawtx?: string
+  rawtx?: string,
 ): string {
   let baseUrl = `${baseDefiScanUrl}/transactions/${txid}`;
 
@@ -98,7 +106,24 @@ export function getTxURLByNetwork(
 export function getURLByNetwork(
   path: string,
   network: EnvironmentNetwork,
-  id: number | string
+  id: number | string,
 ): string {
   return `${baseDefiScanUrl}/${path}/${id}${getNetworkParams(network)}`;
+}
+
+export function getMetaScanTokenUrl(
+  network: EnvironmentNetwork,
+  id: string,
+): string {
+  const networkParams = getNetworkParams(network);
+  const tokenId = stripEvmSuffixFromTokenId(id);
+
+  // DFI token
+  if (tokenId === 0) {
+    return `${baseMetaScanUrl}/token/${TD_CONTRACT_ADDR}${networkParams}`;
+  }
+
+  // DST20 token
+  const tokenAddress = getAddressFromDST20TokenId(tokenId);
+  return `${baseMetaScanUrl}/token/${tokenAddress}${networkParams}`;
 }

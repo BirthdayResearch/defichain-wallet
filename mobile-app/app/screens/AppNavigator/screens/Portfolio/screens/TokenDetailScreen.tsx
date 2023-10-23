@@ -13,7 +13,10 @@ import {
   unifiedDFISelector,
   WalletToken,
 } from "@waveshq/walletkit-ui/dist/store";
-import { useDeFiScanContext } from "@shared-contexts/DeFiScanContext";
+import {
+  getMetaScanTokenUrl,
+  useDeFiScanContext,
+} from "@shared-contexts/DeFiScanContext";
 import { PoolPairData } from "@defichain/whale-api-client/dist/api/poolpairs";
 import { View } from "@components";
 import {
@@ -31,6 +34,7 @@ import { InfoTextLinkV2 } from "@components/InfoTextLink";
 import { ThemedTouchableListItem } from "@components/themed/ThemedTouchableListItem";
 import { ConvertDirection } from "@screens/enum";
 import { DomainType, useDomainContext } from "@contexts/DomainContext";
+import { useNetworkContext } from "@waveshq/walletkit-ui";
 import { PortfolioParamList } from "../PortfolioNavigator";
 import { useTokenPrice } from "../hooks/TokenPrice";
 import { useDenominationCurrency } from "../hooks/PortfolioCurrency";
@@ -447,6 +451,7 @@ function TokenSummary(props: {
 }): JSX.Element {
   const { denominationCurrency } = useDenominationCurrency();
   const { getTokenUrl } = useDeFiScanContext();
+  const { network } = useNetworkContext();
   const onTokenUrlPressed = async (): Promise<void> => {
     const id =
       props.token.id === "0_utxo" ||
@@ -454,7 +459,9 @@ function TokenSummary(props: {
       props.token.id === "0_evm"
         ? 0
         : props.token.id;
-    const url = getTokenUrl(id);
+    const url = props.token.id.includes("_evm")
+      ? getMetaScanTokenUrl(network, props.token.id)
+      : getTokenUrl(id);
     await Linking.openURL(url);
   };
 
@@ -488,7 +495,7 @@ function TokenSummary(props: {
                 dark={tailwind("text-mono-dark-v2-700")}
                 style={tailwind("text-sm font-normal-v2")}
               >
-                {props.token.name}
+                {props.token.name || props.token.symbol}
               </ThemedTextV2>
               <View style={tailwind("ml-1 flex-grow-0 justify-center")}>
                 <ThemedIcon
