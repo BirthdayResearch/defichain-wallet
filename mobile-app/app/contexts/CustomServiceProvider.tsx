@@ -106,8 +106,8 @@ export function getEthRpcUrl(network: EnvironmentNetwork) {
   // TODO: Add proper ethereum RPC URLs for each network
   switch (network) {
     case EnvironmentNetwork.LocalPlayground:
-    case EnvironmentNetwork.RemotePlayground:
       return "http://localhost:19551";
+    case EnvironmentNetwork.RemotePlayground:
     case EnvironmentNetwork.DevNet:
     case EnvironmentNetwork.Changi:
       return "http://34.34.156.49:20551"; // TODO: add final eth rpc url for changi, devnet and remote playground
