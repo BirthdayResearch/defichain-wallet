@@ -102,7 +102,7 @@ function getBlockscoutUrl(network: EnvironmentNetwork) {
   }
 }
 
-export function getEthRpcUrl(network: EnvironmentNetwork) {
+function getEthRpcUrl(network: EnvironmentNetwork) {
   // TODO: Add proper ethereum RPC URLs for each network
   switch (network) {
     case EnvironmentNetwork.LocalPlayground:

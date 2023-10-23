@@ -13,8 +13,6 @@ import { fromAddress, Eth } from "@defichain/jellyfish-address";
 import { NetworkName } from "@defichain/jellyfish-network";
 import { ConvertDirection } from "@screens/enum";
 import TransferDomainV1 from "@shared-contracts/TransferDomainV1.json";
-import { getEthRpcUrl } from "@contexts/CustomServiceProvider";
-import { SecuredStoreAPI } from "@api/secured";
 
 const TD_CONTRACT_ADDR = "0xdf00000000000000000000000000000000000001";
 
@@ -38,7 +36,9 @@ interface TransferDomainSigner {
   convertDirection: ConvertDirection;
   dvmAddress: string;
   evmAddress: string;
+  chainId?: number;
   networkName: NetworkName;
+  nonce: number;
 }
 
 export async function transferDomainSigner({
@@ -49,7 +49,9 @@ export async function transferDomainSigner({
   convertDirection,
   dvmAddress,
   evmAddress,
+  chainId,
   networkName,
+  nonce,
 }: TransferDomainSigner): Promise<CTransactionSegWit> {
   const dvmScript = fromAddress(dvmAddress, networkName)?.script as Script;
   const evmScript = Eth.fromAddress(evmAddress) as Script;
@@ -65,15 +67,6 @@ export async function transferDomainSigner({
     ? [TRANSFER_DOMAIN_TYPE.EVM, TRANSFER_DOMAIN_TYPE.DVM]
     : [TRANSFER_DOMAIN_TYPE.DVM, TRANSFER_DOMAIN_TYPE.EVM];
 
-  const privateKey = await account.privateKey();
-  const accountEvmAddress = await account.getEvmAddress();
-
-  // TODO (lyka): Check android issue with null eth provider
-  const network = await SecuredStoreAPI.getNetwork();
-  const ethRpc = new providers.JsonRpcProvider(getEthRpcUrl(network));
-  const nonce = await ethRpc.getTransactionCount(accountEvmAddress);
-  const chainId = (await ethRpc.getNetwork()).chainId;
-
   const signedEvmTxData = await createSignedEvmTx({
     isEvmToDvm,
     sourceTokenId: stripEvmSuffixFromTokenId(sourceTokenId).toString(),
@@ -81,8 +74,8 @@ export async function transferDomainSigner({
     amount,
     dvmAddress,
     evmAddress,
-    accountEvmAddress,
-    privateKey,
+    accountEvmAddress: await account.getEvmAddress(),
+    privateKey: await account.privateKey(),
     chainId,
     nonce,
   });
@@ -159,9 +152,11 @@ export function transferDomainCrafter({
   networkName,
   onBroadcast,
   onConfirmation,
+  chainId,
   submitButtonLabel,
   dvmAddress,
   evmAddress,
+  nonce,
 }: {
   amount: BigNumber;
   convertDirection: ConvertDirection;
@@ -170,9 +165,11 @@ export function transferDomainCrafter({
   networkName: NetworkName;
   onBroadcast: () => any;
   onConfirmation: () => void;
+  chainId?: number;
   submitButtonLabel?: string;
   dvmAddress: string;
   evmAddress: string;
+  nonce: number;
 }): DfTxSigner {
   if (
     ![ConvertDirection.evmToDvm, ConvertDirection.dvmToEvm].includes(
@@ -204,6 +201,8 @@ export function transferDomainCrafter({
         targetTokenId: targetToken.tokenId,
         dvmAddress,
         evmAddress,
+        chainId,
+        nonce,
       }),
     title: translate(
       "screens/ConvertConfirmScreen",
