@@ -200,7 +200,11 @@ export function ConvertConfirmationScreen({ route }: Props): JSX.Element {
               ? "DFI (EVM)"
               : targetToken.displaySymbol
           }
-          fromAddress={address}
+          fromAddress={
+            convertDirection === ConvertDirection.evmToDvm
+              ? evmAddress
+              : address
+          }
           fromAddressLabel={addressLabel}
           isEvmToken={convertDirection === ConvertDirection.dvmToEvm}
         />
