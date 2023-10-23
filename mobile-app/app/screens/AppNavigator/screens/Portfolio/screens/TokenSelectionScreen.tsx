@@ -230,7 +230,6 @@ function TokenSelectionRow({
           displaySymbol={item.token.displaySymbol}
           name={item.token.name}
           testID={item.token.displaySymbol}
-          isEvmDomain={isEvmDomain}
         />
       </View>
       <View style={tailwind("flex flex-col items-end")}>
