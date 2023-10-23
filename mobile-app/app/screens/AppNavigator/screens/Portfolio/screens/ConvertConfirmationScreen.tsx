@@ -33,7 +33,6 @@ import {
 } from "@api/transaction/transfer_domain";
 import { useNetworkContext } from "@waveshq/walletkit-ui";
 import { NetworkName } from "@defichain/jellyfish-network";
-import { useEVMProvider } from "@contexts/EVMProvider";
 import { PortfolioParamList } from "../PortfolioNavigator";
 
 type Props = StackScreenProps<PortfolioParamList, "ConvertConfirmationScreen">;
@@ -49,7 +48,6 @@ export function ConvertConfirmationScreen({ route }: Props): JSX.Element {
   } = route.params;
   const { networkName } = useNetworkContext();
   const { address, evmAddress } = useWalletContext();
-  const { provider, chainId } = useEVMProvider();
   const addressLabel = useAddressLabel(address);
   const hasPendingJob = useSelector((state: RootState) =>
     hasTxQueued(state.transactionQueue),
@@ -122,9 +120,6 @@ export function ConvertConfirmationScreen({ route }: Props): JSX.Element {
         logger,
       );
     } else {
-      const nonce = provider
-        ? await provider.getTransactionCount(evmAddress)
-        : 0;
       await constructSignedTransferDomain(
         {
           amount,
@@ -132,8 +127,6 @@ export function ConvertConfirmationScreen({ route }: Props): JSX.Element {
           sourceToken,
           targetToken,
           networkName,
-          chainId,
-          nonce,
           evmAddress,
           dvmAddress: address,
         },
@@ -355,20 +348,16 @@ async function constructSignedTransferDomain(
     sourceToken,
     targetToken,
     networkName,
-    chainId,
     dvmAddress,
     evmAddress,
-    nonce,
   }: {
     convertDirection: ConvertDirection;
     sourceToken: TransferDomainToken;
     targetToken: TransferDomainToken;
     amount: BigNumber;
     networkName: NetworkName;
-    chainId?: number;
     dvmAddress: string;
     evmAddress: string;
-    nonce: number;
   },
   dispatch: Dispatch<any>,
   onBroadcast: () => void,
@@ -385,10 +374,8 @@ async function constructSignedTransferDomain(
           networkName,
           onBroadcast,
           onConfirmation: () => {},
-          chainId,
           dvmAddress,
           evmAddress,
-          nonce,
         }),
       ),
     );
