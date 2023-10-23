@@ -14,7 +14,7 @@ import { NetworkName } from "@defichain/jellyfish-network";
 import { ConvertDirection } from "@screens/enum";
 import TransferDomainV1 from "@shared-contracts/TransferDomainV1.json";
 
-const TD_CONTRACT_ADDR = "0xdf00000000000000000000000000000000000001";
+export const TD_CONTRACT_ADDR = "0xdf00000000000000000000000000000000000001";
 
 const TRANSFER_DOMAIN_TYPE = {
   DVM: 2,
@@ -304,7 +304,7 @@ async function createSignedEvmTx({
   return new Uint8Array(Buffer.from(evmtxSigned, "hex") || []);
 }
 
-function stripEvmSuffixFromTokenId(tokenId: string) {
+export function stripEvmSuffixFromTokenId(tokenId: string) {
   if (tokenId.includes("_evm")) {
     return Number(tokenId.replace("_evm", ""));
   }
