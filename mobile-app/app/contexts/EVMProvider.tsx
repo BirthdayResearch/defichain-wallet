@@ -37,7 +37,9 @@ export function EVMProvider({
       const { chainId } = await provider.getNetwork();
       setChainId(chainId);
       setProvider(provider);
+      logger.info(`ChainID: ${chainId}`);
     } catch (e) {
+      logger.info(`Eth rpc url: ${ethRpcUrl}`);
       logger.error(e);
       // Note: Added this for cases wherein eth rpc url is invalid or unreachable
       setChainId(0);
