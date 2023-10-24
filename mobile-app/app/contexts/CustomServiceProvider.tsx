@@ -115,7 +115,7 @@ function getEthRpcUrl(network: EnvironmentNetwork) {
       return "https://changi.dfi.team"; // TODO: add final eth rpc url for mainnet, with proper domain name
     case EnvironmentNetwork.TestNet:
     default:
-      return "http://34.38.30.102:18551"; // TODO: add final eth rpc url for testnet, with proper domain name
+      return "https://eth.testnet.ocean.jellyfishsdk.com";
   }
 }
 
