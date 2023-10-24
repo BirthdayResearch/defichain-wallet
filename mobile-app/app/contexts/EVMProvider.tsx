@@ -1,4 +1,10 @@
-import React, { createContext, useContext, useEffect, useState } from "react";
+import React, {
+  createContext,
+  useContext,
+  useEffect,
+  useMemo,
+  useState,
+} from "react";
 import { providers } from "ethers";
 import { useNetworkContext } from "@waveshq/walletkit-ui";
 import { BaseLogger } from "@waveshq/walletkit-ui/dist/contexts/logger";
@@ -31,9 +37,7 @@ export function EVMProvider({
       const { chainId } = await provider.getNetwork();
       setChainId(chainId);
       setProvider(provider);
-      logger.info(`ChainID: ${chainId}`);
     } catch (e) {
-      logger.info(`Eth rpc url: ${ethRpcUrl}`);
       logger.error(e);
       // Note: Added this for cases wherein eth rpc url is invalid or unreachable
       setChainId(0);
@@ -45,10 +49,13 @@ export function EVMProvider({
     getProvider();
   }, [network, ethRpcUrl]);
 
-  const client = {
-    provider,
-    chainId,
-  };
+  const client = useMemo(
+    () => ({
+      provider,
+      chainId,
+    }),
+    [network, chainId, ethRpcUrl, provider],
+  );
 
   return (
     <EVMProviderContext.Provider value={client}>
