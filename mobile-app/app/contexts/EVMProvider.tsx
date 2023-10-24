@@ -1,10 +1,4 @@
-import React, {
-  createContext,
-  useContext,
-  useEffect,
-  useMemo,
-  useState,
-} from "react";
+import React, { createContext, useContext, useEffect, useState } from "react";
 import { providers } from "ethers";
 import { useNetworkContext } from "@waveshq/walletkit-ui";
 import { BaseLogger } from "@waveshq/walletkit-ui/dist/contexts/logger";
@@ -51,13 +45,10 @@ export function EVMProvider({
     getProvider();
   }, [network, ethRpcUrl]);
 
-  const client = useMemo(
-    () => ({
-      provider,
-      chainId,
-    }),
-    [network, chainId, ethRpcUrl, provider],
-  );
+  const client = {
+    provider,
+    chainId,
+  };
 
   return (
     <EVMProviderContext.Provider value={client}>
