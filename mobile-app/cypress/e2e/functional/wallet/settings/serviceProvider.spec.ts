@@ -99,6 +99,7 @@ defichainUrlEnvs.forEach((defichainUrlEnv) => {
       });
 
       it(`should submit valid custom service provider on ${defichainUrlEnv}`, () => {
+        cy.wait(1000);
         cy.getByTestID("DVM_endpoint_url_input").clear().type(url.custom);
         cy.getByTestID("button_submit").should(
           "not.have.attr",
@@ -124,6 +125,7 @@ defichainUrlEnvs.forEach((defichainUrlEnv) => {
       });
 
       it(`can reset custom provider endpoint on ${defichainUrlEnv}`, () => {
+        cy.wait(1000);
         cy.getByTestID("bottom_tab_portfolio").click();
         cy.getByTestID("header_settings").click();
         cy.getByTestID("setting_navigate_service_provider").click();
