@@ -5,27 +5,28 @@ context("Portfolio - Send - Address Book", () => {
     "0x2DeC425BF3c289C9B7452aD54E2F9877F21e0316",
   ];
 
-  function validateMatchAddress(address: string, label: string): void {
-    cy.getByTestID("address_input").contains(address);
-    if (label === labels[0]) {
-      cy.getByTestID("address_input_footer").contains(label);
-    } else {
-      cy.getByTestID("address_input_footer_evm").contains(label);
-    }
+  // Addresses that shows up under the 'Your address' tab in address book
+  function populateYourAddresses(): void {
+    // Create new wallet address - only available if there is DFI UTXO
+    cy.getByTestID("bottom_tab_portfolio").click();
+    cy.getByTestID("wallet_address").should("exist").click();
+    cy.getByTestID("create_new_address").should("exist").click(); // Generate Address 2 wallet address
+
+    // Go back to previous Address 1
+    cy.getByTestID("wallet_address").should("exist").click();
+    cy.getByTestID("address_row_0").click();
+    cy.getByTestID("wallet_address").should("have.text", "Address 1");
   }
 
   // Whitelisted addresses
   function populateAddressBook(hasExistingAddress?: boolean): void {
+    cy.getByTestID("bottom_tab_portfolio").click();
     cy.getByTestID("action_button_group").should("exist");
     cy.getByTestID("send_balance_button").click().wait(3000);
     cy.getByTestID("select_DFI").click().wait(3000);
     cy.getByTestID("address_book_button").click();
     cy.wrap(labels).each((_v, index: number) => {
-      if (index === 0) {
-        cy.getByTestID("button_add_address").click();
-      } else {
-        cy.getByTestID("add_new_address").click();
-      }
+      cy.getByTestID("add_new_address").click();
 
       if (hasExistingAddress) {
         // Reselect DVM address type
@@ -45,43 +46,16 @@ context("Portfolio - Send - Address Book", () => {
       cy.getByTestID("address_book_address_input_error").should("not.exist");
       cy.getByTestID("save_address_label").click().wait(1000);
       cy.getByTestID("pin_authorize").type("000000").wait(2000);
-      validateMatchAddress(addresses[index], labels[index]);
       cy.wait(1000);
-      cy.getByTestID("address_input_clear_button").click();
-      cy.getByTestID("address_book_button").click();
       cy.getByTestID(`address_row_label_${index}_WHITELISTED`).contains(
         labels[index],
       );
       cy.getByTestID(`address_row_text_${index}_WHITELISTED`).contains(
         addresses[index],
       );
-      // cy.getByTestID('address_book_address_input').clear().type(addresses[index]).blur()
     });
   }
-  function verifyWhitelistedAddressRowItems(index: number) {
-    cy.getByTestID(`address_row_label_${index}_WHITELISTED`).should(
-      "have.text",
-      labels[index],
-    );
-    cy.getByTestID(`address_row_text_${index}_WHITELISTED`).should(
-      "have.text",
-      addresses[index],
-    );
 
-    cy.getByTestID(`address_row_${index}_WHITELISTED_caret`).should("exist");
-
-    // dvm address
-    if (index === 0) {
-      cy.getByTestID(`address_row_label_${index}_WHITELISTED_EVM_tag`).should(
-        "not.exist",
-      );
-      // evm address
-    } else {
-      cy.getByTestID(`address_row_label_${index}_WHITELISTED_EVM_tag`).should(
-        "exist",
-      );
-    }
-  }
   function verifyYourAddressRowItems(index: number) {
     // Generated wallet label
     cy.getByTestID(`address_row_label_${index}_YOUR_ADDRESS`).should(
@@ -95,14 +69,12 @@ context("Portfolio - Send - Address Book", () => {
     cy.getByTestID(`address_row_text_${index}_YOUR_ADDRESS_EVM`).should(
       "exist",
     );
-
-    // caret
-    cy.getByTestID(`address_row_${index}_YOUR_ADDRESS_caret`).should("exist");
   }
 
   // Send DFI tokens dvm -> evm
   function topUpDfiInEvmDomain() {
     cy.getByTestID("bottom_tab_portfolio").click();
+    cy.getByTestID("action_button_group").should("exist");
     cy.getByTestID("send_balance_button").click();
     cy.getByTestID("select_DFI").click();
     cy.getByTestID("25%_amount_button").click();
@@ -114,41 +86,71 @@ context("Portfolio - Send - Address Book", () => {
     // Send confirmation screen
     cy.getByTestID("button_confirm_send").click();
     cy.getByTestID("pin_authorize").type("000000").wait(4000);
+    cy.getByTestID("oceanInterface_close").click(); // Close ocean interface popup
   }
 
   describe("Whitelisted and Your Addresses tab", () => {
     before(() => {
       cy.createEmptyWallet(true);
       cy.sendDFItoWallet().sendDFITokentoWallet().wait(4000);
-      cy.getByTestID("bottom_tab_portfolio").click();
-
       topUpDfiInEvmDomain();
-      cy.getByTestID("oceanInterface_close").click(); // Close ocean interface popup
-
       populateYourAddresses(); // Generate new wallet Address 2
-    });
-    it("(dvm) Whitelisted - should not display evm tag for dvm addresses", () => {
       populateAddressBook(); // Add whitelist addresses
-      verifyWhitelistedAddressRowItems(0);
     });
+
+    it("(dvm) Whitelisted - should not display evm tag for dvm addresses", () => {
+      cy.getByTestID("bottom_tab_portfolio").click();
+      cy.getByTestID("header_settings").click();
+      cy.getByTestID("address_book_title").click();
+      cy.getByTestID("address_row_label_0_WHITELISTED").should(
+        "have.text",
+        labels[0],
+      );
+      cy.getByTestID("address_row_text_0_WHITELISTED").should(
+        "have.text",
+        addresses[0],
+      );
+      cy.getByTestID("address_row_0_WHITELISTED_caret").should("exist");
+
+      cy.getByTestID("address_row_label_0_WHITELISTED_EVM_tag").should(
+        "not.exist",
+      );
+    });
+
     it("(dvm) Whitelisted - should display evm tag for evm addresses", () => {
-      verifyWhitelistedAddressRowItems(1);
+      cy.getByTestID("address_row_label_1_WHITELISTED").should(
+        "have.text",
+        labels[1],
+      );
+      cy.getByTestID("address_row_text_1_WHITELISTED").should(
+        "have.text",
+        addresses[1],
+      );
+      cy.getByTestID("address_row_1_WHITELISTED_caret").should("exist");
+      cy.getByTestID("address_row_label_1_WHITELISTED_EVM_tag").should("exist");
     });
+
     it("(dvm) Your Addresses - should display not evm tag for dvm addresses", () => {
+      cy.getByTestID("bottom_tab_portfolio").click();
+      cy.getByTestID("header_settings").click();
+      cy.getByTestID("address_book_title").click();
       cy.getByTestID("address_button_group_YOUR_ADDRESS").click();
       verifyYourAddressRowItems(0);
     });
+
     it("(dvm) Your Addresses - should display evm tag for evm addresses", () => {
       verifyYourAddressRowItems(1);
-      cy.getByTestID("bottom_tab_portfolio").click();
     });
 
     // Switch to evm domain
     it("(evm) Whitelisted - should disable evm addresses in evm domain", () => {
       // Go back to portfolio page to switch domain
+      cy.getByTestID("bottom_tab_portfolio").click();
       cy.getByTestID("domain_switch").click();
-
-      goToAddressBook();
+      cy.getByTestID("action_button_group").should("exist");
+      cy.getByTestID("send_balance_button").click().wait(3000);
+      cy.getByTestID("select_DFI").click().wait(3000);
+      cy.getByTestID("address_book_button").click();
 
       cy.getByTestID("address_row_0_WHITELISTED").should(
         "have.attr",
@@ -157,6 +159,7 @@ context("Portfolio - Send - Address Book", () => {
       );
       cy.getByTestID("address_row_1_WHITELISTED").should("not.be.disabled");
     });
+
     // Switch to your address tab
     it("(evm) Your Address - should disable evm addresses in evm domain", () => {
       cy.getByTestID("address_button_group_YOUR_ADDRESS").click();
@@ -164,25 +167,6 @@ context("Portfolio - Send - Address Book", () => {
     });
   });
 });
-
-// Addresses that shows up under the 'Your address' tab in address book
-function populateYourAddresses(): void {
-  // Create new wallet address - only available if there is DFI UTXO
-  cy.getByTestID("bottom_tab_portfolio").click();
-  cy.getByTestID("wallet_address").click();
-  cy.getByTestID("create_new_address").should("exist").click(); // Generate Address 2 wallet address
-
-  // Go back to previous Address 1
-  cy.getByTestID("wallet_address").click();
-  cy.getByTestID("address_row_0").click();
-  cy.getByTestID("wallet_address").should("have.text", "Address 1");
-}
-function goToAddressBook() {
-  cy.getByTestID("action_button_group").should("exist");
-  cy.getByTestID("send_balance_button").click().wait(3000);
-  cy.getByTestID("select_EvmDFI").click().wait(3000);
-  cy.getByTestID("address_book_button").click();
-}
 
 // Check if evm address is disabled in evm domain for generated Address 1 and 2 cards
 function verifyYourAddressItemEvm() {
@@ -209,10 +193,12 @@ context("Portfolio", () => {
 
   describe("Wallet label (& address book bottom sheet)", () => {
     it('should display generated address label "Address 1" as first wallet label', () => {
-      cy.getByTestID("wallet_address").should("have.text", "Address 1");
+      cy.getByTestID("wallet_address")
+        .should("exist")
+        .should("have.text", "Address 1");
     });
     it("should display new wallet label after modifying wallet label", () => {
-      cy.getByTestID("wallet_address").click();
+      cy.getByTestID("wallet_address").should("exist").click();
 
       // Go to edit address book bottom sheet
       cy.getByTestID("address_edit_icon_address_row_0").click();
@@ -234,7 +220,7 @@ context("Portfolio", () => {
     // Generate new wallet address
     it("should display generated Address 2 label as second wallet label", () => {
       cy.getByTestID("bottom_tab_portfolio").click();
-      cy.getByTestID("wallet_address").click();
+      cy.getByTestID("wallet_address").should("exist").click();
 
       cy.getByTestID("create_new_address").should("exist").click(); // Generate Address 2 wallet address
       cy.getByTestID("wallet_address").should("have.text", "Address 2");

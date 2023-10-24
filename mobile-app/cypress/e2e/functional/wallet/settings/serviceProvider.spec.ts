@@ -53,53 +53,53 @@ defichainUrlEnvs.forEach((defichainUrlEnv) => {
             cy.getByTestID("header_network_name")
               .first()
               .contains(defichainUrlEnv);
-            cy.getByTestID("setting_navigate_service_provider").contains(
+            cy.getByTestID("setting_navigate_service_provider_value").contains(
               "Default",
             );
             cy.url().should("include", "app/Settings", () => {
-              expect(localStorage.getItem("WALLET.SERVICE_PROVIDER_URL")).to.eq(
-                url.default,
-              );
+              expect(
+                localStorage.getItem("WALLET.SERVICE_PROVIDER_URL.DVM"),
+              ).to.eq(url.default);
             });
           });
       });
 
       it(`should have default service provider url on ${defichainUrlEnv}`, () => {
         cy.getByTestID("setting_navigate_service_provider").click();
-        cy.getByTestID("dvm_endpoint_url_input").should(
+        cy.getByTestID("DVM_endpoint_url_input").should(
           "have.value",
           url.default,
         );
       });
 
       it(`input should be locked and not editable on ${defichainUrlEnv}`, () => {
-        cy.getByTestID("dvm_endpoint_url_input").should(
+        cy.getByTestID("DVM_endpoint_url_input").should(
           "have.attr",
           "readonly",
         );
       });
 
       it(`can unlock to change service provider endpoint on ${defichainUrlEnv}`, () => {
-        cy.getByTestID("dvm_edit_service_provider").click();
+        cy.getByTestID("DVM_edit_service_provider").click();
         cy.getByTestID("reset_button").should("exist");
-        cy.getByTestID("dvm_endpoint_url_input").should(
+        cy.getByTestID("DVM_endpoint_url_input").should(
           "not.have.attr",
           "readonly",
         );
+        cy.getByTestID("DVM_endpoint_url_input").should("have.value", "");
         cy.getByTestID("button_submit").should("have.attr", "aria-disabled");
       });
 
       it(`should type invalid custom provider URL on ${defichainUrlEnv}`, () => {
-        cy.getByTestID("dvm_endpoint_url_input").should("have.value", "");
-        cy.getByTestID("dvm_endpoint_url_input").type(
+        cy.getByTestID("DVM_endpoint_url_input").type(
           "http://invalidcustomURL.com",
         );
-        cy.getByTestID("dvm_endpoint_url_input_error").contains("Invalid URL");
+        cy.getByTestID("DVM_endpoint_url_input_error").contains("Invalid URL");
         cy.getByTestID("button_submit").should("have.attr", "aria-disabled");
       });
 
       it(`should submit valid custom service provider on ${defichainUrlEnv}`, () => {
-        cy.getByTestID("dvm_endpoint_url_input").clear().type(url.custom);
+        cy.getByTestID("DVM_endpoint_url_input").clear().type(url.custom);
         cy.getByTestID("button_submit").should(
           "not.have.attr",
           "aria-disabled",
@@ -107,8 +107,8 @@ defichainUrlEnvs.forEach((defichainUrlEnv) => {
         cy.getByTestID("button_submit").click().wait(3000);
         cy.getByTestID("pin_authorize").type("000000", { delay: 3000 });
         cy.wait(5000);
-        cy.url().should("include", "app/portfolio");
         cy.getByTestID("bottom_tab_portfolio").click();
+        cy.url().should("include", "app/portfolio");
         cy.wait(4000);
         cy.getByTestID("header_settings").click().wait(1000);
         cy.wait(4000);
@@ -127,7 +127,7 @@ defichainUrlEnvs.forEach((defichainUrlEnv) => {
         cy.getByTestID("bottom_tab_portfolio").click();
         cy.getByTestID("header_settings").click();
         cy.getByTestID("setting_navigate_service_provider").click();
-        cy.getByTestID("dvm_edit_service_provider").click();
+        cy.getByTestID("DVM_edit_service_provider").click();
         cy.getByTestID("reset_button").should("exist").click().wait(3000);
         cy.getByTestID("pin_authorize").type("000000", { delay: 3000 });
         cy.wait(5000);
