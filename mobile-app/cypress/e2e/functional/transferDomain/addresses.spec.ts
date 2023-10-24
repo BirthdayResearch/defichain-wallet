@@ -21,10 +21,9 @@ context("Portfolio - Send - Address Book", () => {
   // Whitelisted addresses
   function populateAddressBook(hasExistingAddress?: boolean): void {
     cy.getByTestID("bottom_tab_portfolio").click();
-    cy.getByTestID("action_button_group").should("exist");
-    cy.getByTestID("send_balance_button").click().wait(3000);
-    cy.getByTestID("select_DFI").click().wait(3000);
-    cy.getByTestID("address_book_button").click();
+    cy.getByTestID("bottom_tab_portfolio").click();
+    cy.getByTestID("header_settings").click();
+    cy.getByTestID("address_book_title").click();
     cy.wrap(labels).each((_v, index: number) => {
       cy.getByTestID("add_new_address").click();
 
