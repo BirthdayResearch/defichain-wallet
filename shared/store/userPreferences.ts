@@ -129,16 +129,23 @@ export const selectLocalWalletAddressArray = createSelector(
 export const selectAllLabeledWalletAddress = createSelector(
   (state: UserPreferences) => state.addresses,
   (walletAddress): LabeledAddress => {
-    return (Object.values(walletAddress) as LocalAddress[]).reduce(
-      (allAddress, each) => {
-        return {
-          ...allAddress,
-          [each.address]: each,
-          [each.evmAddress]: each,
-        };
-      },
-      {},
-    );
+    try {
+      if (walletAddress === undefined) {
+        return {} as LabeledAddress;
+      }
+      return (Object.values(walletAddress) as LocalAddress[]).reduce(
+        (allAddress, each) => {
+          return {
+            ...allAddress,
+            [each.address]: each,
+            [each.evmAddress]: each,
+          };
+        },
+        {},
+      );
+    } catch (e) {
+      return {} as LabeledAddress;
+    }
   },
 );
 
