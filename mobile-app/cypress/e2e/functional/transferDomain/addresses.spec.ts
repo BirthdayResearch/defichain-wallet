@@ -21,11 +21,10 @@ context("Portfolio - Send - Address Book", () => {
   // Whitelisted addresses
   function populateAddressBook(hasExistingAddress?: boolean): void {
     cy.getByTestID("bottom_tab_portfolio").click();
-    cy.getByTestID("bottom_tab_portfolio").click();
     cy.getByTestID("header_settings").click();
     cy.getByTestID("address_book_title").click();
     cy.wrap(labels).each((_v, index: number) => {
-      cy.getByTestID("add_new_address").click();
+      cy.getByTestID("add_new_address").should("exist").click();
 
       if (hasExistingAddress) {
         // Reselect DVM address type
@@ -44,8 +43,8 @@ context("Portfolio - Send - Address Book", () => {
         .blur();
       cy.getByTestID("address_book_address_input_error").should("not.exist");
       cy.getByTestID("save_address_label").click().wait(1000);
-      cy.getByTestID("pin_authorize").type("000000").wait(2000);
-      cy.wait(1000);
+      cy.getByTestID("pin_authorize").type("000000").wait(4000);
+      cy.getByTestID("cancel_authorization").click();
     });
   }
 
@@ -84,6 +83,7 @@ context("Portfolio - Send - Address Book", () => {
 
   describe("Whitelisted and Your Addresses tab", () => {
     before(() => {
+      cy.setFeatureFlags(["evm"]).wait(1000);
       cy.createEmptyWallet(true);
       cy.sendDFItoWallet().sendDFITokentoWallet().wait(4000);
       topUpDfiInEvmDomain();
@@ -179,6 +179,7 @@ function verifyYourAddressItemEvm() {
 
 context("Portfolio", () => {
   before(() => {
+    cy.setFeatureFlags(["evm"]).wait(1000);
     cy.createEmptyWallet(true);
     cy.sendDFItoWallet().sendTokenToWallet(["BTC", "BTC-DFI"]).wait(4000);
     cy.getByTestID("bottom_tab_portfolio").click();
