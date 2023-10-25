@@ -283,26 +283,33 @@ export function AddressRow({
         {addressType !== undefined && (
           <>
             {/* Verified tag for unsaved but verified DVM/EVM address */}
-            {addressType === AddressType.OthersButValid && (
-              <>
-                <ThemedIcon
-                  light={tailwind("text-success-500")}
-                  dark={tailwind("text-darksuccess-500")}
-                  iconType="MaterialIcons"
-                  name="check-circle"
-                  size={16}
-                />
-                <ThemedTextV2
-                  style={tailwind("text-xs mx-1 font-normal-v2")}
-                  light={tailwind("text-mono-light-v2-500")}
-                  dark={tailwind("text-mono-dark-v2-500")}
-                >
-                  {translate("screens/SendScreen", "Verified {{text}}", {
-                    text: validEvmAddress ? "MetaChain (EVM) address" : "",
-                  })}
-                </ThemedTextV2>
-              </>
-            )}
+            {addressType === AddressType.OthersButValid &&
+              !(
+                domain === DomainType.EVM &&
+                getAddressType(address, networkName) ===
+                  JellyfishAddressType.ETH
+              ) && (
+                <>
+                  <ThemedIcon
+                    light={tailwind("text-success-500")}
+                    dark={tailwind("text-darksuccess-500")}
+                    iconType="MaterialIcons"
+                    name="check-circle"
+                    size={16}
+                  />
+                  <ThemedTextV2
+                    style={tailwind("text-xs mx-1 font-normal-v2")}
+                    light={tailwind("text-mono-light-v2-500")}
+                    dark={tailwind("text-mono-dark-v2-500")}
+                  >
+                    {translate("screens/SendScreen", "Verified {{text}}", {
+                      text: validEvmAddress
+                        ? "MetaChain (EVM) address"
+                        : "DVM address",
+                    })}
+                  </ThemedTextV2>
+                </>
+              )}
 
             {/* Whitelisted and Yours Addresses */}
             {addressType !== AddressType.OthersButValid &&
