@@ -36,8 +36,8 @@ export function useTokenBalance(): {
       available: new BigNumber(token.amount),
       token: {
         name: token.name,
-        displaySymbol: token.symbol,
-        displayTextSymbol: token.symbol,
+        displaySymbol: token.displaySymbol,
+        displayTextSymbol: token.displaySymbol,
         symbol: token.symbol,
         isLPS: token.isLPS,
         domainType: DomainType.EVM,
