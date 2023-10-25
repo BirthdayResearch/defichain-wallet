@@ -284,9 +284,11 @@ export function AddressRow({
           <>
             {/* Verified tag for unsaved but verified DVM/EVM address */}
             {addressType === AddressType.OthersButValid &&
-              domain === DomainType.EVM &&
-              getAddressType(address, networkName) !==
-                JellyfishAddressType.ETH && (
+              !(
+                domain === DomainType.EVM &&
+                getAddressType(address, networkName) ===
+                  JellyfishAddressType.ETH
+              ) && (
                 <>
                   <ThemedIcon
                     light={tailwind("text-success-500")}
