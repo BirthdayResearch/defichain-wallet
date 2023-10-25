@@ -73,7 +73,7 @@ import * as SplashScreen from "expo-splash-screen";
 import { useLogger } from "@shared-contexts/NativeLoggingProvider";
 import { bottomTabDefaultRoutes } from "@screens/AppNavigator/constants/DefaultRoutes";
 import { DomainType, useDomainContext } from "@contexts/DomainContext";
-// import { AddressSelectionButtonV2 } from "./components/AddressSelectionButtonV2";
+import { AddressSelectionButtonV2 } from "./components/AddressSelectionButtonV2";
 import { ActionButtons } from "./components/ActionButtons";
 import {
   BottomSheetAssetSortList,
@@ -637,8 +637,7 @@ export function PortfolioScreen({ navigation }: Props): JSX.Element {
           dark={tailwind("bg-mono-dark-v2-00")}
           style={tailwind("px-5 flex flex-row items-center")}
         >
-          {/* TODO(lyka): Add back */}
-          {/* <AddressSelectionButtonV2 onPress={() => expandModal(false)} /> */}
+          <AddressSelectionButtonV2 onPress={() => expandModal(false)} />
           <ThemedTouchableOpacityV2
             testID="toggle_balance"
             style={tailwind("ml-2")}
