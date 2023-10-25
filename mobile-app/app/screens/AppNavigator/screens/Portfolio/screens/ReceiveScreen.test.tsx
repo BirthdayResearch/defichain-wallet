@@ -7,7 +7,7 @@ import { wallet } from "@waveshq/walletkit-ui/dist/store";
 import { ReceiveScreen } from "./ReceiveScreen";
 
 jest.mock("@shared-contexts/WalletContext");
-
+jest.mock("@contexts/DomainContext");
 jest.mock("expo-clipboard", () => ({
   setStringAsync: jest.fn(),
 }));

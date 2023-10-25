@@ -27,6 +27,7 @@ import { useLogger } from "@shared-contexts/NativeLoggingProvider";
 import { useWhaleApiClient } from "@waveshq/walletkit-ui/dist/contexts";
 import { EnvironmentNetwork } from "@waveshq/walletkit-core";
 import { OCGProposalType } from "@screens/AppNavigator/screens/Portfolio/screens/OCG/OCGProposalsScreen";
+import { ConvertDirection } from "@screens/enum";
 
 export function DFIPDetailScreen(): JSX.Element {
   const logger = useLogger();
@@ -40,16 +41,16 @@ export function DFIPDetailScreen(): JSX.Element {
   const proposalFee = getDFIPFee(network);
 
   const DFIToken = useSelector((state: RootState) =>
-    DFITokenSelector(state.wallet)
+    DFITokenSelector(state.wallet),
   );
   const DFIUtxo = useSelector((state: RootState) =>
-    DFIUtxoSelector(state.wallet)
+    DFIUtxoSelector(state.wallet),
   );
   const hasPendingJob = useSelector((state: RootState) =>
-    hasTxQueued(state.transactionQueue)
+    hasTxQueued(state.transactionQueue),
   );
   const hasPendingBroadcastJob = useSelector((state: RootState) =>
-    hasOceanTXQueued(state.ocean)
+    hasOceanTXQueued(state.ocean),
   );
   const { isConversionRequired, conversionAmount } = useConversion({
     inputToken: {
@@ -108,7 +109,7 @@ export function DFIPDetailScreen(): JSX.Element {
     if (isConversionRequired) {
       queueConvertTransaction(
         {
-          mode: "accountToUtxos",
+          mode: ConvertDirection.accountToUtxos,
           amount: conversionAmount,
         },
         dispatch,
@@ -129,7 +130,7 @@ export function DFIPDetailScreen(): JSX.Element {
             params,
             merge: true,
           });
-        }
+        },
       );
     } else {
       navigation.navigate("OCGConfirmScreen", params);
@@ -157,7 +158,7 @@ export function DFIPDetailScreen(): JSX.Element {
                   "screens/OCGDetailScreen",
                   titleStatus.shouldShowError
                     ? "Title exceeds max character limit of 128."
-                    : "Make sure that the name added here is the same as from the one posted in GitHub or Reddit."
+                    : "Make sure that the name added here is the same as from the one posted in GitHub or Reddit.",
                 ),
                 style: tailwind("pl-5", {
                   "text-red-v2": titleStatus.shouldShowError,
@@ -184,7 +185,7 @@ export function DFIPDetailScreen(): JSX.Element {
         >
           {translate(
             "screens/OCGDetailScreen",
-            "Review full proposal details in the next screen"
+            "Review full proposal details in the next screen",
           )}
         </ThemedTextV2>
         <ButtonV2

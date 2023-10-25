@@ -169,7 +169,7 @@ exports[`feature flag screen should render FeatureFlagScreen 1`] = `
           ]
         }
       >
-        Light Wallet beta features are in the user acceptance testing phase. Using beta feature(s) is encouraged, but caution is advised when using your assets.
+        Light Wallet beta features are in final testing before their official release. Using beta features are encouraged, but caution is advised when using your assets.
       </Text>
     </View>
     <View

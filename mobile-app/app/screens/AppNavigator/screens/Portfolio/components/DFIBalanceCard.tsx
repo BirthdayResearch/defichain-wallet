@@ -16,8 +16,10 @@ import { useTokenPrice } from "@screens/AppNavigator/screens/Portfolio/hooks/Tok
 import { TextSkeletonLoaderV2 } from "@components/TextSkeletonLoaderV2";
 import BigNumber from "bignumber.js";
 import { translate } from "@translations";
+import { useDomainContext, DomainType } from "@contexts/DomainContext";
 import { TokenNameText } from "./TokenNameText";
 import { TokenAmountText } from "./TokenAmountText";
+import { useEvmTokenBalances } from "../hooks/EvmTokenBalances";
 
 interface DFIBalaceCardProps {
   denominationCurrency: string;
@@ -26,25 +28,37 @@ interface DFIBalaceCardProps {
 export function DFIBalanceCard({
   denominationCurrency,
 }: DFIBalaceCardProps): JSX.Element {
+  const { domain } = useDomainContext();
+  const { evmTokens } = useEvmTokenBalances();
+  const evmDFIToken = evmTokens.find(({ id }) => id === "0_evm");
   const navigation = useNavigation<NavigationProp<PortfolioParamList>>();
   const DFIToken = useSelector((state: RootState) =>
-    DFITokenSelector(state.wallet)
+    DFITokenSelector(state.wallet),
   );
   const DFIUtxo = useSelector((state: RootState) =>
-    DFIUtxoSelector(state.wallet)
+    DFIUtxoSelector(state.wallet),
   );
   const DFIUnified = useSelector((state: RootState) =>
-    unifiedDFISelector(state.wallet)
+    unifiedDFISelector(state.wallet),
   );
   const { hasFetchedToken } = useSelector((state: RootState) => state.wallet);
+  const { hasFetchedEvmTokens } = useSelector((state: RootState) => state.evm);
   const { getTokenPrice } = useTokenPrice(denominationCurrency); // input based on selected denomination from portfolio tab
+  const isEvmDomain = domain === DomainType.EVM;
+  const tokenAmount = isEvmDomain
+    ? new BigNumber(evmDFIToken?.amount ?? 0)
+    : new BigNumber(DFIUnified.amount ?? 0);
   const usdAmount = getTokenPrice(
     DFIUnified.symbol,
-    new BigNumber(DFIUnified.amount),
-    DFIUnified.isLPS
+    tokenAmount,
+    DFIUnified.isLPS,
   );
   const DFIIcon = getNativeIcon("_UTXO");
+  const EvmDFIIcon = getNativeIcon("EvmDFI");
 
+  const isPositiveBalance = isEvmDomain
+    ? new BigNumber(evmDFIToken?.amount ?? 0).gt(0)
+    : new BigNumber(DFIUtxo.amount ?? 0).plus(DFIToken.amount ?? 0).gt(0);
   return (
     <View style={tailwind("mx-5 mt-2 rounded-lg-v2")} testID="dfi_balance_card">
       <View style={tailwind("flex-col rounded-lg-v2 overflow-hidden")}>
@@ -55,20 +69,33 @@ export function DFIBalanceCard({
           onPress={() =>
             navigation.navigate({
               name: "TokenDetailScreen",
-              params: { token: DFIUnified, usdAmount },
+              params: {
+                token: {
+                  ...DFIUnified,
+                  amount: tokenAmount,
+                  usdAmount,
+                  ...(isEvmDomain && {
+                    name: `${DFIUnified.name} for EVM`,
+                    displaySymbol: "DFI",
+                    id: "0_evm",
+                  }),
+                },
+              },
               merge: true,
             })
           }
           activeOpacity={0.7}
-          disabled={
-            !new BigNumber(DFIUtxo.amount ?? 0).plus(DFIToken.amount ?? 0).gt(0)
-          }
+          disabled={!isPositiveBalance}
         >
           <View style={tailwind("w-7/12 flex-row items-center")}>
-            <DFIIcon width={36} height={36} />
+            {!isEvmDomain ? (
+              <DFIIcon width={36} height={36} />
+            ) : (
+              <EvmDFIIcon width={36} height={36} />
+            )}
             <TokenNameText
               displaySymbol="DFI"
-              name="DeFiChain"
+              name={isEvmDomain ? "DFI for EVM" : "DeFiChain"}
               testID="total_dfi_label"
             />
           </View>
@@ -77,9 +104,9 @@ export function DFIBalanceCard({
               "pt-0.5": Platform.OS === "android",
             })}
           >
-            {hasFetchedToken ? (
+            {hasFetchedToken || (isEvmDomain && hasFetchedEvmTokens) ? (
               <TokenAmountText
-                tokenAmount={DFIUnified.amount}
+                tokenAmount={tokenAmount.toString()}
                 usdAmount={usdAmount}
                 testID="dfi_total_balance"
                 denominationCurrency={denominationCurrency}
@@ -112,10 +139,7 @@ export function DFIBalanceCard({
             )}
           </View>
         </ThemedTouchableOpacityV2>
-        {hasFetchedToken &&
-          !new BigNumber(DFIUtxo.amount ?? 0)
-            .plus(DFIToken.amount ?? 0)
-            .gt(0) && <GetDFIBtn />}
+        {hasFetchedToken && !isPositiveBalance && !isEvmDomain && <GetDFIBtn />}
       </View>
     </View>
   );
@@ -148,7 +172,7 @@ function GetDFIBtn(): JSX.Element {
       >
         <Text
           style={tailwind(
-            "font-semibold-v2 text-sm my-1 text-center text-mono-light-v2-100"
+            "font-semibold-v2 text-sm my-1 text-center text-mono-light-v2-100",
           )}
         >
           {translate("screens/GetDFIScreen", "Get DFI now!")}

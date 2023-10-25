@@ -10,6 +10,7 @@ import { useSelector } from "react-redux";
 import { Platform, TouchableOpacity } from "react-native";
 import { useEffect, useState } from "react";
 import { TextSkeletonLoaderV2 } from "@components/TextSkeletonLoaderV2";
+import { useDomainContext, DomainType } from "@contexts/DomainContext";
 import {
   getPrecisedCurrencyValue,
   getPrecisedTokenValue,
@@ -43,22 +44,26 @@ interface PortfolioButtonGroup {
 
 export function TotalPortfolio(props: TotalPortfolioProps): JSX.Element {
   const { hasFetchedToken } = useSelector((state: RootState) => state.wallet);
+  const { domain } = useDomainContext();
+  const isEvmDomain = domain === DomainType.EVM;
   const { hasFetchedVaultsData } = useSelector(
-    (state: RootState) => state.loans
+    (state: RootState) => state.loans,
   );
   const [isExpanded, setIsExpanded] = useState<boolean>(false);
   const denominationCurrency = props.denominationCurrency; // for 'BTC' or 'DFI' denomination
-  const totalPortfolioValue = BigNumber.max(
-    0,
-    new BigNumber(props.totalAvailableValue)
-      .plus(props.totalLockedValue)
-      .minus(props.totalLoansValue)
-  );
+  const totalPortfolioValue = isEvmDomain
+    ? new BigNumber(props.totalAvailableValue)
+    : BigNumber.max(
+        0,
+        new BigNumber(props.totalAvailableValue)
+          .plus(props.totalLockedValue)
+          .minus(props.totalLoansValue),
+      );
   const [activeButtonGroup, setActiveButtonGroup] =
     useState<PortfolioButtonGroup>();
   const onCurrencySwitch = (): void => {
     const activeIndex = props.portfolioButtonGroup.findIndex(
-      (tab) => tab.id === props.denominationCurrency
+      (tab) => tab.id === props.denominationCurrency,
     );
     let nextIndex = activeIndex + 1;
     if (activeIndex === props.portfolioButtonGroup.length - 1) {
@@ -70,8 +75,8 @@ export function TotalPortfolio(props: TotalPortfolioProps): JSX.Element {
   useEffect(() => {
     setActiveButtonGroup(
       props.portfolioButtonGroup.find(
-        (button) => button.id === props.denominationCurrency
-      )
+        (button) => button.id === props.denominationCurrency,
+      ),
     );
   }, [props.denominationCurrency]);
 
@@ -101,7 +106,7 @@ export function TotalPortfolio(props: TotalPortfolioProps): JSX.Element {
                 <BalanceTextV2
                   style={[
                     tailwind(
-                      "font-semibold-v2 mr-2 flex flex-row items-center"
+                      "font-semibold-v2 mr-2 flex flex-row items-center",
                     ),
                     { fontSize: 28, lineHeight: 36 },
                   ]}
@@ -121,20 +126,22 @@ export function TotalPortfolio(props: TotalPortfolioProps): JSX.Element {
               }
             />
           </TouchableOpacity>
-          <TouchableOpacity
-            activeOpacity={0.7}
-            onPress={() => setIsExpanded(!isExpanded)}
-            style={tailwind("")}
-            testID="toggle_portfolio"
-          >
-            <ThemedIcon
-              light={tailwind("text-mono-light-v2-900")}
-              dark={tailwind("text-mono-dark-v2-900")}
-              iconType="Feather"
-              name={!isExpanded ? "chevron-down" : "chevron-up"}
-              size={30}
-            />
-          </TouchableOpacity>
+          {!isEvmDomain && (
+            <TouchableOpacity
+              activeOpacity={0.7}
+              onPress={() => setIsExpanded(!isExpanded)}
+              style={tailwind("")}
+              testID="toggle_portfolio"
+            >
+              <ThemedIcon
+                light={tailwind("text-mono-light-v2-900")}
+                dark={tailwind("text-mono-dark-v2-900")}
+                iconType="Feather"
+                name={!isExpanded ? "chevron-down" : "chevron-up"}
+                size={30}
+              />
+            </TouchableOpacity>
+          )}
         </View>
       ) : (
         <View style={tailwind("mt-1")}>
@@ -151,7 +158,7 @@ export function TotalPortfolio(props: TotalPortfolioProps): JSX.Element {
           />
         </View>
       )}
-      {isExpanded && (
+      {isExpanded && !isEvmDomain && (
         <ThemedViewV2
           style={tailwind("mt-5 border-t-0.5")}
           light={tailwind("border-mono-light-v2-300")}

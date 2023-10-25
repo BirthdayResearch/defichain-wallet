@@ -68,6 +68,12 @@ export function KnowledgeBaseScreen({ navigation }: Props): JSX.Element {
           },
         ]
       : []),
+    {
+      // TODO (Lyka): Check if we need to check for feature flag
+      label: "MetaChain (EVM)",
+      testID: "evm_feature_faq",
+      onPress: () => navigation.navigate("EvmFeatureFaq"),
+    },
   ];
 
   return (
@@ -113,7 +119,7 @@ function NavigateItemRow({
       onPress={onPress}
       style={tailwind(
         "flex ml-5 mr-4 py-4.5 flex-row items-center justify-between",
-        { "border-b": border }
+        { "border-b": border },
       )}
       testID={testID}
     >

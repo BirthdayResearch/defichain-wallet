@@ -48,6 +48,8 @@ exports[`DFI Action Buttons should match snapshot for Action Buttons component 1
           collapsable={false}
           focusable={true}
           onClick={[Function]}
+          onMouseEnter={[Function]}
+          onMouseLeave={[Function]}
           onResponderGrant={[Function]}
           onResponderMove={[Function]}
           onResponderRelease={[Function]}
@@ -185,6 +187,8 @@ exports[`DFI Action Buttons should match snapshot for Action Buttons component 1
           collapsable={false}
           focusable={true}
           onClick={[Function]}
+          onMouseEnter={[Function]}
+          onMouseLeave={[Function]}
           onResponderGrant={[Function]}
           onResponderMove={[Function]}
           onResponderRelease={[Function]}
@@ -268,6 +272,8 @@ exports[`DFI Action Buttons should match snapshot for Action Buttons component 1
           collapsable={false}
           focusable={true}
           onClick={[Function]}
+          onMouseEnter={[Function]}
+          onMouseLeave={[Function]}
           onResponderGrant={[Function]}
           onResponderMove={[Function]}
           onResponderRelease={[Function]}
@@ -351,6 +357,8 @@ exports[`DFI Action Buttons should match snapshot for Action Buttons component 1
           collapsable={false}
           focusable={true}
           onClick={[Function]}
+          onMouseEnter={[Function]}
+          onMouseLeave={[Function]}
           onResponderGrant={[Function]}
           onResponderMove={[Function]}
           onResponderRelease={[Function]}
@@ -434,6 +442,146 @@ exports[`DFI Action Buttons should match snapshot for Action Buttons component 1
           collapsable={false}
           focusable={true}
           onClick={[Function]}
+          onMouseEnter={[Function]}
+          onMouseLeave={[Function]}
+          onResponderGrant={[Function]}
+          onResponderMove={[Function]}
+          onResponderRelease={[Function]}
+          onResponderTerminate={[Function]}
+          onResponderTerminationRequest={[Function]}
+          onStartShouldSetResponder={[Function]}
+          style={
+            {
+              "alignItems": "center",
+              "backgroundColor": "rgba(255, 255, 255, 1)",
+              "borderBottomLeftRadius": 9999,
+              "borderBottomRightRadius": 9999,
+              "borderTopLeftRadius": 9999,
+              "borderTopRightRadius": 9999,
+              "height": 60,
+              "justifyContent": "center",
+              "marginLeft": 10,
+              "marginRight": 10,
+              "opacity": 1,
+              "width": 60,
+            }
+          }
+          testID="convert_button"
+        >
+          <RNSVGSvgView
+            align="xMidYMid"
+            bbHeight="25"
+            bbWidth="24"
+            color="rgba(18, 18, 18, 1)"
+            focusable={false}
+            height={25}
+            meetOrSlice={0}
+            minX={0}
+            minY={0}
+            style={
+              [
+                {
+                  "backgroundColor": "transparent",
+                  "borderWidth": 0,
+                },
+                {
+                  "flex": 0,
+                  "height": 25,
+                  "width": 24,
+                },
+              ]
+            }
+            tintColor="rgba(18, 18, 18, 1)"
+            vbHeight={24}
+            vbWidth={25}
+            width={24}
+          >
+            <RNSVGGroup>
+              <RNSVGPath
+                d="M6.55898 16.505L8.59829 14.4657L9.43627 15.2943L5.98287 18.7477L2.52945 15.2943L3.36742 14.4657L5.40673 16.505L5.42807 16.5264V16.4962V7.90383C5.42807 6.89817 5.78348 6.04014 6.49458 5.32901C7.20569 4.61792 8.06693 4.2625 9.07902 4.2625C10.0847 4.2625 10.9427 4.61791 11.6538 5.32901C12.3649 6.04014 12.7203 6.89817 12.7203 7.90383V15.0865C12.7203 15.8012 12.9652 16.4038 13.4548 16.8934C13.9444 17.3831 14.547 17.6279 15.2617 17.6279C15.9701 17.6279 16.5694 17.383 17.059 16.8934C17.5486 16.4038 17.7934 15.8012 17.7934 15.0865V6.51918V6.489L17.7721 6.51034L15.7328 8.54962L14.8948 7.72108L18.3482 4.26768L21.8016 7.72108L20.9637 8.54962L18.9244 6.51034L18.903 6.489V6.51918V15.0865C18.903 16.0986 18.5476 16.9598 17.8365 17.6709C17.1254 18.382 16.2673 18.7375 15.2617 18.7375C14.2496 18.7375 13.3884 18.382 12.6773 17.6709C11.9662 16.9598 11.6107 16.0986 11.6107 15.0865V7.90383C11.6107 7.19546 11.3659 6.5961 10.8763 6.10651C10.3867 5.61692 9.78736 5.37207 9.07902 5.37207C8.36428 5.37207 7.76169 5.6169 7.27208 6.10651C6.78249 6.5961 6.53764 7.19546 6.53764 7.90383V16.4962V16.5264L6.55898 16.505Z"
+                fill={
+                  {
+                    "payload": 4279374354,
+                    "type": 0,
+                  }
+                }
+                propList={
+                  [
+                    "fill",
+                    "stroke",
+                    "strokeWidth",
+                  ]
+                }
+                stroke={
+                  {
+                    "payload": 4279374354,
+                    "type": 0,
+                  }
+                }
+                strokeWidth="0.025"
+              />
+            </RNSVGGroup>
+          </RNSVGSvgView>
+        </View>
+        <Text
+          style={
+            [
+              {
+                "fontFamily": "RegularFont",
+                "fontSize": 16,
+                "fontWeight": "400",
+                "lineHeight": 24,
+              },
+              [
+                {
+                  "fontFamily": "SoraRegular",
+                  "fontSize": 12,
+                  "fontWeight": "400",
+                  "lineHeight": 16,
+                  "marginTop": 8,
+                  "textAlign": "center",
+                },
+                {
+                  "color": "rgba(18, 18, 18, 1)",
+                },
+              ],
+            ]
+          }
+        >
+          Convert
+        </Text>
+      </View>
+      <View
+        style={
+          {
+            "alignItems": "center",
+          }
+        }
+      >
+        <View
+          accessibilityState={
+            {
+              "busy": undefined,
+              "checked": undefined,
+              "disabled": undefined,
+              "expanded": undefined,
+              "selected": undefined,
+            }
+          }
+          accessibilityValue={
+            {
+              "max": undefined,
+              "min": undefined,
+              "now": undefined,
+              "text": undefined,
+            }
+          }
+          accessible={true}
+          collapsable={false}
+          focusable={true}
+          onClick={[Function]}
+          onMouseEnter={[Function]}
+          onMouseLeave={[Function]}
           onResponderGrant={[Function]}
           onResponderMove={[Function]}
           onResponderRelease={[Function]}

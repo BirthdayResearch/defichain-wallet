@@ -21,11 +21,13 @@ import { dSOL } from "./dSOL";
 import { dSUI } from "./dSUI";
 import { XCHF } from "./XCHF";
 import { dXCHF } from "./dXCHF";
+import { EvmDFI } from "./EvmDFI";
 
 const mapping: Record<string, (props: SvgProps) => JSX.Element> = {
   _UTXO: DFI,
   DFI: DFI,
   "DFI (UTXO)": DFI,
+  "DFI (EVM)": EvmDFI,
   "DFI (Token)": DFI,
   BTC: BTC,
   DOT: DOT,
@@ -43,6 +45,7 @@ const mapping: Record<string, (props: SvgProps) => JSX.Element> = {
   DUSD: dUSD,
   dEUROC: dEUROC,
   DFIlogo: DFIlogo,
+  EvmDFI: EvmDFI,
   dDOT: dDOT,
   dMATIC: dMATIC,
   dSOL: dSOL,
@@ -56,7 +59,7 @@ const mapping: Record<string, (props: SvgProps) => JSX.Element> = {
  * @return {(props: SvgProps) => JSX.Element}
  */
 export function getNativeIcon(
-  symbol: string
+  symbol: string,
 ): (props: SvgProps) => JSX.Element {
   const Icon = mapping[symbol];
   if (Icon === undefined) {

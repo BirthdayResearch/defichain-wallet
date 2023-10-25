@@ -54,6 +54,7 @@ import { queueConvertTransaction } from "@hooks/wallet/Conversion";
 import { NavigationProp, useNavigation } from "@react-navigation/native";
 import { BottomSheetTokenListHeader } from "@components/BottomSheetTokenListHeader";
 import { LoanVaultTokenAmount } from "@defichain/whale-api-client/dist/api/loan";
+import { ConvertDirection } from "@screens/enum";
 import { getActivePrice } from "../../Auctions/helpers/ActivePrice";
 import { ActiveUSDValueV2 } from "../VaultDetail/components/ActiveUSDValueV2";
 import { LoanParamList } from "../LoansNavigator";
@@ -96,17 +97,17 @@ export function AddOrRemoveCollateralScreen({ route }: Props): JSX.Element {
 
   const dispatch = useAppDispatch();
   const DFIUtxo = useSelector((state: RootState) =>
-    DFIUtxoSelector(state.wallet)
+    DFIUtxoSelector(state.wallet),
   );
   const DFIToken = useSelector((state: RootState) =>
-    DFITokenSelector(state.wallet)
+    DFITokenSelector(state.wallet),
   );
 
   const hasPendingJob = useSelector((state: RootState) =>
-    hasTxQueued(state.transactionQueue)
+    hasTxQueued(state.transactionQueue),
   );
   const hasPendingBroadcastJob = useSelector((state: RootState) =>
-    hasOceanTXQueued(state.ocean)
+    hasOceanTXQueued(state.ocean),
   );
 
   const navigation = useNavigation<NavigationProp<LoanParamList>>();
@@ -130,7 +131,7 @@ export function AddOrRemoveCollateralScreen({ route }: Props): JSX.Element {
     isAdd && selectedCollateralItem.token.id === "0"
       ? new BigNumber(collateralAmount).isGreaterThan(DFIToken.amount) &&
         new BigNumber(collateralAmount).isLessThanOrEqualTo(
-          selectedCollateralItem.available
+          selectedCollateralItem.available,
         )
       : false;
 
@@ -139,7 +140,7 @@ export function AddOrRemoveCollateralScreen({ route }: Props): JSX.Element {
     : collateralAmount;
   const collateralInputValue = getCollateralValue(
     new BigNumber(collateralInputAmount),
-    selectedCollateralItem
+    selectedCollateralItem,
   );
 
   // Vault collaterals value
@@ -149,26 +150,26 @@ export function AddOrRemoveCollateralScreen({ route }: Props): JSX.Element {
     ? new BigNumber(currentVaultCollateralValue).plus(collateralInputValue)
     : new BigNumber(currentVaultCollateralValue).minus(collateralInputValue);
   const totalVaultCollateralValueInUSD = new BigNumber(
-    getPrecisedTokenValue(totalVaultCollateralValue)
+    getPrecisedTokenValue(totalVaultCollateralValue),
   );
 
   // Collateral value for selected token
   const currentTokenBalance =
     vault?.collateralAmounts?.find(
-      (c) => c.id === selectedCollateralItem?.token.id
+      (c) => c.id === selectedCollateralItem?.token.id,
     )?.amount ?? "0";
   const totalTokenBalance = isAdd
     ? new BigNumber(currentTokenBalance)?.plus(collateralInputAmount)
     : BigNumber.max(
         0,
-        new BigNumber(currentTokenBalance)?.minus(collateralInputAmount)
+        new BigNumber(currentTokenBalance)?.minus(collateralInputAmount),
       );
   const tokenCollateralValue = getCollateralValue(
     totalTokenBalance,
-    selectedCollateralItem
+    selectedCollateralItem,
   );
   const totalTokenValueInUSD = new BigNumber(
-    getPrecisedTokenValue(tokenCollateralValue)
+    getPrecisedTokenValue(tokenCollateralValue),
   );
 
   const activePrice = new BigNumber(
@@ -177,8 +178,8 @@ export function AddOrRemoveCollateralScreen({ route }: Props): JSX.Element {
       selectedCollateralItem.activePrice,
       selectedCollateralItem.factor,
       "ACTIVE",
-      "COLLATERAL"
-    )
+      "COLLATERAL",
+    ),
   );
   const collateralVaultShare =
     getVaultShare(totalTokenBalance, activePrice, totalVaultCollateralValue) ??
@@ -197,7 +198,7 @@ export function AddOrRemoveCollateralScreen({ route }: Props): JSX.Element {
     totalVaultCollateralValue,
     new BigNumber(vault.loanValue),
     selectedCollateralItem.token.id,
-    totalTokenBalance
+    totalTokenBalance,
   );
 
   const getUpdatedCollateralAmounts = (): LoanVaultTokenAmount[] => {
@@ -211,11 +212,11 @@ export function AddOrRemoveCollateralScreen({ route }: Props): JSX.Element {
       activePrice: selectedCollateralItem.activePrice,
     };
     const collateralExists = vault.collateralAmounts.find(
-      (col) => col.id === selectedCollateralItem.token.id
+      (col) => col.id === selectedCollateralItem.token.id,
     );
     if (collateralExists) {
       const updatedCollateralAmounts = vault.collateralAmounts.map((col) =>
-        col.id === collateralAmountToUpdate.id ? collateralAmountToUpdate : col
+        col.id === collateralAmountToUpdate.id ? collateralAmountToUpdate : col,
       );
       return updatedCollateralAmounts;
     } else {
@@ -239,7 +240,7 @@ export function AddOrRemoveCollateralScreen({ route }: Props): JSX.Element {
 
   async function onPercentageChange(
     amount: string,
-    type: AmountButtonTypes
+    type: AmountButtonTypes,
   ): Promise<void> {
     setValue("collateralAmount", amount);
     await trigger("collateralAmount");
@@ -272,18 +273,18 @@ export function AddOrRemoveCollateralScreen({ route }: Props): JSX.Element {
       translate(
         "screens/AddOrRemoveCollateralScreen",
         isAdd ? toastOptionsOnAdd.message : toastOptionsOnRemove.message,
-        isAdd ? toastOptionsOnAdd.params : toastOptionsOnRemove.params
+        isAdd ? toastOptionsOnAdd.params : toastOptionsOnRemove.params,
       ),
       {
         type: "wallet_toast",
         placement: "top",
         duration: TOAST_DURATION,
-      }
+      },
     );
   }
 
   const onAddCollateral = async (
-    props: LoanParamList["ConfirmEditCollateralScreen"]
+    props: LoanParamList["ConfirmEditCollateralScreen"],
   ): Promise<void> => {
     const initialParams = {
       name: "ConfirmEditCollateralScreen",
@@ -295,7 +296,7 @@ export function AddOrRemoveCollateralScreen({ route }: Props): JSX.Element {
     };
     if (isConversionRequired) {
       const conversionAmount = new BigNumber(props.amount).minus(
-        DFIToken.amount
+        DFIToken.amount,
       );
       initialParams.params.conversion = {
         DFIUtxo,
@@ -305,14 +306,14 @@ export function AddOrRemoveCollateralScreen({ route }: Props): JSX.Element {
       } as any;
       queueConvertTransaction(
         {
-          mode: "utxosToAccount",
+          mode: ConvertDirection.utxosToAccount,
           amount: conversionAmount,
         },
         dispatch,
         () => {
           navigation.navigate(initialParams);
         },
-        logger
+        logger,
       );
     } else {
       navigation.navigate(initialParams);
@@ -320,7 +321,7 @@ export function AddOrRemoveCollateralScreen({ route }: Props): JSX.Element {
   };
 
   const onRemoveCollateral = async (
-    props: LoanParamList["ConfirmEditCollateralScreen"]
+    props: LoanParamList["ConfirmEditCollateralScreen"],
   ): Promise<void> => {
     navigation.navigate({
       name: "ConfirmEditCollateralScreen",
@@ -334,7 +335,7 @@ export function AddOrRemoveCollateralScreen({ route }: Props): JSX.Element {
 
   const handleEditCollateral = async (): Promise<void> => {
     const collateralItem = collateralTokens.find(
-      (col) => col.token.id === selectedCollateralItem.token.id
+      (col) => col.token.id === selectedCollateralItem.token.id,
     );
     if (vault === undefined || collateralItem === undefined) {
       return;
@@ -397,7 +398,7 @@ export function AddOrRemoveCollateralScreen({ route }: Props): JSX.Element {
           new BigNumber(vault.loanValue)
             .multipliedBy(vault.loanScheme.minColRatio)
             .dividedBy(100)
-            .dividedBy(2)
+            .dividedBy(2),
         );
       if (isDFILessThanHalfOfRequiredCollateral) {
         return {
@@ -433,7 +434,7 @@ export function AddOrRemoveCollateralScreen({ route }: Props): JSX.Element {
       style={tailwind("flex-col flex-1")}
       testID="add_remove_collateral_screen"
       contentContainerStyle={tailwind(
-        "flex-grow justify-between pt-8 px-5 pb-14"
+        "flex-grow justify-between pt-8 px-5 pb-14",
       )}
     >
       <View>
@@ -446,7 +447,7 @@ export function AddOrRemoveCollateralScreen({ route }: Props): JSX.Element {
         >
           {translate(
             "screens/AddOrRemoveCollateralScreen",
-            isAdd ? "I WANT TO ADD" : "I WANT TO REMOVE"
+            isAdd ? "I WANT TO ADD" : "I WANT TO REMOVE",
           )}
         </ThemedTextV2>
 
@@ -475,7 +476,7 @@ export function AddOrRemoveCollateralScreen({ route }: Props): JSX.Element {
         >
           <View
             style={tailwind(
-              "flex flex-row justify-between items-center mt-4 ml-5"
+              "flex flex-row justify-between items-center mt-4 ml-5",
             )}
           >
             <View style={tailwind("w-6/12 mr-2")}>
@@ -515,6 +516,7 @@ export function AddOrRemoveCollateralScreen({ route }: Props): JSX.Element {
 
             <TokenDropdownButton
               symbol={selectedCollateralItem.token.displaySymbol}
+              tokenId={selectedCollateralItem.token.id}
               testID="add_remove_collateral_quick_input"
               onPress={() => {
                 setBottomSheetScreen([
@@ -540,7 +542,7 @@ export function AddOrRemoveCollateralScreen({ route }: Props): JSX.Element {
                         <BottomSheetTokenListHeader
                           headerLabel={translate(
                             "screens/EditCollateralScreen",
-                            "Select Collateral"
+                            "Select Collateral",
                           )}
                           onCloseButtonPress={dismissModal}
                         />
@@ -577,7 +579,7 @@ export function AddOrRemoveCollateralScreen({ route }: Props): JSX.Element {
                     {
                       amount: selectedCollateralItem.available.toFixed(8),
                       symbol: selectedCollateralItem.token.displaySymbol,
-                    }
+                    },
                   )
                 : translate(
                     "screens/AddOrRemoveCollateralScreen",
@@ -585,7 +587,7 @@ export function AddOrRemoveCollateralScreen({ route }: Props): JSX.Element {
                     {
                       amount: currentTokenBalance,
                       symbol: selectedCollateralItem.token.displaySymbol,
-                    }
+                    },
                   )}
             </ThemedTextV2>
           )}
@@ -600,7 +602,7 @@ export function AddOrRemoveCollateralScreen({ route }: Props): JSX.Element {
           >
             {translate(
               "screens/AddOrRemoveCollateralScreen",
-              "A small amount of UTXO is reserved for fees"
+              "A small amount of UTXO is reserved for fees",
             )}
           </ThemedTextV2>
         )}
@@ -616,7 +618,7 @@ export function AddOrRemoveCollateralScreen({ route }: Props): JSX.Element {
             >
               {translate(
                 "screens/AddOrRemoveCollateralScreen",
-                "Insufficient Balance"
+                "Insufficient Balance",
               )}
             </ThemedTextV2>
           )}
@@ -631,7 +633,7 @@ export function AddOrRemoveCollateralScreen({ route }: Props): JSX.Element {
           >
             {translate(
               "screens/AddOrRemoveCollateralScreen",
-              removeCollateralError.message
+              removeCollateralError.message,
             )}
           </ThemedTextV2>
         )}
@@ -655,7 +657,7 @@ export function AddOrRemoveCollateralScreen({ route }: Props): JSX.Element {
             lhs={{
               value: translate(
                 "screens/AddOrRemoveCollateralScreen",
-                "Vault ID"
+                "Vault ID",
               ),
               testID: "add_remove_collateral_vault_id_label",
               themedProps: lhsThemedProps,
@@ -684,7 +686,7 @@ export function AddOrRemoveCollateralScreen({ route }: Props): JSX.Element {
             lhs={{
               value: translate(
                 "screens/AddOrRemoveCollateralScreen",
-                "Vault share"
+                "Vault share",
               ),
               testID: "add_remove_collateral_vault_share",
               themedProps: lhsThemedProps,
@@ -714,7 +716,7 @@ export function AddOrRemoveCollateralScreen({ route }: Props): JSX.Element {
             lhs={{
               value: translate(
                 "screens/AddOrRemoveCollateralScreen",
-                "Max loan amount"
+                "Max loan amount",
               ),
               testID: "add_remove_collateral_max_loan",
               themedProps: lhsThemedProps,
@@ -756,7 +758,7 @@ export function AddOrRemoveCollateralScreen({ route }: Props): JSX.Element {
               "screens/AddOrRemoveCollateralScreen",
               isConversionRequired
                 ? "By continuing, the required amount of DFI will be converted"
-                : "Review full details in the next screen"
+                : "Review full details in the next screen",
             )}
           </ThemedTextV2>
         )}
@@ -826,7 +828,7 @@ function TotalTokenCollateralRow(props: {
           >
             {translate(
               "screens/AddOrRemoveCollateralScreen",
-              "Total collateral"
+              "Total collateral",
             )}
           </ThemedTextV2>
         </View>

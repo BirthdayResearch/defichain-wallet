@@ -20,14 +20,14 @@ context("Wallet - Send Preview/Confirmation", () => {
       .invoke("text")
       .should((t) => expect(t).equal("1.23400000"));
     cy.getByTestID("wallet_address").should("exist");
-    cy.getByTestID("summary_to_value").should(
+    cy.getByTestID("address_input_footer").should(
       "have.text",
-      "bcrt1q8rfsfny80jx78cmk4rsa069e2ckp6rn83u6ut9"
+      "bcrt1q8rfsfny80jx78cmk4rsa069e2ckp6rn83u6ut9",
     );
 
     cy.getByTestID("transaction_fee_label").should(
       "have.text",
-      "Transaction fee"
+      "Transaction fee",
     );
     cy.getByTestID("transaction_fee_value").contains("DFI");
 
@@ -35,7 +35,7 @@ context("Wallet - Send Preview/Confirmation", () => {
     cy.getByTestID("text_amount").contains("1.23400000 dBTC");
     cy.getByTestID("text_amount_rhsUsdAmount").should(
       "have.text",
-      "$12,340.00"
+      "$12,340.00",
     );
     cy.getByTestID("button_confirm_send").should("not.have.attr", "disabled");
   });

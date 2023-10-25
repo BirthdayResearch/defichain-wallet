@@ -114,7 +114,8 @@
     "AVAILABLE ASSETS": "ASSET DISPONIBILI",
     "Asset value": "Valore degli asset",
     "Sort by": "Sort by",
-    "ASSETS": "ASSETS"
+    "ASSETS": "ASSETS",
+    "network": "rete"
   },
   "screens/GetDFIScreen": {
     "Get DFI": "Get DFI",
@@ -223,7 +224,8 @@
     "Address deleted!": "Address deleted!",
     "It may take a few seconds to delete": "It may take a few seconds to delete",
     "It may take a few seconds to update": "It may take a few seconds to update",
-    "It may take a few seconds to save": "It may take a few seconds to save"
+    "It may take a few seconds to save": "It may take a few seconds to save",
+    "ADDRESS TYPE": "ADDRESS TYPE"
   },
   "screens/ReceiveScreen": {
     "Receive": "Ricevi",
@@ -234,7 +236,7 @@
     "Copy": "Copia",
     "Share": "Condividi",
     "WALLET ADDRESS": "INDIRIZZO WALLET",
-    "Use QR or Wallet address to receive any tokens (DST) or DFI": "Use QR or Wallet address to receive any tokens (DST) or DFI",
+    "Scan QR code to receive any dTokens (eg. DUSD,dBTC..) or DFI": "扫描二维码以接收任何 dToken（例如 DUSD、dBTC..）或 DFI",
     "Get DFI": "Get DFI"
   },
   "components/toaster": {
@@ -283,7 +285,7 @@
     "You are sending": "Stai inviando",
     "TRANSACTION DETAILS": "DETTAGLI TRANSAZIONE",
     "Recipient address": "Indirizzo del destinatario",
-    "Network": "Network",
+    "Network": "Rete",
     "Amount": "Importo",
     "Estimated fee": "Commissione stimata",
     "Remaining balance": "Saldo rimanente",
@@ -337,6 +339,7 @@
     "Available {{unit}}": "Disponibile {{unit}}",
     "Resulting {{unit}}": "Risultato {{unit}}",
     "TO RECEIVE": "TO RECEIVE",
+    "TO CONVERT": "TO CONVERT",
     "tokens": "tokens"
   },
   "screens/ConvertConfirmScreen": {
@@ -356,11 +359,13 @@
     "CONFIRM TRANSACTION": "CONFERMA LA TRANSAZIONE",
     "You are converting to {{unit}}": "You are converting to {{unit}}",
     "Transaction fee": "Transaction fee",
+    "Resulting Tokens (EVM)": "Risultato Tokens (EVM)",
     "Resulting Tokens": "Risultato Tokens",
     "Resulting UTXO": "Risultato UTXO",
     "Convert {{amount}} DFI to {{target}}": "Conversione {{amount}} DFI in {{target}}",
     "Converting": "Conversione",
-    "Converted": "Converted"
+    "Converted": "Converted",
+    "Convert {{amount}} {{symbolA}} to {{symbolB}} tokens": "Convert {{amount}} {{symbolA}} to {{symbolB}} tokens"
   },
   "screens/SettingsNavigator": {
     "Settings": "Impostazioni"
@@ -433,7 +438,9 @@
     "Cancel transaction": "Cancel transaction",
     "By cancelling, you will lose any changes you made for your transaction.": "By cancelling, you will lose any changes you made for your transaction.",
     "View on Scan": "View on Scan",
-    "Go back": "Torna indietro"
+    "Go back": "Torna indietro",
+    "Service Providers": "Service Providers",
+    "Custom (3rd-party)": "Custom (3rd-party)"
   },
   "screens/AboutScreen": {
     "About": "Informazioni su",
@@ -553,6 +560,19 @@
     "Are there other ways to submit proposals?": "Are there other ways to submit proposals?",
     "If you own a full node wallet, you may also choose to submit using commands via CLI. Commands can be generated on DeFiScan, under Governance tab > Submit proposal.": "If you own a full node wallet, you may also choose to submit using commands via CLI. Commands can be generated on DeFiScan, under Governance tab > Submit proposal."
   },
+  "components/EvmFeatureFaq": {
+    "FREQUENTLY ASKED QUESTIONS": "DOMANDE FREQUENTI",
+    "About MetaChain (EVM)": "About MetaChain (EVM)",
+    "The MetaChain layer provides an EVM-compatible environment that allows developers familiar with Ethereum to build applications inside the DeFiChain ecosystem.": "The MetaChain layer provides an EVM-compatible environment that allows developers familiar with Ethereum to build applications inside the DeFiChain ecosystem.",
+    "What tokens are supported between DVM and EVM bidirectionally?": "What tokens are supported between DVM and EVM bidirectionally?",
+    "All dTokens are accepted. dTokens consist of:\ndStocks (dTSLA, dGOOG.) + DFI\n\nFor the full list, you may refer to https://defiscan.live/tokens on any tokens under DAT category.": "All dTokens are accepted. dTokens consist of:\ndStocks (dTSLA, dGOOG.) + DFI\n\nFor the full list, you may refer to https://defiscan.live/tokens on any tokens under DAT category.",
+    "How can I access the MetaChain layer from the Light Wallet?": "How can I access the MetaChain layer from the Light Wallet?",
+    "Move your dTokens between native DeFiChain's native layer (DVM) and the MetaChain layer (EVM) bidirectionally.\n\nFor instance, transfer DFI/DUSD/dBTC or any other dToken from DVM to EVM and back, all directly within the Light Wallet.": "Move your dTokens between native DeFiChain's native layer (DVM) and the MetaChain layer (EVM) bidirectionally.\n\nFor instance, transfer DFI/DUSD/dBTC or any other dToken from DVM to EVM and back, all directly within the Light Wallet.",
+    "Why would I need to move dTokens from DVM to EVM?": "Why would I need to move dTokens from DVM to EVM?",
+    "Using the gateway allows you to move your dTokens from the Light Wallet to any EVM compatible wallet on the MetaChain layer (ex: MetaMask). This would allow you to interact with the constantly growing EVM ecosystem on MetaChain and the various projects on it.": "Using the gateway allows you to move your dTokens from the Light Wallet to any EVM compatible wallet on the MetaChain layer (ex: MetaMask). This would allow you to interact with the constantly growing EVM ecosystem on MetaChain and the various projects on it.",
+    "How can I move dTokens from DVM to EVM?": "How can I move dTokens from DVM to EVM?",
+    "You can do it through either the \"Convert\" or \"Send\" functions on Light Wallet. The \"Convert\" option allows you to convert any dTokens on DVM to your own EVM address within the Light Wallet (and vice versa).\n\nYour seed phrase can also be used to import your Light Wallet EVM address into any external wallets which support a 24 words recovery phrase like MetaMask.\n\nThe \"Send\" option allows you to send dTokens from your DVM address to any EVM address on the MetaChain layer and vice versa. Note that you do not need to convert your dTokens before sending, this process does it automatically for you.": "You can do it through either the \"Convert\" or \"Send\" functions on Light Wallet. The \"Convert\" option allows you to convert any dTokens on DVM to your own EVM address within the Light Wallet (and vice versa).\n\nYour seed phrase can also be used to import your Light Wallet EVM address into any external wallets which support a 24 words recovery phrase like MetaMask.\n\nThe \"Send\" option allows you to send dTokens from your DVM address to any EVM address on the MetaChain layer and vice versa. Note that you do not need to convert your dTokens before sending, this process does it automatically for you."
+  },
   "screens/NetworkSelectionScreen": {
     "NETWORK": "RETE",
     "Select network": "Selezionare la rete",
@@ -624,6 +644,8 @@
     "Trade on the DEX and earn rewards from liquidity mining with crypto and dTokens.": "Scambia i token per ottenere rendimenti elevati e guadagna i premi di liquidity mining con i token decentralizzati.",
     "Decentralized loans": "Prestiti decentralizzati",
     "Access financial opportunities with dTokens minted through decentralized vaults.": "Conia e accedi a nuovi dToken utilizzando caveau sovra-collateralizzati.",
+    "EVM compatible": "EVM compatible",
+    "Seamless transfers between DeFiChain and MetaChain via generated EVM address.": "Seamless transfers between DeFiChain and MetaChain via generated EVM address.",
     "DeFiChain Wallet is fully non-custodial. Only you will have access to your fund.": "DeFiChain Wallet is fully non-custodial. Only you will have access to your fund."
   },
   "screens/CreateMnemonicWallet": {
@@ -659,7 +681,8 @@
     "Create wallet": "Create wallet",
     "You will be shown 24 recovery words on the next screen. Keep your 24-word recovery safe as it will allow you to recover access to the wallet.": "You will be shown 24 recovery words on the next screen. Keep your 24-word recovery safe as it will allow you to recover access to the wallet.",
     "Write the words on paper. Take note of their correct spelling and order.": "Write the words on paper. Take note of their correct spelling and order.",
-    "Secure them in a safe place. Store them offline at a place only you have access. Keep them private and do not share it with anyone.": "Secure them in a safe place. Store them offline at a place only you have access. Keep them private and do not share it with anyone."
+    "Secure them in a safe place. Store them offline at a place only you have access. Keep them private and do not share it with anyone.": "Secure them in a safe place. Store them offline at a place only you have access. Keep them private and do not share it with anyone.",
+    "A mapped EVM address will be generated to ensure seamless transfers between DeFiChain and MetaChain.": "A mapped EVM address will be generated to ensure seamless transfers between DeFiChain and MetaChain."
   },
   "screens/GuidelinesRecoveryWords": {
     "What are recovery words?": "Cosa sono le parole di recupero (Seed Phrase)?",
@@ -753,7 +776,9 @@
     "Display payback DUSD loan with DUSD collateral": "Display payback DUSD loan with DUSD collateral",
     "CFP/DFIP proposal(s)": "CFP/DFIP proposal(s)",
     "Allows the submission of CFP/DFIP proposals": "Allows the submission of CFP/DFIP proposals",
-    "Upon activation, you will be able to submit CFP/DFIP proposals directly using your active mobile Light Wallet account. Do you want to continue?": "Upon activation, you will be able to submit CFP/DFIP proposals directly using your active mobile Light Wallet account. Do you want to continue?"
+    "Upon activation, you will be able to submit CFP/DFIP proposals directly using your active mobile Light Wallet account. Do you want to continue?": "Upon activation, you will be able to submit CFP/DFIP proposals directly using your active mobile Light Wallet account. Do you want to continue?",
+    "Light Wallet beta features are in final testing before their official release. Using beta features are encouraged, but caution is advised when using your assets.": "Light Wallet beta features are in final testing before their official release. Using beta features are encouraged, but caution is advised when using your assets.",
+    "Allows to customize the service providers for both DVM and EVM. Proceed with caution.": "Allows to customize the service providers for both DVM and EVM. Proceed with caution."
   },
   "BottomTabNavigator": {
     "Balances": "Saldi",
@@ -846,7 +871,9 @@
     "Borrowing {{amount}} {{symbol}} with vault {{vaultId}}": "Borrowing {{amount}} {{symbol}} with vault {{vaultId}}",
     "Borrowed {{amount}} {{symbol}}": "Borrowed {{amount}} {{symbol}}",
     "Requested amount is higher than available amount.": "Requested amount is higher than available amount.",
-    "tokens": "tokens"
+    "tokens": "tokens",
+    "Converting {{amount}} {{symbolA}} to {{symbolB}} tokens": "Converting {{amount}} {{symbolA}} to {{symbolB}} tokens",
+    "{{amount}} {{symbolA}} converted to {{symbolB}} tokens": "{{amount}} {{symbolA}} converted to {{symbolB}} tokens"
   },
   "components/BarCodeScanner": {
     "Requesting for camera permission": "Richiesta di accesso alla fotocamera",
@@ -2165,6 +2192,7 @@
     "Adding malicious service providers may result in irrecoverable funds. Please proceed at your own risk.": "Adding malicious service providers may result in irrecoverable funds. Please proceed at your own risk.",
     "Only add URLs that are fully trusted and secured. Adding malicious service providers may result in irrecoverable funds. Changes do not take effect until you manually restart the app.": "Only add URLs that are fully trusted and secured. Adding malicious service providers may result in irrecoverable funds. Changes do not take effect until you manually restart the app.",
     "Adding custom service provider": "Adding custom service provider",
+    "Adding custom service providers": "Adding custom service providers",
     "In doing so, you will be reverted back to Light wallet's default endpoint. Would you like to continue?": "In doing so, you will be reverted back to Light wallet's default endpoint. Would you like to continue?",
     "Enter passcode to continue": "Inserisci il codice di accesso per continuare",
     "Invalid URL": "Invalid URL",
@@ -2175,7 +2203,17 @@
     "Reset Service Provider": "Reset Service Provider",
     "Go back": "Go back",
     "GO BACK": "GO BACK",
-    "Reset": "Reset"
+    "Reset": "Reset",
+    "Save changes": "Salva modifiche",
+    "Custom Service Provider": "Custom Service Provider",
+    "Reset providers": "Reset providers",
+    "ENDPOINT URL (DVM)": "ENDPOINT URL (DVM)",
+    "Used to get balance from Native DFC (MainNet and TestNet)": "Used to get balance from Native DFC (MainNet and TestNet)",
+    "ENDPOINT URL (EVM)": "ENDPOINT URL (EVM)",
+    "Used to get balance from EVM (MainNet and TestNet)": "Used to get balance from EVM (MainNet and TestNet)",
+    "ENDPOINT URL (ETH-RPC)": "ENDPOINT URL (ETH-RPC)",
+    "Used to get Nonce and Chain ID": "Used to get Nonce and Chain ID",
+    "Only add URLs that are fully trusted and secured. Adding malicious service providers may result in irrecoverable funds. Proceed at your own risk.": "Only add URLs that are fully trusted and secured. Adding malicious service providers may result in irrecoverable funds. Proceed at your own risk."
   },
   "components/QuickBid": {
     "QUICK BID": "OFFERTA RAPIDA",
@@ -2222,7 +2260,9 @@
     "Swap": "Scambia",
     "Transactions": "Transazioni",
     "Future swap": "Future swap",
-    "Get DFI": "Get DFI"
+    "Get DFI": "Get DFI",
+    "Convert": "Converti",
+    "Governance": "Governance"
   },
   "screens/PoolPairDetailsScreen": {
     "{{poolPair}} Pool": "{{poolPair}} Pool",
@@ -2252,6 +2292,10 @@
     "Select Token": "Select Token",
     "Search with token name": "Search with token name",
     "Search results for “{{searchTerm}}”": "Search results for “{{searchTerm}}”"
+  },
+  "components/ConversionDetailsRow": {
+    "Resulting UTXO": "Risultato UTXO",
+    "Resulting Tokens": "Risultato Tokens"
   },
   "screens/OCGProposalsScreen": {
     "Governance": "Governance",

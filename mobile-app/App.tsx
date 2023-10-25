@@ -4,6 +4,7 @@ import {
   SecuredStoreAPI,
   LanguagePersistence,
   ThemePersistence,
+  DomainPersistence,
   Logging,
 } from "@api";
 import { AppStateContextProvider } from "@contexts/AppStateContext";
@@ -28,6 +29,7 @@ import {
   LanguageProvider,
   useLanguage,
 } from "@shared-contexts/LanguageProvider";
+import { DomainProvider } from "@contexts/DomainContext";
 import * as Localization from "expo-localization";
 import { useColorScheme } from "react-native";
 import { WalletPersistence } from "@api/wallet";
@@ -45,6 +47,8 @@ import { WalletToast } from "@components/WalletToast";
 import { ServiceProviderPersistence } from "@api/wallet/service_provider";
 import { FavouritePoolpairProvider } from "@contexts/FavouritePoolpairContext";
 import BigNumber from "bignumber.js";
+import { EVMProvider } from "@contexts/EVMProvider";
+import { CustomServiceProvider } from "@contexts/CustomServiceProvider";
 
 /**
  * Loads
@@ -110,19 +114,30 @@ export default function App(): JSX.Element | null {
                                 api={LanguagePersistence}
                                 locale={Localization.locale}
                               >
-                                <DisplayBalancesProvider>
-                                  <ConnectionBoundary>
-                                    <GestureHandlerRootView
-                                      style={tailwind("flex-1")}
-                                    >
-                                      <ToastProvider renderType={customToast}>
-                                        <FavouritePoolpairProvider>
-                                          <Main />
-                                        </FavouritePoolpairProvider>
-                                      </ToastProvider>
-                                    </GestureHandlerRootView>
-                                  </ConnectionBoundary>
-                                </DisplayBalancesProvider>
+                                <DomainProvider api={DomainPersistence}>
+                                  <CustomServiceProvider
+                                    api={ServiceProviderPersistence}
+                                    logger={Logging}
+                                  >
+                                    <DisplayBalancesProvider>
+                                      <ConnectionBoundary>
+                                        <GestureHandlerRootView
+                                          style={tailwind("flex-1")}
+                                        >
+                                          <ToastProvider
+                                            renderType={customToast}
+                                          >
+                                            <FavouritePoolpairProvider>
+                                              <EVMProvider logger={Logging}>
+                                                <Main />
+                                              </EVMProvider>
+                                            </FavouritePoolpairProvider>
+                                          </ToastProvider>
+                                        </GestureHandlerRootView>
+                                      </ConnectionBoundary>
+                                    </DisplayBalancesProvider>
+                                  </CustomServiceProvider>
+                                </DomainProvider>
                               </LanguageProvider>
                             </ThemeProvider>
                           </FeatureFlagProvider>
