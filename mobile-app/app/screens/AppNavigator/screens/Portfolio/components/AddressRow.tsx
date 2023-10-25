@@ -301,7 +301,9 @@ export function AddressRow({
                     dark={tailwind("text-mono-dark-v2-500")}
                   >
                     {translate("screens/SendScreen", "Verified {{text}}", {
-                      text: validEvmAddress ? "MetaChain (EVM) address" : "",
+                      text: validEvmAddress
+                        ? "MetaChain (EVM) address"
+                        : "DVM address",
                     })}
                   </ThemedTextV2>
                 </>
