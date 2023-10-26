@@ -1906,7 +1906,7 @@
     "Amount entered will result in vault liquidation": "Amount entered will result in vault liquidation",
     "Amount entered may liquidate the vault. Proceed at your own risk.": "Amount entered may liquidate the vault. Proceed at your own risk.",
     "Insufficient DFI and/or DUSD in vault. Add more to start minting dTokens.": "Insufficient DFI and/or DUSD in vault. Add more to start minting dTokens.",
-    "Insufficient DFI in vault. Add more to borrow DUSD.": "Insufficient DFI in vault. Add more to borrow DUSD.",
+    "Insufficient DFI or not only DUSD in vault. Add more to borrow DUSD.": "Insufficient DFI or not only DUSD in vault. Add more to borrow DUSD.",
     "Review full details in the next screen": "在下一个屏幕中查看完整详细信息",
     "Max loan amount entered": "已输入最高贷款金额",
     "{{percent}} of max loan amount entered": "已输入最高贷款金额的 {{percent}}%",

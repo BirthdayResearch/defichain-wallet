@@ -8,7 +8,7 @@ import BigNumber from "bignumber.js";
 import { useSelector } from "react-redux";
 import { getActivePrice } from "../../Auctions/helpers/ActivePrice";
 
-interface useDFIRequirementForDusdLoanAndCollateralProps {
+interface useRequirementForDusdLoanProps {
   collateralAmounts: LoanVaultTokenAmount[];
   loanAmounts: LoanVaultTokenAmount[];
   collateralValue: BigNumber;
@@ -18,44 +18,48 @@ interface useDFIRequirementForDusdLoanAndCollateralProps {
 }
 
 /**
- * To check if current vault has at least 50% of DFI as total collateral when taking DUSD loan
+ * To check if current vault has at least 50% of DFI or 100% of DUSD as total collateral when taking DUSD loan
  *
- * Modified formula from [DeFiCh/ain] to include new loan amount to be taken during `Borrow` flow
- *
- * Source: https://github.com/DeFiCh/ain/blob/a2a8ee7c12649319456b247b52164cba0727f7db/src/masternodes/mn_checks.cpp#L3003
+ * Source: https://github.com/DeFiCh/ain/blob/07ba855f73c7fdfb0b2f10fc3b31fe73c17b1630/src/dfi/consensus/txvisitor.cpp#L270
  *
  * @returns
  */
-export function useDFIRequirementForDusdLoanAndCollateral(
-  props: useDFIRequirementForDusdLoanAndCollateralProps
+export function useRequirementForDusdLoan(
+  props: useRequirementForDusdLoanProps,
 ) {
   const collateralTokens: CollateralToken[] = useSelector(
-    (state: RootState) => state.loans.collateralTokens
+    (state: RootState) => state.loans.collateralTokens,
   );
   const isTakingDUSDLoan = props.loanToken.token.displaySymbol === "DUSD";
 
   const dfiCollateralToken = collateralTokens.find(
-    (col) => col.token.displaySymbol === "DFI"
+    (col) => col.token.displaySymbol === "DFI",
   );
   const dfiActivePrice = getActivePrice(
     "DFI",
     dfiCollateralToken?.activePrice,
     dfiCollateralToken?.factor,
     "ACTIVE",
-    "COLLATERAL"
+    "COLLATERAL",
   );
   const dfiCollateralValue = new BigNumber(dfiActivePrice).multipliedBy(
     props.collateralAmounts.find((col) => col.displaySymbol === "DFI")
-      ?.amount ?? 0
+      ?.amount ?? 0,
   );
   const isDFILessThanHalfOfRequiredCollateral = dfiCollateralValue.isLessThan(
     new BigNumber(props.loanValue)
       .multipliedBy(props.minColRatio)
       .dividedBy(100)
-      .dividedBy(2)
+      .dividedBy(2),
   );
+  const hasOtherCollateralTokensThanDUSD =
+    props.collateralAmounts.length > 1 ||
+    props.collateralAmounts.find((col) => col.displaySymbol === "DUSD") ===
+      undefined;
   return {
-    isDFILessThanHalfOfRequiredCollateral:
-      isTakingDUSDLoan && isDFILessThanHalfOfRequiredCollateral,
+    isNotFulfillingRequiredCollateral:
+      isTakingDUSDLoan &&
+      isDFILessThanHalfOfRequiredCollateral &&
+      hasOtherCollateralTokensThanDUSD,
   };
 }
