@@ -25,34 +25,35 @@ interface useDFIRequirementForDusdLoanAndCollateralProps {
  * Source: https://github.com/DeFiCh/ain/blob/a2a8ee7c12649319456b247b52164cba0727f7db/src/masternodes/mn_checks.cpp#L3003
  *
  * @returns
+ * @deprecated DUSD loops in vaults is now allowed - https://github.com/DeFiCh/ain/pull/1971
  */
 export function useDFIRequirementForDusdLoanAndCollateral(
-  props: useDFIRequirementForDusdLoanAndCollateralProps
+  props: useDFIRequirementForDusdLoanAndCollateralProps,
 ) {
   const collateralTokens: CollateralToken[] = useSelector(
-    (state: RootState) => state.loans.collateralTokens
+    (state: RootState) => state.loans.collateralTokens,
   );
   const isTakingDUSDLoan = props.loanToken.token.displaySymbol === "DUSD";
 
   const dfiCollateralToken = collateralTokens.find(
-    (col) => col.token.displaySymbol === "DFI"
+    (col) => col.token.displaySymbol === "DFI",
   );
   const dfiActivePrice = getActivePrice(
     "DFI",
     dfiCollateralToken?.activePrice,
     dfiCollateralToken?.factor,
     "ACTIVE",
-    "COLLATERAL"
+    "COLLATERAL",
   );
   const dfiCollateralValue = new BigNumber(dfiActivePrice).multipliedBy(
     props.collateralAmounts.find((col) => col.displaySymbol === "DFI")
-      ?.amount ?? 0
+      ?.amount ?? 0,
   );
   const isDFILessThanHalfOfRequiredCollateral = dfiCollateralValue.isLessThan(
     new BigNumber(props.loanValue)
       .multipliedBy(props.minColRatio)
       .dividedBy(100)
-      .dividedBy(2)
+      .dividedBy(2),
   );
   return {
     isDFILessThanHalfOfRequiredCollateral:

@@ -387,25 +387,6 @@ export function AddOrRemoveCollateralScreen({ route }: Props): JSX.Element {
         testID: "zero_required_token_share_error",
         message: removeCollateralErrors.ZeroRequiredTokenShare,
       };
-    } else if (
-      hasLoan &&
-      selectedCollateralItem.token.displaySymbol === "DFI" &&
-      vault.loanAmounts.some((loan) => loan.displaySymbol === "DUSD") &&
-      vault.collateralAmounts.some((col) => col.displaySymbol === "DUSD")
-    ) {
-      const isDFILessThanHalfOfRequiredCollateral =
-        tokenCollateralValue.isLessThan(
-          new BigNumber(vault.loanValue)
-            .multipliedBy(vault.loanScheme.minColRatio)
-            .dividedBy(100)
-            .dividedBy(2),
-        );
-      if (isDFILessThanHalfOfRequiredCollateral) {
-        return {
-          testID: "dusd_affected_vault_error",
-          message: removeCollateralErrors.DusdAffectVault,
-        };
-      }
     }
   };
 
