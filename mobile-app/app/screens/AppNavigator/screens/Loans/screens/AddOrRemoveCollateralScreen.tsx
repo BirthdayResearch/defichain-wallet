@@ -77,7 +77,7 @@ export interface AddOrRemoveCollateralResponse {
   token: TokenData;
 }
 
-interface RemoveCollateralError {
+interface AddOrRemoveCollateralError {
   testID: string;
   message: string;
 }
@@ -361,35 +361,80 @@ export function AddOrRemoveCollateralScreen({ route }: Props): JSX.Element {
     }
   };
 
-  const removeCollateralErrors = {
+  const addOrRemoveCollateralErrors = {
     HigherThanAvailableCollateral: "Amount entered is higher than collateral",
     BelowMinCollateralRatio: "Vault does not meet min. collateral ratio",
     ZeroRequiredTokenShare:
       "Insufficient DFI and/or DUSD in vault to maintain active loans",
-    DusdAffectVault: "Active DUSD loans require 50% DFI collaterals",
+    DusdAffectVault: "Active DUSD loans require 50% DFI or 100% DUSD",
+    InsufficientBalance: "Insufficient Balance",
   };
 
+  const isDFILessThanHalfOfRequiredCollateral = tokenCollateralValue.isLessThan(
+    new BigNumber(vault.loanValue)
+      .multipliedBy(vault.loanScheme.minColRatio)
+      .dividedBy(100)
+      .dividedBy(2),
+  );
+  const getAddCollateralErrorMessage = ():
+    | AddOrRemoveCollateralError
+    | undefined => {
+    if (formState.errors.collateralAmount?.type === "hasSufficientFunds") {
+      return {
+        testID: "add_collateral_insufficient_balance",
+        message: addOrRemoveCollateralErrors.InsufficientBalance,
+      };
+    } else if (
+      hasLoan &&
+      vault.loanAmounts.some((loan) => loan.displaySymbol === "DUSD") &&
+      vault.collateralAmounts.every((col) => col.displaySymbol === "DUSD")
+    ) {
+      if (
+        !["DFI", "DUSD"].includes(selectedCollateralItem.token.displaySymbol) ||
+        (selectedCollateralItem.token.displaySymbol === "DFI" &&
+          isDFILessThanHalfOfRequiredCollateral)
+      ) {
+        return {
+          testID: "full_dusd_col_affected_vault_error",
+          message: addOrRemoveCollateralErrors.DusdAffectVault,
+        };
+      }
+    }
+  };
   const getRemoveCollateralErrorMessage = ():
-    | RemoveCollateralError
+    | AddOrRemoveCollateralError
     | undefined => {
     if (formState.errors.collateralAmount?.type === "hasSufficientFunds") {
       return {
         testID: "exceeds_max_collateral_error",
-        message: removeCollateralErrors.HigherThanAvailableCollateral,
+        message: addOrRemoveCollateralErrors.HigherThanAvailableCollateral,
       };
     } else if (hasLoan && resultingColRatio.lt(vault.loanScheme.minColRatio)) {
       return {
         testID: "below_min_collateral_ratio_error",
-        message: removeCollateralErrors.BelowMinCollateralRatio,
+        message: addOrRemoveCollateralErrors.BelowMinCollateralRatio,
       };
     } else if (hasLoan && requiredTokensShare.isZero()) {
       return {
         testID: "zero_required_token_share_error",
-        message: removeCollateralErrors.ZeroRequiredTokenShare,
+        message: addOrRemoveCollateralErrors.ZeroRequiredTokenShare,
       };
+    } else if (
+      hasLoan &&
+      selectedCollateralItem.token.displaySymbol === "DFI" &&
+      vault.loanAmounts.some((loan) => loan.displaySymbol === "DUSD") &&
+      vault.collateralAmounts.some((col) => col.displaySymbol === "DUSD")
+    ) {
+      if (isDFILessThanHalfOfRequiredCollateral) {
+        return {
+          testID: "dusd_affected_vault_error",
+          message: addOrRemoveCollateralErrors.DusdAffectVault,
+        };
+      }
     }
   };
 
+  const addCollateralError = isAdd ? getAddCollateralErrorMessage() : undefined;
   const removeCollateralError = !isAdd
     ? getRemoveCollateralErrorMessage()
     : undefined;
@@ -407,6 +452,7 @@ export function AddOrRemoveCollateralScreen({ route }: Props): JSX.Element {
     !formState.isValid ||
     hasPendingJob ||
     hasPendingBroadcastJob ||
+    !!addCollateralError ||
     !!removeCollateralError;
 
   return (
@@ -546,6 +592,7 @@ export function AddOrRemoveCollateralScreen({ route }: Props): JSX.Element {
         {(Object.keys(formState.errors).length <= 0 ||
           formState.errors.collateralAmount?.type === "required") &&
           !isConversionRequired &&
+          !addCollateralError &&
           !removeCollateralError && (
             <ThemedTextV2
               light={tailwind("text-mono-light-v2-500")}
@@ -588,21 +635,20 @@ export function AddOrRemoveCollateralScreen({ route }: Props): JSX.Element {
           </ThemedTextV2>
         )}
 
-        {/* Add Collateral - Insufficient balance error */}
-        {isAdd &&
-          formState.errors.collateralAmount?.type === "hasSufficientFunds" && (
-            <ThemedTextV2
-              light={tailwind("text-red-v2")}
-              dark={tailwind("text-red-v2")}
-              style={tailwind("text-xs pt-2 mx-5 font-normal-v2")}
-              testID="add_remove_collateral_insufficient_balance"
-            >
-              {translate(
-                "screens/AddOrRemoveCollateralScreen",
-                "Insufficient Balance",
-              )}
-            </ThemedTextV2>
-          )}
+        {/* Add Collateral - Error */}
+        {addCollateralError && (
+          <ThemedTextV2
+            light={tailwind("text-red-v2")}
+            dark={tailwind("text-red-v2")}
+            style={tailwind("text-xs pt-2 mx-5 font-normal-v2")}
+            testID={addCollateralError?.testID}
+          >
+            {translate(
+              "screens/AddOrRemoveCollateralScreen",
+              addCollateralError?.message,
+            )}
+          </ThemedTextV2>
+        )}
 
         {/* Remove Collateral - Error */}
         {removeCollateralError && (
