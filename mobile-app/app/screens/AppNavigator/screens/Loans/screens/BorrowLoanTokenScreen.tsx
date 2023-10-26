@@ -306,7 +306,8 @@ export function BorrowLoanTokenScreen({
       setInputValidationMessage(undefined); // this error message is moved to below quick input
     } else if (isTakingDUSDLoan && !isDUSDLoanAllowed) {
       setInputValidationMessage({
-        message: "Insufficient DFI in vault. Add more to borrow DUSD.",
+        message:
+          "Insufficient DFI or not only DUSD in vault. Add more to borrow DUSD.",
         type: ValidationMessageType.Error,
       });
     } else if (
