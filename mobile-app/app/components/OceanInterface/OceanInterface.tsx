@@ -1,6 +1,12 @@
-import { useDeFiScanContext } from "@shared-contexts/DeFiScanContext";
+import {
+  getMetaScanTxUrl,
+  useDeFiScanContext,
+} from "@shared-contexts/DeFiScanContext";
 import { useWalletContext } from "@shared-contexts/WalletContext";
-import { useWhaleApiClient } from "@waveshq/walletkit-ui/dist/contexts";
+import {
+  useNetworkContext,
+  useWhaleApiClient,
+} from "@waveshq/walletkit-ui/dist/contexts";
 import { CTransactionSegWit } from "@defichain/jellyfish-transaction/dist";
 import { WhaleApiClient } from "@defichain/whale-api-client";
 import { Transaction } from "@defichain/whale-api-client/dist/api/transactions";
@@ -30,11 +36,27 @@ const MAX_AUTO_RETRY = 1;
 const MAX_TIMEOUT = 300000;
 const INTERVAL_TIME = 5000;
 
+enum VmmapTypes {
+  Auto = 0,
+  BlockNumberDVMToEVM = 1,
+  BlockNumberEVMToDVM = 2,
+  BlockHashDVMToEVM = 3,
+  BlockHashEVMToDVM = 4,
+  TxHashDVMToEVM = 5,
+  TxHasEVMToDVM = 6,
+}
+
+interface VmmapResult {
+  input: string;
+  type: string;
+  output: string;
+}
+
 async function broadcastTransaction(
   tx: CTransactionSegWit,
   client: WhaleApiClient,
   retries: number = 0,
-  logger: NativeLoggingProps
+  logger: NativeLoggingProps,
 ): Promise<string> {
   try {
     return await client.rawtx.send({ hex: tx.toHex() });
@@ -50,7 +72,7 @@ async function broadcastTransaction(
 async function waitForTxConfirmation(
   id: string,
   client: WhaleApiClient,
-  logger: NativeLoggingProps
+  logger: NativeLoggingProps,
 ): Promise<Transaction> {
   const initialTime = getEnvironment(getReleaseChannel()).debug ? 5000 : 30000;
   let start = initialTime;
@@ -96,23 +118,64 @@ export function OceanInterface(): JSX.Element | null {
   const client = useWhaleApiClient();
   const { wallet, address } = useWalletContext();
   const { getTransactionUrl } = useDeFiScanContext();
+  const { network } = useNetworkContext();
 
   // store
   const { height, err: e } = useSelector((state: RootState) => state.ocean);
   const transaction = useSelector((state: RootState) =>
-    firstTransactionSelector(state.ocean)
+    firstTransactionSelector(state.ocean),
   );
   const slideAnim = useRef(new Animated.Value(0)).current;
   // state
   const [tx, setTx] = useState<OceanTransaction | undefined>(transaction);
   const [err, setError] = useState<string | undefined>(e?.message);
   const [txUrl, setTxUrl] = useState<string | undefined>();
+  // evm tx state
+  const [evmTxId, setEvmTxId] = useState<string>();
+  const [evmTxUrl, setEvmTxUrl] = useState<string>();
 
   const dismissDrawer = useCallback(() => {
     setTx(undefined);
     setError(undefined);
     slideAnim.setValue(0);
   }, [slideAnim]);
+
+  const getEvmTxId = async (oceanTxId: string) => {
+    try {
+      const vmmap: VmmapResult = await client.rpc.call(
+        "vmmap",
+        [oceanTxId, VmmapTypes.TxHashDVMToEVM],
+        "lossless",
+      );
+      const mappedEvmTxId = vmmap.output;
+      const txUrl = getMetaScanTxUrl(network, mappedEvmTxId);
+
+      setEvmTxId(mappedEvmTxId);
+      setEvmTxUrl(txUrl);
+    } catch (e) {
+      logger.error(e);
+    }
+  };
+
+  useEffect(() => {
+    // get evm tx id and url (if any)
+    if (tx !== undefined) {
+      const isTransferDomainTx = tx?.tx.vout.some(
+        (vout) =>
+          vout.script?.stack.some(
+            (item: any) =>
+              item.type === "OP_DEFI_TX" &&
+              item.tx?.name === "OP_DEFI_TX_TRANSFER_DOMAIN",
+          ),
+      );
+      if (isTransferDomainTx) {
+        getEvmTxId(tx.tx.txId);
+      }
+    } else {
+      setEvmTxId(undefined);
+      setEvmTxUrl(undefined);
+    }
+  }, [tx]);
 
   useEffect(() => {
     // last available job will remained in this UI state until get dismissed
@@ -133,7 +196,7 @@ export function OceanInterface(): JSX.Element | null {
         .then(async () => {
           try {
             setTxUrl(
-              getTransactionUrl(transaction.tx.txId, transaction.tx.toHex())
+              getTransactionUrl(transaction.tx.txId, transaction.tx.toHex()),
             );
           } catch (e) {
             logger.error(e);
@@ -159,7 +222,7 @@ export function OceanInterface(): JSX.Element | null {
             logger.error(e);
             title = translate(
               "screens/OceanInterface",
-              "Sent (Pending confirmation)"
+              "Sent (Pending confirmation)",
             );
             oceanStatusCode = TransactionStatusCode.pending;
           }
@@ -224,6 +287,8 @@ export function OceanInterface(): JSX.Element | null {
             oceanStatusCode={tx.oceanStatusCode}
             txUrl={txUrl}
             txid={tx.tx.txId}
+            evmTxId={evmTxId}
+            evmTxUrl={evmTxUrl}
           />
         )
       )}
