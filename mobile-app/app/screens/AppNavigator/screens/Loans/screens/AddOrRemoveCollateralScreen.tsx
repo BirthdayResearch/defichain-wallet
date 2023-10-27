@@ -423,13 +423,20 @@ export function AddOrRemoveCollateralScreen({ route }: Props): JSX.Element {
     } else if (
       hasLoan &&
       selectedCollateralItem.token.displaySymbol === "DFI" &&
-      vault.loanAmounts.some((loan) => loan.displaySymbol === "DUSD") &&
       vault.collateralAmounts.some((col) => col.displaySymbol === "DUSD")
     ) {
+      const hasDUSDLoan = vault.loanAmounts.some(
+        (loan) => loan.displaySymbol === "DUSD",
+      );
       const hasNonDUSDCollateral = vault.collateralAmounts.some(
         (col) => !["DFI", "DUSD"].includes(col.displaySymbol),
       );
-      if (isDFILessThanHalfOfRequiredCollateral && hasNonDUSDCollateral) {
+      if (
+        (!hasDUSDLoan && isDFILessThanHalfOfRequiredCollateral) ||
+        (hasDUSDLoan &&
+          isDFILessThanHalfOfRequiredCollateral &&
+          hasNonDUSDCollateral)
+      ) {
         return {
           testID: "dusd_affected_vault_error",
           message: addOrRemoveCollateralErrors.DusdAffectVault,

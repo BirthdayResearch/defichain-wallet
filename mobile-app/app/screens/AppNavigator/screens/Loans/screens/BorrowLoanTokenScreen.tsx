@@ -63,7 +63,7 @@ import { useInterestPerBlock } from "../hooks/InterestPerBlock";
 import { useBlocksPerDay } from "../hooks/BlocksPerDay";
 import { BottomSheetLoanTokensList } from "../components/BottomSheetLoanTokensList";
 import { CollateralizationRatioDisplay } from "../components/CollateralizationRatioDisplay";
-import { useValidateDUSDLoanAndCollateral } from "../hooks/ValidateDUSDLoanAndCollateral";
+import { useValidateLoanAndCollateral } from "../hooks/ValidateLoanAndCollateral";
 
 type Props = StackScreenProps<LoanParamList, "BorrowLoanTokenScreen">;
 
@@ -134,19 +134,18 @@ export function BorrowLoanTokenScreen({
     interestPerBlock,
   );
   const [disableContinue, setDisableContinue] = useState(false);
-  const { isTakingDUSDLoan, isDUSDLoanAllowed } =
-    useValidateDUSDLoanAndCollateral({
-      collateralAmounts: vault.collateralAmounts,
-      loanAmounts: vault.loanAmounts,
-      collateralValue: new BigNumber(vault.collateralValue),
-      loanValue: new BigNumber(vault.loanValue).plus(
-        new BigNumber(borrowAmount).isNaN()
-          ? new BigNumber(0)
-          : new BigNumber(borrowAmount),
-      ),
-      loanToken: loanToken,
-      minColRatio: vault.loanScheme.minColRatio,
-    });
+  const { isLoanAllowed } = useValidateLoanAndCollateral({
+    collateralAmounts: vault.collateralAmounts,
+    loanAmounts: vault.loanAmounts,
+    collateralValue: new BigNumber(vault.collateralValue),
+    loanValue: new BigNumber(vault.loanValue).plus(
+      new BigNumber(borrowAmount).isNaN()
+        ? new BigNumber(0)
+        : new BigNumber(borrowAmount),
+    ),
+    loanToken: loanToken,
+    minColRatio: vault.loanScheme.minColRatio,
+  });
   const { atRiskThreshold } = useColRatioThreshold(
     new BigNumber(vault.loanScheme.minColRatio),
   );
@@ -304,7 +303,7 @@ export function BorrowLoanTokenScreen({
       });
     } else if (resultingColRatio.isLessThan(vault.loanScheme.minColRatio)) {
       setInputValidationMessage(undefined); // this error message is moved to below quick input
-    } else if (isTakingDUSDLoan && !isDUSDLoanAllowed) {
+    } else if (!isLoanAllowed) {
       setInputValidationMessage({
         message:
           "Insufficient DFI or not only DUSD in vault. Add more to borrow DUSD.",
@@ -453,8 +452,7 @@ export function BorrowLoanTokenScreen({
                         ).isGreaterThan(0),
                       hasDFIandDUSDCollateral: () =>
                         requiredTokensShare.isGreaterThan(0), // need >0 DFI and or DUSD to take loan
-                      isLoanAllowed: () =>
-                        isDUSDLoanAllowed || !isTakingDUSDLoan, // min 50% DFI or 100% DUSD if taking DUSD loan
+                      isLoanAllowed: () => isLoanAllowed, // min 50% DFI, or 100% DUSD if taking DUSD loan
                     },
                   }}
                 />

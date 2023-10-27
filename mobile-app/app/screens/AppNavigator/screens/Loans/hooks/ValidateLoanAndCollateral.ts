@@ -8,7 +8,7 @@ import BigNumber from "bignumber.js";
 import { useSelector } from "react-redux";
 import { getActivePrice } from "../../Auctions/helpers/ActivePrice";
 
-interface useValidateDUSDLoanAndCollateralProps {
+interface useValidateLoanAndCollateralProps {
   collateralAmounts: LoanVaultTokenAmount[];
   loanAmounts: LoanVaultTokenAmount[];
   collateralValue: BigNumber;
@@ -27,8 +27,8 @@ interface useValidateDUSDLoanAndCollateralProps {
  *
  * @returns
  */
-export function useValidateDUSDLoanAndCollateral(
-  props: useValidateDUSDLoanAndCollateralProps,
+export function useValidateLoanAndCollateral(
+  props: useValidateLoanAndCollateralProps,
 ) {
   const collateralTokens: CollateralToken[] = useSelector(
     (state: RootState) => state.loans.collateralTokens,
@@ -64,11 +64,14 @@ export function useValidateDUSDLoanAndCollateral(
     (col) => col.displaySymbol === "DUSD",
   );
 
+  const isNonDUSDLoanAllowed =
+    !isTakingDUSDLoan && isDFIGreaterThanHalfOfRequiredCollateral;
+
+  const isDUSDLoanAllowed =
+    isTakingDUSDLoan &&
+    (isDFIGreaterThanHalfOfRequiredCollateral || isDUSD100PercentOfCollateral);
+
   return {
-    isTakingDUSDLoan,
-    isDUSDLoanAllowed:
-      isTakingDUSDLoan &&
-      (isDFIGreaterThanHalfOfRequiredCollateral ||
-        isDUSD100PercentOfCollateral),
+    isLoanAllowed: isNonDUSDLoanAllowed || isDUSDLoanAllowed,
   };
 }
