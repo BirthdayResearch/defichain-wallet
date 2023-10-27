@@ -33,7 +33,7 @@ export function useValidateLoanAndCollateral(
   const collateralTokens: CollateralToken[] = useSelector(
     (state: RootState) => state.loans.collateralTokens,
   );
-  const isTakingDUSDLoan = props.loanToken.token.displaySymbol === "DUSD";
+  const isTakingDUSDLoan = props.loanToken.token.symbol === "DUSD";
 
   const dfiCollateralToken = collateralTokens.find(
     (col) => col.token.displaySymbol === "DFI",
@@ -61,7 +61,7 @@ export function useValidateLoanAndCollateral(
     );
 
   const isDUSD100PercentOfCollateral = props.collateralAmounts.every(
-    (col) => col.displaySymbol === "DUSD",
+    (col) => col.symbol === "DUSD",
   );
 
   const isNonDUSDLoanAllowed =

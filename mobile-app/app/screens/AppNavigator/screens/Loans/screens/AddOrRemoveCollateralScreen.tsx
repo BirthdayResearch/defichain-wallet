@@ -422,14 +422,14 @@ export function AddOrRemoveCollateralScreen({ route }: Props): JSX.Element {
       };
     } else if (
       hasLoan &&
-      selectedCollateralItem.token.displaySymbol === "DFI" &&
-      vault.collateralAmounts.some((col) => col.displaySymbol === "DUSD")
+      selectedCollateralItem.token.symbol === "DFI" &&
+      vault.collateralAmounts.some((col) => col.symbol === "DUSD")
     ) {
       const hasDUSDLoan = vault.loanAmounts.some(
-        (loan) => loan.displaySymbol === "DUSD",
+        (loan) => loan.symbol === "DUSD",
       );
       const hasNonDUSDCollateral = vault.collateralAmounts.some(
-        (col) => !["DFI", "DUSD"].includes(col.displaySymbol),
+        (col) => !["DFI", "DUSD"].includes(col.symbol),
       );
       if (
         (!hasDUSDLoan && isDFILessThanHalfOfRequiredCollateral) ||
