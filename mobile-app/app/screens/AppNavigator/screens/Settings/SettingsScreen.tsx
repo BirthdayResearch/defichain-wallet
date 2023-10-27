@@ -27,6 +27,7 @@ import { useAddressBook } from "@hooks/useAddressBook";
 import { useAppDispatch } from "@hooks/useAppDispatch";
 import { useFeatureFlagContext } from "@contexts/FeatureFlagContext";
 import { useLanguageContext } from "@shared-contexts/LanguageProvider";
+import { useCustomServiceProviderContext } from "@contexts/CustomServiceProvider";
 import { RowThemeItem } from "./components/RowThemeItem";
 import { SettingsParamList } from "./SettingsNavigator";
 
@@ -41,13 +42,15 @@ export function SettingsScreen({ navigation }: Props): JSX.Element {
     data: { type },
   } = useWalletNodeContext();
   const isEncrypted = type === "MNEMONIC_ENCRYPTED";
-  const { isCustomUrl } = useServiceProviderContext();
+  const { isCustomUrl: isCustomDvmUrl } = useServiceProviderContext();
+  const { isCustomEvmUrl, isCustomEthRpcUrl } =
+    useCustomServiceProviderContext();
   const { isFeatureAvailable } = useFeatureFlagContext();
   const { language } = useLanguageContext();
   const languages = getAppLanguages();
 
-  const selectedLanguage = languages.find((languageItem) =>
-    language?.startsWith(languageItem.locale)
+  const selectedLanguage = languages.find(
+    (languageItem) => language?.startsWith(languageItem.locale),
   );
 
   const revealRecoveryWords = useCallback(() => {
@@ -68,11 +71,11 @@ export function SettingsScreen({ navigation }: Props): JSX.Element {
       message: translate("screens/UnlockWallet", "Enter passcode to continue"),
       loading: translate(
         "screens/UnlockWallet",
-        "It may take a few seconds to verify"
+        "It may take a few seconds to verify",
       ),
       title: translate(
         "screens/UnlockWallet",
-        "Provide your passcode to view recovery words."
+        "Provide your passcode to view recovery words.",
       ),
       successMessage: translate("screens/UnlockWallet", "Passcode verified!"),
     };
@@ -102,11 +105,11 @@ export function SettingsScreen({ navigation }: Props): JSX.Element {
       message: translate("screens/UnlockWallet", "Enter passcode to continue"),
       loading: translate(
         "screens/UnlockWallet",
-        "It may take a few seconds to verify"
+        "It may take a few seconds to verify",
       ),
       title: translate(
         "screens/UnlockWallet",
-        "Provide existing passcode to change passcode."
+        "Provide existing passcode to change passcode.",
       ),
       successMessage: translate("screens/UnlockWallet", "Passcode verified!"),
     };
@@ -142,7 +145,11 @@ export function SettingsScreen({ navigation }: Props): JSX.Element {
             testID="setting_navigate_service_provider"
             label="Provider"
             border
-            value={isCustomUrl ? "Custom" : "Default"}
+            value={
+              isCustomDvmUrl || isCustomEvmUrl || isCustomEthRpcUrl
+                ? "Custom (3rd-party)"
+                : "Default"
+            }
             onPress={() => navigation.navigate("ServiceProviderScreen", {})}
           />
         )}
@@ -198,7 +205,7 @@ export function SettingsScreen({ navigation }: Props): JSX.Element {
             >
               {translate(
                 "screens/Settings",
-                "Auto-locks wallet if there is no activity for 1 min."
+                "Auto-locks wallet if there is no activity for 1 min.",
               )}
             </ThemedTextV2>
           )}
@@ -230,7 +237,7 @@ export function SettingsScreen({ navigation }: Props): JSX.Element {
       >
         {translate(
           "screens/Settings",
-          "This will unlink your wallet from the app."
+          "This will unlink your wallet from the app.",
         )}
       </ThemedTextV2>
     </ThemedScrollViewV2>
@@ -245,11 +252,11 @@ function RowExitWalletItem(): JSX.Element {
     WalletAlert({
       title: translate(
         "screens/Settings",
-        "Are you sure you want to unlink your wallet?"
+        "Are you sure you want to unlink your wallet?",
       ),
       message: translate(
         "screens/Settings",
-        "Once unlinked, you will need to enter your recovery words to restore your wallet."
+        "Once unlinked, you will need to enter your recovery words to restore your wallet.",
       ),
       buttons: [
         {
@@ -340,7 +347,7 @@ function NavigateItemRow({
       <ThemedTouchableOpacityV2
         onPress={onPress}
         style={tailwind(
-          "flex py-4.5 flex-row items-center justify-between border-0"
+          "flex py-4.5 flex-row items-center justify-between border-0",
         )}
         testID={testID}
       >
@@ -358,6 +365,7 @@ function NavigateItemRow({
               light={tailwind("text-mono-light-v2-700")}
               dark={tailwind("text-mono-dark-v2-700")}
               style={tailwind("font-normal-v2 text-sm mr-1")}
+              testID={`${testID}_value`}
             >
               {translate("screens/Settings", value)}
             </ThemedTextV2>

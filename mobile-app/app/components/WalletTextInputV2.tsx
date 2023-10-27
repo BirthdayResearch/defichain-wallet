@@ -180,7 +180,7 @@ export const WalletTextInputV2 = forwardRef<any, WalletTextInputProps>(
             typeof inlineText?.text === "string" && (
               <Text
                 style={[
-                  tailwind("text-xs text-red-v2 mt-2 font-normal-v2"),
+                  tailwind("text-xs text-gray-500 mt-2 font-normal-v2"),
                   inlineText.style,
                 ]}
                 testID={
@@ -199,7 +199,7 @@ export const WalletTextInputV2 = forwardRef<any, WalletTextInputProps>(
         </View>
       </ThemedViewV2>
     );
-  }
+  },
 );
 
 export function ClearButtonV2(props: {
@@ -231,7 +231,7 @@ const TextInputDefault = forwardRef(
     return (
       <ThemedTextInputV2 keyboardType={inputType} ref={ref} {...otherProps} />
     );
-  }
+  },
 );
 
 const TextInputIOS = forwardRef(
@@ -246,7 +246,7 @@ const TextInputIOS = forwardRef(
           onFocus(e);
         }
       },
-      [shouldHandleKeyboardEvents]
+      [shouldHandleKeyboardEvents],
     );
     const handleOnBlur = useCallback(() => {
       shouldHandleKeyboardEvents.value = true;
@@ -265,5 +265,5 @@ const TextInputIOS = forwardRef(
         {...otherProps}
       />
     );
-  }
+  },
 );

@@ -58,14 +58,29 @@ exports[`Empty vault should match snapshot 1`] = `
           }
         }
       >
-        <Image
-          source={1}
+        <ViewManagerAdapter_ExpoImage
+          contentFit="cover"
+          contentPosition={
+            {
+              "left": "50%",
+              "top": "50%",
+            }
+          }
+          height={136}
+          onError={[Function]}
+          onLoad={[Function]}
+          onLoadStart={[Function]}
+          onProgress={[Function]}
+          placeholder={[]}
+          source={[]}
           style={
             {
               "height": 136,
               "width": 204,
             }
           }
+          transition={null}
+          width={204}
         />
       </View>
       <Text
@@ -124,6 +139,23 @@ exports[`Empty vault should match snapshot 1`] = `
         Get started with loans. Create a vault for your collaterals.
       </Text>
       <View
+        accessibilityState={
+          {
+            "busy": undefined,
+            "checked": undefined,
+            "disabled": undefined,
+            "expanded": undefined,
+            "selected": undefined,
+          }
+        }
+        accessibilityValue={
+          {
+            "max": undefined,
+            "min": undefined,
+            "now": undefined,
+            "text": undefined,
+          }
+        }
         accessible={true}
         collapsable={false}
         focusable={true}
@@ -183,6 +215,23 @@ exports[`Empty vault should match snapshot 1`] = `
         }
       >
         <View
+          accessibilityState={
+            {
+              "busy": undefined,
+              "checked": undefined,
+              "disabled": undefined,
+              "expanded": undefined,
+              "selected": undefined,
+            }
+          }
+          accessibilityValue={
+            {
+              "max": undefined,
+              "min": undefined,
+              "now": undefined,
+              "text": undefined,
+            }
+          }
           accessible={true}
           collapsable={false}
           focusable={true}

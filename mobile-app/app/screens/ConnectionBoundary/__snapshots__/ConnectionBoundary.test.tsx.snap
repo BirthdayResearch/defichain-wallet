@@ -31,14 +31,29 @@ exports[`offline screen should match snapshot when offline 1`] = `
       }
     }
   >
-    <Image
-      source={1}
+    <ViewManagerAdapter_ExpoImage
+      contentFit="cover"
+      contentPosition={
+        {
+          "left": "50%",
+          "top": "50%",
+        }
+      }
+      height={59}
+      onError={[Function]}
+      onLoad={[Function]}
+      onLoadStart={[Function]}
+      onProgress={[Function]}
+      placeholder={[]}
+      source={[]}
       style={
         {
           "height": 59,
           "width": 163,
         }
       }
+      transition={null}
+      width={163}
     />
   </View>
   <Text
@@ -94,6 +109,23 @@ exports[`offline screen should match snapshot when offline 1`] = `
     There seems to be a problem with the connection. Check your network and try again.
   </Text>
   <View
+    accessibilityState={
+      {
+        "busy": undefined,
+        "checked": undefined,
+        "disabled": undefined,
+        "expanded": undefined,
+        "selected": undefined,
+      }
+    }
+    accessibilityValue={
+      {
+        "max": undefined,
+        "min": undefined,
+        "now": undefined,
+        "text": undefined,
+      }
+    }
     accessible={true}
     collapsable={false}
     focusable={true}

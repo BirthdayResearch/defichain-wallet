@@ -8,17 +8,27 @@ import {
   ThemedTouchableOpacity,
   ThemedViewV2,
 } from "@components/themed";
-import { RandomAvatar } from "@screens/AppNavigator/screens/Portfolio/components/RandomAvatar";
 import { WalletTextInputV2 } from "@components/WalletTextInputV2";
 import { Control, Controller } from "react-hook-form";
 import { NetworkName } from "@defichain/jellyfish-network";
 import { fromAddress } from "@defichain/jellyfish-address";
-import { LocalAddress } from "@store/userPreferences";
+import {
+  LocalAddress,
+  selectAllLabeledWalletAddress,
+  WhitelistedAddress,
+} from "@store/userPreferences";
 import { debounce } from "lodash";
 import { useEffect, useMemo, useState } from "react";
 import { useSelector } from "react-redux";
 import { RootState } from "@store";
-import { useWalletAddress } from "@hooks/useWalletAddress";
+import { useWalletAddress, WalletAddressI } from "@hooks/useWalletAddress";
+import { DomainType, useDomainContext } from "@contexts/DomainContext";
+import {
+  AddressType as JellyfishAddressType,
+  getAddressType,
+} from "@waveshq/walletkit-core";
+import { RandomAvatar } from "@screens/AppNavigator/screens/Portfolio/components/RandomAvatar";
+import { AddressEvmTag } from "@components/AddressEvmTag";
 
 export function AddressRow({
   control,
@@ -34,6 +44,9 @@ export function AddressRow({
   onAddressType,
   showQrButton = true,
   onlyLocalAddress,
+  matchedAddress,
+  setMatchedAddress,
+  setAddressLabel,
 }: {
   control: Control;
   networkName: NetworkName;
@@ -44,27 +57,34 @@ export function AddressRow({
   inputFooter?: React.ReactElement;
   title: string;
   address: string;
-  onMatchedAddress?: (matchedAddress?: LocalAddress) => void;
+  onMatchedAddress?: (
+    matchedAddress?: LocalAddress | WhitelistedAddress,
+  ) => void;
   onAddressType?: (addressType?: AddressType) => void;
   showQrButton?: boolean;
   onlyLocalAddress?: boolean;
+  matchedAddress?: LocalAddress | WhitelistedAddress | undefined;
+  setMatchedAddress?: (address?: LocalAddress | WhitelistedAddress) => void;
+  setAddressLabel?: React.Dispatch<React.SetStateAction<string | undefined>>;
 }): JSX.Element {
   const { fetchWalletAddresses } = useWalletAddress();
+  const { domain } = useDomainContext();
 
   const defaultValue = "";
 
   const addressBook = useSelector(
-    (state: RootState) => state.userPreferences.addressBook
+    (state: RootState) => state.userPreferences.addressBook,
   );
-  const walletAddress = useSelector(
-    (state: RootState) => state.userPreferences.addresses
+  const walletAddress = useSelector((state: RootState) =>
+    selectAllLabeledWalletAddress(state.userPreferences),
   );
 
   const [jellyfishWalletAddress, setJellyfishWalletAddresses] = useState<
-    string[]
+    WalletAddressI[]
   >([]);
-  const [matchedAddress, setMatchedAddress] = useState<LocalAddress>();
   const [addressType, setAddressType] = useState<AddressType>();
+  const [validEvmAddress, setValidEvmAddress] = useState<boolean>(false);
+
   const validLocalAddress = useMemo(() => {
     if (address === "") {
       return true;
@@ -75,53 +95,75 @@ export function AddressRow({
     return true;
   }, [onlyLocalAddress, addressType, address]);
 
+  const addressObj = jellyfishWalletAddress.find(
+    (e: WalletAddressI) => e.dvm === address || e.evm === address,
+  );
+
+  const displayAddressLabel =
+    matchedAddress?.label !== ""
+      ? matchedAddress?.label
+      : addressObj?.generatedLabel;
+
   const debounceMatchAddress = debounce(() => {
-    if (
-      address !== undefined &&
-      addressBook !== undefined &&
-      addressBook[address] !== undefined
-    ) {
-      setMatchedAddress(addressBook[address]);
-      setAddressType(AddressType.Whitelisted);
-    } else if (
-      address !== undefined &&
-      walletAddress !== undefined &&
-      walletAddress[address] !== undefined
-    ) {
-      setMatchedAddress(walletAddress[address]);
-      setAddressType(AddressType.WalletAddress);
-    } else if (
-      address !== undefined &&
-      jellyfishWalletAddress.includes(address)
-    ) {
-      // wallet address that does not have a label
-      setMatchedAddress({
-        address,
-        label: "",
-        isMine: true,
-      });
-      setAddressType(AddressType.WalletAddress);
-    } else {
-      setMatchedAddress(undefined);
-      if (onlyLocalAddress) {
-        setAddressType(undefined);
+    // Check if address input field is not empty
+    if (address !== undefined && setMatchedAddress !== undefined) {
+      if (addressBook !== undefined && addressBook[address] !== undefined) {
+        // Whitelisted Addresses
+        setMatchedAddress(addressBook[address]);
+        setAddressType(AddressType.Whitelisted);
+        return;
+      }
+
+      // Your Address - Labelled
+      if (walletAddress !== undefined && walletAddress[address] !== undefined) {
+        setMatchedAddress(walletAddress[address]);
+        setAddressType(AddressType.WalletAddress);
+        return;
+      }
+
+      if (addressObj) {
+        // Your addresses - Unlabelled
+        setMatchedAddress({
+          address: addressObj.dvm,
+          evmAddress: addressObj.evm,
+          label: "",
+        });
+        setAddressType(AddressType.WalletAddress);
       } else {
-        setAddressType(
-          fromAddress(address, networkName) !== undefined
-            ? AddressType.OthersButValid
-            : undefined
-        );
+        setMatchedAddress(undefined); // Unsaved valid DVM address
+        if (onlyLocalAddress) {
+          setAddressType(undefined);
+        } else if (
+          getAddressType(address, networkName) === JellyfishAddressType.ETH
+        ) {
+          // Unsaved and valid EVM address
+          setAddressType(AddressType.OthersButValid);
+          setValidEvmAddress(true);
+        } else {
+          setValidEvmAddress(false);
+          setAddressType(
+            fromAddress(address, networkName) !== undefined
+              ? AddressType.OthersButValid
+              : undefined,
+          );
+        }
       }
     }
   }, 200);
+
+  useEffect(() => {
+    if (setAddressLabel !== undefined) {
+      setAddressLabel(displayAddressLabel);
+    }
+  }, [displayAddressLabel]);
 
   useEffect(() => {
     debounceMatchAddress();
   }, [address, addressBook]);
 
   useEffect(() => {
-    void fetchWalletAddresses().then((walletAddresses) =>
-      setJellyfishWalletAddresses(walletAddresses)
+    fetchWalletAddresses().then((walletAddresses) =>
+      setJellyfishWalletAddresses(walletAddresses),
     );
   }, [fetchWalletAddresses]);
 
@@ -215,7 +257,7 @@ export function AddressRow({
                 >
                   {translate(
                     "screens/SendScreen",
-                    "Invalid address. Make sure the address is correct to avoid irrecoverable losses"
+                    "Invalid address. Make sure the address is correct to avoid irrecoverable losses",
                   )}
                 </ThemedTextV2>
               )}
@@ -226,77 +268,122 @@ export function AddressRow({
           required: true,
           validate: {
             isValidAddress: (address) =>
-              fromAddress(address, networkName) !== undefined &&
-              (!onlyLocalAddress ||
-                jellyfishWalletAddress.includes(address) ||
-                (walletAddress !== undefined &&
-                  walletAddress[address] !== undefined)),
+              // Check if its either a valid EVM/DVM address &&
+              !!getAddressType(address, networkName) &&
+              // EVM -> EVM domain transfer is not allowed
+              !(
+                getAddressType(address, networkName) ===
+                  JellyfishAddressType.ETH && domain === DomainType.EVM
+              ),
           },
         }}
       />
 
-      {addressType !== undefined && (
-        <View style={tailwind("ml-5 my-2 items-center flex flex-row")}>
-          {addressType === AddressType.OthersButValid ? (
-            <>
-              <ThemedIcon
-                light={tailwind("text-success-500")}
-                dark={tailwind("text-darksuccess-500")}
-                iconType="MaterialIcons"
-                name="check-circle"
-                size={16}
-              />
-              <ThemedTextV2
-                style={tailwind("text-xs mx-1 font-normal-v2")}
-                light={tailwind("text-mono-light-v2-500")}
-                dark={tailwind("text-mono-dark-v2-500")}
-              >
-                {translate("screens/SendScreen", "Verified")}
-              </ThemedTextV2>
-            </>
-          ) : (
-            addressType !== undefined &&
-            validLocalAddress && (
-              <ThemedViewV2
-                style={tailwind(
-                  "flex flex-row items-center overflow-hidden rounded-lg py-0.5",
-                  {
-                    "px-1": addressType === AddressType.WalletAddress,
-                    "px-2": addressType === AddressType.Whitelisted,
-                  }
-                )}
-                light={tailwind("bg-mono-light-v2-200")}
-                dark={tailwind("bg-mono-dark-v2-200")}
-              >
-                {addressType === AddressType.WalletAddress && (
-                  <View style={tailwind("rounded-l-2xl mr-1")}>
-                    <RandomAvatar name={matchedAddress?.address} size={12} />
-                  </View>
-                )}
+      <View style={tailwind("ml-5 my-2 items-center flex flex-row")}>
+        {addressType !== undefined && (
+          <>
+            {/* Verified tag for unsaved but verified DVM/EVM address */}
+            {addressType === AddressType.OthersButValid &&
+              !(
+                domain === DomainType.EVM &&
+                getAddressType(address, networkName) ===
+                  JellyfishAddressType.ETH
+              ) && (
+                <>
+                  <ThemedIcon
+                    light={tailwind("text-success-500")}
+                    dark={tailwind("text-darksuccess-500")}
+                    iconType="MaterialIcons"
+                    name="check-circle"
+                    size={16}
+                  />
+                  <ThemedTextV2
+                    style={tailwind("text-xs mx-1 font-normal-v2")}
+                    light={tailwind("text-mono-light-v2-500")}
+                    dark={tailwind("text-mono-dark-v2-500")}
+                  >
+                    {translate("screens/SendScreen", "Verified {{text}}", {
+                      text: validEvmAddress
+                        ? "MetaChain (EVM) address"
+                        : "DVM address",
+                    })}
+                  </ThemedTextV2>
+                </>
+              )}
 
-                <ThemedTextV2
-                  ellipsizeMode="middle"
-                  numberOfLines={1}
-                  style={[
-                    tailwind("text-xs font-normal-v2"),
-                    {
-                      minWidth: 10,
-                      maxWidth: 108,
-                    },
-                  ]}
-                  light={tailwind("text-mono-light-v2-500")}
-                  dark={tailwind("text-mono-dark-v2-500")}
-                  testID="address_input_footer"
-                >
-                  {matchedAddress?.label !== ""
-                    ? matchedAddress?.label
-                    : matchedAddress.address}
-                </ThemedTextV2>
-              </ThemedViewV2>
-            )
-          )}
-        </View>
-      )}
+            {/* Whitelisted and Yours Addresses */}
+            {addressType !== AddressType.OthersButValid &&
+              validLocalAddress && (
+                <>
+                  {/* Checks if selected address is  a Whitelisted EVM address */}
+                  {(matchedAddress as WhitelistedAddress)?.addressDomainType ===
+                    DomainType.EVM ||
+                  //   Check if selected address from Your Addresses is EVM address
+                  getAddressType(address, networkName) ===
+                    JellyfishAddressType.ETH ? (
+                    <AddressEvmTag testID="address_input_footer">
+                      <>
+                        {addressType === AddressType.WalletAddress && (
+                          <View style={tailwind("rounded-l-2xl mr-1")}>
+                            <RandomAvatar
+                              name={matchedAddress?.address}
+                              size={12}
+                            />
+                          </View>
+                        )}
+                        <ThemedTextV2
+                          testID="address_input_footer_evm"
+                          style={tailwind(
+                            "text-mono-light-v2-00 text-xs font-normal-v2 tracking-[0.24]",
+                          )}
+                          light={tailwind("text-mono-light-v2-1000")}
+                          dark={tailwind("text-mono-dark-v2-1000")}
+                        >
+                          {displayAddressLabel}
+                        </ThemedTextV2>
+                      </>
+                    </AddressEvmTag>
+                  ) : (
+                    // Whitelisted address - DVM
+                    <ThemedViewV2
+                      style={tailwind(
+                        "flex flex-row items-center overflow-hidden rounded-lg py-0.5 px-2",
+                      )}
+                      light={tailwind("bg-mono-light-v2-200")}
+                      dark={tailwind("bg-mono-dark-v2-200")}
+                    >
+                      {addressType === AddressType.WalletAddress && (
+                        <View style={tailwind("rounded-l-2xl mr-1")}>
+                          <RandomAvatar
+                            name={matchedAddress?.address}
+                            size={12}
+                          />
+                        </View>
+                      )}
+                      <ThemedTextV2
+                        ellipsizeMode="middle"
+                        numberOfLines={1}
+                        style={[
+                          tailwind("text-xs font-normal-v2"),
+                          // eslint-disable-next-line react-native/no-inline-styles
+                          {
+                            minWidth: 10,
+                            maxWidth: 108,
+                          },
+                        ]}
+                        light={tailwind("text-mono-light-v2-900")}
+                        dark={tailwind("text-mono-dark-v2-900")}
+                        testID="address_input_footer"
+                      >
+                        {displayAddressLabel}
+                      </ThemedTextV2>
+                    </ThemedViewV2>
+                  )}
+                </>
+              )}
+          </>
+        )}
+      </View>
     </View>
   );
 }

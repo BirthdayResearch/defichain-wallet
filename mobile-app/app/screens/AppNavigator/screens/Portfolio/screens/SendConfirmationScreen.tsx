@@ -32,7 +32,7 @@ import {
 import { useAppDispatch } from "@hooks/useAppDispatch";
 import { useAddressLabel } from "@hooks/useAddressLabel";
 import { View } from "@components";
-import { ScreenName } from "@screens/enum";
+import { ConvertDirection, ScreenName } from "@screens/enum";
 import {
   ThemedActivityIndicatorV2,
   ThemedIcon,
@@ -44,12 +44,20 @@ import {
 import { SummaryTitle } from "@components/SummaryTitle";
 import { NumberRowV2 } from "@components/NumberRowV2";
 import { SubmitButtonGroup } from "@components/SubmitButtonGroup";
+import { transferDomainSigner } from "@api/transaction/transfer_domain";
+import {
+  getAddressType,
+  AddressType as JellyfishAddressType,
+} from "@waveshq/walletkit-core";
+import { DomainType, useDomainContext } from "@contexts/DomainContext";
+import { useEVMProvider } from "@contexts/EVMProvider";
 import { PortfolioParamList } from "../PortfolioNavigator";
 
 type Props = StackScreenProps<PortfolioParamList, "SendConfirmationScreen">;
 
 export function SendConfirmationScreen({ route }: Props): JSX.Element {
-  const { address } = useWalletContext();
+  const { domain } = useDomainContext();
+  const { address, evmAddress } = useWalletContext();
   const addressLabel = useAddressLabel(address);
   const network = useNetworkContext();
   const {
@@ -62,15 +70,18 @@ export function SendConfirmationScreen({ route }: Props): JSX.Element {
     toAddressLabel,
     addressType,
     originScreen,
+    matchedAddress,
   } = route.params;
   const logger = useLogger();
+  const isEvmDomain = domain === DomainType.EVM;
   const hasPendingJob = useSelector((state: RootState) =>
-    hasTxQueued(state.transactionQueue)
+    hasTxQueued(state.transactionQueue),
   );
   const hasPendingBroadcastJob = useSelector((state: RootState) =>
-    hasOceanTXQueued(state.ocean)
+    hasOceanTXQueued(state.ocean),
   );
   const dispatch = useAppDispatch();
+  const { provider, chainId } = useEVMProvider();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const navigation = useNavigation<NavigationProp<PortfolioParamList>>();
   const [isOnPage, setIsOnPage] = useState<boolean>(true);
@@ -90,18 +101,22 @@ export function SendConfirmationScreen({ route }: Props): JSX.Element {
       return;
     }
     setIsSubmitting(true);
+    const nonce = provider ? await provider.getTransactionCount(evmAddress) : 0;
     await send(
       {
         address: destination,
         token,
         amount,
+        domain,
+        chainId,
+        nonce,
         networkName: network.networkName,
       },
       dispatch,
       () => {
         onTransactionBroadcast(isOnPage, navigation.dispatch);
       },
-      logger
+      logger,
     );
     setIsSubmitting(false);
   }
@@ -112,7 +127,7 @@ export function SendConfirmationScreen({ route }: Props): JSX.Element {
         title: translate("screens/Settings", "Cancel transaction"),
         message: translate(
           "screens/Settings",
-          "By cancelling, you will lose any changes you made for your transaction."
+          "By cancelling, you will lose any changes you made for your transaction.",
         ),
         buttons: [
           {
@@ -126,7 +141,7 @@ export function SendConfirmationScreen({ route }: Props): JSX.Element {
               navigation.navigate(
                 originScreen === ScreenName.DEX_screen
                   ? ScreenName.DEX_screen
-                  : ScreenName.PORTFOLIO_screen
+                  : ScreenName.PORTFOLIO_screen,
               );
             },
           },
@@ -142,13 +157,15 @@ export function SendConfirmationScreen({ route }: Props): JSX.Element {
           amount={amount}
           title={translate("screens/SendConfirmationScreen", "You are sending")}
           testID="text_send_amount"
-          iconA={tokenADisplaySymbol}
+          iconA={token.id === "0_evm" ? "DFI (EVM)" : tokenADisplaySymbol}
           iconB={tokenBDisplaySymbol}
-          fromAddress={address}
+          fromAddress={isEvmDomain ? evmAddress : address}
+          isEvmToken={isEvmDomain}
           fromAddressLabel={addressLabel}
           toAddress={destination}
           toAddressLabel={toAddressLabel}
           addressType={addressType}
+          matchedAddress={matchedAddress}
         />
 
         {conversion?.isConversionRequired === true && (
@@ -164,7 +181,7 @@ export function SendConfirmationScreen({ route }: Props): JSX.Element {
               lhs={{
                 value: translate(
                   "screens/SendConfirmationScreen",
-                  "Amount to convert"
+                  "Amount to convert",
                 ),
                 testID: "amount_to_convert",
                 themedProps: {
@@ -184,7 +201,7 @@ export function SendConfirmationScreen({ route }: Props): JSX.Element {
             />
             <View
               style={tailwind(
-                "flex flex-row text-right items-center justify-end"
+                "flex flex-row text-right items-center justify-end",
               )}
             >
               <ThemedTextV2
@@ -198,7 +215,7 @@ export function SendConfirmationScreen({ route }: Props): JSX.Element {
                   conversion?.isConversionRequired &&
                     conversion?.isConverted !== true
                     ? "Converting"
-                    : "Converted"
+                    : "Converted",
                 )}
               </ThemedTextV2>
               {conversion?.isConverted !== true && (
@@ -221,7 +238,7 @@ export function SendConfirmationScreen({ route }: Props): JSX.Element {
           containerStyle={{
             style: tailwind(
               "flex-row items-start w-full bg-transparent border-t-0.5 pt-5",
-              { "mt-8": conversion?.isConversionRequired !== true }
+              { "mt-8": conversion?.isConversionRequired !== true },
             ),
             light: tailwind("bg-transparent border-mono-light-v2-300"),
             dark: tailwind("bg-transparent border-mono-dark-v2-300"),
@@ -229,7 +246,7 @@ export function SendConfirmationScreen({ route }: Props): JSX.Element {
           lhs={{
             value: translate(
               "screens/SendConfirmationScreen",
-              "Transaction fee"
+              "Transaction fee",
             ),
             testID: "transaction_fee",
             themedProps: {
@@ -250,7 +267,7 @@ export function SendConfirmationScreen({ route }: Props): JSX.Element {
         <NumberRowV2
           containerStyle={{
             style: tailwind(
-              "flex-row items-start w-full bg-transparent mt-5 border-b-0.5 pb-5"
+              "flex-row items-start w-full bg-transparent mt-5 border-b-0.5 pb-5",
             ),
             light: tailwind("bg-transparent border-mono-light-v2-300"),
             dark: tailwind("bg-transparent border-mono-dark-v2-300"),
@@ -258,7 +275,7 @@ export function SendConfirmationScreen({ route }: Props): JSX.Element {
           lhs={{
             value: translate(
               "screens/SendConfirmationScreen",
-              "Amount to send"
+              "Amount to send",
             ),
             testID: "text_amount",
             themedProps: {
@@ -335,7 +352,7 @@ function LpAcknowledgeSwitch(props: {
         >
           {translate(
             "screens/SendConfirmationScreen",
-            "I acknowledge that sending LP tokens to addresses that are not DeFiChain compatible wallets may result in irreversible loss of funds."
+            "I acknowledge that sending LP tokens to addresses that are not DeFiChain compatible wallets may result in irreversible loss of funds.",
           )}
         </ThemedTextV2>
       </TouchableOpacity>
@@ -346,62 +363,81 @@ interface SendForm {
   amount: BigNumber;
   address: string;
   token: WalletToken;
+  domain: DomainType;
+  nonce: number;
+  chainId?: number;
   networkName: NetworkName;
 }
 
 async function send(
-  { address, token, amount, networkName }: SendForm,
+  { address, token, amount, domain, networkName, nonce, chainId }: SendForm,
   dispatch: Dispatch<any>,
   onBroadcast: () => void,
-  logger: NativeLoggingProps
+  logger: NativeLoggingProps,
 ): Promise<void> {
   try {
-    const to = DeFiAddress.from(networkName, address).getScript();
-
-    const signer = async (
-      account: WhaleWalletAccount
-    ): Promise<CTransactionSegWit> => {
-      const script = await account.getScript();
-      const builder = account.withTransactionBuilder();
-
-      let signed: TransactionSegWit;
-      if (token.symbol === "DFI") {
-        /* if (amount.gte(token.amount)) signed = await builder.utxo.sendAll(to)
-        else */
-        signed = await builder.utxo.send(amount, to, script);
-      } else {
-        signed = await builder.account.accountToAccount(
-          {
-            from: script,
-            to: [
-              {
-                script: to,
-                balances: [
-                  {
-                    token: +token.id,
-                    amount,
-                  },
-                ],
-              },
-            ],
-          },
-          script
-        );
-      }
-      return new CTransactionSegWit(signed);
-    };
-
+    const jellyfishAddressType = getAddressType(address, networkName);
+    const isDvmToDvmSend =
+      domain === DomainType.DVM &&
+      jellyfishAddressType !== JellyfishAddressType.ETH;
+    const fromDisplaySymbol = token.id.includes("_evm")
+      ? `${token.displaySymbol} (EVM)`
+      : token.displaySymbol;
     dispatch(
       transactionQueue.actions.push({
-        sign: signer,
+        sign: async (account: WhaleWalletAccount) => {
+          if (isDvmToDvmSend) {
+            return await dvmToDvmSendSigner(
+              account,
+              token,
+              amount,
+              address,
+              networkName,
+            );
+          } else {
+            const sendDirection =
+              domain === DomainType.DVM
+                ? ConvertDirection.dvmToEvm
+                : ConvertDirection.evmToDvm;
+            const isEvmToDvm = sendDirection === ConvertDirection.evmToDvm;
+            const tokenId = token.id === "0_unified" ? "0" : token.id;
+            const sourceTokenId =
+              isEvmToDvm && !tokenId.includes("_evm")
+                ? `${tokenId}_evm`
+                : tokenId;
+            const targetTokenId =
+              !isEvmToDvm && !tokenId.includes("_evm")
+                ? `${tokenId}_evm`
+                : tokenId;
+            const dvmAddress = isEvmToDvm
+              ? address
+              : await account.getAddress();
+            const evmAddress = isEvmToDvm
+              ? await account.getEvmAddress()
+              : address;
+
+            return await transferDomainSigner({
+              account,
+              sourceTokenId,
+              targetTokenId,
+              amount,
+              dvmAddress,
+              evmAddress,
+              networkName,
+              nonce,
+              chainId,
+              convertDirection: sendDirection,
+            });
+          }
+        },
         title: translate(
           "screens/SendConfirmationScreen",
           "Sending {{amount}} {{displaySymbol}} to {{toAddress}}",
           {
             amount: amount.toFixed(8),
-            displaySymbol: token.displaySymbol,
+            displaySymbol: fromDisplaySymbol,
             toAddress: address,
-          }
+          },
         ),
         drawerMessages: {
           preparing: translate("screens/OceanInterface", "Preparing to send…"),
@@ -410,22 +446,60 @@ async function send(
             "Sending {{amount}} {{displaySymbol}}",
             {
               amount: amount.toFixed(8),
-              displaySymbol: token.displaySymbol,
-            }
+              displaySymbol: fromDisplaySymbol,
+            },
           ),
           complete: translate(
             "screens/OceanInterface",
             "{{amount}} {{displaySymbol}} sent",
             {
               amount: amount.toFixed(8),
-              displaySymbol: token.displaySymbol,
-            }
+              displaySymbol: fromDisplaySymbol,
+            },
           ),
         },
         onBroadcast,
-      })
+      }),
     );
   } catch (e) {
     logger.error(e);
   }
+}
+
+async function dvmToDvmSendSigner(
+  account: WhaleWalletAccount,
+  token: WalletToken,
+  amount: BigNumber,
+  address: string,
+  networkName: NetworkName,
+): Promise<CTransactionSegWit> {
+  const to = DeFiAddress.from(networkName, address).getScript();
+  const script = await account.getScript();
+  const builder = account.withTransactionBuilder();
+
+  let signed: TransactionSegWit;
+  if (token.symbol === "DFI") {
+    /* if (amount.gte(token.amount)) signed = await builder.utxo.sendAll(to)
+    else */
+    signed = await builder.utxo.send(amount, to, script);
+  } else {
+    signed = await builder.account.accountToAccount(
+      {
+        from: script,
+        to: [
+          {
+            script: to,
+            balances: [
+              {
+                token: +token.id,
+                amount,
+              },
+            ],
+          },
+        ],
+      },
+      script,
+    );
+  }
+  return new CTransactionSegWit(signed);
 }

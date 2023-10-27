@@ -74,6 +74,23 @@ exports[`knowledge base screen should render 1`] = `
       }
     >
       <View
+        accessibilityState={
+          {
+            "busy": undefined,
+            "checked": undefined,
+            "disabled": undefined,
+            "expanded": undefined,
+            "selected": undefined,
+          }
+        }
+        accessibilityValue={
+          {
+            "max": undefined,
+            "min": undefined,
+            "now": undefined,
+            "text": undefined,
+          }
+        }
         accessible={true}
         collapsable={false}
         focusable={true}
@@ -132,6 +149,23 @@ exports[`knowledge base screen should render 1`] = `
         <Text />
       </View>
       <View
+        accessibilityState={
+          {
+            "busy": undefined,
+            "checked": undefined,
+            "disabled": undefined,
+            "expanded": undefined,
+            "selected": undefined,
+          }
+        }
+        accessibilityValue={
+          {
+            "max": undefined,
+            "min": undefined,
+            "now": undefined,
+            "text": undefined,
+          }
+        }
         accessible={true}
         collapsable={false}
         focusable={true}
@@ -190,6 +224,23 @@ exports[`knowledge base screen should render 1`] = `
         <Text />
       </View>
       <View
+        accessibilityState={
+          {
+            "busy": undefined,
+            "checked": undefined,
+            "disabled": undefined,
+            "expanded": undefined,
+            "selected": undefined,
+          }
+        }
+        accessibilityValue={
+          {
+            "max": undefined,
+            "min": undefined,
+            "now": undefined,
+            "text": undefined,
+          }
+        }
         accessible={true}
         collapsable={false}
         focusable={true}
@@ -248,6 +299,23 @@ exports[`knowledge base screen should render 1`] = `
         <Text />
       </View>
       <View
+        accessibilityState={
+          {
+            "busy": undefined,
+            "checked": undefined,
+            "disabled": undefined,
+            "expanded": undefined,
+            "selected": undefined,
+          }
+        }
+        accessibilityValue={
+          {
+            "max": undefined,
+            "min": undefined,
+            "now": undefined,
+            "text": undefined,
+          }
+        }
         accessible={true}
         collapsable={false}
         focusable={true}
@@ -306,6 +374,23 @@ exports[`knowledge base screen should render 1`] = `
         <Text />
       </View>
       <View
+        accessibilityState={
+          {
+            "busy": undefined,
+            "checked": undefined,
+            "disabled": undefined,
+            "expanded": undefined,
+            "selected": undefined,
+          }
+        }
+        accessibilityValue={
+          {
+            "max": undefined,
+            "min": undefined,
+            "now": undefined,
+            "text": undefined,
+          }
+        }
         accessible={true}
         collapsable={false}
         focusable={true}
@@ -364,6 +449,23 @@ exports[`knowledge base screen should render 1`] = `
         <Text />
       </View>
       <View
+        accessibilityState={
+          {
+            "busy": undefined,
+            "checked": undefined,
+            "disabled": undefined,
+            "expanded": undefined,
+            "selected": undefined,
+          }
+        }
+        accessibilityValue={
+          {
+            "max": undefined,
+            "min": undefined,
+            "now": undefined,
+            "text": undefined,
+          }
+        }
         accessible={true}
         collapsable={false}
         focusable={true}
@@ -422,6 +524,23 @@ exports[`knowledge base screen should render 1`] = `
         <Text />
       </View>
       <View
+        accessibilityState={
+          {
+            "busy": undefined,
+            "checked": undefined,
+            "disabled": undefined,
+            "expanded": undefined,
+            "selected": undefined,
+          }
+        }
+        accessibilityValue={
+          {
+            "max": undefined,
+            "min": undefined,
+            "now": undefined,
+            "text": undefined,
+          }
+        }
         accessible={true}
         collapsable={false}
         focusable={true}
@@ -436,6 +555,7 @@ exports[`knowledge base screen should render 1`] = `
           {
             "alignItems": "center",
             "borderBottomColor": "rgba(204, 204, 204, 1)",
+            "borderBottomWidth": 1,
             "borderLeftColor": "rgba(204, 204, 204, 1)",
             "borderRightColor": "rgba(204, 204, 204, 1)",
             "borderTopColor": "rgba(204, 204, 204, 1)",
@@ -475,6 +595,80 @@ exports[`knowledge base screen should render 1`] = `
           }
         >
           UTXO and Tokens
+        </Text>
+        <Text />
+      </View>
+      <View
+        accessibilityState={
+          {
+            "busy": undefined,
+            "checked": undefined,
+            "disabled": undefined,
+            "expanded": undefined,
+            "selected": undefined,
+          }
+        }
+        accessibilityValue={
+          {
+            "max": undefined,
+            "min": undefined,
+            "now": undefined,
+            "text": undefined,
+          }
+        }
+        accessible={true}
+        collapsable={false}
+        focusable={true}
+        onClick={[Function]}
+        onResponderGrant={[Function]}
+        onResponderMove={[Function]}
+        onResponderRelease={[Function]}
+        onResponderTerminate={[Function]}
+        onResponderTerminationRequest={[Function]}
+        onStartShouldSetResponder={[Function]}
+        style={
+          {
+            "alignItems": "center",
+            "borderBottomColor": "rgba(204, 204, 204, 1)",
+            "borderLeftColor": "rgba(204, 204, 204, 1)",
+            "borderRightColor": "rgba(204, 204, 204, 1)",
+            "borderTopColor": "rgba(204, 204, 204, 1)",
+            "display": "flex",
+            "flexDirection": "row",
+            "justifyContent": "space-between",
+            "marginLeft": 20,
+            "marginRight": 16,
+            "opacity": 1,
+            "paddingBottom": 18,
+            "paddingTop": 18,
+          }
+        }
+        testID="evm_feature_faq"
+      >
+        <Text
+          style={
+            [
+              {
+                "fontFamily": "RegularFont",
+                "fontSize": 16,
+                "fontWeight": "400",
+                "lineHeight": 24,
+              },
+              [
+                {
+                  "fontFamily": "SoraRegular",
+                  "fontSize": 14,
+                  "fontWeight": "400",
+                  "lineHeight": 20,
+                },
+                {
+                  "color": "rgba(18, 18, 18, 1)",
+                },
+              ],
+            ]
+          }
+        >
+          MetaChain (EVM)
         </Text>
         <Text />
       </View>

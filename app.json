@@ -53,7 +53,8 @@
       ]
     },
     "web": {
-      "favicon": "./shared/assets/images/favicon.png"
+      "favicon": "./shared/assets/images/favicon.png",
+      "bundler": "metro"
     }
   }
 }

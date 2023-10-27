@@ -27,7 +27,7 @@ context("Onboarding - Restore Wallet", () => {
   ];
 
   before(() => {
-    cy.visit("/");
+    cy.visit("/", { timeout: 300000 });
     cy.exitWallet();
     cy.getByTestID("restore_wallet_button").click();
     cy.url().should("include", "wallet/mnemonic/restore");

@@ -1,5 +1,5 @@
 import { tailwind } from "@tailwind";
-import { StyleProp, ViewProps } from "react-native";
+import { StyleProp, ViewProps, ViewStyle } from "react-native";
 import {
   ThemedIcon,
   ThemedProps,
@@ -11,7 +11,7 @@ import {
 interface Props {
   headerText: string;
   onClose: () => void;
-  containerStyle?: StyleProp<ViewProps>;
+  containerStyle?: StyleProp<ViewStyle>;
   headerStyle?: {
     style: StyleProp<ViewProps>;
   } & ThemedProps;
@@ -39,7 +39,7 @@ export function BottomSheetHeader({
           light={tailwind("text-mono-light-v2-900")}
           iconType="Feather"
           name="x-circle"
-          size={24}
+          size={22}
         />
       </ThemedTouchableOpacityV2>
       <ThemedTextV2 style={tailwind("text-xl font-normal-v2")} {...headerStyle}>

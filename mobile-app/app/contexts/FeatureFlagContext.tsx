@@ -43,7 +43,7 @@ export function useFeatureFlagContext(): FeatureFlagContextI {
 }
 
 export function FeatureFlagProvider(
-  props: React.PropsWithChildren<any>
+  props: React.PropsWithChildren<any>,
 ): JSX.Element | null {
   const { network } = useNetworkContext();
   const { url, isCustomUrl } = useServiceProviderContext();
@@ -64,12 +64,11 @@ export function FeatureFlagProvider(
     if (isError && retries < MAX_RETRY) {
       setTimeout(() => {
         prefetchPage({});
-        setRetries(retries + 1);
       }, 10000);
     } else if (!isError) {
       prefetchPage({});
     }
-  }, [isError]);
+  }, [retries]);
 
   useEffect(() => {
     refetch();
@@ -81,7 +80,7 @@ export function FeatureFlagProvider(
         satisfies(appVersion, flag.version) &&
         flag.networks?.includes(network) &&
         flag.id === featureId &&
-        flag.stage === "beta"
+        flag.stage === "beta",
     );
   }
 
@@ -119,7 +118,7 @@ export function FeatureFlagProvider(
   }
 
   const updateEnabledFeatures = async (
-    flags: FeatureFlagID[]
+    flags: FeatureFlagID[],
   ): Promise<void> => {
     setEnabledFeatures(flags);
     await FeatureFlagPersistence.set(flags);
@@ -152,11 +151,12 @@ export function FeatureFlagProvider(
         satisfies(appVersion, flag.version) &&
         flag.networks?.includes(network) &&
         flag.platforms?.includes(Platform.OS) &&
-        flag.stage === "beta"
+        flag.stage === "beta",
     ),
   };
 
   if (isError && !isLoading && retries < MAX_RETRY) {
+    setRetries(retries + 1);
     return <></>;
   }
 

@@ -5,7 +5,7 @@ import { WalletToken } from "@waveshq/walletkit-ui/dist/store";
 import { tailwind } from "@tailwind";
 import { translate } from "@translations";
 import BigNumber from "bignumber.js";
-import { StyleProp, TextProps, ViewProps } from "react-native";
+import { StyleProp, TextProps, ViewStyle } from "react-native";
 import { NumericFormat as NumberFormat } from "react-number-format";
 import { getPrecisedTokenValue } from "../../Auctions/helpers/precision-token-value";
 import { BalanceText } from "./BalanceText";
@@ -120,7 +120,7 @@ interface TokenBreakdownDetailsRowProps {
   labelTextStyle?: StyleProp<TextProps>;
   valueTextStyle?: StyleProp<TextProps>;
   valueThemeProps?: ThemedProps;
-  containerStyle?: StyleProp<ViewProps>;
+  containerStyle?: StyleProp<ViewStyle>;
   prefix?: string;
   suffix?: string;
 }

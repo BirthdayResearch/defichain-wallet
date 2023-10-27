@@ -146,7 +146,9 @@ Cypress.Commands.add("getByTestID", (selector: string, opts?: any) => {
 });
 
 Cypress.Commands.add("createEmptyWallet", (isRandom: boolean = false) => {
-  cy.visit("/");
+  cy.intercept("**").as("requests");
+  cy.visit("/", { timeout: 300000 });
+  cy.get("@requests.all", { timeout: 300000 });
   cy.getByTestID(
     isRandom ? "playground_wallet_random" : "playground_wallet_abandon"
   ).click();
@@ -154,7 +156,7 @@ Cypress.Commands.add("createEmptyWallet", (isRandom: boolean = false) => {
 
 Cypress.Commands.add("sendDFItoWallet", () => {
   cy.intercept("/v0/playground/rpc/sendtoaddress").as("sendToAddress");
-  cy.getByTestID("playground_wallet_top_up").click();
+  cy.getByTestID("playground_wallet_top_up", { timeout: 300000 }).click();
   cy.wait(["@sendToAddress"]);
 });
 
@@ -184,6 +186,7 @@ Cypress.Commands.add("closeOceanInterface", (pin?: string) => {
 });
 
 Cypress.Commands.add("exitWallet", () => {
+  cy.wait(4000);
   cy.getByTestID("playground_wallet_clear").click();
 });
 

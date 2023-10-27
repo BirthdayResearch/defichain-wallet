@@ -1,11 +1,6 @@
-import {
-  Dimensions,
-  Image,
-  ImageSourcePropType,
-  Platform,
-  View,
-} from "react-native";
-import SwiperFlatList from "react-native-swiper-flatlist";
+import { Dimensions, ImageSourcePropType, Platform, View } from "react-native";
+import { Image } from "expo-image";
+import { SwiperFlatList } from "react-native-swiper-flatlist";
 import ImageADark from "@assets/images/loans/loans_1_dark.png";
 import ImageBDark from "@assets/images/loans/loans_2_dark.png";
 import ImageCDark from "@assets/images/loans/loans_3_dark.png";
@@ -115,7 +110,7 @@ export function LoansCarousel({
           "bg-mono-light-v2-100": isLight,
         },
         { "-mt-0.5": Platform.OS === "ios" },
-        { "-mt-1": Platform.OS === "android" }
+        { "-mt-1": Platform.OS === "android" },
       )}
       testID="loans_carousel"
     >
@@ -151,7 +146,9 @@ export function LoansCarousel({
               dismissModal={dismissModal}
             />
           )}
-          renderItem={({ item }) => <View style={{ width }}>{item}</View>}
+          renderItem={({ item }) => (
+            <View style={{ width: Number(width) }}>{item}</View>
+          )}
           showPagination
         />
       </View>

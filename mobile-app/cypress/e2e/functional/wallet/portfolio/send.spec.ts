@@ -834,6 +834,7 @@ context("Wallet - Send - Address book", () => {
   });
 });
 
+
 context("(dvm -> dvm) Wallet - Send - Address book", () => {
   before(() => {
     cy.createEmptyWallet(true);
@@ -917,6 +918,7 @@ context("(dvm -> dvm) Wallet - Send - Address book", () => {
       "aria-disabled",
     );
   });
+
 
   it("should display evm tag when EVM address is selected in DVM domain", () => {
     populateAddressBook();

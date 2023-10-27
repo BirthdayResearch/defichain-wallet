@@ -12,7 +12,7 @@ const communityLinks = [
   {
     id: "gh",
     title: "Report issue on GitHub",
-    url: "https://github.com/DeFiCh/wallet/issues",
+    url: "https://github.com/BirthdayResearch/defichain-wallet/issues",
   },
   {
     id: "tg_en",

@@ -10,6 +10,7 @@ import {
   PortfolioIcon,
 } from "@screens/WalletNavigator/assets/BottomNavIcon";
 import { useThemeContext } from "@waveshq/walletkit-ui";
+import { DomainType, useDomainContext } from "@contexts/DomainContext";
 import { PortfolioNavigator } from "./screens/Portfolio/PortfolioNavigator";
 import { DexNavigator } from "./screens/Dex/DexNavigator";
 import { LoansNavigator } from "./screens/Loans/LoansNavigator";
@@ -41,6 +42,7 @@ const getTabBarLabel = ({
 
 export function BottomTabNavigator(): JSX.Element {
   const { isLight } = useThemeContext();
+  const { domain } = useDomainContext();
   return (
     <>
       <OceanInterface />
@@ -54,7 +56,8 @@ export function BottomTabNavigator(): JSX.Element {
             "px-5 py-2 h-16 border-t",
             { "bg-mono-light-v2-00 border-mono-light-v2-100": isLight },
             { "bg-mono-dark-v2-00 border-mono-dark-v2-100": !isLight },
-            { "pt-1 pb-4 h-24": Platform.OS === "ios" }
+            { "pt-1 pb-4 h-24": Platform.OS === "ios" },
+            { hidden: domain !== DomainType.DVM },
           ),
           tabBarActiveTintColor: getColor("brand-v2-500"),
           tabBarInactiveTintColor: isLight
@@ -80,50 +83,58 @@ export function BottomTabNavigator(): JSX.Element {
           }}
         />
 
-        <BottomTab.Screen
-          component={DexNavigator}
-          name="DEX"
-          options={{
-            tabBarLabel: ({ focused, color }) =>
-              getTabBarLabel({
-                focused,
-                color,
-                title: translate("BottomTabNavigator", "DEX"),
-              }),
-            tabBarTestID: "bottom_tab_dex",
-            tabBarIcon: ({ color }) => <DEXIcon color={color} size={24} />,
-          }}
-        />
+        {domain === DomainType.DVM && (
+          <>
+            <BottomTab.Screen
+              component={DexNavigator}
+              name="DEX"
+              options={{
+                tabBarLabel: ({ focused, color }) =>
+                  getTabBarLabel({
+                    focused,
+                    color,
+                    title: translate("BottomTabNavigator", "DEX"),
+                  }),
+                tabBarTestID: "bottom_tab_dex",
+                tabBarIcon: ({ color }) => <DEXIcon color={color} size={24} />,
+              }}
+            />
 
-        <BottomTab.Screen
-          component={LoansNavigator}
-          name="Loans"
-          options={{
-            tabBarLabel: ({ focused, color }) =>
-              getTabBarLabel({
-                focused,
-                color,
-                title: translate("BottomTabNavigator", "Loans"),
-              }),
-            tabBarTestID: "bottom_tab_loans",
-            tabBarIcon: ({ color }) => <LoansIcon color={color} size={24} />,
-          }}
-        />
+            <BottomTab.Screen
+              component={LoansNavigator}
+              name="Loans"
+              options={{
+                tabBarLabel: ({ focused, color }) =>
+                  getTabBarLabel({
+                    focused,
+                    color,
+                    title: translate("BottomTabNavigator", "Loans"),
+                  }),
+                tabBarTestID: "bottom_tab_loans",
+                tabBarIcon: ({ color }) => (
+                  <LoansIcon color={color} size={24} />
+                ),
+              }}
+            />
 
-        <BottomTab.Screen
-          component={AuctionsNavigator}
-          name="Auctions"
-          options={{
-            tabBarLabel: ({ focused, color }) =>
-              getTabBarLabel({
-                focused,
-                color,
-                title: translate("BottomTabNavigator", "Auctions"),
-              }),
-            tabBarTestID: "bottom_tab_auctions",
-            tabBarIcon: ({ color }) => <AuctionsIcon color={color} size={24} />,
-          }}
-        />
+            <BottomTab.Screen
+              component={AuctionsNavigator}
+              name="Auctions"
+              options={{
+                tabBarLabel: ({ focused, color }) =>
+                  getTabBarLabel({
+                    focused,
+                    color,
+                    title: translate("BottomTabNavigator", "Auctions"),
+                  }),
+                tabBarTestID: "bottom_tab_auctions",
+                tabBarIcon: ({ color }) => (
+                  <AuctionsIcon color={color} size={24} />
+                ),
+              }}
+            />
+          </>
+        )}
       </BottomTab.Navigator>
     </>
   );

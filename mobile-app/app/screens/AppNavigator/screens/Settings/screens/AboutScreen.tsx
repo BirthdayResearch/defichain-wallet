@@ -1,6 +1,6 @@
 import { Feather, MaterialCommunityIcons } from "@expo/vector-icons";
-
-import { Image, ImageBackground, View } from "react-native";
+import { Image } from "expo-image";
+import { ImageBackground, View } from "react-native";
 import { AppIcon } from "@components/icons/AppIcon";
 import {
   ThemedIcon,
@@ -10,7 +10,7 @@ import {
   ThemedTouchableOpacityV2,
   ThemedViewV2,
 } from "@components/themed";
-import { tailwind } from "@tailwind";
+import { getColor, tailwind } from "@tailwind";
 import { translate } from "@translations";
 import { NavigationProp, useNavigation } from "@react-navigation/native";
 import { openURL } from "@api/linking";
@@ -21,6 +21,7 @@ import DeFiChainWalletImageDark from "@assets/images/DeFiChainWallet-dark.png";
 import GridBackgroundImageLight from "@assets/images/about-grid-bg-light.png";
 import GridBackgroundImageDark from "@assets/images/about-grid-bg-dark.png";
 import { VersionTag } from "@components/VersionTag";
+import { TwitterIcon } from "@components/icons/assets/TwitterIcon";
 import { SettingsParamList } from "../SettingsNavigator";
 
 interface AboutScreenLinks {
@@ -112,7 +113,7 @@ const SOCIAL_LINKS: AboutScreenSocialLinks[] = [
   {
     testID: "github",
     iconName: "github",
-    url: "https://github.com/DeFiCh/wallet",
+    url: "https://github.com/BirthdayResearch/defichain-wallet",
   },
 ];
 
@@ -131,7 +132,7 @@ export function AboutScreen(): JSX.Element {
             isLight ? DeFiChainWalletImageLight : DeFiChainWalletImageDark
           }
           style={tailwind("flex-wrap w-64 h-6 mt-5")}
-          resizeMode="contain"
+          contentFit="contain"
         />
 
         <View style={tailwind("mt-3")}>
@@ -161,14 +162,14 @@ export function AboutScreen(): JSX.Element {
           <View style={tailwind("flex-col mt-16")}>
             <ThemedTextV2
               style={tailwind(
-                "text-2xs leading-4 font-normal-v2 uppercase text-center"
+                "text-2xs leading-4 font-normal-v2 uppercase text-center",
               )}
             >
               {translate("screens/AboutScreen", "Developed by")}
             </ThemedTextV2>
             <ThemedTextV2
               style={tailwind(
-                "text-2xs leading-4 font-normal-v2 uppercase text-center"
+                "text-2xs leading-4 font-normal-v2 uppercase text-center",
               )}
             >
               {translate("screens/AboutScreen", "Birthday Research")}
@@ -177,7 +178,7 @@ export function AboutScreen(): JSX.Element {
 
           <View style={tailwind("flex-row justify-center pt-11")}>
             {SOCIAL_LINKS.map((link) => (
-              <SocialIcon {...link} key={link.testID} />
+              <SocialLink {...link} key={link.testID} />
             ))}
           </View>
         </ImageBackground>
@@ -215,7 +216,7 @@ export function AboutScreen(): JSX.Element {
       >
         {translate(
           "screens/CommunityScreen",
-          "DeFiChain is a community-driven and open project. The DeFiChain Foundation does not provide direct support."
+          "DeFiChain is a community-driven and open project. The DeFiChain Foundation does not provide direct support.",
         )}
       </ThemedTextV2>
     </ThemedScrollViewV2>
@@ -245,7 +246,7 @@ function LinkItemRow({
       light={tailwind("bg-mono-light-v2-00")}
       onPress={handlePress}
       style={tailwind(
-        "flex-row px-5 py-4 items-center rounded-lg-v2 mb-2 mx-5 border-0"
+        "flex-row px-5 py-4 items-center rounded-lg-v2 mb-2 mx-5 border-0",
       )}
       testID={testID}
     >
@@ -272,7 +273,7 @@ function LinkItemRow({
   );
 }
 
-function SocialIcon({
+function SocialLink({
   iconName,
   url,
   testID,
@@ -287,19 +288,39 @@ function SocialIcon({
       light={tailwind("bg-mono-light-v2-900")}
       onPress={handlePress}
       style={tailwind(
-        "justify-center items-center rounded-full w-10 h-10 mx-4 border-0"
+        "justify-center items-center rounded-full w-10 h-10 mx-4 border-0",
       )}
       testID={testID}
     >
-      <ThemedIcon
-        dark={tailwind("text-mono-dark-v2-00")}
-        light={tailwind("text-mono-light-v2-00")}
-        style={tailwind("pl-px")}
-        iconType="MaterialCommunityIcons"
-        name={iconName}
-        size={24}
-      />
+      <SocialIcon name={iconName} />
     </ThemedTouchableOpacityV2>
+  );
+}
+
+function SocialIcon({
+  name,
+}: {
+  name: React.ComponentProps<typeof MaterialCommunityIcons>["name"];
+}) {
+  const { isLight } = useThemeContext();
+  if (name === "twitter") {
+    return (
+      <TwitterIcon
+        color={getColor(isLight ? "mono-light-v2-00" : "mono-dark-v2-00")}
+        width={24}
+        height={24}
+      />
+    );
+  }
+  return (
+    <ThemedIcon
+      dark={tailwind("text-mono-dark-v2-00")}
+      light={tailwind("text-mono-light-v2-00")}
+      style={tailwind("pl-px")}
+      iconType="MaterialCommunityIcons"
+      name={name}
+      size={24}
+    />
   );
 }
 

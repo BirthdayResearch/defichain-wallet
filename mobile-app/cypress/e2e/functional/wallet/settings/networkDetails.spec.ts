@@ -4,7 +4,8 @@ context("Wallet - Network detail screen - outside wallet context", () => {
   beforeEach(() => {
     cy.visit("/");
     cy.exitWallet();
-    cy.getByTestID("get_started_button").click();
+    cy.wait(3000);
+    cy.getByTestID("get_started_button").should("be.visible").click();
     cy.getByTestID("guidelines_check").click();
     cy.url().should("include", "wallet/onboarding/guidelines");
     cy.restoreLocalStorage();
@@ -31,7 +32,7 @@ context("Wallet - Network detail screen - outside wallet context", () => {
             cy.getByTestID(`button_network_${network}_check`).should(
               "have.css",
               "color",
-              statusBgColor
+              statusBgColor,
             );
           });
       });
@@ -54,7 +55,7 @@ context("Wallet - Network detail screen - outside wallet context", () => {
             cy.getByTestID(`button_network_${network}_check`).should(
               "have.css",
               "color",
-              statusBgColor
+              statusBgColor,
             );
             cy.go("back");
             cy.url().should("include", "wallet/onboarding/guidelines");
@@ -77,13 +78,13 @@ context("Wallet - Network detail screen - outside wallet context", () => {
                       .filter(":visible")
                       .click();
                     cy.getByTestID(`button_network_${network}_uncheck`).should(
-                      "exist"
+                      "exist",
                     );
                     cy.getByTestID(
-                      `button_network_${updatedNetwork}_check`
+                      `button_network_${updatedNetwork}_check`,
                     ).should("exist");
                     cy.getByTestID(
-                      `button_network_${updatedNetwork}_check`
+                      `button_network_${updatedNetwork}_check`,
                     ).should("have.css", "color", updatedStatusBgColor);
                   });
               });
@@ -160,7 +161,7 @@ context("Wallet - Network detail screen - outside wallet context", () => {
             cy.getByTestID(`button_network_${network}_check`).should(
               "have.css",
               "color",
-              statusBgColor
+              statusBgColor,
             );
             cy.getByTestID("network_details_block_height")
               .should("exist")
@@ -176,7 +177,9 @@ context("Wallet - Network detail screen - outside wallet context", () => {
                   .invoke("text")
                   .then((updatedLastSync) => {
                     expect(
-                      dayjs(lastSuccessfulSync).isBefore(dayjs(updatedLastSync))
+                      dayjs(lastSuccessfulSync).isBefore(
+                        dayjs(updatedLastSync),
+                      ),
                     ).to.be.eq(true);
                   });
               });
@@ -207,7 +210,7 @@ context("Wallet - Network detail screen - with wallet context", () => {
         cy.getByTestID(`button_network_${network}_check`).should(
           "have.css",
           "color",
-          "rgb(0, 173, 29)"
+          "rgb(0, 173, 29)",
         );
       });
   });
@@ -230,7 +233,7 @@ context("Wallet - Network detail screen - with wallet context", () => {
             cy.getByTestID(`button_network_${network}_check`).should(
               "have.css",
               "color",
-              statusBgColor
+              statusBgColor,
             );
             cy.getByTestID("button_network_Playground").click();
             cy.exitWallet();
@@ -253,7 +256,7 @@ context("Wallet - Network detail screen - with wallet context", () => {
                       .should("exist")
                       .contains(updatedNetwork);
                     cy.getByTestID(
-                      `button_network_${updatedNetwork}_check`
+                      `button_network_${updatedNetwork}_check`,
                     ).should("have.css", "color", updatedStatusBgColor);
                   });
               });
@@ -265,6 +268,7 @@ context("Wallet - Network detail screen - with wallet context", () => {
     cy.getByTestID("bottom_tab_portfolio").click();
     cy.getByTestID("header_settings").click().wait(3000);
     cy.getByTestID("header_network_icon").filter(":visible").click();
+    cy.getByTestID("block_detail_explorer_url").scrollIntoView();
     cy.getByTestID("block_detail_explorer_url")
       .invoke("text")
       .then(() => {
@@ -321,6 +325,7 @@ context(
     });
 
     it("should get back to the setting page when network detail called from setting page", () => {
+      cy.wait(1000);
       cy.getByTestID("bottom_tab_portfolio").click().wait(3000);
       cy.getByTestID("header_settings").filter(":visible").click().wait(3000);
       cy.url().should("include", "app/Settings");
@@ -331,5 +336,5 @@ context(
       cy.go("back");
       cy.url().should("include", "app/Settings");
     });
-  }
+  },
 );

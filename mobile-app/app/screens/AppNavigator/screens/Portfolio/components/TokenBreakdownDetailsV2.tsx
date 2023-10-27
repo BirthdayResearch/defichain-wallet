@@ -9,7 +9,7 @@ import { tailwind } from "@tailwind";
 import { translate } from "@translations";
 import BigNumber from "bignumber.js";
 import { useMemo } from "react";
-import { StyleProp, TextProps, ViewProps } from "react-native";
+import { StyleProp, TextProps, ViewStyle } from "react-native";
 import { NumericFormat as NumberFormat } from "react-number-format";
 import { useSelector } from "react-redux";
 import { getPrecisedCurrencyValue } from "../../Auctions/helpers/precision-token-value";
@@ -34,7 +34,7 @@ interface TokenBreakdownDetailProps {
 }
 
 export function TokenBreakdownDetailsV2(
-  props: TokenBreakdownDetailProps
+  props: TokenBreakdownDetailProps,
 ): JSX.Element {
   const { denominationCurrency } = useDenominationCurrency();
   const lockedToken = (useTokenLockedBalance({
@@ -46,17 +46,17 @@ export function TokenBreakdownDetailsV2(
   };
   const loanTokens = useSelector((state: RootState) => state.loans.loanTokens);
   const collateralTokens = useSelector(
-    (state: RootState) => state.loans.collateralTokens
+    (state: RootState) => state.loans.collateralTokens,
   );
   const hasLockedBalance = useMemo((): boolean => {
     return (
       collateralTokens.some(
         (collateralToken) =>
-          collateralToken.token.displaySymbol === props.token.displaySymbol
+          collateralToken.token.displaySymbol === props.token.displaySymbol,
       ) ||
       loanTokens.some(
         (loanToken) =>
-          loanToken.token.displaySymbol === props.token.displaySymbol
+          loanToken.token.displaySymbol === props.token.displaySymbol,
       )
     );
   }, [props.token]);
@@ -65,7 +65,7 @@ export function TokenBreakdownDetailsV2(
   // LP token calculations
   const { poolpairs: pairs } = useSelector((state: RootState) => state.wallet);
   const poolPairData = pairs.find(
-    (pr) => pr.data.symbol === (props.token as AddressToken).symbol
+    (pr) => pr.data.symbol === (props.token as AddressToken).symbol,
   );
   const mappedPair = poolPairData?.data;
   const toRemove = new BigNumber(1)
@@ -81,7 +81,7 @@ export function TokenBreakdownDetailsV2(
   const getUSDValue = (
     amount: BigNumber,
     symbol: string,
-    isLPs: boolean = false
+    isLPs: boolean = false,
   ): BigNumber => {
     return getTokenPrice(symbol, amount, isLPs);
   };
@@ -166,6 +166,7 @@ export function TokenBreakdownDetailsV2(
 
       {/* To display options for DFI UTXO and Token */}
       {props.token.displaySymbol === "DFI" &&
+        props.token.id !== "0_evm" &&
         props.dfiUtxo !== undefined &&
         props.dfiToken !== undefined && (
           <View style={tailwind("pb-4")}>
@@ -211,8 +212,8 @@ export function TokenBreakdownDetailsV2(
                 getTokenPrice(
                   props.token.symbol,
                   new BigNumber(props.token.amount),
-                  true
-                )
+                  true,
+                ),
               )}
               label=""
               hasFetchedToken={props.hasFetchedToken}
@@ -233,7 +234,7 @@ export function TokenBreakdownDetailsV2(
               label={translate(
                 "components/DFIBalanceCard",
                 "Tokens in {{token}}",
-                { token: props.pair.tokenA.displaySymbol }
+                { token: props.pair.tokenA.displaySymbol },
               )}
               hasFetchedToken={props.hasFetchedToken}
             />
@@ -242,8 +243,8 @@ export function TokenBreakdownDetailsV2(
               amount={getPrecisedCurrencyValue(
                 getUSDValue(
                   new BigNumber(tokenATotal),
-                  props.pair.tokenA.symbol
-                )
+                  props.pair.tokenA.symbol,
+                ),
               )}
               label=""
               hasFetchedToken={props.hasFetchedToken}
@@ -263,14 +264,14 @@ export function TokenBreakdownDetailsV2(
             label={translate(
               "components/DFIBalanceCard",
               "Tokens in {{token}}",
-              { token: props.pair.tokenB.displaySymbol }
+              { token: props.pair.tokenB.displaySymbol },
             )}
             hasFetchedToken={props.hasFetchedToken}
           />
           <TokenBreakdownDetailsRow
             testID={`tokens_in_${props.pair.symbol}_${props.pair.tokenB.displaySymbol}_usd`}
             amount={getPrecisedCurrencyValue(
-              getUSDValue(new BigNumber(tokenBTotal), props.pair.tokenB.symbol)
+              getUSDValue(new BigNumber(tokenBTotal), props.pair.tokenB.symbol),
             )}
             label=""
             hasFetchedToken={props.hasFetchedToken}
@@ -296,7 +297,7 @@ interface TokenBreakdownDetailsRowProps {
   labelTextStyle?: StyleProp<TextProps>;
   valueTextStyle?: StyleProp<TextProps>;
   valueThemeProps?: ThemedProps;
-  containerStyle?: StyleProp<ViewProps>;
+  containerStyle?: StyleProp<ViewStyle>;
   prefix?: string;
   suffix?: string;
   border?: boolean;

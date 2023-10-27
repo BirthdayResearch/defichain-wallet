@@ -109,7 +109,8 @@
     "AVAILABLE ASSETS": "可用資產",
     "Asset value": "資產價值",
     "Sort by": "Sort by",
-    "ASSETS": "ASSETS"
+    "ASSETS": "ASSETS",
+    "network": "網絡"
   },
   "screens/GetDFIScreen": {
     "Get DFI": "獲取 DFI",
@@ -210,9 +211,10 @@
     "Address saved!": "Address saved!",
     "Address label updated!": "Address label updated!",
     "Address deleted!": "Address deleted!",
-    "It may take a few seconds to delete": "It may take a few seconds to delete",
-    "It may take a few seconds to update": "It may take a few seconds to update",
-    "It may take a few seconds to save": "It may take a few seconds to save"
+    "It may take a few seconds to delete": "可能需要幾秒鐘進行刪除",
+    "It may take a few seconds to update": "可能需要幾秒鐘進行更新",
+    "It may take a few seconds to save": "可能需要幾秒鐘進行保存",
+    "ADDRESS TYPE": "地址類型"
   },
   "screens/ReceiveScreen": {
     "Receive": "接收",
@@ -223,7 +225,7 @@
     "Copy": "複製地址",
     "Share": "轉發地址",
     "WALLET ADDRESS": "錢包地址",
-    "Use QR or Wallet address to receive any tokens (DST) or DFI": "Use QR or Wallet address to receive any tokens (DST) or DFI",
+    "Scan QR code to receive any dTokens (eg. DUSD,dBTC..) or DFI": "掃描二維碼以接收任何 dToken（例如 DUSD、dBTC..）或 DFI",
     "Get DFI": "獲得 DFI"
   },
   "components/toaster": {
@@ -258,7 +260,7 @@
     "SEND TO": "SEND TO",
     "Paste address": "Paste address",
     "I WANT TO SEND": "I WANT TO SEND",
-    "Review full details in the next screen": "Review full details in the next screen",
+    "Review full details in the next screen": "在下一個屏幕中查看完整詳細信息",
     "Verified": "Verified",
     "{{percent}} of available {{unit}} entered": "{{percent}} of available {{unit}} entered",
     "Max available {{unit}} entered": "Max available {{unit}} entered",
@@ -319,13 +321,14 @@
     "I WANT TO CONVERT": "I WANT TO CONVERT",
     "Insufficient balance": "Insufficient balance",
     "Available: ": "可轉換資金: ",
-    "Review full details in the next screen": "Review full details in the next screen",
+    "Review full details in the next screen": "在下一個屏幕中查看完整詳細信息",
     "Max available {{unit}} entered": "Max available {{unit}} entered",
     "{{percent}} of available {{unit}} entered": "{{percent}} of available {{unit}} entered",
     "A small amount of UTXO is reserved for fees": "保留少量 UTXO 用於交易費用",
     "Available {{unit}}": "可轉換資金 {{unit}}",
     "Resulting {{unit}}": "轉換後 {{unit}}",
     "TO RECEIVE": "TO RECEIVE",
+    "TO CONVERT": "轉換",
     "tokens": "代幣"
   },
   "screens/ConvertConfirmScreen": {
@@ -343,13 +346,15 @@
     "Convert": "轉換",
     "{{token}} to receive": "{{token}} 將會收到",
     "CONFIRM TRANSACTION": "確認交易",
-    "You are converting to {{unit}}": "You are converting to {{unit}}",
+    "You are converting to {{unit}}": "您正在轉換為 {{unit}}",
     "Transaction fee": "交易費用",
+    "Resulting Tokens (EVM)": "轉換後 Tokens (EVM)",
     "Resulting Tokens": "轉換後 Tokens",
     "Resulting UTXO": "轉換後 UTXO",
     "Convert {{amount}} DFI to {{target}}": "轉換 {{amount}} DFI 至 {{target}}",
     "Converting": "轉換中",
-    "Converted": "Converted"
+    "Converted": "Converted",
+    "Convert {{amount}} {{symbolA}} to {{symbolB}} tokens": "轉換 {{amount}} {{symbolA}} 到 {{symbolB}} 代幣"
   },
   "screens/SettingsNavigator": {
     "Settings": "設定"
@@ -420,7 +425,9 @@
     "Cancel transaction": "Cancel transaction",
     "By cancelling, you will lose any changes you made for your transaction.": "By cancelling, you will lose any changes you made for your transaction.",
     "View on Scan": "往 DeFi Scan 查看",
-    "Go back": "回到上一頁"
+    "Go back": "回到上一頁",
+    "Service Providers": "服務提供者",
+    "Custom (3rd-party)": "自定義（第三方）"
   },
   "screens/AboutScreen": {
     "About": "關於",
@@ -539,6 +546,19 @@
     "Are there other ways to submit proposals?": "還有其他的方式提交提案嗎？",
     "If you own a full node wallet, you may also choose to submit using commands via CLI. Commands can be generated on DeFiScan, under Governance tab > Submit proposal.": "如果您擁有全節點錢包，你可以選擇通過CLI界面使用命令進行提交。該命令可以在DeFiScan上生成，在\"Governance\" > \"Submit proposal\" 選項裡。"
   },
+  "components/EvmFeatureFaq": {
+    "FREQUENTLY ASKED QUESTIONS": "常見問題",
+    "About MetaChain (EVM)": "MetaChain (EVM)",
+    "The MetaChain layer provides an EVM-compatible environment that allows developers familiar with Ethereum to build applications inside the DeFiChain ecosystem.": "MetaChain 層提供了一個與EVM 兼容的環境，允許熟悉以太坊的開發人員在DeFiChain 生態系統內構建應用程序。",
+    "What tokens are supported between DVM and EVM bidirectionally?": "DVM 和 EVM 這兩個之間支持哪些雙向代幣？",
+    "All dTokens are accepted. dTokens consist of:\ndStocks (dTSLA, dGOOG.) + DFI\n\nFor the full list, you may refer to https://defiscan.live/tokens on any tokens under DAT category.": "所有 dToken 均被接受。 dToken 包括：\ndStocks (dTSLA, dGOOG.) + DFI\n\n有關完整列表，您可以參考https://defiscan.live/tokens 了解DAT 類別下的任何代幣。",
+    "How can I access the MetaChain layer from the Light Wallet?": "如何從輕錢包訪問MetaChain層？",
+    "Move your dTokens between native DeFiChain's native layer (DVM) and the MetaChain layer (EVM) bidirectionally.\n\nFor instance, transfer DFI/DUSD/dBTC or any other dToken from DVM to EVM and back, all directly within the Light Wallet.": "在原生 DeFiChain 的原鏈層 (DVM) 和 MetaChain 層 (EVM) 之間雙向移動您的 dToken。\n\n例如，將DFI/DUSD/dBTC 或任何其他dToken 從DVM 轉移到EVM 並返回，所有這些操作都直接在輕錢包內進行。",
+    "Why would I need to move dTokens from DVM to EVM?": "為什麼我需要將 dToken 從 DVM 轉移到 EVM？",
+    "Using the gateway allows you to move your dTokens from the Light Wallet to any EVM compatible wallet on the MetaChain layer (ex: MetaMask). This would allow you to interact with the constantly growing EVM ecosystem on MetaChain and the various projects on it.": "使用這路線可以讓您將dToken 從Light Wallet 移動到MetaChain 層上的任何EVM 兼容錢包（例如：MetaMask）。這將使您能夠與 MetaChain 上不斷發展的 EVM 生態系統及其上的各種項目進行交互。",
+    "How can I move dTokens from DVM to EVM?": "如何將 dToken 從 DVM 轉移到 EVM？",
+    "You can do it through either the \"Convert\" or \"Send\" functions on Light Wallet. The \"Convert\" option allows you to convert any dTokens on DVM to your own EVM address within the Light Wallet (and vice versa).\n\nYour seed phrase can also be used to import your Light Wallet EVM address into any external wallets which support a 24 words recovery phrase like MetaMask.\n\nThe \"Send\" option allows you to send dTokens from your DVM address to any EVM address on the MetaChain layer and vice versa. Note that you do not need to convert your dTokens before sending, this process does it automatically for you.": "您可以通過Light Wallet 上的\"轉換\"或\"發送\"功能來完成此操作。 \"轉換\"選項允許您將 DVM 上的任何 dToken 轉換為您自己的輕錢包中的 EVM 地址（反之亦然）。\n\n您的助記詞還可用於將您的輕錢包EVM 地址導入任何支持24 個單詞恢復短語（如MetaMask）的外部錢包。\n\n\"發送\"選項允許您將dToken 從您的DVM 地址發送到MetaChain 層上的任何EVM 地址，反之亦然。請注意，您無需在發送前轉換 dToken，此過程會自動為您完成。"
+  },
   "screens/NetworkSelectionScreen": {
     "NETWORK": "網絡",
     "Select network": "切換網絡",
@@ -610,6 +630,8 @@
     "Trade on the DEX and earn rewards from liquidity mining with crypto and dTokens.": "在 DEX 上進行交易並使用加密貨幣和 dToken 從流動性挖礦中獲得獎勵 ",
     "Decentralized loans": "去中心化資產貸款",
     "Access financial opportunities with dTokens minted through decentralized vaults.": "透過去中心化金庫鑄造的 dToken 獲得交易機會",
+    "EVM compatible": "EVM 兼容",
+    "Seamless transfers between DeFiChain and MetaChain via generated EVM address.": "通過生成的 EVM 地址在 DeFiChain 和 MetaChain 之間無縫傳輸。",
     "DeFiChain Wallet is fully non-custodial. Only you will have access to your fund.": "DeFiChain 錢包是完全非託管的。 個人資金只供您私人操作。"
   },
   "screens/CreateMnemonicWallet": {
@@ -643,7 +665,8 @@
     "Create wallet": "Create wallet",
     "You will be shown 24 recovery words on the next screen. Keep your 24-word recovery safe as it will allow you to recover access to the wallet.": "You will be shown 24 recovery words on the next screen. Keep your 24-word recovery safe as it will allow you to recover access to the wallet.",
     "Write the words on paper. Take note of their correct spelling and order.": "Write the words on paper. Take note of their correct spelling and order.",
-    "Secure them in a safe place. Store them offline at a place only you have access. Keep them private and do not share it with anyone.": "Secure them in a safe place. Store them offline at a place only you have access. Keep them private and do not share it with anyone."
+    "Secure them in a safe place. Store them offline at a place only you have access. Keep them private and do not share it with anyone.": "Secure them in a safe place. Store them offline at a place only you have access. Keep them private and do not share it with anyone.",
+    "A mapped EVM address will be generated to ensure seamless transfers between DeFiChain and MetaChain.": "將生成映射的 EVM 地址，以確保 DeFiChain 和 MetaChain 之間的無縫傳輸。"
   },
   "screens/GuidelinesRecoveryWords": {
     "What are recovery words?": "「恢復字組」是什麼?",
@@ -737,7 +760,9 @@
     "Display payback DUSD loan with DUSD collateral": "Display payback DUSD loan with DUSD collateral",
     "CFP/DFIP proposal(s)": "CFP/DFIP 提案",
     "Allows the submission of CFP/DFIP proposals": "允許提交 CFP/DFIP 提案",
-    "Upon activation, you will be able to submit CFP/DFIP proposals directly using your active mobile Light Wallet account. Do you want to continue?": "激活後，您將能夠使用您活躍的移動端Light Wallet賬戶直接提交 CFP/DFIP 提案。你要繼續嗎？"
+    "Upon activation, you will be able to submit CFP/DFIP proposals directly using your active mobile Light Wallet account. Do you want to continue?": "激活後，您將能夠使用您活躍的移動端Light Wallet賬戶直接提交 CFP/DFIP 提案。你要繼續嗎？",
+    "Light Wallet beta features are in final testing before their official release. Using beta features are encouraged, but caution is advised when using your assets.": "Light Wallet beta 功能目前在正式發布前進行最終測試。 我們鼓勵使用測試版功能，但建議您在使用資產時務必小心。",
+    "Allows to customize the service providers for both DVM and EVM. Proceed with caution.": "允許為 DVM 和 EVM 自訂服務提供者。 謹慎行事。"
   },
   "BottomTabNavigator": {
     "Balances": "總資金",
@@ -831,7 +856,9 @@
     "Borrowing {{amount}} {{symbol}} with vault {{vaultId}}": "Borrowing {{amount}} {{symbol}} with vault {{vaultId}}",
     "Borrowed {{amount}} {{symbol}}": "Borrowed {{amount}} {{symbol}}",
     "Requested amount is higher than available amount.": "您請求的金額高於可用金額。",
-    "tokens": "代幣"
+    "tokens": "代幣",
+    "Converting {{amount}} {{symbolA}} to {{symbolB}} tokens": "正在轉換 {{amount}} {{symbolA}} 到 {{symbolB}} 代幣",
+    "{{amount}} {{symbolA}} converted to {{symbolB}} tokens": "{{amount}} {{symbolA}} 已經成功轉換成 {{symbolB}}代幣"
   },
   "components/BarCodeScanner": {
     "Requesting for camera permission": "請許可程序使用相機",
@@ -880,7 +907,7 @@
     "Pooled {{symbol}}": "池中總 {{symbol}}",
     "View pool share": "View pool share",
     "View pool info": " 查看流動池資料",
-    "Review full details in the next screen": "Review full details in the next screen",
+    "Review full details in the next screen": "在下一個屏幕中查看完整詳細信息",
     "Insufficient balance": "Insufficient balance",
     "APR": "APR",
     "Shares to add": "要添加的股份",
@@ -1064,9 +1091,9 @@
     "You are buying dTokens at 5% more than the oracle price at settlement block.": "You are buying dTokens at 5% more than the oracle price at settlement block.",
     "You are buying {{displaySymbol}} at 5% more than the oracle price at settlement block.": "You are buying {{displaySymbol}} at 5% more than the oracle price at settlement block.",
     "You are selling your {{displaySymbol}} at 5% less than the oracle price at settlement block.": "You are selling your {{displaySymbol}} at 5% less than the oracle price at settlement block.",
-    "Review full details in the next screen": "Review full details in the next screen",
+    "Review full details in the next screen": "在下一個屏幕中查看完整詳細信息",
     "By continuing, the required amount of DFI will be converted": "By continuing, the required amount of DFI will be converted",
-    "I HAVE {{totalAmount}} {{token}}": "I HAVE {{totalAmount}} {{token}}",
+    "I HAVE {{totalAmount}} {{token}}": "我有 {{totalAmount}} {{token}}",
     "I WANT {{token}}": "I WANT {{token}}",
     "incl. stabilization fee ({{dexStabilizationFee}}%)": "incl. stabilization fee ({{dexStabilizationFee}}%)",
     "Total fees": "Total fees",
@@ -1186,7 +1213,7 @@
     "What happens if I lose my recovery words?": "如果我丟失了恢復字組會怎樣？",
     "Once you lose your recovery words, you will not be able to restore your wallet and any funds within it. We encourage you to be responsible with your recovery words.": "如果遺失恢復字組, 使用者將無法恢復錢包及所儲存的資產。建議使用者必須好好保管及存放。",
     "Can I use the 24-words from xxx that I created from xxx?": "如果我的24字組是透過 xxx 產生，可以使用嗎？",
-    "You can only reuse the 24-words only if it's created from the Jellyfish ecosystem.\n\nThe compatible clients are DeFiChain Wallet (Android/iOS) and DFX.SWISS (Android/iOS).\n\nHowever, it is highly discouraged that you reuse it. Your 24-words are only as secure as the source computer / device / app that generates it. If your source is comprised, so are your 24-words. Essentially, one set of 24-words per computer / device / app is encouraged.": "若您的24字組是透過Jellyfish水母生態產生的， 您可以重新使用24字組。\n\n適用的用戶端包括 DeFiChain 錢包 (安卓或蘋果iOS系統)，及 DFX.SWISS (安卓或蘋果iOS系統)。\n\n但是，我們非常不鼓勵您重複使用它，您的24字組的安全性與生成單字的源始電腦/設備/應用程式可能有安全風險。因此，24字組的安全性是不完全確認的。加倍安全的方式是在使用每台電腦/設備/應用程式配置時都用獨立一套的24字組。",
+    "You can only reuse the 24-words only if it's created from the Jellyfish ecosystem.\n\nThe compatible client is DeFiChain Wallet (Android/iOS).\n\nHowever, it is highly discouraged that you reuse it. Your 24-words are only as secure as the source computer / device / app that generates it. If your source is comprised, so are your 24-words. Essentially, one set of 24-words per computer / device / app is encouraged.": "若您的24字組是透過Jellyfish水母生態產生的， 您可以重新使用24字組。\n\nThe compatible client is DeFiChain Wallet (Android/iOS).\n\n但是，我們非常不鼓勵您重複使用它，您的24字組的安全性與生成單字的源始電腦/設備/應用程式可能有安全風險。因此，24字組的安全性是不完全確認的。加倍安全的方式是在使用每台電腦/設備/應用程式配置時都用獨立一套的24字組。",
     "Can someone help me if I lose my recovery words?": "如果我丟失了恢復字組可以請別人幫我嗎？",
     "No. You have sole access to your recovery words. No one is responsible and liable for it except you.": "不建議。個人的24字組是不應該透露給任可人。除了自己，沒有人有責任和義務給您保管。",
     "Why is it recommended to keep my recovery words offline and on paper?": "為何建議用離線方式或紙張來紀錄保存24字組？",
@@ -1195,7 +1222,7 @@
     "Your unique 24 recovery words is a human-readable representation of your wallet private key, generated from a list of 2048 words in the BIP-39 standard. It prevents any attempts on brute-hacking your wallet’s security.": "您的連續顯示24個英文字組是指儲存在錢包的private key，它由2048個單字所產生的，支持BIP-39 標準的錢包。就算整個硬體錢包被盗或入侵，仍然可以確保安全的。",
     "FREQUENTLY ASKED QUESTIONS": "常見問題",
     "Can I use the 24-word from xxx that I created from xxx?": "Can I use the 24-word from xxx that I created from xxx?",
-    "You can only reuse the 24-words if it's created from the Jellyfish ecosystem.\n\nThe compatible clients are DeFiChain Wallet (Android/iOS) and DFX.Swiss (Android/iOS).\n\nHowever, it is highly discouraged that you reuse it. Your 24-words are only as secure as the source computer / device / app that generates it. If your source is comprised, so are your 24-words. Essentially, one set of 24-words per device / computer / app is encouraged.": "You can only reuse the 24-words if it's created from the Jellyfish ecosystem.\n\nThe compatible clients are DeFiChain Wallet (Android/iOS) and DFX.Swiss (Android/iOS).\n\nHowever, it is highly discouraged that you reuse it. Your 24-words are only as secure as the source computer / device / app that generates it. If your source is comprised, so are your 24-words. Essentially, one set of 24-words per device / computer / app is encouraged."
+    "You can only reuse the 24-words if it's created from the Jellyfish ecosystem.\n\nThe compatible client is DeFiChain Wallet (Android/iOS).\n\nHowever, it is highly discouraged that you reuse it. Your 24-words are only as secure as the source computer / device / app that generates it. If your source is comprised, so are your 24-words. Essentially, one set of 24-words per device / computer / app is encouraged.": "You can only reuse the 24-words if it's created from the Jellyfish ecosystem.\n\nThe compatible client is DeFiChain Wallet (Android/iOS).\n\nHowever, it is highly discouraged that you reuse it. Your 24-words are only as secure as the source computer / device / app that generates it. If your source is comprised, so are your 24-words. Essentially, one set of 24-words per device / computer / app is encouraged."
   },
   "components/DexFaq": {
     "Decentralized Exchange": "去中心化交易所",
@@ -1216,7 +1243,7 @@
     "How do I send tokens from my DFI wallet?": "如何從我的DFI錢包發送代幣？",
     "Tokens on DeFiChain can only be sent to DFI addresses only. This means that you should not send directly to an exchange or a third party platform that does not support DeFiChain.\n\nSimilarly, liquidity tokens can only be sent to another DFI wallet address.": "遞飛鏈上的代幣只能發送至DFI地址。這表示您不能直接發送至沒有引入遞飛鏈技術的交易所或第三方平台。同樣地，遞飛鏈流動性池代幣只能發送到另一個DFI錢包地址。",
     "What are some exchanges and platforms I can send to?": "目前有哪些平台可支持遞飛鏈和生態代幣？",
-    "1. Kucoin\n2. Bittrex\n3. Transak\n4. Cake DeFi\n\nView more at DeFiChain.com": "1. Kucoin\n2. Bittrex\n3. 其他有DFI上線交易所\n4. Cake DeFi\n\n請參考更多關於 zht.DeFiChain.com",
+    "1. Kucoin\n2. Bittrex\n3. Transak\n4. Bake\n\nView more at DeFiChain.com": "1. Kucoin\n2. Bittrex\n3. 其他有DFI上線交易所\n4. Bake\n\n請參考更多關於 zht.DeFiChain.com",
     "Can I send liquidity pool tokens to an exchange or another entity?": "是否可以把流動性池中的代幣直接發送到其他交易所或其他地址？",
     "Liquidity tokens can only be sent to another DFI wallet address, and not to an exchange of central entity.": "由於流動性池的代幣是屬於流動性池的代幣系統，您只能發送池中的DFI到其他交易所。若您想要發送其他代幣，請先使用流動池兌換成DFI，在發出至其他交易所使用。",
     "How do I receive tokens on my DFI wallet?": "如何在我的DFI錢包中接收代幣？",
@@ -1750,7 +1777,7 @@
     "Insufficient DFI and/or DUSD in vault to maintain active loans": "Insufficient DFI and/or DUSD in vault to maintain active loans",
     "Active DUSD loans require 50% DFI collaterals": "Active DUSD loans require 50% DFI collaterals",
     "By continuing, the required amount of DFI will be converted": "By continuing, the required amount of DFI will be converted",
-    "Review full details in the next screen": "Review full details in the next screen"
+    "Review full details in the next screen": "在下一個屏幕中查看完整詳細信息"
   },
   "screens/ConfirmEditCollateralScreen": {
     "You are adding collateral to": "您正在加入抵押到",
@@ -1793,7 +1820,7 @@
     "I WANT TO PAY": "I WANT TO PAY",
     "I WANT TO PAY WITH DUSD COLLATERAL": "I WANT TO PAY WITH DUSD COLLATERAL",
     "Available: ": "現有可使用: ",
-    "Review full details in the next screen": "Review full details in the next screen",
+    "Review full details in the next screen": "在下一個屏幕中查看完整詳細信息",
     "Use your DUSD collaterals to fully pay off your DUSD loan.": "Use your DUSD collaterals to fully pay off your DUSD loan.",
     "Continue": "繼續",
     "Max available {{unit}} entered": "Max available {{unit}} entered",
@@ -1882,7 +1909,7 @@
     "Amount entered may liquidate the vault. Proceed at your own risk.": "Amount entered may liquidate the vault. Proceed at your own risk.",
     "Insufficient DFI and/or DUSD in vault. Add more to start minting dTokens.": "Insufficient DFI and/or DUSD in vault. Add more to start minting dTokens.",
     "Insufficient DFI in vault. Add more to borrow DUSD.": "Insufficient DFI in vault. Add more to borrow DUSD.",
-    "Review full details in the next screen": "Review full details in the next screen",
+    "Review full details in the next screen": "在下一個屏幕中查看完整詳細信息",
     "Max loan amount entered": "已輸入最高貸款金額的",
     "{{percent}} of max loan amount entered": "已輸入最高貸款金額的 {{percent}}%",
     "SELECT VAULT FOR COLLATERAL": "選擇金庫抵押",
@@ -1953,7 +1980,7 @@
     "Continue": "繼續",
     "Confirm your vault details in next screen": "請在下一頁確認金庫細項",
     "AVAILABLE SCHEMES": "AVAILABLE SCHEMES",
-    "Review full details in the next screen": "Review full details in the next screen",
+    "Review full details in the next screen": "在下一個屏幕中查看完整詳細信息",
     "VAULT DETAILS": "VAULT DETAILS",
     "{{interestRate}}% Interest": "{{interestRate}}% Interest",
     "min. ": "min. ",
@@ -2049,7 +2076,7 @@
     "The value of the tokens you are placing is considerably higher than the total auction value.": "您正要出的價錢比拍賣價值還高，請檢查和確認",
     "Collateral for auction": "待拍賣的抵押品",
     "I HAVE {{ownedAmount}} {{symbol}}": "I HAVE {{ownedAmount}} {{symbol}}",
-    "Review full details in the next screen": "Review full details in the next screen",
+    "Review full details in the next screen": "在下一個屏幕中查看完整詳細信息",
     "Transaction fee": "Transaction fee",
     "The minimum next bid is {{amount}} {{symbol}} (100%)": "The minimum next bid is {{amount}} {{symbol}} (100%)",
     "{{percent}} min bid entered": "{{percent}} 最低競投出價輸入",
@@ -2096,7 +2123,7 @@
     "Withdraw from": "Withdraw from",
     "Insufficient Balance": "Insufficient Balance",
     "Transaction fee": "交易費用",
-    "Review full details in the next screen": "Review full details in the next screen",
+    "Review full details in the next screen": "在下一個屏幕中查看完整詳細信息",
     "Max available {{unit}} entered": "Max available {{unit}} entered",
     "{{percent}} of available {{unit}} entered": "{{percent}} of available {{unit}} entered",
     "Amount to swap": "Amount to swap",
@@ -2148,6 +2175,7 @@
     "Adding malicious service providers may result in irrecoverable funds. Please proceed at your own risk.": "添加惡意服務供應商 可能會導致可收回資金。 風險自負",
     "Only add URLs that are fully trusted and secured. Adding malicious service providers may result in irrecoverable funds. Changes do not take effect until you manually restart the app.": "Only add URLs that are fully trusted and secured. Adding malicious service providers may result in irrecoverable funds. Changes do not take effect until you manually restart the app.",
     "Adding custom service provider": "添加自定義服務提供者",
+    "Adding custom service providers": "添加自定義服務提供者",
     "In doing so, you will be reverted back to Light wallet's default endpoint. Would you like to continue?": "這樣做，您將恢復到手機輕錢包的預設終端點。 你想繼續嗎？",
     "Enter passcode to continue": "輸入密碼後可繼續",
     "Invalid URL": "無效的網址",
@@ -2158,7 +2186,17 @@
     "Reset Service Provider": "Reset Service Provider",
     "Go back": "Go back",
     "GO BACK": "GO BACK",
-    "Reset": "Reset"
+    "Reset": "Reset",
+    "Save changes": "儲存修改",
+    "Custom Service Provider": "自定義服務供應商",
+    "Reset providers": "Reset 供應商",
+    "ENDPOINT URL (DVM)": "端點 URL (DVM)",
+    "Used to get balance from Native DFC (MainNet and TestNet)": "用於從原生DFC（主網和測試網）取得餘額",
+    "ENDPOINT URL (EVM)": "端點 URL (EVM)",
+    "Used to get balance from EVM (MainNet and TestNet)": "用於從EVM（主網和測試網）取得餘額",
+    "ENDPOINT URL (ETH-RPC)": "端點 URL (ETH-RPC)",
+    "Used to get Nonce and Chain ID": "用於取得Nonce和Chain ID",
+    "Only add URLs that are fully trusted and secured. Adding malicious service providers may result in irrecoverable funds. Proceed at your own risk.": "僅添加完全受信任且安全的 URL。 新增惡意服務提供者可能會導致資金無法收回。 繼續行動則需要您自擔風險。"
   },
   "components/QuickBid": {
     "QUICK BID": "快速標價",
@@ -2205,7 +2243,9 @@
     "Swap": "兌換",
     "Transactions": "交易紀錄",
     "Future swap": "Future swap",
-    "Get DFI": "獲取 DFI"
+    "Get DFI": "獲取 DFI",
+    "Convert": "轉換",
+    "Governance": "治理"
   },
   "screens/PoolPairDetailsScreen": {
     "{{poolPair}} Pool": "Pool {{poolPair}}",
@@ -2236,8 +2276,12 @@
     "Search with token name": "使用代幣名稱搜索",
     "Search results for “{{searchTerm}}”": "Search results for “{{searchTerm}}”"
   },
+  "components/ConversionDetailsRow": {
+    "Resulting UTXO": "轉換後 UTXO",
+    "Resulting Tokens": "轉換後 Tokens"
+  },
   "screens/OCGProposalsScreen": {
-    "Governance": "Governance",
+    "Governance": "治理",
     "Community Funding Proposal": "社區資助提案 (CFP)",
     "Proposal to build on top of the DeFiChain blockchain, and funded by the Community Development Fund.": "該選項是用於搭建在DeFiChain區塊鏈之上且由社區發展基金資助",
     "DeFiChain Improvement Proposal": "DeFiChain 改進提案 (DFIP)",

@@ -12,25 +12,29 @@ exports[`Total Value Locked should match snapshot 1`] = `
   }
 >
   <ViewManagerAdapter_ExpoLinearGradient
-    proxiedProperties={
-      {
-        "colors": [
-          4294074307,
-          4287326700,
-        ],
-        "endPoint": [
-          1,
-          1,
-        ],
-        "locations": [
-          0,
-          1,
-        ],
-        "startPoint": [
-          0,
-          0,
-        ],
-      }
+    colors={
+      [
+        4294074307,
+        4287326700,
+      ]
+    }
+    endPoint={
+      [
+        1,
+        1,
+      ]
+    }
+    locations={
+      [
+        0,
+        1,
+      ]
+    }
+    startPoint={
+      [
+        0,
+        0,
+      ]
     }
     style={
       [
@@ -169,6 +173,23 @@ exports[`Total Value Locked should match snapshot 1`] = `
             </Text>
           </View>
           <View
+            accessibilityState={
+              {
+                "busy": undefined,
+                "checked": undefined,
+                "disabled": undefined,
+                "expanded": undefined,
+                "selected": undefined,
+              }
+            }
+            accessibilityValue={
+              {
+                "max": undefined,
+                "min": undefined,
+                "now": undefined,
+                "text": undefined,
+              }
+            }
             accessible={true}
             collapsable={false}
             focusable={true}

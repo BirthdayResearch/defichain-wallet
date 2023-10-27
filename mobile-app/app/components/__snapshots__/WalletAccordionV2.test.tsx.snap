@@ -67,6 +67,14 @@ exports[`wallet accordion should render 1`] = `
               "expanded": false,
             }
           }
+          accessibilityValue={
+            {
+              "max": undefined,
+              "min": undefined,
+              "now": undefined,
+              "text": undefined,
+            }
+          }
           accessible={true}
           focusable={true}
           onClick={[Function]}
@@ -145,7 +153,6 @@ exports[`wallet accordion should render 1`] = `
         >
           <View
             collapsable={false}
-            forwardedRef={[Function]}
             onLayout={[Function]}
             style={{}}
           >

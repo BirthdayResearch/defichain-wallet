@@ -47,7 +47,7 @@ export function LiquidityMiningFaq(): JSX.Element {
         {
           text: translate(
             "components/LiquidityMiningFaq",
-            "1. Kucoin\n2. Bittrex\n3. Transak\n4. Cake DeFi\n\nView more at DeFiChain.com"
+            "1. Kucoin\n2. Bittrex\n3. Transak\n4. Bake\n\nView more at DeFiChain.com"
           ),
           type: "paragraph",
         },

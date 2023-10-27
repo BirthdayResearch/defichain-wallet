@@ -109,7 +109,8 @@
     "AVAILABLE ASSETS": "ACTIFS DISPONIBLES",
     "Asset value": "Valeur des actifs",
     "Sort by": "Trier par",
-    "ASSETS": "ACTIFS"
+    "ASSETS": "ACTIFS",
+    "network": "réseau"
   },
   "screens/GetDFIScreen": {
     "Get DFI": "Obtenir DFI",
@@ -215,7 +216,8 @@
     "Address deleted!": "Adresse supprimée !",
     "It may take a few seconds to delete": "La suppression peut prendre quelques secondes",
     "It may take a few seconds to update": "La mise à jour peut prendre quelques secondes",
-    "It may take a few seconds to save": "La sauvegarde peut prendre quelques secondes"
+    "It may take a few seconds to save": "La sauvegarde peut prendre quelques secondes",
+    "ADDRESS TYPE": "TYPE D’ADRESSE"
   },
   "screens/AddressControlScreen": {
     "CREATE WALLET ADDRESS": "CRÉER UNE ADRESSE DE PORTEFEUILLE",
@@ -233,7 +235,7 @@
     "Copy": "Copier",
     "Share": "Partager",
     "WALLET ADDRESS": "ADRESSE DU PORTEFEUILLE",
-    "Use QR or Wallet address to receive any tokens (DST) or DFI": "Utiliser l'adresse QR ou Wallet pour recevoir des tokens (DST) ou des DFI",
+    "Scan QR code to receive any dTokens (eg. DUSD,dBTC..) or DFI": "Scanner le code QR pour recevoir des dTokens (par exemple DUSD, dBTC..) ou des DFI",
     "Get DFI": "Obtenir DFI"
   },
   "components/toaster": {
@@ -336,6 +338,7 @@
     "Available {{unit}}": "{{unit}} Disponible",
     "Resulting {{unit}}": "{{unit}} Restants",
     "TO RECEIVE": "A RECEVOIR",
+    "TO CONVERT": "CONVERTIR",
     "tokens": "tokens"
   },
   "screens/ConvertConfirmScreen": {
@@ -355,11 +358,13 @@
     "CONFIRM TRANSACTION": "VALIDEZ LA TRANSACTION",
     "You are converting to {{unit}}": "Vous convertissez en {{unit}}",
     "Transaction fee": "Frais de transaction",
+    "Resulting Tokens (EVM)": "Tokens restants (EVM)",
     "Resulting Tokens": "Tokens restants",
     "Resulting UTXO": "UTXO restants",
     "Convert {{amount}} DFI to {{target}}": "Conversion de {{amount}} DFI en {{target}}",
     "Converting": "Conversion",
-    "Converted": "Converti"
+    "Converted": "Converti",
+    "Convert {{amount}} {{symbolA}} to {{symbolB}} tokens": "Convertir {{montant}} de tokens {{symbolA}} en {{symbolB}}"
   },
   "screens/SettingsNavigator": {
     "Settings": "Paramètres"
@@ -429,7 +434,9 @@
     "Cancel transaction": "Annuler la transaction",
     "By cancelling, you will lose any changes you made for your transaction.": "En annulant, vous perdrez toutes les modifications apportées à votre transaction.",
     "View on Scan": "Voir sur Scan",
-    "Go back": "Retour"
+    "Go back": "Retour",
+    "Service Providers": "Fournisseurs de services",
+    "Custom (3rd-party)": "Personnalisé (tierce partie)"
   },
   "screens/AboutScreen": {
     "About": "A propos de l'appli",
@@ -465,7 +472,7 @@
     "Liquidity Mining": "Liquidity mining",
     "Liquidity mining": "Liquidity mining",
     "UTXO and Tokens": "UTXO et tokens",
-    "Governance": "Governance"
+    "Governance": "Gouvernance"
   },
   "components/UtxoVsTokenFaq": {
     "About UTXO And Tokens": "UTXO et tokens",
@@ -548,6 +555,19 @@
     "Are there other ways to submit proposals?": "Existe-t-il d'autres façons de soumettre des propositions ?",
     "If you own a full node wallet, you may also choose to submit using commands via CLI. Commands can be generated on DeFiScan, under Governance tab > Submit proposal.": "Si vous possédez un portefeuille de nœud complet, vous pouvez également choisir de soumettre en utilisant des commandes via ILC. Les commandes peuvent être générées sur DeFiScan, sous l'onglet Governance > Submit proposal."
   },
+  "components/EvmFeatureFaq": {
+    "FREQUENTLY ASKED QUESTIONS": "FOIRE AUX QUESTIONS",
+    "About MetaChain (EVM)": "MetaChain (EVM)",
+    "The MetaChain layer provides an EVM-compatible environment that allows developers familiar with Ethereum to build applications inside the DeFiChain ecosystem.": "La couche MetaChain fournit un environnement compatible avec l'EVM qui permet aux développeurs connaissant Ethereum de créer des applications au sein de l'écosystème DeFiChain.",
+    "What tokens are supported between DVM and EVM bidirectionally?": "Quels tokens sont pris en charge entre DVM et EVM de manière bidirectionnelle ?",
+    "All dTokens are accepted. dTokens consist of:\ndStocks (dTSLA, dGOOG.) + DFI\n\nFor the full list, you may refer to https://defiscan.live/tokens on any tokens under DAT category.": "Tous les dTokens sont acceptés. Les dTokens se composent de :\ndStocks (dTSLA, dGOOG.) + DFI\n\nPour la liste complète, vous pouvez vous référer à https://defiscan.live/tokens sur tous les tokens de la catégorie DAT.",
+    "How can I access the MetaChain layer from the Light Wallet?": "Comment puis-je accéder à la couche MetaChain à partir du portefeuille léger ?",
+    "Move your dTokens between native DeFiChain's native layer (DVM) and the MetaChain layer (EVM) bidirectionally.\n\nFor instance, transfer DFI/DUSD/dBTC or any other dToken from DVM to EVM and back, all directly within the Light Wallet.": "Déplacez vos dTokens entre la couche native de DeFiChain (DVM) et la couche MetaChain (EVM) de manière bidirectionnelle.\n\nPar exemple, transférez DFI/DUSD/dBTC ou tout autre dToken de DVM à EVM et retour, le tout directement dans le portefeuille léger.",
+    "Why would I need to move dTokens from DVM to EVM?": "Pourquoi aurais-je besoin de déplacer des dTokens de DVM à EVM ?",
+    "Using the gateway allows you to move your dTokens from the Light Wallet to any EVM compatible wallet on the MetaChain layer (ex: MetaMask). This would allow you to interact with the constantly growing EVM ecosystem on MetaChain and the various projects on it.": "L'utilisation de la passerelle vous permet de déplacer vos dTokens du portefeuille léger vers n'importe quel portefeuille compatible EVM sur la couche MetaChain (ex : MetaMask). Cela vous permettra d'interagir avec l'écosystème EVM en croissance constante sur MetaChain et les différents projets qui s'y trouvent.",
+    "How can I move dTokens from DVM to EVM?": "Comment puis-je déplacer des dTokens de DVM à EVM?",
+    "You can do it through either the \"Convert\" or \"Send\" functions on Light Wallet. The \"Convert\" option allows you to convert any dTokens on DVM to your own EVM address within the Light Wallet (and vice versa).\n\nYour seed phrase can also be used to import your Light Wallet EVM address into any external wallets which support a 24 words recovery phrase like MetaMask.\n\nThe \"Send\" option allows you to send dTokens from your DVM address to any EVM address on the MetaChain layer and vice versa. Note that you do not need to convert your dTokens before sending, this process does it automatically for you.": "Vous pouvez le faire via les fonctions \"Convertir\" ou \"Envoyer\" sur le portefeuille léger. L'option \"Convertir\" vous permet de convertir tous les dTokens sur DVM en votre propre adresse EVM dans le portefeuille léger (et vice-versa).\n\nVotre phrase de récupération peut également être utilisée pour importer l'adresse EVM de votre portefeuille léger dans n'importe quel portefeuille externe qui supporte une phrase de récupération de 24 mots comme MetaMask.\n\nL'option \"Envoyer\" vous permet d'envoyer des dTokens depuis votre adresse DVM vers n'importe quelle adresse EVM sur la couche MetaChain et vice versa. Notez que vous n'avez pas besoin de convertir vos dTokens avant de les envoyer, ce processus le fait automatiquement pour vous."
+  },
   "screens/NetworkSelectionScreen": {
     "NETWORK": "RÉSEAU",
     "Select network": "Sélectionnez un réseau",
@@ -619,6 +639,8 @@
     "Trade on the DEX and earn rewards from liquidity mining with crypto and dTokens.": "Négociez sur le DEX et gagnez des récompenses de liquidity mining avec des cryptomonnaies et des dTokens.",
     "Decentralized loans": "Prêts décentralisés",
     "Access financial opportunities with dTokens minted through decentralized vaults.": "Accédez à des opportunités financières avec des dTokens mintés par des vaults décentralisés.",
+    "EVM compatible": "Compatible EVM",
+    "Seamless transfers between DeFiChain and MetaChain via generated EVM address.": "Transferts transparents entre DeFiChain et MetaChain via l'adresse EVM générée.",
     "DeFiChain Wallet is fully non-custodial. Only you will have access to your fund.": "Le portefeuille DeFiChain est entièrement sans garde. Vous seul aurez accès à votre fonds."
   },
   "screens/CreateMnemonicWallet": {
@@ -651,6 +673,7 @@
     "I understand it is my responsibility to keep my recovery words secure. Losing them will result in the irrecoverable loss of access to my wallet funds.": "Je comprends qu'il est de ma responsabilité de garder mes mots de récupération en sécurité. Leur perte entraînera la perte irrémédiable de l'accès aux fonds de mon portefeuille.",
     "Write the words on paper. Take note of their correct spelling and order.": "Prenez note des mots sur papier. Faites bien attention à l'orthographe et à respecter l'ordre.",
     "Secure them in a safe place. Store them offline at a place only you have access. Keep them private and do not share it with anyone.": "Sécurisez-les dans un endroit sûr. Conservez-les hors ligne et dans un endroit sûr auquel vous êtes le seul à avoir accès. Gardez-les secrets et ne partagez pas avec qui que ce soit.",
+    "A mapped EVM address will be generated to ensure seamless transfers between DeFiChain and MetaChain.": "Une adresse EVM mappée sera générée pour assurer des transferts transparents entre DeFiChain et MetaChain.",
     "Don’t share to anyone. Keep the recovery words only to yourself.": "Ne partagez pas avec qui que ce soit. Gardez les mots de récupération uniquement pour vous.",
     "You will be shown 24 recovery words on the next screen. Keep your 24-word recovery safe as it will allow you to recover access to the wallet.": "Vous verrez apparaître 24 mots de récupération sur l'écran suivant. Gardez en sécurité vos 24 mots de récupération car ils vous permettront de récupérer l'accès au porte-monnaie."
   },
@@ -701,7 +724,7 @@
     "Verify words": "Vérifier les mots",
     "All questions must be answered correctly.": "Il faut répondre correctement à toutes les questions.",
     "word": "mot",
-    "{{number}}st": "{{number}}ème",
+    "{{number}}st": "{{number}}er",
     "{{number}}nd": "{{number}}ème",
     "{{number}}rd": "{{number}}ème",
     "{{number}}th": "{{number}}ème"
@@ -747,7 +770,9 @@
     "Display payback DUSD loan with DUSD collateral": "Afficher le remboursement du prêt DUSD avec garantie DUSD",
     "CFP/DFIP proposal(s)": "Proposition(s) CFP/DFIP",
     "Allows the submission of CFP/DFIP proposals": "Permet la soumission de propositions CFP/DFIP",
-    "Upon activation, you will be able to submit CFP/DFIP proposals directly using your active mobile Light Wallet account. Do you want to continue?": "Dès l'activation, vous pourrez soumettre des propositions CFP/DFIP directement en utilisant votre compte actif du portefeuille léger mobile. Continuer ?"
+    "Upon activation, you will be able to submit CFP/DFIP proposals directly using your active mobile Light Wallet account. Do you want to continue?": "Dès l'activation, vous pourrez soumettre des propositions CFP/DFIP directement en utilisant votre compte actif du portefeuille léger mobile. Continuer ?",
+    "Light Wallet beta features are in final testing before their official release. Using beta features are encouraged, but caution is advised when using your assets.": "Les fonctions bêta du portefeuille léger sont en phase de test final avant leur lancement officiel. L'utilisation des fonctionnalités bêta est encouragée, mais la prudence est de mise lors de l'utilisation de vos actifs.",
+    "Allows to customize the service providers for both DVM and EVM. Proceed with caution.": "Permet de personnaliser les fournisseurs de services pour DVM et EVM. Procéder avec prudence."
   },
   "BottomTabNavigator": {
     "Balances": "Soldes",
@@ -840,7 +865,9 @@
     "Borrowing {{amount}} {{symbol}} with vault {{vaultId}}": "Emprunt de {{amount}} {{symbol}} avec le vault {{vaultId}}",
     "Borrowed {{amount}} {{symbol}}": "{{amount}} {{symbol}} empruntés",
     "Requested amount is higher than available amount.": "Le montant demandé est supérieur au montant disponible.",
-    "tokens": "tokens"
+    "tokens": "tokens",
+    "Converting {{amount}} {{symbolA}} to {{symbolB}} tokens": "Conversion de {{amount}} de tokens {{symbolA}} en {{symbolB}}",
+    "{{amount}} {{symbolA}} converted to {{symbolB}} tokens": "{{amount}} de tokens {{symbolA}} converti en {{symbolB}}"
   },
   "components/BarCodeScanner": {
     "Requesting for camera permission": "Demande d'accès à votre caméra",
@@ -855,7 +882,7 @@
     "Cancel": "Annuler",
     "TRY AGAIN": "RÉESSAYER",
     "From": "du",
-    "To": "Contre des",
+    "To": "au",
     "Converting": "Conversion",
     "Converted": "Converti",
     "for": "à",
@@ -1194,7 +1221,7 @@
     "What happens if I lose my recovery words?": "Que se passe-t-il si je perds mes mots de récupération ?",
     "Once you lose your recovery words, you will not be able to restore your wallet and any funds within it. We encourage you to be responsible with your recovery words.": "Si vous perdez vos mots de récupération, vous ne pourrez plus restaurer votre portefeuille et les fonds qu'il contient. Nous vous encourageons à être responsable avec vos mots de récupération.",
     "Can I use the 24-words from xxx that I created from xxx?": "Puis-je utiliser les 24 mots de xxx que j'ai créés avec xxx ?",
-    "You can only reuse the 24-words only if it's created from the Jellyfish ecosystem.\n\nThe compatible clients are DeFiChain Wallet (Android/iOS) and DFX.SWISS (Android/iOS).\n\nHowever, it is highly discouraged that you reuse it. Your 24-words are only as secure as the source computer / device / app that generates it. If your source is comprised, so are your 24-words. Essentially, one set of 24-words per computer / device / app is encouraged.": "Vous ne pouvez réutiliser les 24 mots que s'ils sont créés à partir de l'écosystème Jellyfish.\n\nLes clients compatibles sont DeFiChain Wallet (Android/iOS) et DFX.SWISS (Android/iOS).\n\nCependant, il est fortement déconseillé de les réutiliser. Vos 24 mots ne sont aussi sûrs que l'ordinateur/appareil/application source qui les génère. Si votre source est exposée à un risque, vos 24 mots le sont aussi. En fait, il est recommandé d'utiliser un seul ensemble de 24 mots par ordinateur, dispositif ou application.",
+    "You can only reuse the 24-words only if it's created from the Jellyfish ecosystem.\n\nThe compatible client is DeFiChain Wallet (Android/iOS).\n\nHowever, it is highly discouraged that you reuse it. Your 24-words are only as secure as the source computer / device / app that generates it. If your source is comprised, so are your 24-words. Essentially, one set of 24-words per computer / device / app is encouraged.": "Vous ne pouvez réutiliser les 24 mots que s'ils sont créés à partir de l'écosystème Jellyfish.\n\nLe client compatible est DeFiChain Wallet (Android/iOS).\n\nCependant, il est fortement déconseillé de les réutiliser. Vos 24 mots ne sont aussi sûrs que l'ordinateur/appareil/application source qui les génère. Si votre source est exposée à un risque, vos 24 mots le sont aussi. En fait, il est recommandé d'utiliser un seul ensemble de 24 mots par ordinateur, dispositif ou application.",
     "Can someone help me if I lose my recovery words?": "Quelqu'un peut-il m'aider si je perds mes mots de récupération ?",
     "No. You have sole access to your recovery words. No one is responsible and liable for it except you.": "Non. Vous êtes le seul à avoir accès à vos mots de récupération. Personne n'en est responsable, à part vous.",
     "Why is it recommended to keep my recovery words offline and on paper?": "Pourquoi est-il recommandé de conserver mes mots de récupération hors ligne et sur papier ?",
@@ -1203,7 +1230,7 @@
     "Your unique 24 recovery words is a human-readable representation of your wallet private key, generated from a list of 2048 words in the BIP-39 standard. It prevents any attempts on brute-hacking your wallet’s security.": "Vos 24 mots de récupération uniques sont une représentation lisible par l'homme de la clé privée de votre portefeuille, générée à partir d'une liste de 2048 mots de la norme BIP-39. Cela empêche toute tentative de piratage par force brute de la sécurité de votre portefeuille.",
     "FREQUENTLY ASKED QUESTIONS": "FOIRE AUX QUESTIONS",
     "Can I use the 24-word from xxx that I created from xxx?": "Puis-je utiliser les 24 mots de xxx que j'ai créés avec xxx ?",
-    "You can only reuse the 24-words if it's created from the Jellyfish ecosystem.\n\nThe compatible clients are DeFiChain Wallet (Android/iOS) and DFX.Swiss (Android/iOS).\n\nHowever, it is highly discouraged that you reuse it. Your 24-words are only as secure as the source computer / device / app that generates it. If your source is comprised, so are your 24-words. Essentially, one set of 24-words per device / computer / app is encouraged.": "Vous ne pouvez réutiliser les 24 mots que s'ils sont créés à partir de l'écosystème Jellyfish.\n\nLes clients compatibles sont DeFiChain Wallet (Android/iOS) et DFX.SWISS (Android/iOS).\n\nCependant, il est fortement déconseillé de les réutiliser. Vos 24 mots ne sont aussi sûrs que l'ordinateur/appareil/application source qui les génère. Si votre source est exposée à un risque, vos 24 mots le sont aussi. En fait, il est recommandé d'utiliser un seul ensemble de 24 mots par dispositif, ordinateur ou application."
+    "You can only reuse the 24-words if it's created from the Jellyfish ecosystem.\n\nThe compatible client is DeFiChain Wallet (Android/iOS).\n\nHowever, it is highly discouraged that you reuse it. Your 24-words are only as secure as the source computer / device / app that generates it. If your source is comprised, so are your 24-words. Essentially, one set of 24-words per device / computer / app is encouraged.": "Vous ne pouvez réutiliser les 24 mots que s'ils sont créés à partir de l'écosystème Jellyfish.\n\nLe client compatible est DeFiChain Wallet (Android/iOS).\n\nCependant, il est fortement déconseillé de les réutiliser. Vos 24 mots ne sont aussi sûrs que l'ordinateur/appareil/application source qui les génère. Si votre source est exposée à un risque, vos 24 mots le sont aussi. En fait, il est recommandé d'utiliser un seul ensemble de 24 mots par dispositif, ordinateur ou application."
   },
   "components/DexFaq": {
     "About DEX": "DEX",
@@ -1224,7 +1251,7 @@
     "How do I send tokens from my DFI wallet?": "Comment puis-je envoyer des tokens à partir de mon portefeuille DFI ?",
     "Tokens on DeFiChain can only be sent to DFI addresses only. This means that you should not send directly to an exchange or a third party platform that does not support DeFiChain.\n\nSimilarly, liquidity tokens can only be sent to another DFI wallet address.": "Les tokens sur la DeFiChain ne peuvent être envoyés qu'à des adresses DFI uniquement. Cela signifie que vous ne devez pas envoyer directement à un échange ou à une plateforme tierce qui ne supporte pas la DeFiChain. \n\nDe même, les tokens de liquidité ne peuvent être envoyés qu'à une autre adresse de portefeuille DFI.",
     "What are some exchanges and platforms I can send to?": "Quels sont les échanges et les plates-formes vers lesquels je peux envoyer les tokens de la DeFiChain ?",
-    "1. Kucoin\n2. Bittrex\n3. Transak\n4. Cake DeFi\n\nView more at DeFiChain.com": "1. Kucoin\n2. Bittrex\n3. Transak\n4. Cake DeFi \n\nVoir plus sur DeFiChain.com",
+    "1. Kucoin\n2. Bittrex\n3. Transak\n4. Bake\n\nView more at DeFiChain.com": "1. Kucoin\n2. Bittrex\n3. Transak\n4. Bake \n\nVoir plus sur DeFiChain.com",
     "Can I send liquidity pool tokens to an exchange or another entity?": "Puis-je envoyer les tokens du pool de liquidité à une bourse ou à une autre entité ?",
     "Liquidity tokens can only be sent to another DFI wallet address, and not to an exchange of central entity.": "Les tokens de liquidité ne peuvent être envoyés que vers une autre adresse de portefeuille DFI, et non vers un échange ou une entité centrale.",
     "How do I receive tokens on my DFI wallet?": "Comment puis-je recevoir des tokens sur mon portefeuille DFI ?",
@@ -2151,6 +2178,7 @@
     "Adding malicious service providers may result in irrecoverable funds. Please proceed at your own risk.": "L'ajout de fournisseurs de services malveillants peut entraîner des fonds irrécupérables. Procédez à vos propres risques.",
     "Only add URLs that are fully trusted and secured. Adding malicious service providers may result in irrecoverable funds. Changes do not take effect until you manually restart the app.": "N'ajouter que des URL qui sont entièrement fiables et sécurisées. Les modifications ne prennent pas effet tant que vous n'avez pas redémarré manuellement l'application.",
     "Adding custom service provider": "Ajouter un fournisseur de service personnalisé.",
+    "Adding custom service providers": "Ajouter un fournisseur de service personnalisé.",
     "In doing so, you will be reverted back to Light wallet's default endpoint. Would you like to continue?": "En faisant cela, vous serez renvoyé au point de terminaison par défaut du portefeuille léger. Continuer ?",
     "Enter passcode to continue": "Entrez le code d'accès pour continuer",
     "Invalid URL": "URL non valide",
@@ -2161,7 +2189,17 @@
     "Reset Service Provider": "Réinitialiser le fournisseur de services",
     "Go back": "Retour",
     "GO BACK": "RETOUR",
-    "Reset": "Réinitialiser"
+    "Reset": "Réinitialiser",
+    "Save changes": "Sauvegarder les modifications",
+    "Custom Service Provider": "Fournisseur de service personnalisé",
+    "Reset providers": "Réinitialiser les fournisseurs",
+    "ENDPOINT URL (DVM)": "URL DU POINT DE TERMINAISON (DVM)",
+    "Used to get balance from Native DFC (MainNet and TestNet)": "Utilisé pour obtenir le solde de DFC natif (MainNet et TestNet)",
+    "ENDPOINT URL (EVM)": "URL DU POINT DE TERMINAISON (EVM)",
+    "Used to get balance from EVM (MainNet and TestNet)": "Utilisé pour obtenir le solde de l'EVM (MainNet et TestNet)",
+    "ENDPOINT URL (ETH-RPC)": "URL DU POINT DE TERMINAISON (ETH-RPC)",
+    "Used to get Nonce and Chain ID": "Utilisé pour obtenir le Nonce et le Chain ID",
+    "Only add URLs that are fully trusted and secured. Adding malicious service providers may result in irrecoverable funds. Proceed at your own risk.": "N'ajoutez que des URL entièrement fiables et sécurisées. L'ajout de fournisseurs de services malveillants peut entraîner la perte de fonds. Procédez à vos risques et périls."
   },
   "components/QuickBid": {
     "QUICK BID": "ENCHÈRE RAPIDE",
@@ -2208,7 +2246,9 @@
     "Swap": "Échanger",
     "Transactions": "Transactions",
     "Future swap": "Échange à terme",
-    "Get DFI": "Obtenir DFI"
+    "Get DFI": "Obtenir DFI",
+    "Convert": "Convertir",
+    "Governance": "Gouvernance"
   },
   "screens/PoolPairDetailsScreen": {
     "{{poolPair}} Pool": "Pool {{poolPair}}",
@@ -2239,8 +2279,12 @@
     "Search with token name": "Recherche avec le nom du token",
     "Search results for “{{searchTerm}}”": "Résultats de la recherche pour “{{searchTerm}}”"
   },
+  "components/ConversionDetailsRow": {
+    "Resulting UTXO": "UTXO restants",
+    "Resulting Tokens": "Tokens restants"
+  },
   "screens/OCGProposalsScreen": {
-    "Governance": "Governance",
+    "Governance": "Gouvernance",
     "Community Funding Proposal": "Community Funding Proposal",
     "Proposal to build on top of the DeFiChain blockchain, and funded by the Community Development Fund.": "Proposition de construire sur la blockchain DeFiChain, et financée par le fonds de développement communautaire, le Community Development Fund.",
     "DeFiChain Improvement Proposal": "DeFiChain Improvement Proposal",

@@ -14,6 +14,7 @@ module.exports = function (api) {
           "@shared-api": "./shared/api",
           "@shared-contexts": "./shared/contexts",
           "@shared-types": "./shared/types",
+          "@shared-contracts": "./shared/contracts",
           "@screens": "./mobile-app/app/screens",
           "@store": "./shared/store",
           "@translations": "./shared/translations",

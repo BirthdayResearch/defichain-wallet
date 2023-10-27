@@ -5,6 +5,7 @@ import { RootState } from "@store";
 import { block } from "@waveshq/walletkit-ui/dist/store/block";
 import { HeaderTitle } from "./HeaderTitle";
 
+jest.mock("@contexts/CustomServiceProvider");
 jest.mock("@react-navigation/native", () => ({
   useNavigation: jest.fn(),
 }));
@@ -45,7 +46,7 @@ describe("Header title", () => {
         subHeadingType="NetworkSelect"
         onPress={jest.fn()}
         disabled={false}
-      />
+      />,
     );
     expect(rendered.toJSON()).toMatchSnapshot();
   });

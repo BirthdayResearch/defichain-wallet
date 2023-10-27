@@ -119,6 +119,14 @@ exports[`Liquidity Mining FAQ screen should match snapshot 1`] = `
                   "expanded": true,
                 }
               }
+              accessibilityValue={
+                {
+                  "max": undefined,
+                  "min": undefined,
+                  "now": undefined,
+                  "text": undefined,
+                }
+              }
               accessible={true}
               focusable={true}
               onClick={[Function]}
@@ -194,7 +202,6 @@ exports[`Liquidity Mining FAQ screen should match snapshot 1`] = `
             >
               <View
                 collapsable={false}
-                forwardedRef={[Function]}
                 onLayout={[Function]}
                 style={{}}
               >
@@ -271,6 +278,14 @@ Once an amount is entered on one side of the pair, the app automatically balance
               accessibilityState={
                 {
                   "expanded": false,
+                }
+              }
+              accessibilityValue={
+                {
+                  "max": undefined,
+                  "min": undefined,
+                  "now": undefined,
+                  "text": undefined,
                 }
               }
               accessible={true}
@@ -353,7 +368,6 @@ Once an amount is entered on one side of the pair, the app automatically balance
             >
               <View
                 collapsable={false}
-                forwardedRef={[Function]}
                 onLayout={[Function]}
                 style={{}}
               >
@@ -428,6 +442,14 @@ Similarly, liquidity tokens can only be sent to another DFI wallet address.
               accessibilityState={
                 {
                   "expanded": false,
+                }
+              }
+              accessibilityValue={
+                {
+                  "max": undefined,
+                  "min": undefined,
+                  "now": undefined,
+                  "text": undefined,
                 }
               }
               accessible={true}
@@ -510,7 +532,6 @@ Similarly, liquidity tokens can only be sent to another DFI wallet address.
             >
               <View
                 collapsable={false}
-                forwardedRef={[Function]}
                 onLayout={[Function]}
                 style={{}}
               >
@@ -572,7 +593,7 @@ Similarly, liquidity tokens can only be sent to another DFI wallet address.
                       1. Kucoin
 2. Bittrex
 3. Transak
-4. Cake DeFi
+4. Bake
 
 View more at DeFiChain.com
                     </Text>
@@ -588,6 +609,14 @@ View more at DeFiChain.com
               accessibilityState={
                 {
                   "expanded": false,
+                }
+              }
+              accessibilityValue={
+                {
+                  "max": undefined,
+                  "min": undefined,
+                  "now": undefined,
+                  "text": undefined,
                 }
               }
               accessible={true}
@@ -670,7 +699,6 @@ View more at DeFiChain.com
             >
               <View
                 collapsable={false}
-                forwardedRef={[Function]}
                 onLayout={[Function]}
                 style={{}}
               >
@@ -743,6 +771,14 @@ View more at DeFiChain.com
               accessibilityState={
                 {
                   "expanded": false,
+                }
+              }
+              accessibilityValue={
+                {
+                  "max": undefined,
+                  "min": undefined,
+                  "now": undefined,
+                  "text": undefined,
                 }
               }
               accessible={true}
@@ -823,7 +859,6 @@ View more at DeFiChain.com
             >
               <View
                 collapsable={false}
-                forwardedRef={[Function]}
                 onLayout={[Function]}
                 style={{}}
               >
