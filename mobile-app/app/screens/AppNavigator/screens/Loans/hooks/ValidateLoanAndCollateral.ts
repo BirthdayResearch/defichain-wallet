@@ -36,7 +36,7 @@ export function useValidateLoanAndCollateral(
   const isTakingDUSDLoan = props.loanToken.token.symbol === "DUSD";
 
   const dfiCollateralToken = collateralTokens.find(
-    (col) => col.token.displaySymbol === "DFI",
+    (col) => col.token.symbol === "DFI",
   );
 
   const dfiActivePrice = getActivePrice(
@@ -48,8 +48,7 @@ export function useValidateLoanAndCollateral(
   );
 
   const dfiCollateralValue = new BigNumber(dfiActivePrice).multipliedBy(
-    props.collateralAmounts.find((col) => col.displaySymbol === "DFI")
-      ?.amount ?? 0,
+    props.collateralAmounts.find((col) => col.symbol === "DFI")?.amount ?? 0,
   );
   const totalRequiredCollateral = new BigNumber(props.loanValue)
     .multipliedBy(props.minColRatio)
