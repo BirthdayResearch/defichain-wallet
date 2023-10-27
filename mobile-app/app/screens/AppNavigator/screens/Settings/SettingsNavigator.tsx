@@ -25,6 +25,7 @@ import { AuctionsFaq } from "../Auctions/screens/AuctionsFaq";
 import { LoansFaq } from "../Loans/screens/LoansFaq";
 import { TokensVsUtxoFaq } from "../Portfolio/screens/TokensVsUtxoFaq";
 import { RecoveryWordsScreen } from "./screens/RecoveryWordsScreen";
+import { WalletPrivateKeyScreen } from "./screens/WalletPrivateKeyScreen";
 import {
   AddressBookScreen,
   ButtonGroupTabKey,
@@ -36,6 +37,7 @@ export interface SettingsParamList {
   SettingsScreen: undefined;
   CommunityScreen: undefined;
   RecoveryWordsScreen: { words: string[] };
+  WalletPrivateKeyScreen: { privateKey: string };
   ChangePinScreen: { pinLength: number; words: string[] };
   ConfirmPinScreen: { pin: string; words: string[] };
   NetworkDetails: undefined;
@@ -104,6 +106,12 @@ export function SettingsNavigator(): JSX.Element {
         options={{
           headerTitle: translate("screens/Settings", "Recovery Words"),
         }}
+      />
+
+      <SettingsStack.Screen
+        component={WalletPrivateKeyScreen}
+        name="WalletPrivateKeyScreen"
+        options={{ headerTitle: translate("screens/Settings", "Private Key") }}
       />
 
       <SettingsStack.Screen

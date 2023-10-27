@@ -32,7 +32,11 @@ import {
 } from "react-native";
 import { Image } from "expo-image";
 import { useSelector } from "react-redux";
-import { useNetworkContext, useThemeContext } from "@waveshq/walletkit-ui";
+import {
+  useNetworkContext,
+  useThemeContext,
+  useWalletNodeContext,
+} from "@waveshq/walletkit-ui";
 import { useDeFiScanContext } from "@shared-contexts/DeFiScanContext";
 import { debounce } from "lodash";
 import { openURL } from "@api/linking";
@@ -49,6 +53,10 @@ import { RefreshIcon } from "@screens/WalletNavigator/assets/RefreshIcon";
 import { DomainType, useDomainContext } from "@contexts/DomainContext";
 import { RandomAvatar } from "@screens/AppNavigator/screens/Portfolio/components/RandomAvatar";
 import { EvmTag } from "@components/EvmTag";
+import { InfoTextLinkV2 } from "@components/InfoTextLink";
+import { Authentication, authentication } from "@store/authentication";
+import { MnemonicStorage } from "@api/wallet/mnemonic_storage";
+import { useLogger } from "@shared-contexts/NativeLoggingProvider";
 import { ButtonGroup } from "../../Dex/components/ButtonGroup";
 import {
   FavoriteCheckIcon,
@@ -419,6 +427,43 @@ export function AddressBookScreen({ route, navigation }: Props): JSX.Element {
     [filteredAddressBook, filteredWalletAddress, activeButtonGroup],
   );
 
+  const logger = useLogger();
+  const {
+    data: { type },
+  } = useWalletNodeContext();
+  const { account } = useWalletContext();
+  const isEncrypted = type === "MNEMONIC_ENCRYPTED";
+  const showPrivateKey = useCallback(() => {
+    if (!isEncrypted) {
+      return;
+    }
+
+    const auth: Authentication<string[]> = {
+      consume: async (passphrase) => await MnemonicStorage.get(passphrase),
+      onAuthenticated: async () => {
+        navigation.navigate({
+          name: "WalletPrivateKeyScreen",
+          // TODO: Fix private key
+          // params: { privateKey: (await account.privateKey()).toString("hex") },
+          params: { privateKey: account.privateKey().toString() },
+          merge: true,
+        });
+      },
+      onError: (e) => logger.error(e),
+      message: translate("screens/UnlockWallet", "Enter passcode to continue"),
+      loading: translate(
+        "screens/UnlockWallet",
+        "It may take a few seconds to verify",
+      ),
+      title: translate(
+        "screens/UnlockWallet",
+        "Provide your passcode to view recovery words.",
+      ),
+      successMessage: translate("screens/UnlockWallet", "Passcode verified!"),
+    };
+    dispatch(authentication.actions.prompt(auth));
+  }, [dispatch, isEncrypted, navigation]);
+
   const YourAddressListItem = useCallback(
     ({
       selectedAddress,
@@ -505,6 +550,20 @@ export function AddressBookScreen({ route, navigation }: Props): JSX.Element {
                       }}
                       isAddressSelectEnabled={false}
                     />
+                  )}
+                  {isEvmFeatureEnabled && (
+                    <ThemedViewV2
+                      dark={tailwind("border-mono-dark-v2-300")}
+                      light={tailwind("border-mono-light-v2-300")}
+                      style={tailwind("pt-5")}
+                    >
+                      <InfoTextLinkV2
+                        onPress={showPrivateKey}
+                        text="Show private key"
+                        testId="show_private_key"
+                        textStyle={tailwind("px-0")}
+                      />
+                    </ThemedViewV2>
                   )}
                 </View>
               </View>
