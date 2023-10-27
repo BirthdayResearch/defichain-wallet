@@ -17,14 +17,14 @@ export function WalletPrivateKeyScreen({ route }: Props): JSX.Element {
     <ThemedScrollViewV2
       contentContainerStyle={tailwind("pt-8 px-5 pb-16")}
       style={tailwind("flex-1")}
-      testID="recovery_word_screen"
+      testID="private_key_screen"
     >
       <ThemedTextV2
         style={tailwind("font-normal-v2 text-base text-center px-5")}
       >
         {translate(
           "screens/WalletPrivateKeyScreen",
-          "Take note of the correct spelling and order. Keep your recovery words confidential and secure.",
+          "Never disclose this key. Anyone with your private keys can steal any assets held in your account.",
         )}
       </ThemedTextV2>
 
