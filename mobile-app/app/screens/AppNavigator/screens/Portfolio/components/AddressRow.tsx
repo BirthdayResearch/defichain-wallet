@@ -301,6 +301,7 @@ export function AddressRow({
                     style={tailwind("text-xs mx-1 font-normal-v2")}
                     light={tailwind("text-mono-light-v2-500")}
                     dark={tailwind("text-mono-dark-v2-500")}
+                    testID="verified_address"
                   >
                     {translate("screens/SendScreen", "Verified {{text}}", {
                       text: validEvmAddress
