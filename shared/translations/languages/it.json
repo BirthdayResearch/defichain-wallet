@@ -184,7 +184,8 @@
     "Save changes": "Salva modifiche",
     "Address label is too long (max 30 characters)": "L'etichetta dell'indirizzo è troppo lunga (max 30 caratteri)",
     "Invalid label. Maximum of 40 characters.": "Invalid label. Maximum of 40 characters.",
-    "{{length}}/40 characters": "{{length}}/40 characters"
+    "{{length}}/40 characters": "{{length}}/40 characters",
+    "Done": "Done"
   },
   "screens/AddOrEditAddressBookScreen": {
     "Edit address label": "Modifica l'etichetta dell'indirizzo",

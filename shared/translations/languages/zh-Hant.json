@@ -175,7 +175,8 @@
     "Save changes": "儲存修改",
     "Address label is too long (max 30 characters)": "地址標籤太長（最多 30 個字符）",
     "Invalid label. Maximum of 40 characters.": "Invalid label. Maximum of 40 characters.",
-    "{{length}}/40 characters": "{{length}}/40 characters"
+    "{{length}}/40 characters": "{{length}}/40 characters",
+    "Done": "Done"
   },
   "screens/AddOrEditAddressBookScreen": {
     "Edit address label": "更改地址標籤",
