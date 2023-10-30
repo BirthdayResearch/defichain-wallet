@@ -55,6 +55,7 @@ import { NavigationProp, useNavigation } from "@react-navigation/native";
 import { BottomSheetTokenListHeader } from "@components/BottomSheetTokenListHeader";
 import { LoanVaultTokenAmount } from "@defichain/whale-api-client/dist/api/loan";
 import { ConvertDirection } from "@screens/enum";
+import { useFeatureFlagContext } from "@contexts/FeatureFlagContext";
 import { getActivePrice } from "../../Auctions/helpers/ActivePrice";
 import { ActiveUSDValueV2 } from "../VaultDetail/components/ActiveUSDValueV2";
 import { LoanParamList } from "../LoansNavigator";
@@ -94,6 +95,7 @@ export function AddOrRemoveCollateralScreen({ route }: Props): JSX.Element {
 
   const client = useWhaleApiClient();
   const logger = useLogger();
+  const { isFeatureAvailable } = useFeatureFlagContext();
 
   const dispatch = useAppDispatch();
   const DFIUtxo = useSelector((state: RootState) =>
@@ -386,6 +388,7 @@ export function AddOrRemoveCollateralScreen({ route }: Props): JSX.Element {
         message: addOrRemoveCollateralErrors.InsufficientBalance,
       };
     } else if (
+      isFeatureAvailable("loop_dusd") &&
       hasLoan &&
       vault.loanAmounts.some((loan) => loan.symbol === "DUSD") &&
       vault.collateralAmounts.every((col) => col.symbol === "DUSD")
@@ -433,7 +436,8 @@ export function AddOrRemoveCollateralScreen({ route }: Props): JSX.Element {
       );
       if (
         (!hasDUSDLoan && isDFILessThanHalfOfRequiredCollateral) ||
-        (hasDUSDLoan &&
+        (isFeatureAvailable("loop_dusd") &&
+          hasDUSDLoan &&
           isDFILessThanHalfOfRequiredCollateral &&
           hasNonDUSDCollateral)
       ) {

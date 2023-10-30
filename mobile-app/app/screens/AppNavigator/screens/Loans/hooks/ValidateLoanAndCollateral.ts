@@ -6,6 +6,7 @@ import {
 import { RootState } from "@store";
 import BigNumber from "bignumber.js";
 import { useSelector } from "react-redux";
+import { useFeatureFlagContext } from "@contexts/FeatureFlagContext";
 import { getActivePrice } from "../../Auctions/helpers/ActivePrice";
 
 interface useValidateLoanAndCollateralProps {
@@ -30,6 +31,7 @@ interface useValidateLoanAndCollateralProps {
 export function useValidateLoanAndCollateral(
   props: useValidateLoanAndCollateralProps,
 ) {
+  const { isFeatureAvailable } = useFeatureFlagContext();
   const collateralTokens: CollateralToken[] = useSelector(
     (state: RootState) => state.loans.collateralTokens,
   );
@@ -59,6 +61,7 @@ export function useValidateLoanAndCollateral(
       totalRequiredCollateral.dividedBy(2),
     );
 
+  // check if all collaterals is of DUSD token
   const isDUSD100PercentOfCollateral = props.collateralAmounts.every(
     (col) => col.symbol === "DUSD",
   );
@@ -68,7 +71,8 @@ export function useValidateLoanAndCollateral(
 
   const isDUSDLoanAllowed =
     isTakingDUSDLoan &&
-    (isDFIGreaterThanHalfOfRequiredCollateral || isDUSD100PercentOfCollateral);
+    (isDFIGreaterThanHalfOfRequiredCollateral ||
+      (isFeatureAvailable("loop_dusd") && isDUSD100PercentOfCollateral));
 
   return {
     isLoanAllowed: isNonDUSDLoanAllowed || isDUSDLoanAllowed,
