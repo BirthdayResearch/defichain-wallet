@@ -16,8 +16,8 @@ import {
 import { useWhaleApiClient } from "@waveshq/walletkit-ui/dist/contexts";
 import { RootState } from "@store";
 import {
-  hasTxQueued,
   hasOceanTXQueued,
+  hasTxQueued,
   tokensSelector,
 } from "@waveshq/walletkit-ui/dist/store";
 import { getColor, tailwind } from "@tailwind";
@@ -41,8 +41,8 @@ import { getNativeIcon } from "@components/icons/assets";
 import { EVMLinearGradient } from "@components/EVMLinearGradient";
 import { PortfolioParamList } from "../PortfolioNavigator";
 import {
-  TokenListType,
   SelectionToken,
+  TokenListType,
 } from "../../Dex/CompositeSwap/SwapTokenSelectionScreen";
 import { useTokenPrice } from "../hooks/TokenPrice";
 import { DomainToken, useTokenBalance } from "../hooks/TokenBalance";
@@ -632,7 +632,8 @@ export function ConvertScreen(props: Props): JSX.Element {
           disabled={
             !canConvert(convAmount, sourceToken.available) ||
             hasPendingJob ||
-            hasPendingBroadcastJob
+            hasPendingBroadcastJob ||
+            targetToken === undefined
           }
           styleProps="w-full"
           onPress={() => convert(sourceToken, targetToken)}
