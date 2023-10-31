@@ -141,24 +141,27 @@ export function OceanInterface(): JSX.Element | null {
   }, [slideAnim]);
 
   const getEvmTxId = async (oceanTxId: string) => {
-    try {
-      const vmmap: VmmapResult = await client.rpc.call(
-        "vmmap",
-        [oceanTxId, VmmapTypes.TxHashDVMToEVM],
-        "lossless",
-      );
-      const mappedEvmTxId = vmmap.output;
-      const txUrl = getMetaScanTxUrl(network, mappedEvmTxId);
-
-      setEvmTxId(mappedEvmTxId);
-      setEvmTxUrl(txUrl);
-    } catch (e) {
-      logger.error(e);
-    }
+    const vmmap: VmmapResult = await client.rpc.call(
+      "vmmap",
+      [oceanTxId, VmmapTypes.TxHashDVMToEVM],
+      "lossless",
+    );
+    return vmmap.output;
   };
 
   useEffect(() => {
     // get evm tx id and url (if any)
+    const fetchEvmTx = async (txId: string) => {
+      try {
+        const mappedEvmTxId = await getEvmTxId(txId);
+        const txUrl = getMetaScanTxUrl(network, mappedEvmTxId);
+        setEvmTxId(mappedEvmTxId);
+        setEvmTxUrl(txUrl);
+      } catch (error) {
+        logger.error(error);
+      }
+    };
+
     if (tx !== undefined) {
       const isTransferDomainTx = tx?.tx.vout.some(
         (vout) =>
@@ -169,7 +172,7 @@ export function OceanInterface(): JSX.Element | null {
           ),
       );
       if (isTransferDomainTx) {
-        getEvmTxId(tx.tx.txId);
+        fetchEvmTx(tx.tx.txId);
       }
     } else {
       setEvmTxId(undefined);
