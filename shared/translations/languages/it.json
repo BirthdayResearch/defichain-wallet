@@ -276,7 +276,11 @@
     "{{percent}} of available {{unit}} entered": "{{percent}} of available {{unit}} entered",
     "Max available {{unit}} entered": "Max available {{unit}} entered",
     "By continuing, the required amount of DFI will be converted": "By continuing, the required amount of DFI will be converted",
-    "Invalid address. Make sure the address is correct to avoid irrecoverable losses": "Invalid address. Make sure the address is correct to avoid irrecoverable losses"
+    "Invalid address. Make sure the address is correct to avoid irrecoverable losses": "Invalid address. Make sure the address is correct to avoid irrecoverable losses",
+    "MetaChain (EVM) address": "MetaChain (EVM) address",
+    "DeFiChain (DVM) address": "DeFiChain (DVM) address",
+    "You are sending assets to an EVM address. DFI asset gets converted to EVM.": "You are sending assets to an EVM address. DFI asset gets converted to EVM.",
+    "You are sending assets to a DFI address. EVM asset gets converted to DVM.": "You are sending assets to a DFI address. EVM asset gets converted to DVM."
   },
   "screens/SendConfirmationScreen": {
     "Confirm": "Confirm",
