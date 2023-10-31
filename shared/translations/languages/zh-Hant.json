@@ -177,11 +177,11 @@
     "Invalid label. Maximum of 40 characters.": "Invalid label. Maximum of 40 characters.",
     "{{length}}/40 characters": "{{length}}/40 characters",
     "Done": "Done",
-    "Show private key": "Show private key",
-    "Your private key provides full access to your account and funds.": "Your private key provides full access to your account and funds.",
-    "Make sure you keep this private. Do not share this with anyone or take a screenshot of it.": "Make sure you keep this private. Do not share this with anyone or take a screenshot of it.",
-    "PRIVATE KEY": "PRIVATE KEY",
-    "Verify access to view private key": "Verify access to view private key"
+    "Show private key": "顯示私鑰",
+    "Your private key provides full access to your account and funds.": "此私鑰有對您的帳戶以及資金具有完全存取的權限。",
+    "Make sure you keep this private. Do not share this with anyone or take a screenshot of it.": "請確保將此私鑰保密。 不要與任何人分享或截取此螢幕截圖。",
+    "PRIVATE KEY": "私鑰",
+    "Verify access to view private key": "驗證存取權以查看私密金鑰"
   },
   "screens/AddOrEditAddressBookScreen": {
     "Edit address label": "更改地址標籤",
