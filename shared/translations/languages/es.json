@@ -275,6 +275,7 @@
     "Max available {{unit}} entered": "Max {{unit}} disponible introducido",
     "By continuing, the required amount of DFI will be converted": "Si continuas, la cantidad requerida de DFI será convertida",
     "Invalid address. Make sure the address is correct to avoid irrecoverable losses": "Dirección invalida. Asegúrate de que la dirección es correcta para evitar la perdida irreversible de fondos",
+    "Verified {{text}}": "Verified {{text}}",
     "MetaChain (EVM) address": "MetaChain (EVM) address",
     "DeFiChain (DVM) address": "DeFiChain (DVM) address",
     "You are sending assets to an EVM address. DFI asset gets converted to EVM.": "You are sending assets to an EVM address. DFI asset gets converted to EVM.",
