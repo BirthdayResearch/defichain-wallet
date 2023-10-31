@@ -1772,6 +1772,7 @@
     "Amount entered is higher than collateral": "Der eingegebene Betrag ist höher als die Besicherung erlaubt",
     "Vault does not meet min. collateral ratio": "Vault erfüllt die Mindestbesicherungsquote nicht",
     "Insufficient DFI and/or DUSD in vault to maintain active loans": "Unzureichende DFI und/oder DUSD im Vault zur Aufrechterhaltung aktiver Darlehen",
+    "Active DUSD loans require 50% DFI collaterals": "Aktive DUSD-Darlehen erfordern 50 % DFI-Besicherung",
     "Active DUSD loans require 50% DFI or 100% DUSD collaterals": "Aktive DUSD-Darlehen erfordern 50% DFI- oder 100% DUSD-Sicherheiten",
     "By continuing, the required amount of DFI will be converted": "Wenn du fortfährst, wird die erforderliche Summe an DFI umgewandelt",
     "Review full details in the next screen": "Überprüfe alle Details in der nächsten Ansicht"

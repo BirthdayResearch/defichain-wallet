@@ -368,8 +368,9 @@ export function AddOrRemoveCollateralScreen({ route }: Props): JSX.Element {
     BelowMinCollateralRatio: "Vault does not meet min. collateral ratio",
     ZeroRequiredTokenShare:
       "Insufficient DFI and/or DUSD in vault to maintain active loans",
-    DusdAffectVault:
-      "Active DUSD loans require 50% DFI or 100% DUSD collaterals",
+    DusdAffectVault: isFeatureAvailable("loop_dusd")
+      ? "Active DUSD loans require 50% DFI or 100% DUSD collaterals"
+      : "Active DUSD loans require 50% DFI collaterals",
     InsufficientBalance: "Insufficient Balance",
   };
 
