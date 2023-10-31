@@ -20,6 +20,7 @@ import {
 import { CollateralFactorTag } from "@components/CollateralFactorTag";
 import { CollateralItem } from "@screens/AppNavigator/screens/Loans/screens/EditCollateralScreen";
 import { VaultStatus } from "@screens/AppNavigator/screens/Loans/VaultStatusTypes";
+import { useFeatureFlagContext } from "@contexts/FeatureFlagContext";
 import { getCollateralPrice } from "../../hooks/CollateralPrice";
 
 interface CollateralCardProps {
@@ -45,21 +46,55 @@ export function VaultDetailCollateralsRow({
   onAddPress: (collateralItem: CollateralItem) => void;
   onRemovePress: (collateralItem: CollateralItem) => void;
 }): JSX.Element {
+  const { isFeatureAvailable } = useFeatureFlagContext();
   const [hideDFIStaticCard, setHideDFIStaticCard] = useState<boolean>(false);
   const [isAffectedVault, setIsAffectedVault] = useState<boolean>(false); // Affected Vault means having DUSD in both collaterals and loans
+  const [info, setInfo] = useState<{
+    displayText: string;
+    title: string;
+    message: string;
+  }>();
 
   useEffect(() => {
     if (vault.state !== LoanVaultState.IN_LIQUIDATION) {
       setHideDFIStaticCard(
-        vault.collateralAmounts.some((col) => col.displaySymbol === "DFI")
+        vault.collateralAmounts.some((col) => col.displaySymbol === "DFI"),
       );
 
       setIsAffectedVault(
         vault.collateralAmounts.some((col) => col.displaySymbol === "DUSD") &&
-          vault.loanAmounts.some((loan) => loan.displaySymbol === "DUSD")
+          vault.loanAmounts.some((loan) => loan.displaySymbol === "DUSD"),
       );
     }
   }, [vault]);
+
+  useEffect(() => {
+    const isLoopDusdAllowed = isFeatureAvailable("loop_dusd");
+    if (isAffectedVault && isLoopDusdAllowed) {
+      setInfo({
+        displayText:
+          "Maintain either 100% DUSD (recommended) or at least 50% DFI as collateral for DUSD loans",
+        title: "Why is this so?",
+        message:
+          "DUSD loans which contains DUSD as collateral are required to maintain at least 50% of the collateral in the form of DFI.\n\nThis only affects vaults that has DUSD as both collateral and loan.\n\nTake note that DUSD Loop Vault will become a regular Vault if DFI is added as collateral.",
+      });
+    } else if (isAffectedVault) {
+      setInfo({
+        displayText: "Maintain at least 50% DFI as collateral for DUSD loans",
+        title: "Why you need 50% DFI",
+        message:
+          "DUSD loans which contains DUSD as collateral are required to maintain at least 50% of the collateral in the form of DFI.\n\nThis only affects vaults that has DUSD as both collateral and loan.",
+      });
+    } else {
+      setInfo({
+        displayText:
+          "Your loan amount can be maximized by adding DFI/DUSD as collaterals",
+        title: "DFI/DUSD collaterals",
+        message:
+          "Adding in DFI and/or DUSD will boost your borrowing power and help maximize your vault's loan amount.",
+      });
+    }
+  }, [isAffectedVault]);
 
   return (
     <View style={tailwind("mx-5 mt-6")}>
@@ -85,7 +120,7 @@ export function VaultDetailCollateralsRow({
         <CollateralCardDfi
           onDFIAdd={() => {
             const collateralItem = collateralTokens.find(
-              (col) => col.token.displaySymbol === "DFI"
+              (col) => col.token.displaySymbol === "DFI",
             );
             if (collateralItem !== undefined) {
               onAddPress(collateralItem);
@@ -97,7 +132,7 @@ export function VaultDetailCollateralsRow({
       {vault.state !== LoanVaultState.IN_LIQUIDATION &&
         vault.collateralAmounts.map((collateral, index) => {
           const collateralItem = collateralTokens.find(
-            (col) => col.token.id === collateral.id
+            (col) => col.token.id === collateral.id,
           );
 
           if (collateralItem !== undefined) {
@@ -119,27 +154,25 @@ export function VaultDetailCollateralsRow({
           }
         })}
 
-      <InfoText
-        displayText={translate(
-          "screens/VaultDetailScreenCollateralSection",
-          isAffectedVault
-            ? "Maintain at least 50% DFI as collateral for DUSD loans"
-            : "Your loan amount can be maximized by adding DFI/DUSD as collaterals"
-        )}
-        info={{
-          title: translate(
+      {info && (
+        <InfoText
+          displayText={translate(
             "screens/VaultDetailScreenCollateralSection",
-            isAffectedVault ? "Why you need 50% DFI" : "DFI/DUSD collaterals"
-          ),
-          message: translate(
-            "screens/VaultDetailScreenCollateralSection",
-            isAffectedVault
-              ? "DUSD loans which contains DUSD as collateral are required to maintain at least 50% of the collateral in the form of DFI.\n\nThis only affects vaults that has DUSD as both collateral and loan."
-              : "Adding in DFI and/or DUSD will boost your borrowing power and help maximize your vault's loan amount."
-          ),
-        }}
-        isAffectedVault={isAffectedVault}
-      />
+            info.displayText,
+          )}
+          info={{
+            title: translate(
+              "screens/VaultDetailScreenCollateralSection",
+              info.title,
+            ),
+            message: translate(
+              "screens/VaultDetailScreenCollateralSection",
+              info.message,
+            ),
+          }}
+          isAffectedVault={isAffectedVault}
+        />
+      )}
     </View>
   );
 }
@@ -216,7 +249,7 @@ function CollateralCard(props: CollateralCardProps): JSX.Element {
   const prices = getCollateralPrice(
     props.amount,
     props.collateralItem,
-    props.totalCollateralValue
+    props.totalCollateralValue,
   );
 
   return (
@@ -254,7 +287,7 @@ function CollateralCard(props: CollateralCardProps): JSX.Element {
               <CollateralFactorTag
                 factor={props.collateralItem.factor}
                 containerStyle={tailwind(
-                  "h-5 flex flex-row items-center rounded px-2 py-1 ml-1 border-0.5"
+                  "h-5 flex flex-row items-center rounded px-2 py-1 ml-1 border-0.5",
                 )}
                 textStyle={tailwind("font-semibold-v2 text-2xs leading-3")}
               />
@@ -263,7 +296,7 @@ function CollateralCard(props: CollateralCardProps): JSX.Element {
             <View style={tailwind("flex flex-row")}>
               <ActiveUSDValueV2
                 price={new BigNumber(props.amount).multipliedBy(
-                  prices.activePrice
+                  prices.activePrice,
                 )}
                 testId={`vault_detail_collateral_${props.displaySymbol}_usd`}
               />
