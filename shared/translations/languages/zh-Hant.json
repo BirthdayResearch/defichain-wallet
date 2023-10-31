@@ -269,8 +269,8 @@
     "Verified {{text}}": "已驗證的 {{text}}",
     "MetaChain (EVM) address": "MetaChain (EVM) 地址",
     "DeFiChain (DVM) address": "DeFiChain (DVM) 地址",
-    "You are sending assets to an EVM address. DFI asset gets converted to EVM.": "您正在將資產傳送到 EVM 地址. DFI 資產轉換到 EVM.",
-    "You are sending assets to a DFI address. EVM asset gets converted to DVM.": "You are sending assets to a DFI address. EVM asset gets converted to DVM."
+    "You are sending assets to an EVM address. DFI asset gets converted to EVM.": "您正在將資產傳送到 EVM 地址。DFI 資產轉換到 EVM。",
+    "You are sending assets to a DFI address. EVM asset gets converted to DVM.": "您正在將資產發送到 DFI 地址。EVM 資產轉換到 DVM。"
   },
   "screens/SendConfirmationScreen": {
     "Confirm": "確認",
