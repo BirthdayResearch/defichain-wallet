@@ -155,8 +155,8 @@ export const CreateOrEditAddressLabelForm = memo(
             return null;
           },
           title: translate(
-            "screens/UnlockWallet",
-            "Verify access to view private keys",
+            "components/CreateOrEditAddressLabelForm",
+            "Verify access to view private key",
           ),
         }),
       );
@@ -320,7 +320,7 @@ export const CreateOrEditAddressLabelForm = memo(
                   isCancelDisabled={false}
                   label={translate(
                     "components/CreateOrEditAddressLabelForm",
-                    "Show private keys",
+                    "Show private key",
                   )}
                   onCancel={() => navigation.goBack()}
                   onSubmit={showPrivateKey}
@@ -367,7 +367,7 @@ export const CreateOrEditAddressLabelForm = memo(
             >
               {translate(
                 "components/CreateOrEditAddressLabelForm",
-                "PRIVATE KEYS",
+                "PRIVATE KEY",
               )}
             </ThemedTextV2>
             <WalletTextInputV2

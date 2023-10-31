@@ -287,7 +287,7 @@ export const BottomSheetAddressDetailV2 = (
                   navigation.navigate({
                     name: props.navigateToScreen.screenName,
                     params: {
-                      title: "Edit wallet label",
+                      title: "",
                       address: item.dvm,
                       addressLabel: { label: displayAddressLabel },
                       index: index + 1,
