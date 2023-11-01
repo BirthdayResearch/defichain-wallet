@@ -106,21 +106,10 @@ export function SummaryTitle(props: ISummaryTitleProps): JSX.Element {
                 customStyle="flex flex-row items-center rounded-full pr-2.5 py-1 ml-2 overflow-hidden"
                 testID="from_address_label"
               >
-                <>
-                  <RandomAvatar name={props.fromAddress} size={20} />
-                  <ThemedTextV2
-                    ellipsizeMode="middle"
-                    numberOfLines={1}
-                    style={[
-                      tailwind("text-sm font-normal-v2 ml-1"),
-                      // eslint-disable-next-line react-native/no-inline-styles
-                      { minWidth: 10, maxWidth: 108 },
-                    ]}
-                    testID="wallet_address"
-                  >
-                    {props.fromAddressLabel ?? props.fromAddress}
-                  </ThemedTextV2>
-                </>
+                <FromAddress
+                  fromAddress={props.fromAddress}
+                  fromAddressLabel={props.fromAddressLabel}
+                />
               </AddressEvmTag>
             ) : (
               // DVM from address
@@ -131,19 +120,10 @@ export function SummaryTitle(props: ISummaryTitleProps): JSX.Element {
                   "rounded-full pl-1 pr-2.5 py-1 flex flex-row items-center overflow-hidden ml-2",
                 )}
               >
-                <RandomAvatar name={props.fromAddress} size={20} />
-                <ThemedTextV2
-                  ellipsizeMode="middle"
-                  numberOfLines={1}
-                  style={[
-                    tailwind("text-sm font-normal-v2 ml-1"),
-                    // eslint-disable-next-line react-native/no-inline-styles
-                    { minWidth: 10, maxWidth: 108 },
-                  ]}
-                  testID="wallet_address"
-                >
-                  {props.fromAddressLabel ?? props.fromAddress}
-                </ThemedTextV2>
+                <FromAddress
+                  fromAddress={props.fromAddress}
+                  fromAddressLabel={props.fromAddressLabel}
+                />
               </ThemedViewV2>
             )}
           </View>
@@ -233,6 +213,29 @@ export function SummaryTitle(props: ISummaryTitleProps): JSX.Element {
           </View>
         )}
       </View>
+    </>
+  );
+}
+
+function FromAddress(props: {
+  fromAddress: string;
+  fromAddressLabel?: string | null;
+}): JSX.Element {
+  return (
+    <>
+      <RandomAvatar name={props.fromAddress} size={20} />
+      <ThemedTextV2
+        ellipsizeMode="middle"
+        numberOfLines={1}
+        style={[
+          tailwind("text-sm font-normal-v2 ml-1"),
+          // eslint-disable-next-line react-native/no-inline-styles
+          { minWidth: 10, maxWidth: 108 },
+        ]}
+        testID="wallet_address"
+      >
+        {props.fromAddressLabel ?? props.fromAddress}
+      </ThemedTextV2>
     </>
   );
 }
