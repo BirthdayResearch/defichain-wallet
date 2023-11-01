@@ -1778,6 +1778,7 @@
     "Vault does not meet min. collateral ratio": "Vault does not meet min. collateral ratio",
     "Insufficient DFI and/or DUSD in vault to maintain active loans": "Insufficient DFI and/or DUSD in vault to maintain active loans",
     "Active DUSD loans require 50% DFI collaterals": "Active DUSD loans require 50% DFI collaterals",
+    "Active DUSD loans require 50% DFI or 100% DUSD collaterals": "活跃的 DUSD 贷款需要 50% DFI 或 100% DUSD 抵押品",
     "By continuing, the required amount of DFI will be converted": "By continuing, the required amount of DFI will be converted",
     "Review full details in the next screen": "在下一个屏幕中查看完整详细信息"
   },
@@ -1910,7 +1911,7 @@
     "Amount entered will result in vault liquidation": "Amount entered will result in vault liquidation",
     "Amount entered may liquidate the vault. Proceed at your own risk.": "Amount entered may liquidate the vault. Proceed at your own risk.",
     "Insufficient DFI and/or DUSD in vault. Add more to start minting dTokens.": "Insufficient DFI and/or DUSD in vault. Add more to start minting dTokens.",
-    "Insufficient DFI in vault. Add more to borrow DUSD.": "Insufficient DFI in vault. Add more to borrow DUSD.",
+    "Insufficient DFI and/or DUSD in vault. Add more to borrow DUSD.": "金库里的 DFI 和/或 DUSD 不足。 请添加更多抵押品以借入 DUSD。",
     "Review full details in the next screen": "在下一个屏幕中查看完整详细信息",
     "Max loan amount entered": "已输入最高贷款金额",
     "{{percent}} of max loan amount entered": "已输入最高贷款金额的 {{percent}}%",
