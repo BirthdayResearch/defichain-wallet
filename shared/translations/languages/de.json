@@ -266,9 +266,8 @@
     "Max available {{unit}} entered": "Max. verfügbare {{unit}} eingegeben",
     "By continuing, the required amount of DFI will be converted": "Wenn du fortfährst, wird die erforderliche Summe an DFI umgewandelt",
     "Invalid address. Make sure the address is correct to avoid irrecoverable losses": "Ungültige Adresse. Vergewissere dich, dass die Adresse korrekt ist, um unwiederbringliche Verluste zu vermeiden.",
-    "Verified {{text}}": "Bestätigt {{text}}",
-    "MetaChain (EVM) address": "Verifizierte MetaChain (EVM)-Adresse",
-    "DeFiChain (DVM) address": "Verifizierte DeFiChain (DVM)-Adresse",
+    "Verified MetaChain (EVM) address": "Verifizierte MetaChain (EVM)-Adresse",
+    "Verified DeFiChain (DVM) address": "Verifizierte DeFiChain (DVM)-Adresse",
     "You are sending assets to an EVM address. DFI asset gets converted to EVM.": "Du sendest Assets an eine EVM-Adresse. DFI-Assets werden in EVM umgewandelt.",
     "You are sending assets to a DFI address. EVM asset gets converted to DVM.": "Du sendest Assets an eine DFI-Adresse. EVM-Assets werden in DVM umgewandelt."
   },

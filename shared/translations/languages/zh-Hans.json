@@ -266,9 +266,8 @@
     "Max available {{unit}} entered": "Max available {{unit}} entered",
     "By continuing, the required amount of DFI will be converted": "By continuing, the required amount of DFI will be converted",
     "Invalid address. Make sure the address is correct to avoid irrecoverable losses": "Invalid address. Make sure the address is correct to avoid irrecoverable losses",
-    "Verified {{text}}": "已验证的 {{text}}",
-    "MetaChain (EVM) address": "MetaChain (EVM) 地址",
-    "DeFiChain (DVM) address": "DeFiChain (DVM) 地址",
+    "Verified MetaChain (EVM) address": "已验证的 MetaChain (EVM) 地址",
+    "Verified DeFiChain (DVM) address": "已验证的 DeFiChain (DVM) 地址",
     "You are sending assets to an EVM address. DFI asset gets converted to EVM.": "您正在将资产发送到 EVM 地址。DFI 资产转换到 EVM。",
     "You are sending assets to a DFI address. EVM asset gets converted to DVM.": "您正在将资产发送到 DFI 地址。EVM 资产转换到 DVM。"
   },
