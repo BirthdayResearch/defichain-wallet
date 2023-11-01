@@ -1779,6 +1779,7 @@
     "Vault does not meet min. collateral ratio": "Vault erfüllt die Mindestbesicherungsquote nicht",
     "Insufficient DFI and/or DUSD in vault to maintain active loans": "Unzureichende DFI und/oder DUSD im Vault zur Aufrechterhaltung aktiver Darlehen",
     "Active DUSD loans require 50% DFI collaterals": "Aktive DUSD-Darlehen erfordern 50 % DFI-Besicherung",
+    "Active DUSD loans require 50% DFI or 100% DUSD collaterals": "Aktive DUSD-Darlehen erfordern 50% DFI- oder 100% DUSD-Sicherheiten",
     "By continuing, the required amount of DFI will be converted": "Wenn du fortfährst, wird die erforderliche Summe an DFI umgewandelt",
     "Review full details in the next screen": "Überprüfe alle Details in der nächsten Ansicht"
   },
@@ -1911,7 +1912,7 @@
     "Amount entered will result in vault liquidation": "Der eingegebene Betrag wird zur Liquidation des Vaults führen.",
     "Amount entered may liquidate the vault. Proceed at your own risk.": "Der eingegebene Betrag kann den Vault liquidieren. Das Vorgehen erfolgt auf eigene Gefahr.",
     "Insufficient DFI and/or DUSD in vault. Add more to start minting dTokens.": "Nicht genügend DFI und/oder DUSD im Vault. Füge mehr hinzu, um dToken zu minten.",
-    "Insufficient DFI in vault. Add more to borrow DUSD.": "Unzureichende DFI im Vault. Füge mehr hinzu, um DUSD zu leihen.",
+    "Insufficient DFI and/or DUSD in vault. Add more to borrow DUSD.": "Nicht genügend DFI und/oder DUSD im Vault. Füge mehr hinzu, um DUSD zu leihen.",
     "Review full details in the next screen": "Überprüfe alle Details in der nächsten Ansicht",
     "Max loan amount entered": "Maximaler Darlehensbetrag eingegeben",
     "{{percent}} of max loan amount entered": "{{percent}} des max. Darlehensbetrags eingegeben",
