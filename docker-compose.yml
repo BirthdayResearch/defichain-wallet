@@ -17,7 +17,7 @@ services:
       - "/var/run/docker.sock:/var/run/docker.sock:ro"
 
   defi-blockchain:
-    image: defi/defichain:HEAD-420563c450
+    image: defi/defichain:master-11717b5810
     ports:
       - "19554:19554"
       - "19551:19551"
@@ -59,7 +59,7 @@ services:
       -fortcanningepilogueheight=15
       -grandcentralheight=16
       -grandcentralepilogueheight=17
-      -nextnetworkupgradeheight=18
+      -metachainheight=18
     environment:
       - RUST_LOG=debug
 

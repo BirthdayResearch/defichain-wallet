@@ -1,35 +1,35 @@
 # Define individuals that are responsible for code in a repository.
 # More details are here: https://help.github.com/articles/about-codeowners/
 
-/.github/                                       @fuxingloh @thedoublejay @kyleleow @pierregee
-/.husky/                                        @fuxingloh @thedoublejay
+/.github/                                       @fuxingloh @fullstackninja864 @pierregee @chloezxyy @lykalabrada @nattadex
+/.husky/                                        @fuxingloh @fullstackninja864 @pierregee @chloezxyy @lykalabrada @nattadex
 
-/mobile-app/app/                                @thedoublejay @kyleleow @fullstackninja864 @pierregee @chloezxyy @G9000 @JoshuaC817 @lykalabrada @nattadex @veralygit
-/mobile-app/app/api                             @fuxingloh @thedoublejay @kyleleow @pierregee
+/mobile-app/app/                                @fullstackninja864 @pierregee @chloezxyy @lykalabrada @nattadex
+/mobile-app/app/api                             @fuxingloh @fullstackninja864 @pierregee @chloezxyy @lykalabrada @nattadex
 
-/shared/assets                                  @thedoublejay @kyleleow @fullstackninja864 @pierregee @chloezxyy @G9000 @JoshuaC817 @lykalabrada @nattadex @veralygit
-/shared/translations                            @thedoublejay @izzycsy @kyleleow @fullstackninja864 @pierregee @chloezxyy @G9000 @JoshuaC817 @lykalabrada @nattadex @veralygit
-/mobile-app/cypress                             @thedoublejay @kyleleow @fullstackninja864 @pierregee @chloezxyy @G9000 @JoshuaC817 @lykalabrada @nattadex @veralygit
+/shared/assets                                  @fullstackninja864 @pierregee @chloezxyy @lykalabrada @nattadex
+/shared/translations                            @fullstackninja864 @pierregee @chloezxyy @lykalabrada @nattadex
+/mobile-app/cypress                             @fullstackninja864 @pierregee @chloezxyy @lykalabrada @nattadex
 
-/.codeclimate.yml                               @fuxingloh @thedoublejay
-/.versionrc.js                                  @fuxingloh @thedoublejay
-/mobile-app/_shim.js                            @fuxingloh @thedoublejay
-/app.json                                       @fuxingloh @thedoublejay
-/mobile-app/App.tsx                             @fuxingloh @thedoublejay
-/mobile-app/cypress.json                        @fuxingloh @thedoublejay
-/eas.json                                       @fuxingloh @thedoublejay
+/.codeclimate.yml                               @fuxingloh @fullstackninja864 @pierregee @chloezxyy @lykalabrada @nattadex
+/.versionrc.js                                  @fuxingloh @fullstackninja864 @pierregee @chloezxyy @lykalabrada @nattadex
+/mobile-app/_shim.js                            @fuxingloh @fullstackninja864 @pierregee @chloezxyy @lykalabrada @nattadex
+/app.json                                       @fuxingloh @fullstackninja864 @pierregee @chloezxyy @lykalabrada @nattadex
+/mobile-app/App.tsx                             @fuxingloh @fullstackninja864 @pierregee @chloezxyy @lykalabrada @nattadex
+/mobile-app/cypress.json                        @fuxingloh @fullstackninja864 @pierregee @chloezxyy @lykalabrada @nattadex
+/eas.json                                       @fuxingloh @fullstackninja864 @pierregee @chloezxyy @lykalabrada @nattadex
 
-netlify.toml                                    @fuxingloh @thedoublejay
-babel.config.js                                 @fuxingloh @thedoublejay
-jest.config.js                                  @fuxingloh @thedoublejay
-metro.config.js                                 @fuxingloh @thedoublejay
-tsconfig.json                                   @fuxingloh @thedoublejay
+netlify.toml                                    @fuxingloh @fullstackninja864 @pierregee @chloezxyy @lykalabrada @nattadex
+babel.config.js                                 @fuxingloh @fullstackninja864 @pierregee @chloezxyy @lykalabrada @nattadex
+jest.config.js                                  @fuxingloh @fullstackninja864 @pierregee @chloezxyy @lykalabrada @nattadex
+metro.config.js                                 @fuxingloh @fullstackninja864 @pierregee @chloezxyy @lykalabrada @nattadex
+tsconfig.json                                   @fuxingloh @fullstackninja864 @pierregee @chloezxyy @lykalabrada @nattadex
 
-package.json                                    @thedoublejay @kyleleow @pierregee
-package-lock.json                               @thedoublejay @kyleleow @pierregee
-/docker-compose.yml                             @thedoublejay @kyleleow @pierregee
+package.json                                    @fullstackninja864 @pierregee @chloezxyy @lykalabrada @nattadex
+package-lock.json                               @fullstackninja864 @pierregee @chloezxyy @lykalabrada @nattadex
+/docker-compose.yml                             @fullstackninja864 @pierregee @chloezxyy @lykalabrada @nattadex
 
-BETA_TESTING.md                                 @fuxingloh @thedoublejay @izzycsy @kyleleow @fullstackninja864 @pierregee @chloezxyy
-CONTRIBUTING.md                                 @fuxingloh @thedoublejay @izzycsy @kyleleow @fullstackninja864 @pierregee @chloezxyy
-README.md                                       @fuxingloh @thedoublejay @izzycsy @kyleleow @fullstackninja864 @pierregee @chloezxyy
-LICENSE                                         @fuxingloh
+BETA_TESTING.md                                 @fullstackninja864 @pierregee @chloezxyy @lykalabrada @nattadex
+CONTRIBUTING.md                                 @fullstackninja864 @pierregee @chloezxyy @lykalabrada @nattadex
+README.md                                       @fullstackninja864 @pierregee @chloezxyy @lykalabrada @nattadex
+LICENSE                                         @fullstackninja864 @pierregee @chloezxyy @lykalabrada @nattadex
