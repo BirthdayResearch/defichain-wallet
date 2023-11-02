@@ -119,6 +119,7 @@
   },
   "screens/GetDFIScreen": {
     "Get DFI": "Get DFI",
+    "Get DFI-EVM": "Get DFI-EVM",
     "STEP 1": "STEP 1",
     "Trade/Purchase DFI": "Trade/Purchase DFI",
     "Marketplace": "Marketplace",
@@ -128,7 +129,9 @@
     "DFI price": "DFI price",
     "WALLET ADDRESS": "WALLET ADDRESS",
     "Share": "Share",
-    "Get DFI now!": "Get DFI now!"
+    "STEP 3": "STEP 3",
+    "Get DFI now!": "Get DFI now!",
+    "Get DFI-EVM now!": "Get DFI-EVM now!"
   },
   "screens/MarketplaceScreen": {
     "Marketplace": "Marketplace",
@@ -237,7 +240,8 @@
     "Share": "Condividi",
     "WALLET ADDRESS": "INDIRIZZO WALLET",
     "Scan QR code to receive any dTokens (eg. DUSD,dBTC..) or DFI": "扫描二维码以接收任何 dToken（例如 DUSD、dBTC..）或 DFI",
-    "Get DFI": "Get DFI"
+    "Get DFI": "Get DFI",
+    "Get DFI-EVM": "Get DFI-EVM"
   },
   "components/toaster": {
     "Copied": "Copiato",

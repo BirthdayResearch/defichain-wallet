@@ -114,6 +114,7 @@
   },
   "screens/GetDFIScreen": {
     "Get DFI": "DFI erhalten",
+    "Get DFI-EVM": "DFI-EVM erhalten",
     "STEP 1": "SCHRITT 1",
     "Trade/Purchase DFI": "Handel/Kauf von DFI",
     "Marketplace": "Marktplatz",
@@ -123,7 +124,9 @@
     "DFI price": "DFI-Preise",
     "WALLET ADDRESS": "WALLETADRESSE",
     "Share": "Teilen",
-    "Get DFI now!": "Jetzt DFI kaufen!"
+    "Get DFI now!": "Jetzt DFI kaufen!",
+    "STEP 3": "SCHRITT 3",
+    "Get DFI-EVM now!": "Jetzt DFI-EVM kaufen!"
   },
   "screens/MarketplaceScreen": {
     "Marketplace": "Marktplatz",
@@ -226,7 +229,8 @@
     "Share": "Teilen",
     "WALLET ADDRESS": "WALLETADRESSE",
     "Scan QR code to receive any dTokens (eg. DUSD,dBTC..) or DFI": "Scanne den QR-Code, um dToken (z.B. DUSD, dBTC...) oder DFI zu erhalten",
-    "Get DFI": "DFI erwerben"
+    "Get DFI": "DFI erwerben",
+    "Get DFI-EVM": "DFI-EVM erwerben"
   },
   "components/toaster": {
     "Copied": "Kopiert",

@@ -17,9 +17,10 @@ import { TextSkeletonLoaderV2 } from "@components/TextSkeletonLoaderV2";
 import BigNumber from "bignumber.js";
 import { translate } from "@translations";
 import { useDomainContext, DomainType } from "@contexts/DomainContext";
+import { ConvertDirection } from "@screens/enum";
 import { TokenNameText } from "./TokenNameText";
 import { TokenAmountText } from "./TokenAmountText";
-import { useEvmTokenBalances } from "../hooks/EvmTokenBalances";
+import { useTokenBalance } from "../hooks/TokenBalance";
 
 interface DFIBalaceCardProps {
   denominationCurrency: string;
@@ -29,8 +30,8 @@ export function DFIBalanceCard({
   denominationCurrency,
 }: DFIBalaceCardProps): JSX.Element {
   const { domain } = useDomainContext();
-  const { evmTokens } = useEvmTokenBalances();
-  const evmDFIToken = evmTokens.find(({ id }) => id === "0_evm");
+  const { dvmTokens, evmTokens } = useTokenBalance();
+  const evmDFIToken = evmTokens.find(({ tokenId }) => tokenId === "0_evm");
   const navigation = useNavigation<NavigationProp<PortfolioParamList>>();
   const DFIToken = useSelector((state: RootState) =>
     DFITokenSelector(state.wallet),
@@ -46,7 +47,7 @@ export function DFIBalanceCard({
   const { getTokenPrice } = useTokenPrice(denominationCurrency); // input based on selected denomination from portfolio tab
   const isEvmDomain = domain === DomainType.EVM;
   const tokenAmount = isEvmDomain
-    ? new BigNumber(evmDFIToken?.amount ?? 0)
+    ? new BigNumber(evmDFIToken?.available ?? 0)
     : new BigNumber(DFIUnified.amount ?? 0);
   const usdAmount = getTokenPrice(
     DFIUnified.symbol,
@@ -55,10 +56,28 @@ export function DFIBalanceCard({
   );
   const DFIIcon = getNativeIcon("_UTXO");
   const EvmDFIIcon = getNativeIcon("EvmDFI");
-
   const isPositiveBalance = isEvmDomain
-    ? new BigNumber(evmDFIToken?.amount ?? 0).gt(0)
+    ? new BigNumber(evmDFIToken?.available ?? 0).gt(0)
     : new BigNumber(DFIUtxo.amount ?? 0).plus(DFIToken.amount ?? 0).gt(0);
+
+  const getDFI = () => {
+    if (isEvmDomain && new BigNumber(DFIToken.amount ?? 0).gt(0)) {
+      const convertDirection = ConvertDirection.evmToDvm;
+      const dfiToken = dvmTokens.find((token) => token.tokenId === "0");
+      const evmDFIToken = evmTokens.find((token) => token.tokenId === "0_evm");
+      return navigation.navigate({
+        name: "ConvertScreen",
+        params: {
+          sourceToken: dfiToken,
+          targetToken: evmDFIToken,
+          convertDirection,
+        },
+        merge: true,
+      });
+    }
+    return navigation.navigate("GetDFIScreen");
+  };
+
   return (
     <View style={tailwind("mx-5 mt-2 rounded-lg-v2")} testID="dfi_balance_card">
       <View style={tailwind("flex-col rounded-lg-v2 overflow-hidden")}>
@@ -139,14 +158,21 @@ export function DFIBalanceCard({
             )}
           </View>
         </ThemedTouchableOpacityV2>
-        {hasFetchedToken && !isPositiveBalance && !isEvmDomain && <GetDFIBtn />}
+        {hasFetchedToken && !isPositiveBalance && (
+          <GetDFIBtn isEvmDomain={isEvmDomain} onPress={getDFI} />
+        )}
       </View>
     </View>
   );
 }
 
-function GetDFIBtn(): JSX.Element {
-  const navigation = useNavigation<NavigationProp<PortfolioParamList>>();
+function GetDFIBtn({
+  isEvmDomain,
+  onPress,
+}: {
+  isEvmDomain: boolean;
+  onPress: () => void;
+}): JSX.Element {
   return (
     <LinearGradient
       start={[0, 0]}
@@ -167,7 +193,7 @@ function GetDFIBtn(): JSX.Element {
       <TouchableOpacity
         testID="get_DFI_btn"
         // @ts-ignore
-        onPress={() => navigation.navigate("GetDFIScreen")}
+        onPress={onPress}
         activeOpacity={0.7}
       >
         <Text
@@ -175,7 +201,10 @@ function GetDFIBtn(): JSX.Element {
             "font-semibold-v2 text-sm my-1 text-center text-mono-light-v2-100",
           )}
         >
-          {translate("screens/GetDFIScreen", "Get DFI now!")}
+          {translate(
+            "screens/GetDFIScreen",
+            isEvmDomain ? "Get DFI-EVM now!" : "Get DFI now!",
+          )}
         </Text>
       </TouchableOpacity>
     </LinearGradient>
