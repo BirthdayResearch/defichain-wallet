@@ -8,6 +8,7 @@ import { block } from "@waveshq/walletkit-ui/dist/store/block";
 import { GetDFIScreen } from "./GetDFIScreen";
 
 jest.mock("@shared-contexts/WalletContext");
+jest.mock("@contexts/DomainContext");
 jest.mock("react-native-popover-view");
 
 jest.mock("expo-clipboard", () => ({
