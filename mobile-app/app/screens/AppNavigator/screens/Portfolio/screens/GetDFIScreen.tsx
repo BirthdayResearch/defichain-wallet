@@ -293,21 +293,6 @@ function StepThree(): JSX.Element {
           </View>
         </View>
       </View>
-      {/* <TouchableOpacity
-        onPress={async () => await openURL("https://defichain.com/explore/dfi")}
-        style={tailwind("flex flex-row items-center mx-5 mt-2")}
-      >
-        <ThemedIcon
-          dark={tailwind("text-mono-dark-v2-900")}
-          light={tailwind("text-mono-light-v2-900")}
-          iconType="MaterialCommunityIcons"
-          name="help-circle"
-          size={18}
-        />
-        <ThemedTextV2 style={tailwind("text-xs font-semibold-v2 ml-1")}>
-          {translate("screens/GetDFIScreen", "Learn more about DFI-EVM")}
-        </ThemedTextV2>
-      </TouchableOpacity> */}
     </>
   );
 }
