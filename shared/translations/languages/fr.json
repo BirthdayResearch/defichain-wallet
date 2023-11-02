@@ -239,7 +239,8 @@
     "Share": "Partager",
     "WALLET ADDRESS": "ADRESSE DU PORTEFEUILLE",
     "Scan QR code to receive any dTokens (eg. DUSD,dBTC..) or DFI": "Scanner le code QR pour recevoir des dTokens (par exemple DUSD, dBTC..) ou des DFI",
-    "Get DFI": "Obtenir DFI"
+    "Get DFI": "Obtenir DFI",
+    "Get DFI-EVM": "Obtenir DFI-EVM"
   },
   "components/toaster": {
     "Copied": "Copié",
