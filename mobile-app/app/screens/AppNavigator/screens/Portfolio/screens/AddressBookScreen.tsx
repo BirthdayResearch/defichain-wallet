@@ -21,7 +21,7 @@ import {
 } from "@store/userPreferences";
 import { getColor, tailwind } from "@tailwind";
 import { translate } from "@translations";
-import { createRef, useCallback, useEffect, useState, useMemo } from "react";
+import { createRef, useCallback, useEffect, useMemo, useState } from "react";
 import {
   Platform,
   ScrollView,
@@ -304,7 +304,7 @@ export function AddressBookScreen({ route, navigation }: Props): JSX.Element {
         }
       };
 
-      const onDFIAddressClick = async () => {
+      const goToAddressDetailScreen = async () => {
         if (activeButtonGroup === ButtonGroupTabKey.Whitelisted) {
           setSearchString("");
           setIsSearchFocus(false);
@@ -336,7 +336,12 @@ export function AddressBookScreen({ route, navigation }: Props): JSX.Element {
           ]}
           testID={`address_row_${index}_${testIDSuffix}`}
           disabled={isDisabledToSelect}
-          onPress={async () => onChangeAddress(item)}
+          onPress={async () => {
+            if (onAddressSelect === undefined) {
+              goToAddressDetailScreen();
+            }
+            onChangeAddress(item);
+          }}
         >
           <View
             style={tailwind("flex flex-row items-center flex-grow", {
@@ -383,7 +388,7 @@ export function AddressBookScreen({ route, navigation }: Props): JSX.Element {
                     )}
                   </View>
                 )}
-                {/* for DFI address */}
+                {/* for DVM address */}
                 <WhitelistedAddressLink
                   address={item.address}
                   disabled={isAddressSelectDisabled}
@@ -391,15 +396,14 @@ export function AddressBookScreen({ route, navigation }: Props): JSX.Element {
                   displayIcon={
                     activeButtonGroup === ButtonGroupTabKey.YourAddress
                   }
-                  onClick={async () => onChangeAddress(item)}
                 />
                 {/* for EVM address */}
               </View>
               {!isAddressSelectDisabled && (
-                <TouchableOpacity
-                  activeOpacity={0.7}
-                  onPress={onDFIAddressClick}
-                  style={tailwind("flex flex-row items-center")}
+                <ThemedViewV2
+                  light={tailwind("bg-mono-light-v2-00")}
+                  dark={tailwind("bg-mono-dark-v2-00")}
+                  style={tailwind("flex flex-row items-center bg-red-100")}
                   testID={`address_row_${index}_${testIDSuffix}_caret`}
                 >
                   <ThemedIcon
@@ -409,7 +413,7 @@ export function AddressBookScreen({ route, navigation }: Props): JSX.Element {
                     name="chevron-right"
                     size={18}
                   />
-                </TouchableOpacity>
+                </ThemedViewV2>
               )}
             </View>
           </View>
@@ -439,7 +443,7 @@ export function AddressBookScreen({ route, navigation }: Props): JSX.Element {
         }
       };
 
-      const onDFIAddressClick = async () => {
+      const goToAddressDetail = async () => {
         await openURL(getAddressUrl(item.address));
       };
 
@@ -471,7 +475,7 @@ export function AddressBookScreen({ route, navigation }: Props): JSX.Element {
                   >
                     <TouchableOpacity
                       activeOpacity={0.7}
-                      onPress={onDFIAddressClick}
+                      onPress={goToAddressDetail}
                       style={tailwind("flex flex-row items-center")}
                     >
                       <ThemedTextV2
@@ -492,6 +496,7 @@ export function AddressBookScreen({ route, navigation }: Props): JSX.Element {
                       onChangeAddress(item.address);
                     }}
                     isAddressSelectEnabled={false}
+                    onAddressSelect={onAddressSelect}
                   />
                   {/* EVM address card */}
                   {isEvmFeatureEnabled && (
@@ -763,24 +768,21 @@ export function DiscoverWalletAddressV2({
 
 function WhitelistedAddressLink({
   disabled,
-  onClick,
   address,
   displayIcon,
   testIDSuffix,
 }: {
   disabled: boolean;
-  onClick: () => Promise<void>;
   address: string;
   displayIcon: boolean;
   testIDSuffix: string;
 }) {
   return (
-    <TouchableOpacity
-      activeOpacity={0.7}
-      onPress={onClick}
+    <ThemedViewV2
       testID={`address_action_${address}`}
       style={tailwind("flex flex-row items-center")}
-      disabled={disabled}
+      light={tailwind("bg-mono-light-v2-00")}
+      dark={tailwind("bg-mono-dark-v2-00")}
     >
       <ThemedTextV2
         style={tailwind("font-normal-v2 text-xs w-10/12 mt-1")}
@@ -803,7 +805,7 @@ function WhitelistedAddressLink({
           />
         </View>
       )}
-    </TouchableOpacity>
+    </ThemedViewV2>
   );
 }
 
@@ -814,6 +816,7 @@ function YourAddressLink({
   isEvmAddress,
   testIDSuffix,
   isAddressSelectEnabled,
+  onAddressSelect,
 }: {
   disabled?: boolean;
   onClick: () => Promise<void>;
@@ -821,10 +824,11 @@ function YourAddressLink({
   isEvmAddress?: boolean;
   testIDSuffix: string;
   isAddressSelectEnabled: boolean;
+  onAddressSelect?: ((address: string) => void) | undefined;
 }) {
   return (
     <TouchableOpacity
-      activeOpacity={0.7}
+      activeOpacity={onAddressSelect ? 0.7 : 1}
       onPress={onClick}
       testID={`address_row_text_${testIDSuffix}`}
       style={[
