@@ -389,13 +389,18 @@ export function AddOrRemoveCollateralScreen({ route }: Props): JSX.Element {
         message: addOrRemoveCollateralErrors.InsufficientBalance,
       };
     } else if (
-      isFeatureAvailable("loop_dusd") &&
       hasLoan &&
-      vault.loanAmounts.some((loan) => loan.symbol === "DUSD") &&
-      vault.collateralAmounts.every((col) => col.symbol === "DUSD")
+      vault.loanAmounts.some((loan) => loan.symbol === "DUSD")
     ) {
+      const has100PercentDusdCol = vault.collateralAmounts.every(
+        (col) => col.symbol === "DUSD",
+      );
       if (
-        !["DFI", "DUSD"].includes(selectedCollateralItem.token.symbol) ||
+        (isFeatureAvailable("loop_dusd") &&
+          has100PercentDusdCol &&
+          !["DFI", "DUSD"].includes(selectedCollateralItem.token.symbol)) ||
+        (!has100PercentDusdCol &&
+          selectedCollateralItem.token.symbol === "DUSD") ||
         (selectedCollateralItem.token.symbol === "DFI" &&
           isDFILessThanHalfOfRequiredCollateral)
       ) {

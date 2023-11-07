@@ -66,15 +66,12 @@ export function useValidateLoanAndCollateral(
     (col) => col.symbol === "DUSD",
   );
 
-  const isNonDUSDLoanAllowed =
-    !isTakingDUSDLoan && isDFIGreaterThanHalfOfRequiredCollateral;
-
   const isDUSDLoanAllowed =
     isTakingDUSDLoan &&
     (isDFIGreaterThanHalfOfRequiredCollateral ||
       (isFeatureAvailable("loop_dusd") && isDUSD100PercentOfCollateral));
 
   return {
-    isLoanAllowed: isNonDUSDLoanAllowed || isDUSDLoanAllowed,
+    isLoanAllowed: isDUSDLoanAllowed || !isTakingDUSDLoan,
   };
 }
