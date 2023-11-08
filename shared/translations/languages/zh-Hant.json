@@ -175,7 +175,13 @@
     "Save changes": "儲存修改",
     "Address label is too long (max 30 characters)": "地址標籤太長（最多 30 個字符）",
     "Invalid label. Maximum of 40 characters.": "Invalid label. Maximum of 40 characters.",
-    "{{length}}/40 characters": "{{length}}/40 characters"
+    "{{length}}/40 characters": "{{length}}/40 characters",
+    "Done": "Done",
+    "Show private key": "顯示私鑰",
+    "Your private key provides full access to your account and funds.": "此私鑰有對您的帳戶以及資金具有完全存取的權限。",
+    "Make sure you keep this private. Do not share this with anyone or take a screenshot of it.": "請確保將此私鑰保密。 不要與任何人分享或截取此螢幕截圖。",
+    "PRIVATE KEY": "私鑰",
+    "Verify access to view private key": "驗證存取權以查看私密金鑰"
   },
   "screens/AddOrEditAddressBookScreen": {
     "Edit address label": "更改地址標籤",
