@@ -1668,7 +1668,10 @@
     "Adding in DFI and/or DUSD will boost your borrowing power and help maximize your vault's loan amount.": "L'ajout de DFI et/ou de DUSD augmentera votre capacité d'emprunt et vous aidera à maximiser le montant du prêt de votre vault.",
     "Maintain at least 50% DFI as collateral for DUSD loans": "Maintenez au moins 50 % de DFI comme garantie pour les prêts en DUSD",
     "Your loan amount can be maximized by adding DFI/DUSD as collaterals": "Le montant de votre prêt peut être maximisé en ajoutant DFI/DUSD comme garanties",
-    "COLLATERALS": "GARANTIE"
+    "COLLATERALS": "GARANTIE",
+    "Maintain either 100% DUSD (recommended) or at least 50% DFI as collateral for DUSD loans": "Conserver 100 % de DUSD (recommandé) ou au moins 50 % de DFI comme garantie pour les prêts DUSD",
+    "Why is this so?": "Pourquoi ?",
+    "DUSD loans which contains DUSD as collateral are required to maintain at least 50% of the collateral in the form of DFI.\n\nThis only affects vaults that has DUSD as both collateral and loan.\n\nTake note that DUSD Loop Vault will become a regular Vault if DFI is added as collateral.": "Les prêts DUSD qui contiennent des DUSD en garantie sont requis de conserver au moins 50 % de la garantie sous forme de DFI.\n\nCela ne concerne que les vaults qui ont des DUSD à la fois comme garantie et comme prêt.\n\nNotez que le vault à boucle DUSD (Loop vault) deviendra un vault normal si des DFI sont ajoutés comme garantie."
   },
   "screens/VaultDetailScreenLoansSection": {
     "Pay with DUSD collaterals": "Rembourser avec des garanties en DUSD",

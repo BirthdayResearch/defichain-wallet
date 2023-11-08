@@ -1683,7 +1683,10 @@
     "Adding in DFI and/or DUSD will boost your borrowing power and help maximize your vault's loan amount.": "Adding in DFI and/or DUSD will boost your borrowing power and help maximize your vault's loan amount.",
     "Maintain at least 50% DFI as collateral for DUSD loans": "Maintain at least 50% DFI as collateral for DUSD loans",
     "Your loan amount can be maximized by adding DFI/DUSD as collaterals": "Your loan amount can be maximized by adding DFI/DUSD as collaterals",
-    "COLLATERALS": "COLLATERALS"
+    "COLLATERALS": "COLLATERALS",
+    "Maintain either 100% DUSD (recommended) or at least 50% DFI as collateral for DUSD loans": "Maintain either 100% DUSD (recommended) or at least 50% DFI as collateral for DUSD loans",
+    "Why is this so?": "Why is this so?",
+    "DUSD loans which contains DUSD as collateral are required to maintain at least 50% of the collateral in the form of DFI.\n\nThis only affects vaults that has DUSD as both collateral and loan.\n\nTake note that DUSD Loop Vault will become a regular Vault if DFI is added as collateral.": "DUSD loans which contains DUSD as collateral are required to maintain at least 50% of the collateral in the form of DFI.\n\nThis only affects vaults that has DUSD as both collateral and loan.\n\nTake note that DUSD Loop Vault will become a regular Vault if DFI is added as collateral."
   },
   "screens/VaultDetailScreenLoansSection": {
     "Pay with DUSD collaterals": "Pay with DUSD collaterals",
