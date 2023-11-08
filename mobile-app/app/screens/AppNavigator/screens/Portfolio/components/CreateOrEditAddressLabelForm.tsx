@@ -149,7 +149,7 @@ export const CreateOrEditAddressLabelForm = memo(
         transactionQueue.actions.push({
           sign: async (
             account: WhaleWalletAccount,
-          ): Promise<CTransactionSegWit> => {
+          ): Promise<CTransactionSegWit | null> => {
             const key = (await account.privateKey()).toString("hex");
             setPrivateKey(key);
             return null;
