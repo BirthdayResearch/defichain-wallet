@@ -196,8 +196,10 @@ context("Portfolio", () => {
 
       // Go to edit address book bottom sheet
       cy.getByTestID("address_edit_icon_address_row_0").click();
+      cy.getByTestID("edit_label_button").click();
       cy.getByTestID("address_book_label_input")
         .click()
+        .clear()
         .type("New Wallet Label")
         .blur()
         .wait(1000);
