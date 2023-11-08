@@ -1662,7 +1662,10 @@
     "Adding in DFI and/or DUSD will boost your borrowing power and help maximize your vault's loan amount.": "L'ajout de DFI et/ou de DUSD augmentera votre capacité d'emprunt et vous aidera à maximiser le montant du prêt de votre vault.",
     "Maintain at least 50% DFI as collateral for DUSD loans": "Maintenez au moins 50 % de DFI comme garantie pour les prêts en DUSD",
     "Your loan amount can be maximized by adding DFI/DUSD as collaterals": "Le montant de votre prêt peut être maximisé en ajoutant DFI/DUSD comme garanties",
-    "COLLATERALS": "GARANTIE"
+    "COLLATERALS": "GARANTIE",
+    "Maintain either 100% DUSD (recommended) or at least 50% DFI as collateral for DUSD loans": "Conserver 100 % de DUSD (recommandé) ou au moins 50 % de DFI comme garantie pour les prêts DUSD",
+    "Why is this so?": "Pourquoi ?",
+    "DUSD loans which contains DUSD as collateral are required to maintain at least 50% of the collateral in the form of DFI.\n\nThis only affects vaults that has DUSD as both collateral and loan.\n\nTake note that DUSD Loop Vault will become a regular Vault if DFI is added as collateral.": "Les prêts DUSD qui contiennent des DUSD en garantie sont requis de conserver au moins 50 % de la garantie sous forme de DFI.\n\nCela ne concerne que les vaults qui ont des DUSD à la fois comme garantie et comme prêt.\n\nNotez que le vault à boucle DUSD (Loop vault) deviendra un vault normal si des DFI sont ajoutés comme garantie."
   },
   "screens/VaultDetailScreenLoansSection": {
     "Pay with DUSD collaterals": "Rembourser avec des garanties en DUSD",
@@ -1781,6 +1784,7 @@
     "Vault does not meet min. collateral ratio": "Le vault ne respecte pas le ratio de garantie min.",
     "Insufficient DFI and/or DUSD in vault to maintain active loans": "Insuffisance de DFI et/ou de DUSD dans le vault pour maintenir les prêts actifs",
     "Active DUSD loans require 50% DFI collaterals": "Les prêts DUSD actifs nécessitent 50 % de garantie en DFI",
+    "Active DUSD loans require 50% DFI or 100% DUSD collaterals": "Les prêts DUSD actifs requièrent des garanties de 50 % DFI ou de 100 % DUSD",
     "By continuing, the required amount of DFI will be converted": "En continuant, le montant requis de DFI sera converti.",
     "Review full details in the next screen": "Vérifiez tous les détails dans l'écran suivant"
   },
@@ -1914,7 +1918,7 @@
     "Amount entered will result in vault liquidation": "Le montant saisi entraînera la liquidation du vault.",
     "Amount entered may liquidate the vault. Proceed at your own risk.": "Le montant donné peut entraîner la liquidation du vault. Procédez à vos propres risques.",
     "Insufficient DFI and/or DUSD in vault. Add more to start minting dTokens.": "Insuffisance de DFI et/ou de DUSD dans le vault. Ajoutez-en plus pour commencer le minting des dTokens.",
-    "Insufficient DFI in vault. Add more to borrow DUSD.": "Insuffisance de DFI dans le vault. Ajoutez-en plus pour emprunter des DUSD.",
+    "Insufficient DFI and/or DUSD in vault. Add more to borrow DUSD.": "Insuffisance de DFI et/ou de DUSD dans votre vault. Ajoutez-en pour emprunter des DUSD.",
     "Review full details in the next screen": "Vérifiez tous les détails dans l'écran suivant",
     "Max loan amount entered": "Montant max. du prêt saisi",
     "{{percent}} of max loan amount entered": "{{percent}} du montant max. du prêt saisi",

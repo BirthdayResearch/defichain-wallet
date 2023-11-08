@@ -1682,7 +1682,10 @@
     "Adding in DFI and/or DUSD will boost your borrowing power and help maximize your vault's loan amount.": "Adding in DFI and/or DUSD will boost your borrowing power and help maximize your vault's loan amount.",
     "Maintain at least 50% DFI as collateral for DUSD loans": "Maintain at least 50% DFI as collateral for DUSD loans",
     "Your loan amount can be maximized by adding DFI/DUSD as collaterals": "Your loan amount can be maximized by adding DFI/DUSD as collaterals",
-    "COLLATERALS": "COLLATERALS"
+    "COLLATERALS": "COLLATERALS",
+    "Maintain either 100% DUSD (recommended) or at least 50% DFI as collateral for DUSD loans": "Maintain either 100% DUSD (recommended) or at least 50% DFI as collateral for DUSD loans",
+    "Why is this so?": "Why is this so?",
+    "DUSD loans which contains DUSD as collateral are required to maintain at least 50% of the collateral in the form of DFI.\n\nThis only affects vaults that has DUSD as both collateral and loan.\n\nTake note that DUSD Loop Vault will become a regular Vault if DFI is added as collateral.": "DUSD loans which contains DUSD as collateral are required to maintain at least 50% of the collateral in the form of DFI.\n\nThis only affects vaults that has DUSD as both collateral and loan.\n\nTake note that DUSD Loop Vault will become a regular Vault if DFI is added as collateral."
   },
   "screens/VaultDetailScreenLoansSection": {
     "Pay with DUSD collaterals": "Pay with DUSD collaterals",
@@ -1801,6 +1804,7 @@
     "Vault does not meet min. collateral ratio": "Vault does not meet min. collateral ratio",
     "Insufficient DFI and/or DUSD in vault to maintain active loans": "Insufficient DFI and/or DUSD in vault to maintain active loans",
     "Active DUSD loans require 50% DFI collaterals": "Active DUSD loans require 50% DFI collaterals",
+    "Active DUSD loans require 50% DFI or 100% DUSD collaterals": "Active DUSD loans require 50% DFI or 100% DUSD collaterals",
     "By continuing, the required amount of DFI will be converted": "Si continuas, la cantidad requerida de DFI será convertida",
     "Review full details in the next screen": "Revisa todos los detalles en la próxima pantalla"
   },
@@ -1933,7 +1937,7 @@
     "Amount entered will result in vault liquidation": "Amount entered will result in vault liquidation",
     "Amount entered may liquidate the vault. Proceed at your own risk.": "Amount entered may liquidate the vault. Proceed at your own risk.",
     "Insufficient DFI and/or DUSD in vault. Add more to start minting dTokens.": "Insufficient DFI and/or DUSD in vault. Add more to start minting dTokens.",
-    "Insufficient DFI in vault. Add more to borrow DUSD.": "Insufficient DFI in vault. Add more to borrow DUSD.",
+    "Insufficient DFI and/or DUSD in vault. Add more to borrow DUSD.": "Insufficient DFI and/or DUSD in vault. Add more to borrow DUSD.",
     "Review full details in the next screen": "Review full details in the next screen",
     "Max loan amount entered": "Max loan amount entered",
     "{{percent}} of max loan amount entered": "{{percent}} of max loan amount entered",
