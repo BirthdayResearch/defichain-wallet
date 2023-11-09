@@ -99,29 +99,33 @@ export function SummaryTitle(props: ISummaryTitleProps): JSX.Element {
             >
               {translate("screens/common", "From")}
             </ThemedTextV2>
-            <ThemedViewV2
-              dark={tailwind("bg-mono-dark-v2-200")}
-              light={tailwind("bg-mono-light-v2-200")}
-              style={tailwind(
-                "rounded-full pl-1 pr-2.5 py-1 flex flex-row items-center overflow-hidden ml-2",
-              )}
-            >
-              <RandomAvatar name={props.fromAddress} size={20} />
-              <ThemedTextV2
-                ellipsizeMode="middle"
-                numberOfLines={1}
-                style={[
-                  tailwind("text-sm font-normal-v2 ml-1"),
-                  {
-                    minWidth: 10,
-                    maxWidth: 108,
-                  },
-                ]}
-                testID="wallet_address"
+
+            {props.isEvmToken ? (
+              // EVM from address
+              <AddressEvmTag
+                customStyle="flex flex-row items-center rounded-full pr-2.5 py-1 ml-2 overflow-hidden"
+                testID="from_address_label"
               >
-                {props.fromAddressLabel ?? props.fromAddress}
-              </ThemedTextV2>
-            </ThemedViewV2>
+                <FromAddress
+                  fromAddress={props.fromAddress}
+                  fromAddressLabel={props.fromAddressLabel}
+                />
+              </AddressEvmTag>
+            ) : (
+              // DVM from address
+              <ThemedViewV2
+                dark={tailwind("bg-mono-dark-v2-200")}
+                light={tailwind("bg-mono-light-v2-200")}
+                style={tailwind(
+                  "rounded-full pl-1 pr-2.5 py-1 flex flex-row items-center overflow-hidden ml-2",
+                )}
+              >
+                <FromAddress
+                  fromAddress={props.fromAddress}
+                  fromAddressLabel={props.fromAddressLabel}
+                />
+              </ThemedViewV2>
+            )}
           </View>
         )}
 
@@ -162,10 +166,8 @@ export function SummaryTitle(props: ISummaryTitleProps): JSX.Element {
                       tailwind(
                         "text-mono-light-v2-00 text-sm font-normal-v2 tracking-[0.24]",
                       ),
-                      {
-                        minWidth: 10,
-                        maxWidth: 108,
-                      },
+                      // eslint-disable-next-line react-native/no-inline-styles
+                      { minWidth: 10, maxWidth: 108 },
                     ]}
                     light={tailwind("text-mono-light-v2-1000")}
                     dark={tailwind("text-mono-dark-v2-1000")}
@@ -198,10 +200,7 @@ export function SummaryTitle(props: ISummaryTitleProps): JSX.Element {
                   style={[
                     tailwind("text-sm font-normal-v2"),
                     // eslint-disable-next-line react-native/no-inline-styles
-                    {
-                      minWidth: 10,
-                      maxWidth: 108,
-                    },
+                    { minWidth: 10, maxWidth: 108 },
                   ]}
                   light={tailwind("text-mono-light-v2-900")}
                   dark={tailwind("text-mono-dark-v2-900")}
@@ -214,6 +213,29 @@ export function SummaryTitle(props: ISummaryTitleProps): JSX.Element {
           </View>
         )}
       </View>
+    </>
+  );
+}
+
+function FromAddress(props: {
+  fromAddress: string;
+  fromAddressLabel?: string | null;
+}): JSX.Element {
+  return (
+    <>
+      <RandomAvatar name={props.fromAddress} size={20} />
+      <ThemedTextV2
+        ellipsizeMode="middle"
+        numberOfLines={1}
+        style={[
+          tailwind("text-sm font-normal-v2 ml-1"),
+          // eslint-disable-next-line react-native/no-inline-styles
+          { minWidth: 10, maxWidth: 108 },
+        ]}
+        testID="wallet_address"
+      >
+        {props.fromAddressLabel ?? props.fromAddress}
+      </ThemedTextV2>
     </>
   );
 }
