@@ -390,25 +390,14 @@ export function AddOrRemoveCollateralScreen({ route }: Props): JSX.Element {
       };
     } else if (
       hasLoan &&
-      vault.loanAmounts.some((loan) => loan.symbol === "DUSD")
+      vault.loanAmounts.some((loan) => loan.symbol === "DUSD") &&
+      vault.collateralAmounts.every((col) => col.symbol === "DUSD") &&
+      !["DFI", "DUSD"].includes(selectedCollateralItem.token.symbol)
     ) {
-      const has100PercentDusdCol = vault.collateralAmounts.every(
-        (col) => col.symbol === "DUSD",
-      );
-      if (
-        (isFeatureAvailable("loop_dusd") &&
-          has100PercentDusdCol &&
-          !["DFI", "DUSD"].includes(selectedCollateralItem.token.symbol)) ||
-        (!has100PercentDusdCol &&
-          selectedCollateralItem.token.symbol === "DUSD") ||
-        (selectedCollateralItem.token.symbol === "DFI" &&
-          isDFILessThanHalfOfRequiredCollateral)
-      ) {
-        return {
-          testID: "full_dusd_col_affected_vault_error",
-          message: addOrRemoveCollateralErrors.DusdAffectVault,
-        };
-      }
+      return {
+        testID: "full_dusd_col_affected_vault_error",
+        message: addOrRemoveCollateralErrors.DusdAffectVault,
+      };
     }
   };
   const getRemoveCollateralErrorMessage = ():
