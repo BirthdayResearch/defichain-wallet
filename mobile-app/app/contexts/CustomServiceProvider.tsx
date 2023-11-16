@@ -112,7 +112,7 @@ function getEthRpcUrl(network: EnvironmentNetwork) {
     case EnvironmentNetwork.Changi:
       return "http://34.34.156.49:20551"; // TODO: add final eth rpc url for changi, devnet and remote playground
     case EnvironmentNetwork.MainNet:
-      return "https://eth.mainnet.ocean.jellyfishsdk.com'"; // TODO: add final eth rpc url for mainnet, with proper domain name
+      return "https://eth.mainnet.ocean.jellyfishsdk.com"; // TODO: add final eth rpc url for mainnet, with proper domain name
     case EnvironmentNetwork.TestNet:
     default:
       return "https://eth.testnet.ocean.jellyfishsdk.com";
