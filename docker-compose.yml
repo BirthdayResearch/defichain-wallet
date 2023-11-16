@@ -17,7 +17,7 @@ services:
       - "/var/run/docker.sock:/var/run/docker.sock:ro"
 
   defi-blockchain:
-    image: defi/defichain:master-11717b5810
+    image: defi/defichain:4.0.0
     ports:
       - "19554:19554"
       - "19551:19551"
@@ -64,7 +64,7 @@ services:
       - RUST_LOG=debug
 
   defi-playground:
-    image: ghcr.io/birthdayresearch/playground-api:4.0.0-rc.1.2
+    image: ghcr.io/birthdayresearch/playground-api:4.0.1
     depends_on:
       - defi-blockchain
     ports:
@@ -77,7 +77,7 @@ services:
       - "traefik.http.routers.playground.entrypoints=web"
 
   defi-whale:
-    image: ghcr.io/birthdayresearch/whale-api:4.0.0-rc.1.2
+    image: ghcr.io/birthdayresearch/whale-api:4.0.1
     depends_on:
       - defi-blockchain
     ports:
