@@ -175,7 +175,13 @@
     "Save changes": "Änderungen sichern",
     "Address label is too long (max 30 characters)": "Adressbezeichnung zu lang (max. 30 Zeichen)",
     "Invalid label. Maximum of 40 characters.": "Ungültige Bezeichnung. Maximum von 40 Zeichen",
-    "{{length}}/40 characters": "{{length}}/40 Zeichen"
+    "{{length}}/40 characters": "{{length}}/40 Zeichen",
+    "Done": "Fertig",
+    "Show private key": "Private Key anzeigen",
+    "Your private key provides full access to your account and funds.": "Mit deinem Private Key hast du vollen Zugriff auf deinen Account und dein Guthaben.",
+    "Make sure you keep this private. Do not share this with anyone or take a screenshot of it.": "Achte darauf, dass du ihn geheim hältst. Teile ihn mit niemandem und mache keinen Screenshot davon.",
+    "PRIVATE KEY": "PRIVATE KEY",
+    "Verify access to view private key": "Zugang zur Anzeige von Private Key bestätigen"
   },
   "screens/AddOrEditAddressBookScreen": {
     "Edit address label": "Adressbezeichnung bearbeiten",

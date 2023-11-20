@@ -182,7 +182,13 @@
     "Save changes": "Guardar cambios",
     "Address label is too long (max 30 characters)": "El nombre de la dirección es demasiado largo (máx. 30 caracteres)",
     "Invalid label. Maximum of 40 characters.": "Etiqueta incorrecta. Máximo de 40 caracteres",
-    "{{length}}/40 characters": "{{length}}/40 caracteres"
+    "{{length}}/40 characters": "{{length}}/40 caracteres",
+    "Done": "Hecho",
+    "Show private key": "Show private key",
+    "Your private key provides full access to your account and funds.": "Your private key provides full access to your account and funds.",
+    "Make sure you keep this private. Do not share this with anyone or take a screenshot of it.": "Make sure you keep this private. Do not share this with anyone or take a screenshot of it.",
+    "PRIVATE KEY": "PRIVATE KEY",
+    "Verify access to view private key": "Verify access to view private key"
   },
   "screens/AddOrEditAddressBookScreen": {
     "Edit address label": "Edita el nombre de la dirección",

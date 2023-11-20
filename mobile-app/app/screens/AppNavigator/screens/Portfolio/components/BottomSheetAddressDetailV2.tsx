@@ -287,12 +287,9 @@ export const BottomSheetAddressDetailV2 = (
                   navigation.navigate({
                     name: props.navigateToScreen.screenName,
                     params: {
-                      title: "Edit wallet label",
+                      title: "",
                       address: item.dvm,
-                      addressLabel:
-                        labeledAddresses != null
-                          ? labeledAddresses[item.dvm]
-                          : "",
+                      addressLabel: { label: displayAddressLabel },
                       index: index + 1,
                       type: "edit",
                       onSaveButtonPress: (labelAddress: LabeledAddress) => {
@@ -320,9 +317,9 @@ export const BottomSheetAddressDetailV2 = (
                 testID={`address_edit_indicator_${displayAddress}`}
               >
                 <ThemedIcon
-                  size={16}
+                  size={20}
                   iconType="Feather"
-                  name="edit-2"
+                  name="chevron-right"
                   light={tailwind("text-mono-light-v2-700")}
                   dark={tailwind("text-mono-dark-v2-700")}
                   testID={`address_edit_icon_address_row_${index}`}
