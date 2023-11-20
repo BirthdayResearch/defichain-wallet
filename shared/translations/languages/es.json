@@ -185,7 +185,13 @@
     "Save changes": "Guardar cambios",
     "Address label is too long (max 30 characters)": "El nombre de la dirección es demasiado largo (máx. 30 caracteres)",
     "Invalid label. Maximum of 40 characters.": "Etiqueta incorrecta. Máximo de 40 caracteres",
-    "{{length}}/40 characters": "{{length}}/40 caracteres"
+    "{{length}}/40 characters": "{{length}}/40 caracteres",
+    "Done": "Hecho",
+    "Show private key": "Show private key",
+    "Your private key provides full access to your account and funds.": "Your private key provides full access to your account and funds.",
+    "Make sure you keep this private. Do not share this with anyone or take a screenshot of it.": "Make sure you keep this private. Do not share this with anyone or take a screenshot of it.",
+    "PRIVATE KEY": "PRIVATE KEY",
+    "Verify access to view private key": "Verify access to view private key"
   },
   "screens/AddOrEditAddressBookScreen": {
     "Edit address label": "Edita el nombre de la dirección",
@@ -1686,7 +1692,10 @@
     "Adding in DFI and/or DUSD will boost your borrowing power and help maximize your vault's loan amount.": "Adding in DFI and/or DUSD will boost your borrowing power and help maximize your vault's loan amount.",
     "Maintain at least 50% DFI as collateral for DUSD loans": "Maintain at least 50% DFI as collateral for DUSD loans",
     "Your loan amount can be maximized by adding DFI/DUSD as collaterals": "Your loan amount can be maximized by adding DFI/DUSD as collaterals",
-    "COLLATERALS": "COLLATERALS"
+    "COLLATERALS": "COLLATERALS",
+    "Maintain either 100% DUSD (recommended) or at least 50% DFI as collateral for DUSD loans": "Maintain either 100% DUSD (recommended) or at least 50% DFI as collateral for DUSD loans",
+    "Why is this so?": "Why is this so?",
+    "DUSD loans which contains DUSD as collateral are required to maintain at least 50% of the collateral in the form of DFI.\n\nThis only affects vaults that has DUSD as both collateral and loan.\n\nTake note that DUSD Loop Vault will become a regular Vault if DFI is added as collateral.": "DUSD loans which contains DUSD as collateral are required to maintain at least 50% of the collateral in the form of DFI.\n\nThis only affects vaults that has DUSD as both collateral and loan.\n\nTake note that DUSD Loop Vault will become a regular Vault if DFI is added as collateral."
   },
   "screens/VaultDetailScreenLoansSection": {
     "Pay with DUSD collaterals": "Pay with DUSD collaterals",

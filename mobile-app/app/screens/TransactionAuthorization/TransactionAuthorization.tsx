@@ -71,13 +71,13 @@ export function TransactionAuthorization(): JSX.Element | null {
   const logger = useLogger();
   const dispatch = useAppDispatch();
   const transaction = useSelector((state: RootState) =>
-    first(state.transactionQueue)
+    first(state.transactionQueue),
   );
   const authentication = useSelector(
-    (state: RootState) => state.authentication.authentication
+    (state: RootState) => state.authentication.authentication,
   );
   const [transactionStatus, setTransactionStatus] = useState<TransactionStatus>(
-    TransactionStatus.INIT
+    TransactionStatus.INIT,
   );
   const [attemptsRemaining, setAttemptsRemaining] =
     useState<number>(MAX_PASSCODE_ATTEMPT);
@@ -102,7 +102,7 @@ export function TransactionAuthorization(): JSX.Element | null {
   const [title, setTitle] = useState<string | undefined>();
   const [message, setMessage] = useState(DEFAULT_MESSAGES.message);
   const [loadingMessage, setLoadingMessage] = useState(
-    DEFAULT_MESSAGES.loadingMessage
+    DEFAULT_MESSAGES.loadingMessage,
   );
   const [successMessage, setSuccessMessage] = useState<string | undefined>();
   const [additionalMessage, setAdditionalMessage] = useState<
@@ -200,7 +200,7 @@ export function TransactionAuthorization(): JSX.Element | null {
   };
 
   const setupNewWallet = (
-    passcodePromptPromise: () => Promise<string>
+    passcodePromptPromise: () => Promise<string>,
   ): void => {
     let provider: WalletHdNodeProvider<MnemonicHdNode>;
     if (providerData.type === WalletType.MNEMONIC_UNPROTECTED) {
@@ -217,25 +217,27 @@ export function TransactionAuthorization(): JSX.Element | null {
 
   const onPinSuccess = async (
     transaction: DfTxSigner,
-    signedTx: CTransactionSegWit
+    signedTx: CTransactionSegWit,
   ): Promise<void> => {
     setTransactionStatus(TransactionStatus.AUTHORIZED);
     await resetPasscodeCounter();
-    dispatch(
-      ocean.actions.queueTransaction({
-        tx: signedTx,
-        onError: transaction.onError,
-        onConfirmation: transaction.onConfirmation,
-        onBroadcast: transaction.onBroadcast,
-        drawerMessages: transaction.drawerMessages,
-        submitButtonLabel: transaction.submitButtonLabel,
-      })
-    ); // push signed result for broadcasting
+    if (signedTx) {
+      dispatch(
+        ocean.actions.queueTransaction({
+          tx: signedTx,
+          onError: transaction.onError,
+          onConfirmation: transaction.onConfirmation,
+          onBroadcast: transaction.onBroadcast,
+          drawerMessages: transaction.drawerMessages,
+          submitButtonLabel: transaction.submitButtonLabel,
+        }),
+      ); // push signed result for broadcasting
+    }
   };
 
   const signTransactionWithActiveAddress = async (
     wallet: JellyfishWallet<WhaleWalletAccount, MnemonicHdNode>,
-    retries: number | undefined
+    retries: number | undefined,
   ): Promise<void> => {
     try {
       const activeIndex = await WalletAddressIndexPersistence.getActive();
@@ -244,7 +246,7 @@ export function TransactionAuthorization(): JSX.Element | null {
         wallet.get(activeIndex),
         onRetry,
         retries,
-        logger
+        logger,
       );
       // case 1: success
       return await onPinSuccess(transaction, signedTx);
@@ -429,33 +431,33 @@ export function TransactionAuthorization(): JSX.Element | null {
       pin={pin}
       loadingMessage={translate(
         "screens/TransactionAuthorization",
-        loadingMessage
+        loadingMessage,
       )}
       successMessage={
         successMessage ??
         translate(
           "screens/UnlockWallet",
-          DEFAULT_MESSAGES.grantedAccessMessage.title
+          DEFAULT_MESSAGES.grantedAccessMessage.title,
         )
       }
       authorizedTransactionMessage={{
         title: translate(
           "screens/TransactionAuthorization",
-          DEFAULT_MESSAGES.authorizedTransactionMessage.title
+          DEFAULT_MESSAGES.authorizedTransactionMessage.title,
         ),
         description: translate(
           "screens/TransactionAuthorization",
-          DEFAULT_MESSAGES.authorizedTransactionMessage.description
+          DEFAULT_MESSAGES.authorizedTransactionMessage.description,
         ),
       }}
       grantedAccessMessage={{
         title: translate(
           "screens/UnlockWallet",
-          DEFAULT_MESSAGES.grantedAccessMessage.title
+          DEFAULT_MESSAGES.grantedAccessMessage.title,
         ),
         description: translate(
           "screens/UnlockWallet",
-          DEFAULT_MESSAGES.grantedAccessMessage.description
+          DEFAULT_MESSAGES.grantedAccessMessage.description,
         ),
       }}
       isRetry={isRetry}

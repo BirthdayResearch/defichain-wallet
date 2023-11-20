@@ -59,6 +59,7 @@ export function ConvertScreen(props: Props): JSX.Element {
   const { getTokenPrice } = useTokenPrice();
   const { isLight } = useThemeContext();
   const { domain, isEvmFeatureEnabled } = useDomainContext();
+  const isEvmDomain = domain === DomainType.EVM;
   const client = useWhaleApiClient();
   const logger = useLogger();
   const tokens = useSelector((state: RootState) =>
@@ -185,10 +186,10 @@ export function ConvertScreen(props: Props): JSX.Element {
 
   function onPercentagePress(amount: string, type: AmountButtonTypes): void {
     setAmount(amount);
-    showToast(type, domain);
+    showToast(type);
   }
 
-  function showToast(type: AmountButtonTypes, domain: DomainType): void {
+  function showToast(type: AmountButtonTypes): void {
     if (sourceToken === undefined) {
       return;
     }
@@ -201,9 +202,7 @@ export function ConvertScreen(props: Props): JSX.Element {
     const toastOption = {
       unit: translate(
         "screens/ConvertScreen",
-        `${sourceToken.token.displayTextSymbol}${
-          domain === DomainType.EVM ? " (EVM)" : ""
-        }`,
+        `${sourceToken.token.displayTextSymbol}${isEvmDomain ? " (EVM)" : ""}`,
       ),
       percent: type,
     };
@@ -251,7 +250,7 @@ export function ConvertScreen(props: Props): JSX.Element {
         } else {
           return isEvmFeatureEnabled ? [defaultEvmTargetToken] : [];
         }
-      } else if (domain === DomainType.EVM && sourceToken.tokenId === "0_evm") {
+      } else if (isEvmDomain && sourceToken.tokenId === "0_evm") {
         return isEvmFeatureEnabled ? [defaultEvmTargetToken] : [];
       }
     }
@@ -310,7 +309,7 @@ export function ConvertScreen(props: Props): JSX.Element {
       } else if (domain === DomainType.DVM && item.tokenId === "0") {
         // If DFI Token -> no default
         updatedTargetToken = undefined;
-      } else if (domain === DomainType.EVM) {
+      } else if (isEvmDomain) {
         // If EVM -> choose DVM equivalent
         updatedTargetToken =
           dvmTokens.find(
@@ -566,21 +565,24 @@ export function ConvertScreen(props: Props): JSX.Element {
             />
           </View>
 
-          {sourceToken.tokenId === "0" && isEvmFeatureEnabled && (
-            <TokenDropdownButton
-              tokenId={targetToken?.tokenId}
-              isEvmToken={targetToken?.token.domainType === DomainType.EVM}
-              symbol={targetToken?.token.displaySymbol}
-              displayedTextSymbol={targetToken?.token.displayTextSymbol}
-              testID={TokenListType.To}
-              onPress={() => {
-                navigateToTokenSelectionScreen(TokenListType.To);
-              }}
-              status={TokenDropdownButtonStatus.Enabled}
-            />
-          )}
+          {sourceToken.tokenId === "0" &&
+            isEvmFeatureEnabled &&
+            !isEvmDomain && (
+              <TokenDropdownButton
+                tokenId={targetToken?.tokenId}
+                isEvmToken={targetToken?.token.domainType === DomainType.EVM}
+                symbol={targetToken?.token.displaySymbol}
+                displayedTextSymbol={targetToken?.token.displayTextSymbol}
+                testID={TokenListType.To}
+                onPress={() => {
+                  navigateToTokenSelectionScreen(TokenListType.To);
+                }}
+                status={TokenDropdownButtonStatus.Enabled}
+              />
+            )}
           {((sourceToken.tokenId !== "0" && targetToken) ||
-            (!isEvmFeatureEnabled && targetToken)) && (
+            (!isEvmFeatureEnabled && targetToken) ||
+            (isEvmFeatureEnabled && isEvmDomain && targetToken)) && (
             <FixedTokenButton
               testID={TokenListType.To}
               symbol={targetToken.token.displaySymbol}
