@@ -127,3 +127,11 @@ export function getMetaScanTokenUrl(
   const tokenAddress = getAddressFromDST20TokenId(tokenId);
   return `${baseMetaScanUrl}/token/${tokenAddress}${networkParams}`;
 }
+
+export function getMetaScanTxUrl(
+  network: EnvironmentNetwork,
+  id: string,
+): string {
+  const networkParams = getNetworkParams(network);
+  return `${baseMetaScanUrl}/tx/${id}${networkParams}`;
+}

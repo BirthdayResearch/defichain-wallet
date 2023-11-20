@@ -16,6 +16,8 @@ interface TransactionDetailProps {
   broadcasted: boolean;
   txid?: string;
   txUrl?: string;
+  evmTxId?: string;
+  evmTxUrl?: string;
   onClose: () => void;
   title?: string;
   oceanStatusCode?: TransactionStatusCode;
@@ -25,10 +27,13 @@ export function TransactionDetail({
   broadcasted,
   txid,
   txUrl,
+  evmTxId,
+  evmTxUrl,
   onClose,
   title,
   oceanStatusCode,
 }: TransactionDetailProps): JSX.Element {
+  const hasEvmTx = evmTxId !== undefined && evmTxUrl !== undefined;
   title = title ?? translate("screens/OceanInterface", "Broadcasting...");
 
   return (
@@ -42,7 +47,7 @@ export function TransactionDetail({
         {
           "border-darkwarning-500":
             oceanStatusCode === TransactionStatusCode.pending,
-        }
+        },
       )}
       light={tailwind(
         "bg-mono-light-v2-00 border-mono-light-v2-500",
@@ -53,14 +58,14 @@ export function TransactionDetail({
         {
           "border-warning-500":
             oceanStatusCode === TransactionStatusCode.pending,
-        }
+        },
       )}
       style={tailwind(
         "w-full rounded-lg-v2 flex flex-row items-center border-0.5",
         {
           "pl-5": broadcasted,
           "px-5": !broadcasted,
-        }
+        },
       )}
     >
       {!broadcasted ? (
@@ -94,12 +99,28 @@ export function TransactionDetail({
           {title}
         </ThemedTextV2>
 
-        {txid !== undefined && txUrl !== undefined && (
-          <TransactionIDButton
-            onPress={async () => await gotoExplorer(txUrl)}
-            txid={txid}
-          />
-        )}
+        <View style={tailwind("flex-row")}>
+          {txid !== undefined && txUrl !== undefined && (
+            <TransactionIDButton
+              testID="oceanNetwork_explorer"
+              onPress={async () => await gotoExplorer(txUrl)}
+              txid={txid}
+              {...(hasEvmTx && {
+                styleProps: "w-1/2 pr-2",
+                dark: tailwind("border-r border-mono-dark-v2-300"),
+                light: tailwind("border-r border-mono-light-v2-300"),
+              })}
+            />
+          )}
+          {hasEvmTx && (
+            <TransactionIDButton
+              testID="evmNetwork_explorer"
+              onPress={async () => await gotoExplorer(evmTxUrl)}
+              txid={evmTxId}
+              styleProps="w-1/2 pl-2"
+            />
+          )}
+        </View>
       </View>
 
       {broadcasted && <TransactionCloseButton onPress={onClose} />}
