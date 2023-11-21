@@ -68,7 +68,7 @@ export function AddressRow({
   setAddressLabel?: React.Dispatch<React.SetStateAction<string | undefined>>;
 }): JSX.Element {
   const { fetchWalletAddresses } = useWalletAddress();
-  const { domain } = useDomainContext();
+  const { domain, isEvmFeatureEnabled } = useDomainContext();
 
   const defaultValue = "";
 
@@ -134,6 +134,7 @@ export function AddressRow({
         if (onlyLocalAddress) {
           setAddressType(undefined);
         } else if (
+          isEvmFeatureEnabled &&
           getAddressType(address, networkName) === JellyfishAddressType.ETH
         ) {
           // Unsaved and valid EVM address
@@ -267,14 +268,27 @@ export function AddressRow({
         rules={{
           required: true,
           validate: {
-            isValidAddress: (address) =>
-              // Check if its either a valid EVM/DVM address &&
-              !!getAddressType(address, networkName) &&
-              // EVM -> EVM domain transfer is not allowed
-              !(
-                getAddressType(address, networkName) ===
-                  JellyfishAddressType.ETH && domain === DomainType.EVM
-              ),
+            isValidAddress: (address) => {
+              const addressType = getAddressType(address, networkName);
+
+              // Check if address is EVM and feature flag is enabled
+              if (
+                !isEvmFeatureEnabled &&
+                addressType === JellyfishAddressType.ETH
+              ) {
+                return false;
+              }
+
+              return (
+                // Check if its either a valid EVM/DVM address &&
+                !!addressType &&
+                // EVM -> EVM domain transfer is not allowed
+                !(
+                  addressType === JellyfishAddressType.ETH &&
+                  domain === DomainType.EVM
+                )
+              );
+            },
           },
         }}
       />
