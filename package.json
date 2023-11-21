@@ -98,7 +98,7 @@
   "devDependencies": {
     "@babel/core": "^7.23.2",
     "@babel/plugin-transform-private-methods": "^7.22.5",
-    "@cypress/code-coverage": "^3.12.5",
+    "@cypress/code-coverage": "^3.12.11",
     "@expo/metro-config": "0.10.7",
     "@testing-library/cypress": "^8.0.7",
     "@testing-library/react-native": "^11.5.4",
