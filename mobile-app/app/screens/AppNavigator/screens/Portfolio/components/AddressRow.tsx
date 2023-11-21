@@ -273,7 +273,7 @@ export function AddressRow({
 
               // Check if address is EVM and feature flag is enabled
               if (
-                isEvmFeatureEnabled &&
+                !isEvmFeatureEnabled &&
                 addressType === JellyfishAddressType.ETH
               ) {
                 return false;
