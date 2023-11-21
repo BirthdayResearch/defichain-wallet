@@ -517,7 +517,8 @@ export function SendScreen({ route, navigation }: Props): JSX.Element {
               !formState.isValid ||
               hasPendingJob ||
               hasPendingBroadcastJob ||
-              token === undefined
+              token === undefined ||
+              (isEvmAddress && !isEvmFeatureEnabled)
             }
             label={translate("screens/SendScreen", "Continue")}
             onSubmit={onSubmit}
