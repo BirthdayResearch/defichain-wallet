@@ -117,6 +117,7 @@
   },
   "screens/GetDFIScreen": {
     "Get DFI": "Obtener DFI",
+    "Get DFI-EVM": "Obtener DFI-EVM",
     "STEP 1": "PASO 1",
     "Trade/Purchase DFI": "Comercia/Compra DFI",
     "Marketplace": "Marketplace",
@@ -126,7 +127,9 @@
     "DFI price": "Precio de DFI",
     "WALLET ADDRESS": "DIRECCIÓN DE LA BILLETERA",
     "Share": "Compartir",
-    "Get DFI now!": "Consigue DFI ahora!"
+    "STEP 3": "PASO 3",
+    "Get DFI now!": "Consigue DFI ahora!",
+    "Get DFI-EVM now!": "Consigue DFI-EVM ahora!"
   },
   "screens/MarketplaceScreen": {
     "Marketplace": "Marketplace",
@@ -241,7 +244,8 @@
     "Share": "Compartir",
     "WALLET ADDRESS": "DIRECCIÓN DE LA BILLETERA",
     "Scan QR code to receive any dTokens (eg. DUSD,dBTC..) or DFI": "Scan QR code to receive any dTokens (eg. DUSD,dBTC..) or DFI",
-    "Get DFI": "Get DFI"
+    "Get DFI": "Get DFI",
+    "Get DFI-EVM": "Get DFI-EVM"
   },
   "components/toaster": {
     "Copied": "Copiado",

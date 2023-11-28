@@ -13,7 +13,7 @@ import {
 import { useToast } from "react-native-toast-notifications";
 import { useThemeContext } from "@waveshq/walletkit-ui";
 import { useWalletContext } from "@shared-contexts/WalletContext";
-import { tailwind } from "@tailwind";
+import { getColor, tailwind } from "@tailwind";
 import { translate } from "@translations";
 import {
   NativeLoggingProps,
@@ -28,10 +28,12 @@ import { useSelector } from "react-redux";
 import { RootState } from "@store";
 import { useWhaleApiClient } from "@waveshq/walletkit-ui/dist/contexts";
 import { PortfolioParamList } from "@screens/AppNavigator/screens/Portfolio/PortfolioNavigator";
+import { ConvertIcon } from "@components/icons/assets/ConvertIcon";
+import { DomainType, useDomainContext } from "@contexts/DomainContext";
 
 export async function onShare(
   address: string,
-  logger: NativeLoggingProps
+  logger: NativeLoggingProps,
 ): Promise<void> {
   try {
     await Share.share({
@@ -45,6 +47,8 @@ export async function onShare(
 type Props = StackScreenProps<PortfolioParamList, "GetDFIScreen">;
 
 export function GetDFIScreen({ navigation }: Props): JSX.Element {
+  const { domain } = useDomainContext();
+  const isEvmDomain = domain === DomainType.EVM;
   return (
     <ThemedScrollViewV2
       contentContainerStyle={tailwind("mx-5 pb-24")}
@@ -53,6 +57,7 @@ export function GetDFIScreen({ navigation }: Props): JSX.Element {
     >
       <StepOne onPress={() => navigation.navigate("MarketplaceScreen")} />
       <StepTwo />
+      {isEvmDomain && <StepThree />}
       <DFIOraclePrice />
     </ThemedScrollViewV2>
   );
@@ -76,7 +81,7 @@ function StepOne({ onPress }: { onPress: () => void }): JSX.Element {
       >
         <ThemedTouchableOpacityV2
           style={tailwind(
-            "flex flex-row items-center justify-between py-4.5 ml-5 mr-4"
+            "flex flex-row items-center justify-between py-4.5 ml-5 mr-4",
           )}
           onPress={onPress}
           testID="get_exchanges"
@@ -94,7 +99,7 @@ function StepOne({ onPress }: { onPress: () => void }): JSX.Element {
         </ThemedTouchableOpacityV2>
       </ThemedViewV2>
       <TouchableOpacity
-        onPress={async () => await openURL("https://defichain.com/dfi")}
+        onPress={async () => await openURL("https://defichain.com/explore/dfi")}
         style={tailwind("flex flex-row items-center mx-5 mt-2")}
       >
         <ThemedIcon
@@ -128,7 +133,7 @@ function StepTwo(): JSX.Element {
       setShowToast(true);
       setTimeout(() => setShowToast(false), TOAST_DURATION);
     }, 500),
-    [showToast]
+    [showToast],
   );
 
   useEffect(() => {
@@ -202,7 +207,7 @@ function StepTwo(): JSX.Element {
                   isLight
                     ? "border-mono-light-v2-700"
                     : "border-mono-dark-v2-700"
-                }`
+                }`,
               )}
               testID="share_button"
             >
@@ -218,6 +223,77 @@ function StepTwo(): JSX.Element {
         </View>
       </View>
     </View>
+  );
+}
+
+function StepThree(): JSX.Element {
+  const { isLight } = useThemeContext();
+
+  return (
+    <>
+      <View style={tailwind("mt-8 px-5")}>
+        <View style={tailwind("pb-4")}>
+          <ThemedTextV2 style={tailwind("text-xs font-normal-v2")}>
+            {translate("screens/GetDFIScreen", "STEP 3")}
+          </ThemedTextV2>
+          <ThemedTextV2 style={tailwind("font-normal-v2")}>
+            {translate("screens/GetDFIScreen", "Convert to DFI-EVM tokens")}
+          </ThemedTextV2>
+        </View>
+        <View style={tailwind("flex flex-row")}>
+          <View style={tailwind("items-center")}>
+            <ThemedViewV2
+              style={[
+                tailwind(
+                  "rounded-lg p-2 drop-shadow-lg flex flex-col justify-around items-center border-0.5 rounded-lg-v2",
+                ),
+                { width: 120, height: 120 },
+              ]}
+              dark={tailwind("bg-mono-dark-v2-00 border-mono-dark-v2-200")}
+              light={tailwind("bg-mono-light-v2-00 border-mono-light-v2-200")}
+            >
+              <View>
+                <ThemedViewV2
+                  style={tailwind(
+                    "w-15 h-15 flex flex-row justify-around items-center rounded-full",
+                  )}
+                  dark={tailwind("bg-mono-dark-v2-100")}
+                  light={tailwind("bg-mono-light-v2-100")}
+                >
+                  <ConvertIcon
+                    color={getColor(
+                      isLight ? "mono-light-v2-900" : "mono-dark-v2-900",
+                    )}
+                    iconSize={24}
+                  />
+                </ThemedViewV2>
+                <ThemedTextV2
+                  style={tailwind(
+                    "font-normal-v2 text-xs flex flex-row justify-around items-center mt-2",
+                  )}
+                  dark={tailwind("text-mono-dark-v2-500")}
+                  light={tailwind("text-mono-light-v2-500")}
+                >
+                  {translate("screens/GetDFIScreen", "Convert")}
+                </ThemedTextV2>
+              </View>
+            </ThemedViewV2>
+          </View>
+          <View
+            style={tailwind(
+              "pl-5 justify-between flex flex-row items-center flex-1",
+            )}
+          >
+            <ThemedTextV2 style={tailwind("text-sm font-normal-v2 flex-1")}>
+              {translate(
+                "screens/GetDFIScreen",
+                "Tap on “Convert” quick action on your DVM wallet to start the conversion",
+              )}
+            </ThemedTextV2>
+          </View>
+        </View>
+      </View>
+    </>
   );
 }
 
@@ -242,7 +318,7 @@ function DFIOraclePrice(): JSX.Element {
       dark={tailwind("border-mono-dark-v2-900")}
       light={tailwind("border-mono-light-v2-900")}
       style={tailwind(
-        "flex flex-row items-center justify-between rounded-lg mt-10 px-5 py-4.5 border-0.5"
+        "flex flex-row items-center justify-between rounded-lg mt-10 px-5 py-4.5 border-0.5",
       )}
     >
       <TouchableOpacity
