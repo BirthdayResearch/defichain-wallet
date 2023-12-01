@@ -20,6 +20,7 @@ import {
 } from "@hooks/wallet/Conversion";
 import { useSelector } from "react-redux";
 import { RootState } from "@store";
+import { LocalAddress, WhitelistedAddress } from "@store/userPreferences";
 import {
   DFITokenSelector,
   DFIUtxoSelector,
@@ -47,6 +48,9 @@ export function CFPDetailScreen(): JSX.Element {
   const proposalFee = getCFPFee(BigNumber(amount ?? 0));
   const navigation = useNavigation<NavigationProp<PortfolioParamList>>();
   const [isUrlValid, setUrlValid] = useState<boolean>(false);
+  const [matchedAddress, setMatchedAddress] = useState<
+    LocalAddress | WhitelistedAddress
+  >();
 
   const DFIToken = useSelector((state: RootState) =>
     DFITokenSelector(state.wallet),
@@ -268,6 +272,9 @@ export function CFPDetailScreen(): JSX.Element {
                 await trigger("address");
               }}
               address={address}
+              onMatchedAddress={setMatchedAddress}
+              setMatchedAddress={setMatchedAddress}
+              matchedAddress={matchedAddress}
               onlyLocalAddress
             />
           </View>
