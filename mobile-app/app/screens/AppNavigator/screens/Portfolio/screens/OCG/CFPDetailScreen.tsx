@@ -35,6 +35,7 @@ import { AddressRow } from "@screens/AppNavigator/screens/Portfolio/components/A
 import { ButtonGroupTabKey } from "@screens/AppNavigator/screens/Portfolio/screens/AddressBookScreen";
 import { DomainType } from "@contexts/DomainContext";
 import { ConvertDirection } from "@screens/enum";
+import { AddressType as JellyfishAddressType } from "@waveshq/walletkit-core";
 
 export function CFPDetailScreen(): JSX.Element {
   const logger = useLogger();
@@ -276,6 +277,7 @@ export function CFPDetailScreen(): JSX.Element {
               setMatchedAddress={setMatchedAddress}
               matchedAddress={matchedAddress}
               onlyLocalAddress
+              restrictedJellyfishAddressType={[JellyfishAddressType.ETH]}
             />
           </View>
         )}
