@@ -44,6 +44,7 @@ export function AddressRow({
   onAddressType,
   showQrButton = true,
   onlyLocalAddress,
+  restrictedJellyfishAddressType,
   matchedAddress,
   setMatchedAddress,
   setAddressLabel,
@@ -63,6 +64,7 @@ export function AddressRow({
   onAddressType?: (addressType?: AddressType) => void;
   showQrButton?: boolean;
   onlyLocalAddress?: boolean;
+  restrictedJellyfishAddressType?: JellyfishAddressType[];
   matchedAddress?: LocalAddress | WhitelistedAddress | undefined;
   setMatchedAddress?: (address?: LocalAddress | WhitelistedAddress) => void;
   setAddressLabel?: React.Dispatch<React.SetStateAction<string | undefined>>;
@@ -86,14 +88,24 @@ export function AddressRow({
   const [validEvmAddress, setValidEvmAddress] = useState<boolean>(false);
 
   const validLocalAddress = useMemo(() => {
+    if (
+      restrictedJellyfishAddressType?.some(
+        (addressType) => addressType === getAddressType(address, networkName),
+      )
+    ) {
+      return false;
+    }
+
     if (address === "") {
       return true;
     }
+
     if (onlyLocalAddress) {
       return addressType === AddressType.WalletAddress;
     }
+
     return true;
-  }, [onlyLocalAddress, addressType, address]);
+  }, [onlyLocalAddress, addressType, address, networkName]);
 
   const addressObj = jellyfishWalletAddress.find(
     (e: WalletAddressI) => e.dvm === address || e.evm === address,

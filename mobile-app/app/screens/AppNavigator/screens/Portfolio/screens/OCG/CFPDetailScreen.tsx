@@ -20,6 +20,7 @@ import {
 } from "@hooks/wallet/Conversion";
 import { useSelector } from "react-redux";
 import { RootState } from "@store";
+import { LocalAddress, WhitelistedAddress } from "@store/userPreferences";
 import {
   DFITokenSelector,
   DFIUtxoSelector,
@@ -34,6 +35,7 @@ import { AddressRow } from "@screens/AppNavigator/screens/Portfolio/components/A
 import { ButtonGroupTabKey } from "@screens/AppNavigator/screens/Portfolio/screens/AddressBookScreen";
 import { DomainType } from "@contexts/DomainContext";
 import { ConvertDirection } from "@screens/enum";
+import { AddressType as JellyfishAddressType } from "@waveshq/walletkit-core";
 
 export function CFPDetailScreen(): JSX.Element {
   const logger = useLogger();
@@ -47,6 +49,9 @@ export function CFPDetailScreen(): JSX.Element {
   const proposalFee = getCFPFee(BigNumber(amount ?? 0));
   const navigation = useNavigation<NavigationProp<PortfolioParamList>>();
   const [isUrlValid, setUrlValid] = useState<boolean>(false);
+  const [matchedAddress, setMatchedAddress] = useState<
+    LocalAddress | WhitelistedAddress
+  >();
 
   const DFIToken = useSelector((state: RootState) =>
     DFITokenSelector(state.wallet),
@@ -268,7 +273,11 @@ export function CFPDetailScreen(): JSX.Element {
                 await trigger("address");
               }}
               address={address}
+              onMatchedAddress={setMatchedAddress}
+              setMatchedAddress={setMatchedAddress}
+              matchedAddress={matchedAddress}
               onlyLocalAddress
+              restrictedJellyfishAddressType={[JellyfishAddressType.ETH]}
             />
           </View>
         )}
