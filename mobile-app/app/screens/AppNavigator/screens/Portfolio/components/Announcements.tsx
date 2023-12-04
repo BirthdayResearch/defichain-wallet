@@ -25,6 +25,11 @@ import {
   useServiceProviderContext,
   useThemeContext,
 } from "@waveshq/walletkit-ui";
+import { useCustomServiceProviderContext } from "@contexts/CustomServiceProvider";
+import { useSelector } from "react-redux";
+import { RootState } from "@store";
+import { useDomainContext } from "@contexts/DomainContext";
+import { useEVMProvider } from "@contexts/EVMProvider";
 import {
   blockChainIsDownContent,
   useDeFiChainStatus,
@@ -41,8 +46,13 @@ export function Announcements(): JSX.Element {
     useDeFiChainStatus();
 
   const { isCustomUrl } = useServiceProviderContext();
-
   const { isBlockchainDown } = useApiStatus();
+
+  const { chainId } = useEVMProvider();
+  const { isEvmFeatureEnabled } = useDomainContext();
+  const { isCustomEvmUrl, isCustomEthRpcUrl } =
+    useCustomServiceProviderContext();
+  const { evmUrlHasError } = useSelector((state: RootState) => state.evm);
 
   const customServiceProviderIssue: AnnouncementData[] = [
     {
@@ -70,25 +80,25 @@ export function Announcements(): JSX.Element {
     "0.0.0",
     language,
     hiddenAnnouncements,
-    emergencyMsgContent
+    emergencyMsgContent,
   );
   const blockchainIsDownAnnouncement = findDisplayedAnnouncementForVersion(
     "0.0.0",
     language,
     hiddenAnnouncements,
-    blockchainStatusAnnouncement
+    blockchainStatusAnnouncement,
   );
   const oceanIsDownAnnouncement = findDisplayedAnnouncementForVersion(
     "0.0.0",
     language,
     hiddenAnnouncements,
-    oceanStatusAnnouncement
+    oceanStatusAnnouncement,
   );
   const announcement = findDisplayedAnnouncementForVersion(
     nativeApplicationVersion ?? "0.0.0",
     language,
     hiddenAnnouncements,
-    announcements
+    announcements,
   );
 
   /*
@@ -108,13 +118,17 @@ export function Announcements(): JSX.Element {
     // To display warning message in Announcement banner when blockchain is down for > 45 mins
     if (isBlockchainDown && !isCustomUrl) {
       return setEmergencyMsgContent(blockChainIsDownContent);
-    } else if (isBlockchainDown && isCustomUrl) {
+    } else if (
+      (isBlockchainDown && isCustomUrl) ||
+      (isEvmFeatureEnabled && isCustomEvmUrl && evmUrlHasError) ||
+      (isEvmFeatureEnabled && isCustomEthRpcUrl && !chainId)
+    ) {
       return setEmergencyMsgContent(customServiceProviderIssue);
     } else {
       return setEmergencyMsgContent(undefined);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isBlockchainDown]);
+  }, [isBlockchainDown, evmUrlHasError, chainId]);
 
   if (!isSuccess || announcementToDisplay === undefined) {
     return <></>;
@@ -265,7 +279,7 @@ export function AnnouncementBannerV2({
             "border-mono-dark-v2-900": isOtherAnnouncement && !isLight,
             "border-orange-v2": announcement.type === "OUTAGE",
             "border-red-v2": announcement.type === "EMERGENCY",
-          }
+          },
         ),
         containerStyle?.style,
       ]}
@@ -364,7 +378,7 @@ export function findDisplayedAnnouncementForVersion(
   version: string,
   language: string,
   hiddenAnnouncements: string[],
-  announcements?: AnnouncementData[]
+  announcements?: AnnouncementData[],
 ): Announcement | undefined {
   if (announcements === undefined || announcements.length === 0) {
     return;
@@ -393,7 +407,7 @@ export function findDisplayedAnnouncementForVersion(
 
 function getDisplayAnnouncement(
   hiddenAnnouncements: string[],
-  announcement: AnnouncementData
+  announcement: AnnouncementData,
 ): boolean {
   if (announcement === undefined) {
     return false;
