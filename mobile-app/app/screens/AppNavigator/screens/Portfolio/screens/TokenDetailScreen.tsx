@@ -238,23 +238,25 @@ export function TokenDetailScreen({ route, navigation }: Props): JSX.Element {
           >
             {token.id !== "0" && (
               <>
-                <TokenActionRow
-                  icon="arrow-up-right"
-                  iconType="Feather"
-                  isLast={false}
-                  onPress={() =>
-                    navigation.navigate({
-                      name: "SendScreen",
-                      params: { token },
-                      merge: true,
-                    })
-                  }
-                  testID="send_button"
-                  title={translate(
-                    "screens/TokenDetailScreen",
-                    "Send to other wallet",
-                  )}
-                />
+                {!isEvmDomain && (
+                  <TokenActionRow
+                    icon="arrow-up-right"
+                    iconType="Feather"
+                    isLast={false}
+                    onPress={() =>
+                      navigation.navigate({
+                        name: "SendScreen",
+                        params: { token },
+                        merge: true,
+                      })
+                    }
+                    testID="send_button"
+                    title={translate(
+                      "screens/TokenDetailScreen",
+                      "Send to other wallet",
+                    )}
+                  />
+                )}
 
                 <TokenActionRow
                   icon="arrow-down-left"
@@ -262,8 +264,8 @@ export function TokenDetailScreen({ route, navigation }: Props): JSX.Element {
                   isLast={
                     !(
                       token.symbol === "DFI" ||
-                      (token.isLPS && pair !== undefined) ||
-                      (pair !== undefined && !token.isLPS)
+                      (token.isLPS && pair !== undefined && !isEvmDomain) ||
+                      (pair !== undefined && !token.isLPS && !isEvmDomain)
                     )
                   }
                   onPress={() => navigation.navigate("Receive")}
@@ -370,7 +372,7 @@ export function TokenDetailScreen({ route, navigation }: Props): JSX.Element {
                 )}
               />
             )}
-            {pair !== undefined && !token.isLPS && (
+            {pair !== undefined && !token.isLPS && !isEvmDomain && (
               <TokenActionRow
                 icon="plus-circle"
                 iconType="Feather"
@@ -389,7 +391,7 @@ export function TokenDetailScreen({ route, navigation }: Props): JSX.Element {
 
           {/*  Show only for LP tokens */}
           <View style={tailwind("px-5")}>
-            {pair !== undefined && token.isLPS && (
+            {pair !== undefined && token.isLPS && !isEvmDomain && (
               <View style={tailwind("pt-4")}>
                 <ButtonV2
                   onPress={() =>
@@ -427,7 +429,8 @@ export function TokenDetailScreen({ route, navigation }: Props): JSX.Element {
 
           {!token.isLPS &&
             pair !== undefined &&
-            swapTokenDisplaySymbol !== undefined && (
+            swapTokenDisplaySymbol !== undefined &&
+            !isEvmDomain && (
               <View style={tailwind("pt-4")}>
                 <ButtonV2
                   onPress={() => onNavigateSwap({ pair })}

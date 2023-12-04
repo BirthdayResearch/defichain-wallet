@@ -141,7 +141,7 @@ export function ActionButtons(): JSX.Element {
       <ScrollView
         contentContainerStyle={tailwind(
           "flex justify-between min-w-full px-5 mt-8",
-          { "max-w-xs px-9": isEvmDomain },
+          { "max-w-xs justify-start": isEvmDomain },
         )}
         showsHorizontalScrollIndicator={false}
         horizontal
@@ -154,20 +154,33 @@ export function ActionButtons(): JSX.Element {
             onPress={() => navigation.navigate("GetDFIScreen")}
           />
         )}
-        <ActionButton
-          name={translate("components/ActionButtons", "Send")}
-          icon="arrow-up-right"
-          iconType="Feather"
-          iconSize={28}
-          testID="send_balance_button"
-          onPress={() => {
-            navigation.navigate({
-              name: "TokenSelectionScreen",
-              params: {},
-              merge: true,
-            });
-          }}
-        />
+        {!isEvmDomain && (
+          <ActionButton
+            name={translate("components/ActionButtons", "Send")}
+            icon="arrow-up-right"
+            iconType="Feather"
+            iconSize={28}
+            testID="send_balance_button"
+            onPress={() => {
+              navigation.navigate({
+                name: "TokenSelectionScreen",
+                params: {},
+                merge: true,
+              });
+            }}
+          />
+        )}
+        {isEvmDomain && isEvmFeatureEnabled && (
+          <ActionButton
+            name={translate("components/ActionButtons", "Convert")}
+            iconSize={28}
+            testID="convert_action_button"
+            onPress={() => {
+              navigateToTokenSelectionScreen(TokenListType.From);
+            }}
+            isEvmDomain
+          />
+        )}
         <ActionButton
           name={translate("components/ActionButtons", "Receive")}
           icon="arrow-down-left"
@@ -191,7 +204,7 @@ export function ActionButtons(): JSX.Element {
             }
           />
         )}
-        {isEvmFeatureEnabled && (
+        {!isEvmDomain && isEvmFeatureEnabled && (
           <ActionButton
             name={translate("components/ActionButtons", "Convert")}
             iconSize={28}
