@@ -501,15 +501,38 @@ export function SendScreen({ route, navigation }: Props): JSX.Element {
               dark={tailwind("text-mono-dark-v2-500")}
               style={tailwind("mt-2 text-xs text-center font-normal-v2")}
             >
-              {isConversionRequired
-                ? translate(
-                    "screens/SendScreen",
-                    "By continuing, the required amount of DFI will be converted",
-                  )
-                : translate(
-                    "screens/SendScreen",
-                    "Review full details in the next screen",
-                  )}
+              {/* DVM -> DVM */}
+              {isConversionRequired &&
+                domain === DomainType.DVM &&
+                !isEvmAddress &&
+                translate(
+                  "screens/SendScreen",
+                  "By continuing, the required amount of DFI will be converted",
+                )}
+
+              {!isConversionRequired &&
+                domain === DomainType.DVM &&
+                !isEvmAddress &&
+                translate(
+                  "screens/SendScreen",
+                  "Review full details in the next screen",
+                )}
+
+              {/* DVM -> EVM */}
+              {domain === DomainType.DVM &&
+                isEvmAddress &&
+                translate(
+                  "screens/SendScreen",
+                  "You are sending assets to an EVM address. DFI asset gets converted to EVM.",
+                )}
+
+              {/* EVM -> DVM */}
+              {domain === DomainType.EVM &&
+                !isEvmAddress &&
+                translate(
+                  "screens/SendScreen",
+                  "You are sending assets to a DFI address. EVM asset gets converted to DVM.",
+                )}
             </ThemedTextV2>
           )}
           <SubmitButtonGroup
