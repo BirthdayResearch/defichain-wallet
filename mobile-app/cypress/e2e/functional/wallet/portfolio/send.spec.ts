@@ -834,7 +834,7 @@ context("Wallet - Send - Address book", () => {
   });
 });
 
-context.only("(dvm -> dvm) Wallet - Send - Address book", () => {
+context("(dvm -> dvm) Wallet - Send - Address book", () => {
   before(() => {
     cy.createEmptyWallet(true);
     cy.sendDFItoWallet().sendDFITokentoWallet().wait(6000);
@@ -918,7 +918,7 @@ context.only("(dvm -> dvm) Wallet - Send - Address book", () => {
     );
   });
 
-  it.only("should display evm tag when EVM address is selected in DVM domain", () => {
+  it("should display evm tag when EVM address is selected in DVM domain", () => {
     populateAddressBook();
     cy.getByTestID("address_row_text_1_WHITELISTED").click();
 
@@ -930,6 +930,32 @@ context.only("(dvm -> dvm) Wallet - Send - Address book", () => {
 
     // expect to see evm tag in confirm screen
     cy.getByTestID("to_address_label_evm_tag").should("exist");
+    cy.go("back");
+  });
+
+  it("should not allow to send tokens from EVM to other EVM address", () => {
+    cy.getByTestID("bottom_tab_portfolio").click();
+    cy.getByTestID("convert_action_button").click();
+    cy.getByTestID("DFI (Token)_symbol").click();
+    cy.getByTestID("token_select_button_TO").click();
+    cy.getByTestID("DFI_name").contains("DeFiChain for EVM").click();
+    cy.getByTestID("50%_amount_button").click();
+    cy.getByTestID("button_continue_convert").click();
+    cy.getByTestID("button_confirm_convert").click();
+    cy.closeOceanInterface().wait(5000);
+    cy.getByTestID("domain_switch").click(); // Switch to EVM domain
+    cy.getByTestID("dfi_balance_card").should("exist");
+    cy.getByTestID("send_balance_button").click().wait(3000);
+    cy.getByTestID("select_DFI").click().wait(3000);
+    cy.getByTestID("address_book_button").click();
+    cy.getByTestID("address_row_0_WHITELISTED").should(
+      "have.attr",
+      "aria-disabled",
+    );
+    cy.getByTestID("address_row_label_0_WHITELISTED_EVM_tag").should(
+      "have.text",
+      "EVM",
+    );
   });
 });
 
@@ -1028,6 +1054,285 @@ context("(evm -> dvm) Wallet - Send - Address book", () => {
     cy.getByTestID("address_row_1_WHITELISTED").should(
       "not.have.attr",
       "aria-disabled",
+    );
+  });
+});
+
+context("(evm <> dvm) Wallet - Send", () => {
+  const addresses: string[] = []; // Index 0 - DVM address, 1 -> EVM address
+  const evmAddress = "0xD8A1D481418E77552DB93aA274cc31982df857a1";
+  const dvmAddress = "bcrt1qjp6yvseq9vdn3y9ram4ltkq48j02r99h3ujatg";
+  let dvmbalance: string;
+  let evmbalance: string;
+
+  before(() => {
+    cy.createEmptyWallet(true);
+    cy.sendDFItoWallet().sendDFITokentoWallet().wait(10000);
+    for (let i = 0; i < 2; i++) {
+      cy.getByTestID("wallet_address").click();
+      cy.getByTestID("address_row_text_0")
+        .invoke("text")
+        .then((address: string) => {
+          addresses.push(address);
+        });
+      cy.getByTestID("close_bottom_sheet_button").click();
+      cy.getByTestID("domain_switch").click().wait(3000);
+    }
+  });
+
+  beforeEach(() => {
+    cy.getByTestID("portfolio_list").should("exist");
+    cy.getByTestID("dfi_total_balance_amount")
+      .invoke("text")
+      .then((bal: string) => {
+        dvmbalance = bal;
+      });
+
+    cy.getByTestID("domain_switch").click();
+    cy.getByTestID("dfi_total_balance_amount")
+      .invoke("text")
+      .then((bal: string) => {
+        evmbalance = bal;
+      });
+    cy.getByTestID("domain_switch").click();
+  });
+
+  it("should be able to send from DVM address to own EVM address", () => {
+    const amt = 5;
+    cy.getByTestID("send_balance_button").click().wait(3000);
+    cy.getByTestID("select_DFI").click().wait(3000);
+    cy.getByTestID("address_input").clear().type(addresses[1]);
+    cy.getByTestID("address_input_footer_evm").contains("Address 1");
+    cy.getByTestID("amount_input").clear().type(amt.toString());
+    cy.getByTestID("button_confirm_send_continue").should(
+      "not.have.attr",
+      "disabled",
+    );
+    cy.getByTestID("button_confirm_send_continue").click();
+    cy.getByTestID("confirm_title").contains("You are sending");
+    cy.getByTestID("wallet_address").contains(addresses[0]);
+    cy.getByTestID("address_input_footer_evm").contains("Address 1");
+    cy.getByTestID("to_address_label_evm_tag")
+      .should("have.attr", "style")
+      .and("include", "linear-gradient");
+    cy.getByTestID("transaction_fee_value").should("exist");
+    cy.getByTestID("text_amount").should("have.text", `${amt.toFixed(8)} DFI`);
+    cy.getByTestID("button_confirm_send").click();
+    cy.getByTestID("txn_authorization_title").contains(
+      `Sending ${new BigNumber(amt).toFixed(8)} DFI to ${addresses[1]}`,
+    );
+
+    cy.closeOceanInterface().wait(3000);
+    cy.getByTestID("portfolio_list").should("exist");
+    cy.getByTestID("dfi_total_balance_amount").contains(
+      Number(dvmbalance) - (amt + 0.01),
+    ); // $14.99
+    cy.getByTestID("dfi_balance_card").should("exist").click();
+    cy.getByTestID("dfi_utxo_amount").contains("9.99");
+    cy.getByTestID("dfi_token_amount").contains("5.0000");
+    cy.go("back");
+    cy.getByTestID("domain_switch").click();
+    cy.getByTestID("dfi_total_balance_amount").contains(amt.toFixed(8));
+    cy.getByTestID("dfi_balance_card").should("exist").click();
+    cy.go("back");
+    cy.getByTestID("domain_switch").click();
+  });
+
+  // Execute along with previous test case (precondition)
+  it("should be able to send from EVM address to own DVM address", () => {
+    const amt = 1;
+    cy.getByTestID("domain_switch").click();
+    cy.getByTestID("portfolio_list").should("exist");
+    cy.getByTestID("send_balance_button").click().wait(3000);
+    cy.getByTestID("select_DFI").click().wait(3000);
+    cy.getByTestID("address_input").clear().type(addresses[0]);
+    cy.getByTestID("address_input_footer").contains("Address 1");
+    cy.getByTestID("amount_input").clear().type(amt.toString());
+    cy.getByTestID("button_confirm_send_continue").should(
+      "not.have.attr",
+      "disabled",
+    );
+    cy.getByTestID("button_confirm_send_continue").click();
+    cy.getByTestID("confirm_title").contains("You are sending");
+    cy.getByTestID("wallet_address").contains(addresses[1]);
+    cy.getByTestID("address_input_footer").contains("Address 1");
+    // Bug https://linear.app/birthdayresearch/issue/DFC-329/transfer-domain-linear-gradient-is-not-displayed-for-evm-dfi
+    // cy.getByTestID("to_address_label_evm_tag")
+    //   .should("have.attr", "style")
+    //   .and("include", "linear-gradient");
+    cy.getByTestID("transaction_fee_value").should("exist");
+    cy.getByTestID("text_amount").should("have.text", `${amt.toFixed(8)} DFI`);
+    cy.getByTestID("button_confirm_send").click();
+    cy.getByTestID("txn_authorization_title").contains(
+      `Sending ${new BigNumber(amt).toFixed(8)} DFI (EVM) to ${addresses[0]}`,
+    );
+
+    cy.closeOceanInterface().wait(3000);
+    cy.getByTestID("portfolio_list").should("exist");
+    const evmAmt = (Number(evmbalance) - amt).toFixed(8);
+    cy.getByTestID("dfi_total_balance_amount").contains(evmAmt);
+    cy.getByTestID("dfi_balance_card").should("exist").click();
+    cy.getByTestID("token_detail_amount").contains(evmAmt);
+    cy.go("back");
+    cy.getByTestID("domain_switch").click();
+    cy.getByTestID("portfolio_list").should("exist");
+    cy.getByTestID("dfi_total_balance_amount").contains(
+      Math.trunc(Number(dvmbalance) * 100) / 100 + amt,
+    ); // get fixed 2 decimals without rounding
+    cy.getByTestID("dfi_balance_card").should("exist").click();
+    cy.getByTestID("dfi_utxo_amount").contains("9.99");
+    cy.getByTestID("dfi_token_amount").contains("6.0000");
+    cy.go("back");
+  });
+
+  // Execute in sequence
+  it("should be able to send tokens from DVM to other EVM address", () => {
+    const amt = 1;
+    cy.getByTestID("portfolio_list").should("exist");
+    cy.getByTestID("send_balance_button").click().wait(3000);
+    cy.getByTestID("select_DFI").click().wait(3000);
+    cy.getByTestID("address_input").clear().type(evmAddress);
+    cy.getByTestID("verified_address").should(
+      "have.text",
+      "Verified MetaChain (EVM) address",
+    );
+    cy.getByTestID("amount_input").clear().type(amt.toString());
+    cy.getByTestID("button_confirm_send_continue").should(
+      "not.have.attr",
+      "disabled",
+    );
+    cy.getByTestID("button_confirm_send_continue").click();
+    cy.getByTestID("confirm_title").contains("You are sending");
+    cy.getByTestID("wallet_address").contains(addresses[0]);
+    cy.getByTestID("address_input_footer_evm").contains(evmAddress);
+    cy.getByTestID("to_address_label_evm_tag")
+      .should("have.attr", "style")
+      .and("include", "linear-gradient");
+    cy.getByTestID("transaction_fee_value").should("exist");
+    cy.getByTestID("text_amount").should("have.text", `${amt.toFixed(8)} DFI`);
+    cy.getByTestID("button_confirm_send").click();
+    cy.getByTestID("txn_authorization_title").contains(
+      `Sending ${new BigNumber(amt).toFixed(8)} DFI to ${evmAddress}`,
+    );
+
+    cy.closeOceanInterface().wait(3000);
+    cy.getByTestID("portfolio_list").should("exist");
+    cy.getByTestID("dfi_total_balance_amount").contains(
+      Math.trunc(Number(dvmbalance) * 100) / 100 - amt,
+    ); // get fixed 2 decimals without rounding
+    cy.getByTestID("dfi_balance_card").should("exist").click();
+    cy.getByTestID("dfi_utxo_amount").contains("9.99");
+    cy.getByTestID("dfi_token_amount").contains("5.00");
+    cy.go("back");
+  });
+
+  it("should be able to send tokens from EVM to other DVM address", () => {
+    const amt = 1.01234567;
+    cy.getByTestID("domain_switch").click();
+    cy.getByTestID("portfolio_list").should("exist");
+    cy.getByTestID("send_balance_button").click().wait(3000);
+    cy.getByTestID("select_DFI").click().wait(3000);
+    cy.getByTestID("address_input").clear().type(dvmAddress);
+    // Uncomment after Bug Fix for DFC-380
+    // cy.getByTestID("verified_address").should("have.text", "Verified Defichain (DVM) address");
+    cy.getByTestID("amount_input").clear().type(amt.toString());
+    cy.getByTestID("button_confirm_send_continue").should(
+      "not.have.attr",
+      "disabled",
+    );
+    cy.getByTestID("button_confirm_send_continue").click();
+    cy.getByTestID("confirm_title").contains("You are sending");
+    cy.getByTestID("wallet_address").contains(addresses[1]);
+    // uncomment after bug fix
+    // cy.getByTestID("to_address_label_evm_tag")
+    //   .should("have.attr", "style")
+    //   .and("include", "linear-gradient");
+    cy.getByTestID("transaction_fee_value").should("exist");
+    cy.getByTestID("text_amount").should("have.text", `${amt.toFixed(8)} DFI`);
+    cy.getByTestID("button_confirm_send").click();
+    cy.getByTestID("txn_authorization_title").contains(
+      `Sending ${new BigNumber(amt).toFixed(8)} DFI (EVM) to ${dvmAddress}`,
+    );
+
+    cy.closeOceanInterface().wait(3000);
+    cy.getByTestID("portfolio_list").should("exist");
+    const evmAmt = Math.trunc(Number(evmbalance) * 100) / 100 - amt;
+    cy.getByTestID("dfi_total_balance_amount").contains(evmAmt);
+    cy.getByTestID("dfi_balance_card").should("exist").click();
+    cy.getByTestID("token_detail_amount").contains(evmAmt);
+    cy.go("back");
+    cy.getByTestID("domain_switch").click();
+    cy.getByTestID("portfolio_list").should("exist");
+    cy.getByTestID("dfi_total_balance_amount").contains(
+      Math.trunc(Number(dvmbalance) * 100) / 100,
+    );
+    cy.getByTestID("dfi_balance_card").should("exist").click();
+    cy.getByTestID("dfi_utxo_amount").contains("9.99");
+    cy.getByTestID("dfi_token_amount").contains("5.0000");
+    cy.go("back");
+  });
+
+  it("should be able to convert tokens before sending from DVM to other EVM address", () => {
+    const amt = 6;
+    cy.getByTestID("portfolio_list").should("exist");
+    cy.getByTestID("send_balance_button").click().wait(3000);
+    cy.getByTestID("select_DFI").click().wait(3000);
+    cy.getByTestID("address_input").clear().type(evmAddress);
+    cy.getByTestID("verified_address").should(
+      "have.text",
+      "Verified MetaChain (EVM) address",
+    );
+    cy.getByTestID("amount_input").clear().type(amt.toString());
+    cy.getByTestID("button_confirm_send_continue").should(
+      "not.have.attr",
+      "disabled",
+    );
+    cy.getByTestID("button_confirm_send_continue").click();
+    cy.getByTestID("txn_authorization_title").contains(
+      `Convert ${new BigNumber(1).toFixed(8)} UTXO to DFI tokens`,
+    );
+    cy.closeOceanInterface().wait(3000);
+    cy.getByTestID("confirm_title").contains("You are sending");
+    cy.getByTestID("text_send_amount").should(
+      "have.text",
+      new BigNumber(amt).toFixed(8),
+    );
+    cy.getByTestID("wallet_address").contains(addresses[0]);
+    cy.getByTestID("address_input_footer_evm").contains(evmAddress);
+    cy.getByTestID("to_address_label_evm_tag")
+      .should("have.attr", "style")
+      .and("include", "linear-gradient");
+    cy.getByTestID("amount_to_convert_value").should(
+      "have.text",
+      "1.00000000 DFI",
+    );
+    cy.getByTestID("conversion_status").should("have.text", "Converted");
+    cy.getByTestID("transaction_fee_value").should("exist");
+    cy.getByTestID("text_amount").should("have.text", `${amt.toFixed(8)} DFI`);
+    cy.getByTestID("button_confirm_send").click();
+    cy.getByTestID("txn_authorization_title").contains(
+      `Sending ${new BigNumber(amt).toFixed(8)} DFI to ${evmAddress}`,
+    );
+    cy.closeOceanInterface().wait(3000);
+    cy.getByTestID("portfolio_list").should("exist");
+    cy.getByTestID("dfi_total_balance_amount").contains(
+      Math.trunc(Number(dvmbalance) * 100) / 100 - amt,
+    ); // get fixed 2 decimals without rounding
+    cy.getByTestID("dfi_balance_card").should("exist").click();
+    cy.getByTestID("dfi_utxo_amount").contains("8.99");
+    cy.getByTestID("dfi_token_amount").should("have.text", "0.00000000 DFI");
+    cy.go("back");
+  });
+
+  it("should not allow to send tokens from EVM to other EVM address", () => {
+    cy.getByTestID("domain_switch").click();
+    cy.getByTestID("portfolio_list").should("exist");
+    cy.getByTestID("send_balance_button").click().wait(3000);
+    cy.getByTestID("select_DFI").click().wait(3000);
+    cy.getByTestID("address_input").clear().type(evmAddress);
+    cy.getByTestID("address_error_text").should(
+      "have.text",
+      "Invalid address. Make sure the address is correct to avoid irrecoverable losses",
     );
   });
 });
