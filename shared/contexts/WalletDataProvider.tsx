@@ -18,7 +18,7 @@ import { useFeatureFlagContext } from "@contexts/FeatureFlagContext";
 import { useWhaleApiClient } from "@waveshq/walletkit-ui/dist/contexts";
 
 export function WalletDataProvider(
-  props: PropsWithChildren<any>
+  props: PropsWithChildren<any>,
 ): JSX.Element | null {
   const blockCount = useSelector((state: RootState) => state.block.count);
   const client = useWhaleApiClient();
@@ -36,7 +36,7 @@ export function WalletDataProvider(
         fetchDexPrice({
           client,
           denomination: "USDT",
-        })
+        }),
       );
     });
   }, [blockCount, network]);
@@ -47,7 +47,7 @@ export function WalletDataProvider(
     if (isFeatureAvailable("local_storage")) {
       dispatch(fetchUserPreferences(network));
     }
-  }, [network, wallets]);
+  }, [network, wallets, isFeatureAvailable]);
 
   /* Global polling based on blockCount, network and address */
   useEffect(() => {
@@ -56,13 +56,13 @@ export function WalletDataProvider(
         fetchTokens({
           client,
           address,
-        })
+        }),
       );
       dispatch(
         fetchVaults({
           client,
           address,
-        })
+        }),
       );
     });
   }, [blockCount, network, address]);
