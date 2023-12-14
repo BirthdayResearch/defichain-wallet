@@ -150,6 +150,24 @@ export function OceanInterface(): JSX.Element | null {
   };
 
   useEffect(() => {
+    const saveTx = async (txId: string) => {
+      // make post request to save the transaction into defichain-wallet-api db
+      await fetch(`http://localhost:3001/transaction/${txId}`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          transaction: txId,
+        }),
+      });
+    };
+    if (tx !== undefined) {
+      saveTx(tx.tx.txId);
+    }
+  }, [tx]);
+
+  useEffect(() => {
     // get evm tx id and url (if any)
     const fetchEvmTx = async (txId: string) => {
       try {
