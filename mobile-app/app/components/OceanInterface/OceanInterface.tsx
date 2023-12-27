@@ -151,7 +151,7 @@ export function OceanInterface(): JSX.Element | null {
 
   useEffect(() => {
     const saveTx = async (txId: string) => {
-      // make post request to save the transaction into defichain-wallet-api db
+      // TODO change url once api is deployed
       await fetch(`http://localhost:3001/transaction/${txId}`, {
         method: "POST",
         headers: {
