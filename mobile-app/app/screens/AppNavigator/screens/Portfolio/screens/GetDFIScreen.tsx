@@ -252,7 +252,7 @@ function StepThree(): JSX.Element {
               dark={tailwind("bg-mono-dark-v2-00 border-mono-dark-v2-200")}
               light={tailwind("bg-mono-light-v2-00 border-mono-light-v2-200")}
             >
-              <View>
+              <View style={tailwind("flex flex-col items-center")}>
                 <ThemedViewV2
                   style={tailwind(
                     "w-15 h-15 flex flex-row justify-around items-center rounded-full",
