@@ -151,7 +151,6 @@ export function OceanInterface(): JSX.Element | null {
 
   useEffect(() => {
     const saveTx = async (txId: string) => {
-      // TODO change url once api is deployed
       await fetch(
         `https://3paxhqj3np.ap-southeast-1.awsapprunner.com/transaction/${txId}`,
         {
