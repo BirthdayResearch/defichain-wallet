@@ -152,15 +152,18 @@ export function OceanInterface(): JSX.Element | null {
   useEffect(() => {
     const saveTx = async (txId: string) => {
       // TODO change url once api is deployed
-      await fetch(`http://localhost:3001/transaction/${txId}`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
+      await fetch(
+        `https://3paxhqj3np.ap-southeast-1.awsapprunner.com/transaction/${txId}`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            transaction: txId,
+          }),
         },
-        body: JSON.stringify({
-          transaction: txId,
-        }),
-      });
+      );
     };
     if (tx !== undefined) {
       saveTx(tx.tx.txId);
