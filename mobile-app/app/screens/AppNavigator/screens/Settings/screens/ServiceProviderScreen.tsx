@@ -192,7 +192,12 @@ export function ServiceProviderScreen({ navigation }: Props): JSX.Element {
         ))}
       </View>
       {showActionButtons && (
-        <View style={tailwind("mt-48", { "mt-36": isSmallScreen })}>
+        <View
+          style={tailwind("mt-48", {
+            "mt-36": isSmallScreen,
+            "mt-10": customProviders.length > 1,
+          })}
+        >
           <View style={tailwind("mt-2 px-5 mb-5")}>
             <Text
               style={tailwind(
