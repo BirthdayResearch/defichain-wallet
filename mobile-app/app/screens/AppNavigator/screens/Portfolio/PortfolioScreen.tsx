@@ -132,6 +132,7 @@ export function PortfolioScreen({ navigation }: Props): JSX.Element {
   const dispatch = useAppDispatch();
   const [refreshing, setRefreshing] = useState(false);
   const [isZeroBalance, setIsZeroBalance] = useState(true);
+  const [isEvmZeroBalance, setIsEvmZeroBalance] = useState(true);
   const { hasFetchedToken, allTokens } = useSelector(
     (state: RootState) => state.wallet,
   );
@@ -455,7 +456,10 @@ export function PortfolioScreen({ navigation }: Props): JSX.Element {
     setIsZeroBalance(
       !tokens.some((token) => new BigNumber(token.amount).isGreaterThan(0)),
     );
-  }, [tokens]);
+    setIsEvmZeroBalance(
+      !evmTokens.some((token) => new BigNumber(token.amount).isGreaterThan(0)),
+    );
+  }, [tokens, evmTokens]);
 
   const assetSortBottomSheetScreen = useMemo(() => {
     return [
@@ -695,6 +699,7 @@ export function PortfolioScreen({ navigation }: Props): JSX.Element {
         ) : (
           <PortfolioCard
             isZeroBalance={isZeroBalance}
+            isEvmZeroBalance={isEvmZeroBalance}
             filteredTokens={sortTokensAssetOnType(assetSortType)}
             navigation={navigation}
             buttonGroupOptions={{
