@@ -46,7 +46,7 @@ export function PortfolioCard({
   const { hasFetchedToken } = useSelector((state: RootState) => state.wallet);
   const { domain } = useDomainContext();
   // return empty portfolio if no DFI and other tokens
-  if (isZeroBalance && !isEvmDomain && isEvmZeroBalance && isEvmDomain) {
+  if ((isZeroBalance && !isEvmDomain) || (isEvmZeroBalance && isEvmDomain)) {
     const screenDetails = getEmptyScreenDetails(
       ButtonGroupTabKey.AllTokens,
       domain,
