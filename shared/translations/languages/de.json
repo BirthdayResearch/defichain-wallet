@@ -114,6 +114,7 @@
   },
   "screens/GetDFIScreen": {
     "Get DFI": "DFI erhalten",
+    "Get DFI-EVM": "DFI-EVM erhalten",
     "STEP 1": "SCHRITT 1",
     "Trade/Purchase DFI": "Handel/Kauf von DFI",
     "Marketplace": "Marktplatz",
@@ -123,7 +124,9 @@
     "DFI price": "DFI-Preise",
     "WALLET ADDRESS": "WALLETADRESSE",
     "Share": "Teilen",
-    "Get DFI now!": "Jetzt DFI kaufen!"
+    "Get DFI now!": "Jetzt DFI kaufen!",
+    "STEP 3": "SCHRITT 3",
+    "Get DFI-EVM now!": "Jetzt DFI-EVM kaufen!"
   },
   "screens/MarketplaceScreen": {
     "Marketplace": "Marktplatz",
@@ -232,7 +235,8 @@
     "Share": "Teilen",
     "WALLET ADDRESS": "WALLETADRESSE",
     "Scan QR code to receive any dTokens (eg. DUSD,dBTC..) or DFI": "Scanne den QR-Code, um dToken (z.B. DUSD, dBTC...) oder DFI zu erhalten",
-    "Get DFI": "DFI erwerben"
+    "Get DFI": "DFI erwerben",
+    "Get DFI-EVM": "DFI-EVM erwerben"
   },
   "components/toaster": {
     "Copied": "Kopiert",
@@ -1249,7 +1253,7 @@
     "How do I send tokens from my DFI wallet?": "Wie versende ich Token von meiner DFI-Wallet?",
     "Tokens on DeFiChain can only be sent to DFI addresses only. This means that you should not send directly to an exchange or a third party platform that does not support DeFiChain.\n\nSimilarly, liquidity tokens can only be sent to another DFI wallet address.": "Token auf der DeFiChain können nur an DFI-Adressen gesendet werden. Das bedeutet, dass du sie nicht direkt an eine Börse oder eine Drittanbieterplattform senden solltest, die die DeFiChain nicht unterstützt.\n\nEbenso können Liquiditäts-Token nur an eine andere DFI-Walletadresse gesendet werden.",
     "What are some exchanges and platforms I can send to?": "Welche Börsen und Plattformen gibt es, an die ich senden kann?",
-    "1. Kucoin\n2. Bittrex\n3. Transak\n4. Bake\n\nView more at DeFiChain.com": "1. Kucoin\n2. Bittrex\n3. Transak\n4. Bake\n\nMehr ansehen auf DeFiChain.com",
+    "1. Kucoin\n2. Huobi\n3. Transak\n4. Bake\n\nView more at DeFiChain.com": "1. Kucoin\n2. Huobi\n3. Transak\n4. Bake\n\nMehr ansehen auf DeFiChain.com",
     "Can I send liquidity pool tokens to an exchange or another entity?": "Kann ich Token des Liquiditätspools an eine Börse oder eine andere Einrichtung senden?",
     "Liquidity tokens can only be sent to another DFI wallet address, and not to an exchange of central entity.": "Liquiditäts-Token können nur an eine andere DFI-Walletadresse gesendet werden, nicht an eine Börse oder eine zentrale Einrichtung.",
     "How do I receive tokens on my DFI wallet?": "Wie erhalte ich Token auf meiner DFI-Wallet?",

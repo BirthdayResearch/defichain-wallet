@@ -44,6 +44,7 @@ export function AddressRow({
   onAddressType,
   showQrButton = true,
   onlyLocalAddress,
+  restrictedJellyfishAddressType,
   matchedAddress,
   setMatchedAddress,
   setAddressLabel,
@@ -63,12 +64,13 @@ export function AddressRow({
   onAddressType?: (addressType?: AddressType) => void;
   showQrButton?: boolean;
   onlyLocalAddress?: boolean;
+  restrictedJellyfishAddressType?: JellyfishAddressType[];
   matchedAddress?: LocalAddress | WhitelistedAddress | undefined;
   setMatchedAddress?: (address?: LocalAddress | WhitelistedAddress) => void;
   setAddressLabel?: React.Dispatch<React.SetStateAction<string | undefined>>;
 }): JSX.Element {
   const { fetchWalletAddresses } = useWalletAddress();
-  const { domain } = useDomainContext();
+  const { domain, isEvmFeatureEnabled } = useDomainContext();
 
   const defaultValue = "";
 
@@ -86,14 +88,24 @@ export function AddressRow({
   const [validEvmAddress, setValidEvmAddress] = useState<boolean>(false);
 
   const validLocalAddress = useMemo(() => {
+    if (
+      restrictedJellyfishAddressType?.some(
+        (addressType) => addressType === getAddressType(address, networkName),
+      )
+    ) {
+      return false;
+    }
+
     if (address === "") {
       return true;
     }
+
     if (onlyLocalAddress) {
       return addressType === AddressType.WalletAddress;
     }
+
     return true;
-  }, [onlyLocalAddress, addressType, address]);
+  }, [onlyLocalAddress, addressType, address, networkName]);
 
   const addressObj = jellyfishWalletAddress.find(
     (e: WalletAddressI) => e.dvm === address || e.evm === address,
@@ -134,6 +146,7 @@ export function AddressRow({
         if (onlyLocalAddress) {
           setAddressType(undefined);
         } else if (
+          isEvmFeatureEnabled &&
           getAddressType(address, networkName) === JellyfishAddressType.ETH
         ) {
           // Unsaved and valid EVM address
@@ -267,14 +280,27 @@ export function AddressRow({
         rules={{
           required: true,
           validate: {
-            isValidAddress: (address) =>
-              // Check if its either a valid EVM/DVM address &&
-              !!getAddressType(address, networkName) &&
-              // EVM -> EVM domain transfer is not allowed
-              !(
-                getAddressType(address, networkName) ===
-                  JellyfishAddressType.ETH && domain === DomainType.EVM
-              ),
+            isValidAddress: (address) => {
+              const addressType = getAddressType(address, networkName);
+
+              // Check if address is EVM and feature flag is enabled
+              if (
+                !isEvmFeatureEnabled &&
+                addressType === JellyfishAddressType.ETH
+              ) {
+                return false;
+              }
+
+              return (
+                // Check if its either a valid EVM/DVM address &&
+                !!addressType &&
+                // EVM -> EVM domain transfer is not allowed
+                !(
+                  addressType === JellyfishAddressType.ETH &&
+                  domain === DomainType.EVM
+                )
+              );
+            },
           },
         }}
       />

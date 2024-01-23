@@ -8,7 +8,11 @@ import { NavigationProp, useNavigation } from "@react-navigation/native";
 import { tailwind } from "@tailwind";
 import { RootState } from "@store";
 import { translate } from "@translations";
-import { tokensSelector, WalletToken } from "@waveshq/walletkit-ui/dist/store";
+import {
+  DFITokenSelector,
+  tokensSelector,
+  WalletToken,
+} from "@waveshq/walletkit-ui/dist/store";
 import { useDebounce } from "@hooks/useDebounce";
 import { useThemeContext } from "@waveshq/walletkit-ui";
 import { useTokenPrice } from "@screens/AppNavigator/screens/Portfolio/hooks/TokenPrice";
@@ -28,11 +32,13 @@ import {
 } from "@components/SkeletonLoader";
 import { ListRenderItemInfo } from "@shopify/flash-list";
 import { DomainType, useDomainContext } from "@contexts/DomainContext";
+import { ConvertDirection } from "@screens/enum";
 import { PortfolioParamList } from "../PortfolioNavigator";
 import { ActiveUSDValueV2 } from "../../Loans/VaultDetail/components/ActiveUSDValueV2";
 import { TokenIcon } from "../components/TokenIcon";
 import { TokenNameText } from "../components/TokenNameText";
 import { useEvmTokenBalances } from "../hooks/EvmTokenBalances";
+import { useTokenBalance } from "../hooks/TokenBalance";
 
 export interface TokenSelectionItem extends BottomSheetToken {
   usdAmount: BigNumber;
@@ -262,6 +268,29 @@ function EmptyAsset({
   navigation: NavigationProp<PortfolioParamList>;
   isEvmDomain: boolean;
 }): JSX.Element {
+  const { dvmTokens, evmTokens } = useTokenBalance();
+  const DFIToken = useSelector((state: RootState) =>
+    DFITokenSelector(state.wallet),
+  );
+
+  const getDFI = () => {
+    if (isEvmDomain && new BigNumber(DFIToken.amount).gt(0)) {
+      const convertDirection = ConvertDirection.evmToDvm;
+      const dfiToken = dvmTokens.find((token) => token.tokenId === "0");
+      const evmDFIToken = evmTokens.find((token) => token.tokenId === "0_evm");
+      return navigation.navigate({
+        name: "ConvertScreen",
+        params: {
+          sourceToken: dfiToken,
+          targetToken: evmDFIToken,
+          convertDirection,
+        },
+        merge: true,
+      });
+    }
+    return navigation.navigate("GetDFIScreen");
+  };
+
   return (
     <ThemedScrollViewV2
       contentContainerStyle={tailwind(
@@ -295,13 +324,11 @@ function EmptyAsset({
           )}
         </ThemedTextV2>
       </View>
-      {!isEvmDomain && (
-        <ButtonV2
-          onPress={() => navigation.navigate("GetDFIScreen" as any)}
-          styleProps="w-full mb-14 pb-1"
-          label={translate("screens/GetDFIScreen", "Get DFI")}
-        />
-      )}
+      <ButtonV2
+        onPress={getDFI}
+        styleProps="w-full mb-14 pb-1"
+        label={translate("screens/GetDFIScreen", "Get DFI")}
+      />
     </ThemedScrollViewV2>
   );
 }

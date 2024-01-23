@@ -196,6 +196,8 @@ export function PortfolioNavigator(): JSX.Element {
   const goToNetworkSelect = (): void => {
     navigation.navigate("NetworkSelectionScreenPortfolio");
   };
+  const { domain } = useDomainContext();
+  const isEvmDomain = domain === DomainType.EVM;
   const screenOptions = useNavigatorScreenOptions();
   return (
     <PortfolioStack.Navigator
@@ -291,7 +293,10 @@ export function PortfolioNavigator(): JSX.Element {
             <HeaderNetworkStatus onPress={goToNetworkSelect} />
           ),
           headerBackTitleVisible: false,
-          headerTitle: translate("screens/ReceiveScreen", "Get DFI"),
+          headerTitle: translate(
+            "screens/ReceiveScreen",
+            isEvmDomain ? "Get DFI-EVM" : "Get DFI",
+          ),
         }}
       />
 

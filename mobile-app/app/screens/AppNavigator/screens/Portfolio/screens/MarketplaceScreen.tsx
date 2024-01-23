@@ -12,7 +12,6 @@ import { tailwind } from "@tailwind";
 import { translate } from "@translations";
 import { openURL } from "@api/linking";
 import Kucoin from "@assets/images/exchanges/Kucoin.png";
-import Bittrex from "@assets/images/exchanges/Bittrex.png";
 import Bitrue from "@assets/images/exchanges/Bitrue.png";
 import Latoken from "@assets/images/exchanges/Latoken.png";
 import Transak from "@assets/images/exchanges/Transak.png";
@@ -44,11 +43,6 @@ const exchanges: ExchangeProps[] = [
     name: "Gate.io",
     image: Gateio,
     url: "https://www.gate.io/trade/DFI_USDT",
-  },
-  {
-    name: "Bittrex",
-    image: Bittrex,
-    url: "https://global.bittrex.com/Market/Index?MarketName=BTC-DFI",
   },
   {
     name: "Bitrue",

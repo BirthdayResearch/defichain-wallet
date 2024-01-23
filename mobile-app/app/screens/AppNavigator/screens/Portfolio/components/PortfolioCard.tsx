@@ -22,6 +22,7 @@ import { EmptyEvmPortfolioIcon } from "../assets/EmptyEvmPortfolioIcon";
 
 interface PortfolioCardProps {
   isZeroBalance: boolean;
+  isEvmZeroBalance: boolean;
   filteredTokens: PortfolioRowToken[];
   navigation: StackNavigationProp<PortfolioParamList>;
   buttonGroupOptions?: {
@@ -35,6 +36,7 @@ interface PortfolioCardProps {
 
 export function PortfolioCard({
   isZeroBalance,
+  isEvmZeroBalance,
   filteredTokens,
   navigation,
   buttonGroupOptions,
@@ -44,7 +46,7 @@ export function PortfolioCard({
   const { hasFetchedToken } = useSelector((state: RootState) => state.wallet);
   const { domain } = useDomainContext();
   // return empty portfolio if no DFI and other tokens
-  if (isZeroBalance) {
+  if ((isZeroBalance && !isEvmDomain) || (isEvmZeroBalance && isEvmDomain)) {
     const screenDetails = getEmptyScreenDetails(
       ButtonGroupTabKey.AllTokens,
       domain,

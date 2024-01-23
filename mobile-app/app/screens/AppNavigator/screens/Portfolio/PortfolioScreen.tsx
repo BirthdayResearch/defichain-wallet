@@ -102,6 +102,7 @@ export interface PortfolioRowToken extends WalletToken {
 export function PortfolioScreen({ navigation }: Props): JSX.Element {
   const { isLight } = useThemeContext();
   const { domain } = useDomainContext();
+  const isEvmDomain = domain === DomainType.EVM;
   const isFocused = useIsFocused();
   const height = useBottomTabBarHeight();
   const client = useWhaleApiClient();
@@ -131,6 +132,7 @@ export function PortfolioScreen({ navigation }: Props): JSX.Element {
   const dispatch = useAppDispatch();
   const [refreshing, setRefreshing] = useState(false);
   const [isZeroBalance, setIsZeroBalance] = useState(true);
+  const [isEvmZeroBalance, setIsEvmZeroBalance] = useState(true);
   const { hasFetchedToken, allTokens } = useSelector(
     (state: RootState) => state.wallet,
   );
@@ -204,7 +206,7 @@ export function PortfolioScreen({ navigation }: Props): JSX.Element {
   );
   const { evmTokens } = useEvmTokenBalances();
   const { totalAvailableValue, dstTokens } = useMemo(() => {
-    return (domain === DomainType.EVM ? evmTokens : tokens).reduce(
+    return (isEvmDomain ? evmTokens : tokens).reduce(
       (
         {
           totalAvailableValue,
@@ -249,7 +251,7 @@ export function PortfolioScreen({ navigation }: Props): JSX.Element {
 
   // add token that are 100% locked as collateral into dstTokens
   const combinedTokens = useMemo(() => {
-    if (lockedTokens === undefined || lockedTokens.size === 0) {
+    if (lockedTokens === undefined || lockedTokens.size === 0 || isEvmDomain) {
       return dstTokens;
     }
 
@@ -454,7 +456,10 @@ export function PortfolioScreen({ navigation }: Props): JSX.Element {
     setIsZeroBalance(
       !tokens.some((token) => new BigNumber(token.amount).isGreaterThan(0)),
     );
-  }, [tokens]);
+    setIsEvmZeroBalance(
+      !evmTokens.some((token) => new BigNumber(token.amount).isGreaterThan(0)),
+    );
+  }, [tokens, evmTokens]);
 
   const assetSortBottomSheetScreen = useMemo(() => {
     return [
@@ -682,19 +687,19 @@ export function PortfolioScreen({ navigation }: Props): JSX.Element {
           }}
           isSorted={isSorted}
           denominationCurrency={denominationCurrency}
-          isEvmDomain={domain === DomainType.EVM}
+          isEvmDomain={isEvmDomain}
         />
         {activeButtonGroup === ButtonGroupTabKey.AllTokens && (
           <DFIBalanceCard denominationCurrency={denominationCurrency} />
         )}
-        {!hasFetchedToken ||
-        (domain === DomainType.EVM && !hasFetchedEvmTokens) ? (
+        {!hasFetchedToken || (isEvmDomain && !hasFetchedEvmTokens) ? (
           <View style={tailwind("px-5")}>
             <SkeletonLoader row={2} screen={SkeletonLoaderScreen.Portfolio} />
           </View>
         ) : (
           <PortfolioCard
             isZeroBalance={isZeroBalance}
+            isEvmZeroBalance={isEvmZeroBalance}
             filteredTokens={sortTokensAssetOnType(assetSortType)}
             navigation={navigation}
             buttonGroupOptions={{
@@ -703,7 +708,7 @@ export function PortfolioScreen({ navigation }: Props): JSX.Element {
               onButtonGroupPress: handleButtonFilter,
             }}
             denominationCurrency={denominationCurrency}
-            isEvmDomain={domain === DomainType.EVM}
+            isEvmDomain={isEvmDomain}
           />
         )}
         {Platform.OS === "web" ? (
