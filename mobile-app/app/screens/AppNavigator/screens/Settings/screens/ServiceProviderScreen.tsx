@@ -46,6 +46,7 @@ export function ServiceProviderScreen({ navigation }: Props): JSX.Element {
     url: dvmUrl,
     defaultUrl: defaultDvmUrl,
     setUrl: setDvmUrl,
+    isCustomUrl,
   } = useServiceProviderContext();
   const { evmUrl, ethRpcUrl, defaultEvmUrl, defaultEthRpcUrl, setCustomUrl } =
     useCustomServiceProviderContext();
@@ -191,41 +192,43 @@ export function ServiceProviderScreen({ navigation }: Props): JSX.Element {
           />
         ))}
       </View>
-      {showActionButtons && (
-        <View
-          style={tailwind("mt-48", {
-            "mt-36": isSmallScreen,
-            "mt-10": customProviders.length > 1,
-          })}
-        >
-          <View style={tailwind("mt-2 px-5 mb-5")}>
-            <Text
-              style={tailwind(
-                "text-orange-v2 font-normal-v2 text-xs text-center",
-              )}
-            >
-              {translate(
-                "screens/ServiceProviderScreen",
-                "Only add URLs that are fully trusted and secured. Adding malicious service providers may result in irrecoverable funds. Proceed at your own risk.",
-              )}
-            </Text>
-          </View>
-          <ButtonV2
-            styleProps="mx-7 mt-2"
-            label={translate("screens/ServiceProviderScreen", "Save changes")}
-            testID="button_submit"
-            onPress={async () => await submitCustomServiceProvider()}
-            disabled={
-              !(
-                urlInputValues.DVM.isValid &&
-                urlInputValues.EVM.isValid &&
-                urlInputValues.ETHRPC.isValid
-              )
-            }
-          />
-          <ResetButton />
-        </View>
-      )}
+      <View
+        style={tailwind("mt-48", {
+          "mt-36": isSmallScreen,
+          "mt-10": customProviders.length > 1,
+        })}
+      >
+        {showActionButtons && (
+          <>
+            <View style={tailwind("mt-2 px-5 mb-5")}>
+              <Text
+                style={tailwind(
+                  "text-orange-v2 font-normal-v2 text-xs text-center",
+                )}
+              >
+                {translate(
+                  "screens/ServiceProviderScreen",
+                  "Only add URLs that are fully trusted and secured. Adding malicious service providers may result in irrecoverable funds. Proceed at your own risk.",
+                )}
+              </Text>
+            </View>
+            <ButtonV2
+              styleProps="mx-7 mt-2"
+              label={translate("screens/ServiceProviderScreen", "Save changes")}
+              testID="button_submit"
+              onPress={async () => await submitCustomServiceProvider()}
+              disabled={
+                !(
+                  urlInputValues.DVM.isValid &&
+                  urlInputValues.EVM.isValid &&
+                  urlInputValues.ETHRPC.isValid
+                )
+              }
+            />
+          </>
+        )}
+        {(showActionButtons || isCustomUrl) && <ResetButton />}
+      </View>
     </ThemedScrollViewV2>
   );
 }
