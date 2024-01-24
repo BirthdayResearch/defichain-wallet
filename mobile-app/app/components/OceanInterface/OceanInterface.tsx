@@ -10,7 +10,7 @@ import {
 import { CTransactionSegWit } from "@defichain/jellyfish-transaction/dist";
 import { WhaleApiClient } from "@defichain/whale-api-client";
 import { Transaction } from "@defichain/whale-api-client/dist/api/transactions";
-import { getEnvironment } from "@waveshq/walletkit-core";
+import { EnvironmentNetwork, getEnvironment } from "@waveshq/walletkit-core";
 import { RootState } from "@store";
 import {
   firstTransactionSelector,
@@ -29,6 +29,7 @@ import {
 } from "@shared-contexts/NativeLoggingProvider";
 import { getReleaseChannel } from "@api/releaseChannel";
 import { useAppDispatch } from "@hooks/useAppDispatch";
+import { useFeatureFlagContext } from "@contexts/FeatureFlagContext";
 import { TransactionDetail } from "./TransactionDetail";
 import { TransactionError } from "./TransactionError";
 
@@ -119,6 +120,8 @@ export function OceanInterface(): JSX.Element | null {
   const { wallet, address } = useWalletContext();
   const { getTransactionUrl } = useDeFiScanContext();
   const { network } = useNetworkContext();
+  const { isFeatureAvailable } = useFeatureFlagContext();
+  const isSaveTxEnabled = isFeatureAvailable("save_tx");
 
   // store
   const { height, err: e } = useSelector((state: RootState) => state.ocean);
@@ -164,10 +167,14 @@ export function OceanInterface(): JSX.Element | null {
         },
       );
     };
-    if (tx !== undefined) {
+    if (
+      tx !== undefined &&
+      network === EnvironmentNetwork.MainNet &&
+      isSaveTxEnabled
+    ) {
       saveTx(tx.tx.txId);
     }
-  }, [tx]);
+  }, [tx, network, isSaveTxEnabled]);
 
   useEffect(() => {
     // get evm tx id and url (if any)
