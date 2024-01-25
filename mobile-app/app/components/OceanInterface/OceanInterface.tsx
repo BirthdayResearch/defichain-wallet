@@ -131,6 +131,7 @@ export function OceanInterface(): JSX.Element | null {
   const slideAnim = useRef(new Animated.Value(0)).current;
   // state
   const [tx, setTx] = useState<OceanTransaction | undefined>(transaction);
+  const [calledTx, setCalledTx] = useState<string | undefined>();
   const [err, setError] = useState<string | undefined>(e?.message);
   const [txUrl, setTxUrl] = useState<string | undefined>();
   // evm tx state
@@ -167,18 +168,23 @@ export function OceanInterface(): JSX.Element | null {
             }),
           },
         );
+        //   store called transaction
+        setCalledTx((prevTx) =>
+          prevTx !== tx?.tx.txId ? tx?.tx.txId : prevTx,
+        );
       } catch (e) {
-        /* empty */
+        /* empty - don't do anything even if saveTx is not called */
       }
     };
     if (
-      tx !== undefined &&
+      calledTx !== tx?.tx.txId && // to ensure that api is only called once per tx
+      tx?.tx.txId !== undefined &&
       network === EnvironmentNetwork.MainNet &&
       isSaveTxEnabled
     ) {
       saveTx(tx.tx.txId);
     }
-  }, [tx, network, isSaveTxEnabled]);
+  }, [tx?.tx.txId, calledTx, network, isSaveTxEnabled]);
 
   useEffect(() => {
     // get evm tx id and url (if any)
