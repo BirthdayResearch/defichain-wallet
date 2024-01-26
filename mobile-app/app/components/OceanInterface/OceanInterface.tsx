@@ -168,23 +168,22 @@ export function OceanInterface(): JSX.Element | null {
             }),
           },
         );
-        //   store called transaction
-        setCalledTx((prevTx) =>
-          prevTx !== tx?.tx.txId ? tx?.tx.txId : prevTx,
-        );
+        // store called transaction
+        setCalledTx(txId);
       } catch (e) {
         /* empty - don't do anything even if saveTx is not called */
       }
     };
     if (
+      tx?.broadcasted && // only call tx when tx is done
       calledTx !== tx?.tx.txId && // to ensure that api is only called once per tx
       tx?.tx.txId !== undefined &&
       network === EnvironmentNetwork.MainNet &&
-      isSaveTxEnabled
+      isSaveTxEnabled // feature flag
     ) {
       saveTx(tx.tx.txId);
     }
-  }, [tx?.tx.txId, calledTx, network, isSaveTxEnabled]);
+  }, [tx?.tx.txId, calledTx, tx?.broadcasted, network, isSaveTxEnabled]);
 
   useEffect(() => {
     // get evm tx id and url (if any)
