@@ -139,7 +139,7 @@
     "standard-version-expo": "^1.0.3",
     "ts-node": "^10.9.1",
     "typescript": "^5.2.2",
-    "wait-on": "^6.0.1",
+    "wait-on": "^7.2.0",
     "webpack-merge": "^5.10.0"
   },
   "standard-version": {
