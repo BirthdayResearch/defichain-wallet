@@ -1052,7 +1052,7 @@
     "Custom": "Personalizza",
     "USE THIS SLIPPAGE TOLERANCE": "UTILIZZA QUESTA TOLLERANZA DI SLIPPAGE.",
     "Required field is missing": "Il campo richiesto è mancante",
-    "Slippage rate must range from 0-100%": "Il tasso di slippage deve essere compreso tra lo 0 e il 100%.",
+    "Slippage rate must range from 0-1000%": "Il tasso di slippage deve essere compreso tra lo 0 e il 1000%.",
     "Proceed at your own risk": "Procedere a proprio rischio"
   },
   "screens/PoolSwapScreen": {

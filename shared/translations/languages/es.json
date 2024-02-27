@@ -1053,7 +1053,7 @@
     "Custom": "Personalizado",
     "USE THIS SLIPPAGE TOLERANCE": "USA ESTA TOLERANCIA DE FLUCTUACION.",
     "Required field is missing": "Falta la información requerida",
-    "Slippage rate must range from 0-100%": "La tasa de fluctuación debe cubrir desde 0-100%.",
+    "Slippage rate must range from 0-1000%": "La tasa de fluctuación debe cubrir desde 0-1000%.",
     "Proceed at your own risk": "Continúa a tu propio riesgo"
   },
   "screens/PoolSwapScreen": {

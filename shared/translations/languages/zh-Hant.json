@@ -1038,7 +1038,7 @@
     "Custom": "自訂",
     "USE THIS SLIPPAGE TOLERANCE": "使用此滑點限制範圍",
     "Required field is missing": "缺少必要填入的字欄",
-    "Slippage rate must range from 0-100%": "滑點率選擇百分比必須在 0 - 100%",
+    "Slippage rate must range from 0-1000%": "滑點率選擇百分比必須在 0 - 1000%",
     "Proceed at your own risk": "繼續進行並自我承擔風險"
   },
   "screens/PoolSwapScreen": {
