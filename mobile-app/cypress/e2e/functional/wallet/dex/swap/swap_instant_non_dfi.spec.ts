@@ -50,18 +50,18 @@ context("Wallet - DEX - Instant Swap (non-DFI)", () => {
     cy.getByTestID("tokenB_displaySymbol").contains("dLTC");
     cy.getByTestID("button_confirm_submit").should(
       "have.attr",
-      "aria-disabled"
+      "aria-disabled",
     );
     cy.getByTestID("text_input_tokenA").clear().type("15").blur().wait(500);
     cy.getByTestID("transaction_details_hint_text").should(
       "have.text",
-      "By continuing, the required amount of DFI will be converted"
+      "By continuing, the required amount of DFI will be converted",
     );
     cy.getByTestID("button_confirm_submit").should("not.have.attr", "disabled");
     cy.getByTestID("text_input_tokenA").clear().type("0").blur().wait(100);
     cy.getByTestID("button_confirm_submit").should(
       "have.attr",
-      "aria-disabled"
+      "aria-disabled",
     );
   });
 
@@ -78,7 +78,7 @@ context("Wallet - DEX - Instant Swap (non-DFI)", () => {
     setCustomSlippage("22");
     cy.getByTestID("slippage_warning").should(
       "have.text",
-      "Set high tolerance at your own risk"
+      "Set high tolerance at your own risk",
     );
     cy.getByTestID("slippage_custom").click();
     cy.getByTestID("slippage_input").clear().click().type("5");
@@ -88,12 +88,12 @@ context("Wallet - DEX - Instant Swap (non-DFI)", () => {
     cy.getByTestID("slippage_input")
       .clear()
       .click()
-      .type("101")
+      .type("1001")
       .blur()
       .wait(100);
     cy.getByTestID("slippage_input_error").should(
       "have.text",
-      "Slippage rate must range from 0-100%"
+      "Slippage rate must range from 0-1000%",
     );
     cy.getByTestID("slippage_input").clear();
     cy.getByTestID("slippage_input")
@@ -104,7 +104,7 @@ context("Wallet - DEX - Instant Swap (non-DFI)", () => {
       .wait(100);
     cy.getByTestID("slippage_input_error").should(
       "have.text",
-      "Slippage rate must range from 0-100%"
+      "Slippage rate must range from 0-1000%",
     );
     cy.getByTestID("slippage_input")
       .clear()
@@ -114,11 +114,11 @@ context("Wallet - DEX - Instant Swap (non-DFI)", () => {
       .wait(100);
     cy.getByTestID("slippage_input_error").should(
       "have.text",
-      "Slippage rate must range from 0-100%"
+      "Slippage rate must range from 0-1000%",
     );
     cy.getByTestID("button_confirm_submit").should(
       "have.attr",
-      "aria-disabled"
+      "aria-disabled",
     );
   });
 
