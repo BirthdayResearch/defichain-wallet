@@ -2,7 +2,7 @@ import { WhaleApiClient } from "@defichain/whale-api-client";
 import { DexPricesResult } from "@defichain/whale-api-client/dist/api/poolpairs";
 import { PriceTicker } from "@defichain/whale-api-client/dist/api/prices";
 import BigNumber from "bignumber.js";
-import { checkValueWithinRange } from "../../../../support/walletCommands";
+import { checkValueWithinRange } from "../../../../support/utils";
 
 export interface BalanceTokenDetail {
   symbol: string;

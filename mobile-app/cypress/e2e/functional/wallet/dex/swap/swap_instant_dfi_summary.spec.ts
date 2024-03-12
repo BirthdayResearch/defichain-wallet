@@ -1,4 +1,4 @@
-import { checkValueWithinRange } from "../../../../../support/walletCommands";
+import { checkValueWithinRange } from "../../../../../support/utils";
 
 function setupWalletForConversion(): void {
   cy.createEmptyWallet(true);

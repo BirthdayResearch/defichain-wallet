@@ -1,5 +1,5 @@
 import BigNumber from "bignumber.js";
-import { checkValueWithinRange } from "../../../../support/walletCommands";
+import { checkValueWithinRange } from "../../../../support/utils";
 
 // configure pair token
 const tokenA = "dETH";
@@ -41,7 +41,7 @@ function validatePriceSelectionAndSummaryBasedOnPercentage(): void {
   cy.getByTestID("25%_amount_button").click().wait(200);
   cy.getByTestID("tokens_remove_amount_input").should(
     "have.value",
-    "2.50000000"
+    "2.50000000",
   );
   cy.getByTestID("pricerate_value_0")
     .invoke("text")
@@ -67,7 +67,7 @@ function validatePriceSelectionAndSummaryBasedOnPercentage(): void {
   cy.getByTestID("50%_amount_button").click().wait(200);
   cy.getByTestID("tokens_remove_amount_input").should(
     "have.value",
-    "5.00000000"
+    "5.00000000",
   );
   cy.getByTestID("pricerate_value_0")
     .invoke("text")
@@ -93,7 +93,7 @@ function validatePriceSelectionAndSummaryBasedOnPercentage(): void {
   cy.getByTestID("75%_amount_button").click().wait(200);
   cy.getByTestID("tokens_remove_amount_input").should(
     "have.value",
-    "7.50000000"
+    "7.50000000",
   );
   cy.getByTestID("pricerate_value_0")
     .invoke("text")
@@ -119,7 +119,7 @@ function validatePriceSelectionAndSummaryBasedOnPercentage(): void {
   cy.getByTestID("MAX_amount_button").click().wait(200);
   cy.getByTestID("tokens_remove_amount_input").should(
     "have.value",
-    "10.00000000"
+    "10.00000000",
   );
   cy.getByTestID("pricerate_value_0")
     .invoke("text")
@@ -154,7 +154,7 @@ context("Wallet - DEX - View pool share information", () => {
     cy.getByTestID("view_pool_button").click().wait(1000);
     cy.getByTestID("view_pool_details_title").should(
       "have.text",
-      `${tokenA}-${tokenB}`
+      `${tokenA}-${tokenB}`,
     );
     cy.getByTestID("lp_tokens_value").should("exist").contains("10.00000000");
     cy.getByTestID("lp_tokens_percentage_amount").should("exist");
@@ -208,7 +208,7 @@ context("Wallet - DEX - Remove Liquidity", () => {
   it("should disable continue button and hide helper text by default", () => {
     cy.getByTestID("button_continue_remove_liq").should(
       "have.attr",
-      "aria-disabled"
+      "aria-disabled",
     );
     cy.getByTestID("transaction_details_hint_text").should("not.exist");
   });
@@ -218,17 +218,17 @@ context("Wallet - DEX - Remove Liquidity", () => {
     cy.getByTestID("transaction_details_hint_text").should("exist");
     cy.getByTestID("button_continue_remove_liq").should(
       "have.attr",
-      "aria-disabled"
+      "aria-disabled",
     );
     cy.getByTestID("tokens_remove_amount_input").clear().type("2");
     cy.getByTestID("button_continue_remove_liq").should(
       "not.have.attr",
-      "aria-disabled"
+      "aria-disabled",
     );
     cy.getByTestID("tokens_remove_amount_input").clear();
     cy.getByTestID("button_continue_remove_liq").should(
       "have.attr",
-      "aria-disabled"
+      "aria-disabled",
     );
   });
 
@@ -238,12 +238,12 @@ context("Wallet - DEX - Remove Liquidity", () => {
     cy.getByTestID("pricerate_value_0_label").contains(`${tokenA} to receive`);
     cy.getByTestID("pricerate_value_0_rhsUsdAmount").should(
       "have.text",
-      "$5,000.00"
+      "$5,000.00",
     );
     cy.getByTestID("pricerate_value_1_label").contains(`${tokenB} to receive`);
     cy.getByTestID("pricerate_value_1_rhsUsdAmount").should(
       "have.text",
-      "$5,000.00"
+      "$5,000.00",
     );
   });
 
@@ -276,32 +276,32 @@ context("Wallet - DEX - Remove Liquidity Confirm Txn", () => {
             cy.getByTestID("button_continue_remove_liq").click();
             cy.getByTestID("button_cancel_remove").click();
             cy.getByTestID("remove_liquidity_calculation_summary").should(
-              "not.exist"
+              "not.exist",
             );
             cy.getByTestID(`pool_pair_remove_${tokensPair}`).click().wait(1000);
             cy.getByTestID("MAX_amount_button").click().wait(200);
             cy.getByTestID("button_continue_remove_liq").click();
             cy.getByTestID("confirm_title").should(
               "have.text",
-              "You are removing LP tokens"
+              "You are removing LP tokens",
             );
             cy.getByTestID("text_remove_liquidity_amount").should(
               "have.text",
-              "10.00000000"
+              "10.00000000",
             );
             cy.getByTestID("confirm_pricerate_value_0_label").contains(
-              `${tokenA} to receive`
+              `${tokenA} to receive`,
             );
             cy.getByTestID("confirm_pricerate_value_0").should(
               "have.text",
-              new BigNumber(valueA).toFixed(8)
+              new BigNumber(valueA).toFixed(8),
             );
             cy.getByTestID("confirm_pricerate_value_1_label").contains(
-              `${tokenB} to receive`
+              `${tokenB} to receive`,
             );
             cy.getByTestID("confirm_pricerate_value_1").should(
               "have.text",
-              new BigNumber(valueB).toFixed(8)
+              new BigNumber(valueB).toFixed(8),
             );
 
             cy.getByTestID("button_confirm_remove").click().wait(2000);
@@ -342,23 +342,23 @@ context("Wallet - DEX - Remove Liquidity Confirm Txn", () => {
     // Fee and resulting section info
     cy.getByTestID("confirm_title").should(
       "have.text",
-      "You are removing LP tokens"
+      "You are removing LP tokens",
     );
     cy.getByTestID("text_remove_liquidity_amount").should(
       "have.text",
-      oldAmount
+      oldAmount,
     );
     cy.getByTestID("transaction_fee_title_label").should("exist");
     cy.getByTestID("transaction_fee_title_amount").should("exist");
     cy.getByTestID("resulting_pool_share_title_label").should("exist");
     cy.getByTestID("resulting_pool_share_amount").should(
       "have.text",
-      `${oldAmount}%`
+      `${oldAmount}%`,
     );
 
     // Prices section info
     cy.getByTestID("confirm_pricerate_value_0_label").contains(
-      `${tokenA} to receive`
+      `${tokenA} to receive`,
     );
     cy.getByTestID("confirm_pricerate_value_0")
       .invoke("text")
@@ -371,7 +371,7 @@ context("Wallet - DEX - Remove Liquidity Confirm Txn", () => {
         checkValueWithinRange(value, "5,000.00");
       });
     cy.getByTestID("confirm_pricerate_value_1_label").contains(
-      `${tokenB} to receive`
+      `${tokenB} to receive`,
     );
     cy.getByTestID("confirm_pricerate_value_1")
       .invoke("text")
@@ -389,8 +389,8 @@ context("Wallet - DEX - Remove Liquidity Confirm Txn", () => {
     // Check for authorization page description
     cy.getByTestID("txn_authorization_title").contains(
       `Removing ${new BigNumber(oldAmount).toFixed(
-        8
-      )} ${tokensPair} from liquidity pool`
+        8,
+      )} ${tokensPair} from liquidity pool`,
     );
 
     // Cancel send on authorisation page
@@ -425,18 +425,18 @@ context("Wallet - DEX - Remove Liquidity Confirm Txn", () => {
     cy.getByTestID("button_continue_remove_liq").click();
     cy.getByTestID("confirm_title").should(
       "have.text",
-      "You are removing LP tokens"
+      "You are removing LP tokens",
     );
     cy.getByTestID("text_remove_liquidity_amount").should(
       "have.text",
-      newAmount
+      newAmount,
     );
     cy.getByTestID("button_confirm_remove").click().wait(2000);
     // Check for authorization page description
     cy.getByTestID("txn_authorization_title").contains(
       `Removing ${new BigNumber(newAmount).toFixed(
-        8
-      )} ${tokensPair} from liquidity pool`
+        8,
+      )} ${tokensPair} from liquidity pool`,
     );
     cy.closeOceanInterface();
   });

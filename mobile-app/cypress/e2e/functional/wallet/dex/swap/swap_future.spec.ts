@@ -1,4 +1,4 @@
-import { checkValueWithinRange } from "../../../../../support/walletCommands";
+import { checkValueWithinRange } from "../../../../../support/utils";
 
 function validatePriceSection(testID: string, isHidden: boolean): void {
   if (isHidden) {
@@ -29,7 +29,7 @@ function validatePriceSection(testID: string, isHidden: boolean): void {
 
 function validateFutureSwapDisabled(
   fromToken: string | undefined,
-  toToken: string
+  toToken: string,
 ): void {
   if (fromToken !== undefined) {
     cy.getByTestID("token_select_button_FROM").click();
@@ -76,7 +76,7 @@ context("Wallet - DEX - Future Swap - Swap Options", () => {
     cy.getByTestID("50%_amount_button").click().wait(500);
     cy.getByTestID("swap_tabs_FUTURE_SWAP").should(
       "not.have.attr",
-      "aria-disabled"
+      "aria-disabled",
     );
     cy.getByTestID("button_confirm_submit").click().wait(1500);
     cy.getByTestID("settlement_block_label").should("not.exist");
@@ -104,7 +104,7 @@ context("Wallet - DEX - Future Swap - Swap Options", () => {
     cy.getByTestID("select_DUSD").click();
     cy.getByTestID("swap_tabs_FUTURE_SWAP").should(
       "not.have.attr",
-      "aria-disabled"
+      "aria-disabled",
     );
   });
 });
@@ -131,14 +131,14 @@ context("Wallet - DEX - Future Swap", () => {
     cy.getByTestID("MAX_amount_button").click();
     cy.getByTestID("settlement_value_percentage").should(
       "have.text",
-      "Settlement Value -5%"
+      "Settlement Value -5%",
     );
     cy.getByTestID("oracle_announcements_banner").contains(
-      "You are selling your"
+      "You are selling your",
     );
     cy.getByTestID("oracle_announcements_banner").contains("dTU10 at 5% less");
     cy.getByTestID("oracle_announcements_banner").contains(
-      "than the oracle price at settlement block"
+      "than the oracle price at settlement block",
     );
   });
 
@@ -151,7 +151,7 @@ context("Wallet - DEX - Future Swap", () => {
     cy.getByTestID("select_dTU10").click();
     cy.getByTestID("swap_tabs_FUTURE_SWAP").should(
       "not.have.attr",
-      "aria-disabled"
+      "aria-disabled",
     );
     cy.getByTestID("MAX_amount_button").click();
   });
@@ -174,12 +174,12 @@ context("Wallet - DEX - Future Swap", () => {
   it("should display oracle price +5% if DUSD to Loan token", () => {
     cy.getByTestID("settlement_value_percentage").should(
       "have.text",
-      "Settlement Value +5%"
+      "Settlement Value +5%",
     );
     cy.getByTestID("oracle_announcements_banner").contains("You are buying");
     cy.getByTestID("oracle_announcements_banner").contains("dTU10 at 5% more");
     cy.getByTestID("oracle_announcements_banner").contains(
-      "than the oracle price at settlement block"
+      "than the oracle price at settlement block",
     );
   });
 
@@ -187,19 +187,19 @@ context("Wallet - DEX - Future Swap", () => {
     cy.getByTestID("text_input_tokenA").clear().type("a");
     cy.getByTestID("button_confirm_submit").should(
       "have.attr",
-      "aria-disabled"
+      "aria-disabled",
     );
 
     cy.getByTestID("text_input_tokenA").clear().type("0");
     cy.getByTestID("button_confirm_submit").should(
       "have.attr",
-      "aria-disabled"
+      "aria-disabled",
     );
 
     cy.getByTestID("text_input_tokenA").clear().type("1000");
     cy.getByTestID("button_confirm_submit").should(
       "have.attr",
-      "aria-disabled"
+      "aria-disabled",
     );
   });
 });

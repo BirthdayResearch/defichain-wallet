@@ -1,5 +1,7 @@
-context("Wallet - Ocean Interface", () => {
+context("Wallet - Ocean Interface", { testIsolation: false }, () => {
   before(() => {
+    cy.clearLocalStorage();
+    cy.clearCookies();
     cy.createEmptyWallet(true);
     cy.sendDFItoWallet().sendDFITokentoWallet().wait(3000);
     cy.getByTestID("bottom_tab_portfolio").click();

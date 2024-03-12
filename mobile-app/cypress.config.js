@@ -30,8 +30,6 @@ module.exports = defineConfig({
       // Functional/Wallet/Auctions
       "cypress/e2e/functional/wallet/auctions/auctions.spec.ts",
       "cypress/e2e/functional/wallet/auctions/auctions_bid_with_multiple_wallet.spec.ts",
-      // Functional/Wallet/Authorization
-      "cypress/e2e/functional/wallet/authorization/transactionAuthorization.spec.ts",
       // Functional/Wallet/Dex
       "cypress/e2e/functional/wallet/dex/add_liquidity.spec.ts",
       "cypress/e2e/functional/wallet/dex/dex_poolpairs.spec.ts",

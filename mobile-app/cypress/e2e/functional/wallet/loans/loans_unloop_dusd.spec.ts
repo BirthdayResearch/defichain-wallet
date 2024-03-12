@@ -1,4 +1,4 @@
-import { checkValueWithinRange } from "../../../../support/walletCommands";
+import { checkValueWithinRange } from "../../../../support/utils";
 
 context("Wallet - Loans - Unloop", () => {
   function addCollaterals() {
@@ -26,7 +26,7 @@ context("Wallet - Loans - Unloop", () => {
     cy.getByTestID("vault_card_0_collateral_token_group_dBTC").should("exist");
     cy.getByTestID("vault_card_0_collateral_token_group_DUSD").should("exist");
     cy.getByTestID("vault_card_0_total_collateral_amount").contains(
-      "$1,512.00"
+      "$1,512.00",
     );
   }
 
@@ -54,7 +54,7 @@ context("Wallet - Loans - Unloop", () => {
     cy.getByTestID("tokens_to_borrow_rhsUsdAmount").contains("$100.00");
     cy.getByTestID("button_confirm_borrow_loan").click().wait(3000);
     cy.getByTestID("txn_authorization_title").contains(
-      "Borrowing 100.00000000 DUSD"
+      "Borrowing 100.00000000 DUSD",
     );
     cy.closeOceanInterface();
   }
@@ -87,7 +87,7 @@ context("Wallet - Loans - Unloop", () => {
     it("should able to payback partial DUSD loan with DUSD collateral", () => {
       cy.getByTestID("payback_using_DUSD_collateral").should("exist").click();
       cy.getByTestID("payback_loan_title").contains(
-        "I WANT TO PAY WITH DUSD COLLATERAL"
+        "I WANT TO PAY WITH DUSD COLLATERAL",
       );
       cy.getByTestID("payback_input_text").contains("10.00000000");
       cy.getByTestID("payback_input_value").contains("$12.00");
@@ -96,7 +96,7 @@ context("Wallet - Loans - Unloop", () => {
       cy.getByTestID("resulting_collateral_amount").contains("0.00000000 DUSD");
       cy.getByTestID("text_resulting_col_ratio_col_ratio").contains("1,704");
       cy.getByTestID("continue_payback_loan_message").contains(
-        "Use your DUSD collaterals to fully pay off your DUSD loan."
+        "Use your DUSD collaterals to fully pay off your DUSD loan.",
       );
       cy.getByTestID("button_confirm_payback_loan_continue")
         .should("exist")
@@ -111,7 +111,7 @@ context("Wallet - Loans - Unloop", () => {
           checkValueWithinRange(text.replace(" DUSD", ""), "90", 0.1);
         });
       cy.getByTestID("confirm_payback_loan_message").contains(
-        "Prices may vary during transaction confirmation."
+        "Prices may vary during transaction confirmation.",
       );
       cy.getByTestID("button_confirm_payback_loan")
         .should("exist")
@@ -143,10 +143,10 @@ context("Wallet - Loans - Unloop", () => {
           cy.getByTestID("payback_using_DUSD_collateral").click();
           cy.getByTestID("payback_input_text").contains(amountToPay);
           cy.getByTestID("total_outstanding_loan_value").contains(
-            "0.00000000 DUSD"
+            "0.00000000 DUSD",
           );
           cy.getByTestID("continue_payback_loan_message").contains(
-            "Use your DUSD collaterals to fully pay off your DUSD loan."
+            "Use your DUSD collaterals to fully pay off your DUSD loan.",
           );
           cy.getByTestID("button_confirm_payback_loan_continue").click();
           cy.getByTestID("button_confirm_payback_loan")

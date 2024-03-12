@@ -1,6 +1,6 @@
 import { LoanScheme } from "@defichain/whale-api-client/dist/api/loan";
 import BigNumber from "bignumber.js";
-import { checkValueWithinRange } from "../../../../support/walletCommands";
+import { checkValueWithinRange } from "../../../../support/utils";
 
 BigNumber.set({ ROUNDING_MODE: BigNumber.ROUND_DOWN });
 
@@ -28,7 +28,7 @@ function navigateToVault(selectIndex: string): void {
 function validateSummary(hasConversion: boolean): void {
   cy.getByTestID("create_vault_summary").should("exist");
   cy.getByTestID("amount_to_convert_label").should(
-    hasConversion ? "exist" : "not.exist"
+    hasConversion ? "exist" : "not.exist",
   );
   cy.getByTestID("transaction_fee_label").should("exist");
   cy.getByTestID("transaction_fee_value").should("contain", "0.0002");
@@ -77,21 +77,21 @@ context("Wallet - Loans - Create vault", () => {
     cy.getByTestID("button_create_vault").click();
     cy.getByTestID("create_vault_submit_button").should(
       "have.attr",
-      "aria-disabled"
+      "aria-disabled",
     );
     cy.getByTestID("loan_scheme_options").should("exist");
     cy.wait(["@loanSchemes"]).then((intercept: any) => {
       const { data } = intercept.response.body;
       data
         .sort((a: LoanScheme, b: LoanScheme) =>
-          new BigNumber(a.minColRatio).minus(b.minColRatio).toNumber()
+          new BigNumber(a.minColRatio).minus(b.minColRatio).toNumber(),
         )
         .forEach((scheme: LoanScheme, i: number) => {
           cy.getByTestID(`min_col_ratio_value_${i}`).contains(
-            `${Number(scheme.minColRatio).toLocaleString()}%`
+            `${Number(scheme.minColRatio).toLocaleString()}%`,
           );
           cy.getByTestID(`interest_rate_value_${i}`).contains(
-            `${scheme.interestRate}% APR`
+            `${scheme.interestRate}% APR`,
           );
         });
     });
@@ -110,15 +110,15 @@ context("Wallet - Loan - Create vault summary", () => {
     cy.getByTestID("create_vault_summary").should("not.exist");
     cy.getByTestID("action_message").should(
       "have.text",
-      "By continuing, the required amount of DFI will be converted"
+      "By continuing, the required amount of DFI will be converted",
     );
     cy.getByTestID("create_vault_submit_button").should(
       "have.text",
-      "Continue"
+      "Continue",
     );
     cy.getByTestID("create_vault_submit_button").should(
       "not.have.attr",
-      "disabled"
+      "disabled",
     );
     cy.getByTestID("create_vault_submit_button").click().wait(3000);
 
@@ -132,11 +132,11 @@ context("Wallet - Loan - Create vault summary", () => {
     validateSummary(true);
     cy.getByTestID("action_message").should(
       "have.text",
-      "Monitor your vault’s collateralization to prevent liquidation."
+      "Monitor your vault’s collateralization to prevent liquidation.",
     );
     cy.getByTestID("create_vault_submit_button").should(
       "have.text",
-      "Create vault"
+      "Create vault",
     );
   });
 
@@ -145,11 +145,11 @@ context("Wallet - Loan - Create vault summary", () => {
     validateSummary(false);
     cy.getByTestID("action_message").should(
       "have.text",
-      "Monitor your vault’s collateralization to prevent liquidation."
+      "Monitor your vault’s collateralization to prevent liquidation.",
     );
     cy.getByTestID("create_vault_submit_button").should(
       "have.text",
-      "Create vault"
+      "Create vault",
     );
   });
 });
@@ -167,12 +167,12 @@ context("Wallet - Loans - Confirm create vault", () => {
     validateSummary(false);
     cy.getByTestID("create_vault_submit_button").should(
       "have.text",
-      "Create vault"
+      "Create vault",
     );
     cy.getByTestID("create_vault_submit_button").click().wait(3000);
     cy.getByTestID("txn_authorization_title").should(
       "have.text",
-      "Creating vault"
+      "Creating vault",
     );
 
     // Cancel first selection
@@ -181,7 +181,7 @@ context("Wallet - Loans - Confirm create vault", () => {
     cy.getByTestID("create_vault_submit_button").click().wait(3000);
     cy.getByTestID("txn_authorization_title").should(
       "have.text",
-      "Creating vault"
+      "Creating vault",
     );
     cy.closeOceanInterface();
   });
@@ -192,7 +192,7 @@ context("Wallet - Loans - Confirm create vault", () => {
     cy.getByTestID("vault_card_0_EMPTY_empty_vault_image").should("exist");
     cy.getByTestID("vault_card_0_EMPTY_vault_description").should(
       "have.text",
-      "Add collateral to borrow"
+      "Add collateral to borrow",
     );
     cy.getByTestID("oracle_price_info")
       .should("exist")
@@ -209,7 +209,7 @@ context("Wallet - Loans - Confirm create vault", () => {
       .should("exist")
       .should(
         "have.text",
-        "Loans and vaults use aggregated market prices outside the blockchain (called price oracles)"
+        "Loans and vaults use aggregated market prices outside the blockchain (called price oracles)",
       );
     cy.getByTestID("close_bottom_sheet_button").click();
     cy.getByTestID("oracle_price_info_title").should("not.exist");

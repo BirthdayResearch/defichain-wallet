@@ -1,6 +1,6 @@
 import { EnvironmentNetwork } from "@waveshq/walletkit-core";
 import { checkVaultDetailValues } from "../../../../support/loanCommands";
-import { checkValueWithinRange } from "../../../../support/walletCommands";
+import { checkValueWithinRange } from "../../../../support/utils";
 
 context(
   "Wallet - Loans - Take Loans using DFI and DUSD as 50% vault share",
@@ -54,13 +54,13 @@ context(
       cy.getByTestID("vault_card_0_status").contains("Ready");
       cy.getByTestID("vault_card_0_collateral_token_group_DFI").should("exist");
       cy.getByTestID("vault_card_0_collateral_token_group_dBTC").should(
-        "exist"
+        "exist",
       );
       cy.getByTestID("vault_card_0_collateral_token_group_DUSD").should(
-        "exist"
+        "exist",
       );
       cy.getByTestID("vault_card_0_total_collateral_amount").contains(
-        "$1,014.00"
+        "$1,014.00",
       );
     });
 
@@ -73,7 +73,7 @@ context(
         "$0.00",
         "5",
         "150",
-        "Ready"
+        "Ready",
       );
       cy.getByTestID("action_borrow").click();
       cy.getByTestID("select_DUSD").click();
@@ -89,7 +89,7 @@ context(
         });
       cy.getByTestID("borrow_button_submit").should(
         "have.attr",
-        "aria-disabled"
+        "aria-disabled",
       );
       cy.getByTestID("text_input_borrow_amount").clear().type("100").blur();
       cy.getByTestID("borrow_amount_in_usd").contains("$100.00");
@@ -113,7 +113,7 @@ context(
       cy.getByTestID("tokens_to_borrow_rhsUsdAmount").contains("$100.00");
       cy.getByTestID("button_confirm_borrow_loan").click().wait(3000);
       cy.getByTestID("txn_authorization_title").contains(
-        "Borrowing 100.00000000 DUSD"
+        "Borrowing 100.00000000 DUSD",
       );
       cy.closeOceanInterface();
     });
@@ -131,12 +131,12 @@ context(
       cy.getByTestID("zero_required_token_share_error")
         .should("exist")
         .contains(
-          "Insufficient DFI and/or DUSD in vault to maintain active loans"
+          "Insufficient DFI and/or DUSD in vault to maintain active loans",
         );
       cy.getByTestID("add_remove_collateral_button_submit").should(
         "have.attr",
-        "aria-disabled"
+        "aria-disabled",
       );
     });
-  }
+  },
 );

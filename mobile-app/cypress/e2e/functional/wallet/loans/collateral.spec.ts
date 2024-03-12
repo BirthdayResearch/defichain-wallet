@@ -7,7 +7,7 @@ import {
   checkVaultDetailCollateralAmounts,
   checkVaultDetailValues,
 } from "../../../../support/loanCommands";
-import { checkValueWithinRange } from "../../../../support/walletCommands";
+import { checkValueWithinRange } from "../../../../support/utils";
 
 BigNumber.set({ ROUNDING_MODE: BigNumber.ROUND_DOWN });
 
@@ -18,13 +18,13 @@ function addCollateral(
   usdValue: string,
   colFactor: string,
   vaultShare: string,
-  vaultId: string
+  vaultId: string,
 ): void {
   const precisedAmount = new BigNumber(amount).toFixed(8);
   cy.getByTestID(`select_${token}`).click();
   cy.getByTestID("add_remove_collateral_button_submit").should(
     "have.attr",
-    "aria-disabled"
+    "aria-disabled",
   );
   checkCollateralFormValues("I WANT TO ADD", token, balance);
   cy.getByTestID("text_input_add_remove_collateral_amount").type(amount).blur();
@@ -37,11 +37,11 @@ function addCollateral(
     token,
     precisedAmount,
     usdValue,
-    vaultShare
+    vaultShare,
   );
   cy.getByTestID("button_confirm_confirm_edit_collateral").click().wait(3000);
   cy.getByTestID("txn_authorization_title").contains(
-    `Adding ${precisedAmount} ${token} as collateral`
+    `Adding ${precisedAmount} ${token} as collateral`,
   );
   cy.closeOceanInterface();
 }
@@ -53,7 +53,7 @@ function removeCollateral(
   usdValue: string,
   colFactor: string,
   vaultShare: string,
-  vaultId: string
+  vaultId: string,
 ): void {
   const precisedAmount = new BigNumber(amount).toFixed(8);
   cy.getByTestID(`collateral_remove_${token}`).click();
@@ -68,11 +68,11 @@ function removeCollateral(
     token,
     precisedAmount,
     usdValue,
-    vaultShare
+    vaultShare,
   );
   cy.getByTestID("button_confirm_confirm_edit_collateral").click().wait(3000);
   cy.getByTestID("txn_authorization_title").contains(
-    `Removing ${precisedAmount} ${token} as collateral`
+    `Removing ${precisedAmount} ${token} as collateral`,
   );
   cy.closeOceanInterface();
 }
@@ -87,7 +87,7 @@ function borrowLoan(symbol: string, amount: string): void {
   cy.getByTestID("tokens_to_borrow").contains(`${amount} ${symbol}`);
   cy.getByTestID("button_confirm_borrow_loan").click().wait(3000);
   cy.getByTestID("txn_authorization_title").contains(
-    `Borrowing ${amountToBorrow} ${symbol} with vault`
+    `Borrowing ${amountToBorrow} ${symbol} with vault`,
   );
   cy.closeOceanInterface();
 }
@@ -99,7 +99,7 @@ context("Wallet - Loans - Add/Remove Collateral", () => {
     token: string,
     tokenId: string,
     availableAmount: string,
-    lockedAmount: string
+    lockedAmount: string,
   ): void {
     cy.getByTestID("bottom_tab_portfolio").click();
     cy.getByTestID(`portfolio_row_${tokenId}_symbol`).contains(token);
@@ -141,7 +141,7 @@ context("Wallet - Loans - Add/Remove Collateral", () => {
       "0.00",
       "5%",
       "150%",
-      "Empty"
+      "Empty",
     );
     cy.getByTestID("action_add").click();
     cy.wait(["@loanCollaterals"]).then((intercept: any) => {
@@ -154,10 +154,10 @@ context("Wallet - Loans - Add/Remove Collateral", () => {
       const { data } = intercept.response.body;
       data.forEach((collateralToken: CollateralToken) => {
         cy.getByTestID(
-          `token_symbol_${collateralToken.token.displaySymbol}`
+          `token_symbol_${collateralToken.token.displaySymbol}`,
         ).contains(collateralToken.token.displaySymbol);
         cy.getByTestID(
-          `select_${collateralToken.token.displaySymbol}_value`
+          `select_${collateralToken.token.displaySymbol}_value`,
         ).contains(amounts[collateralToken.token.displaySymbol] ?? 0);
       });
     });
@@ -189,7 +189,7 @@ context("Wallet - Loans - Add/Remove Collateral", () => {
       "0.00",
       "5%",
       "150%",
-      "Ready"
+      "Ready",
     );
   });
 
@@ -198,7 +198,7 @@ context("Wallet - Loans - Add/Remove Collateral", () => {
       "DFI",
       "10.00000000",
       "$1,000.00",
-      "100.00%"
+      "100.00%",
     );
   });
 
@@ -230,7 +230,7 @@ context("Wallet - Loans - Add/Remove Collateral", () => {
       "0.00",
       "5%",
       "150%",
-      "Ready"
+      "Ready",
     );
   });
 
@@ -245,13 +245,13 @@ context("Wallet - Loans - Add/Remove Collateral", () => {
       "DFI",
       "10.00000000",
       "$1,000.00",
-      "63.44%"
+      "63.44%",
     );
     checkVaultDetailCollateralAmounts(
       "dBTC",
       "10.00000000",
       "$500.00",
-      "31.72%"
+      "31.72%",
     );
     checkVaultDetailCollateralAmounts("dETH", "10.00000000", "$70.00", "4.44%");
     checkVaultDetailCollateralAmounts("DUSD", "5.13570000", "$6.16", "0.39%");
@@ -270,7 +270,7 @@ context("Wallet - Loans - Add/Remove Collateral", () => {
       "$2.23",
       "120",
       "0.25%",
-      vaultId
+      vaultId,
     );
   });
 
@@ -283,7 +283,7 @@ context("Wallet - Loans - Add/Remove Collateral", () => {
       "$3.92",
       "120",
       "0.00%",
-      vaultId
+      vaultId,
     );
   });
 
@@ -293,13 +293,13 @@ context("Wallet - Loans - Add/Remove Collateral", () => {
       "DFI",
       "10.00000000",
       "$1,000.00",
-      "65.78%"
+      "65.78%",
     );
     checkVaultDetailCollateralAmounts(
       "dBTC",
       "9.00000000",
       "$450.00",
-      "29.60%"
+      "29.60%",
     );
     checkVaultDetailCollateralAmounts("dETH", "10.00000000", "$70.00", "4.60%");
   });
@@ -357,7 +357,7 @@ context("Wallet - Loans - Add/Remove Collateral - Invalid data", () => {
       cy.getByTestID("MAX_amount_button").click();
       cy.getByTestID("resulting_collateralization").should(
         "have.text",
-        "Ready"
+        "Ready",
       );
     });
   });
@@ -379,7 +379,7 @@ context("Wallet - Loans - Add/Remove Collateral - Invalid data", () => {
       cy.getByTestID("MAX_amount_button").click();
       cy.getByTestID("resulting_collateralization").should(
         "have.text",
-        "Ready"
+        "Ready",
       );
     });
   });
@@ -401,7 +401,7 @@ context("Wallet - Loans - Add/Remove Collateral - Invalid data", () => {
       cy.getByTestID("MAX_amount_button").click();
       cy.getByTestID("resulting_collateralization").should(
         "have.text",
-        "Ready"
+        "Ready",
       );
     });
   });
@@ -456,7 +456,7 @@ context("Wallet - Loans - 50% valid collateral token ratio", () => {
     cy.wait(2000);
     cy.getByTestID("validation_message").should(
       "have.text",
-      "Insufficient DFI and/or DUSD in vault. Add more to start minting dTokens."
+      "Insufficient DFI and/or DUSD in vault. Add more to start minting dTokens.",
     );
   });
 
@@ -482,7 +482,7 @@ context("Wallet - Loans - 50% valid collateral token ratio", () => {
     cy.getByTestID("vault_detail_collateral_DFI_vault_share").should(
       "have.css",
       "color",
-      "rgb(229, 69, 69)"
+      "rgb(229, 69, 69)",
     );
   });
 
@@ -503,7 +503,7 @@ context("Wallet - Loans - 50% valid collateral token ratio", () => {
     cy.getByTestID("vault_detail_collateral_DFI_vault_share").should(
       "have.css",
       "color",
-      "rgb(229, 69, 69)"
+      "rgb(229, 69, 69)",
     );
   });
 });
