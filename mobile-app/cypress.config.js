@@ -25,7 +25,6 @@ module.exports = defineConfig({
     excludeSpecPattern:[
 
       // Functional/Wallet/Portfolio
-      "cypress/e2e/functional/wallet/portfolio/portfolio.spec.ts",
       "cypress/e2e/functional/wallet/portfolio/tokenDetail.spec.ts",
       // Functional/Wallet/Auctions
       "cypress/e2e/functional/wallet/auctions/auctions.spec.ts",
@@ -52,7 +51,7 @@ module.exports = defineConfig({
       "cypress/e2e/functional/wallet/portfolio/cfp_dfip.spec.ts",
       "cypress/e2e/functional/wallet/portfolio/send.spec.ts",
       "cypress/e2e/functional/wallet/portfolio/convert/convert.spec.ts",
-      "cypress/e2e/functional/wallet/portfolio/poolpairRewards.spec.ts",
+      // "cypress/e2e/functional/wallet/portfolio/poolpairRewards.spec.ts",
       // Functional/Wallet/Settings
       // "cypress/e2e/functional/wallet/settings/addressBook.spec.ts",
       // "cypress/e2e/functional/wallet/settings/changePasscode.spec.ts",

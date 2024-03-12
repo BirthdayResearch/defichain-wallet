@@ -290,6 +290,7 @@ const addLPTokens = [
     symbolKey: "USDT-DFI",
   },
 ];
+
 const addCrypto = [
   {
     amount: "5.00000000",
@@ -325,6 +326,7 @@ const addCrypto = [
     symbolKey: "LTC",
   },
 ];
+
 const addDTokens = [
   {
     amount: "2.00000000",
@@ -369,8 +371,10 @@ function interceptTokenWithSampleData(): void {
   });
 }
 
-context("Wallet - Portfolio page", () => {
+context("Wallet - Portfolio page", { testIsolation: false }, () => {
   beforeEach(() => {
+    cy.clearLocalStorage();
+    cy.clearCookies();
     cy.createEmptyWallet(true);
   });
 
@@ -424,7 +428,7 @@ context("Wallet - Portfolio page", () => {
   });
 });
 
-context("Wallet - Portfolio", () => {
+context("Wallet - Portfolio", { testIsolation: false }, () => {
   beforeEach(() => {
     cy.intercept("**/poolpairs/dexprices?denomination=*", {
       body: getDexPrice({
@@ -438,6 +442,8 @@ context("Wallet - Portfolio", () => {
   });
 
   before(() => {
+    cy.clearLocalStorage();
+    cy.clearCookies();
     cy.createEmptyWallet(true);
     cy.sendDFItoWallet().wait(6000);
     cy.getByTestID("header_settings").click();
@@ -557,8 +563,10 @@ context("Wallet - Portfolio", () => {
   });
 });
 
-context("Wallet - Portfolio - Failed API", () => {
+context("Wallet - Portfolio - Failed API", { testIsolation: false }, () => {
   beforeEach(() => {
+    cy.clearLocalStorage();
+    cy.clearCookies();
     cy.createEmptyWallet(true);
   });
 
@@ -585,13 +593,17 @@ context("Wallet - Portfolio - Failed API", () => {
       .should("exist")
       .then(($txt: any) => {
         const address = $txt[0].textContent;
-        cy.getByTestID("wallet_address").should("contain", address);
+        cy.go("back");
+        cy.getByTestID("switch_account_button").click();
+        cy.getByTestID("active_address").should("contain", address);
       });
   });
 });
 
-context("Wallet - Portfolio - No balance", () => {
+context("Wallet - Portfolio - No balance", { testIsolation: false }, () => {
   beforeEach(() => {
+    cy.clearLocalStorage();
+    cy.clearCookies();
     cy.createEmptyWallet(true);
   });
 
@@ -657,7 +669,7 @@ context("Wallet - Portfolio - No balance", () => {
   });
 });
 
-context("Wallet - Portfolio - USD Value", () => {
+context("Wallet - Portfolio - USD Value", { testIsolation: false }, () => {
   before(() => {
     cy.intercept("**/poolpairs?size=*", {
       body: {
@@ -669,6 +681,8 @@ context("Wallet - Portfolio - USD Value", () => {
         }),
       },
     });
+    cy.clearLocalStorage();
+    cy.clearCookies();
     cy.createEmptyWallet(true).wait(3000);
     cy.sendDFItoWallet()
       .sendTokenToWallet(["BTC", "USDT-DFI", "USDT", "ETH", "ETH-DFI"])
@@ -714,14 +728,14 @@ context("Wallet - Portfolio - USD Value", () => {
         symbol: "USDT",
         usdAmount: "$10.00",
       });
-      cy.checkBalanceRow("19", {
+      cy.checkBalanceRow("21", {
         name: "Playground USDT-DeFiChain",
         amount: "10.00000000",
         displaySymbol: "dUSDT-DFI",
         symbol: "USDT-DFI",
         usdAmount: "$66.52",
       });
-      cy.checkBalanceRow("18", {
+      cy.checkBalanceRow("20", {
         name: "Playground ETH-DeFiChain",
         amount: "10.00000000",
         displaySymbol: "dETH-DFI",
@@ -776,14 +790,14 @@ context("Wallet - Portfolio - USD Value", () => {
         usdAmount: "$10.00",
       });
 
-      cy.checkBalanceRow("19", {
+      cy.checkBalanceRow("21", {
         name: "Playground USDT-DeFiChain",
         amount: "10.00000000",
         displaySymbol: "dUSDT-DFI",
         symbol: "USDT-DFI",
         usdAmount: "$1,000.50",
       });
-      cy.checkBalanceRow("18", {
+      cy.checkBalanceRow("20", {
         name: "Playground ETH-DeFiChain",
         amount: "10.00000000",
         displaySymbol: "dETH-DFI",
@@ -841,14 +855,14 @@ context("Wallet - Portfolio - USD Value", () => {
       });
 
       // LP USD
-      cy.checkBalanceRow("19", {
+      cy.checkBalanceRow("21", {
         name: "Playground USDT-DeFiChain",
         amount: "10.00000000",
         displaySymbol: "dUSDT-DFI",
         symbol: "USDT-DFI",
         usdAmount: "$1,001.00",
       });
-      cy.checkBalanceRow("18", {
+      cy.checkBalanceRow("20", {
         name: "Playground ETH-DeFiChain",
         amount: "10.00000000",
         displaySymbol: "dETH-DFI",
@@ -897,14 +911,14 @@ context("Wallet - Portfolio - USD Value", () => {
       });
 
       // LP USD
-      cy.checkBalanceRow("19", {
+      cy.checkBalanceRow("21", {
         name: "Playground USDT-DeFiChain",
         amount: "20.00000000",
         displaySymbol: "dUSDT-DFI",
         symbol: "USDT-DFI",
         usdAmount: "$2,002.00",
       });
-      cy.checkBalanceRow("18", {
+      cy.checkBalanceRow("20", {
         name: "Playground ETH-DeFiChain",
         amount: "20.00000000",
         displaySymbol: "dETH-DFI",
@@ -952,55 +966,66 @@ context("Wallet - Portfolio - USD Value", () => {
   });
 });
 
-context("Wallet - Portfolio - Assets filter tab", () => {
-  before(() => {
-    cy.createEmptyWallet(true);
-  });
+context(
+  "Wallet - Portfolio - Assets filter tab",
+  { testIsolation: false },
+  () => {
+    before(() => {
+      cy.clearLocalStorage();
+      cy.clearCookies();
+      cy.createEmptyWallet(true);
+    });
 
-  it("should display All tokens that are available in asset", () => {
-    interceptTokenWithSampleData();
-    cy.getByTestID("portfolio_button_group_ALL_TOKENS_active").should("exist");
-    cy.getByTestID("portfolio_row_1").should("exist"); // dBTC = row 1
-    cy.getByTestID("portfolio_row_2").should("exist"); // dETH = row 2
-    cy.getByTestID("portfolio_row_14").should("exist"); // DUSD = row 14
-    cy.getByTestID("portfolio_row_16").should("exist"); // dBTC-DFI = row 16
-  });
+    it("should display All tokens that are available in asset", () => {
+      interceptTokenWithSampleData();
+      cy.getByTestID("portfolio_button_group_ALL_TOKENS_active").should(
+        "exist",
+      );
+      cy.getByTestID("portfolio_row_1").should("exist"); // dBTC = row 1
+      cy.getByTestID("portfolio_row_2").should("exist"); // dETH = row 2
+      cy.getByTestID("portfolio_row_14").should("exist"); // DUSD = row 14
+      cy.getByTestID("portfolio_row_16").should("exist"); // dBTC-DFI = row 16
+    });
 
-  it("should display only LP tokens that are available in asset", () => {
-    interceptTokenWithSampleData();
-    cy.getByTestID("portfolio_button_group_LP_TOKENS").click();
-    cy.getByTestID("portfolio_button_group_LP_TOKENS_active").should("exist");
-    cy.getByTestID("portfolio_row_1").should("not.exist");
-    cy.getByTestID("portfolio_row_2").should("not.exist");
-    cy.getByTestID("portfolio_row_14").should("not.exist");
-    cy.getByTestID("portfolio_row_16").should("exist");
-  });
+    it("should display only LP tokens that are available in asset", () => {
+      interceptTokenWithSampleData();
+      cy.getByTestID("portfolio_button_group_LP_TOKENS").click();
+      cy.getByTestID("portfolio_button_group_LP_TOKENS_active").should("exist");
+      cy.getByTestID("portfolio_row_1").should("not.exist");
+      cy.getByTestID("portfolio_row_2").should("not.exist");
+      cy.getByTestID("portfolio_row_14").should("not.exist");
+      cy.getByTestID("portfolio_row_16").should("exist");
+    });
 
-  it("should display only Crypto that are available in asset", () => {
-    interceptTokenWithSampleData();
-    cy.getByTestID("portfolio_button_group_CRYPTO").click();
-    cy.getByTestID("portfolio_button_group_CRYPTO_active").should("exist");
-    cy.getByTestID("portfolio_row_14").should("not.exist");
-    cy.getByTestID("portfolio_row_16").should("not.exist");
-    cy.getByTestID("portfolio_row_1").should("exist");
-    cy.getByTestID("portfolio_row_2").should("exist");
-  });
+    it("should display only Crypto that are available in asset", () => {
+      interceptTokenWithSampleData();
+      cy.getByTestID("portfolio_button_group_CRYPTO").click();
+      cy.getByTestID("portfolio_button_group_CRYPTO_active").should("exist");
+      cy.getByTestID("portfolio_row_14").should("not.exist");
+      cy.getByTestID("portfolio_row_16").should("not.exist");
+      cy.getByTestID("portfolio_row_1").should("exist");
+      cy.getByTestID("portfolio_row_2").should("exist");
+    });
 
-  it("should display only dTokens that are available in asset", () => {
-    interceptTokenWithSampleData();
-    cy.getByTestID("portfolio_button_group_d_TOKENS").click();
-    cy.getByTestID("portfolio_button_group_d_TOKENS_active").should("exist");
-    cy.getByTestID("portfolio_row_1").should("not.exist");
-    cy.getByTestID("portfolio_row_2").should("not.exist");
-    cy.getByTestID("portfolio_row_16").should("not.exist");
-    cy.getByTestID("portfolio_row_14").should("exist");
-  });
-});
+    it("should display only dTokens that are available in asset", () => {
+      interceptTokenWithSampleData();
+      cy.getByTestID("portfolio_button_group_d_TOKENS").click();
+      cy.getByTestID("portfolio_button_group_d_TOKENS_active").should("exist");
+      cy.getByTestID("portfolio_row_1").should("not.exist");
+      cy.getByTestID("portfolio_row_2").should("not.exist");
+      cy.getByTestID("portfolio_row_16").should("not.exist");
+      cy.getByTestID("portfolio_row_14").should("exist");
+    });
+  },
+);
 
 context(
   "Wallet - Portfolio - Assets filter tab - filter respective tokens in selected tab",
+  { testIsolation: false },
   () => {
     before(() => {
+      cy.clearLocalStorage();
+      cy.clearCookies();
       cy.createEmptyWallet(true);
     });
 
@@ -1102,55 +1127,61 @@ context(
   },
 );
 
-context("Wallet - Portfolio - Portfolio group tab", () => {
-  before(() => {
-    cy.createEmptyWallet(true);
-    cy.sendDFITokentoWallet().sendTokenToWallet(["BTC", "ETH"]).wait(6000);
-    cy.getByTestID("toggle_portfolio").click();
-    cy.getByTestID("dfi_total_balance_amount").contains("10.00000000");
-  });
+context(
+  "Wallet - Portfolio - Portfolio group tab",
+  { testIsolation: false },
+  () => {
+    before(() => {
+      cy.clearLocalStorage();
+      cy.clearCookies();
+      cy.createEmptyWallet(true);
+      cy.sendDFITokentoWallet().sendTokenToWallet(["BTC", "ETH"]).wait(6000);
+      cy.getByTestID("toggle_portfolio").click();
+      cy.getByTestID("dfi_total_balance_amount").contains("10.00000000");
+    });
 
-  it("should display portfolio values in USDT currency", () => {
-    assertPortfolioDenomination("USDT");
-    checkPortfolioPageDenominationValues(
-      "$201,000.00",
-      "$201,000.00",
-      "$0.00",
-      "$100,000.00",
-      "$100,000.00",
-      "$100,000.00",
-      "$1,000.00",
-    );
-  });
+    it("should display portfolio values in USDT currency", () => {
+      assertPortfolioDenomination("USDT");
+      checkPortfolioPageDenominationValues(
+        "$201,000.00",
+        "$201,000.00",
+        "$0.00",
+        "$100,000.00",
+        "$100,000.00",
+        "$100,000.00",
+        "$1,000.00",
+      );
+    });
 
-  it("should display portfolio values in DFI currency", () => {
-    togglePortfolioDenomination("DFI");
-    assertPortfolioDenomination("DFI");
-    checkPortfolioPageDenominationValues(
-      "20.10",
-      "20.10 DFI",
-      "0.00000000 DFI",
-      "10.00 DFI",
-      "10.00 DFI",
-      "10.00 DFI",
-      "0.10000000 DFI",
-    );
-  });
+    it("should display portfolio values in DFI currency", () => {
+      togglePortfolioDenomination("DFI");
+      assertPortfolioDenomination("DFI");
+      checkPortfolioPageDenominationValues(
+        "20.10",
+        "20.10 DFI",
+        "0.00000000 DFI",
+        "10.00 DFI",
+        "10.00 DFI",
+        "10.00 DFI",
+        "0.10000000 DFI",
+      );
+    });
 
-  it("should display portfolio values in BTC currency", () => {
-    togglePortfolioDenomination("BTC");
-    assertPortfolioDenomination("BTC");
-    checkPortfolioPageDenominationValues(
-      "20.10",
-      "20.10 BTC",
-      "0.00000000 BTC",
-      "10.00 BTC",
-      "10.00 BTC",
-      "10.00 BTC",
-      "0.10000000 BTC",
-    );
-  });
-});
+    it("should display portfolio values in BTC currency", () => {
+      togglePortfolioDenomination("BTC");
+      assertPortfolioDenomination("BTC");
+      checkPortfolioPageDenominationValues(
+        "20.10",
+        "20.10 BTC",
+        "0.00000000 BTC",
+        "10.00 BTC",
+        "10.00 BTC",
+        "10.00 BTC",
+        "0.10000000 BTC",
+      );
+    });
+  },
+);
 
 function assertPortfolioDenomination(denomination: string): void {
   cy.getByTestID("portfolio_active_currency")
@@ -1225,50 +1256,61 @@ function checkAssetsSortingOrder(
   cy.get(containerTestID).children().last().contains(lastToken);
 }
 
-context("Wallet - Portfolio - Your Assets - All tokens tab", () => {
-  before(() => {
-    cy.createEmptyWallet(true);
-    cy.getByTestID("header_settings").click();
-    cy.getByTestID("bottom_tab_portfolio").click();
-  });
-  it("should display empty balances if there are no other tokens", () => {
-    cy.intercept("**/address/**/tokens?size=*", {
-      body: {
-        data: [],
-      },
+context(
+  "Wallet - Portfolio - Your Assets - All tokens tab",
+  { testIsolation: false },
+  () => {
+    before(() => {
+      cy.clearLocalStorage();
+      cy.clearCookies();
+      cy.createEmptyWallet(true);
+      cy.getByTestID("header_settings").click();
+      cy.getByTestID("bottom_tab_portfolio").click();
     });
-    cy.getByTestID("empty_portfolio").should("not.exist");
-    cy.getByTestID("toggle_sorting_assets").should("exist");
-  });
-  it("should sort asset based on Highest value (USDT) (default) but display `Sort by` on first load", () => {
-    cy.sendDFItoWallet().wait(3000);
-    cy.sendTokenToWallet(["ETH", "LTC", "DUSD"]).wait(7000); // token transfer taking time sometime to avoid failure increasing wait time here
-    cy.getByTestID("your_assets_dropdown_arrow").contains("Sort by").wait(3000);
-    checkAssetsSortingOrder("Highest value (USDT)", "DUSD", "dLTC");
-  });
-  it("should sort assets based on Lowest value (USDT)", () => {
-    checkAssetsSortingOrder("Lowest value (USDT)", "dETH", "DUSD");
-  });
-  it("should sort assets based on Highest token amount", () => {
-    cy.sendTokenToWallet(["DUSD"]);
-    cy.wait(6000);
-    checkAssetsSortingOrder("Highest token amount", "DUSD", "dLTC");
-  });
-  it("should sort assets based on Lowest token amount", () => {
-    checkAssetsSortingOrder("Lowest token amount", "dETH", "DUSD");
-  });
-  it("should sort assets based on A to Z", () => {
-    checkAssetsSortingOrder("A to Z", "DUSD", "LTC");
-  });
-  it("should sort assets based on Z to A", () => {
-    checkAssetsSortingOrder("Z to A", "LTC", "DUSD");
-  });
-});
+    it("should display empty balances if there are no other tokens", () => {
+      cy.intercept("**/address/**/tokens?size=*", {
+        body: {
+          data: [],
+        },
+      });
+      cy.getByTestID("empty_portfolio").should("not.exist");
+      cy.getByTestID("toggle_sorting_assets").should("exist");
+    });
+    it("should sort asset based on Highest value (USDT) (default) but display `Sort by` on first load", () => {
+      cy.sendDFItoWallet().wait(3000);
+      cy.sendTokenToWallet(["ETH", "LTC", "DUSD"]).wait(7000); // token transfer taking time sometime to avoid failure increasing wait time here
+      cy.getByTestID("your_assets_dropdown_arrow")
+        .contains("Sort by")
+        .wait(3000);
+      checkAssetsSortingOrder("Highest value (USDT)", "DUSD", "dLTC");
+    });
+    it("should sort assets based on Lowest value (USDT)", () => {
+      checkAssetsSortingOrder("Lowest value (USDT)", "dETH", "DUSD");
+    });
+    it("should sort assets based on Highest token amount", () => {
+      cy.sendTokenToWallet(["DUSD"]);
+      cy.wait(6000);
+      checkAssetsSortingOrder("Highest token amount", "DUSD", "dLTC");
+    });
+    it("should sort assets based on Lowest token amount", () => {
+      checkAssetsSortingOrder("Lowest token amount", "dETH", "DUSD");
+    });
+    it("should sort assets based on A to Z", () => {
+      checkAssetsSortingOrder("A to Z", "DUSD", "LTC");
+    });
+    it("should sort assets based on Z to A", () => {
+      checkAssetsSortingOrder("Z to A", "LTC", "DUSD");
+    });
+  },
+);
 
 context(
   "Wallet - Portfolio - Your Assets - DFI currency - Sorting function  - All tokens tab",
+  { testIsolation: false },
   () => {
     before(() => {
+      cy.clearLocalStorage();
+      cy.clearCookies();
       cy.createEmptyWallet(true);
       cy.getByTestID("header_settings").click();
       cy.getByTestID("bottom_tab_portfolio").click();
@@ -1295,8 +1337,11 @@ function interceptTokensForSorting(data: {}): void {
 
 context(
   "Wallet - Portfolio - Your Assets - DFI currency - Sorting function  - LP tokens tab",
+  { testIsolation: false },
   () => {
     before(() => {
+      cy.clearLocalStorage();
+      cy.clearCookies();
       cy.createEmptyWallet(true);
     });
 
@@ -1316,8 +1361,11 @@ context(
 
 context(
   "Wallet - Portfolio - Your Assets - DFI currency - Sorting function - Crypto tab",
+  { testIsolation: false },
   () => {
     before(() => {
+      cy.clearLocalStorage();
+      cy.clearCookies();
       cy.createEmptyWallet(true);
     });
 
@@ -1337,8 +1385,11 @@ context(
 
 context(
   "Wallet - Portfolio - Your Assets - DFI currency - Sorting function - dTokens tab",
+  { testIsolation: false },
   () => {
     before(() => {
+      cy.clearLocalStorage();
+      cy.clearCookies();
       cy.createEmptyWallet(true);
     });
 
@@ -1358,8 +1409,11 @@ context(
 
 context(
   "Wallet - Portfolio - Your Assets - BTC currency - Sorting function  - All tokens tab ",
+  { testIsolation: false },
   () => {
     before(() => {
+      cy.clearLocalStorage();
+      cy.clearCookies();
       cy.createEmptyWallet(true);
     });
 
@@ -1376,36 +1430,42 @@ context(
   },
 );
 
-context("Wallet - Portfolio - Skeleton Loader", () => {
-  beforeEach(() => {
-    cy.createEmptyWallet();
-  });
-
-  it("should display skeleton loader when API has yet to return", () => {
-    cy.intercept("**/address/**/tokens?size=*", {
-      body: {
-        data: [{}],
-      },
-      delay: 3000,
+context(
+  "Wallet - Portfolio - Skeleton Loader",
+  { testIsolation: false },
+  () => {
+    beforeEach(() => {
+      cy.clearLocalStorage();
+      cy.clearCookies();
+      cy.createEmptyWallet();
     });
-    cy.getByTestID("total_portfolio_skeleton_loader").should("exist");
-    cy.getByTestID("portfolio_skeleton_loader").should("exist");
-    cy.getByTestID("dfi_balance_skeleton_loader").should("exist");
-    cy.getByTestID("dfi_USD_balance_skeleton_loader").should("exist");
-  });
 
-  it("should not display skeleton loader when API has return", () => {
-    cy.intercept("**/address/**/tokens?size=*").as("getTokens");
-    cy.wait("@getTokens").then(() => {
-      cy.getByTestID("total_portfolio_skeleton_loader").should("not.exist");
-      cy.getByTestID("dfi_balance_skeleton_loader").should("not.exist");
-      cy.getByTestID("dfi_USD_balance_skeleton_loader").should("not.exist");
-      cy.getByTestID("portfolio_skeleton_loader").should("not.exist");
+    it("should display skeleton loader when API has yet to return", () => {
+      cy.intercept("**/address/**/tokens?size=*", {
+        body: {
+          data: [{}],
+        },
+        delay: 3000,
+      });
+      cy.getByTestID("total_portfolio_skeleton_loader").should("exist");
+      cy.getByTestID("portfolio_skeleton_loader").should("exist");
+      cy.getByTestID("dfi_balance_skeleton_loader").should("exist");
+      cy.getByTestID("dfi_USD_balance_skeleton_loader").should("exist");
     });
-  });
-});
 
-context("Wallet - Portfolio - portfolio", () => {
+    it("should not display skeleton loader when API has return", () => {
+      cy.intercept("**/address/**/tokens?size=*").as("getTokens");
+      cy.wait("@getTokens").then(() => {
+        cy.getByTestID("total_portfolio_skeleton_loader").should("not.exist");
+        cy.getByTestID("dfi_balance_skeleton_loader").should("not.exist");
+        cy.getByTestID("dfi_USD_balance_skeleton_loader").should("not.exist");
+        cy.getByTestID("portfolio_skeleton_loader").should("not.exist");
+      });
+    });
+  },
+);
+
+context("Wallet - Portfolio - portfolio", { testIsolation: false }, () => {
   beforeEach(() => {
     cy.intercept("**/poolpairs/dexprices?denomination=*", {
       body: getDexPrice({
@@ -1416,6 +1476,8 @@ context("Wallet - Portfolio - portfolio", () => {
         dfi: "10.00000000",
       }),
     }).as("getDexPrices");
+    cy.clearLocalStorage();
+    cy.clearCookies();
     cy.createEmptyWallet(true);
     cy.intercept("**/poolpairs?size=*", {
       body: {
@@ -1551,8 +1613,11 @@ context("Wallet - Portfolio - portfolio", () => {
 
 context(
   "Transfer domain - Wallet - Portfolio - Portfolio group tab - DFI currency",
+  { testIsolation: false },
   () => {
     before(() => {
+      cy.clearLocalStorage();
+      cy.clearCookies();
       cy.createEmptyWallet(true);
       cy.getByTestID("header_settings").click();
       cy.getByTestID("bottom_tab_portfolio").click();
@@ -1592,9 +1657,9 @@ context(
       cy.getByTestID("portfolio_row_24").should("exist");
     });
 
-    it("should only display non LP tokens in evm domain", () => {
+    it("should only display non EVM tokens in evm domain", () => {
       cy.getByTestID("domain_switch").click();
-      cy.getByTestID("portfolio_row_1").should("exist");
+      cy.getByTestID("portfolio_row_1").should("not.exist");
       cy.getByTestID("portfolio_row_24").should("not.exist");
     });
   },
