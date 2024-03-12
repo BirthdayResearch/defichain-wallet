@@ -63,6 +63,5 @@ module.exports = defineConfig({
       // Smoke
       "cypress/e2e/smoke/smoke.spec.ts"
     ]
-
   },
 });
