@@ -22,16 +22,10 @@ function nonTransactionNewPin(): void {
   cy.getByTestID("recovery_word_screen").should("exist");
 }
 
-context("Wallet - Change Passcode", () => {
-  beforeEach(() => {
-    cy.restoreLocalStorage();
-  });
-
-  afterEach(() => {
-    cy.saveLocalStorage();
-  });
-
+context("Wallet - Change Passcode", { testIsolation: false }, () => {
   before(() => {
+    cy.clearLocalStorage();
+    cy.clearCookies();
     cy.createEmptyWallet(true);
     cy.sendDFItoWallet().sendTokenToWallet(["BTC"]).wait(10000);
     cy.getByTestID("bottom_tab_portfolio").click();

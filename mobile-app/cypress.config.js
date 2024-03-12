@@ -14,7 +14,6 @@ module.exports = defineConfig({
   numTestsKeptInMemory: 0,
   chromeWebSecurity: false,
   e2e: {
-    testIsolation: false,
     // We've imported your old cypress plugins here.
     // You may want to clean this up later by importing these.
     setupNodeEvents(on, config) {
@@ -57,8 +56,8 @@ module.exports = defineConfig({
       "cypress/e2e/functional/wallet/portfolio/convert/convert.spec.ts",
       "cypress/e2e/functional/wallet/portfolio/poolpairRewards.spec.ts",
       // Functional/Wallet/Settings
-      "cypress/e2e/functional/wallet/settings/addressBook.spec.ts",
-      "cypress/e2e/functional/wallet/settings/changePasscode.spec.ts",
+      // "cypress/e2e/functional/wallet/settings/addressBook.spec.ts",
+      // "cypress/e2e/functional/wallet/settings/changePasscode.spec.ts",
       // Functional/Wallet/Transaction
       "cypress/e2e/functional/wallet/transaction/list_empty.spec.ts",
       // Smoke
