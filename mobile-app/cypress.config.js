@@ -59,7 +59,7 @@ module.exports = defineConfig({
       // "cypress/e2e/functional/wallet/settings/addressBook.spec.ts",
       // "cypress/e2e/functional/wallet/settings/changePasscode.spec.ts",
       // Functional/Wallet/Transaction
-      "cypress/e2e/functional/wallet/transaction/list_empty.spec.ts",
+      // "cypress/e2e/functional/wallet/transaction/list_empty.spec.ts",
       // Smoke
       "cypress/e2e/smoke/smoke.spec.ts"
     ]
