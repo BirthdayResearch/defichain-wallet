@@ -1,6 +1,6 @@
 const samplePoolPair = [
   {
-    id: "15",
+    id: "19",
     symbol: "BTC-DFI",
     displaySymbol: "dBTC-DFI",
     name: "Playground BTC-Default Defi token",
@@ -41,7 +41,7 @@ const samplePoolPair = [
     },
   },
   {
-    id: "18",
+    id: "20",
     symbol: "ETH-DFI",
     displaySymbol: "dETH-DFI",
     name: "Playground ETH-Default Defi token",
@@ -82,7 +82,7 @@ const samplePoolPair = [
     },
   },
   {
-    id: "17",
+    id: "21",
     symbol: "USDT-DFI",
     displaySymbol: "dUSDT-DFI",
     name: "Playground USDT-Default Defi token",
@@ -124,7 +124,7 @@ const samplePoolPair = [
   },
 ];
 
-context("Wallet - DEX - Available Pool Pairs", () => {
+context("Wallet - DEX - Available Pool Pairs", { testIsolation: false }, () => {
   before(() => {
     cy.intercept("**/poolpairs?size=*", {
       body: {
@@ -132,6 +132,8 @@ context("Wallet - DEX - Available Pool Pairs", () => {
       },
       delay: 3000,
     });
+    cy.clearAllCookies();
+    cy.clearAllLocalStorage();
     cy.createEmptyWallet(true);
     cy.getByTestID("bottom_tab_dex").click();
   });
@@ -148,24 +150,20 @@ context("Wallet - DEX - Available Pool Pairs", () => {
     });
   });
 
-  it("should display 5 available pool pair", () => {
+  it("should display 17 available pool pair", () => {
     cy.getByTestID("available_liquidity_tab")
       .getByTestID("pool_pair_row")
-      .should("have.length", 5);
+      .should("have.length", 17);
   });
 
-  it("should have DUSD-DFI PoolPair as 2nd", () => {
-    cy.getByTestID("pool_pair_row_1_DUSD-DFI").should("exist");
+  it("should have DUSD-DFI PoolPair as 4th", () => {
+    cy.getByTestID("pool_pair_row_4_DUSD-DFI").should("exist");
   });
 
   it("should place favourite on top of the list", () => {
-    cy.getByTestID("favorite_pair_22").click();
-    cy.getByTestID("pool_pair_row")
-      .first()
-      .invoke("text")
-      .then((text: string) => {
-        expect(text).to.contains("DUSD-DFI");
-      });
+    cy.getByTestID("favorite_pair_24").click();
+    cy.wait(1000);
+    cy.getByTestID("pool_pair_row_0_DUSD-DFI").should("exist");
   });
 
   it("should not display any pool pair at initial state of search", () => {
@@ -199,38 +197,38 @@ context("Wallet - DEX - Available Pool Pairs", () => {
 
       cy.getByTestID("price_rate_tokenA_value").should(
         "have.text",
-        "0.01000000 DFI"
+        "0.01000000 DFI",
       );
       cy.getByTestID("price_rate_tokenB_value").should(
         "have.text",
-        "100.00000000 dETH"
+        "100.00000000 dETH",
       );
       cy.getByTestID("pooled_tokenA_value").should(
         "have.text",
-        "100,000.00000000 dETH"
+        "100,000.00000000 dETH",
       );
       // (1000 / 100000) * (10000000 / 1000) * 100,000 ETH
       cy.getByTestID("pooled_tokenA_value_rhsUsdAmount").should(
         "have.text",
-        "$10,000,000.00"
+        "$10,000,000.00",
       );
       cy.getByTestID("pooled_tokenB_value").should(
         "have.text",
-        "1,000.00000000 DFI"
+        "1,000.00000000 DFI",
       );
       // (10000000 / 1000) * 1,000 DFI
       cy.getByTestID("pooled_tokenB_value_rhsUsdAmount").should(
         "have.text",
-        "$10,000,000.00"
+        "$10,000,000.00",
       );
 
       cy.getByTestID("total_liquidity_value").should(
         "have.text",
-        "10,000.00000000"
+        "10,000.00000000",
       );
       cy.getByTestID("total_liquidity_value_rhsUsdAmount").should(
         "have.text",
-        "$20,000,000.00"
+        "$20,000,000.00",
       );
 
       // 66.8826 * 100
@@ -247,8 +245,10 @@ context("Wallet - DEX - Available Pool Pairs", () => {
   });
 });
 
-context("Wallet - DEX - Your Pool Pairs", () => {
+context("Wallet - DEX - Your Pool Pairs", { testIsolation: false }, () => {
   beforeEach(() => {
+    cy.clearAllCookies();
+    cy.clearAllLocalStorage();
     cy.createEmptyWallet(true);
     cy.sendTokenToWallet(["ETH-DFI"]).wait(3000);
     cy.getByTestID("bottom_tab_dex").click();
@@ -276,7 +276,7 @@ context("Wallet - DEX - Your Pool Pairs", () => {
   });
 
   it("should not display favourite button", () => {
-    cy.getByTestID("favorite_pair_18").should("not.exist");
+    cy.getByTestID("favorite_pair_20").should("not.exist");
   });
 
   it("should display your pool pair values correctly", () => {
@@ -291,44 +291,44 @@ context("Wallet - DEX - Your Pool Pairs", () => {
       cy.getByTestID("pool_pair_row_0_dETH-DFI").click();
       cy.getByTestID("total_liquidity_value").should(
         "have.text",
-        "10,000.00000000"
+        "10,000.00000000",
       );
       cy.getByTestID("total_liquidity_value_rhsUsdAmount").should(
         "have.text",
-        "$20,000,000.00"
+        "$20,000,000.00",
       );
       cy.getByTestID("pooled_tokenA_value").should(
         "have.text",
-        "100,000.00000000 dETH"
+        "100,000.00000000 dETH",
       );
       // (1000 / 100000) * (10000000 / 1000) * 100,000 ETH
       cy.getByTestID("pooled_tokenA_value_rhsUsdAmount").should(
         "have.text",
-        "$10,000,000.00"
+        "$10,000,000.00",
       );
       cy.getByTestID("pooled_tokenB_value").should(
         "have.text",
-        "1,000.00000000 DFI"
+        "1,000.00000000 DFI",
       );
       // (10000000 / 1000) * 1,000 DFI
       cy.getByTestID("pooled_tokenB_value_rhsUsdAmount").should(
         "have.text",
-        "$10,000,000.00"
+        "$10,000,000.00",
       );
 
       cy.getByTestID("price_rate_tokenA_value").should(
         "have.text",
-        "0.01000000 DFI"
+        "0.01000000 DFI",
       );
       cy.getByTestID("price_rate_tokenB_value").should(
         "have.text",
-        "100.00000000 dETH"
+        "100.00000000 dETH",
       );
 
       cy.getByTestID("your_lp_tokens_value").should("have.text", "10.00000000");
       cy.getByTestID("your_lp_tokenA_value_rhsUsdAmount").should(
         "have.text",
-        "$10,000.00"
+        "$10,000.00",
       );
 
       // 66.8826 * 100

@@ -4,11 +4,11 @@ function verifyPoolSwapComponents(): void {
   cy.url().should("include", "app/CompositeSwap");
   cy.getByTestID("token_select_button_FROM").should(
     "not.have.attr",
-    "aria-disabled"
+    "aria-disabled",
   );
   cy.getByTestID("token_select_button_TO").should(
     "not.have.attr",
-    "aria-disabled"
+    "aria-disabled",
   );
   cy.getByTestID("token_select_button_FROM").should("contain", "dBTC");
   cy.getByTestID("token_select_button_TO").should("contain", "Token");
@@ -153,7 +153,12 @@ const sampleVault = [
   },
 ];
 
-context("Wallet - Token Detail", () => {
+context("Wallet - Token Detail", { testIsolation: false }, () => {
+  before(() => {
+    cy.clearLocalStorage();
+    cy.clearCookies();
+  });
+
   beforeEach(() => {
     cy.createEmptyWallet(true);
     cy.getByTestID("header_settings").click();
@@ -277,9 +282,9 @@ context("Wallet - Token Detail - LP", () => {
       .wait(10000);
     cy.getByTestID("bottom_tab_portfolio").click();
     cy.getByTestID("portfolio_list").should("exist");
-    cy.getByTestID("portfolio_row_18").should("exist");
-    cy.getByTestID("portfolio_row_18_amount").contains(10);
-    cy.getByTestID("portfolio_row_18").click();
+    cy.getByTestID("portfolio_row_20").should("exist");
+    cy.getByTestID("portfolio_row_20_amount").contains(10);
+    cy.getByTestID("portfolio_row_20").click();
   });
 
   it("should be able to click token ETH-DFI", () => {
@@ -388,11 +393,11 @@ context("Wallet - Token Detail - DFI - UTXO and Token", () => {
     cy.url().should("include", "app/CompositeSwap");
     cy.getByTestID("token_select_button_FROM").should(
       "not.have.attr",
-      "aria-disabled"
+      "aria-disabled",
     );
     cy.getByTestID("token_select_button_TO").should(
       "not.have.attr",
-      "aria-disabled"
+      "aria-disabled",
     );
     cy.getByTestID("token_select_button_FROM").should("contain", "DFI");
     cy.getByTestID("token_select_button_TO").should("contain", "Token");
@@ -455,11 +460,11 @@ context("Wallet - Token Detail - DFI - with collateral, UTXO and Token", () => {
     cy.url().should("include", "app/CompositeSwap");
     cy.getByTestID("token_select_button_FROM").should(
       "not.have.attr",
-      "aria-disabled"
+      "aria-disabled",
     );
     cy.getByTestID("token_select_button_TO").should(
       "not.have.attr",
-      "aria-disabled"
+      "aria-disabled",
     );
     cy.getByTestID("token_select_button_FROM").should("contain", "DFI");
     cy.getByTestID("token_select_button_TO").should("contain", "Token");

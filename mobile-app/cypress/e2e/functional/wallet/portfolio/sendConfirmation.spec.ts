@@ -1,5 +1,7 @@
-context("Wallet - Send Preview/Confirmation", () => {
+context("Wallet - Send Preview/Confirmation", { testIsolation: false }, () => {
   before(() => {
+    cy.clearLocalStorage();
+    cy.clearCookies();
     cy.createEmptyWallet(true);
     cy.sendDFItoWallet().sendTokenToWallet(["BTC"]).wait(4000);
     cy.getByTestID("bottom_tab_portfolio").click();
