@@ -1,13 +1,9 @@
-context("Onboarding - Create Mnemonic Wallet", () => {
+context("Onboarding - Create Mnemonic Wallet", { testIsolation: false }, () => {
   const recoveryWords: string[] = [];
   const settingsRecoveryWords: string[] = [];
-
-  beforeEach(() => {
-    cy.restoreLocalStorage();
-  });
-
-  afterEach(() => {
-    cy.saveLocalStorage();
+  before(() => {
+    cy.clearAllCookies();
+    cy.clearAllLocalStorage();
   });
 
   it("should start creation of mnemonic wallet", () => {
@@ -83,12 +79,15 @@ context("Onboarding - Create Mnemonic Wallet", () => {
 
 context(
   "Onboarding - Create Mnemonic Wallet with refresh recovery word",
+  { testIsolation: false },
   () => {
     const recoveryWords: string[] = [];
     const oldRecoveryWords: string[] = [];
     const settingsRecoveryWords: string[] = [];
 
     before(() => {
+      cy.clearAllCookies();
+      cy.clearAllLocalStorage();
       cy.createEmptyWallet();
       cy.visit("/");
       cy.exitWallet();
@@ -133,7 +132,7 @@ context(
               expect(oldRecoveryWords).not.deep.equal(recoveryWords);
               cy.getByTestID("verify_button").should(
                 "not.have.attr",
-                "disabled"
+                "disabled",
               );
               cy.getByTestID("verify_button").click();
               cy.selectMnemonicWords(recoveryWords);
@@ -158,5 +157,5 @@ context(
         cy.verifyMnemonicOnSettingsPage([], recoveryWords);
       });
     });
-  }
+  },
 );

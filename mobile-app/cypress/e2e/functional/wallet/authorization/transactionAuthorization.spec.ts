@@ -1,7 +1,8 @@
 function openSendScreen(isRandom: boolean = true): void {
   cy.createEmptyWallet(isRandom);
   cy.wait(1000);
-  cy.sendDFItoWallet().sendTokenToWallet(["BTC"]).wait(5000);
+  cy.sendDFItoWallet().sendTokenToWallet(["BTC"]);
+  cy.wait(6000);
   cy.getByTestID("bottom_tab_portfolio").click();
   cy.getByTestID("portfolio_list").should("exist");
   cy.getByTestID("dfi_total_balance_amount").contains("10.00000000");
@@ -20,7 +21,8 @@ context(
       cy.clearLocalStorage();
       cy.clearCookies();
       cy.createEmptyWallet(true);
-      cy.sendDFItoWallet().sendTokenToWallet(["BTC"]).wait(5000);
+      cy.sendDFItoWallet().sendTokenToWallet(["BTC"]);
+      cy.wait(6000);
       cy.getByTestID("bottom_tab_portfolio").click();
       cy.getByTestID("portfolio_list").should("exist");
       cy.getByTestID("dfi_balance_card").click();
