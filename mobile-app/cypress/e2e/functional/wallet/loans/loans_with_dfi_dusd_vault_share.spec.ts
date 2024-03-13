@@ -1,6 +1,8 @@
 import { EnvironmentNetwork } from "@waveshq/walletkit-core";
-import { checkVaultDetailValues } from "../../../../support/loanCommands";
-import { checkValueWithinRange } from "../../../../support/utils";
+import {
+  checkVaultDetailValues,
+  checkValueWithinRange,
+} from "../../../../support/utils";
 
 context(
   "Wallet - Loans - Take Loans using DFI and DUSD as 50% vault share",

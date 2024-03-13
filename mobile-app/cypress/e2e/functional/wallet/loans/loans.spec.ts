@@ -1,8 +1,10 @@
 import { LoanToken } from "@defichain/whale-api-client/dist/api/loan";
 import BigNumber from "bignumber.js";
-import { checkVaultDetailValues } from "../../../../support/loanCommands";
 import { VaultStatus } from "../../../../../app/screens/AppNavigator/screens/Loans/VaultStatusTypes";
-import { checkValueWithinRange } from "../../../../support/utils";
+import {
+  checkVaultDetailValues,
+  checkValueWithinRange,
+} from "../../../../support/utils";
 
 BigNumber.set({ ROUNDING_MODE: BigNumber.ROUND_DOWN });
 

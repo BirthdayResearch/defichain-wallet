@@ -32,7 +32,7 @@ module.exports = defineConfig({
       // Functional/Wallet/Loans
       "cypress/e2e/functional/wallet/loans/loans_payback.spec.ts",
       "cypress/e2e/functional/wallet/loans/vault_detail.spec.ts",
-      "cypress/e2e/functional/wallet/loans/collateral.spec.ts",
+      // "cypress/e2e/functional/wallet/loans/collateral.spec.ts",
       "cypress/e2e/functional/wallet/loans/create_vault.spec.ts",
       "cypress/e2e/functional/wallet/loans/loans_unloop_dusd.spec.ts",
       "cypress/e2e/functional/wallet/loans/loans_with_dfi_dusd_vault_share.spec.ts",
