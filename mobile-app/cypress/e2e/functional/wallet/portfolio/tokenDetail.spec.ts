@@ -1,3 +1,5 @@
+import { checkValueWithinRange } from "../../../../support/utils";
+
 function verifyPoolSwapComponents(): void {
   cy.getByTestID("swap_button").should("exist");
   cy.getByTestID("swap_button").click();
@@ -200,79 +202,102 @@ context("Wallet - Token Detail", { testIsolation: false }, () => {
   });
 });
 
-context("Wallet - Token Detail - dOFF - status off", () => {
-  beforeEach(() => {
-    cy.createEmptyWallet(true);
-    cy.getByTestID("header_settings").click();
-    cy.sendDFItoWallet()
-      .sendDFITokentoWallet()
-      .sendTokenToWallet(["OFF"])
-      .wait(10000);
-    cy.getByTestID("bottom_tab_portfolio").click();
-    cy.getByTestID("portfolio_list").should("exist");
-    cy.getByTestID("portfolio_row_11").should("exist");
-    cy.getByTestID("portfolio_row_11_amount").contains(10);
-    cy.getByTestID("portfolio_row_11").click();
-    cy.wait(3000);
+context(
+  "Wallet - Token Detail - dOFF - status off",
+  { testIsolation: false },
+  () => {
+    before(() => {
+      cy.clearLocalStorage();
+      cy.clearCookies();
+    });
+
+    beforeEach(() => {
+      cy.createEmptyWallet(true);
+      cy.getByTestID("header_settings").click();
+      cy.sendDFItoWallet()
+        .sendDFITokentoWallet()
+        .sendTokenToWallet(["OFF"])
+        .wait(10000);
+      cy.getByTestID("bottom_tab_portfolio").click();
+      cy.getByTestID("portfolio_list").should("exist");
+      cy.getByTestID("portfolio_row_11").should("exist");
+      cy.getByTestID("portfolio_row_11_amount").contains(10);
+      cy.getByTestID("portfolio_row_11").click();
+      cy.wait(3000);
+    });
+
+    it("should disable swap button", () => {
+      cy.getByTestID("swap_button").should("exist");
+      cy.getByTestID("swap_button").should("have.attr", "aria-disabled");
+    });
+  },
+);
+
+context(
+  "Wallet - Token Detail - Cypto - Locked in vaults & Available",
+  { testIsolation: false },
+  () => {
+    before(() => {
+      cy.clearLocalStorage();
+      cy.clearCookies();
+    });
+
+    beforeEach(() => {
+      cy.createEmptyWallet(true);
+      cy.getByTestID("header_settings").click();
+      cy.sendDFItoWallet()
+        .sendDFITokentoWallet()
+        .sendTokenToWallet(["BTC"])
+        .wait(10000);
+      cy.getByTestID("bottom_tab_portfolio").click();
+      cy.getByTestID("portfolio_list").should("exist");
+      cy.getByTestID("portfolio_row_1").should("exist");
+      cy.getByTestID("portfolio_row_1_amount").contains(10);
+      cy.getByTestID("portfolio_row_1").click();
+    });
+
+    it("should be able to click token BTC", () => {
+      cy.intercept("**/address/**/vaults?size=*", {
+        statusCode: 200,
+        body: {
+          data: sampleVault,
+        },
+      }).wait(3000);
+      cy.getByTestID("token_detail_amount").contains(10);
+      cy.getByTestID("token_detail_usd_amount").contains(10);
+
+      cy.getByTestID("BTC_locked_amount").contains(2);
+      cy.getByTestID("BTC_locked_value_amount").contains(20);
+
+      cy.getByTestID("dfi_utxo_amount").should("not.exist");
+      cy.getByTestID("dfi_token_amount").should("not.exist");
+      verifyCryptoTokenComponentState();
+    });
+
+    it("should be able to redirect to Add Liquidity screen", () => {
+      cy.getByTestID("add_liquidity_button").click();
+      cy.getByTestID("token_input_primary").clear().type("5");
+      cy.getByTestID("button_continue_add_liq").click();
+
+      /* Redirect back from Confirm Add Liquidity screen */
+      cy.go("back");
+      /* Redirect back from Add Liquidity screen */
+      cy.go("back");
+      cy.url().should("include", "app/TokenDetailScreen");
+    });
+
+    it("should be able to redirect to Pool Swap screen", () => {
+      verifyPoolSwapComponents();
+    });
+  },
+);
+
+context("Wallet - Token Detail - LP", { testIsolation: false }, () => {
+  before(() => {
+    cy.clearLocalStorage();
+    cy.clearCookies();
   });
 
-  it("should disable swap button", () => {
-    cy.getByTestID("swap_button").should("exist");
-    cy.getByTestID("swap_button").should("have.attr", "aria-disabled");
-  });
-});
-
-context("Wallet - Token Detail - Cypto - Locked in vaults & Available", () => {
-  beforeEach(() => {
-    cy.createEmptyWallet(true);
-    cy.getByTestID("header_settings").click();
-    cy.sendDFItoWallet()
-      .sendDFITokentoWallet()
-      .sendTokenToWallet(["BTC"])
-      .wait(10000);
-    cy.getByTestID("bottom_tab_portfolio").click();
-    cy.getByTestID("portfolio_list").should("exist");
-    cy.getByTestID("portfolio_row_1").should("exist");
-    cy.getByTestID("portfolio_row_1_amount").contains(10);
-    cy.getByTestID("portfolio_row_1").click();
-  });
-
-  it("should be able to click token BTC", () => {
-    cy.intercept("**/address/**/vaults?size=*", {
-      statusCode: 200,
-      body: {
-        data: sampleVault,
-      },
-    }).wait(3000);
-    cy.getByTestID("token_detail_amount").contains(10);
-    cy.getByTestID("token_detail_usd_amount").contains(10);
-
-    cy.getByTestID("BTC_locked_amount").contains(2);
-    cy.getByTestID("BTC_locked_value_amount").contains(20);
-
-    cy.getByTestID("dfi_utxo_amount").should("not.exist");
-    cy.getByTestID("dfi_token_amount").should("not.exist");
-    verifyCryptoTokenComponentState();
-  });
-
-  it("should be able to redirect to Add Liquidity screen", () => {
-    cy.getByTestID("add_liquidity_button").click();
-    cy.getByTestID("token_input_primary").clear().type("5");
-    cy.getByTestID("button_continue_add_liq").click();
-
-    /* Redirect back from Confirm Add Liquidity screen */
-    cy.go("back");
-    /* Redirect back from Add Liquidity screen */
-    cy.go("back");
-    cy.url().should("include", "app/TokenDetailScreen");
-  });
-
-  it("should be able to redirect to Pool Swap screen", () => {
-    verifyPoolSwapComponents();
-  });
-});
-
-context("Wallet - Token Detail - LP", () => {
   beforeEach(() => {
     cy.createEmptyWallet(true);
     cy.getByTestID("header_settings").click();
@@ -292,13 +317,34 @@ context("Wallet - Token Detail - LP", () => {
     cy.getByTestID("token_detail_usd_amount").should("not.exist");
 
     cy.getByTestID("your_lp_pool_ETH-DFI_amount").contains("10");
-    cy.getByTestID("your_lp_pool_ETH-DFI_usd_amount").contains("20");
 
-    cy.getByTestID("tokens_in_ETH-DFI_dETH_amount").contains("100");
-    cy.getByTestID("tokens_in_ETH-DFI_dETH_usd_amount").contains("10");
+    cy.getByTestID("your_lp_pool_ETH-DFI_usd_amount")
+      .invoke("text")
+      .then((text) => {
+        checkValueWithinRange("20000", text.replace("$", ""));
+      });
 
-    cy.getByTestID("tokens_in_ETH-DFI_DFI_amount").contains("1");
-    cy.getByTestID("tokens_in_ETH-DFI_DFI_usd_amount").contains("10");
+    cy.getByTestID("tokens_in_ETH-DFI_dETH_amount")
+      .invoke("text")
+      .then((text) => {
+        checkValueWithinRange("100", text.replace("$", ""), 1);
+      });
+    cy.getByTestID("tokens_in_ETH-DFI_dETH_usd_amount")
+      .invoke("text")
+      .then((text) => {
+        checkValueWithinRange("10000", text.replace("$", ""));
+      });
+
+    cy.getByTestID("tokens_in_ETH-DFI_DFI_amount")
+      .invoke("text")
+      .then((text) => {
+        checkValueWithinRange("1", text.replace("$", ""), 0.1);
+      });
+    cy.getByTestID("tokens_in_ETH-DFI_DFI_usd_amount")
+      .invoke("text")
+      .then((text) => {
+        checkValueWithinRange("10000", text.replace("$", ""));
+      });
 
     cy.getByTestID("dfi_utxo_amount").should("not.exist");
     cy.getByTestID("dfi_token_amount").should("not.exist");
@@ -339,139 +385,171 @@ context("Wallet - Token Detail - LP", () => {
   });
 });
 
-context("Wallet - Token Detail Defiscan redirection", () => {
-  beforeEach(() => {
-    cy.createEmptyWallet(true);
-    cy.getByTestID("header_settings").click();
+context(
+  "Wallet - Token Detail Defiscan redirection",
+  { testIsolation: false },
+  () => {
+    before(() => {
+      cy.clearLocalStorage();
+      cy.clearCookies();
+    });
+
+    beforeEach(() => {
+      cy.createEmptyWallet(true);
+      cy.getByTestID("header_settings").click();
+    });
+
+    it("should able to redirect to defiscan for BTC", () => {
+      cy.sendTokenToWallet(["BTC"]).wait(10000);
+      cy.getByTestID("bottom_tab_portfolio").click();
+      cy.getByTestID("bottom_tab_portfolio").click();
+      cy.getByTestID("portfolio_list").should("exist");
+      cy.getByTestID("portfolio_row_1").should("exist");
+      cy.getByTestID("portfolio_row_1_amount").contains(10);
+      cy.getByTestID("portfolio_row_1").click().wait(3000);
+      cy.getByTestID("token_detail_explorer_url").should("exist");
+    });
+  },
+);
+
+context(
+  "Wallet - Token Detail - DFI - UTXO and Token",
+  { testIsolation: false },
+  () => {
+    before(() => {
+      cy.clearLocalStorage();
+      cy.clearCookies();
+    });
+
+    beforeEach(() => {
+      cy.createEmptyWallet(true);
+      cy.getByTestID("header_settings").click();
+      cy.sendDFItoWallet().sendDFITokentoWallet().wait(10000);
+      cy.getByTestID("bottom_tab_portfolio").click();
+      cy.getByTestID("portfolio_list").should("exist");
+      cy.getByTestID("dfi_total_balance_amount")
+        .should("exist")
+        .contains("20.00000000");
+      cy.getByTestID("dfi_balance_card").should("exist").click();
+    });
+
+    it("should be able to click token DFI", () => {
+      cy.getByTestID("dfi_utxo_amount").contains(10);
+      cy.getByTestID("dfi_token_amount").contains(10);
+
+      cy.getByTestID("dfi_utxo_percentage").contains("50.00%");
+      cy.getByTestID("dfi_token_percentage").contains("50.00%");
+
+      cy.getByTestID("dfi_learn_more").should("exist");
+      cy.getByTestID("send_button").should("exist");
+      cy.getByTestID("receive_button").should("exist");
+      cy.getByTestID("convert_button").should("exist");
+      cy.getByTestID("swap_button_dfi").should("exist");
+      cy.getByTestID("swap_button").should("not.exist");
+      cy.getByTestID("add_liquidity_button").should("not.exist");
+      cy.getByTestID("remove_liquidity_button").should("not.exist");
+    });
+
+    it("should be able to redirect with Swap", () => {
+      cy.getByTestID("swap_button_dfi").should("exist");
+      cy.getByTestID("swap_button_dfi").click();
+      cy.url().should("include", "app/CompositeSwap");
+      cy.getByTestID("token_select_button_FROM").should(
+        "not.have.attr",
+        "aria-disabled",
+      );
+      cy.getByTestID("token_select_button_TO").should(
+        "not.have.attr",
+        "aria-disabled",
+      );
+      cy.getByTestID("token_select_button_FROM").should("contain", "DFI");
+      cy.getByTestID("token_select_button_TO").should("contain", "Token");
+    });
+  },
+);
+
+context(
+  "Wallet - Token Detail - DFI - with collateral, UTXO and Token",
+  { testIsolation: false },
+  () => {
+    function validateLockedToken(token: string, lockedAmount: string): void {
+      cy.getByTestID(`${token}_locked_amount`).contains(lockedAmount);
+    }
+
+    function validateAvailableToken(token: string, availAmt: string): void {
+      cy.getByTestID(`${token}_available_amount`).contains(availAmt);
+    }
+
+    before(() => {
+      cy.clearLocalStorage();
+      cy.clearCookies();
+    });
+
+    beforeEach(() => {
+      cy.createEmptyWallet(true);
+      cy.getByTestID("header_settings").click();
+      cy.sendDFItoWallet()
+        .sendDFItoWallet()
+        .sendDFITokentoWallet()
+        .sendTokenToWallet(["BTC", "ETH"])
+        .wait(6000);
+      cy.getByTestID("bottom_tab_portfolio").click();
+      cy.getByTestID("portfolio_list").should("exist");
+      cy.getByTestID("dfi_total_balance_amount")
+        .should("exist")
+        .contains("30.00000000");
+      cy.getByTestID("dfi_balance_card").should("exist").click();
+    });
+
+    it("should be able to click on DFI token", () => {
+      cy.intercept("**/address/**/vaults?size=*", {
+        statusCode: 200,
+        body: {
+          data: sampleVault,
+        },
+      }).wait(3000);
+      validateLockedToken("DFI", "2.12300000");
+      validateAvailableToken("DFI", "30");
+      cy.getByTestID("dfi_utxo_percentage").contains("66.66%");
+      cy.getByTestID("dfi_token_percentage").contains("33.33%");
+      cy.getByTestID("dfi_utxo_amount").contains("20.00000000");
+      cy.getByTestID("dfi_token_amount").contains("10.00000000");
+      cy.getByTestID("total_dfi_label_symbol").contains("DFI");
+      cy.getByTestID("total_dfi_label_name").contains("DeFiChain");
+
+      cy.getByTestID("dfi_learn_more").should("exist");
+      cy.getByTestID("send_button").should("exist");
+      cy.getByTestID("receive_button").should("exist");
+      cy.getByTestID("convert_button").should("exist");
+      cy.getByTestID("swap_button_dfi").should("exist");
+      cy.getByTestID("swap_button").should("not.exist");
+      cy.getByTestID("add_liquidity_button").should("not.exist");
+      cy.getByTestID("remove_liquidity_button").should("not.exist");
+    });
+    it("should be able to redirect with Swap", () => {
+      cy.getByTestID("swap_button_dfi").should("exist");
+      cy.getByTestID("swap_button_dfi").click();
+      cy.url().should("include", "app/CompositeSwap");
+      cy.getByTestID("token_select_button_FROM").should(
+        "not.have.attr",
+        "aria-disabled",
+      );
+      cy.getByTestID("token_select_button_TO").should(
+        "not.have.attr",
+        "aria-disabled",
+      );
+      cy.getByTestID("token_select_button_FROM").should("contain", "DFI");
+      cy.getByTestID("token_select_button_TO").should("contain", "Token");
+    });
+  },
+);
+
+context("Wallet - Token Detail - Failed API", { testIsolation: false }, () => {
+  before(() => {
+    cy.clearLocalStorage();
+    cy.clearCookies();
   });
 
-  it("should able to redirect to defiscan for BTC", () => {
-    cy.sendTokenToWallet(["BTC"]).wait(10000);
-    cy.getByTestID("bottom_tab_portfolio").click();
-    cy.getByTestID("bottom_tab_portfolio").click();
-    cy.getByTestID("portfolio_list").should("exist");
-    cy.getByTestID("portfolio_row_1").should("exist");
-    cy.getByTestID("portfolio_row_1_amount").contains(10);
-    cy.getByTestID("portfolio_row_1").click().wait(3000);
-    cy.getByTestID("token_detail_explorer_url").should("exist");
-  });
-});
-
-context("Wallet - Token Detail - DFI - UTXO and Token", () => {
-  beforeEach(() => {
-    cy.createEmptyWallet(true);
-    cy.getByTestID("header_settings").click();
-    cy.sendDFItoWallet().sendDFITokentoWallet().wait(10000);
-    cy.getByTestID("bottom_tab_portfolio").click();
-    cy.getByTestID("portfolio_list").should("exist");
-    cy.getByTestID("dfi_total_balance_amount")
-      .should("exist")
-      .contains("20.00000000");
-    cy.getByTestID("dfi_balance_card").should("exist").click();
-  });
-
-  it("should be able to click token DFI", () => {
-    cy.getByTestID("dfi_utxo_amount").contains(10);
-    cy.getByTestID("dfi_token_amount").contains(10);
-
-    cy.getByTestID("dfi_utxo_percentage").contains("50.00%");
-    cy.getByTestID("dfi_token_percentage").contains("50.00%");
-
-    cy.getByTestID("dfi_learn_more").should("exist");
-    cy.getByTestID("send_button").should("exist");
-    cy.getByTestID("receive_button").should("exist");
-    cy.getByTestID("convert_button").should("exist");
-    cy.getByTestID("swap_button_dfi").should("exist");
-    cy.getByTestID("swap_button").should("not.exist");
-    cy.getByTestID("add_liquidity_button").should("not.exist");
-    cy.getByTestID("remove_liquidity_button").should("not.exist");
-  });
-
-  it("should be able to redirect with Swap", () => {
-    cy.getByTestID("swap_button_dfi").should("exist");
-    cy.getByTestID("swap_button_dfi").click();
-    cy.url().should("include", "app/CompositeSwap");
-    cy.getByTestID("token_select_button_FROM").should(
-      "not.have.attr",
-      "aria-disabled",
-    );
-    cy.getByTestID("token_select_button_TO").should(
-      "not.have.attr",
-      "aria-disabled",
-    );
-    cy.getByTestID("token_select_button_FROM").should("contain", "DFI");
-    cy.getByTestID("token_select_button_TO").should("contain", "Token");
-  });
-});
-
-context("Wallet - Token Detail - DFI - with collateral, UTXO and Token", () => {
-  function validateLockedToken(token: string, lockedAmount: string): void {
-    cy.getByTestID(`${token}_locked_amount`).contains(lockedAmount);
-  }
-
-  function validateAvailableToken(token: string, availAmt: string): void {
-    cy.getByTestID(`${token}_available_amount`).contains(availAmt);
-  }
-
-  beforeEach(() => {
-    cy.createEmptyWallet(true);
-    cy.getByTestID("header_settings").click();
-    cy.sendDFItoWallet()
-      .sendDFItoWallet()
-      .sendDFITokentoWallet()
-      .sendTokenToWallet(["BTC", "ETH"])
-      .wait(6000);
-    cy.getByTestID("bottom_tab_portfolio").click();
-    cy.getByTestID("portfolio_list").should("exist");
-    cy.getByTestID("dfi_total_balance_amount")
-      .should("exist")
-      .contains("30.00000000");
-    cy.getByTestID("dfi_balance_card").should("exist").click();
-  });
-
-  it("should be able to click on DFI token", () => {
-    cy.intercept("**/address/**/vaults?size=*", {
-      statusCode: 200,
-      body: {
-        data: sampleVault,
-      },
-    }).wait(3000);
-    validateLockedToken("DFI", "2.12300000");
-    validateAvailableToken("DFI", "30");
-    cy.getByTestID("dfi_utxo_percentage").contains("66.66%");
-    cy.getByTestID("dfi_token_percentage").contains("33.33%");
-    cy.getByTestID("dfi_utxo_amount").contains("20.00000000");
-    cy.getByTestID("dfi_token_amount").contains("10.00000000");
-    cy.getByTestID("total_dfi_label_symbol").contains("DFI");
-    cy.getByTestID("total_dfi_label_name").contains("DeFiChain");
-
-    cy.getByTestID("dfi_learn_more").should("exist");
-    cy.getByTestID("send_button").should("exist");
-    cy.getByTestID("receive_button").should("exist");
-    cy.getByTestID("convert_button").should("exist");
-    cy.getByTestID("swap_button_dfi").should("exist");
-    cy.getByTestID("swap_button").should("not.exist");
-    cy.getByTestID("add_liquidity_button").should("not.exist");
-    cy.getByTestID("remove_liquidity_button").should("not.exist");
-  });
-  it("should be able to redirect with Swap", () => {
-    cy.getByTestID("swap_button_dfi").should("exist");
-    cy.getByTestID("swap_button_dfi").click();
-    cy.url().should("include", "app/CompositeSwap");
-    cy.getByTestID("token_select_button_FROM").should(
-      "not.have.attr",
-      "aria-disabled",
-    );
-    cy.getByTestID("token_select_button_TO").should(
-      "not.have.attr",
-      "aria-disabled",
-    );
-    cy.getByTestID("token_select_button_FROM").should("contain", "DFI");
-    cy.getByTestID("token_select_button_TO").should("contain", "Token");
-  });
-});
-
-context("Wallet - Token Detail - Failed API", () => {
   beforeEach(() => {
     cy.intercept("**/regtest/address/**", {
       statusCode: 404,
