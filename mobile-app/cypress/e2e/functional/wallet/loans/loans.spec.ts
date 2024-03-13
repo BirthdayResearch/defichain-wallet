@@ -85,10 +85,13 @@ function checkTokensSortingOrder(
   }
 }
 
-context("Wallet - Loans - Create Loans page", () => {
+context("Wallet - Loans - Create Loans page", { testIsolation: false }, () => {
   before(() => {
+    cy.clearAllCookies();
+    cy.clearAllLocalStorage();
     cy.createEmptyWallet(true);
   });
+
   it("should display empty loans state", () => {
     cy.getByTestID("bottom_tab_loans").click();
     cy.getByTestID("loans_tabs_YOUR_VAULTS").click(); // landing page is on BORROW tab
@@ -106,8 +109,10 @@ context("Wallet - Loans - Create Loans page", () => {
   });
 });
 
-context("Wallet - Loans", () => {
+context("Wallet - Loans", { testIsolation: false }, () => {
   before(() => {
+    cy.clearAllCookies();
+    cy.clearAllLocalStorage();
     cy.createEmptyWallet(true);
     cy.sendDFItoWallet().sendDFITokentoWallet().wait(6000);
   });
@@ -166,10 +171,12 @@ context("Wallet - Loans", () => {
   });
 });
 
-context("Wallet - Loans - Take Loans", () => {
+context("Wallet - Loans - Take Loans", { testIsolation: false }, () => {
   let vaultId = "";
   const walletTheme = { isDark: false };
   before(() => {
+    cy.clearAllCookies();
+    cy.clearAllLocalStorage();
     cy.createEmptyWallet(true);
     cy.sendDFItoWallet()
       .sendDFITokentoWallet()
