@@ -65,6 +65,7 @@ context("Wallet - Settings - Address Book", { testIsolation: false }, () => {
     cy.createEmptyWallet(true);
     cy.wait(1000);
     cy.getByTestID("header_settings").should("exist").click();
+    cy.wait(1000);
     cy.getByTestID("address_book_title").click();
     cy.getByTestID("add_new_address").click();
     cy.getByTestID("address_book_label_input").type(label);
