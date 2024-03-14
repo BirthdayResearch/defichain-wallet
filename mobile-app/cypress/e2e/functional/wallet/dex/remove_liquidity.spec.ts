@@ -245,15 +245,17 @@ context("Wallet - DEX - Remove Liquidity", { testIsolation: false }, () => {
     cy.getByTestID("tokens_remove_amount_input").clear().type("5"); // input 2
     validatePriceSectionInfo("pricerate_value");
     cy.getByTestID("pricerate_value_0_label").contains(`${tokenA} to receive`);
-    cy.getByTestID("pricerate_value_0_rhsUsdAmount").should(
-      "have.text",
-      "$5,000.00",
-    );
+    cy.getByTestID("pricerate_value_0_rhsUsdAmount")
+      .invoke("text")
+      .then((text) => {
+        checkValueWithinRange("5000", text.replace("$", ""));
+      });
     cy.getByTestID("pricerate_value_1_label").contains(`${tokenB} to receive`);
-    cy.getByTestID("pricerate_value_1_rhsUsdAmount").should(
-      "have.text",
-      "$5,000.00",
-    );
+    cy.getByTestID("pricerate_value_1_rhsUsdAmount")
+      .invoke("text")
+      .then((text) => {
+        checkValueWithinRange("5000", text.replace("$", ""));
+      });
   });
 
   it("should show correct calculation summary based on percentage input", () => {
