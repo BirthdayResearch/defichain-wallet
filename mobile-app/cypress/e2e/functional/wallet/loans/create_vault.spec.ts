@@ -105,7 +105,7 @@ context("Wallet - Loans - Create vault", { testIsolation: false }, () => {
   });
 });
 
-context.only(
+context(
   "Wallet - Loan - Create vault summary",
   { testIsolation: false },
   () => {
