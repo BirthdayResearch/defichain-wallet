@@ -5,11 +5,6 @@ BigNumber.set({ ROUNDING_MODE: BigNumber.ROUND_DOWN });
 
 context("Wallet - Send - with Conversion", { testIsolation: false }, () => {
   let whale: WhaleApiClient;
-  before(() => {
-    cy.clearLocalStorage();
-    cy.clearCookies();
-  });
-
   const addresses = [
     "bcrt1qh5callw3zuxtnks96ejtekwue04jtnm84f04fn",
     "bcrt1q6ey8k3w0ll3cn5sg628nxthymd3une2my04j4n",
@@ -17,11 +12,6 @@ context("Wallet - Send - with Conversion", { testIsolation: false }, () => {
   const prevBalances: { [key: string]: string } = {};
 
   beforeEach(() => {
-    cy.createEmptyWallet(true);
-    cy.sendDFItoWallet().sendDFITokentoWallet().sendDFITokentoWallet();
-    cy.wait(6000);
-    cy.getByTestID("dfi_total_balance_amount").contains("30.00000000");
-
     const network = localStorage.getItem("Development.NETWORK");
     whale = new WhaleApiClient({
       url:
@@ -33,9 +23,19 @@ context("Wallet - Send - with Conversion", { testIsolation: false }, () => {
     });
   });
 
+  function sendFund() {
+    cy.clearLocalStorage();
+    cy.clearCookies();
+    cy.createEmptyWallet(true);
+    cy.sendDFItoWallet().sendDFITokentoWallet().sendDFITokentoWallet();
+    cy.wait(8000);
+    cy.getByTestID("dfi_total_balance_amount").contains("30.00000000");
+  }
+
   addresses.forEach((address) => {
     describe(`check for address ${address}`, () => {
       it(`should be able to send to address ${address}`, () => {
+        sendFund();
         cy.getByTestID("bottom_tab_portfolio").click();
         cy.wrap(whale.address.getBalance(address)).then((response: any) => {
           prevBalances[address] = response;
