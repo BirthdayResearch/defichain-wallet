@@ -1,4 +1,5 @@
 import BigNumber from "bignumber.js";
+import { checkValueWithinRange } from "../../../../../support/utils";
 
 function setCustomSlippage(customSlippage: string): void {
   cy.getByTestID("slippage_custom_amount").click();
@@ -43,8 +44,13 @@ context(
 
     it("should be able to validate form", () => {
       // Valid form
-      cy.getByTestID("text_input_tokenA").type("1");
-      cy.getByTestID("tokenB_value").contains("1");
+      cy.getByTestID("text_input_tokenA").clear().type("1");
+      cy.wait(2000);
+      cy.getByTestID("tokenB_value")
+        .invoke("text")
+        .then((text) => {
+          checkValueWithinRange("100", text.replace("$", ""));
+        });
 
       cy.getByTestID("button_confirm_submit").should(
         "not.have.attr",

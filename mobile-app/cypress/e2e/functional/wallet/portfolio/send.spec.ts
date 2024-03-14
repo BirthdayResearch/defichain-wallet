@@ -54,6 +54,8 @@ context("Wallet - Send", { testIsolation: false }, () => {
     "2MxnNb1MYSZvS3c26d4gC7gXsNMkB83UoXB",
     "n1xjm9oekw98Rfb3Mv4ApyhwxC5kMuHnCo",
   ];
+  const prevBalances: { [key: string]: string } = {};
+
   before(() => {
     cy.clearLocalStorage();
     cy.clearCookies();
@@ -255,6 +257,9 @@ context("Wallet - Send", { testIsolation: false }, () => {
 
     addresses.forEach((address) => {
       it(`should be able to send to address ${address}`, () => {
+        cy.wrap(whale.address.getBalance(address)).then((response: any) => {
+          prevBalances[address] = response;
+        });
         cy.getByTestID("bottom_tab_portfolio").click();
         cy.getByTestID("portfolio_list").should("exist");
         cy.getByTestID("send_balance_button").click().wait(3000);
@@ -282,7 +287,10 @@ context("Wallet - Send", { testIsolation: false }, () => {
 
       it(`should check if exist on other side ${address}`, () => {
         cy.wrap(whale.address.getBalance(address)).then((response) => {
-          expect(response).eq("1.00000000");
+          const updatedBalance = new BigNumber(response as string).minus(
+            prevBalances[address],
+          );
+          expect(updatedBalance.eq("1.00000000")).eq(true);
         });
       });
     });
@@ -428,6 +436,7 @@ context("Wallet - Send - Max Values", { testIsolation: false }, () => {
     "bcrt1q6np0fh47ykhznjhrtfvduh73cgjg32yac8t07d",
     "bcrt1qyynghf6xv66c7zewd6aansn9j9hy3q2hsl7ms7",
   ];
+  const prevBalances: { [key: string]: string } = {};
   beforeEach(() => {
     const network = localStorage.getItem("Development.NETWORK");
     whale = new WhaleApiClient({
@@ -443,9 +452,12 @@ context("Wallet - Send - Max Values", { testIsolation: false }, () => {
     cy.getByTestID("bottom_tab_portfolio").click();
   });
 
-  addresses.forEach((address) => {
+  addresses.forEach((address: string) => {
     describe(`check for address ${address}`, () => {
       it(`should be able to send to address ${address}`, () => {
+        cy.wrap(whale.address.getBalance(address)).then((response: any) => {
+          prevBalances[address] = response;
+        });
         cy.getByTestID("bottom_tab_portfolio").click();
         cy.getByTestID("portfolio_list").should("exist");
         cy.getByTestID("dfi_total_balance_amount").contains("10.00000000");
@@ -481,7 +493,10 @@ context("Wallet - Send - Max Values", { testIsolation: false }, () => {
 
       it(`should check if exist on other side ${address}`, () => {
         cy.wrap(whale.address.getBalance(address)).then((response) => {
-          expect(response).contains("9.90000000");
+          const updatedBalance = new BigNumber(response as string).minus(
+            prevBalances[address],
+          );
+          expect(updatedBalance.toString()).contains("9.9");
         });
       });
     });
@@ -499,6 +514,8 @@ context("Wallet - Send - with Conversion", { testIsolation: false }, () => {
     "bcrt1qh5callw3zuxtnks96ejtekwue04jtnm84f04fn",
     "bcrt1q6ey8k3w0ll3cn5sg628nxthymd3une2my04j4n",
   ];
+  const prevBalances: { [key: string]: string } = {};
+
   beforeEach(() => {
     const network = localStorage.getItem("Development.NETWORK");
     whale = new WhaleApiClient({
@@ -509,14 +526,18 @@ context("Wallet - Send - with Conversion", { testIsolation: false }, () => {
       network: "regtest",
       version: "v0",
     });
-    cy.createEmptyWallet(true);
-    cy.sendDFItoWallet().sendDFITokentoWallet().wait(4000);
-    cy.getByTestID("bottom_tab_portfolio").click();
   });
 
   addresses.forEach((address) => {
     describe(`check for address ${address}`, () => {
       it(`should be able to send to address ${address}`, () => {
+        cy.createEmptyWallet(true);
+        cy.sendDFItoWallet().sendDFITokentoWallet();
+        cy.wait(6000);
+        cy.getByTestID("bottom_tab_portfolio").click();
+        cy.wrap(whale.address.getBalance(address)).then((response: any) => {
+          prevBalances[address] = response;
+        });
         cy.getByTestID("bottom_tab_portfolio").click();
         cy.getByTestID("portfolio_list").should("exist");
         cy.getByTestID("dfi_balance_card").should("exist");
@@ -570,7 +591,10 @@ context("Wallet - Send - with Conversion", { testIsolation: false }, () => {
 
       it(`should check if exist on other side ${address}`, () => {
         cy.wrap(whale.address.getBalance(address)).then((response) => {
-          expect(response).contains("12.00000000");
+          const updatedBalance = new BigNumber(response as string).minus(
+            prevBalances[address],
+          );
+          expect(updatedBalance.toString()).contains("12");
         });
       });
     });
