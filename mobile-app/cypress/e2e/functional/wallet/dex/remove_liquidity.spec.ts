@@ -146,7 +146,7 @@ function validatePriceSelectionAndSummaryBasedOnPercentage(): void {
   cy.getByTestID("tokens_remove_amount_input_clear_button").click().wait(1000); // clear input
 }
 
-// TODO uncomment when  testcase stop crashing chrome
+// TODO (Harsh) uncomment when testcase stop crashing chrome
 context.skip(
   "Wallet - DEX - View pool share information",
   { testIsolation: false },

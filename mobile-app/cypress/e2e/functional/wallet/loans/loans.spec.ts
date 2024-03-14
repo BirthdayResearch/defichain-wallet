@@ -101,7 +101,8 @@ context("Wallet - Loans - Create Loans page", { testIsolation: false }, () => {
     );
   });
 
-  it("should display learn more bottom sheet", () => {
+  // TODO (Harsh) uncomment when testcase stop crashing chrome
+  it.skip("should display learn more bottom sheet", () => {
     cy.getByTestID("empty_vault_learn_more").click();
     cy.wait(2000);
     cy.getByTestID("loans_carousel").should("exist");
