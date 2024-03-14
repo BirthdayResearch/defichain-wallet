@@ -226,9 +226,22 @@ context(
           );
         });
     });
+  },
+);
+
+context(
+  "Wallet - Network detail screen - with wallet context (switching network)",
+  { testIsolation: false },
+  () => {
+    before(() => {
+      cy.visit("/");
+      cy.exitWallet();
+      cy.clearLocalStorage();
+      cy.clearCookies();
+      cy.createEmptyWallet(true);
+    });
 
     it("should check network detail by switching network", () => {
-      cy.getByTestID("bottom_tab_portfolio").click();
       cy.getByTestID("bottom_tab_portfolio").click();
       cy.getByTestID("header_settings").click();
       cy.getByTestID("header_active_network")
@@ -264,7 +277,6 @@ context(
                       cy.getByTestID("header_network_icon")
                         .filter(":visible")
                         .click();
-                      console.log({ updatedNetwork });
                       expect(network).not.eq(updatedNetwork);
                       cy.getByTestID("network_details_network")
                         .should("exist")
