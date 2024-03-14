@@ -156,7 +156,8 @@ context(
     });
 
     it("clicking view pool share should open details modal and able to close modal", () => {
-      cy.getByTestID("view_pool_button").click().wait(1000);
+      cy.getByTestID("view_pool_button").click();
+      cy.wait(2000);
       cy.getByTestID("view_pool_details_title").should(
         "have.text",
         `${tokenA}-${tokenB}`,
