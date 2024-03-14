@@ -12,6 +12,8 @@ context(
     beforeEach(() => {
       cy.visit("/");
       cy.exitWallet();
+      cy.clearLocalStorage();
+      cy.clearCookies();
       cy.wait(3000);
       cy.getByTestID("get_started_button").should("be.visible").click();
       cy.getByTestID("guidelines_check").click();
@@ -233,7 +235,6 @@ context(
         .first()
         .invoke("text")
         .then((network: string) => {
-          console.log({ network });
           cy.getByTestID("header_network_icon")
             .find("path")
             .should("have.css", "fill")

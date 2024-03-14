@@ -30,7 +30,8 @@ context(
     });
 
     it("should display correct confirmation details", () => {
-      cy.getByTestID("MAX_amount_button").click().wait(500);
+      cy.wait(1000);
+      cy.getByTestID("MAX_amount_button").should("exist").click();
       cy.getByTestID("button_confirm_submit").click().wait(3000);
       cy.getByTestID("text_swap_amount_from").should(
         "have.text",

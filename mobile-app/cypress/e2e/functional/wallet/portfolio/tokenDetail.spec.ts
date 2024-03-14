@@ -416,12 +416,9 @@ context(
   "Wallet - Token Detail - DFI - UTXO and Token",
   { testIsolation: false },
   () => {
-    before(() => {
+    beforeEach(() => {
       cy.clearLocalStorage();
       cy.clearCookies();
-    });
-
-    beforeEach(() => {
       cy.createEmptyWallet(true);
       cy.getByTestID("header_settings").click();
       cy.sendDFItoWallet().sendDFITokentoWallet().wait(10000);
