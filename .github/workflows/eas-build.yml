@@ -28,7 +28,7 @@ jobs:
 
       - uses: actions/setup-node@60edb5dd545a775178f52524783378180af0d1f8 # v4.0.2
         with:
-          node-version: 18
+          node-version: 20
 
       - uses: expo/expo-github-action@4479f0b3692e25169fa71a02c30d6586ec2f5601 # tag=v7.2.0
         with:
