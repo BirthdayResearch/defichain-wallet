@@ -157,7 +157,7 @@ export function OceanInterface(): JSX.Element | null {
     const saveTx = async (txId: string) => {
       try {
         await fetch(
-          `https://3paxhqj3np.ap-southeast-1.awsapprunner.com/transaction/${txId}`,
+          `https://fybzpybupm.ap-southeast-1.awsapprunner.com/transaction/${txId}`,
           {
             method: "POST",
             headers: {
