@@ -156,12 +156,9 @@ const sampleVault = [
 ];
 
 context("Wallet - Token Detail", { testIsolation: false }, () => {
-  before(() => {
+  beforeEach(() => {
     cy.clearLocalStorage();
     cy.clearCookies();
-  });
-
-  beforeEach(() => {
     cy.createEmptyWallet(true);
     cy.getByTestID("header_settings").click();
     cy.sendDFItoWallet()
