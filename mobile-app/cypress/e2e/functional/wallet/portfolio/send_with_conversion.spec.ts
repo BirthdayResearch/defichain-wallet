@@ -17,6 +17,11 @@ context("Wallet - Send - with Conversion", { testIsolation: false }, () => {
   const prevBalances: { [key: string]: string } = {};
 
   beforeEach(() => {
+    cy.createEmptyWallet(true);
+    cy.sendDFItoWallet().sendDFITokentoWallet().sendDFITokentoWallet();
+    cy.wait(6000);
+    cy.getByTestID("dfi_total_balance_amount").contains("30.00000000");
+
     const network = localStorage.getItem("Development.NETWORK");
     whale = new WhaleApiClient({
       url:
@@ -31,9 +36,6 @@ context("Wallet - Send - with Conversion", { testIsolation: false }, () => {
   addresses.forEach((address) => {
     describe(`check for address ${address}`, () => {
       it(`should be able to send to address ${address}`, () => {
-        cy.createEmptyWallet(true);
-        cy.sendDFItoWallet().sendDFITokentoWallet();
-        cy.wait(6000);
         cy.getByTestID("bottom_tab_portfolio").click();
         cy.wrap(whale.address.getBalance(address)).then((response: any) => {
           prevBalances[address] = response;

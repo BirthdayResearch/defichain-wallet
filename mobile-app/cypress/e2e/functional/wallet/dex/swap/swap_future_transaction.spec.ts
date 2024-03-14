@@ -50,7 +50,8 @@ context(
         "Settlement value +5%",
       );
       cy.wait(3000);
-      cy.getByTestID("button_confirm_swap").click().wait(3500);
+      cy.getByTestID("button_confirm_swap").should("exist").click();
+      cy.wait(4000);
       cy.getByTestID("txn_authorization_title").contains(
         "Swapping 10.00000000 DUSD to dTU10 on settlement block",
       );
