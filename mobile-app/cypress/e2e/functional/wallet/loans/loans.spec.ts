@@ -123,7 +123,7 @@ context("Wallet - Loans", { testIsolation: false }, () => {
     cy.intercept("**/loans/tokens?size=200").as("loans");
     cy.wait(["@loans"]).then((intercept: any) => {
       const { data } = intercept.response.body;
-      data.forEach((loan: LoanToken, i: number) => {
+      cy.wrap(data).each((loan: LoanToken, i: number) => {
         // const price = loan.activePrice?.active?.amount ?? 0
         cy.getByTestID(`loan_card_${i}_display_symbol`).contains(
           loan.token.displaySymbol,
