@@ -293,6 +293,7 @@ export function PortfolioNavigator(): JSX.Element {
             <HeaderNetworkStatus onPress={goToNetworkSelect} />
           ),
           headerBackTitleVisible: false,
+          headerBackTestID: "get_dfi_header_back",
           headerTitle: translate(
             "screens/ReceiveScreen",
             isEvmDomain ? "Get DFI-EVM" : "Get DFI",
@@ -308,6 +309,7 @@ export function PortfolioNavigator(): JSX.Element {
           headerRight: () => (
             <HeaderNetworkStatus onPress={goToNetworkSelect} />
           ),
+          headerBackTestID: "market_places_header_back",
           headerBackTitleVisible: false,
           headerTitle: translate("screens/MarketplaceScreen", "Marketplace"),
         }}
