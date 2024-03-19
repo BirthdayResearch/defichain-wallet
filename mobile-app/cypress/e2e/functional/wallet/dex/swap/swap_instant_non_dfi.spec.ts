@@ -1,4 +1,6 @@
 import BigNumber from "bignumber.js";
+import { PoolPairData } from "@defichain/whale-api-client/dist/api/poolpairs";
+import { WhaleApiClient } from "@defichain/whale-api-client";
 import { checkValueWithinRange } from "../../../../../support/utils";
 
 function setCustomSlippage(customSlippage: string): void {
@@ -11,11 +13,22 @@ context(
   "Wallet - DEX - Instant Swap (non-DFI)",
   { testIsolation: false },
   () => {
+    let whale: WhaleApiClient;
+
     before(() => {
       cy.clearAllCookies();
       cy.clearAllLocalStorage();
       cy.createEmptyWallet(true);
       cy.getByTestID("header_settings").click();
+      const network = localStorage.getItem("Development.NETWORK");
+      whale = new WhaleApiClient({
+        url:
+          network === "Playground"
+            ? "https://playground.jellyfishsdk.com"
+            : "http://localhost:19553",
+        network: "regtest",
+        version: "v0",
+      });
       cy.sendDFItoWallet()
         .sendDFITokentoWallet()
         .sendTokenToWallet(["LTC", "TU10"])
@@ -46,11 +59,18 @@ context(
       // Valid form
       cy.getByTestID("text_input_tokenA").clear().type("1");
       cy.wait(2000);
-      cy.getByTestID("tokenB_value")
-        .invoke("text")
-        .then((text) => {
-          checkValueWithinRange("100", text.replace("$", ""));
-        });
+      cy.wrap<PoolPairData[]>(whale.poolpairs.list(200)).then(
+        (response: PoolPairData[]) => {
+          const pair: PoolPairData = response.find(
+            ({ displaySymbol }) => displaySymbol === "dLTC-DFI",
+          );
+          cy.getByTestID("tokenB_value")
+            .invoke("text")
+            .then((text) => {
+              checkValueWithinRange(pair.priceRatio.ab, text.replace("$", ""));
+            });
+        },
+      );
 
       cy.getByTestID("button_confirm_submit").should(
         "not.have.attr",
