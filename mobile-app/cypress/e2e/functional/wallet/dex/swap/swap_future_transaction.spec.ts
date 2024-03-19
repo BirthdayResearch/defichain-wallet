@@ -1,3 +1,4 @@
+import BigNumber from "bignumber.js";
 import dayjs from "dayjs";
 
 context(
@@ -39,11 +40,25 @@ context(
       );
       cy.getByTestID("text_swap_amount_to_unit").should("have.text", "dTU10");
       cy.getByTestID("confirm_text_fee").should("exist");
-      cy.getByTestID("confirm_text_settlement_block").should("exist");
-      cy.getByTestID("confirm_text_transaction_date").should(
-        "have.text",
-        dayjs().add(30, "second").format("MMM D, YYYY, h:mm a"),
-      ); // blocksSeconds = 30
+      cy.getByTestID("confirm_text_settlement_block")
+        .should("exist")
+        .invoke("text")
+        .then((settlementBlockNumber) => {
+          cy.getByTestID("current_block_count_value")
+            .invoke("text")
+            .then((block: string) => {
+              const settlementBlock = new BigNumber(settlementBlockNumber);
+              const currentBlockCount = new BigNumber(block);
+              const seconds = settlementBlock
+                .minus(currentBlockCount)
+                .multipliedBy(3)
+                .toNumber();
+              cy.getByTestID("confirm_text_transaction_date").should(
+                "have.text",
+                dayjs().add(seconds, "second").format("MMM D, YYYY, h:mm a"),
+              );
+            });
+        });
       cy.getByTestID("confirm_text_receive_unit").should("have.text", "dTU10");
       cy.getByTestID("confirm_settlement_value").should(
         "have.text",
