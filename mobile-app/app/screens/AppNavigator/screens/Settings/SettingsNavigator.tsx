@@ -13,6 +13,7 @@ import { WhitelistedAddress } from "@store/userPreferences";
 import { NetworkSelectionScreen } from "@screens/AppNavigator/screens/Settings/screens/NetworkSelectionScreen";
 import { CfpDfipProposalsFaq } from "@screens/AppNavigator/screens/Portfolio/screens/CfpDfipProposalsFaq";
 import { DomainType } from "@contexts/DomainContext";
+import { AnalyticsScreen } from "@screens/AppNavigator/screens/Settings/screens/AnalyticsScreen";
 import { AboutScreen } from "./screens/AboutScreen";
 import { CommunityScreen } from "./screens/CommunityScreen";
 import { LanguageSelectionScreen } from "./screens/LanguageSelectionScreen";
@@ -103,6 +104,15 @@ export function SettingsNavigator(): JSX.Element {
         name="RecoveryWordsScreen"
         options={{
           headerTitle: translate("screens/Settings", "Recovery Words"),
+        }}
+      />
+
+      <SettingsStack.Screen
+        component={AnalyticsScreen}
+        name="AnalyticsScreen"
+        options={{
+          headerTitle: "Analytics",
+          headerBackTitleVisible: false,
         }}
       />
 
