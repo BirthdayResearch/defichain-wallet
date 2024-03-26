@@ -4,6 +4,7 @@ import {
   ThemedTextV2,
   ThemedViewV2,
 } from "@components/themed";
+import { WalletAlert } from "@components/WalletAlert";
 import { translate } from "@translations";
 import { tailwind } from "@tailwind";
 import { Switch } from "@components";
@@ -39,7 +40,33 @@ export function AnalyticsScreen(): JSX.Element {
         </ThemedTextV2>
         <Switch
           onValueChange={async () => {
-            setIsAnalyticsOn(!isAnalyticsOn);
+            if (isAnalyticsOn) {
+              WalletAlert({
+                title: translate(
+                  "screens/AnalyticsScreen",
+                  "Are you sure you want to restrict data access?",
+                ),
+                message: translate(
+                  "screens/AnalyticsScreen",
+                  "Your data is always kept anonymous and is used only for improvements. Are you sure you want to restrict?",
+                ),
+                buttons: [
+                  {
+                    text: translate("screens/AnalyticsScreen", "Cancel"),
+                    style: "cancel",
+                  },
+                  {
+                    text: translate("screens/AnalyticsScreen", "Restrict data"),
+                    onPress: async () => {
+                      setIsAnalyticsOn(!isAnalyticsOn);
+                    },
+                    style: "destructive",
+                  },
+                ],
+              });
+            } else {
+              setIsAnalyticsOn(!isAnalyticsOn);
+            }
           }}
           value={isAnalyticsOn}
         />
