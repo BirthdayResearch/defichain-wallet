@@ -5,8 +5,8 @@ context(
     before(() => {
       cy.clearAllCookies();
       cy.clearAllLocalStorage();
-      cy.createEmptyWallet(true);
       cy.setFeatureFlags(["future_swap"]);
+      cy.createEmptyWallet(true);
       cy.sendDFITokentoWallet()
         .sendDFItoWallet()
         .sendTokenToWallet(["TU10", "DUSD", "BTC"])
@@ -16,6 +16,10 @@ context(
       cy.getByTestID("bottom_tab_dex").click();
       cy.getByTestID("composite_swap").click();
       cy.wait(5000);
+    });
+
+    beforeEach(() => {
+      cy.setFeatureFlags(["future_swap"]);
     });
 
     it("should future swap DUSD -> dTU10", () => {
