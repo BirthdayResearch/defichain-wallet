@@ -20,6 +20,7 @@ import { CreateOrEditAddressLabelFormProps } from "@screens/AppNavigator/screens
 import { getDefaultTheme } from "@constants/Theme";
 import { ThemedViewV2 } from "@components/themed";
 import { BottomSheetModal as BottomSheetModalWeb } from "./BottomSheetModal.web";
+import { BackIcon } from "./icons/BackIcon";
 
 interface BottomSheetWithNavProps {
   modalRef: React.Ref<BottomSheetModalMethods>;
@@ -81,7 +82,7 @@ export const BottomSheetWithNav = React.memo(
         <Navigator {...props} />
       </BottomSheetModal>
     );
-  }
+  },
 );
 
 function EmptyHandleComponent(): JSX.Element {
@@ -93,7 +94,7 @@ export const BottomSheetWebWithNav = React.memo(
     props: BottomSheetWithNavProps & {
       isModalDisplayed: boolean;
       modalStyle?: { [other: string]: any };
-    }
+    },
   ): JSX.Element => {
     return (
       <BottomSheetModalWeb
@@ -106,7 +107,7 @@ export const BottomSheetWebWithNav = React.memo(
         </View>
       </BottomSheetModalWeb>
     );
-  }
+  },
 );
 
 function Navigator(props: BottomSheetWithNavProps): JSX.Element {
@@ -118,6 +119,7 @@ function Navigator(props: BottomSheetWithNavProps): JSX.Element {
     () => ({
       ...TransitionPresets.SlideFromRightIOS,
       headerShown: true,
+      headerBackImage: BackIcon,
       safeAreaInsets: { top: 0 },
       cardStyle: {
         backgroundColor: "white",
@@ -125,7 +127,7 @@ function Navigator(props: BottomSheetWithNavProps): JSX.Element {
       },
       headerMode: "screen",
     }),
-    []
+    [],
   );
 
   return (

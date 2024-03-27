@@ -31,6 +31,7 @@ import {
 } from "@screens/AppNavigator/screens/Dex/CompositeSwap/SwapTokenSelectionScreen";
 import { ConvertDirection, ScreenName } from "@screens/enum";
 import { DomainType, useDomainContext } from "@contexts/DomainContext";
+import { BackIcon } from "@components/icons/BackIcon";
 import { NetworkDetails } from "../Settings/screens/NetworkDetails";
 import { PortfolioScreen } from "./PortfolioScreen";
 import { ReceiveScreen } from "./screens/ReceiveScreen";
@@ -203,6 +204,7 @@ export function PortfolioNavigator(): JSX.Element {
     <PortfolioStack.Navigator
       initialRouteName="PortfolioScreen"
       screenOptions={{
+        headerBackImage: BackIcon,
         headerTitleAlign: "center",
       }}
     >

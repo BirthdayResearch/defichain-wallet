@@ -14,9 +14,10 @@ import {
   TokenListType,
 } from "@screens/AppNavigator/screens/Dex/CompositeSwap/SwapTokenSelectionScreen";
 import { PriceRateProps as PriceRatesPropsV2 } from "@components/PricesSection";
-import { ThemedIcon, ThemedTextV2 } from "@components/themed";
+import { ThemedTextV2 } from "@components/themed";
 import { StyleProp, View, ViewStyle } from "react-native";
 import { ScreenName } from "@screens/enum";
+import { BackIcon } from "@components/icons/BackIcon";
 import { NetworkSelectionScreen } from "../Settings/screens/NetworkSelectionScreen";
 import { ConversionParam } from "../Portfolio/PortfolioNavigator";
 import {
@@ -153,18 +154,7 @@ export function DexNavigator(): JSX.Element {
     <DexStack.Navigator
       initialRouteName="DexScreen"
       screenOptions={{
-        headerBackImage: (props) => {
-          return (
-            <ThemedIcon
-              light={tailwind("text-mono-light-v2-900")}
-              dark={tailwind("text-mono-dark-v2-900")}
-              iconType="Feather"
-              name="chevron-left"
-              size={24}
-              {...props}
-            />
-          );
-        },
+        headerBackImage: BackIcon,
         headerTitleAlign: "center",
         headerTitleStyle: HeaderFont,
         headerBackTitleVisible: false,
