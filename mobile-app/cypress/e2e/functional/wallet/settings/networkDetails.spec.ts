@@ -217,7 +217,6 @@ context(
           cy.getByTestID("network_details_network")
             .should("exist")
             .contains(network);
-          console.log({ network });
           cy.getByTestID(`button_network_${network}_check`).should("exist");
           cy.getByTestID(`button_network_${network}_check`).should(
             "have.css",

@@ -25,7 +25,7 @@ exports[`themed section list should match snapshot with 1`] = `
   onScrollBeginDrag={[Function]}
   onScrollEndDrag={[Function]}
   renderItem={[Function]}
-  scrollEventThrottle={50}
+  scrollEventThrottle={0.0001}
   stickyHeaderIndices={
     [
       0,
