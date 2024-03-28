@@ -446,7 +446,8 @@
     "View on Scan": "Voir sur Scan",
     "Go back": "Retour",
     "Service Providers": "Fournisseurs de services",
-    "Custom (3rd-party)": "Personnalisé (tierce partie)"
+    "Custom (3rd-party)": "Personnalisé (tierce partie)",
+    "Analytics" : "Analyse"
   },
   "screens/AboutScreen": {
     "About": "A propos de l'appli",
@@ -2346,5 +2347,18 @@
     "Submitting proposal": "Soumettre proposition",
     "Proposal Submitted": "Proposition soumise",
     "Proposals fees are implemented to encourage more responsible submissions.\nProposal fees are calculated based on the type of proposal selected, and the requested amount (only for CFP).\nRefer to our FAQ section for more detailed breakdown.": "Les frais de proposition sont mis en place pour encourager des soumissions plus responsables.\nLes frais de proposition sont calculés en fonction du type de proposition sélectionné, et du montant demandé (uniquement pour les CFP).\nVeuillez vous référer à notre section FAQ pour une explication plus détaillée."
+  },
+  "screens/AnalyticsScreen": {
+    "Analytics" : "Analyse",
+    "ANALYTICS": "ANALYSE",
+    "Allow data access": "Autoriser l'accès aux données",
+    "Participate in BR Analytics to help us make DeFiChain Wallet better." : "Participez à BR Analytics pour nous aider à améliorer DeFiChain Wallet.",
+    "Are you sure you want to restrict data access?": "Êtes-vous sûr de vouloir restreindre l'accès aux données ?",
+    "Your data is always kept anonymous and is used only for improvements. Are you sure you want to restrict?": "Vos données restent toujours anonymes et ne sont utilisées qu'à des fins d'amélioration. Êtes-vous sûr de vouloir restreindre l'accès aux données ?",
+    "Restrict data": "Restreindre les données",
+    "Cancel": "Annuler",
+    "Continue": "Suivant",
+    "Data is now collected to improve experience.": "Les données sont maintenant collectées pour améliorer l'expérience",
+    "As of the latest version, this wallet is now collecting non-identifiable performance-related data. You can choose to opt-out anytime from the settings page.": "À partir de la dernière version, ce portefeuille collecte désormais des données non identifiables liées à la performance. Vous pouvez choisir de vous désinscrire à tout moment à partir de la page des paramètres."
   }
 }
