@@ -1,5 +1,7 @@
-context("Onboarding", () => {
+context("Onboarding", { testIsolation: false }, () => {
   beforeEach(() => {
+    cy.clearAllCookies();
+    cy.clearAllLocalStorage();
     cy.visit("/");
     cy.exitWallet();
   });
@@ -20,7 +22,7 @@ context("Onboarding", () => {
     cy.url().should("include", "wallet/onboarding/guidelines");
     cy.getByTestID("create_recovery_words_button").should(
       "have.attr",
-      "aria-disabled"
+      "aria-disabled",
     );
 
     // Learn More Recovery
@@ -32,12 +34,12 @@ context("Onboarding", () => {
 
     cy.getByTestID("create_recovery_words_button").should(
       "have.attr",
-      "aria-disabled"
+      "aria-disabled",
     );
     cy.getByTestID("guidelines_check").click();
     cy.getByTestID("create_recovery_words_button").should(
       "not.have.attr",
-      "disabled"
+      "disabled",
     );
     cy.getByTestID("create_recovery_words_button").click();
 

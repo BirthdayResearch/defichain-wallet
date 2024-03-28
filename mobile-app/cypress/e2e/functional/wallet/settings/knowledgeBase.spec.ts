@@ -1,5 +1,7 @@
-context("Wallet - Settings", () => {
+context("Wallet - Settings", { testIsolation: false }, () => {
   before(() => {
+    cy.clearLocalStorage();
+    cy.clearCookies();
     cy.createEmptyWallet(true);
     cy.getByTestID("header_settings").click();
     cy.getByTestID("setting_navigate_About").click();

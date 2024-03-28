@@ -9,7 +9,7 @@ import { tailwind } from "@tailwind";
 import { translate } from "@translations";
 import BigNumber from "bignumber.js";
 import { useMemo } from "react";
-import { StyleProp, TextProps, ViewStyle } from "react-native";
+import { StyleProp, TextStyle, ViewStyle } from "react-native";
 import { NumericFormat as NumberFormat } from "react-number-format";
 import { useSelector } from "react-redux";
 import { getPrecisedCurrencyValue } from "../../Auctions/helpers/precision-token-value";
@@ -294,8 +294,8 @@ interface TokenBreakdownDetailsRowProps {
   label: string;
   testID: string;
   hasFetchedToken: boolean;
-  labelTextStyle?: StyleProp<TextProps>;
-  valueTextStyle?: StyleProp<TextProps>;
+  labelTextStyle?: StyleProp<TextStyle>;
+  valueTextStyle?: StyleProp<TextStyle>;
   valueThemeProps?: ThemedProps;
   containerStyle?: StyleProp<ViewStyle>;
   prefix?: string;
@@ -349,7 +349,7 @@ function DFITokenBreakDownDetailsRow({
               : percentageValue.toFixed(2)
           }
           displayType="text"
-          renderText={(value) => (
+          renderText={(value: string) => (
             <ThemedTextV2
               style={tailwind("text-xs font-normal-v2 pr-1")}
               testID={`${testID}_percentage`}
@@ -382,7 +382,7 @@ function DFITokenBreakDownDetailsRow({
             displayType="text"
             prefix={prefix}
             suffix={suffix}
-            renderText={(value) => (
+            renderText={(value: string) => (
               <ThemedTextV2
                 light={valueThemeProps.light}
                 dark={valueThemeProps.dark}
@@ -449,7 +449,7 @@ function TokenBreakdownDetailsRow({
             displayType="text"
             prefix={prefix}
             suffix={suffix}
-            renderText={(value) => (
+            renderText={(value: string) => (
               <ThemedTextV2
                 light={valueThemeProps.light}
                 dark={valueThemeProps.dark}

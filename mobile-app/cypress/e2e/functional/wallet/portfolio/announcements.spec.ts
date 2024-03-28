@@ -1,4 +1,4 @@
-context("Wallet - Portfolio - Announcements", () => {
+context("Wallet - Portfolio - Announcements", { testIsolation: false }, () => {
   const sampleAnnouncements = [
     {
       lang: {
@@ -55,6 +55,8 @@ context("Wallet - Portfolio - Announcements", () => {
   ];
 
   beforeEach(() => {
+    cy.clearLocalStorage();
+    cy.clearCookies();
     cy.createEmptyWallet(true);
   });
 
@@ -107,7 +109,7 @@ context("Wallet - Portfolio - Announcements", () => {
       .then(() => {
         cy.wait(3000);
         expect(localStorage.getItem("WALLET.HIDDEN_ANNOUNCEMENTS")).to.eq(
-          '["1"]'
+          '["1"]',
         );
       });
     cy.getByTestID("announcements_banner").should("not.exist");
@@ -118,6 +120,7 @@ context("Wallet - Portfolio - Announcements", () => {
 
 context(
   "Wallet - Portfolio - Announcements - Blockchain warning messages",
+  { testIsolation: false },
   () => {
     const sampleAnnouncements = [
       {
@@ -214,7 +217,7 @@ context(
       cy.getByTestID("announcements_banner").should("exist");
       cy.getByTestID("announcements_text").should(
         "contain",
-        "We are currently investigating a syncing issue on the blockchain. View more details on the DeFiChain Status Page."
+        "We are currently investigating a syncing issue on the blockchain. View more details on the DeFiChain Status Page.",
       );
     });
 
@@ -244,7 +247,7 @@ context(
       cy.getByTestID("announcements_text").should("not.contain", "Guidelines");
       cy.getByTestID("announcements_text").should(
         "contain",
-        "We are currently investigating a syncing issue on the blockchain. View more details on the DeFiChain Status Page."
+        "We are currently investigating a syncing issue on the blockchain. View more details on the DeFiChain Status Page.",
       );
     });
 
@@ -257,7 +260,7 @@ context(
         .click()
         .should(() => {
           expect(localStorage.getItem("WALLET.HIDDEN_ANNOUNCEMENTS")).to.eq(
-            '["1"]'
+            '["1"]',
           );
         });
       cy.getByTestID("announcements_banner").should("not.exist");
@@ -272,7 +275,7 @@ context(
       cy.getByTestID("announcements_banner").should("exist");
       cy.getByTestID("announcements_text").should(
         "contain",
-        "We are currently investigating a syncing issue on the blockchain. View more details on the DeFiChain Status Page."
+        "We are currently investigating a syncing issue on the blockchain. View more details on the DeFiChain Status Page.",
       );
     });
 
@@ -335,7 +338,7 @@ context(
         .click()
         .should(() => {
           expect(localStorage.getItem("WALLET.HIDDEN_ANNOUNCEMENTS")).to.eq(
-            '["1"]'
+            '["1"]',
           );
         });
       cy.getByTestID("announcements_banner").should("not.exist");
@@ -369,14 +372,15 @@ context(
       cy.getByTestID("announcements_banner").should("exist");
       cy.getByTestID("announcements_text").should(
         "contain",
-        "We are currently investigating a syncing issue on the blockchain. View more details on the DeFiChain Status Page."
+        "We are currently investigating a syncing issue on the blockchain. View more details on the DeFiChain Status Page.",
       );
     });
-  }
+  },
 );
 
 context(
   "Wallet - portfolio - Announcements - Blockchain and Ocean Outages",
+  { testIsolation: false },
   () => {
     const sampleAnnouncements = [
       {
@@ -506,7 +510,7 @@ context(
         cy.getByTestID("announcements_text").should("contain", "Guidelines");
         cy.getByTestID("announcements_text").should(
           "not.contain",
-          "We are currently investigating a syncing issue on the blockchain. View more details on the DeFiChain Status Page."
+          "We are currently investigating a syncing issue on the blockchain. View more details on the DeFiChain Status Page.",
         );
       });
     });
@@ -529,7 +533,7 @@ context(
         cy.getByTestID("announcements_text").should("contain", "Guidelines");
         cy.getByTestID("announcements_text").should(
           "not.contain",
-          "We are currently investigating connection issues on Ocean API. View more details on the DeFiChain Status Page."
+          "We are currently investigating connection issues on Ocean API. View more details on the DeFiChain Status Page.",
         );
       });
     });
@@ -554,7 +558,7 @@ context(
         cy.getByTestID("announcements_banner").should("exist");
         cy.getByTestID("announcements_text").should(
           "contain",
-          "We are currently investigating a syncing issue on the blockchain. View more details on the DeFiChain Status Page."
+          "We are currently investigating a syncing issue on the blockchain. View more details on the DeFiChain Status Page.",
         );
       });
     });
@@ -579,7 +583,7 @@ context(
         cy.getByTestID("announcements_banner").should("exist");
         cy.getByTestID("announcements_text").should(
           "contain",
-          "We are currently investigating connection issues on Ocean API. View more details on the DeFiChain Status Page."
+          "We are currently investigating connection issues on Ocean API. View more details on the DeFiChain Status Page.",
         );
       });
     });
@@ -609,11 +613,11 @@ context(
         cy.getByTestID("announcements_banner").should("exist");
         cy.getByTestID("announcements_text").should(
           "not.contain",
-          "Guidelines"
+          "Guidelines",
         );
         cy.getByTestID("announcements_text").should(
           "contain",
-          "We are currently investigating connection issues on Ocean API. View more details on the DeFiChain Status Page."
+          "We are currently investigating connection issues on Ocean API. View more details on the DeFiChain Status Page.",
         );
       });
     });
@@ -637,7 +641,7 @@ context(
       cy.getByTestID("announcements_banner").should("exist");
       cy.getByTestID("announcements_text").should(
         "contain",
-        "We are currently investigating a syncing issue on the blockchain. View more details on the DeFiChain Status Page."
+        "We are currently investigating a syncing issue on the blockchain. View more details on the DeFiChain Status Page.",
       );
     });
 
@@ -666,11 +670,11 @@ context(
         cy.getByTestID("announcements_banner").should("exist");
         cy.getByTestID("announcements_text").should(
           "not.contain",
-          "Guidelines"
+          "Guidelines",
         );
         cy.getByTestID("announcements_text").should(
           "contain",
-          "We are currently investigating a syncing issue on the blockchain. View more details on the DeFiChain Status Page."
+          "We are currently investigating a syncing issue on the blockchain. View more details on the DeFiChain Status Page.",
         );
       });
     });
@@ -701,8 +705,8 @@ context(
       cy.getByTestID("announcements_text").should("not.contain", "Guidelines");
       cy.getByTestID("announcements_text").should(
         "contain",
-        "We are currently investigating a syncing issue on the blockchain. View more details on the DeFiChain"
+        "We are currently investigating a syncing issue on the blockchain. View more details on the DeFiChain",
       );
     });
-  }
+  },
 );

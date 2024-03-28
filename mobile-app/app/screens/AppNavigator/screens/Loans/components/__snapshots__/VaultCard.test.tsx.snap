@@ -1361,21 +1361,9 @@ exports[`Vault card should match snapshot of liquidated vault 1`] = `
           }
         }
       >
-        <ViewManagerAdapter_ExpoImage
+        <Image
           contentFit="contain"
-          contentPosition={
-            {
-              "left": "50%",
-              "top": "50%",
-            }
-          }
-          height={64}
-          onError={[Function]}
-          onLoad={[Function]}
-          onLoadStart={[Function]}
-          onProgress={[Function]}
-          placeholder={[]}
-          source={[]}
+          source={1}
           style={
             {
               "height": 64,
@@ -1383,8 +1371,6 @@ exports[`Vault card should match snapshot of liquidated vault 1`] = `
             }
           }
           testID="vault_IN LIQUIDATION_liquidated_vault_image"
-          transition={null}
-          width={74}
         />
         <View
           style={

@@ -1,17 +1,21 @@
 import BigNumber from "bignumber.js";
 
-context("Wallet - Pool Pair Rewards", () => {
+context("Wallet - Pool Pair Rewards", { testIsolation: false }, () => {
   const walletA = {
     address: "",
     recoveryWords: [],
   };
+  before(() => {
+    cy.clearLocalStorage();
+    cy.clearCookies();
+    cy.createEmptyWallet(true);
+  });
 
   it("should create Wallet A without any tokens", () => {
-    cy.createEmptyWallet(true);
     cy.verifyWalletAddress("regtest", walletA);
     cy.verifyMnemonicOnSettingsPage(
       walletA.recoveryWords,
-      walletA.recoveryWords
+      walletA.recoveryWords,
     );
     cy.getByTestID("bottom_tab_portfolio").click();
     cy.getByTestID("header_settings").click();
@@ -48,7 +52,7 @@ context("Wallet - Pool Pair Rewards", () => {
     });
 
     it("should be able to send LP tokens", () => {
-      cy.getByTestID("portfolio_row_17_amount").click();
+      cy.getByTestID("portfolio_row_19_amount").click();
       cy.getByTestID("send_button").click();
       cy.getByTestID("address_input").type(walletA.address);
       cy.getByTestID("MAX_amount_button").click();
@@ -57,14 +61,14 @@ context("Wallet - Pool Pair Rewards", () => {
       cy.getByTestID("button_confirm_send").click().wait(3000);
       cy.closeOceanInterface().wait(3000);
       cy.getByTestID("bottom_tab_portfolio").click();
-      cy.getByTestID("portfolio_row_17_amount").should("not.exist").wait(3000);
+      cy.getByTestID("portfolio_row_19_amount").should("not.exist").wait(3000);
     });
 
     it("should check if WalletA received LP tokens", () => {
       cy.blockAllFeatureFlag();
       cy.exitWallet();
       cy.restoreMnemonicWords(walletA.recoveryWords);
-      cy.getByTestID("portfolio_row_17_amount").contains("10");
+      cy.getByTestID("portfolio_row_19_amount").contains("10");
       cy.getByTestID("dfi_total_balance_amount").should("exist");
       cy.getByTestID("dfi_balance_card").click();
       cy.getByTestID("dfi_token_amount").then(($txt: any) => {

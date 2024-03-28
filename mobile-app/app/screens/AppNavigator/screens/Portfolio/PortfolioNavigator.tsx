@@ -31,6 +31,7 @@ import {
 } from "@screens/AppNavigator/screens/Dex/CompositeSwap/SwapTokenSelectionScreen";
 import { ConvertDirection, ScreenName } from "@screens/enum";
 import { DomainType, useDomainContext } from "@contexts/DomainContext";
+import { BackIcon } from "@components/icons/BackIcon";
 import { NetworkDetails } from "../Settings/screens/NetworkDetails";
 import { PortfolioScreen } from "./PortfolioScreen";
 import { ReceiveScreen } from "./screens/ReceiveScreen";
@@ -203,6 +204,7 @@ export function PortfolioNavigator(): JSX.Element {
     <PortfolioStack.Navigator
       initialRouteName="PortfolioScreen"
       screenOptions={{
+        headerBackImage: BackIcon,
         headerTitleAlign: "center",
       }}
     >
@@ -293,6 +295,7 @@ export function PortfolioNavigator(): JSX.Element {
             <HeaderNetworkStatus onPress={goToNetworkSelect} />
           ),
           headerBackTitleVisible: false,
+          headerBackTestID: "get_dfi_header_back",
           headerTitle: translate(
             "screens/ReceiveScreen",
             isEvmDomain ? "Get DFI-EVM" : "Get DFI",
@@ -308,6 +311,7 @@ export function PortfolioNavigator(): JSX.Element {
           headerRight: () => (
             <HeaderNetworkStatus onPress={goToNetworkSelect} />
           ),
+          headerBackTestID: "market_places_header_back",
           headerBackTitleVisible: false,
           headerTitle: translate("screens/MarketplaceScreen", "Marketplace"),
         }}

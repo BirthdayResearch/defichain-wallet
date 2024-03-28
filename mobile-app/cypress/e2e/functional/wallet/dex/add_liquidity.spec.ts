@@ -1,5 +1,5 @@
 import BigNumber from "bignumber.js";
-import { checkValueWithinRange } from "../../../../support/walletCommands";
+import { checkValueWithinRange } from "../../../../support/utils";
 
 function setupWallet(): void {
   cy.createEmptyWallet(true);
@@ -52,7 +52,7 @@ function percentageAmountButton(
   tokenAAmount: string,
   tokenBAmount: string,
   lpToken: string,
-  lpTokenUsd: string
+  lpTokenUsd: string,
 ): void {
   if (percentage === "MAX") {
     cy.getByTestID(`${percentage}_amount_button`).first().click();
@@ -64,7 +64,7 @@ function percentageAmountButton(
 
   cy.getByTestID("lp_tokens_to_receive_value").contains(lpToken);
   cy.getByTestID("lp_tokens_to_receive_value_rhsUsdAmount").contains(
-    lpTokenUsd
+    lpTokenUsd,
   );
 }
 
@@ -79,7 +79,7 @@ context("Wallet - DEX - Add Liquidity", () => {
       "10.00000000",
       "10.00000000",
       "10.00000000",
-      "$200,000.00"
+      "$200,000.00",
     );
   });
 
@@ -92,15 +92,15 @@ context("Wallet - DEX - Add Liquidity", () => {
     cy.getByTestID("view_pool_details_title").contains("dBTC-DFI");
     cy.getByTestID("volume_24h_dBTC-DFI").contains("$0.00");
     cy.getByTestID("total_liquidity_dBTC-DFI_amount").contains(
-      "$20,000,000.00"
+      "$20,000,000.00",
     );
     cy.getByTestID("pooled_dBTC_value_USDT").contains("1,000");
     cy.getByTestID("pooled_dBTC_value_USDT_rhsUsdAmount").contains(
-      "$10,000,000.00"
+      "$10,000,000.00",
     );
     cy.getByTestID("pooled_DFI_value_USDT").contains("1,000");
     cy.getByTestID("pooled_DFI_value_USDT_rhsUsdAmount").contains(
-      "$10,000,000.00"
+      "$10,000,000.00",
     );
     cy.getByTestID("apr_dBTC-DFI_amount")
       .invoke("text")
@@ -117,7 +117,7 @@ context("Wallet - DEX - Add Liquidity", () => {
       "2.50000000",
       "2.50000000",
       "2.50000000",
-      "$50,000.00"
+      "$50,000.00",
     );
   });
 
@@ -128,7 +128,7 @@ context("Wallet - DEX - Add Liquidity", () => {
       "5.00000000",
       "5.00000000",
       "5.00000000",
-      "$100,000.00"
+      "$100,000.00",
     );
   });
 
@@ -139,7 +139,7 @@ context("Wallet - DEX - Add Liquidity", () => {
       "7.50000000",
       "7.50000000",
       "7.50000000",
-      "$150,000.00"
+      "$150,000.00",
     );
   });
 
@@ -163,7 +163,7 @@ context("Wallet - DEX - Add Liquidity", () => {
 
     cy.getByTestID("lp_tokens_to_receive_value").contains("3.00000000");
     cy.getByTestID("lp_tokens_to_receive_value_rhsUsdAmount").contains(
-      "$60,000.00"
+      "$60,000.00",
     );
   });
 
@@ -177,7 +177,7 @@ context("Wallet - DEX - Add Liquidity", () => {
 
     cy.getByTestID("lp_tokens_to_receive_value").contains("2.00000000");
     cy.getByTestID("lp_tokens_to_receive_value_rhsUsdAmount").contains(
-      "$40,000.00"
+      "$40,000.00",
     );
     cy.getByTestID("button_continue_add_liq").click();
   });
@@ -192,7 +192,7 @@ context("Wallet - DEX - Add Liquidity", () => {
     cy.getByTestID("DFI_to_supply_rhsUsdAmount").contains("$20,000.00");
     cy.getByTestID("lp_tokens_to_receive_value").contains("2.00000000");
     cy.getByTestID("lp_tokens_to_receive_value_rhsUsdAmount").contains(
-      "$40,000.00"
+      "$40,000.00",
     );
     cy.getByTestID("button_cancel_add").click();
   });
@@ -207,13 +207,13 @@ context("Wallet - DEX - Combine Add and Confirm Liquidity Spec", () => {
     cy.getByTestID("token_input_primary").type("0");
     cy.getByTestID("button_continue_add_liq").should(
       "have.attr",
-      "aria-disabled"
+      "aria-disabled",
     );
     cy.getByTestID("token_input_secondary_clear_button").click();
     cy.getByTestID("token_input_secondary").type("0");
     cy.getByTestID("button_continue_add_liq").should(
       "have.attr",
-      "aria-disabled"
+      "aria-disabled",
     );
 
     cy.getByTestID("dBTC_display_input_text").contains("Available");
@@ -228,13 +228,13 @@ context("Wallet - DEX - Combine Add and Confirm Liquidity Spec", () => {
     cy.getByTestID("token_input_primary").type("test value");
     cy.getByTestID("button_continue_add_liq").should(
       "have.attr",
-      "aria-disabled"
+      "aria-disabled",
     );
     cy.getByTestID("token_input_secondary_clear_button").click();
     cy.getByTestID("token_input_secondary").type("test value");
     cy.getByTestID("button_continue_add_liq").should(
       "have.attr",
-      "aria-disabled"
+      "aria-disabled",
     );
 
     cy.getByTestID("dBTC_display_input_text").contains("Available");
@@ -249,22 +249,22 @@ context("Wallet - DEX - Combine Add and Confirm Liquidity Spec", () => {
     cy.getByTestID("token_input_primary").type("20.00000000");
     cy.getByTestID("button_continue_add_liq").should(
       "have.attr",
-      "aria-disabled"
+      "aria-disabled",
     );
     cy.getByTestID("token_input_secondary_clear_button").click();
     cy.getByTestID("token_input_secondary").type("15.00000000");
     cy.getByTestID("button_continue_add_liq").should(
       "have.attr",
-      "aria-disabled"
+      "aria-disabled",
     );
 
     cy.getByTestID("dBTC_display_input_text").should(
       "not.have.text",
-      "Available"
+      "Available",
     );
     cy.getByTestID("DFI_display_input_text").should(
       "not.have.text",
-      "Available"
+      "Available",
     );
     cy.getByTestID("dBTC_insufficient_token_display_msg").should("exist");
     cy.getByTestID("DFI_insufficient_token_display_msg").should("not.exist");
@@ -277,13 +277,13 @@ context("Wallet - DEX - Combine Add and Confirm Liquidity Spec", () => {
     cy.getByTestID("MAX_amount_button").first().click();
     cy.getByTestID("button_continue_add_liq").should(
       "have.attr",
-      "aria-disabled"
+      "aria-disabled",
     );
 
     cy.getByTestID("dBTC_display_input_text").contains("Available");
     cy.getByTestID("DFI_display_input_text").should(
       "not.have.text",
-      "Available"
+      "Available",
     );
     cy.getByTestID("dBTC_insufficient_token_display_msg").should("not.exist");
     cy.getByTestID("DFI_insufficient_token_display_msg").should("exist");
@@ -295,16 +295,16 @@ context("Wallet - DEX - Combine Add and Confirm Liquidity Spec", () => {
     cy.getByTestID("MAX_amount_button").eq(1).click();
     cy.getByTestID("button_continue_add_liq").should(
       "have.attr",
-      "aria-disabled"
+      "aria-disabled",
     );
 
     cy.getByTestID("dBTC_display_input_text").should(
       "not.have.text",
-      "Available"
+      "Available",
     );
     cy.getByTestID("DFI_display_input_text").should(
       "not.have.text",
-      "Available"
+      "Available",
     );
     cy.getByTestID("dBTC_insufficient_token_display_msg").should("exist");
     cy.getByTestID("DFI_insufficient_token_display_msg").should("not.exist");
@@ -316,7 +316,7 @@ context("Wallet - DEX - Combine Add and Confirm Liquidity Spec", () => {
     cy.getByTestID("MAX_amount_button").first().click();
     cy.getByTestID("button_continue_add_liq").should(
       "not.have.attr",
-      "disabled"
+      "disabled",
     );
 
     cy.getByTestID("dBTC_display_input_text").contains("Available");
@@ -368,7 +368,7 @@ context("Wallet - DEX - Add Liquidity Confirm Txn", () => {
     cy.getByTestID("DFI_to_supply_rhsUsdAmount").contains("$100,000.00");
     cy.getByTestID("lp_tokens_to_receive_value").contains("10.00000000");
     cy.getByTestID("lp_tokens_to_receive_value_rhsUsdAmount").contains(
-      "$200,000.00"
+      "$200,000.00",
     );
     cy.getByTestID("button_confirm_add").click().wait(3000);
     cy.closeOceanInterface();
@@ -390,12 +390,12 @@ context("Wallet - DEX - Add Liquidity Confirm Txn", () => {
     cy.getByTestID("DFI_to_supply_rhsUsdAmount").contains(oldUsdAmount);
     cy.getByTestID("lp_tokens_to_receive_value").contains(oldAmount);
     cy.getByTestID("lp_tokens_to_receive_value_rhsUsdAmount").contains(
-      "$100,000.00"
+      "$100,000.00",
     );
     cy.getByTestID("button_confirm_add").click().wait(3000);
     // Check for authorization page description
     cy.getByTestID("txn_authorization_title").contains(
-      `Adding ${oldAmount} dBTC-DFI to liquidity pool`
+      `Adding ${oldAmount} dBTC-DFI to liquidity pool`,
     );
     // Cancel send on authorisation page
     cy.getByTestID("cancel_authorization").click();
@@ -413,12 +413,12 @@ context("Wallet - DEX - Add Liquidity Confirm Txn", () => {
     cy.getByTestID("DFI_to_supply_rhsUsdAmount").contains(newUsdAmount);
     cy.getByTestID("lp_tokens_to_receive_value").contains(newAmount);
     cy.getByTestID("lp_tokens_to_receive_value_rhsUsdAmount").contains(
-      "$200,000.00"
+      "$200,000.00",
     );
     cy.getByTestID("button_confirm_add").click().wait(3000);
     // Check for authorization page description
     cy.getByTestID("txn_authorization_title").contains(
-      `Adding ${newAmount} dBTC-DFI to liquidity pool`
+      `Adding ${newAmount} dBTC-DFI to liquidity pool`,
     );
     cy.closeOceanInterface();
     cy.getByTestID("dex_search_input_close").click();
@@ -436,10 +436,10 @@ context("Wallet - DEX - Add Liquidity with Conversion", () => {
     cy.getByTestID("dBTC_display_input_text").should("contain", "Available");
     cy.getByTestID("DFI_reserved_info_text").should(
       "contain",
-      "A small UTXO amount (0.1 DFI) is reserved for fees."
+      "A small UTXO amount (0.1 DFI) is reserved for fees.",
     );
     cy.getByTestID("transaction_details_hint_text").contains(
-      "By continuing, the required amount of DFI will be converted"
+      "By continuing, the required amount of DFI will be converted",
     );
   });
 
@@ -447,7 +447,7 @@ context("Wallet - DEX - Add Liquidity with Conversion", () => {
     cy.getByTestID("token_input_primary").type("11");
     cy.getByTestID("button_continue_add_liq").click();
     cy.getByTestID("txn_authorization_title").contains(
-      `Convert ${new BigNumber("1").toFixed(8)} DFI to tokens`
+      `Convert ${new BigNumber("1").toFixed(8)} DFI to tokens`,
     );
     cy.closeOceanInterface().wait(3000);
     cy.getByTestID("conversion_status").should("exist");

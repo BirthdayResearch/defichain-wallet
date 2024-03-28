@@ -17,11 +17,23 @@
 // eslint-disable-next-line no-unused-vars
 module.exports = (
   on: Cypress.PluginEvents,
-  config: Cypress.PluginConfigOptions
+  config: Cypress.PluginConfigOptions,
 ): any => {
+  on(
+    "before:browser:launch",
+    (browserDetails: Cypress.Browser, launchOptions) => {
+      if (browserDetails?.family === "chromium") {
+        launchOptions.args.push(
+          '--js-flags="--max_old_space_size=1024 --max_semi_space_size=1024"',
+        );
+      }
+      return launchOptions;
+    },
+  );
   // eslint-disable-next-line @typescript-eslint/no-var-requires
   require("@cypress/code-coverage/task")(on, config);
   // eslint-disable-next-line @typescript-eslint/no-var-requires
   require("cypress-image-diff-js/dist/plugin")(on, config);
+
   return config;
 };

@@ -1,5 +1,5 @@
 import BigNumber from "bignumber.js";
-import { checkValueWithinRange } from "../../../../../support/walletCommands";
+import { checkValueWithinRange } from "../../../../../support/utils";
 
 BigNumber.set({ ROUNDING_MODE: BigNumber.ROUND_DOWN });
 
@@ -20,7 +20,7 @@ function createDFIWallet(): void {
 function validateConvertResult(
   targetUnit: string,
   availableAmount: number,
-  resultingAmount: number
+  resultingAmount: number,
 ): void {
   cy.getByTestID("convert_result_card").should("exist");
   cy.getByTestID("convert_available_label").contains(targetUnit);
@@ -37,7 +37,7 @@ context("Wallet - Convert DFI", () => {
   it("should have form validation", () => {
     cy.getByTestID("button_continue_convert").should(
       "have.attr",
-      "aria-disabled"
+      "aria-disabled",
     );
     cy.getByTestID("source_balance").contains(19.9);
     cy.getByTestID("convert_token_button_FROM_display_symbol").contains("UTXO");
@@ -46,14 +46,14 @@ context("Wallet - Convert DFI", () => {
     cy.getByTestID("convert_input").clear();
     cy.getByTestID("button_continue_convert").should(
       "have.attr",
-      "aria-disabled"
+      "aria-disabled",
     );
     cy.getByTestID("convert_input").type("1");
     cy.getByTestID("source_balance").contains(19.9);
     validateConvertResult("tokens", 1.0, 11);
     cy.getByTestID("button_continue_convert").should(
       "not.have.attr",
-      "disabled"
+      "disabled",
     );
   });
 
@@ -61,12 +61,12 @@ context("Wallet - Convert DFI", () => {
     cy.getByTestID("button_convert_mode_toggle").click().wait(4000);
     cy.getByTestID("source_balance").contains(10);
     cy.getByTestID("convert_token_button_FROM_display_symbol").contains(
-      "Token"
+      "Token",
     );
     cy.getByTestID("convert_token_button_TO_display_symbol").contains("UTXO");
     cy.getByTestID("button_continue_convert").should(
       "not.have.attr",
-      "disabled"
+      "disabled",
     );
   });
 
@@ -88,7 +88,7 @@ context("Wallet - Convert DFI", () => {
 
   it("should display info on reserved UTXO when UTXO to account conversion", () => {
     cy.getByTestID("source_balance_label").contains(
-      "A small amount of UTXO is reserved for fees"
+      "A small amount of UTXO is reserved for fees",
     );
   });
 
@@ -113,7 +113,7 @@ context("Wallet - Convert DFI", () => {
     cy.getByTestID("button_continue_convert").click();
     cy.getByTestID("button_confirm_convert").should(
       "not.have.attr",
-      "disabled"
+      "disabled",
     );
     cy.getByTestID("button_cancel_convert").click();
     cy.getByTestID("dfi_balance_card").should("exist").click();
@@ -145,7 +145,7 @@ context("Wallet - Convert DFI", () => {
     cy.getByTestID("button_continue_convert").click();
     cy.getByTestID("button_confirm_convert").should(
       "not.have.attr",
-      "disabled"
+      "disabled",
     );
     cy.getByTestID("button_cancel_convert").click();
     cy.getByTestID("dfi_balance_card").should("exist").click();
@@ -195,7 +195,7 @@ context("Wallet - Convert UTXO to Account", () => {
     cy.getByTestID("button_confirm_convert").click().wait(2000);
     // Check for authorization page description
     cy.getByTestID("txn_authorization_title").contains(
-      `Convert ${new BigNumber(oldAmount).toFixed(8)} DFI to tokens`
+      `Convert ${new BigNumber(oldAmount).toFixed(8)} DFI to tokens`,
     );
 
     // Cancel send on authorisation page
@@ -210,12 +210,12 @@ context("Wallet - Convert UTXO to Account", () => {
     // Confirm convert
     cy.getByTestID("button_confirm_convert").should(
       "not.have.attr",
-      "disabled"
+      "disabled",
     );
     cy.getByTestID("button_confirm_convert").click();
     // Check for authorization page description
     cy.getByTestID("txn_authorization_title").contains(
-      `Convert ${new BigNumber(newAmount).toFixed(8)} DFI to tokens`
+      `Convert ${new BigNumber(newAmount).toFixed(8)} DFI to tokens`,
     );
     cy.closeOceanInterface().wait(5000);
 
@@ -250,7 +250,7 @@ context("Wallet - Convert Account to UTXO", () => {
     cy.getByTestID("button_continue_convert").click();
     cy.getByTestID("button_confirm_convert").should(
       "not.have.attr",
-      "disabled"
+      "disabled",
     );
     cy.getByTestID("button_cancel_convert").click();
     cy.getByTestID("dfi_balance_card").should("exist").click();
@@ -262,7 +262,7 @@ context("Wallet - Convert Account to UTXO", () => {
     cy.getByTestID("button_confirm_convert").click().wait(2000);
     // Check for authorization page description
     cy.getByTestID("txn_authorization_title").contains(
-      `Convert ${new BigNumber(oldAmount).toFixed(8)} DFI to UTXO`
+      `Convert ${new BigNumber(oldAmount).toFixed(8)} DFI to UTXO`,
     );
     // Cancel send on authorisation page
     cy.getByTestID("cancel_authorization").click();
@@ -275,12 +275,12 @@ context("Wallet - Convert Account to UTXO", () => {
     // Confirm convert
     cy.getByTestID("button_confirm_convert").should(
       "not.have.attr",
-      "disabled"
+      "disabled",
     );
     cy.getByTestID("button_confirm_convert").click();
     // Check for authorization page description
     cy.getByTestID("txn_authorization_title").contains(
-      `Convert ${new BigNumber(newAmount).toFixed(8)} DFI to UTXO`
+      `Convert ${new BigNumber(newAmount).toFixed(8)} DFI to UTXO`,
     );
     cy.closeOceanInterface().wait(5000);
 

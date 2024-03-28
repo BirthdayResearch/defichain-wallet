@@ -128,29 +128,14 @@ exports[`WalletCreateRestoreSuccess should match create wallet snapshot 1`] = `
             ]
           }
         />
-        <ViewManagerAdapter_ExpoImage
-          contentFit="cover"
-          contentPosition={
-            {
-              "left": "50%",
-              "top": "50%",
-            }
-          }
-          height={332}
-          onError={[Function]}
-          onLoad={[Function]}
-          onLoadStart={[Function]}
-          onProgress={[Function]}
-          placeholder={[]}
-          source={[]}
+        <Image
+          source={1}
           style={
             {
               "height": 332,
               "width": 750,
             }
           }
-          transition={null}
-          width={750}
         />
         <View
           style={
@@ -360,29 +345,14 @@ exports[`WalletCreateRestoreSuccess should match restore wallet snapshot 1`] = `
             ]
           }
         />
-        <ViewManagerAdapter_ExpoImage
-          contentFit="cover"
-          contentPosition={
-            {
-              "left": "50%",
-              "top": "50%",
-            }
-          }
-          height={332}
-          onError={[Function]}
-          onLoad={[Function]}
-          onLoadStart={[Function]}
-          onProgress={[Function]}
-          placeholder={[]}
-          source={[]}
+        <Image
+          source={1}
           style={
             {
               "height": 332,
               "width": 750,
             }
           }
-          transition={null}
-          width={750}
         />
         <View
           style={
