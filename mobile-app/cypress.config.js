@@ -12,6 +12,7 @@ module.exports = defineConfig({
     openMode: 1,
   },
   numTestsKeptInMemory: 0,
+  experimentalMemoryManagement: true,
   chromeWebSecurity: false,
   e2e: {
     // We've imported your old cypress plugins here.
@@ -23,25 +24,14 @@ module.exports = defineConfig({
     baseUrl: "http://localhost:8081",
     specPattern: "cypress/e2e/**/*.{js,jsx,ts,tsx}",
     excludeSpecPattern:[
-
       // Functional/Wallet/Portfolio
-      "cypress/e2e/functional/wallet/portfolio/portfolio.spec.ts",
       "cypress/e2e/functional/wallet/portfolio/tokenDetail.spec.ts",
       // Functional/Wallet/Auctions
       "cypress/e2e/functional/wallet/auctions/auctions.spec.ts",
       "cypress/e2e/functional/wallet/auctions/auctions_bid_with_multiple_wallet.spec.ts",
-      // Functional/Wallet/Authorization
-      "cypress/e2e/functional/wallet/authorization/transactionAuthorization.spec.ts",
       // Functional/Wallet/Dex
       "cypress/e2e/functional/wallet/dex/add_liquidity.spec.ts",
-      "cypress/e2e/functional/wallet/dex/dex_poolpairs.spec.ts",
-      "cypress/e2e/functional/wallet/dex/dex_features.spec.ts",
-      // Functional/Wallet/Dex/Swap
-      "cypress/e2e/functional/wallet/dex/swap/swap_future.spec.ts",
-      "cypress/e2e/functional/wallet/dex/swap/swap_future_withdraw.spec.ts",
-      "cypress/e2e/functional/wallet/dex/swap/swap_future_transaction.spec.ts",
-      "cypress/e2e/functional/wallet/dex/swap/swap_instant_dfi.spec.ts",
-      "cypress/e2e/functional/wallet/dex/swap/swap_instant_non_dfi_confirmation.spec.ts",
+      // "cypress/e2e/functional/wallet/dex/dex_features.spec.ts",
       // Functional/Wallet/Loans
       "cypress/e2e/functional/wallet/loans/loans_payback.spec.ts",
       "cypress/e2e/functional/wallet/loans/vault_detail.spec.ts",
@@ -52,17 +42,16 @@ module.exports = defineConfig({
       // Functional/Wallet/Portfolio
       "cypress/e2e/functional/wallet/portfolio/addresses.spec.ts",
       "cypress/e2e/functional/wallet/portfolio/cfp_dfip.spec.ts",
-      "cypress/e2e/functional/wallet/portfolio/send.spec.ts",
+      // "cypress/e2e/functional/wallet/portfolio/send.spec.ts",
       "cypress/e2e/functional/wallet/portfolio/convert/convert.spec.ts",
-      "cypress/e2e/functional/wallet/portfolio/poolpairRewards.spec.ts",
+      // "cypress/e2e/functional/wallet/portfolio/poolpairRewards.spec.ts",
       // Functional/Wallet/Settings
-      "cypress/e2e/functional/wallet/settings/addressBook.spec.ts",
-      "cypress/e2e/functional/wallet/settings/changePasscode.spec.ts",
+      // "cypress/e2e/functional/wallet/settings/addressBook.spec.ts",
+      // "cypress/e2e/functional/wallet/settings/changePasscode.spec.ts",
       // Functional/Wallet/Transaction
-      "cypress/e2e/functional/wallet/transaction/list_empty.spec.ts",
+      // "cypress/e2e/functional/wallet/transaction/list_empty.spec.ts",
       // Smoke
       "cypress/e2e/smoke/smoke.spec.ts"
     ]
-
   },
 });

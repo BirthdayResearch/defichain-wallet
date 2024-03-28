@@ -17,6 +17,7 @@ import { useThemeContext } from "@waveshq/walletkit-ui";
 import { CreateOrEditAddressLabelFormProps } from "@screens/AppNavigator/screens/Portfolio/components/CreateOrEditAddressLabelForm";
 import { getDefaultTheme } from "@constants/Theme";
 import { BottomSheetModal as BottomSheetModalWeb } from "./BottomSheetModal.web";
+import { BackIcon } from "./icons/BackIcon";
 
 interface BottomSheetWithNavProps {
   modalRef?: React.Ref<BottomSheetModalMethods>;
@@ -75,7 +76,7 @@ export const BottomSheetWithNavV2 = React.memo(
         <Navigator {...props} />
       </BottomSheetModal>
     );
-  }
+  },
 );
 
 function EmptyHandleComponent(): JSX.Element {
@@ -87,7 +88,7 @@ export const BottomSheetWebWithNavV2 = React.memo(
     props: BottomSheetWithNavProps & {
       isModalDisplayed: boolean;
       modalStyle?: { [other: string]: any };
-    }
+    },
   ): JSX.Element => {
     return (
       <BottomSheetModalWeb
@@ -100,7 +101,7 @@ export const BottomSheetWebWithNavV2 = React.memo(
         </View>
       </BottomSheetModalWeb>
     );
-  }
+  },
 );
 
 function Navigator(props: BottomSheetWithNavProps): JSX.Element {
@@ -112,11 +113,12 @@ function Navigator(props: BottomSheetWithNavProps): JSX.Element {
     () => ({
       ...TransitionPresets.SlideFromRightIOS,
       headerShown: true,
+      headerBackImage: BackIcon,
       safeAreaInsets: { top: 0 },
       cardStyle: tailwind("bg-black bg-opacity-60"),
       headerMode: "screen",
     }),
-    []
+    [],
   );
 
   return (

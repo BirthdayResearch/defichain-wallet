@@ -37,29 +37,14 @@ exports[`empty transaction should match snapshot 1`] = `
         }
       }
     >
-      <ViewManagerAdapter_ExpoImage
-        contentFit="cover"
-        contentPosition={
-          {
-            "left": "50%",
-            "top": "50%",
-          }
-        }
-        height={96}
-        onError={[Function]}
-        onLoad={[Function]}
-        onLoadStart={[Function]}
-        onProgress={[Function]}
-        placeholder={[]}
-        source={[]}
+      <Image
+        source={1}
         style={
           {
             "height": 96,
             "width": 204,
           }
         }
-        transition={null}
-        width={204}
       />
     </View>
     <Text

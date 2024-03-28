@@ -31,7 +31,7 @@ const communityLinks = [
   },
 ];
 
-context("Wallet - Settings - Community", () => {
+context("Wallet - Settings - Community", { testIsolation: false }, () => {
   before(() => {
     cy.createEmptyWallet();
     cy.getByTestID("header_settings").click();

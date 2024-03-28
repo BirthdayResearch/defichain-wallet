@@ -8,7 +8,7 @@
 import { WhaleApiClient } from "@defichain/whale-api-client";
 import { PoolPairData } from "@defichain/whale-api-client/dist/api/poolpairs";
 import BigNumber from "bignumber.js";
-import { checkValueWithinRange } from "../../support/walletCommands";
+import { checkValueWithinRange } from "../../support/utils";
 
 BigNumber.set({ ROUNDING_MODE: BigNumber.ROUND_DOWN });
 
@@ -195,11 +195,11 @@ context("Mainnet - Wallet - Pool Pair Values", () => {
           cy.getByTestID("dex_search_input").clear().type(symbol).blur();
           cy.getByTestID(`pair_symbol_${symbol}`).contains(symbol);
           cy.getByTestID(`apr_${symbol}`).contains(
-            `${new BigNumber(data?.apr?.total ?? 0).times(100).toFixed(2)}%`
+            `${new BigNumber(data?.apr?.total ?? 0).times(100).toFixed(2)}%`,
           );
           cy.getByTestID("dex_search_input_close").click();
         });
-      }
+      },
     );
   });
 });

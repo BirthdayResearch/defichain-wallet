@@ -132,44 +132,47 @@ function interceptPoolpairWithSampleData(): void {
   });
 }
 
-context("Wallet - DEX - Features", () => {
-  beforeEach(() => {
+context("Wallet - DEX - Features", { testIsolation: false }, () => {
+  before(() => {
+    cy.clearAllCookies();
+    cy.clearAllLocalStorage();
     cy.createEmptyWallet(true);
     cy.getByTestID("bottom_tab_dex").click();
     cy.url().should("include", "app/DEX/DexScreen");
   });
 
   it("should be able to select favorite pairs", () => {
-    cy.getByTestID("pool_pair_row_0_dUSDC-DFI").should("exist");
+    cy.getByTestID("pool_pair_row_0_dMATIC-DFI").should("exist");
     cy.getByTestID("dex_search_icon").click();
     cy.getByTestID("dex_search_input").type("eth");
-    cy.getByTestID("favorite_pair_18").click();
-    cy.getByTestID("pool_pair_row_0_dUSDC-DFI").should("not.exist");
+    cy.getByTestID("favorite_pair_20").click();
+    cy.getByTestID("pool_pair_row_0_dMATIC-DFI").should("not.exist");
     cy.getByTestID("pool_pair_row_0_dETH-DFI").should("exist");
     cy.reload();
     cy.wait(3000);
     cy.getByTestID("bottom_tab_dex").click();
     cy.getByTestID("pool_pair_row_0_dETH-DFI").should("exist");
-    cy.getByTestID("favorite_pair_18").click();
+    cy.getByTestID("favorite_pair_20").click();
     cy.getByTestID("pool_pair_row_0_dETH-DFI").should("not.exist");
-    cy.getByTestID("pool_pair_row_0_dUSDC-DFI").should("exist");
+    cy.getByTestID("pool_pair_row_0_dMATIC-DFI").should("exist");
     cy.reload();
     cy.wait(3000);
     cy.getByTestID("bottom_tab_dex").click();
-    cy.getByTestID("pool_pair_row_0_dUSDC-DFI").should("exist");
+    cy.getByTestID("pool_pair_row_0_dMATIC-DFI").should("exist");
   });
 
   it("should be able to search for a DEX pair", () => {
     cy.getByTestID("dex_search_icon").click();
+    cy.wait(1000);
     cy.getByTestID("dex_search_input").type("dETH").blur();
-    cy.getByTestID("pool_pair_row_0_dUSDC-DFI").should("not.exist");
+    cy.getByTestID("pool_pair_row_0_dMATIC-DFI").should("not.exist");
     cy.getByTestID("pool_pair_row_0_dETH-DFI").should("exist");
   });
 });
 
-context("Wallet - DEX - Button filtering", () => {
+context("Wallet - DEX - Button filtering", { testIsolation: false }, () => {
   function validateAvailablePoolpairAction(
-    poolpairDisplaySymbol: string
+    poolpairDisplaySymbol: string,
   ): void {
     cy.getByTestID(`pair_symbol_${poolpairDisplaySymbol}`).click();
     cy.getByTestID("poolpair_token_details_add_liquidity").click();
@@ -179,11 +182,11 @@ context("Wallet - DEX - Button filtering", () => {
     cy.url().should("include", "DEX/CompositeSwap");
     cy.getByTestID("token_select_button_FROM").should(
       "have.attr",
-      "aria-disabled"
+      "aria-disabled",
     );
     cy.getByTestID("token_select_button_TO").should(
       "have.attr",
-      "aria-disabled"
+      "aria-disabled",
     );
     cy.go("back");
     cy.go("back");
@@ -199,6 +202,8 @@ context("Wallet - DEX - Button filtering", () => {
   describe("Tab - Available pool pairs", () => {
     before(() => {
       interceptPoolpairWithSampleData();
+      cy.clearAllLocalStorage();
+      cy.clearAllCookies();
       cy.createEmptyWallet(true);
       cy.getByTestID("bottom_tab_dex").click();
       cy.url().should("include", "app/DEX/DexScreen");

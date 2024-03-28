@@ -31,29 +31,14 @@ exports[`offline screen should match snapshot when offline 1`] = `
       }
     }
   >
-    <ViewManagerAdapter_ExpoImage
-      contentFit="cover"
-      contentPosition={
-        {
-          "left": "50%",
-          "top": "50%",
-        }
-      }
-      height={59}
-      onError={[Function]}
-      onLoad={[Function]}
-      onLoadStart={[Function]}
-      onProgress={[Function]}
-      placeholder={[]}
-      source={[]}
+    <Image
+      source={1}
       style={
         {
           "height": 59,
           "width": 163,
         }
       }
-      transition={null}
-      width={163}
     />
   </View>
   <Text

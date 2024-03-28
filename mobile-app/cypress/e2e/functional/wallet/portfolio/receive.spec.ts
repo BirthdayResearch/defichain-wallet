@@ -1,5 +1,7 @@
-context("Wallet - Receive", () => {
+context("Wallet - Receive", { testIsolation: false }, () => {
   before(() => {
+    cy.clearLocalStorage();
+    cy.clearCookies();
     cy.createEmptyWallet(true);
     cy.sendDFItoWallet().wait(3000);
     cy.getByTestID("bottom_tab_portfolio").click();
@@ -24,7 +26,7 @@ context("Wallet - Receive", () => {
       cy.getByTestID("address_input").type(address);
       cy.getByTestID("button_confirm_send_continue").should(
         "not.have.attr",
-        "disabled"
+        "disabled",
       );
     });
   });
@@ -32,6 +34,8 @@ context("Wallet - Receive", () => {
 
 context("Wallet - Receive - QR Code - Check", () => {
   before(() => {
+    cy.clearLocalStorage();
+    cy.clearCookies();
     cy.createEmptyWallet();
     cy.getByTestID("portfolio_list").should("exist");
     cy.getByTestID("receive_balance_button").click();

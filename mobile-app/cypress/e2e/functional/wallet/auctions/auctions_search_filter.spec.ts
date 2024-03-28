@@ -1,6 +1,10 @@
 import { EnvironmentNetwork } from "@waveshq/walletkit-core";
 
-context("Wallet - Auctions search and sort", () => {
+context("Wallet - Auctions search and sort", { testIsolation: false }, () => {
+  before(() => {
+    cy.clearLocalStorage();
+    cy.clearCookies();
+  });
   beforeEach(() => {
     cy.intercept("**/loans/auctions?size=*", {
       body: {
@@ -212,7 +216,7 @@ context("Wallet - Auctions search and sort", () => {
     cy.getByTestID("bottom_tab_auctions").click();
     cy.getByTestID("auction_search_icon").click();
     cy.getByTestID("search_title").contains(
-      "Search for auctions using collateral token names i.e. DFI DUSD dBTC."
+      "Search for auctions using collateral token names i.e. DFI DUSD dBTC.",
     );
     cy.getByTestID("auction_lists").should("not.exist");
     cy.getByTestID("batch_card_0_dTu10").should("not.exist");
@@ -254,7 +258,7 @@ context("Wallet - Auctions search and sort", () => {
     // Check for result after clearing search
     cy.getByTestID("auctions_search_input_clear_btn").click();
     cy.getByTestID("search_title").contains(
-      "Search for auctions using collateral token names i.e. DFI DUSD dBTC."
+      "Search for auctions using collateral token names i.e. DFI DUSD dBTC.",
     );
     cy.getByTestID("auctions_search_input_close").click();
     cy.getByTestID("batch_card_0_dTU10").should("exist");
@@ -262,7 +266,9 @@ context("Wallet - Auctions search and sort", () => {
   });
 
   it("should not able to filter auction", () => {
+    cy.wait(1000);
     cy.getByTestID("bottom_tab_auctions").click();
+    cy.url().should("include", "Auctions/AuctionScreen");
     // Check for least time left by default selection
     cy.getByTestID("batch_card_0_dTU10").should("exist");
     cy.getByTestID("batch_card_1_dTD10").should("exist");
@@ -280,7 +286,11 @@ context("Wallet - Auctions search and sort", () => {
   });
 });
 
-context("Wallet - Auctions Feature Gated", () => {
+context("Wallet - Auctions Feature Gated", { testIsolation: false }, () => {
+  before(() => {
+    cy.clearLocalStorage();
+    cy.clearCookies();
+  });
   it("should not have auctions tab if auction feature is blocked", () => {
     cy.intercept("**/settings/flags", {
       body: [],

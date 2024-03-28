@@ -18,11 +18,17 @@ function setupFromAndToTokens(fromToken: string, toToken: string): void {
 
 context(
   "Wallet - DEX - Instant Swap (DFI with Conversion/Reserved fees)",
+  { testIsolation: false },
   () => {
-    beforeEach(() => {
+    before(() => {
+      cy.clearAllCookies();
+      cy.clearAllLocalStorage();
       setupWalletForConversion();
       setupFromAndToTokens("DFI", "dLTC");
     });
+
+    // beforeEach(() => {
+    // });
 
     it("should display insufficient balance if UTXO is maxed out for swap", () => {
       cy.getByTestID("text_input_tokenA").type("20");
@@ -30,31 +36,33 @@ context(
     });
 
     it("should display reserved fees info if all UTXO have to be used for swap", () => {
-      cy.getByTestID("text_input_tokenA").type("19.9");
+      cy.getByTestID("text_input_tokenA").clear().type("19.9");
       cy.getByTestID("utxo_reserved_fees_text").should("exist");
     });
 
     it("should be able to display conversion info", () => {
       cy.getByTestID("text_balance_amount").contains("19.90000000");
-      cy.getByTestID("text_input_tokenA").type("11.00000000");
+      cy.getByTestID("text_input_tokenA").clear().type("11.00000000");
       cy.getByTestID("transaction_details_hint_text").should(
         "have.text",
-        "By continuing, the required amount of DFI will be converted"
+        "By continuing, the required amount of DFI will be converted",
       );
     });
 
     it("should trigger convert and swap token", () => {
-      cy.getByTestID("text_input_tokenA").type("11.00000000");
-      cy.getByTestID("button_confirm_submit").click().wait(3000);
+      cy.getByTestID("text_input_tokenA").clear().type("11.00000000");
+      cy.getByTestID("button_confirm_submit").click();
+      cy.wait(3000);
       cy.getByTestID("txn_authorization_title").contains(
-        `Convert ${new BigNumber("1").toFixed(8)} DFI to tokens`
+        `Convert ${new BigNumber("1").toFixed(8)} UTXO to DFI tokens`,
       );
-      cy.closeOceanInterface().wait(3000);
+      cy.closeOceanInterface();
+      cy.wait(3000);
       cy.getByTestID("conversion_status").should("have.text", "Converted");
       cy.getByTestID("text_swap_amount_from").should("contain", "11.00000000");
       cy.getByTestID("text_swap_amount_to").should("contain", "1,100.00000000");
       cy.getByTestID("button_confirm_swap").click().wait(3000);
       cy.closeOceanInterface();
     });
-  }
+  },
 );

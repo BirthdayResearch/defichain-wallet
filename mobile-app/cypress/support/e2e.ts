@@ -16,16 +16,16 @@
 import "@cypress/code-coverage/support";
 import "./commands";
 
-Cypress.Server.defaults({
-  ignore: (xhr: Request) => {
-    return xhr.url.match(/^.+\/v0\/(playground)\/.+$/);
-  },
-});
+// Cypress.Server.defaults({
+//   ignore: (xhr: Request) => {
+//     return xhr.url.match(/^.+\/v0\/(playground)\/.+$/);
+//   },
+// });
 
-Cypress.on("uncaught:exception", (err) => {
+Cypress.on("uncaught:exception", (err: { message: string | string[] }) => {
   if (
     err.message.includes(
-      "Cannot read properties of undefined (reading 'undefined')"
+      "Cannot read properties of undefined (reading 'undefined')",
     )
   ) {
     return false;

@@ -5,7 +5,7 @@ import { WalletToken } from "@waveshq/walletkit-ui/dist/store";
 import { tailwind } from "@tailwind";
 import { translate } from "@translations";
 import BigNumber from "bignumber.js";
-import { StyleProp, TextProps, ViewStyle } from "react-native";
+import { StyleProp, TextStyle, ViewStyle } from "react-native";
 import { NumericFormat as NumberFormat } from "react-number-format";
 import { getPrecisedTokenValue } from "../../Auctions/helpers/precision-token-value";
 import { BalanceText } from "./BalanceText";
@@ -24,7 +24,7 @@ interface TokenBreakdownDetailProps {
 }
 
 export function TokenBreakdownDetails(
-  props: TokenBreakdownDetailProps
+  props: TokenBreakdownDetailProps,
 ): JSX.Element {
   return (
     <>
@@ -117,8 +117,8 @@ interface TokenBreakdownDetailsRowProps {
   label: string;
   testID: string;
   hasFetchedToken: boolean;
-  labelTextStyle?: StyleProp<TextProps>;
-  valueTextStyle?: StyleProp<TextProps>;
+  labelTextStyle?: StyleProp<TextStyle>;
+  valueTextStyle?: StyleProp<TextStyle>;
   valueThemeProps?: ThemedProps;
   containerStyle?: StyleProp<ViewStyle>;
   prefix?: string;
@@ -157,7 +157,7 @@ function TokenBreakdownDetailsRow({
             displayType="text"
             prefix={prefix}
             suffix={suffix}
-            renderText={(value) => (
+            renderText={(value: string) => (
               <BalanceText
                 light={valueThemeProps.light}
                 dark={valueThemeProps.dark}

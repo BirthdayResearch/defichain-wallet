@@ -18,6 +18,7 @@ import { PinConfirmation } from "@screens/WalletNavigator/screens/CreateWallet/P
 import { Onboarding } from "@screens/WalletNavigator/screens/Onboarding";
 import { EncryptedProviderData } from "@defichain/jellyfish-wallet-encrypted";
 import { Dimensions, Platform } from "react-native";
+import { BackIcon } from "@components/icons/BackIcon";
 import { OnboardingNetworkSelectScreen } from "./screens/CreateWallet/OnboardingNetworkSelectScreen";
 import { RecoveryWordsFaq } from "./screens/CreateWallet/RecoveryWordsFaq";
 import { PasscodeFaq } from "./screens/CreateWallet/PasscodeFaq";
@@ -95,6 +96,7 @@ export function WalletNavigator(): JSX.Element {
           headerTitleContainerStyle: {
             width: width - (Platform.OS === "ios" ? 200 : 180),
           },
+          headerBackImage: BackIcon,
           headerTitleAlign: "center",
           headerBackTitleVisible: false,
           headerRightContainerStyle: tailwind("pr-5 pb-2"),
@@ -140,7 +142,7 @@ export function WalletNavigator(): JSX.Element {
           options={{
             headerTitle: translate(
               "screens/WalletNavigator",
-              "View Recovery Words"
+              "View Recovery Words",
             ),
             headerRight: undefined,
           }}
@@ -186,7 +188,7 @@ export function WalletNavigator(): JSX.Element {
           options={{
             headerTitle: translate(
               "screens/WalletNavigator",
-              "About Recovery Words"
+              "About Recovery Words",
             ),
             headerRight: undefined,
           }}
@@ -207,7 +209,7 @@ export function WalletNavigator(): JSX.Element {
           options={{
             headerTitle: translate(
               "screens/WalletNavigator",
-              "Create Passcode"
+              "Create Passcode",
             ),
             headerRight: undefined,
           }}
@@ -218,7 +220,7 @@ export function WalletNavigator(): JSX.Element {
           options={{
             headerTitle: translate(
               "screens/WalletNavigator",
-              "Verify Passcode"
+              "Verify Passcode",
             ),
             headerRight: undefined,
           }}

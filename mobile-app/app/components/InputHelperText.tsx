@@ -6,8 +6,7 @@ import {
   ThemedTextV2,
 } from "@components/themed";
 import { NumericFormat as NumberFormat } from "react-number-format";
-import { StyleProp, ViewProps } from "react-native";
-import { TextProps } from "@components";
+import { StyleProp, TextStyle, ViewProps } from "react-native";
 import { SuffixType } from "./NumberRow";
 
 interface InputHelperTextProps extends React.PropsWithChildren<ViewProps> {
@@ -16,8 +15,8 @@ interface InputHelperTextProps extends React.PropsWithChildren<ViewProps> {
   content: string;
   suffix?: string;
   suffixType?: SuffixType;
-  styleProps?: StyleProp<TextProps>;
-  labelStyleProps?: StyleProp<TextProps>;
+  styleProps?: StyleProp<TextStyle>;
+  labelStyleProps?: StyleProp<TextStyle>;
 }
 export function InputHelperText(props: InputHelperTextProps): JSX.Element {
   return (
@@ -37,7 +36,7 @@ export function InputHelperText(props: InputHelperTextProps): JSX.Element {
       <NumberFormat
         decimalScale={8}
         displayType="text"
-        renderText={(value) => (
+        renderText={(value: string) => (
           <ThemedText
             light={tailwind("text-gray-700")}
             dark={tailwind("text-gray-200")}
@@ -73,7 +72,7 @@ export function InputHelperTextV2(props: InputHelperTextProps): JSX.Element {
       <NumberFormat
         decimalScale={8}
         displayType="text"
-        renderText={(value) => (
+        renderText={(value: string) => (
           <ThemedTextV2
             light={tailwind("text-mono-light-v2-500")}
             dark={tailwind("text-mono-light-v2-500")}

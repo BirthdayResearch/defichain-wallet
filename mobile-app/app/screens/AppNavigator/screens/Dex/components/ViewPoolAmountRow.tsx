@@ -1,13 +1,13 @@
 import { tailwind } from "@tailwind";
-import { View, StyleProp, TextProps } from "react-native";
+import { View, StyleProp, TextStyle } from "react-native";
 import { ThemedTextV2, ThemedProps } from "@components/themed";
 import { NumericFormat as NumberFormat } from "react-number-format";
 
 interface ViewPoolAmountRowProps {
   label?: string;
-  labelTextStyle?: StyleProp<TextProps>;
+  labelTextStyle?: StyleProp<TextStyle>;
   labelThemeProps?: ThemedProps;
-  valueTextStyle?: StyleProp<TextProps>;
+  valueTextStyle?: StyleProp<TextStyle>;
   valueThemeProps?: ThemedProps;
   amount: string;
   testID: string;
@@ -48,7 +48,7 @@ export function ViewPoolAmountRow({
           displayType="text"
           prefix={prefix}
           suffix={suffix}
-          renderText={(value) => (
+          renderText={(value: string) => (
             <ThemedTextV2
               light={valueThemeProps.light}
               dark={valueThemeProps.dark}
