@@ -2357,6 +2357,7 @@
     "Your data is always kept anonymous and is used only for improvements. Are you sure you want to restrict?": "Vos données restent toujours anonymes et ne sont utilisées qu'à des fins d'amélioration. Êtes-vous sûr de vouloir restreindre l'accès aux données ?",
     "Restrict data": "Restreindre les données",
     "Cancel": "Annuler",
+    "Continue": "Suivant",
     "Data is now collected to improve experience.": "Les données sont maintenant collectées pour améliorer l'expérience",
     "As of the latest version, this wallet is now collecting non-identifiable performance-related data. You can choose to opt-out anytime from the settings page.": "À partir de la dernière version, ce portefeuille collecte désormais des données non identifiables liées à la performance. Vous pouvez choisir de vous désinscrire à tout moment à partir de la page des paramètres."
   }
