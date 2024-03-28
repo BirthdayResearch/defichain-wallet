@@ -1038,7 +1038,7 @@
     "Custom": "Anpassen",
     "USE THIS SLIPPAGE TOLERANCE": "SLIPPAGE-TOLERANZ VERWENDEN",
     "Required field is missing": "Erforderliches Feld fehlt",
-    "Slippage rate must range from 0-100%": "Die Slippage-Toleranz muss zwischen 0 und 100 % liegen.",
+    "Slippage rate must range from 0-1000%": "Die Slippage-Toleranz muss zwischen 0 und 1000 % liegen.",
     "Proceed at your own risk": "Handeln auf eigenes Risiko"
   },
   "screens/PoolSwapScreen": {
