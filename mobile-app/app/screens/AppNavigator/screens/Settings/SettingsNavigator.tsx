@@ -111,7 +111,7 @@ export function SettingsNavigator(): JSX.Element {
         component={AnalyticsScreen}
         name="AnalyticsScreen"
         options={{
-          headerTitle: "Analytics",
+          headerTitle: translate("screens/AnalyticsScreen", "Analytics"),
           headerBackTitleVisible: false,
         }}
       />

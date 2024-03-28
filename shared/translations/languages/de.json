@@ -436,7 +436,8 @@
     "View on Scan": "Ansicht auf Scan",
     "Go back": "Zurück",
     "Service Providers": "Dienstanbieter",
-    "Custom (3rd-party)": "Benutzerdefiniert (\"Drittanbieter\")"
+    "Custom (3rd-party)": "Benutzerdefiniert (\"Drittanbieter\")",
+    "Analytics" : "Analytik"
   },
   "screens/AboutScreen": {
     "About": "Über",
@@ -2333,5 +2334,17 @@
     "Submitting proposal": "Proposal einreichen",
     "Proposal Submitted": "Proposal eingereicht",
     "Proposals fees are implemented to encourage more responsible submissions.\nProposal fees are calculated based on the type of proposal selected, and the requested amount (only for CFP).\nRefer to our FAQ section for more detailed breakdown.": "Die Gebühren für Proposals werden eingeführt, um verantwortungsvollere Einreichungen zu fördern.\nDie Proposal-Gebühren werden auf Grundlage der gewählten Art des Proposals und des beantragten Betrags (nur für CFPs) berechnet.\nEine genauere Aufschlüsselung findest du in unserem FAQ-Bereich."
+  },
+  "screens/AnalyticsScreen": {
+    "Analytics" : "Analytik",
+    "ANALYTICS": "ANALYTIK",
+    "Allow data access": "Erlaube Datenzugriff",
+    "Participate in BR Analytics to help us make DeFiChain Wallet better." : "Beteilige dich an BR Analytics, um uns zu helfen, DeFiChain Wallet besser zu machen.",
+    "Are you sure you want to restrict data access?": "Bist du sicher, dass du den Datenzugriff einschränken willst?",
+    "Your data is always kept anonymous and is used only for improvements. Are you sure you want to restrict?": "Your data is always kept anonymous and is used only for improvements. Are you sure you want to restrict?",
+    "Restrict data": "Datenzugriff einschränken",
+    "Cancel": "Abbrechen",
+    "Data is now collected to improve experience.": "Daten werden jetzt gesammelt, um das Erlebnis zu verbessern.",
+    "As of the latest version, this wallet is now collecting non-identifiable performance-related data. You can choose to opt-out anytime from the settings page.": "Seit der neuesten Version sammelt diese Wallet anonymisierte, nicht identifizierbare leistungsbezogene Daten. Du kannst dich jederzeit auf der Einstellungsseite abmelden."
   }
 }
