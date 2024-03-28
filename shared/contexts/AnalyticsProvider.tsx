@@ -10,9 +10,7 @@ interface AnalyticsContextType {
   toggleAnalytics: () => void;
 }
 
-const AnalyticsContext = createContext<AnalyticsContextType | undefined>(
-  undefined,
-);
+const AnalyticsContext = createContext<AnalyticsContextType>(undefined as any);
 
 export function AnalyticsProvider(props: PropsWithChildren<any>) {
   const [isAnalyticsOn, setIsAnalyticsOn] = useState<boolean>(true);
@@ -33,6 +31,6 @@ export function AnalyticsProvider(props: PropsWithChildren<any>) {
   );
 }
 
-export const useAnalytics = () => {
+export const useAnalytics = (): AnalyticsContextType => {
   return useContext(AnalyticsContext);
 };

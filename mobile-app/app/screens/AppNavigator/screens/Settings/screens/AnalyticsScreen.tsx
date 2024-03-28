@@ -11,7 +11,6 @@ import { Switch } from "@components";
 import { useAnalytics } from "@shared-contexts/AnalyticsProvider";
 
 export function AnalyticsScreen(): JSX.Element {
-  // @ts-ignore
   const { isAnalyticsOn, toggleAnalytics } = useAnalytics();
 
   return (
