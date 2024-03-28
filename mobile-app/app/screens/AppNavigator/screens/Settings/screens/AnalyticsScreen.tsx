@@ -8,10 +8,11 @@ import { WalletAlert } from "@components/WalletAlert";
 import { translate } from "@translations";
 import { tailwind } from "@tailwind";
 import { Switch } from "@components";
-import { useState } from "react";
+import { useAnalytics } from "@shared-contexts/AnalyticsProvider";
 
 export function AnalyticsScreen(): JSX.Element {
-  const [isAnalyticsOn, setIsAnalyticsOn] = useState(true);
+  // @ts-ignore
+  const { isAnalyticsOn, toggleAnalytics } = useAnalytics();
 
   return (
     <ThemedScrollViewV2
@@ -58,14 +59,14 @@ export function AnalyticsScreen(): JSX.Element {
                   {
                     text: translate("screens/AnalyticsScreen", "Restrict data"),
                     onPress: async () => {
-                      setIsAnalyticsOn(!isAnalyticsOn);
+                      toggleAnalytics();
                     },
                     style: "destructive",
                   },
                 ],
               });
             } else {
-              setIsAnalyticsOn(!isAnalyticsOn);
+              toggleAnalytics();
             }
           }}
           value={isAnalyticsOn}
