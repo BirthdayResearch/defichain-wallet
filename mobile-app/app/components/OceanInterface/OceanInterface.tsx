@@ -187,7 +187,7 @@ export function OceanInterface(): JSX.Element | null {
       saveTx(tx.tx.txId);
     }
   }, [
-    tx.tx.txId,
+    tx?.tx.txId,
     calledTx,
     tx?.broadcasted,
     network,
