@@ -2,43 +2,58 @@ import React, {
   createContext,
   PropsWithChildren,
   useContext,
+  useEffect,
+  useMemo,
   useState,
 } from "react";
+import {
+  getStorageItem,
+  setStorageItem,
+} from "@api/persistence/analytics_storage";
 
 interface AnalyticsContextType {
-  isAnalyticsOn: boolean;
-  hasAnalyticsModalBeenShown: boolean;
-  setHasAnalyticsModalBeenShown: (
-    hasAnalyticsModalBeenShown: NonNullable<boolean>,
-  ) => void;
-  toggleAnalytics: () => void;
+  isAnalyticsOn?: string;
+  getStorage: (key: string) => string | undefined;
+  setStorage: (key: string, value: string | null) => void;
 }
 
 const AnalyticsContext = createContext<AnalyticsContextType>(undefined as any);
 
+export const useAnalytics = (): AnalyticsContextType => {
+  return useContext(AnalyticsContext);
+};
+
 export function AnalyticsProvider(props: PropsWithChildren<any>) {
-  const [isAnalyticsOn, setIsAnalyticsOn] = useState<boolean>(true);
-  const [hasAnalyticsModalBeenShown, setHasAnalyticsModalBeenShown] =
-    useState<boolean>(false);
+  const [isAnalyticsOn, setIsAnalyticsOn] = useState<string>();
+  // const [hasAnalyticsModalBeenShown, setHasAnalyticsModalBeenShown] =
+  //   useState<boolean>(false);
 
-  const toggleAnalytics = () => {
-    setIsAnalyticsOn((prevState) => !prevState);
-  };
+  useEffect(() => {
+    const transferAmountKeyStorage =
+      getStorageItem<string>("ANALYTICS") ?? undefined;
 
-  const value: AnalyticsContextType = {
-    isAnalyticsOn,
-    hasAnalyticsModalBeenShown,
-    setHasAnalyticsModalBeenShown,
-    toggleAnalytics,
-  };
+    setIsAnalyticsOn(transferAmountKeyStorage);
+  }, []);
+
+  const context: AnalyticsContextType = useMemo(() => {
+    const setStorage = (value: string) => {
+      setIsAnalyticsOn(value);
+      setStorageItem("ANALYTICS", value);
+    };
+
+    const getStorage = () => {
+      return isAnalyticsOn;
+    };
+    return {
+      isAnalyticsOn: isAnalyticsOn === null ? undefined : isAnalyticsOn,
+      getStorage,
+      setStorage,
+    };
+  }, [isAnalyticsOn]);
 
   return (
-    <AnalyticsContext.Provider value={value}>
+    <AnalyticsContext.Provider value={context}>
       {props.children}
     </AnalyticsContext.Provider>
   );
 }
-
-export const useAnalytics = (): AnalyticsContextType => {
-  return useContext(AnalyticsContext);
-};
