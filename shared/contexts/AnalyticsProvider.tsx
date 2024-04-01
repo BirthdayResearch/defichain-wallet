@@ -7,6 +7,10 @@ import React, {
 
 interface AnalyticsContextType {
   isAnalyticsOn: boolean;
+  hasAnalyticsModalBeenShown: boolean;
+  setHasAnalyticsModalBeenShown: (
+    hasAnalyticsModalBeenShown: NonNullable<boolean>,
+  ) => void;
   toggleAnalytics: () => void;
 }
 
@@ -14,6 +18,8 @@ const AnalyticsContext = createContext<AnalyticsContextType>(undefined as any);
 
 export function AnalyticsProvider(props: PropsWithChildren<any>) {
   const [isAnalyticsOn, setIsAnalyticsOn] = useState<boolean>(true);
+  const [hasAnalyticsModalBeenShown, setHasAnalyticsModalBeenShown] =
+    useState<boolean>(false);
 
   const toggleAnalytics = () => {
     setIsAnalyticsOn((prevState) => !prevState);
@@ -21,6 +27,8 @@ export function AnalyticsProvider(props: PropsWithChildren<any>) {
 
   const value: AnalyticsContextType = {
     isAnalyticsOn,
+    hasAnalyticsModalBeenShown,
+    setHasAnalyticsModalBeenShown,
     toggleAnalytics,
   };
 
