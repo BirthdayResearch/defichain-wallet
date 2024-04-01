@@ -2345,16 +2345,16 @@
     "Proposals fees are implemented to encourage more responsible submissions.\nProposal fees are calculated based on the type of proposal selected, and the requested amount (only for CFP).\nRefer to our FAQ section for more detailed breakdown.": "实施提案费用是为了鼓励更负责任的提案。\n提案费用是根据所选的提案类型和要求的金额进行计算的（仅适用于CFP）。\n请参阅我们的FAQ部分以获得更详细的资料。"
   },
   "screens/AnalyticsScreen": {
-    "Analytics": "Analytics",
-    "ANALYTICS": "ANALYTICS",
-    "Allow data access": "Allow data access",
-    "Participate in BR Analytics to help us make DeFiChain Wallet better." : "Participate in BR Analytics to help us make DeFiChain Wallet better.",
-    "Are you sure you want to restrict data access?": "Are you sure you want to restrict data access?",
-    "Your data is always kept anonymous and is used only for improvements. Are you sure you want to restrict?": "Your data is always kept anonymous and is used only for improvements. Are you sure you want to restrict?",
-    "Restrict data": "Restrict data",
-    "Cancel": "Cancel",
+    "Analytics": "分析",
+    "ANALYTICS": "分析",
+    "Allow data access": "允许数据访问",
+    "Participate in BR Analytics to help us make DeFiChain Wallet better." : "参与 BR Analytics，帮助我们让 DeFiChain 钱包变得更好。",
+    "Are you sure you want to restrict data access?": "您确定要限制数据访问吗？",
+    "Your data is always kept anonymous and is used only for improvements. Are you sure you want to restrict?": "您的数据始终保持匿名，并且仅用于改进。 您确定要进行限制吗？",
+    "Restrict data": "限制数据",
+    "Cancel": "取消",
     "Continue": "继续",
-    "Data is now collected to improve experience.": "Data is now collected to improve experience.",
-    "As of the latest version, this wallet is now collecting non-identifiable performance-related data. You can choose to opt-out anytime from the settings page.": "As of the latest version, this wallet is now collecting non-identifiable performance-related data. You can choose to opt-out anytime from the settings page."
+    "Data is now collected to improve experience.": "现在收集的数据是为了改善您的体验。",
+    "As of the latest version, this wallet is now collecting non-identifiable performance-related data. You can choose to opt-out anytime from the settings page.": "截至最新版本，该钱包现在正在收集不可识别有关性能的相关数据。 您可以随时从设置页面选择退出。"
   }
 }
