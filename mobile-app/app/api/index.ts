@@ -8,3 +8,4 @@ export { SlippageTolerancePersistence } from "./persistence/slippage-tolerance_s
 export { PortfolioCurrencyPersistence } from "./persistence/portfolio_currency_storage";
 export { FavouritePoolpairsPersistence } from "./persistence/favourite_poolpairs_storage";
 export { DomainPersistence } from "./persistence/domain_storage";
+export { AnalyticsPersistence } from "./persistence/analytics_storage";

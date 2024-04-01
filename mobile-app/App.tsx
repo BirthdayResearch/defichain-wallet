@@ -50,6 +50,7 @@ import BigNumber from "bignumber.js";
 import { EVMProvider } from "@contexts/EVMProvider";
 import { CustomServiceProvider } from "@contexts/CustomServiceProvider";
 import { AnalyticsProvider } from "@shared-contexts/AnalyticsProvider";
+import { AnalyticsPersistence } from "@api/persistence/analytics_storage";
 
 /**
  * Loads
@@ -111,7 +112,7 @@ export default function App(): JSX.Element | null {
                               colorScheme={colorScheme}
                               logger={Logging}
                             >
-                              <AnalyticsProvider>
+                              <AnalyticsProvider api={AnalyticsPersistence}>
                                 <LanguageProvider
                                   api={LanguagePersistence}
                                   locale={Localization.locale}

@@ -9,6 +9,7 @@ import { translate } from "@translations";
 import { tailwind } from "@tailwind";
 import { Switch } from "@components";
 import { useAnalytics } from "@shared-contexts/AnalyticsProvider";
+import { AnalyticsPersistence } from "@api";
 
 export function AnalyticsScreen(): JSX.Element {
   const { isAnalyticsOn, toggleAnalytics } = useAnalytics();
@@ -59,6 +60,8 @@ export function AnalyticsScreen(): JSX.Element {
                     text: translate("screens/AnalyticsScreen", "Restrict data"),
                     onPress: async () => {
                       toggleAnalytics();
+                      const isAnalyticsOnString = String(!isAnalyticsOn);
+                      await AnalyticsPersistence.set(isAnalyticsOnString);
                     },
                     style: "destructive",
                   },
@@ -66,9 +69,12 @@ export function AnalyticsScreen(): JSX.Element {
               });
             } else {
               toggleAnalytics();
+              const isAnalyticsOnString = String(!isAnalyticsOn);
+              await AnalyticsPersistence.set(isAnalyticsOnString);
             }
           }}
           value={isAnalyticsOn}
+          testID="analytics_switch"
         />
       </ThemedViewV2>
       <ThemedTextV2
