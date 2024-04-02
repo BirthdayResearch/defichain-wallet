@@ -115,7 +115,8 @@ context("Wallet - Settings", { testIsolation: false }, () => {
       cy.contains("Restrict data").click();
     });
     cy.should(() => {
-      expect(localStorage.getItem("WALLET.ANALYTICS")).to.eq("false");
+      const analyticsValue = localStorage.getItem("WALLET.ANALYTICS");
+      expect(analyticsValue).to.eq('"false"');
     });
   });
 });
