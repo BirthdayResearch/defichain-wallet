@@ -9,9 +9,13 @@ import { translate } from "@translations";
 import { tailwind } from "@tailwind";
 import { Switch } from "@components";
 import { useAnalytics } from "@shared-contexts/AnalyticsProvider";
+import { useState } from "react";
 
 export function AnalyticsScreen(): JSX.Element {
   const { isAnalyticsOn, setStorage } = useAnalytics();
+  const [isSwitchOn, setIsSwitchOn] = useState<boolean>(
+    isAnalyticsOn === "true",
+  );
 
   return (
     <ThemedScrollViewV2
@@ -59,6 +63,7 @@ export function AnalyticsScreen(): JSX.Element {
                     text: translate("screens/AnalyticsScreen", "Restrict data"),
                     onPress: async () => {
                       setStorage("IS_ANALYTICS_ON", "false");
+                      setIsSwitchOn(false);
                     },
                     style: "destructive",
                   },
@@ -66,9 +71,10 @@ export function AnalyticsScreen(): JSX.Element {
               });
             } else {
               setStorage("IS_ANALYTICS_ON", "true");
+              setIsSwitchOn(true);
             }
           }}
-          value={isAnalyticsOn === "true"}
+          value={isSwitchOn}
           testID="analytics_switch"
         />
       </ThemedViewV2>
