@@ -193,7 +193,7 @@ export function PortfolioScreen({ navigation }: Props): JSX.Element {
           ],
         });
       }
-    }, 1000);
+    }, 5000);
   }, [hasAnalyticsModalBeenShown]);
 
   const fetchPortfolioData = (): void => {
