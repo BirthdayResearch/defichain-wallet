@@ -182,6 +182,7 @@ export function SettingsScreen({ navigation }: Props): JSX.Element {
                 <NavigateItemRow
                   testID="setting_analytics"
                   label="Analytics"
+                  border
                   onPress={() => navigation.navigate("AnalyticsScreen")}
                 />
                 <NavigateItemRow
