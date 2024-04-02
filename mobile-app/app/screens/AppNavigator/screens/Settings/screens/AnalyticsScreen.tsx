@@ -44,7 +44,7 @@ export function AnalyticsScreen(): JSX.Element {
         </ThemedTextV2>
         <Switch
           onValueChange={async () => {
-            if (isAnalyticsOn === "true") {
+            if (isSwitchOn) {
               WalletAlert({
                 title: translate(
                   "screens/AnalyticsScreen",
