@@ -30,13 +30,15 @@ export function AnalyticsProvider(props: PropsWithChildren<any>) {
     useState<string>("false");
 
   const setAnalyticsValue = async () => {
-    const isAnalyticsOnKeyStorage = await getStorageItem<string>("ANALYTICS");
+    const isAnalyticsOnKeyStorage =
+      await getStorageItem<string>("IS_ANALYTICS_ON");
     if (isAnalyticsOnKeyStorage) {
       setIsAnalyticsOn(isAnalyticsOnKeyStorage);
     }
 
-    const hasAnalyticsModalBeenShownKeyStorage =
-      await getStorageItem<string>("ANALYTICS_MODAL");
+    const hasAnalyticsModalBeenShownKeyStorage = await getStorageItem<string>(
+      "IS_ANALYTICS_MODAL_SHOWN",
+    );
     if (hasAnalyticsModalBeenShownKeyStorage) {
       setHasAnalyticsModalBeenShown(hasAnalyticsModalBeenShownKeyStorage);
     }
@@ -48,10 +50,10 @@ export function AnalyticsProvider(props: PropsWithChildren<any>) {
 
   const context: AnalyticsContextType = useMemo(() => {
     const setStorage = (key: string, value: string) => {
-      if (key === "ANALYTICS") {
+      if (key === "IS_ANALYTICS_ON") {
         setIsAnalyticsOn(value);
         setStorageItem(key, value);
-      } else if (key === "ANALYTICS_MODAL") {
+      } else if (key === "IS_ANALYTICS_MODAL_SHOWN") {
         setHasAnalyticsModalBeenShown(value);
         setStorageItem(key, value);
       }
@@ -59,9 +61,9 @@ export function AnalyticsProvider(props: PropsWithChildren<any>) {
 
     const getStorage = (key: string) => {
       let value;
-      if (key === "ANALYTICS") {
+      if (key === "IS_ANALYTICS_ON") {
         value = isAnalyticsOn;
-      } else if (key === "ANALYTICS_MODAL") {
+      } else if (key === "IS_ANALYTICS_MODAL_SHOWN") {
         value = hasAnalyticsModalBeenShown;
       }
       return value;

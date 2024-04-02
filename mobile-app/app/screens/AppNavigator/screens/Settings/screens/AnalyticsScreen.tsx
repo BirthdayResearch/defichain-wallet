@@ -58,14 +58,14 @@ export function AnalyticsScreen(): JSX.Element {
                   {
                     text: translate("screens/AnalyticsScreen", "Restrict data"),
                     onPress: async () => {
-                      setStorage("ANALYTICS", "false");
+                      setStorage("IS_ANALYTICS_ON", "false");
                     },
                     style: "destructive",
                   },
                 ],
               });
             } else {
-              setStorage("ANALYTICS", "true");
+              setStorage("IS_ANALYTICS_ON", "true");
             }
           }}
           value={isAnalyticsOn === "true"}

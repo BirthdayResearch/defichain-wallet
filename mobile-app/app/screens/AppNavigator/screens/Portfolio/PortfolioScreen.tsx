@@ -171,27 +171,29 @@ export function PortfolioScreen({ navigation }: Props): JSX.Element {
   }, []);
 
   useEffect(() => {
-    if (hasAnalyticsModalBeenShown === "false") {
-      WalletAlert({
-        title: translate(
-          "screens/AnalyticsScreen",
-          "Data is now collected to improve experience.",
-        ),
-        message: translate(
-          "screens/AnalyticsScreen",
-          "As of the latest version, this wallet is now collecting non-identifiable performance-related data. You can choose to opt-out anytime from the settings page.",
-        ),
-        buttons: [
-          {
-            text: translate("screens/AnalyticsScreen", "Continue"),
-            style: "cancel",
-            onPress: async () => {
-              setStorage("ANALYTICS_MODAL", "true");
+    setTimeout(() => {
+      if (hasAnalyticsModalBeenShown === "false") {
+        WalletAlert({
+          title: translate(
+            "screens/AnalyticsScreen",
+            "Data is now collected to improve experience.",
+          ),
+          message: translate(
+            "screens/AnalyticsScreen",
+            "As of the latest version, this wallet is now collecting non-identifiable performance-related data. You can choose to opt-out anytime from the settings page.",
+          ),
+          buttons: [
+            {
+              text: translate("screens/AnalyticsScreen", "Continue"),
+              style: "cancel",
+              onPress: async () => {
+                setStorage("IS_ANALYTICS_MODAL_SHOWN", "true");
+              },
             },
-          },
-        ],
-      });
-    }
+          ],
+        });
+      }
+    });
   }, [hasAnalyticsModalBeenShown]);
 
   const fetchPortfolioData = (): void => {

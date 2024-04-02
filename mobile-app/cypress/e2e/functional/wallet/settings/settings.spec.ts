@@ -101,7 +101,7 @@ context("Wallet - Settings", { testIsolation: false }, () => {
 
   it("should activate analytics by default (localstorage)", () => {
     cy.url().should("include", "app/Settings/SettingsScreen", () => {
-      expect(localStorage.getItem("WALLET.ANALYTICS")).to.eq("true");
+      expect(localStorage.getItem("WALLET.IS_ANALYTICS_ON")).to.eq("true");
     });
   });
 
@@ -115,7 +115,7 @@ context("Wallet - Settings", { testIsolation: false }, () => {
       cy.contains("Restrict data").click();
     });
     cy.should(() => {
-      const analyticsValue = localStorage.getItem("WALLET.ANALYTICS");
+      const analyticsValue = localStorage.getItem("WALLET.IS_ANALYTICS_ON");
       expect(analyticsValue).to.eq('"false"');
     });
   });
