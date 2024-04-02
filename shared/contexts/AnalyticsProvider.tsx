@@ -13,6 +13,7 @@ import {
 
 interface AnalyticsContextType {
   isAnalyticsOn?: string;
+  hasAnalyticsModalBeenShown?: string;
   getStorage: (key: string) => string | undefined;
   setStorage: (key: string, value: string) => void;
 }
@@ -25,13 +26,19 @@ export const useAnalytics = (): AnalyticsContextType => {
 
 export function AnalyticsProvider(props: PropsWithChildren<any>) {
   const [isAnalyticsOn, setIsAnalyticsOn] = useState<string>("true");
-  // const [hasAnalyticsModalBeenShown, setHasAnalyticsModalBeenShown] =
-  //   useState<boolean>(false);
+  const [hasAnalyticsModalBeenShown, setHasAnalyticsModalBeenShown] =
+    useState<string>("false");
 
   const setAnalyticsValue = async () => {
-    const transferAmountKeyStorage = await getStorageItem<string>("ANALYTICS");
-    if (transferAmountKeyStorage) {
-      setIsAnalyticsOn(transferAmountKeyStorage);
+    const isAnalyticsOnKeyStorage = await getStorageItem<string>("ANALYTICS");
+    if (isAnalyticsOnKeyStorage) {
+      setIsAnalyticsOn(isAnalyticsOnKeyStorage);
+    }
+
+    const hasAnalyticsModalBeenShownKeyStorage =
+      await getStorageItem<string>("ANALYTICS_MODAL");
+    if (hasAnalyticsModalBeenShownKeyStorage) {
+      setHasAnalyticsModalBeenShown(hasAnalyticsModalBeenShownKeyStorage);
     }
   };
 
@@ -41,19 +48,34 @@ export function AnalyticsProvider(props: PropsWithChildren<any>) {
 
   const context: AnalyticsContextType = useMemo(() => {
     const setStorage = (key: string, value: string) => {
-      setIsAnalyticsOn(value);
-      setStorageItem(key, value);
+      if (key === "ANALYTICS") {
+        setIsAnalyticsOn(value);
+        setStorageItem(key, value);
+      } else if (key === "ANALYTICS_MODAL") {
+        setHasAnalyticsModalBeenShown(value);
+        setStorageItem(key, value);
+      }
     };
 
-    const getStorage = () => {
-      return isAnalyticsOn;
+    const getStorage = (key: string) => {
+      let value;
+      if (key === "ANALYTICS") {
+        value = isAnalyticsOn;
+      } else if (key === "ANALYTICS_MODAL") {
+        value = hasAnalyticsModalBeenShown;
+      }
+      return value;
     };
     return {
       isAnalyticsOn: isAnalyticsOn === null ? undefined : isAnalyticsOn,
+      hasAnalyticsModalBeenShown:
+        hasAnalyticsModalBeenShown === null
+          ? undefined
+          : hasAnalyticsModalBeenShown,
       getStorage,
       setStorage,
     };
-  }, [isAnalyticsOn]);
+  }, [hasAnalyticsModalBeenShown, isAnalyticsOn]);
 
   return (
     <AnalyticsContext.Provider value={context}>

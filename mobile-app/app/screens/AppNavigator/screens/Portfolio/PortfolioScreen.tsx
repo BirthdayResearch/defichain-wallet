@@ -73,6 +73,8 @@ import * as SplashScreen from "expo-splash-screen";
 import { useLogger } from "@shared-contexts/NativeLoggingProvider";
 import { bottomTabDefaultRoutes } from "@screens/AppNavigator/constants/DefaultRoutes";
 import { DomainType, useDomainContext } from "@contexts/DomainContext";
+import { WalletAlert } from "@components/WalletAlert";
+import { useAnalytics } from "@shared-contexts/AnalyticsProvider";
 import { AddressSelectionButtonV2 } from "./components/AddressSelectionButtonV2";
 import { ActionButtons } from "./components/ActionButtons";
 import {
@@ -108,6 +110,7 @@ export function PortfolioScreen({ navigation }: Props): JSX.Element {
   const client = useWhaleApiClient();
   const whaleRpcClient = useWhaleRpcClient();
   const { address } = useWalletContext();
+  const { hasAnalyticsModalBeenShown, setStorage } = useAnalytics();
   const { denominationCurrency, setDenominationCurrency } =
     useDenominationCurrency();
 
@@ -166,6 +169,30 @@ export function PortfolioScreen({ navigation }: Props): JSX.Element {
       dispatch(fetchLoanTokens({ client }));
     });
   }, []);
+
+  useEffect(() => {
+    if (hasAnalyticsModalBeenShown === "false") {
+      WalletAlert({
+        title: translate(
+          "screens/AnalyticsScreen",
+          "Data is now collected to improve experience.",
+        ),
+        message: translate(
+          "screens/AnalyticsScreen",
+          "As of the latest version, this wallet is now collecting non-identifiable performance-related data. You can choose to opt-out anytime from the settings page.",
+        ),
+        buttons: [
+          {
+            text: translate("screens/AnalyticsScreen", "Continue"),
+            style: "cancel",
+            onPress: async () => {
+              setStorage("ANALYTICS_MODAL", "true");
+            },
+          },
+        ],
+      });
+    }
+  }, [hasAnalyticsModalBeenShown]);
 
   const fetchPortfolioData = (): void => {
     batch(() => {
