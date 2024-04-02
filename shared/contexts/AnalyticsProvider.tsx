@@ -14,7 +14,7 @@ import {
 interface AnalyticsContextType {
   isAnalyticsOn?: string;
   getStorage: (key: string) => string | undefined;
-  setStorage: (key: string, value: string | null) => void;
+  setStorage: (key: string, value: string) => void;
 }
 
 const AnalyticsContext = createContext<AnalyticsContextType>(undefined as any);
@@ -24,21 +24,25 @@ export const useAnalytics = (): AnalyticsContextType => {
 };
 
 export function AnalyticsProvider(props: PropsWithChildren<any>) {
-  const [isAnalyticsOn, setIsAnalyticsOn] = useState<string>();
+  const [isAnalyticsOn, setIsAnalyticsOn] = useState<string>("true");
   // const [hasAnalyticsModalBeenShown, setHasAnalyticsModalBeenShown] =
   //   useState<boolean>(false);
 
-  useEffect(() => {
-    const transferAmountKeyStorage =
-      getStorageItem<string>("ANALYTICS") ?? undefined;
+  const setAnalyticsValue = async () => {
+    const transferAmountKeyStorage = await getStorageItem<string>("ANALYTICS");
+    if (transferAmountKeyStorage) {
+      setIsAnalyticsOn(transferAmountKeyStorage);
+    }
+  };
 
-    setIsAnalyticsOn(transferAmountKeyStorage);
+  useEffect(() => {
+    setAnalyticsValue();
   }, []);
 
   const context: AnalyticsContextType = useMemo(() => {
-    const setStorage = (value: string) => {
+    const setStorage = (key: string, value: string) => {
       setIsAnalyticsOn(value);
-      setStorageItem("ANALYTICS", value);
+      setStorageItem(key, value);
     };
 
     const getStorage = () => {

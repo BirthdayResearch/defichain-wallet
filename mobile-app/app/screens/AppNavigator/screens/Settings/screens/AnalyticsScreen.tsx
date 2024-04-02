@@ -40,7 +40,7 @@ export function AnalyticsScreen(): JSX.Element {
         </ThemedTextV2>
         <Switch
           onValueChange={async () => {
-            if (isAnalyticsOn) {
+            if (isAnalyticsOn === "true") {
               WalletAlert({
                 title: translate(
                   "screens/AnalyticsScreen",
@@ -58,16 +58,14 @@ export function AnalyticsScreen(): JSX.Element {
                   {
                     text: translate("screens/AnalyticsScreen", "Restrict data"),
                     onPress: async () => {
-                      const isAnalyticsOnString = String(!isAnalyticsOn);
-                      setStorage("ANALYTICS", isAnalyticsOnString);
+                      setStorage("ANALYTICS", "false");
                     },
                     style: "destructive",
                   },
                 ],
               });
             } else {
-              const isAnalyticsOnString = String(!isAnalyticsOn);
-              setStorage("ANALYTICS", isAnalyticsOnString);
+              setStorage("ANALYTICS", "true");
             }
           }}
           value={isAnalyticsOn === "true"}
