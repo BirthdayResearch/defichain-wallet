@@ -30,6 +30,7 @@ import {
 import { getReleaseChannel } from "@api/releaseChannel";
 import { useAppDispatch } from "@hooks/useAppDispatch";
 import { useFeatureFlagContext } from "@contexts/FeatureFlagContext";
+import { useAnalytics } from "@shared-contexts/AnalyticsProvider";
 import { TransactionDetail } from "./TransactionDetail";
 import { TransactionError } from "./TransactionError";
 
@@ -121,6 +122,7 @@ export function OceanInterface(): JSX.Element | null {
   const { getTransactionUrl } = useDeFiScanContext();
   const { network } = useNetworkContext();
   const { isFeatureAvailable } = useFeatureFlagContext();
+  const { isAnalyticsOn } = useAnalytics();
   const isSaveTxEnabled = isFeatureAvailable("save_tx");
 
   // store
@@ -179,11 +181,19 @@ export function OceanInterface(): JSX.Element | null {
       calledTx !== tx?.tx.txId && // to ensure that api is only called once per tx
       tx?.tx.txId !== undefined &&
       network === EnvironmentNetwork.MainNet &&
-      isSaveTxEnabled // feature flag
+      isSaveTxEnabled && // feature flag
+      isAnalyticsOn
     ) {
       saveTx(tx.tx.txId);
     }
-  }, [tx?.tx.txId, calledTx, tx?.broadcasted, network, isSaveTxEnabled]);
+  }, [
+    tx?.tx.txId,
+    calledTx,
+    tx?.broadcasted,
+    network,
+    isSaveTxEnabled,
+    isAnalyticsOn,
+  ]);
 
   useEffect(() => {
     // get evm tx id and url (if any)
@@ -199,13 +209,12 @@ export function OceanInterface(): JSX.Element | null {
     };
 
     if (tx !== undefined) {
-      const isTransferDomainTx = tx?.tx.vout.some(
-        (vout) =>
-          vout.script?.stack.some(
-            (item: any) =>
-              item.type === "OP_DEFI_TX" &&
-              item.tx?.name === "OP_DEFI_TX_TRANSFER_DOMAIN",
-          ),
+      const isTransferDomainTx = tx?.tx.vout.some((vout) =>
+        vout.script?.stack.some(
+          (item: any) =>
+            item.type === "OP_DEFI_TX" &&
+            item.tx?.name === "OP_DEFI_TX_TRANSFER_DOMAIN",
+        ),
       );
       if (isTransferDomainTx) {
         fetchEvmTx(tx.tx.txId);

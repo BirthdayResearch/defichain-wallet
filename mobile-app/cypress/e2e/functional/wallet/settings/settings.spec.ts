@@ -98,4 +98,25 @@ context("Wallet - Settings", { testIsolation: false }, () => {
       "rgb(217, 123, 1)",
     );
   });
+
+  it("should activate analytics by default (localstorage)", () => {
+    cy.url().should("include", "app/Settings/SettingsScreen", () => {
+      expect(localStorage.getItem("WALLET.IS_ANALYTICS_ON")).to.eq("true");
+    });
+  });
+
+  it("should switch and pop up should up to switch off analytics (local storage to be updated)", () => {
+    cy.getByTestID("setting_analytics").click();
+    cy.getByTestID("analytics_switch").click();
+    cy.on("window:alert", (message) => {
+      expect(message).to.equal(
+        "Your data is always kept anonymous and is used only for improvements. Are you sure you want to restrict?",
+      );
+      cy.contains("Restrict data").click();
+    });
+    cy.should(() => {
+      const analyticsValue = localStorage.getItem("WALLET.IS_ANALYTICS_ON");
+      expect(analyticsValue).to.eq('"false"');
+    });
+  });
 });

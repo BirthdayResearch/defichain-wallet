@@ -49,6 +49,7 @@ import { FavouritePoolpairProvider } from "@contexts/FavouritePoolpairContext";
 import BigNumber from "bignumber.js";
 import { EVMProvider } from "@contexts/EVMProvider";
 import { CustomServiceProvider } from "@contexts/CustomServiceProvider";
+import { AnalyticsProvider } from "@shared-contexts/AnalyticsProvider";
 
 /**
  * Loads
@@ -110,35 +111,37 @@ export default function App(): JSX.Element | null {
                               colorScheme={colorScheme}
                               logger={Logging}
                             >
-                              <LanguageProvider
-                                api={LanguagePersistence}
-                                locale={Localization.locale}
-                              >
-                                <DomainProvider api={DomainPersistence}>
-                                  <CustomServiceProvider
-                                    api={ServiceProviderPersistence}
-                                    logger={Logging}
-                                  >
-                                    <DisplayBalancesProvider>
-                                      <ConnectionBoundary>
-                                        <GestureHandlerRootView
-                                          style={tailwind("flex-1")}
-                                        >
-                                          <ToastProvider
-                                            renderType={customToast}
+                              <AnalyticsProvider>
+                                <LanguageProvider
+                                  api={LanguagePersistence}
+                                  locale={Localization.locale}
+                                >
+                                  <DomainProvider api={DomainPersistence}>
+                                    <CustomServiceProvider
+                                      api={ServiceProviderPersistence}
+                                      logger={Logging}
+                                    >
+                                      <DisplayBalancesProvider>
+                                        <ConnectionBoundary>
+                                          <GestureHandlerRootView
+                                            style={tailwind("flex-1")}
                                           >
-                                            <FavouritePoolpairProvider>
-                                              <EVMProvider logger={Logging}>
-                                                <Main />
-                                              </EVMProvider>
-                                            </FavouritePoolpairProvider>
-                                          </ToastProvider>
-                                        </GestureHandlerRootView>
-                                      </ConnectionBoundary>
-                                    </DisplayBalancesProvider>
-                                  </CustomServiceProvider>
-                                </DomainProvider>
-                              </LanguageProvider>
+                                            <ToastProvider
+                                              renderType={customToast}
+                                            >
+                                              <FavouritePoolpairProvider>
+                                                <EVMProvider logger={Logging}>
+                                                  <Main />
+                                                </EVMProvider>
+                                              </FavouritePoolpairProvider>
+                                            </ToastProvider>
+                                          </GestureHandlerRootView>
+                                        </ConnectionBoundary>
+                                      </DisplayBalancesProvider>
+                                    </CustomServiceProvider>
+                                  </DomainProvider>
+                                </LanguageProvider>
+                              </AnalyticsProvider>
                             </ThemeProvider>
                           </FeatureFlagProvider>
                         </StatsProvider>

@@ -437,7 +437,8 @@
     "View on Scan": "往 DeFi Scan 查看",
     "Go back": "回到上一頁",
     "Service Providers": "服務提供者",
-    "Custom (3rd-party)": "自定義（第三方）"
+    "Custom (3rd-party)": "自定義（第三方）",
+    "Analytics": "分析"
   },
   "screens/AboutScreen": {
     "About": "關於",
@@ -2343,5 +2344,18 @@
     "Submitting proposal": "正在提交提案",
     "Proposal Submitted": "提案提交完成",
     "Proposals fees are implemented to encourage more responsible submissions.\nProposal fees are calculated based on the type of proposal selected, and the requested amount (only for CFP).\nRefer to our FAQ section for more detailed breakdown.": "實施提案費用是為了鼓勵更負責任的提案。\n提案費用是根據所選的提案類型和要求的金額進行計算的（僅適用於CFP）。請參閱我們的FAQ部分以獲得更詳細的資料。"
+  },
+  "screens/AnalyticsScreen": {
+    "Analytics": "分析",
+    "ANALYTICS": "分析",
+    "Allow data access": "允許資料存取",
+    "Participate in BR Analytics to help us make DeFiChain Wallet better." : "參與 BR Analytics，幫助我們讓 DeFiChain 錢包變得更好。",
+    "Are you sure you want to restrict data access?": "您確定要限制資料存取嗎？",
+    "Your data is always kept anonymous and is used only for improvements. Are you sure you want to restrict?": "您的資料始終保持匿名，並且僅用於改進。 您確定要進行限制嗎？",
+    "Restrict data": "限制數據",
+    "Cancel": "取消",
+    "Continue": "繼續",
+    "Data is now collected to improve experience.": "現在收集的資料是為了改善您的體驗。",
+    "As of the latest version, this wallet is now collecting non-identifiable performance-related data. You can choose to opt-out anytime from the settings page.": "截至最新版本，該錢包現在正在收集不可識別有關性能的相關數據。 您可以隨時從設定頁面選擇退出。"
   }
 }
