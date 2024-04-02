@@ -6,7 +6,6 @@ import { RootNavigator } from "./RootNavigator";
 
 export function Main(): JSX.Element {
   const { isLight } = useThemeContext();
-
   return (
     <SafeAreaProvider>
       <RootNavigator />
