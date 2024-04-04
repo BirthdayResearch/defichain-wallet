@@ -15,7 +15,7 @@ export class LocalWhalePrevoutProvider extends WhalePrevoutProvider {
       tx: tx,
       spend: false,
     });
-    // Loop through the mempool and set 'spend' to true if the input is spent
+    // TODO Loop through the mempool and set 'spend' to true if the input is spent
   }
 
   static selectCoins(prevouts: Prevout[], targetAmount: BigNumber): Prevout[] {
@@ -39,6 +39,13 @@ export class LocalWhalePrevoutProvider extends WhalePrevoutProvider {
       return prevouts;
     }
     return selectedCoins;
+  }
+
+  // TODO
+  // eslint-disable-next-line class-methods-use-this
+  async sync(): Promise<void> {
+    // Advanced feature.
+    // Sync all local mempool into Whale, esp when there is rollback or unconfirmed that got lost.
   }
 
   async all(): Promise<Prevout[]> {
