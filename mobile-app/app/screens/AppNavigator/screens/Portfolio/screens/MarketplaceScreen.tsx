@@ -35,7 +35,7 @@ const exchanges: ExchangeProps[] = [
     url: "https://www.kucoin.com/trade/DFI-BTC",
   },
   {
-    name: "Huobi",
+    name: "HTX",
     image: Huobi,
     url: "https://www.huobi.com/en-us/exchange/dfi_usdt",
   },
