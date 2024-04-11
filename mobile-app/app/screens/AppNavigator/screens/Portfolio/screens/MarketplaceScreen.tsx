@@ -19,7 +19,7 @@ import EasyCrypto from "@assets/images/exchanges/EasyCrypto.png";
 import CakeDeFi from "@assets/images/exchanges/CakeDeFi.png";
 import Bybit from "@assets/images/exchanges/Bybit.png";
 import Swyftx from "@assets/images/exchanges/Swyftx.png";
-import Huobi from "@assets/images/exchanges/Huobi.png";
+import Htx from "@assets/images/exchanges/Htx.png";
 import Gateio from "@assets/images/exchanges/Gateio.png";
 
 interface ExchangeProps {
@@ -36,8 +36,8 @@ const exchanges: ExchangeProps[] = [
   },
   {
     name: "HTX",
-    image: Huobi,
-    url: "https://www.huobi.com/en-us/exchange/dfi_usdt",
+    image: Htx,
+    url: "https://www.htx.com/trade/dfi_usdt",
   },
   {
     name: "Gate.io",
