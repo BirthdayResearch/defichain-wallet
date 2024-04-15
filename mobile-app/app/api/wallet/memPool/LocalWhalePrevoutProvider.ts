@@ -1,6 +1,29 @@
+/* eslint-disable no-console */
 import { WhalePrevoutProvider } from "@defichain/whale-api-wallet";
 import { Prevout } from "@defichain/jellyfish-transaction-builder";
 import BigNumber from "bignumber.js";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { EnvironmentNetwork } from "@waveshq/walletkit-core";
+
+const KEY = "WALLET.LOCAL_MEM_POOL";
+
+function getKey(network: EnvironmentNetwork): string {
+  return `${network}.${KEY}`;
+}
+
+async function setMemPool(
+  value: LocalMempool[],
+  network: EnvironmentNetwork,
+): Promise<void> {
+  await AsyncStorage.setItem(getKey(network), JSON.stringify(value));
+}
+
+async function getMemPool(
+  network: EnvironmentNetwork,
+): Promise<LocalMempool[]> {
+  const val = await AsyncStorage.getItem(getKey(network));
+  return val ? JSON.parse(val) : [];
+}
 
 interface LocalMempool {
   tx: Prevout;
@@ -8,13 +31,26 @@ interface LocalMempool {
 }
 
 export class LocalWhalePrevoutProvider extends WhalePrevoutProvider {
-  mempool: LocalMempool[] = []; // Local mempool
+  // mempool: LocalMempool[] = []; // Local mempool
+
+  network: EnvironmentNetwork;
+
+  constructor(account: any, size: number) {
+    super(account, size);
+    this.network = EnvironmentNetwork.MainNet;
+    console.count("constructor");
+  }
 
   async add(tx: Prevout): Promise<void> {
-    this.mempool.push({
+    const mempool = await getMemPool(this.network);
+
+    mempool.push({
       tx: tx,
       spend: false,
     });
+    await setMemPool(mempool, this.network);
+    const localPrevouts = mempool.filter((m) => !m.spend).map((m) => m.tx.txid);
+    console.log(localPrevouts);
     // TODO Loop through the mempool and set 'spend' to true if the input is spent
   }
 
@@ -48,21 +84,22 @@ export class LocalWhalePrevoutProvider extends WhalePrevoutProvider {
     // Sync all local mempool into Whale, esp when there is rollback or unconfirmed that got lost.
   }
 
+  async getTxOut(txId: string, index: number): Promise<any> {
+    return await this.account.client.rpc.call("gettxout", [txId, index], {
+      value: "bignumber",
+    });
+  }
+
   async all(): Promise<Prevout[]> {
     const remotePrevouts = await super.all(); // Fetch prevouts from remote
-    // mempool length=0
-    // Balance of 50DFI (10DFI each)
-    // unspent txn 5 [10,10,10,10,10]
-    // 1. txn 25DFI => require 3 unspent txn
-    // add these 3 unspent into mempool and keep 2 aside
-    // 2. txn of 11 DFI => require 2 unspent txn
-    // Here we still have 5 unspent in our hand
-    // i.e. do filter out the one in mempool from unspent txn list
-    // return remaining (i.e. 2txn in our case)
-    // Filter out spent prevouts from the local mempool
-    const localPrevouts = this.mempool
-      .filter((m) => !m.spend)
-      .map((m) => m.tx.txid);
+    const mempool = await getMemPool(this.network);
+
+    const localPrevouts = mempool.filter((m) => !m.spend).map((m) => m.tx.txid);
+
+    for (let i = 0; i < localPrevouts.length; i++) {
+      const status = this.getTxOut(localPrevouts[i], 0);
+      console.log({ status });
+    }
     // Merge remote and local prevouts
     return remotePrevouts.filter(
       (each) => localPrevouts.indexOf(each.txid) === -1,
