@@ -1,6 +1,7 @@
 import { tailwind } from "@tailwind";
 import { translate } from "@translations";
 import { StyleProp, TextStyle, View } from "react-native";
+import { useReducedMotion } from "react-native-reanimated";
 import { ThemedIcon, ThemedText } from "./themed";
 import { BottomSheetModal } from "./BottomSheetModal";
 
@@ -19,12 +20,15 @@ export function BottomSheetInfo({
   alertInfo,
   infoIconStyle,
 }: BottomSheetInfoProps): JSX.Element {
+  const reducedMotion = useReducedMotion();
+
   return (
     <BottomSheetModal
       name={name}
       index={0}
       snapPoints={["30%"]}
       alertInfo={alertInfo}
+      animateOnMount={!reducedMotion}
       triggerComponent={
         <ThemedIcon
           size={16}
