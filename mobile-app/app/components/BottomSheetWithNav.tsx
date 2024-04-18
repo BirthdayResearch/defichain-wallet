@@ -10,6 +10,7 @@ import {
   BottomSheetBackgroundProps,
   BottomSheetModal,
 } from "@gorhom/bottom-sheet";
+import { useReducedMotion } from "react-native-reanimated";
 import { BottomSheetModalMethods } from "@gorhom/bottom-sheet/lib/typescript/types";
 import { NavigationContainer, Theme } from "@react-navigation/native";
 import { AddOrRemoveCollateralFormProps } from "@screens/AppNavigator/screens/Loans/components/AddOrRemoveCollateralForm";
@@ -49,6 +50,8 @@ export interface BottomSheetWithNavRouteParam {
 
 export const BottomSheetWithNav = React.memo(
   (props: BottomSheetWithNavProps): JSX.Element => {
+    const reducedMotion = useReducedMotion();
+
     const getSnapPoints = (): string[] => {
       if (Platform.OS === "ios") {
         return props.snapPoints?.ios ?? ["50%"];
@@ -66,6 +69,7 @@ export const BottomSheetWithNav = React.memo(
         enablePanDownToClose={false}
         handleComponent={EmptyHandleComponent}
         keyboardBlurBehavior="restore"
+        animateOnMount={!reducedMotion}
         backdropComponent={(backdropProps: BottomSheetBackdropProps) => (
           <View
             {...backdropProps}
