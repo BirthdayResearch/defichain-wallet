@@ -328,11 +328,15 @@ export function AddressRow({
                     light={tailwind("text-mono-light-v2-500")}
                     dark={tailwind("text-mono-dark-v2-500")}
                   >
-                    {translate("screens/SendScreen", "Verified {{text}}", {
-                      text: validEvmAddress
-                        ? "MetaChain (EVM) address"
-                        : "DVM address",
-                    })}
+                    {validEvmAddress
+                      ? translate(
+                          "screens/SendScreen",
+                          "Verified MetaChain (EVM) address",
+                        )
+                      : translate(
+                          "screens/SendScreen",
+                          "Verified DeFiChain (DVM) address",
+                        )}
                   </ThemedTextV2>
                 </>
               )}
@@ -341,7 +345,7 @@ export function AddressRow({
             {addressType !== AddressType.OthersButValid &&
               validLocalAddress && (
                 <>
-                  {/* Checks if selected address is  a Whitelisted EVM address */}
+                  {/* Whitelisted - EVM address */}
                   {(matchedAddress as WhitelistedAddress)?.addressDomainType ===
                     DomainType.EVM ||
                   //   Check if selected address from Your Addresses is EVM address
@@ -370,7 +374,7 @@ export function AddressRow({
                       </>
                     </AddressEvmTag>
                   ) : (
-                    // Whitelisted address - DVM
+                    // Whitelisted - DVM address
                     <ThemedViewV2
                       style={tailwind(
                         "flex flex-row items-center overflow-hidden rounded-lg py-0.5 px-2",
