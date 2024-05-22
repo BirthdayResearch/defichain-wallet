@@ -1,7 +1,10 @@
 import { View } from "@components";
 import { ThemedScrollViewV2, ThemedTextV2 } from "@components/themed";
 import { StackScreenProps } from "@react-navigation/stack";
-import { useWhaleApiClient } from "@waveshq/walletkit-ui/dist/contexts";
+import {
+  useWhaleApiClient,
+  useWhaleRpcClient,
+} from "@waveshq/walletkit-ui/dist/contexts";
 import { tailwind } from "@tailwind";
 import { translate } from "@translations";
 import { Dispatch, useEffect, useState } from "react";
@@ -46,8 +49,10 @@ type Props = StackScreenProps<LoanParamList, "CreateVaultScreen">;
 export function CreateVaultScreen({ navigation, route }: Props): JSX.Element {
   const dispatch = useAppDispatch();
   const client = useWhaleApiClient();
+  const whaleRpcClient = useWhaleRpcClient();
   const { network } = useNetworkContext();
   const { address } = useWalletContext();
+  const [vaultFee, setVaultFee] = useState<BigNumber>(new BigNumber(0));
   const loanSchemes = useSelector((state: RootState) =>
     ascColRatioLoanScheme(state.loans),
   );
@@ -80,13 +85,19 @@ export function CreateVaultScreen({ navigation, route }: Props): JSX.Element {
   >();
   const [isOnPage, setIsOnPage] = useState<boolean>(true);
 
-  const vaultFee = new BigNumber(
-    network === EnvironmentNetwork.MainNet ||
-    network === EnvironmentNetwork.TestNet ||
-    network === EnvironmentNetwork.DevNet
+  const getVaultCreationFee = async () => {
+    const { ATTRIBUTES } = await whaleRpcClient.masternode.getGov("ATTRIBUTES");
+    if (ATTRIBUTES && ATTRIBUTES["v0/vaults/params/creation_fee"]) {
+      return new BigNumber(ATTRIBUTES["v0/vaults/params/creation_fee"]);
+    }
+    return [
+      EnvironmentNetwork.MainNet,
+      EnvironmentNetwork.TestNet,
+      EnvironmentNetwork.DevNet,
+    ].includes(network)
       ? 2
-      : 1,
-  );
+      : 1;
+  };
 
   const onSubmit = async (): Promise<void> => {
     if (
@@ -152,6 +163,9 @@ export function CreateVaultScreen({ navigation, route }: Props): JSX.Element {
   }, []);
 
   useEffect(() => {
+    getVaultCreationFee()
+      .then((f) => setVaultFee(new BigNumber(f)))
+      .catch(logger.error);
     client.fee
       .estimate()
       .then((f) => setFee(new BigNumber(f)))
