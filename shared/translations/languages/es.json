@@ -1276,7 +1276,7 @@
     "How do I send tokens from my DFI wallet?": "¿Cómo envio tokens desde my billetera DFI?",
     "Tokens on DeFiChain can only be sent to DFI addresses only. This means that you should not send directly to an exchange (except DFX) or a third party platform that does not support DeFiChain.\n\nSimilarly, liquidity tokens can only be sent to another DFI wallet address or DFX.": "Los tokens en DeFiChain sólo pueden ser enviados a billeteras de DeFiChain. Esto significa que deberías enviar tus tokens a un exchange, (a parte de DFX) que no sea compatible con DeFiChain \n\nSimilarmente, los tokens de liquidez no pueden ser enviado a otra dirección que no se para DFI.",
     "What are some exchanges and platforms I can send to?": "¿Cúales son los exchanges y plataformas a los que puedo enviar?",
-    "1. Kucoin\n2. Huobi\n3. Transak\n4. Bake\n\nView more at DeFiChain.com": "1. Kucoin\n2. Huobi\n3. Transak\n4. Bake\n\nEncuentra más en DeFiChain.com",
+    "1. Kucoin\n2. HTX\n3. Transak\n4. Bake\n\nView more at DeFiChain.com": "1. Kucoin\n2. HTX\n3. Transak\n4. Bake\n\nEncuentra más en DeFiChain.com",
     "Can I send liquidity pool tokens to an exchange or another entity?": "¿Puedo enviar token del pool de liquidez a un exchange o a otra entidad?",
     "Liquidity tokens can only be sent to another DFI wallet address, and not to an exchange of central entity.": "Los tokens de liquidez sólo se pueden enviar a otra dirección de billetera de DeFiChain y no a otro exchange centralizado.",
     "How do I receive tokens on my DFI wallet?": "¿Cómo puedo recibir tokens en mi billetera de DFI?",
