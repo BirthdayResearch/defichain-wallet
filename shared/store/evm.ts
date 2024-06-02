@@ -33,13 +33,17 @@ interface EvmState {
   evmWalletDetails: EvmWalletDetails | null;
   evmTokenBalances: EvmTokenBalance[];
   hasFetchedEvmTokens: boolean;
+  evmUrlHasError: boolean;
 }
 
 const initialState: EvmState = {
   evmWalletDetails: null,
   evmTokenBalances: [],
   hasFetchedEvmTokens: false,
+  evmUrlHasError: false,
 };
+
+const SUCCESS_STATUS_CODE = 200;
 
 export const fetchEvmWalletDetails = createAsyncThunk(
   "wallet/fetchEvmWalletDetails",
@@ -58,15 +62,19 @@ export const fetchEvmWalletDetails = createAsyncThunk(
     if (isPlayground(network) && provider !== null) {
       const balance = await provider.getBalance(evmAddress);
       return {
-        coin_balance: balance.toString(),
+        data: {
+          coin_balance: balance.toString(),
+        },
+        statusCode: SUCCESS_STATUS_CODE,
       };
     }
     const response = await fetch(`${evmUrl}/api/v2/addresses/${evmAddress}`);
+    const statusCode = response.status;
     const data = await response.json();
     if (data.message === "Not found") {
-      return {};
+      return { data: {}, statusCode };
     }
-    return data;
+    return { data, statusCode };
   },
 );
 
@@ -101,17 +109,21 @@ export const fetchEvmTokenBalances = createAsyncThunk(
         };
       });
       const res = await Promise.all(tokens);
-      return res.filter((each) => each.value !== "0");
+      return {
+        data: res.filter((each) => each.value !== "0"),
+        statusCode: SUCCESS_STATUS_CODE,
+      };
     }
 
     const response = await fetch(
       `${evmUrl}/api/v2/addresses/${evmAddress}/token-balances`,
     );
+    const statusCode = response.status;
     const data = await response.json();
     if (data.message === "Not found") {
-      return [];
+      return { data: [], statusCode };
     }
-    return data;
+    return { data, statusCode };
   },
 );
 
@@ -122,16 +134,32 @@ export const evm = createSlice({
   extraReducers: (builder) => {
     builder.addCase(
       fetchEvmWalletDetails.fulfilled,
-      (state, action: PayloadAction<EvmWalletDetails>) => {
-        state.evmWalletDetails = action.payload;
+      (
+        state,
+        action: PayloadAction<{ data: EvmWalletDetails; statusCode: number }>,
+      ) => {
+        state.evmWalletDetails = action.payload.data;
+        state.evmUrlHasError =
+          action.payload.statusCode !== SUCCESS_STATUS_CODE;
       },
     );
     builder.addCase(
       fetchEvmTokenBalances.fulfilled,
-      (state, action: PayloadAction<EvmTokenBalance[]>) => {
-        state.evmTokenBalances = action.payload;
+      (
+        state,
+        action: PayloadAction<{ data: EvmTokenBalance[]; statusCode: number }>,
+      ) => {
+        state.evmTokenBalances = action.payload.data;
         state.hasFetchedEvmTokens = true;
+        state.evmUrlHasError =
+          action.payload.statusCode !== SUCCESS_STATUS_CODE;
       },
     );
+    builder.addCase(fetchEvmWalletDetails.rejected, (state) => {
+      state.evmUrlHasError = true;
+    });
+    builder.addCase(fetchEvmTokenBalances.rejected, (state) => {
+      state.evmUrlHasError = true;
+    });
   },
 });

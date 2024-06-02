@@ -117,6 +117,7 @@ describe("DFI Balance Card", () => {
         evmWalletDetails: null,
         evmTokenBalances: [],
         hasFetchedEvmTokens: true,
+        evmUrlHasError: false,
       },
     };
     const store = configureStore({
