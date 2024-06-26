@@ -1,4 +1,4 @@
-context("Onboarding - Restore Wallet", () => {
+context("Onboarding - Restore Wallet", { testIsolation: false }, () => {
   const recoveryWords = [
     "abandon",
     "abandon",
@@ -27,6 +27,8 @@ context("Onboarding - Restore Wallet", () => {
   ];
 
   before(() => {
+    cy.clearAllCookies();
+    cy.clearAllLocalStorage();
     cy.visit("/", { timeout: 300000 });
     cy.exitWallet();
     cy.getByTestID("restore_wallet_button").click();
@@ -36,7 +38,7 @@ context("Onboarding - Restore Wallet", () => {
   it("should have disabled button", () => {
     cy.getByTestID("recover_wallet_button").should(
       "have.attr",
-      "aria-disabled"
+      "aria-disabled",
     );
   });
 
@@ -70,7 +72,7 @@ context("Onboarding - Restore Wallet", () => {
         .type("{enter}");
       cy.getByTestID(`recover_word_${index + 1}_error`).should(
         "have.text",
-        "Required field is missing"
+        "Required field is missing",
       );
       cy.getByTestID(`recover_word_${index + 1}`)
         .clear()
@@ -79,11 +81,11 @@ context("Onboarding - Restore Wallet", () => {
       cy.getByTestID(`recover_word_${index + 1}`).should(
         "have.css",
         "color",
-        "rgb(43, 43, 43)"
+        "rgb(43, 43, 43)",
       );
       cy.getByTestID(`recover_word_${index + 1}_error`).should(
         "have.text",
-        "Uppercase, numbers and special characters are not allowed"
+        "Uppercase, numbers and special characters are not allowed",
       );
       cy.getByTestID(`recover_word_${index + 1}`)
         .clear()
@@ -92,11 +94,11 @@ context("Onboarding - Restore Wallet", () => {
       cy.getByTestID(`recover_word_${index + 1}`).should(
         "have.css",
         "color",
-        "rgb(43, 43, 43)"
+        "rgb(43, 43, 43)",
       );
       cy.getByTestID(`recover_word_${index + 1}_error`).should(
         "have.text",
-        "Uppercase, numbers and special characters are not allowed"
+        "Uppercase, numbers and special characters are not allowed",
       );
       cy.getByTestID(`recover_word_${index + 1}`)
         .clear()
@@ -105,11 +107,11 @@ context("Onboarding - Restore Wallet", () => {
       cy.getByTestID(`recover_word_${index + 1}`).should(
         "have.css",
         "color",
-        "rgb(43, 43, 43)"
+        "rgb(43, 43, 43)",
       );
       cy.getByTestID(`recover_word_${index + 1}_error`).should(
         "have.text",
-        "Uppercase, numbers and special characters are not allowed"
+        "Uppercase, numbers and special characters are not allowed",
       );
       cy.getByTestID(`recover_word_${index + 1}`)
         .clear()
@@ -118,11 +120,11 @@ context("Onboarding - Restore Wallet", () => {
       cy.getByTestID(`recover_word_${index + 1}`).should(
         "have.css",
         "color",
-        "rgb(43, 43, 43)"
+        "rgb(43, 43, 43)",
       );
       cy.getByTestID(`recover_word_${index + 1}_error`).should(
         "have.text",
-        "Uppercase, numbers and special characters are not allowed"
+        "Uppercase, numbers and special characters are not allowed",
       );
 
       cy.getByTestID(`recover_word_${index + 1}`)
@@ -132,7 +134,7 @@ context("Onboarding - Restore Wallet", () => {
       cy.getByTestID(`recover_word_${index + 1}`).should(
         "have.css",
         "color",
-        "rgb(43, 43, 43)"
+        "rgb(43, 43, 43)",
       );
     });
   });

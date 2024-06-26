@@ -3,7 +3,7 @@ import {
   checkVaultDetailCollateralAmounts,
   checkVaultDetailLoansAmount,
   checkVaultDetailValues,
-} from "../../../../support/loanCommands";
+} from "../../../../support/utils";
 
 BigNumber.set({ ROUNDING_MODE: BigNumber.ROUND_DOWN });
 
@@ -44,14 +44,14 @@ context("Wallet - Loans - Vault Details", () => {
       "0.00",
       "5%",
       "150%",
-      "Empty"
+      "Empty",
     );
     cy.getByTestID("action_borrow").should("have.attr", "aria-disabled");
     cy.getByTestID("action_pay").should("have.attr", "aria-disabled");
     cy.getByTestID("collateral_card_dfi_empty").should("exist");
     cy.getByTestID("button_close_vault").should(
       "not.have.attr",
-      "aria-disabled"
+      "aria-disabled",
     );
     cy.go("back");
   });
@@ -73,7 +73,7 @@ context("Wallet - Loans - Vault Details", () => {
       "0.00",
       "5%",
       "150%",
-      "Ready"
+      "Ready",
     );
     cy.getByTestID("action_borrow").should("not.have.attr", "aria-disabled");
     cy.getByTestID("action_pay").should("have.attr", "aria-disabled");
@@ -82,13 +82,13 @@ context("Wallet - Loans - Vault Details", () => {
       "DFI",
       "10.00000000",
       "$1,000.00",
-      "66.67%"
+      "66.67%",
     );
     checkVaultDetailCollateralAmounts(
       "dBTC",
       "10.00000000",
       "$500.00",
-      "33.33%"
+      "33.33%",
     );
   });
 
@@ -107,7 +107,7 @@ context("Wallet - Loans - Vault Details", () => {
       "5%",
       "150%",
       undefined, // ACTIVE vault
-      "1.50K"
+      "1.50K",
     );
     cy.getByTestID("action_pay").should("not.have.attr", "aria-disabled");
     checkVaultDetailLoansAmount("100.0", "DUSD", "0.00");
@@ -126,7 +126,7 @@ context("Wallet - Loans - Vault Details", () => {
       "5%",
       "150%",
       undefined,
-      "2.50K"
+      "2.50K",
     );
   });
 
@@ -141,14 +141,14 @@ context("Wallet - Loans - Vault Details", () => {
       "5",
       "150",
       undefined,
-      "2.00K"
+      "2.00K",
     );
   });
 
   it("should display different collateral message for affected vault", () => {
     // Affected vault: have both DUSD in collaterals and loans
     cy.getByTestID("info_text").contains(
-      "Your loan amount can be maximized by adding DFI/DUSD as collaterals"
+      "Your loan amount can be maximized by adding DFI/DUSD as collaterals",
     );
     cy.getByTestID("payback_using_DUSD_collateral").should("not.exist");
     cy.getByTestID("action_add").click();
@@ -162,10 +162,10 @@ context("Wallet - Loans - Vault Details", () => {
       "5",
       "150",
       undefined,
-      "2.01K"
+      "2.01K",
     );
     cy.getByTestID("info_text").contains(
-      "Maintain at least 50% DFI as collateral for DUSD loans"
+      "Maintain at least 50% DFI as collateral for DUSD loans",
     );
     cy.getByTestID("payback_using_DUSD_collateral").should("exist");
   });
@@ -175,7 +175,7 @@ context("Wallet - Loans - Vault Details", () => {
     cy.getByTestID("loan_scheme_option_1").click();
     cy.getByTestID("edit_loan_scheme_submit_button").click();
     cy.getByTestID("edit_loan_scheme_title").contains(
-      "You are editing loan scheme of"
+      "You are editing loan scheme of",
     );
     cy.getByTestID("edit_loan_scheme_vault_id").contains(vaultId);
     cy.getByTestID("prev_min_col_ratio").contains("150");
@@ -193,7 +193,7 @@ context("Wallet - Loans - Vault Details", () => {
       "3",
       "175",
       undefined,
-      "2.01K"
+      "2.01K",
     );
   });
 });
@@ -242,12 +242,12 @@ context("Wallet - Loans - Close Vault", () => {
     cy.getByTestID("button_close_vault").click().wait(4000);
     cy.getByTestID("fees_to_return_text_lhs_label").should(
       "have.text",
-      "Fees to return"
+      "Fees to return",
     );
     cy.getByTestID("fees_to_return_text_rhs").should("have.text", "0.5 DFI");
     cy.getByTestID("fees_to_burn_text_lhs_label").should(
       "have.text",
-      "Fees to burn"
+      "Fees to burn",
     );
     cy.getByTestID("fees_to_return_text_rhs").should("have.text", "0.5 DFI");
     cy.getByTestID("button_confirm_close_vault").click().wait(3000);

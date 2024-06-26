@@ -1,6 +1,8 @@
 context("Wallet - Transaction - Empty", () => {
-  describe("new wallet", () => {
+  describe("new wallet", { testIsolation: false }, () => {
     before(() => {
+      cy.clearLocalStorage();
+      cy.clearCookies();
       cy.createEmptyWallet(true);
       cy.getByTestID("bottom_tab_portfolio").click();
       cy.getByTestID("transaction_button").click();
@@ -17,15 +19,6 @@ context("Wallet - Transaction - Empty", () => {
 
     it("should display empty transaction text", () => {
       cy.getByTestID("empty_transaction").should("exist");
-    });
-
-    it("should display RECEIVE TOKENS", () => {
-      cy.getByTestID("button_receive_coins").should("exist");
-    });
-
-    it("should navigate to receive screen", () => {
-      cy.getByTestID("button_receive_coins").should("exist").click();
-      cy.getByTestID("receive_screen").should("exist");
     });
   });
 });

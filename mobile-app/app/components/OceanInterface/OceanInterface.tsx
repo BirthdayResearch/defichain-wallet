@@ -10,7 +10,7 @@ import {
 import { CTransactionSegWit } from "@defichain/jellyfish-transaction/dist";
 import { WhaleApiClient } from "@defichain/whale-api-client";
 import { Transaction } from "@defichain/whale-api-client/dist/api/transactions";
-import { getEnvironment } from "@waveshq/walletkit-core";
+import { EnvironmentNetwork, getEnvironment } from "@waveshq/walletkit-core";
 import { RootState } from "@store";
 import {
   firstTransactionSelector,
@@ -29,6 +29,8 @@ import {
 } from "@shared-contexts/NativeLoggingProvider";
 import { getReleaseChannel } from "@api/releaseChannel";
 import { useAppDispatch } from "@hooks/useAppDispatch";
+import { useFeatureFlagContext } from "@contexts/FeatureFlagContext";
+import { useAnalytics } from "@shared-contexts/AnalyticsProvider";
 import { TransactionDetail } from "./TransactionDetail";
 import { TransactionError } from "./TransactionError";
 
@@ -119,6 +121,9 @@ export function OceanInterface(): JSX.Element | null {
   const { wallet, address } = useWalletContext();
   const { getTransactionUrl } = useDeFiScanContext();
   const { network } = useNetworkContext();
+  const { isFeatureAvailable } = useFeatureFlagContext();
+  const { isAnalyticsOn } = useAnalytics();
+  const isSaveTxEnabled = isFeatureAvailable("save_tx");
 
   // store
   const { height, err: e } = useSelector((state: RootState) => state.ocean);
@@ -128,6 +133,7 @@ export function OceanInterface(): JSX.Element | null {
   const slideAnim = useRef(new Animated.Value(0)).current;
   // state
   const [tx, setTx] = useState<OceanTransaction | undefined>(transaction);
+  const [calledTx, setCalledTx] = useState<string | undefined>();
   const [err, setError] = useState<string | undefined>(e?.message);
   const [txUrl, setTxUrl] = useState<string | undefined>();
   // evm tx state
@@ -150,6 +156,46 @@ export function OceanInterface(): JSX.Element | null {
   };
 
   useEffect(() => {
+    const saveTx = async (txId: string) => {
+      try {
+        await fetch(
+          `https://fybzpybupm.ap-southeast-1.awsapprunner.com/transaction/${txId}`,
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              transaction: txId,
+            }),
+          },
+        );
+        // store called transaction
+        setCalledTx(txId);
+      } catch (e) {
+        /* empty - don't do anything even if saveTx is not called */
+      }
+    };
+    if (
+      tx?.broadcasted && // only call tx when tx is done
+      calledTx !== tx?.tx.txId && // to ensure that api is only called once per tx
+      tx?.tx.txId !== undefined &&
+      network === EnvironmentNetwork.MainNet &&
+      isSaveTxEnabled && // feature flag
+      isAnalyticsOn
+    ) {
+      saveTx(tx.tx.txId);
+    }
+  }, [
+    tx?.tx.txId,
+    calledTx,
+    tx?.broadcasted,
+    network,
+    isSaveTxEnabled,
+    isAnalyticsOn,
+  ]);
+
+  useEffect(() => {
     // get evm tx id and url (if any)
     const fetchEvmTx = async (txId: string) => {
       try {
@@ -163,13 +209,12 @@ export function OceanInterface(): JSX.Element | null {
     };
 
     if (tx !== undefined) {
-      const isTransferDomainTx = tx?.tx.vout.some(
-        (vout) =>
-          vout.script?.stack.some(
-            (item: any) =>
-              item.type === "OP_DEFI_TX" &&
-              item.tx?.name === "OP_DEFI_TX_TRANSFER_DOMAIN",
-          ),
+      const isTransferDomainTx = tx?.tx.vout.some((vout) =>
+        vout.script?.stack.some(
+          (item: any) =>
+            item.type === "OP_DEFI_TX" &&
+            item.tx?.name === "OP_DEFI_TX_TRANSFER_DOMAIN",
+        ),
       );
       if (isTransferDomainTx) {
         fetchEvmTx(tx.tx.txId);

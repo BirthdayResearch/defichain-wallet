@@ -17,6 +17,7 @@ import { PriceRateProps as PriceRatesPropsV2 } from "@components/PricesSection";
 import { ThemedTextV2 } from "@components/themed";
 import { StyleProp, View, ViewStyle } from "react-native";
 import { ScreenName } from "@screens/enum";
+import { BackIcon } from "@components/icons/BackIcon";
 import { NetworkSelectionScreen } from "../Settings/screens/NetworkSelectionScreen";
 import { ConversionParam } from "../Portfolio/PortfolioNavigator";
 import {
@@ -153,6 +154,7 @@ export function DexNavigator(): JSX.Element {
     <DexStack.Navigator
       initialRouteName="DexScreen"
       screenOptions={{
+        headerBackImage: BackIcon,
         headerTitleAlign: "center",
         headerTitleStyle: HeaderFont,
         headerBackTitleVisible: false,

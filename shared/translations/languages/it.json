@@ -450,7 +450,8 @@
     "View on Scan": "View on Scan",
     "Go back": "Torna indietro",
     "Service Providers": "Service Providers",
-    "Custom (3rd-party)": "Custom (3rd-party)"
+    "Custom (3rd-party)": "Custom (3rd-party)",
+    "Analytics": "Analytics"
   },
   "screens/AboutScreen": {
     "About": "Informazioni su",
@@ -1052,7 +1053,7 @@
     "Custom": "Personalizza",
     "USE THIS SLIPPAGE TOLERANCE": "UTILIZZA QUESTA TOLLERANZA DI SLIPPAGE.",
     "Required field is missing": "Il campo richiesto è mancante",
-    "Slippage rate must range from 0-100%": "Il tasso di slippage deve essere compreso tra lo 0 e il 100%.",
+    "Slippage rate must range from 0-1000%": "Il tasso di slippage deve essere compreso tra lo 0 e il 1000%.",
     "Proceed at your own risk": "Procedere a proprio rischio"
   },
   "screens/PoolSwapScreen": {
@@ -2360,5 +2361,18 @@
     "Submitting proposal": "Submitting proposal",
     "Proposal Submitted": "Proposal Submitted",
     "Proposals fees are implemented to encourage more responsible submissions.\nProposal fees are calculated based on the type of proposal selected, and the requested amount (only for CFP).\nRefer to our FAQ section for more detailed breakdown.": "Proposals fees are implemented to  encourage more responsible submissions.\nProposal fees are calculated based on the type of proposal selected, and the requested amount (only for CFP).\nRefer to our FAQ section for more detailed breakdown."
+  },
+  "screens/AnalyticsScreen": {
+    "Analytics": "Analytics",
+    "ANALYTICS": "ANALYTICS",
+    "Allow data access": "Allow data access",
+    "Participate in BR Analytics to help us make DeFiChain Wallet better." : "Participate in BR Analytics to help us make DeFiChain Wallet better.",
+    "Are you sure you want to restrict data access?": "Are you sure you want to restrict data access?",
+    "Your data is always kept anonymous and is used only for improvements. Are you sure you want to restrict?": "Your data is always kept anonymous and is used only for improvements. Are you sure you want to restrict?",
+    "Restrict data": "Restrict data",
+    "Cancel": "Cancel",
+    "Continue": "Continua",
+    "Data is now collected to improve experience.": "Data is now collected to improve experience.",
+    "As of the latest version, this wallet is now collecting non-identifiable performance-related data. You can choose to opt-out anytime from the settings page.": "As of the latest version, this wallet is now collecting non-identifiable performance-related data. You can choose to opt-out anytime from the settings page."
   }
 }

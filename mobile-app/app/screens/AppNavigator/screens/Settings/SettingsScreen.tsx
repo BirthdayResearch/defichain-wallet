@@ -49,8 +49,8 @@ export function SettingsScreen({ navigation }: Props): JSX.Element {
   const { language } = useLanguageContext();
   const languages = getAppLanguages();
 
-  const selectedLanguage = languages.find(
-    (languageItem) => language?.startsWith(languageItem.locale),
+  const selectedLanguage = languages.find((languageItem) =>
+    language?.startsWith(languageItem.locale),
   );
 
   const revealRecoveryWords = useCallback(() => {
@@ -178,6 +178,12 @@ export function SettingsScreen({ navigation }: Props): JSX.Element {
                   onPress={revealRecoveryWords}
                   border
                   testID="view_recovery_words"
+                />
+                <NavigateItemRow
+                  testID="setting_analytics"
+                  label="Analytics"
+                  border
+                  onPress={() => navigation.navigate("AnalyticsScreen")}
                 />
                 <NavigateItemRow
                   label="Change passcode"

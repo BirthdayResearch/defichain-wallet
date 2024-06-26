@@ -1,38 +1,6 @@
 import { DeFiAddress } from "@defichain/jellyfish-address";
 import "@testing-library/cypress/add-commands";
 import { BalanceTokenDetail } from "../e2e/functional/wallet/portfolio/portfolio.spec";
-import BigNumber from "bignumber.js";
-
-export function generateBlockUntilLiquidate(): void {
-  cy.getByTestID("playground_generate_blocks").click();
-  cy.wait(3000);
-  cy.getByTestID("vault_card_0_status")
-    .invoke("text")
-    .then((status: string) => {
-      if (status !== "IN LIQUIDATION") {
-        generateBlockUntilLiquidate();
-      }
-    });
-}
-
-export function checkValueWithinRange(
-  actualVal: string,
-  expectedVal: string,
-  range: number = 2
-): void {
-  const value = new BigNumber(actualVal.replace(/[≈$,%()K]/gi, "").trim());
-  const expectedValue = new BigNumber(
-    expectedVal.replace(/[≈$,%()K]/gi, "").trim()
-  );
-  expect(
-    value.gte(expectedValue.minus(range)),
-    `${value.toFixed(8)} should be gte ${expectedValue.minus(range).toFixed(8)}`
-  ).to.be.eq(true);
-  expect(
-    value.lte(expectedValue.plus(range)),
-    `${value.toFixed(8)} should be lte ${expectedValue.plus(range).toFixed(8)}`
-  ).to.be.eq(true);
-}
 
 declare global {
   namespace Cypress {
@@ -45,7 +13,7 @@ declare global {
        */
       verifyWalletAddress: (
         network: string,
-        addressObject?: { address: string }
+        addressObject?: { address: string },
       ) => Chainable<Element>;
 
       /**
@@ -65,7 +33,7 @@ declare global {
       checkBalanceRow: (
         id: string,
         details: BalanceTokenDetail,
-        dynamicAmount?: boolean
+        dynamicAmount?: boolean,
       ) => Chainable<Element>;
 
       /**
@@ -85,7 +53,7 @@ declare global {
         isTokenToUTXO: boolean,
         amountToConvert: string,
         resultingUTXO: string,
-        resultingToken: string
+        resultingToken: string,
       ) => Chainable<Element>;
 
       /**
@@ -110,7 +78,7 @@ Cypress.Commands.add(
       }
       expect(DeFiAddress.from(network, a).valid).eq(true);
     });
-  }
+  },
 );
 
 Cypress.Commands.add("isNetworkConnected", (network: string) => {
@@ -131,14 +99,14 @@ Cypress.Commands.add(
     cy.getByTestID(`${testID}_icon`).should("exist");
     cy.getByTestID(`${testID}_symbol`).should(
       "have.text",
-      details.displaySymbol
+      details.displaySymbol,
     );
     cy.getByTestID(`${testID}_name`).should("have.text", details.name);
     if (dynamicAmount === true) {
       cy.getByTestID(`${testID}_amount`).contains(details.amount);
       cy.getByTestID(`${testID}_available_percentage_text`).should(
         "have.text",
-        details.amount
+        details.amount,
       );
     } else {
       cy.getByTestID(`${testID}_amount`).should("have.text", details.amount);
@@ -146,10 +114,10 @@ Cypress.Commands.add(
     if (details.usdAmount) {
       cy.getByTestID(`${testID}_usd_amount`).should(
         "have.text",
-        details.usdAmount
+        details.usdAmount,
       );
     }
-  }
+  },
 );
 
 Cypress.Commands.add("changePasscode", () => {
@@ -169,25 +137,25 @@ Cypress.Commands.add(
     isTokenToUTXO: boolean,
     amountToConvert: string,
     resultingUTXO: string,
-    resultingToken: string
+    resultingToken: string,
   ) => {
     cy.getByTestID("conversion_tag").should("exist");
     cy.getByTestID("title_conversion_detail").should(
       "contain",
-      "CONVERSION DETAILS"
+      "CONVERSION DETAILS",
     );
     cy.getByTestID("conversion_type").should(
       "contain",
-      isTokenToUTXO ? "Token → UTXO" : "UTXO → Token"
+      isTokenToUTXO ? "Token → UTXO" : "UTXO → Token",
     );
     cy.getByTestID("amount_to_convert").should("contain", amountToConvert);
     cy.getByTestID("resulting_utxo").should("contain", resultingUTXO);
     cy.getByTestID("resulting_token").should("contain", resultingToken);
     cy.getByTestID("conversion_breakdown_text").should(
       "contain",
-      "Amount above are prior to transaction"
+      "Amount above are prior to transaction",
     );
-  }
+  },
 );
 
 Cypress.Commands.add("changeLanguage", (language: string) => {

@@ -1,5 +1,7 @@
-context("Wallet - Settings", () => {
+context("Wallet - Settings", { testIsolation: false }, () => {
   beforeEach(() => {
+    cy.clearLocalStorage();
+    cy.clearCookies();
     cy.createEmptyWallet(true);
     cy.getByTestID("header_settings").click();
   });
@@ -56,7 +58,7 @@ context("Wallet - Settings", () => {
     cy.getByTestID("light_mode_icon").should(
       "have.css",
       "color",
-      "rgb(217, 123, 1)"
+      "rgb(217, 123, 1)",
     );
     cy.getByTestID("dark_mode_icon").should("not.exist");
   });
@@ -66,14 +68,14 @@ context("Wallet - Settings", () => {
     cy.getByTestID("light_mode_icon").should(
       "have.css",
       "color",
-      "rgb(217, 123, 1)"
+      "rgb(217, 123, 1)",
     );
     cy.getByTestID("theme_switch").click();
     cy.getByTestID("light_mode_icon").should("not.exist");
     cy.getByTestID("dark_mode_icon").should(
       "have.css",
       "color",
-      "rgb(217, 123, 1)"
+      "rgb(217, 123, 1)",
     );
   });
 
@@ -82,7 +84,7 @@ context("Wallet - Settings", () => {
     cy.getByTestID("light_mode_icon").should(
       "have.css",
       "color",
-      "rgb(217, 123, 1)"
+      "rgb(217, 123, 1)",
     );
     cy.getByTestID("theme_switch")
       .click()
@@ -93,7 +95,28 @@ context("Wallet - Settings", () => {
     cy.getByTestID("dark_mode_icon").should(
       "have.css",
       "color",
-      "rgb(217, 123, 1)"
+      "rgb(217, 123, 1)",
     );
+  });
+
+  it("should activate analytics by default (localstorage)", () => {
+    cy.url().should("include", "app/Settings/SettingsScreen", () => {
+      expect(localStorage.getItem("WALLET.IS_ANALYTICS_ON")).to.eq("true");
+    });
+  });
+
+  it("should switch and pop up should up to switch off analytics (local storage to be updated)", () => {
+    cy.getByTestID("setting_analytics").click();
+    cy.getByTestID("analytics_switch").click();
+    cy.on("window:alert", (message) => {
+      expect(message).to.equal(
+        "Your data is always kept anonymous and is used only for improvements. Are you sure you want to restrict?",
+      );
+      cy.contains("Restrict data").click();
+    });
+    cy.should(() => {
+      const analyticsValue = localStorage.getItem("WALLET.IS_ANALYTICS_ON");
+      expect(analyticsValue).to.eq('"false"');
+    });
   });
 });

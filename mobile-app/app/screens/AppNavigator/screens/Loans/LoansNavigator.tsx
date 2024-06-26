@@ -21,6 +21,7 @@ import { VaultDetailScreen } from "@screens/AppNavigator/screens/Loans/VaultDeta
 import { tailwind } from "@tailwind";
 import { ThemedTextV2 } from "@components/themed";
 import { StyleProp, ViewStyle } from "react-native";
+import { BackIcon } from "@components/icons/BackIcon";
 import { NetworkDetails } from "../Settings/screens/NetworkDetails";
 import { NetworkSelectionScreen } from "../Settings/screens/NetworkSelectionScreen";
 import {
@@ -130,6 +131,7 @@ export function LoansNavigator(): JSX.Element {
     <LoansStack.Navigator
       initialRouteName="LoansScreen"
       screenOptions={{
+        headerBackImage: BackIcon,
         headerTitleAlign: "center",
         headerTitleStyle: HeaderFont,
         headerBackTitleVisible: false,
@@ -226,7 +228,7 @@ export function LoansNavigator(): JSX.Element {
           ),
           headerTitle: translate(
             "screens/LoansScreen",
-            route?.params?.isAdd ? "Add Collateral" : "Remove Collateral"
+            route?.params?.isAdd ? "Add Collateral" : "Remove Collateral",
           ),
         })}
       />

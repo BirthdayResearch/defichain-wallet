@@ -18,6 +18,7 @@ import {
   BottomSheetBackgroundProps,
   BottomSheetModal,
 } from "@gorhom/bottom-sheet";
+import { useReducedMotion } from "react-native-reanimated";
 import { BottomSheetModalMethods } from "@gorhom/bottom-sheet/lib/typescript/types";
 import * as React from "react";
 import Modal from "react-overlays/Modal";
@@ -155,8 +156,8 @@ const PromptContent = React.memo((props: PasscodePromptProps): JSX.Element => {
                       props.attemptsRemaining === 1
                         ? "Last attempt or your wallet will be unlinked for your security"
                         : props.isRetry
-                        ? "Incorrect passcode.\n{{attemptsRemaining}} attempts remaining"
-                        : "{{attemptsRemaining}} attempts remaining"
+                          ? "Incorrect passcode.\n{{attemptsRemaining}} attempts remaining"
+                          : "{{attemptsRemaining}} attempts remaining"
                     }`,
                     { attemptsRemaining: props.attemptsRemaining },
                   )}
@@ -172,6 +173,8 @@ const PromptContent = React.memo((props: PasscodePromptProps): JSX.Element => {
 export const PasscodePrompt = React.memo(
   (props: PasscodePromptProps): JSX.Element => {
     const containerRef = React.useRef(null);
+    const reducedMotion = useReducedMotion();
+
     const getSnapPoints = (): string[] => {
       if (Platform.OS === "ios") {
         return ["70%"]; // ios measures space without keyboard
@@ -225,6 +228,7 @@ export const PasscodePrompt = React.memo(
         ref={props.modalRef}
         snapPoints={getSnapPoints()}
         handleComponent={EmptyHandleComponent}
+        animateOnMount={!reducedMotion}
         backdropComponent={(backdropProps: BottomSheetBackdropProps) => (
           <View
             {...backdropProps}

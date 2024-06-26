@@ -1,4 +1,4 @@
-context("Wallet - DEX - disabled pool pairs", () => {
+context("Wallet - DEX - disabled pool pairs", { testIsolation: false }, () => {
   before(() => {
     cy.intercept("**/poolpairs?size=*", {
       body: {
@@ -88,6 +88,8 @@ context("Wallet - DEX - disabled pool pairs", () => {
         ],
       },
     });
+    cy.clearAllCookies();
+    cy.clearAllLocalStorage();
     cy.createEmptyWallet(true);
     cy.getByTestID("bottom_tab_portfolio").click();
     cy.getByTestID("bottom_tab_dex").click();
@@ -107,8 +109,10 @@ context("Wallet - DEX - disabled pool pairs", () => {
   });
 });
 
-context("Wallet - DEX - Pool Pair failed api", () => {
+context("Wallet - DEX - Pool Pair failed api", { testIsolation: false }, () => {
   before(() => {
+    cy.clearAllCookies();
+    cy.clearAllLocalStorage();
     cy.createEmptyWallet(true);
   });
 
@@ -125,68 +129,74 @@ context("Wallet - DEX - Pool Pair failed api", () => {
   });
 });
 
-context("Wallet - DEX - Instant/Future Swap - tabs and dropdowns", () => {
-  before(() => {
-    cy.createEmptyWallet(true);
-    cy.getByTestID("header_settings").click();
-    cy.getByTestID("bottom_tab_portfolio").click();
-    cy.getByTestID("bottom_tab_dex").click();
-  });
+context(
+  "Wallet - DEX - Instant/Future Swap - tabs and dropdowns",
+  { testIsolation: false },
+  () => {
+    before(() => {
+      cy.clearAllCookies();
+      cy.clearAllLocalStorage();
+      cy.createEmptyWallet(true);
+      cy.getByTestID("header_settings").click();
+      cy.getByTestID("bottom_tab_portfolio").click();
+      cy.getByTestID("bottom_tab_dex").click();
+    });
 
-  it("should be able to choose tokens to swap", () => {
-    cy.wait(1000);
-    cy.getByTestID("composite_swap").should("exist").click();
-    cy.wait(5000);
-    cy.getByTestID("token_select_button_FROM").click();
-    cy.getByTestID("select_DFI").click().wait(2000);
-    cy.getByTestID("token_select_button_TO").click();
-    cy.getByTestID("select_dTU10").click();
-  });
+    it("should be able to choose tokens to swap", () => {
+      cy.wait(1000);
+      cy.getByTestID("composite_swap").should("exist").click();
+      cy.wait(5000);
+      cy.getByTestID("token_select_button_FROM").click();
+      cy.getByTestID("select_DFI").click().wait(2000);
+      cy.getByTestID("token_select_button_TO").click();
+      cy.getByTestID("select_dTU10").click();
+    });
 
-  it("should be able to switch tokens", () => {
-    cy.getByTestID("switch_button").click();
-    cy.getByTestID("token_select_button_FROM_display_symbol").should(
-      "have.text",
-      "dTU10",
-    );
-    cy.getByTestID("token_select_button_TO_display_symbol").should(
-      "have.text",
-      "DFI",
-    );
-  });
+    it("should be able to switch tokens", () => {
+      cy.getByTestID("switch_button").click();
+      cy.getByTestID("token_select_button_FROM_display_symbol").should(
+        "have.text",
+        "dTU10",
+      );
+      cy.getByTestID("token_select_button_TO_display_symbol").should(
+        "have.text",
+        "DFI",
+      );
+    });
 
-  it("should be able to disable future swap tab if tokenA and tokenB is not a valid future swap pair", () => {
-    cy.getByTestID("swap_tabs_FUTURE_SWAP").should(
-      "have.attr",
-      "aria-disabled",
-    );
+    it("should be able to disable future swap tab if tokenA and tokenB is not a valid future swap pair", () => {
+      cy.getByTestID("swap_tabs_FUTURE_SWAP").should(
+        "have.attr",
+        "aria-disabled",
+      );
 
-    /* Only DUSD <-> Loan tokens are allowed in future swap */
-    cy.getByTestID("token_select_button_FROM").click();
-    cy.getByTestID("select_DUSD").click().wait(1000);
-    cy.getByTestID("token_select_button_TO").click();
-    cy.getByTestID("select_dTU10").click();
-    cy.getByTestID("swap_tabs_FUTURE_SWAP").should(
-      "not.have.attr",
-      "aria-disabled",
-    );
-  });
+      /* Only DUSD <-> Loan tokens are allowed in future swap */
+      cy.getByTestID("token_select_button_FROM").click();
+      cy.getByTestID("select_DUSD").click().wait(1000);
+      cy.getByTestID("token_select_button_TO").click();
+      cy.getByTestID("select_dTU10").click();
+      cy.getByTestID("swap_tabs_FUTURE_SWAP").should(
+        "not.have.attr",
+        "aria-disabled",
+      );
+    });
 
-  it("should be able to persist tokenA and tokenB when switching tabs", () => {
-    cy.getByTestID("swap_tabs_FUTURE_SWAP").click();
-    cy.getByTestID("token_select_button_FROM_display_symbol").should(
-      "have.text",
-      "DUSD",
-    );
-    cy.getByTestID("token_select_button_TO_display_symbol").should(
-      "have.text",
-      "dTU10",
-    );
-  });
+    it("should be able to persist tokenA and tokenB when switching tabs", () => {
+      cy.getByTestID("swap_tabs_FUTURE_SWAP").click();
+      cy.getByTestID("token_select_button_FROM_display_symbol").should(
+        "have.text",
+        "DUSD",
+      );
+      cy.getByTestID("token_select_button_TO_display_symbol").should(
+        "have.text",
+        "dTU10",
+      );
+    });
 
-  it("should be able to persist tokenA value when switching tabs", () => {
-    cy.getByTestID("text_input_tokenA").type("1");
-    cy.getByTestID("swap_tabs_INSTANT_SWAP").click();
-    cy.getByTestID("text_input_tokenA").should("have.value", "1");
-  });
-});
+    it("should be able to persist tokenA value when switching tabs", () => {
+      cy.getByTestID("text_input_tokenA").type("1");
+      cy.getByTestID("swap_tabs_INSTANT_SWAP").click();
+      cy.getByTestID("text_input_tokenA").should("have.value", "1");
+    });
+  },
+);

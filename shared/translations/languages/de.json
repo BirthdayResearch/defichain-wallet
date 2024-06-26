@@ -436,7 +436,8 @@
     "View on Scan": "Ansicht auf Scan",
     "Go back": "Zurück",
     "Service Providers": "Dienstanbieter",
-    "Custom (3rd-party)": "Benutzerdefiniert (\"Drittanbieter\")"
+    "Custom (3rd-party)": "Benutzerdefiniert (\"Drittanbieter\")",
+    "Analytics" : "Analytik"
   },
   "screens/AboutScreen": {
     "About": "Über",
@@ -609,7 +610,7 @@
     "Add liquidity": "Liquidität hinzufügen"
   },
   "screens/TokensVsUtxoScreen": {
-    "Learn about UTXOs and Tokens": "Erfahre mehr über UTXOs und Token",
+    "Learn about UTXOs and Tokens": "Erfahre mehr über UTXO und Token",
     "DFI exists in two forms - UTXO and Token. They can be converted with one another to serve different use cases within your light wallet.": "DFI gibt es in zwei Formen: UTXO und Token. Diese können in beide Richtungen ineinander umgewandelt werden, um verschiedene Verwendungszwecke in deiner Lightwallet zu erfüllen.",
     "DFI in UTXO form": "DFI in UTXO-Form",
     "DFI in UTXO form is the primary form of DFI. It is used for core cryptocurrency purposes such as send, receive and fees.": "DFI in UTXO-Form ist die primäre Form von DFI. Sie wird für die wichtigsten Kryptowährungszwecke wie Senden, Empfangen und Gebühren verwendet.",
@@ -1038,7 +1039,7 @@
     "Custom": "Anpassen",
     "USE THIS SLIPPAGE TOLERANCE": "SLIPPAGE-TOLERANZ VERWENDEN",
     "Required field is missing": "Erforderliches Feld fehlt",
-    "Slippage rate must range from 0-100%": "Die Slippage-Toleranz muss zwischen 0 und 100 % liegen.",
+    "Slippage rate must range from 0-1000%": "Die Slippage-Toleranz muss zwischen 0 und 1000 % liegen.",
     "Proceed at your own risk": "Handeln auf eigenes Risiko"
   },
   "screens/PoolSwapScreen": {
@@ -1675,7 +1676,7 @@
     "LOANS": "DARLEHEN",
     "{{value}} as interest": "{{value}} als Zins",
     "Pay": "Tilgen",
-    "Paying loan": "Paying loan"
+    "Paying loan": "Darlehen tilgen"
   },
   "components/ScrollableButton": {
     "ADD COLLATERAL": "SICHERHEITEN HINZUFÜGEN",
@@ -2333,5 +2334,18 @@
     "Submitting proposal": "Proposal einreichen",
     "Proposal Submitted": "Proposal eingereicht",
     "Proposals fees are implemented to encourage more responsible submissions.\nProposal fees are calculated based on the type of proposal selected, and the requested amount (only for CFP).\nRefer to our FAQ section for more detailed breakdown.": "Die Gebühren für Proposals werden eingeführt, um verantwortungsvollere Einreichungen zu fördern.\nDie Proposal-Gebühren werden auf Grundlage der gewählten Art des Proposals und des beantragten Betrags (nur für CFPs) berechnet.\nEine genauere Aufschlüsselung findest du in unserem FAQ-Bereich."
+  },
+  "screens/AnalyticsScreen": {
+    "Analytics" : "Analytik",
+    "ANALYTICS": "ANALYTIK",
+    "Allow data access": "Erlaube Datenzugriff",
+    "Participate in BR Analytics to help us make DeFiChain Wallet better." : "Beteilige dich an BR Analytics, um uns zu helfen, DeFiChain Wallet besser zu machen.",
+    "Are you sure you want to restrict data access?": "Bist du sicher, dass du den Datenzugriff einschränken willst?",
+    "Your data is always kept anonymous and is used only for improvements. Are you sure you want to restrict?": "Deine Daten bleiben immer anonym und werden nur für Verbesserungen verwendet. Bist du sicher, dass du den Datenzugriff einschränken willst?",
+    "Restrict data": "Datenzugriff einschränken",
+    "Cancel": "Abbrechen",
+    "Continue": "Weiter",
+    "Data is now collected to improve experience.": "Daten werden jetzt gesammelt, um das Erlebnis zu verbessern.",
+    "As of the latest version, this wallet is now collecting non-identifiable performance-related data. You can choose to opt-out anytime from the settings page.": "Seit der neuesten Version sammelt diese Wallet anonymisierte, nicht identifizierbare leistungsbezogene Daten. Du kannst dich jederzeit auf der Einstellungsseite abmelden."
   }
 }

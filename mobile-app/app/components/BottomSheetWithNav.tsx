@@ -10,6 +10,7 @@ import {
   BottomSheetBackgroundProps,
   BottomSheetModal,
 } from "@gorhom/bottom-sheet";
+import { useReducedMotion } from "react-native-reanimated";
 import { BottomSheetModalMethods } from "@gorhom/bottom-sheet/lib/typescript/types";
 import { NavigationContainer, Theme } from "@react-navigation/native";
 import { AddOrRemoveCollateralFormProps } from "@screens/AppNavigator/screens/Loans/components/AddOrRemoveCollateralForm";
@@ -20,6 +21,7 @@ import { CreateOrEditAddressLabelFormProps } from "@screens/AppNavigator/screens
 import { getDefaultTheme } from "@constants/Theme";
 import { ThemedViewV2 } from "@components/themed";
 import { BottomSheetModal as BottomSheetModalWeb } from "./BottomSheetModal.web";
+import { BackIcon } from "./icons/BackIcon";
 
 interface BottomSheetWithNavProps {
   modalRef: React.Ref<BottomSheetModalMethods>;
@@ -48,6 +50,8 @@ export interface BottomSheetWithNavRouteParam {
 
 export const BottomSheetWithNav = React.memo(
   (props: BottomSheetWithNavProps): JSX.Element => {
+    const reducedMotion = useReducedMotion();
+
     const getSnapPoints = (): string[] => {
       if (Platform.OS === "ios") {
         return props.snapPoints?.ios ?? ["50%"];
@@ -65,6 +69,7 @@ export const BottomSheetWithNav = React.memo(
         enablePanDownToClose={false}
         handleComponent={EmptyHandleComponent}
         keyboardBlurBehavior="restore"
+        animateOnMount={!reducedMotion}
         backdropComponent={(backdropProps: BottomSheetBackdropProps) => (
           <View
             {...backdropProps}
@@ -81,7 +86,7 @@ export const BottomSheetWithNav = React.memo(
         <Navigator {...props} />
       </BottomSheetModal>
     );
-  }
+  },
 );
 
 function EmptyHandleComponent(): JSX.Element {
@@ -93,7 +98,7 @@ export const BottomSheetWebWithNav = React.memo(
     props: BottomSheetWithNavProps & {
       isModalDisplayed: boolean;
       modalStyle?: { [other: string]: any };
-    }
+    },
   ): JSX.Element => {
     return (
       <BottomSheetModalWeb
@@ -106,7 +111,7 @@ export const BottomSheetWebWithNav = React.memo(
         </View>
       </BottomSheetModalWeb>
     );
-  }
+  },
 );
 
 function Navigator(props: BottomSheetWithNavProps): JSX.Element {
@@ -118,6 +123,7 @@ function Navigator(props: BottomSheetWithNavProps): JSX.Element {
     () => ({
       ...TransitionPresets.SlideFromRightIOS,
       headerShown: true,
+      headerBackImage: BackIcon,
       safeAreaInsets: { top: 0 },
       cardStyle: {
         backgroundColor: "white",
@@ -125,7 +131,7 @@ function Navigator(props: BottomSheetWithNavProps): JSX.Element {
       },
       headerMode: "screen",
     }),
-    []
+    [],
   );
 
   return (

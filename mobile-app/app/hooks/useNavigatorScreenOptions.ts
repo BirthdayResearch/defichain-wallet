@@ -3,13 +3,14 @@ import { useThemeContext } from "@waveshq/walletkit-ui";
 import { tailwind } from "@tailwind";
 import { Dimensions, Platform } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
+import { BackIcon } from "@components/icons/BackIcon";
 
 interface Props {
   isRounded?: boolean;
 }
 
 export function useNavigatorScreenOptions(
-  props: Props = {}
+  props: Props = {},
 ): StackNavigationOptions {
   const { isLight } = useThemeContext();
   const { width } = Dimensions.get("window");
@@ -27,6 +28,7 @@ export function useNavigatorScreenOptions(
       "right-2": Platform.OS === "ios",
       "right-5": Platform.OS !== "ios",
     }),
+    headerBackImage: BackIcon,
     headerStyle: [
       tailwind({
         "bg-mono-light-v2-00": isLight,

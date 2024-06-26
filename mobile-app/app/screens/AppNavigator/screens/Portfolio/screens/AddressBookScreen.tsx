@@ -826,7 +826,6 @@ function YourAddressLink({
     <TouchableOpacity
       activeOpacity={0.7}
       onPress={onClick}
-      testID={`address_row_text_${testIDSuffix}`}
       style={[
         tailwind("flex flex-row justify-between items-center mt-4"),
         disabled && tailwind("opacity-30"),
@@ -839,6 +838,7 @@ function YourAddressLink({
           light={tailwind("text-mono-light-v2-700")}
           dark={tailwind("text-mono-dark-v2-700")}
           ellipsizeMode="middle"
+          testID={`address_row_text_${testIDSuffix}`}
           numberOfLines={1}
         >
           {address}

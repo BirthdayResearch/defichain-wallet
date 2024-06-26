@@ -53,12 +53,12 @@ export function SlippageTolerance({
 
   const checkIfCustomSlippage = (slippage: string) => {
     return !Object.values(SlippageAmountButtonTypes).some((buttonAmount) =>
-      new BigNumber(new BigNumber(buttonAmount).toFixed(8)).isEqualTo(slippage)
+      new BigNumber(new BigNumber(buttonAmount).toFixed(8)).isEqualTo(slippage),
     );
   };
 
   const [isCustomAmount, setIsCustomAmount] = useState(
-    checkIfCustomSlippage(slippage.toFixed(8))
+    checkIfCustomSlippage(slippage.toFixed(8)),
   );
 
   const isSlippageValid = (): boolean => {
@@ -70,13 +70,13 @@ export function SlippageTolerance({
     if (value === undefined || value === "") {
       return;
     } else if (
-      !(new BigNumber(value).gte(0) && new BigNumber(value).lte(100))
+      !(new BigNumber(value).gte(0) && new BigNumber(value).lte(1000))
     ) {
       setSlippageError({
         type: "error",
         text: translate(
           "screens/SlippageTolerance",
-          "Slippage rate must range from 0-100%"
+          "Slippage rate must range from 0-1000%",
         ),
       });
       return;
@@ -88,7 +88,7 @@ export function SlippageTolerance({
     validateSlippage(selectedSlippage);
     setIsRiskWarningDisplayed(
       new BigNumber(selectedSlippage).gte(20) &&
-        new BigNumber(selectedSlippage).lte(100)
+        new BigNumber(selectedSlippage).lte(1000),
     );
   }, [selectedSlippage]);
 
@@ -167,7 +167,7 @@ export function SlippageTolerance({
                   "p-2.5 justify-center items-center flex-grow rounded-full z-10",
                   {
                     "opacity-30": !isSlippageValid(),
-                  }
+                  },
                 )}
                 onPress={() => {
                   setIsEditing(false);
@@ -180,7 +180,7 @@ export function SlippageTolerance({
                     setIsCustomAmount(true);
                     updateSlippage(
                       new BigNumber(selectedSlippage).toFixed(2),
-                      true
+                      true,
                     );
                   }
                 }}
@@ -203,7 +203,7 @@ export function SlippageTolerance({
           light={tailwind("bg-mono-light-v2-00")}
           dark={tailwind("bg-mono-dark-v2-00")}
           style={tailwind(
-            "flex flex-row justify-around items-center rounded-full"
+            "flex flex-row justify-around items-center rounded-full",
           )}
         >
           {Object.values(SlippageAmountButtonTypes).map((type) => {
@@ -218,7 +218,7 @@ export function SlippageTolerance({
                 isSelected={
                   !isCustomAmount &&
                   new BigNumber(selectedSlippage).isEqualTo(
-                    new BigNumber(type).toFixed(2)
+                    new BigNumber(type).toFixed(2),
                   )
                 }
               />
@@ -242,7 +242,7 @@ export function SlippageTolerance({
         >
           {translate(
             "screens/SlippageTolerance",
-            "Set high tolerance at your own risk"
+            "Set high tolerance at your own risk",
           )}
         </ThemedTextV2>
       )}
@@ -266,7 +266,7 @@ function PercentageAmountButton({
       light={tailwind({ "bg-mono-light-v2-900": isSelected })}
       dark={tailwind({ "bg-mono-dark-v2-900": isSelected })}
       style={tailwind(
-        "w-3/12 items-center rounded-full justify-center self-stretch h-9"
+        "w-3/12 items-center rounded-full justify-center self-stretch h-9",
       )}
       onPress={onPress}
       testID={`slippage_${percentageAmount}%`}
@@ -315,7 +315,7 @@ function CustomAmountButton({
         light={tailwind("text-mono-light-v2-500")}
         dark={tailwind("text-mono-dark-v2-500")}
         style={tailwind(
-          "font-semibold-v2 text-xs px-4 py-2.5 flex-row items-center h-9"
+          "font-semibold-v2 text-xs px-4 py-2.5 flex-row items-center h-9",
         )}
       >
         <ThemedTextV2
@@ -327,6 +327,7 @@ function CustomAmountButton({
           })}
           style={tailwind("text-xs font-normal-v2", {
             "pr-1.5": isCustomAmount,
+            "pr-0.5": isCustomAmount && new BigNumber(customAmount).gte(100),
           })}
           testID="slippage_custom_amount"
         >
@@ -337,7 +338,7 @@ function CustomAmountButton({
         {isCustomAmount && (
           <ThemedIcon
             name="edit-2"
-            size={16}
+            size={14}
             iconType="Feather"
             dark={tailwind("text-mono-dark-v2-100")}
             light={tailwind("text-mono-light-v2-100")}

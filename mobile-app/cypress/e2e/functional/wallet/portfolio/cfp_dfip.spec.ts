@@ -1,5 +1,5 @@
 import { EnvironmentNetwork } from "@waveshq/walletkit-core";
-import { checkValueWithinRange } from "../../../../support/walletCommands";
+import { checkValueWithinRange } from "../../../../support/utils";
 
 function setupFeatureFlag() {
   // mock feature flag to make cfip/dfip action button appear
@@ -48,7 +48,7 @@ function selectOwnAddress() {
 function verifyDefaultInputState(isDfip: boolean) {
   const type = isDfip ? "dfip" : "cfp";
   cy.getByTestID("url_status_text").contains(
-    "Add GitHub or Reddit link to get started"
+    "Add GitHub or Reddit link to get started",
   );
   cy.getByTestID("detail_container").should("not.exist");
   cy.getByTestID(`${type}_continue_button`).should("not.be.enabled");
@@ -60,7 +60,7 @@ function verifyConfirmScreen(
   githubUrl: string,
   proposalFee: string,
   requestedAmount?: string,
-  cycle?: number
+  cycle?: number,
 ) {
   cy.getByTestID("proposal_title").contains(title);
   cy.getByTestID("proposal_type_value").contains(isDfip ? "DFIP" : "CFP");
@@ -117,14 +117,14 @@ context("QA-780-2: Wallet - Submit CFP", () => {
     verifyDefaultInputState(false);
     cy.getByTestID("input_url").type("s:").wait(1000);
     cy.getByTestID("url_status_text").contains(
-      "URL should be a valid GitHub or Reddit URL"
+      "URL should be a valid GitHub or Reddit URL",
     );
     cy.getByTestID("input_url_clear_button").click().wait(1000);
     cy.getByTestID("input_url").type(CfpData.githubUrl).wait(1000);
     cy.getByTestID("url_valid_text").should("exist");
     cy.getByTestID("detail_container").should("exist");
     cy.getByTestID("input_title_error").contains(
-      "Make sure that the name added here is the same as from the one posted in GitHub or Reddit."
+      "Make sure that the name added here is the same as from the one posted in GitHub or Reddit.",
     );
     cy.getByTestID("input_title").type(CfpData.title);
   });
@@ -140,7 +140,7 @@ context("QA-780-2: Wallet - Submit CFP", () => {
     cy.getByTestID("input_cycle").clear().type("0.123").wait(1000);
     cy.getByTestID("input_cycle_error").should("exist");
     cy.getByTestID("input_cycle_error").contains(
-      "Cycle(s) should be 1-100 only"
+      "Cycle(s) should be 1-100 only",
     );
     cy.getByTestID("input_cycle").clear().type("1200").wait(1000);
     cy.getByTestID("input_cycle_error").should("exist");
@@ -153,7 +153,7 @@ context("QA-780-2: Wallet - Submit CFP", () => {
     cy.getByTestID("address_input").type("000xek").wait(1000);
     cy.getByTestID("address_error_text").should("exist");
     cy.getByTestID("address_error_text").contains(
-      "Invalid address. Make sure the address is correct to avoid irrecoverable losses"
+      "Invalid address. Make sure the address is correct to avoid irrecoverable losses",
     );
     cy.getByTestID("address_input_clear_button").click();
     cy.getByTestID("cfp_continue_button").should("not.be.enabled");
@@ -170,7 +170,7 @@ context("QA-780-2: Wallet - Submit CFP", () => {
       CfpData.githubUrl,
       "10.00000000 DFI",
       `${CfpData.amount} DFI`,
-      2
+      2,
     );
     cy.getByTestID("button_ack_proposal").click().wait(1000);
     cy.getByTestID("button_confirm_submit").should("not.have.attr", "disabled");
@@ -228,7 +228,7 @@ context("QA-780-3: Wallet - Submit CFP - Convert", () => {
       CfpData.githubUrl,
       "10.00000000 DFI",
       "0.12345678",
-      1
+      1,
     );
   });
 
@@ -255,14 +255,14 @@ context("QA-780-4: Wallet - Submit DFIP", () => {
     verifyDefaultInputState(true);
     cy.getByTestID("input_url").type("s:").wait(1000);
     cy.getByTestID("url_status_text").contains(
-      "URL should be a valid GitHub or Reddit URL"
+      "URL should be a valid GitHub or Reddit URL",
     );
     cy.getByTestID("input_url_clear_button").click().wait(1000);
     cy.getByTestID("input_url").type(DfipData.githubUrl).wait(1000);
     cy.getByTestID("url_valid_text").should("exist");
     cy.getByTestID("detail_container").should("exist");
     cy.getByTestID("input_title_error").contains(
-      "Make sure that the name added here is the same as from the one posted in GitHub or Reddit."
+      "Make sure that the name added here is the same as from the one posted in GitHub or Reddit.",
     );
     cy.getByTestID("input_title").type(DfipData.title);
   });
@@ -274,7 +274,7 @@ context("QA-780-4: Wallet - Submit DFIP", () => {
       true,
       DfipData.title,
       DfipData.githubUrl,
-      "5.00000000 DFI"
+      "5.00000000 DFI",
     );
   });
 
