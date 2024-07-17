@@ -80,7 +80,7 @@ describe("Token Price - Get Token Price (DEX)", () => {
         status: true,
         tokenA: {
           symbol: "USDT",
-          displaySymbol: "dUSDT",
+          displaySymbol: "csUSDT",
           id: "14",
           reserve: pair2ReserveA,
           blockCommission: "0",
@@ -258,13 +258,13 @@ describe("Token Price - Get Token Price (DEX)", () => {
   it("should be able to get the token price", () => {
     const { result } = renderHook(() => useTokenPrice(), { wrapper });
     expect(
-      result.current.getTokenPrice("BTC", new BigNumber("1"), false)
+      result.current.getTokenPrice("BTC", new BigNumber("1"), false),
     ).toStrictEqual(new BigNumber("10000"));
     expect(
-      result.current.getTokenPrice("ETH", new BigNumber("1"), false)
+      result.current.getTokenPrice("ETH", new BigNumber("1"), false),
     ).toStrictEqual(new BigNumber("100"));
     expect(
-      result.current.getTokenPrice("USDT", new BigNumber("12"), false)
+      result.current.getTokenPrice("USDT", new BigNumber("12"), false),
     ).toStrictEqual(new BigNumber("12"));
   });
 
@@ -280,7 +280,7 @@ describe("Token Price - Get Token Price (DEX)", () => {
     const usdTokenA = tokenAAmount.times(10000); // USDT price for tokenA
     const usdTokenB = tokenBAmount.times(10000); // USDT price for tokenB
     expect(
-      result.current.getTokenPrice("BTC-DFI", new BigNumber("1"), true)
+      result.current.getTokenPrice("BTC-DFI", new BigNumber("1"), true),
     ).toStrictEqual(usdTokenA.plus(usdTokenB));
   });
 });

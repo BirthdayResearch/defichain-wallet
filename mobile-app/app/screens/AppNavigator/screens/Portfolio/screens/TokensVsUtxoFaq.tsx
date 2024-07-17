@@ -14,7 +14,7 @@ export function TokensVsUtxoFaq(): JSX.Element {
         {
           text: translate(
             "components/UtxoVsTokenFaq",
-            "DFI in UTXO form is the primary form of DFI. It is used for core cryptocurrency purposes such as send, receive and fees."
+            "DFI in UTXO form is the primary form of DFI. It is used for core cryptocurrency purposes such as send, receive and fees.",
           ),
           type: "paragraph",
         },
@@ -23,27 +23,27 @@ export function TokensVsUtxoFaq(): JSX.Element {
     {
       title: translate(
         "components/UtxoVsTokenFaq",
-        "What are the use cases for UTXO?"
+        "What are the use cases for UTXO?",
       ),
       content: [
         {
           text: translate(
             "components/UtxoVsTokenFaq",
-            "Use cases for UTXO include (but not limited) to the following:"
+            "Use cases for UTXO include (but not limited) to the following:",
           ),
           type: "paragraph",
         },
         {
           text: translate(
             "components/UtxoVsTokenFaq",
-            "Sending DFI to other wallets"
+            "Sending DFI to other wallets",
           ),
           type: "bullet",
         },
         {
           text: translate(
             "components/UtxoVsTokenFaq",
-            "Receiving DFI from other wallets"
+            "Receiving DFI from other wallets",
           ),
           type: "bullet",
         },
@@ -59,7 +59,7 @@ export function TokensVsUtxoFaq(): JSX.Element {
         {
           text: translate(
             "components/UtxoVsTokenFaq",
-            "DFIs in token form are used for various DeFiChain functions such as Liquidity Pools, Loans, Auctions and DEX swaps."
+            "DFIs in token form are used for various DeFiChain functions such as Liquidity Pools, Loans, Auctions and DEX swaps.",
           ),
           type: "paragraph",
         },
@@ -68,20 +68,20 @@ export function TokensVsUtxoFaq(): JSX.Element {
     {
       title: translate(
         "components/UtxoVsTokenFaq",
-        "What are the use cases for Tokens?"
+        "What are the use cases for Tokens?",
       ),
       content: [
         {
           text: translate(
             "components/UtxoVsTokenFaq",
-            "Use cases for Tokens include (but not limited) to the following:"
+            "Use cases for Tokens include (but not limited) to the following:",
           ),
           type: "paragraph",
         },
         {
           text: translate(
             "components/UtxoVsTokenFaq",
-            "Swapping DFI with other tokens (e.g. dBTC, dETH, dUSDT)"
+            "Swapping DFI with other tokens (e.g. dBTC, dETH, csUSDT)",
           ),
           type: "bullet",
         },
@@ -110,7 +110,7 @@ export function TokensVsUtxoFaq(): JSX.Element {
       <ThemedTextV2 style={tailwind("text-base font-normal-v2 px-5")}>
         {translate(
           "components/UtxoVsTokenFaq",
-          "DFI exists in two forms: UTXO and Token. They can be converted with one another to serve different use cases within your light wallet."
+          "DFI exists in two forms: UTXO and Token. They can be converted with one another to serve different use cases within your light wallet.",
         )}
       </ThemedTextV2>
 
@@ -119,7 +119,7 @@ export function TokensVsUtxoFaq(): JSX.Element {
         activeSections={[0]}
         title={translate(
           "components/UtxoVsTokenFaq",
-          "FREQUENTLY ASKED QUESTIONS"
+          "FREQUENTLY ASKED QUESTIONS",
         )}
         content={faqContent}
       />

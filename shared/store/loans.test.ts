@@ -314,7 +314,7 @@ describe("loans reducer", () => {
             height: -1,
           },
           collateralAddress: "mswsMVsyGMj1FzDMbbxw2QW3KvQAv2FKiy",
-          displaySymbol: "dUSDT",
+          displaySymbol: "csUSDT",
           isLoanToken: false,
         },
         factor: "1",

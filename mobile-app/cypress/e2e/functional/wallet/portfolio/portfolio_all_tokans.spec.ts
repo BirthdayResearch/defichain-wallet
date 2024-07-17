@@ -105,12 +105,12 @@ const getChangingPoolPairReserve = ({
   {
     id: "17",
     symbol: "USDT-DFI",
-    displaySymbol: "dUSDT-DFI",
+    displaySymbol: "csUSDT-DFI",
     name: "Decentralized USD-Default Defi token",
     status: true,
     tokenA: {
       symbol: "USDT",
-      displaySymbol: "dUSDT",
+      displaySymbol: "csUSDT",
       id: "14",
       reserve: pair2ReserveA,
       blockCommission: "0",
@@ -152,7 +152,7 @@ const getDexPrice = (price: {
     denomination: {
       id: "3",
       symbol: "USDT",
-      displaySymbol: "dUSDT",
+      displaySymbol: "csUSDT",
       name: "Playground USDT",
     },
     dexPrices: {
@@ -230,7 +230,7 @@ const addLPTokens = [
   },
   {
     amount: "25.00000000",
-    displaySymbol: "dUSDT-DFI",
+    displaySymbol: "csUSDT-DFI",
     id: "19",
     isDAT: true,
     isLPS: true,
@@ -434,12 +434,12 @@ context(
       interceptTokensForSorting(addLPTokens);
       togglePortfolioDenomination("DFI");
       cy.getByTestID("portfolio_button_group_LP_TOKENS").click();
-      checkAssetsSortingOrder("Highest value (DFI)", "dBTC-DFI", "dUSDT-DFI");
+      checkAssetsSortingOrder("Highest value (DFI)", "dBTC-DFI", "csUSDT-DFI");
     });
 
     it("should sort assets based on Lowest value (DFI)", () => {
       interceptTokensForSorting(addLPTokens);
-      checkAssetsSortingOrder("Lowest value (DFI)", "dUSDT-DFI", "dBTC-DFI");
+      checkAssetsSortingOrder("Lowest value (DFI)", "csUSDT-DFI", "dBTC-DFI");
     });
   },
 );

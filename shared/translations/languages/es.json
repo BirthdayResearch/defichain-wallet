@@ -502,7 +502,7 @@
     "DFIs in token form are used for various DeFiChain functions such as Liquidity Pools, Loans, Auctions and DEX swaps.": "Los DFIs en forma de token se usan para distintas funciones en DeFiChain incluyendo: Pools de liquidez, Prestamos, Subastas e intercambios del DEX.",
     "What are the use cases for Tokens?": "Cuales son los casos de uso de los Tokens?",
     "Use cases for Tokens include (but not limited) to the following:": "Los casos de uso de los Tokens son (pero no estan limitados a) los siguientes:",
-    "Swapping DFI with other tokens (e.g. dBTC, dETH, dUSDT)": "Intercambiar DFI por otros tokens (e.g dBTC, dETH, dUSDT)",
+    "Swapping DFI with other tokens (e.g. dBTC, dETH, csUSDT)": "Intercambiar DFI por otros tokens (e.g dBTC, dETH, csUSDT)",
     "Liquidity pools": "Pools de liquidez",
     "Collateral for Vaults": "Garantías para los Vaults",
     "Auction bidding": "Pujar en subastas",
@@ -636,7 +636,7 @@
     "Transaction fees": "Tasas de transacción",
     "DFI in token form": "DFI en forma de token.",
     "DFIs in token form are used for various DeFiChain functions such as Liquidity Pools, Loans, Auctions and DEX swaps.": "DFI en forma de token se utilizan para pools de liquidez, préstamos, subastas e intercambios.",
-    "Swapping DFI with other tokens (e.g. dBTC, dETH, dUSDT)": "Intercambiar DFI con otros tokens (ex. dBTC, dETH, dUSDT)",
+    "Swapping DFI with other tokens (e.g. dBTC, dETH, csUSDT)": "Intercambiar DFI con otros tokens (ex. dBTC, dETH, csUSDT)",
     "Liquidity pools": "Pools de liquidez",
     "Auctions and Loans": "Subastas y préstamos"
   },

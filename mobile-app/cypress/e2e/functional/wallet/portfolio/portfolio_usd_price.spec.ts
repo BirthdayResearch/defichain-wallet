@@ -8,7 +8,7 @@ const getDexPrice = (price: {
     denomination: {
       id: "3",
       symbol: "USDT",
-      displaySymbol: "dUSDT",
+      displaySymbol: "csUSDT",
       name: "Playground USDT",
     },
     dexPrices: {
@@ -157,12 +157,12 @@ const getChangingPoolPairReserve = ({
   {
     id: "21",
     symbol: "USDT-DFI",
-    displaySymbol: "dUSDT-DFI",
+    displaySymbol: "csUSDT-DFI",
     name: "Decentralized USD-Default Defi token",
     status: true,
     tokenA: {
       symbol: "USDT",
-      displaySymbol: "dUSDT",
+      displaySymbol: "csUSDT",
       id: "14",
       reserve: pair2ReserveA,
       blockCommission: "0",
@@ -259,14 +259,14 @@ context("Wallet - Portfolio - USD Value", { testIsolation: false }, () => {
       cy.checkBalanceRow("3", {
         name: "Playground USDT",
         amount: "10.00000000",
-        displaySymbol: "dUSDT",
+        displaySymbol: "csUSDT",
         symbol: "USDT",
         usdAmount: "$10.00",
       });
       cy.checkBalanceRow("21", {
         name: "Playground USDT-DeFiChain",
         amount: "10.00000000",
-        displaySymbol: "dUSDT-DFI",
+        displaySymbol: "csUSDT-DFI",
         symbol: "USDT-DFI",
         usdAmount: "$66.52",
       });
@@ -325,7 +325,7 @@ context("Wallet - Portfolio - USD Value", { testIsolation: false }, () => {
       cy.checkBalanceRow("3", {
         name: "Playground USDT",
         amount: "10.00000000",
-        displaySymbol: "dUSDT",
+        displaySymbol: "csUSDT",
         symbol: "USDT",
         usdAmount: "$10.00",
       });
@@ -333,7 +333,7 @@ context("Wallet - Portfolio - USD Value", { testIsolation: false }, () => {
       cy.checkBalanceRow("21", {
         name: "Playground USDT-DeFiChain",
         amount: "10.00000000",
-        displaySymbol: "dUSDT-DFI",
+        displaySymbol: "csUSDT-DFI",
         symbol: "USDT-DFI",
         usdAmount: "$49.92",
       });
@@ -394,7 +394,7 @@ context("Wallet - Portfolio - USD Value", { testIsolation: false }, () => {
       cy.checkBalanceRow("3", {
         name: "Playground USDT",
         amount: "10.00000000",
-        displaySymbol: "dUSDT",
+        displaySymbol: "csUSDT",
         symbol: "USDT",
         usdAmount: "$10.00",
       });
@@ -403,7 +403,7 @@ context("Wallet - Portfolio - USD Value", { testIsolation: false }, () => {
       cy.checkBalanceRow("21", {
         name: "Playground USDT-DeFiChain",
         amount: "10.00000000",
-        displaySymbol: "dUSDT-DFI",
+        displaySymbol: "csUSDT-DFI",
         symbol: "USDT-DFI",
         usdAmount: "$66.52",
       });
@@ -450,7 +450,7 @@ context("Wallet - Portfolio - USD Value", { testIsolation: false }, () => {
       cy.checkBalanceRow("3", {
         name: "Playground USDT",
         amount: "20.00000000",
-        displaySymbol: "dUSDT",
+        displaySymbol: "csUSDT",
         symbol: "USDT",
         usdAmount: "$20.00",
       });
@@ -459,7 +459,7 @@ context("Wallet - Portfolio - USD Value", { testIsolation: false }, () => {
       cy.checkBalanceRow("21", {
         name: "Playground USDT-DeFiChain",
         amount: "20.00000000",
-        displaySymbol: "dUSDT-DFI",
+        displaySymbol: "csUSDT-DFI",
         symbol: "USDT-DFI",
         usdAmount: "$133.04",
       });

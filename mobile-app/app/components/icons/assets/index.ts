@@ -8,7 +8,7 @@ import { dETH } from "./dETH";
 import { DFI } from "./DFI";
 import { dLTC } from "./dLTC";
 import { dUSDC } from "./dUSDC";
-import { dUSDT } from "./dUSDT";
+import { csUSDT } from "./csUSDT";
 import { dUSD } from "./dUSD";
 import { DFIlogo } from "./plainDFI";
 import { dEUROC } from "./dEUROC";
@@ -39,7 +39,7 @@ const mapping: Record<string, (props: SvgProps) => JSX.Element> = {
   dDOGE: dDOGE,
   dETH: dETH,
   dLTC: dLTC,
-  dUSDT: dUSDT,
+  csUSDT: csUSDT,
   dUSDC: dUSDC,
   dDUSD: dUSD,
   DUSD: dUSD,

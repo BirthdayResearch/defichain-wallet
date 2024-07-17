@@ -73,7 +73,7 @@ const getDexPrice = (price: {
     denomination: {
       id: "3",
       symbol: "USDT",
-      displaySymbol: "dUSDT",
+      displaySymbol: "csUSDT",
       name: "Playground USDT",
     },
     dexPrices: {

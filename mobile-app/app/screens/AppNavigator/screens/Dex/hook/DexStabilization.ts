@@ -36,7 +36,7 @@ interface DexStabilization {
 
 export function useDexStabilization(
   tokenA: DexStabilizationTokenA,
-  tokenB: DexStabilizationTokenB
+  tokenB: DexStabilizationTokenB,
 ): {
   dexStabilizationAnnouncement: Announcement | undefined;
   dexStabilization: DexStabilization;
@@ -58,37 +58,37 @@ export function useDexStabilization(
     nativeApplicationVersion ?? "0.0.0",
     language,
     [],
-    announcementToDisplay
+    announcementToDisplay,
   );
 
   useFocusEffect(
     useCallback(() => {
       const _setAnnouncementToDisplay = async (): Promise<void> => {
         setAnnouncementToDisplay(
-          await _getHighDexStabilizationFeeAnnouncement(tokenA, tokenB)
+          await _getHighDexStabilizationFeeAnnouncement(tokenA, tokenB),
         );
       };
 
       _setAnnouncementToDisplay();
-    }, [tokenA, tokenB, pairs])
+    }, [tokenA, tokenB, pairs]),
   );
 
   const getDexStabilizationFee = (
     tokenADisplaySymbol: string,
-    tokenBDisplaySymbol: string
+    tokenBDisplaySymbol: string,
   ): string => {
     // TODO: Replace with more robust logic, store in wallet-website-api
 
     let fee;
     const dusdDFIPair = pairs.find((p) => p.data.displaySymbol === "DUSD-DFI");
     const dUSDCDUSDPair = pairs.find(
-      (p) => p.data.displaySymbol === "dUSDC-DUSD"
+      (p) => p.data.displaySymbol === "dUSDC-DUSD",
     );
-    const dUSDTDUSDPair = pairs.find(
-      (p) => p.data.displaySymbol === "dUSDT-DUSD"
+    const csUSDTDUSDPair = pairs.find(
+      (p) => p.data.displaySymbol === "csUSDT-DUSD",
     );
     const dEUROCDUSDPair = pairs.find(
-      (p) => p.data.displaySymbol === "dEUROC-DUSD"
+      (p) => p.data.displaySymbol === "dEUROC-DUSD",
     );
 
     if (
@@ -104,11 +104,11 @@ export function useDexStabilization(
     ) {
       fee = dUSDCDUSDPair.data.tokenB.fee?.pct;
     } else if (
-      dUSDTDUSDPair !== undefined &&
+      csUSDTDUSDPair !== undefined &&
       tokenADisplaySymbol === "DUSD" &&
-      tokenBDisplaySymbol === "dUSDT"
+      tokenBDisplaySymbol === "csUSDT"
     ) {
-      fee = dUSDTDUSDPair.data.tokenB.fee?.pct;
+      fee = csUSDTDUSDPair.data.tokenB.fee?.pct;
     } else if (
       dEUROCDUSDPair !== undefined &&
       tokenADisplaySymbol === "DUSD" &&
@@ -135,9 +135,9 @@ export function useDexStabilization(
       highFeesUrl = "https://defiscan.live/dex/DUSD";
     } else if (
       pair.tokenADisplaySymbol === "DUSD" &&
-      pair.tokenBDisplaySymbol === "dUSDT"
+      pair.tokenBDisplaySymbol === "csUSDT"
     ) {
-      highFeesUrl = "https://defiscan.live/dex/dUSDT-DUSD";
+      highFeesUrl = "https://defiscan.live/dex/csUSDT-DUSD";
     } else if (
       pair.tokenADisplaySymbol === "DUSD" &&
       pair.tokenBDisplaySymbol === "dUSDC"
@@ -156,7 +156,7 @@ export function useDexStabilization(
   const _getHighDexStabilizationFeeAnnouncement = useCallback(
     async (
       tokenA: DexStabilizationTokenA,
-      tokenB: DexStabilizationTokenB
+      tokenB: DexStabilizationTokenB,
     ): Promise<AnnouncementData[]> => {
       let announcement: AnnouncementData[] = [];
       if (tokenA === undefined || tokenB === undefined) {
@@ -223,7 +223,7 @@ export function useDexStabilization(
 
       return announcement;
     },
-    []
+    [],
   );
 
   const convertPairsToNodes = (bestPath: SwapPathPoolPair[]): string[] => {
@@ -256,7 +256,7 @@ export function useDexStabilization(
               ]);
       } else if (
         [nextPair.tokenA.displaySymbol, nextPair.tokenB.displaySymbol].includes(
-          currentPair.tokenA.displaySymbol
+          currentPair.tokenA.displaySymbol,
         )
       ) {
         bestPathNodes.push(currentPair.tokenB.displaySymbol);
@@ -274,7 +274,7 @@ export function useDexStabilization(
       pairsWithDexFee: Array<{
         tokenADisplaySymbol: string;
         tokenBDisplaySymbol: string;
-      }>
+      }>,
     ): DexStabilization | undefined => {
       /* Not composite swap if there's only one leg */
       if (bestPath.length === 1) {
@@ -296,7 +296,7 @@ export function useDexStabilization(
           pairsWithDexFee.find(
             (p) =>
               p.tokenADisplaySymbol === bestPathNodes[i] &&
-              p.tokenBDisplaySymbol === bestPathNodes[i + 1]
+              p.tokenBDisplaySymbol === bestPathNodes[i + 1],
           ) ?? pairWithDexFee;
       }
 
@@ -313,16 +313,16 @@ export function useDexStabilization(
         },
         dexStabilizationFee: getDexStabilizationFee(
           tokenADisplaySymbol,
-          tokenBDisplaySymbol
+          tokenBDisplaySymbol,
         ),
       };
     },
-    []
+    [],
   );
 
   const _getDexStabilization = async (
     tokenA: DexStabilizationTokenA,
-    tokenB: DexStabilizationTokenB
+    tokenB: DexStabilizationTokenB,
   ): Promise<DexStabilization> => {
     const _dexStabilization: DexStabilization = {
       dexStabilizationType: "none",
@@ -339,7 +339,7 @@ export function useDexStabilization(
 
     const { bestPath } = await getBestPath(
       tokenA.id === "0_unified" ? "0" : tokenA.id,
-      tokenB.id === "0_unified" ? "0" : tokenB.id
+      tokenB.id === "0_unified" ? "0" : tokenB.id,
     );
 
     /*
@@ -348,7 +348,8 @@ export function useDexStabilization(
     if (
       bestPath.length === 1 &&
       ((tokenA.displaySymbol === "DUSD" && tokenB.displaySymbol === "DFI") ||
-        (tokenA.displaySymbol === "DUSD" && tokenB.displaySymbol === "dUSDT") ||
+        (tokenA.displaySymbol === "DUSD" &&
+          tokenB.displaySymbol === "csUSDT") ||
         (tokenA.displaySymbol === "DUSD" && tokenB.displaySymbol === "dUSDC") ||
         (tokenA.displaySymbol === "DUSD" && tokenB.displaySymbol === "dEUROC"))
     ) {
@@ -360,7 +361,7 @@ export function useDexStabilization(
         },
         dexStabilizationFee: getDexStabilizationFee(
           tokenA.displaySymbol,
-          tokenB.displaySymbol
+          tokenB.displaySymbol,
         ),
       };
     }
@@ -375,10 +376,10 @@ export function useDexStabilization(
       bestPath,
       [
         { tokenADisplaySymbol: "DUSD", tokenBDisplaySymbol: "DFI" },
-        { tokenADisplaySymbol: "DUSD", tokenBDisplaySymbol: "dUSDT" },
+        { tokenADisplaySymbol: "DUSD", tokenBDisplaySymbol: "csUSDT" },
         { tokenADisplaySymbol: "DUSD", tokenBDisplaySymbol: "dUSDC" },
         { tokenADisplaySymbol: "DUSD", tokenBDisplaySymbol: "dEUROC" },
-      ]
+      ],
     );
 
     return compositeSwapDexStabilization ?? _dexStabilization;

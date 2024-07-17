@@ -33,7 +33,7 @@ export const useServiceProviderContext = (): {
 
 export const useWhaleApiClient = () => ({
   whaleAPI: newWhaleAPIClient(
-    newOceanOptions(EnvironmentNetwork.RemotePlayground)
+    newOceanOptions(EnvironmentNetwork.RemotePlayground),
   ),
   poolpairs: {
     getBestPath: () => ({
@@ -45,7 +45,7 @@ export const useWhaleApiClient = () => ({
       toToken: {
         id: "3",
         symbol: "USDT",
-        displaySymbol: "dUSDT",
+        displaySymbol: "csUSDT",
       },
       bestPath: [
         {
@@ -72,7 +72,7 @@ export const useWhaleApiClient = () => ({
           tokenA: {
             id: "3",
             symbol: "USDT",
-            displaySymbol: "dUSDT",
+            displaySymbol: "csUSDT",
           },
           tokenB: {
             id: "0",

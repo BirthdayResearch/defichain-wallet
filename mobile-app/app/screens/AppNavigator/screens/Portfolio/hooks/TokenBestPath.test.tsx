@@ -80,7 +80,7 @@ describe("Token Best Path - Get Best Path (DEX)", () => {
         status: true,
         tokenA: {
           symbol: "USDT",
-          displaySymbol: "dUSDT",
+          displaySymbol: "csUSDT",
           id: "14",
           reserve: pair2ReserveA,
           blockCommission: "0",
@@ -231,7 +231,7 @@ describe("Token Best Path - Get Best Path (DEX)", () => {
     const priceA = await result.current.calculatePriceRates(
       "1",
       "3",
-      new BigNumber("2")
+      new BigNumber("2"),
     );
 
     // Swap through BTC to USDT through BTC -> DFI -> USDT
@@ -246,7 +246,7 @@ describe("Token Best Path - Get Best Path (DEX)", () => {
     const priceB = await result.current.calculatePriceRates(
       "3",
       "1",
-      new BigNumber("1")
+      new BigNumber("1"),
     );
     expect(priceB).toStrictEqual({
       aToBPrice: new BigNumber("0.0001"),
