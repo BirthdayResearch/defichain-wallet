@@ -248,6 +248,10 @@ export function PortfolioScreen({ navigation }: Props): JSX.Element {
           new BigNumber(token.amount),
           token.isLPS,
         );
+
+        if (token.id === "3") {
+          token = { ...token, displaySymbol: "csUSDT" };
+        }
         if (token.symbol === "DFI") {
           return {
             // `token.id === '0_unified'` to avoid repeated DFI price to get added in totalAvailableValue
