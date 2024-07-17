@@ -77,7 +77,12 @@ const usePoolPairToken = (
     const t = tokens.find((t) => t.id === token.id);
 
     if (t !== undefined) {
-      setToken(t);
+      if (t.id === "3") {
+        const csUSDTtoken = { ...token, displaySymbol: "csUSDT" };
+        setToken(csUSDTtoken);
+      } else {
+        setToken(t);
+      }
     }
 
     const poolpair = pairs.find((p) => {
