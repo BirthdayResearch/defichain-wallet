@@ -403,15 +403,15 @@ export function AddLiquidityScreen(props: Props): JSX.Element {
       hasAError
         ? TransactionCardStatus.Error
         : isInputAFocus
-        ? TransactionCardStatus.Active
-        : undefined,
+          ? TransactionCardStatus.Active
+          : undefined,
     );
     setTokenBTransactionCardStatus(
       hasBError
         ? TransactionCardStatus.Error
         : isInputBFocus
-        ? TransactionCardStatus.Active
-        : undefined,
+          ? TransactionCardStatus.Active
+          : undefined,
     );
   }, [hasAError, hasBError, isInputAFocus, isInputBFocus]);
 
@@ -443,6 +443,20 @@ export function AddLiquidityScreen(props: Props): JSX.Element {
       // side effect to state
       setPair({
         ...poolpair,
+        tokenA: {
+          ...poolpair.tokenA,
+          displaySymbol:
+            poolpair.tokenA.id === "3"
+              ? "csUSDT"
+              : poolpair.tokenA.displaySymbol,
+        },
+        tokenB: {
+          ...poolpair.tokenB,
+          displaySymbol:
+            poolpair.tokenB.id === "3"
+              ? "csUSDT"
+              : poolpair.tokenB.displaySymbol,
+        },
         aSymbol,
         bSymbol,
         aToBRate: new BigNumber(poolpair.tokenB.reserve).div(
