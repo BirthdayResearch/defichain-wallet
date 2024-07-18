@@ -250,6 +250,7 @@ export function SendScreen({ route, navigation }: Props): JSX.Element {
                 0,
               ).toFixed(8)
             : t.amount,
+        displaySymbol: t.id === "3" ? "csUSDT" : t.displaySymbol,
       });
     }
   }, [JSON.stringify(tokens)]);

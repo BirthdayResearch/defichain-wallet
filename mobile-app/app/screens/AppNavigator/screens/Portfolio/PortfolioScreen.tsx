@@ -75,6 +75,7 @@ import { bottomTabDefaultRoutes } from "@screens/AppNavigator/constants/DefaultR
 import { DomainType, useDomainContext } from "@contexts/DomainContext";
 import { WalletAlert } from "@components/WalletAlert";
 import { useAnalytics } from "@shared-contexts/AnalyticsProvider";
+import { dusdt_converter } from "@api/token/dusdt_converter";
 import { AddressSelectionButtonV2 } from "./components/AddressSelectionButtonV2";
 import { ActionButtons } from "./components/ActionButtons";
 import {
@@ -250,7 +251,7 @@ export function PortfolioScreen({ navigation }: Props): JSX.Element {
         );
 
         if (token.id === "3") {
-          token = { ...token, displaySymbol: "csUSDT" };
+          token = dusdt_converter(token);
         }
         if (token.symbol === "DFI") {
           return {
