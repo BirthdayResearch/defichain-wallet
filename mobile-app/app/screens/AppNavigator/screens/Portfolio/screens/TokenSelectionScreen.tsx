@@ -33,6 +33,7 @@ import {
 import { ListRenderItemInfo } from "@shopify/flash-list";
 import { DomainType, useDomainContext } from "@contexts/DomainContext";
 import { ConvertDirection } from "@screens/enum";
+import { dusdt_converter } from "@api/token/dusdt_converter";
 import { PortfolioParamList } from "../PortfolioNavigator";
 import { ActiveUSDValueV2 } from "../../Loans/VaultDetail/components/ActiveUSDValueV2";
 import { TokenIcon } from "../components/TokenIcon";
@@ -106,12 +107,17 @@ export function TokenSelectionScreen(): JSX.Element {
             item={item}
             isEvmDomain={isEvmDomain}
             onPress={() => {
+              let token = filteredTokensByDomain.find(
+                (t) => t.id === item.tokenId,
+              );
+
+              if (token && token.id === "3") {
+                token = dusdt_converter(token);
+              }
               navigation.navigate({
                 name: "SendScreen",
                 params: {
-                  token: filteredTokensByDomain.find(
-                    (t) => t.id === item.tokenId,
-                  ),
+                  token,
                 },
                 merge: true,
               });
@@ -210,6 +216,9 @@ function TokenSelectionRow({
   onPress,
   isEvmDomain,
 }: TokenSelectionRowProps): JSX.Element {
+  if (item.tokenId === "3") {
+    item.token = dusdt_converter(item.token);
+  }
   return (
     <ThemedTouchableOpacityV2
       disabled={new BigNumber(item.available).lte(0)}
