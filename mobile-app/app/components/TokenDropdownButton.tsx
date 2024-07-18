@@ -24,6 +24,9 @@ export function TokenDropdownButton(props: {
   status: TokenDropdownButtonStatus;
   isEvmToken?: boolean;
 }): JSX.Element {
+  if (props.tokenId === "3") {
+    props = { ...props, symbol: "csUSDT", displayedTextSymbol: "csUSDT" };
+  }
   const Icon =
     props.symbol !== undefined
       ? props.tokenId === "0_evm"

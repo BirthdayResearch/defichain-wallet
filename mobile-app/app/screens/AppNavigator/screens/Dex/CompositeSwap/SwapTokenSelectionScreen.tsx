@@ -19,6 +19,7 @@ import { translate } from "@translations";
 import { useThemeContext } from "@waveshq/walletkit-ui";
 import { PortfolioParamList } from "@screens/AppNavigator/screens/Portfolio/PortfolioNavigator";
 import { DomainType } from "@contexts/DomainContext";
+import { dusdt_converter } from "@api/token/dusdt_converter";
 
 export enum TokenListType {
   From = "FROM",
@@ -152,10 +153,10 @@ export function SwapTokenSelectionScreen({ route }: Props): JSX.Element {
                 listType === TokenListType.From
                   ? "AVAILABLE TOKENS"
                   : isConvert
-                  ? "AVAILABLE FOR CONVERT"
-                  : isFutureSwap
-                  ? "AVAILABLE FOR FUTURE SWAP"
-                  : "AVAILABLE FOR SWAP",
+                    ? "AVAILABLE FOR CONVERT"
+                    : isFutureSwap
+                      ? "AVAILABLE FOR FUTURE SWAP"
+                      : "AVAILABLE FOR SWAP",
               )}
             </ThemedTextV2>
           ) : (
@@ -202,6 +203,9 @@ function TokenItem({
   getTokenPrice,
   listType,
 }: TokenItemProps): JSX.Element {
+  if (item.tokenId === "3") {
+    item.token = dusdt_converter(item.token);
+  }
   const activePriceUSDT = getTokenPrice(
     item.token.symbol,
     new BigNumber("1"),

@@ -25,6 +25,7 @@ import {
   BottomSheetTokenList,
   TokenType,
 } from "@components/BottomSheetTokenList";
+import { dusdt_converter } from "@api/token/dusdt_converter";
 import { VaultSectionTextRowV2 } from "./VaultSectionTextRowV2";
 import { VaultBanner } from "./VaultBanner";
 import { useCollateralTokenList } from "../hooks/CollateralTokenList";
@@ -60,7 +61,7 @@ export function VaultCard(props: VaultCardProps): JSX.Element {
     new BigNumber(vault.informativeRatio),
     new BigNumber(vault.loanScheme.minColRatio),
     new BigNumber(vault.loanValue),
-    new BigNumber(vault.collateralValue)
+    new BigNumber(vault.collateralValue),
   );
   const maxLoanAmount = useMaxLoan({
     totalCollateralValue: new BigNumber(vault.collateralValue),
@@ -71,7 +72,7 @@ export function VaultCard(props: VaultCardProps): JSX.Element {
 
   const { collateralTokens } = useCollateralTokenList();
   const loanTokens = useSelector((state: RootState) =>
-    loanTokensSelector(state.loans)
+    loanTokensSelector(state.loans),
   );
 
   const onSelectLoanToken = (item: LoanToken) => {
@@ -111,6 +112,9 @@ export function VaultCard(props: VaultCardProps): JSX.Element {
           tokenType: TokenType.CollateralItem,
           vault: vault,
           onTokenPress: async (item) => {
+            if (item.token.displaySymbol === "dUSDT") {
+              item.token = dusdt_converter(item.token);
+            }
             navigation.navigate({
               name: "AddOrRemoveCollateralScreen",
               params: {
@@ -131,7 +135,7 @@ export function VaultCard(props: VaultCardProps): JSX.Element {
             <BottomSheetTokenListHeader
               headerLabel={translate(
                 "screens/EditCollateralScreen",
-                "Select Collateral"
+                "Select Collateral",
               )}
               onCloseButtonPress={props.dismissModal}
             />
@@ -197,15 +201,17 @@ export function VaultCard(props: VaultCardProps): JSX.Element {
               dark={tailwind("bg-mono-dark-v2-00")}
               light={tailwind("bg-mono-light-v2-00")}
               style={tailwind(
-                "flex-row p-5 rounded-lg-v2 border-0 items-center justify-between"
+                "flex-row p-5 rounded-lg-v2 border-0 items-center justify-between",
               )}
               testID={props.testID}
             >
               <View style={tailwind("flex-1 flex-col pr-2")}>
                 <TokenIconGroupV2
                   testID={`${props.testID}_collateral_token_group`}
-                  symbols={vault.collateralAmounts?.map(
-                    (collateral) => collateral.displaySymbol
+                  symbols={vault.collateralAmounts?.map((collateral) =>
+                    collateral.displaySymbol === "dUSDT"
+                      ? "csUSDT"
+                      : collateral.displaySymbol,
                   )}
                   maxIconToDisplay={6}
                   size={24}

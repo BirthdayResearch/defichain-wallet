@@ -141,7 +141,9 @@ export function VaultDetailCollateralsRow({
                 key={collateral.id}
                 collateralItem={collateralItem}
                 totalCollateralValue={new BigNumber(vault.collateralValue)}
-                displaySymbol={collateral.displaySymbol}
+                displaySymbol={
+                  collateral.id === "3" ? "csUSDT" : collateral.displaySymbol
+                }
                 amount={new BigNumber(collateral.amount)}
                 onAddCollateralPress={() => onAddPress(collateralItem)}
                 onRemoveCollateralPress={() => onRemovePress(collateralItem)}

@@ -14,6 +14,7 @@ import { useTokenPrice } from "@screens/AppNavigator/screens/Portfolio/hooks/Tok
 import { getActivePrice } from "@screens/AppNavigator/screens/Auctions/helpers/ActivePrice";
 import { ActiveUSDValueV2 } from "@screens/AppNavigator/screens/Loans/VaultDetail/components/ActiveUSDValueV2";
 import { useCollateralTokenList } from "@screens/AppNavigator/screens/Loans/hooks/CollateralTokenList";
+import { dusdt_converter } from "@api/token/dusdt_converter";
 import { BottomSheetWithNavRouteParam } from "./BottomSheetWithNav";
 import {
   ThemedFlatListV2,
@@ -75,7 +76,7 @@ export const BottomSheetTokenList = ({
     const { getTokenPrice } = useTokenPrice();
 
     function isCollateralItem(
-      item: CollateralItem | BottomSheetToken
+      item: CollateralItem | BottomSheetToken,
     ): item is CollateralItem {
       return (item as CollateralItem).activateAfterBlock !== undefined;
     }
@@ -89,6 +90,9 @@ export const BottomSheetTokenList = ({
         }: {
           item: CollateralItem | BottomSheetToken;
         }): JSX.Element => {
+          if (item.tokenId === "3") {
+            item.token = dusdt_converter(item.token);
+          }
           const activePrice =
             tokenType === TokenType.CollateralItem
               ? new BigNumber(
@@ -97,13 +101,13 @@ export const BottomSheetTokenList = ({
                     (item as CollateralItem)?.activePrice,
                     (item as CollateralItem).factor,
                     "ACTIVE",
-                    "COLLATERAL"
-                  )
+                    "COLLATERAL",
+                  ),
                 )
               : getTokenPrice(
                   item.token.symbol,
                   new BigNumber("1"),
-                  item.token.isLPS
+                  item.token.isLPS,
                 );
           return (
             <ThemedTouchableOpacityV2
@@ -121,7 +125,7 @@ export const BottomSheetTokenList = ({
                       available: item.available.toFixed(8),
                       onButtonPress: navigateToScreen.onButtonPress,
                       collateralFactor: new BigNumber(item.factor ?? 0).times(
-                        100
+                        100,
                       ),
                       isAdd: true,
                       vault,
@@ -136,7 +140,7 @@ export const BottomSheetTokenList = ({
                 "px-5 py-4.5 flex flex-row items-start justify-between mt-2 rounded-lg-v2",
                 {
                   "opacity-30": new BigNumber(item.available).lte(0),
-                }
+                },
               )}
               light={tailwind("bg-mono-light-v2-00")}
               dark={tailwind("bg-mono-dark-v2-00")}
@@ -194,7 +198,7 @@ export const BottomSheetTokenList = ({
                   />
                   <ActiveUSDValueV2
                     price={new BigNumber(item.available).multipliedBy(
-                      activePrice
+                      activePrice,
                     )}
                     containerStyle={tailwind("justify-end mt-1")}
                     isOraclePrice={isOraclePrice}

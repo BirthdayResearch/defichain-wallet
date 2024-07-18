@@ -1,5 +1,6 @@
-import { WalletToken } from "@waveshq/walletkit-ui/dist/store";
-
-export function dusdt_converter(token: any): WalletToken {
+export function dusdt_converter(token: any) {
+  if (token.displayTextSymbol) {
+    return { ...token, displaySymbol: "csUSDT", displayTextSymbol: "csUSDT" };
+  }
   return { ...token, displaySymbol: "csUSDT" };
 }
