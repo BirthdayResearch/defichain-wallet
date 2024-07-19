@@ -25,7 +25,7 @@ import {
   BottomSheetTokenList,
   TokenType,
 } from "@components/BottomSheetTokenList";
-import { dusdt_converter } from "@api/token/dusdt_converter";
+import { dusdt_converter_token } from "@api/token/dusdt_converter";
 import { VaultSectionTextRowV2 } from "./VaultSectionTextRowV2";
 import { VaultBanner } from "./VaultBanner";
 import { useCollateralTokenList } from "../hooks/CollateralTokenList";
@@ -113,7 +113,7 @@ export function VaultCard(props: VaultCardProps): JSX.Element {
           vault: vault,
           onTokenPress: async (item) => {
             if (item.token.displaySymbol === "dUSDT") {
-              item.token = dusdt_converter(item.token);
+              item.token = dusdt_converter_token(item.token);
             }
             navigation.navigate({
               name: "AddOrRemoveCollateralScreen",

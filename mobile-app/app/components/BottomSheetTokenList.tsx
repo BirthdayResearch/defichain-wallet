@@ -14,7 +14,7 @@ import { useTokenPrice } from "@screens/AppNavigator/screens/Portfolio/hooks/Tok
 import { getActivePrice } from "@screens/AppNavigator/screens/Auctions/helpers/ActivePrice";
 import { ActiveUSDValueV2 } from "@screens/AppNavigator/screens/Loans/VaultDetail/components/ActiveUSDValueV2";
 import { useCollateralTokenList } from "@screens/AppNavigator/screens/Loans/hooks/CollateralTokenList";
-import { dusdt_converter } from "@api/token/dusdt_converter";
+import { dusdt_converter_token } from "@api/token/dusdt_converter";
 import { BottomSheetWithNavRouteParam } from "./BottomSheetWithNav";
 import {
   ThemedFlatListV2,
@@ -91,7 +91,7 @@ export const BottomSheetTokenList = ({
           item: CollateralItem | BottomSheetToken;
         }): JSX.Element => {
           if (item.tokenId === "3") {
-            item.token = dusdt_converter(item.token);
+            item.token = dusdt_converter_token(item.token);
           }
           const activePrice =
             tokenType === TokenType.CollateralItem

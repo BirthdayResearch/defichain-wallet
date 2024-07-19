@@ -33,7 +33,7 @@ import {
 import { ListRenderItemInfo } from "@shopify/flash-list";
 import { DomainType, useDomainContext } from "@contexts/DomainContext";
 import { ConvertDirection } from "@screens/enum";
-import { dusdt_converter } from "@api/token/dusdt_converter";
+import { dusdt_converter_token } from "@api/token/dusdt_converter";
 import { PortfolioParamList } from "../PortfolioNavigator";
 import { ActiveUSDValueV2 } from "../../Loans/VaultDetail/components/ActiveUSDValueV2";
 import { TokenIcon } from "../components/TokenIcon";
@@ -112,7 +112,7 @@ export function TokenSelectionScreen(): JSX.Element {
               );
 
               if (token && token.id === "3") {
-                token = dusdt_converter(token);
+                token = dusdt_converter_token(token);
               }
               navigation.navigate({
                 name: "SendScreen",
@@ -217,7 +217,7 @@ function TokenSelectionRow({
   isEvmDomain,
 }: TokenSelectionRowProps): JSX.Element {
   if (item.tokenId === "3") {
-    item.token = dusdt_converter(item.token);
+    item.token = dusdt_converter_token(item.token);
   }
   return (
     <ThemedTouchableOpacityV2

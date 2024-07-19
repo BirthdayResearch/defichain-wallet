@@ -35,7 +35,7 @@ import { ThemedTouchableListItem } from "@components/themed/ThemedTouchableListI
 import { ConvertDirection } from "@screens/enum";
 import { DomainType, useDomainContext } from "@contexts/DomainContext";
 import { useNetworkContext } from "@waveshq/walletkit-ui";
-import { dusdt_converter } from "@api/token/dusdt_converter";
+import { dusdt_converter_token } from "@api/token/dusdt_converter";
 import { PortfolioParamList } from "../PortfolioNavigator";
 import { useTokenPrice } from "../hooks/TokenPrice";
 import { useDenominationCurrency } from "../hooks/PortfolioCurrency";
@@ -79,7 +79,7 @@ const usePoolPairToken = (
 
     if (t !== undefined) {
       if (t.id === "3") {
-        const csUSDTtoken = dusdt_converter(token);
+        const csUSDTtoken = dusdt_converter_token(token);
         setToken(csUSDTtoken);
       } else {
         setToken(t);

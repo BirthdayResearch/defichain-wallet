@@ -19,7 +19,7 @@ import { translate } from "@translations";
 import { useThemeContext } from "@waveshq/walletkit-ui";
 import { PortfolioParamList } from "@screens/AppNavigator/screens/Portfolio/PortfolioNavigator";
 import { DomainType } from "@contexts/DomainContext";
-import { dusdt_converter } from "@api/token/dusdt_converter";
+import { dusdt_converter_token } from "@api/token/dusdt_converter";
 
 export enum TokenListType {
   From = "FROM",
@@ -204,7 +204,7 @@ function TokenItem({
   listType,
 }: TokenItemProps): JSX.Element {
   if (item.tokenId === "3") {
-    item.token = dusdt_converter(item.token);
+    item.token = dusdt_converter_token(item.token);
   }
   const activePriceUSDT = getTokenPrice(
     item.token.symbol,

@@ -1,4 +1,4 @@
-export function dusdt_converter(token: any) {
+export function dusdt_converter_token(token: any) {
   if (token.displayTextSymbol) {
     return { ...token, displaySymbol: "csUSDT", displayTextSymbol: "csUSDT" };
   }
