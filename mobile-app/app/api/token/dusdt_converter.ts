@@ -1,17 +1,14 @@
 const updated_dusdt_name = "depUSDT";
 
 export function dusdt_converter_token(token: any) {
-  if (token.displayTextSymbol) {
-    return {
-      ...token,
-      displaySymbol: updated_dusdt_name,
-      displayTextSymbol: updated_dusdt_name,
-    };
-  }
   return {
     ...token,
-    displaySymbol: updated_dusdt_name,
-    name: "Playground depUSDT",
+    displaySymbol: token.displaySymbol.replace(/dUSDT/g, updated_dusdt_name),
+    displayTextSymbol: token.displaySymbol.replace(
+      /dUSDT/g,
+      updated_dusdt_name,
+    ),
+    name: token.name.replace(/dUSDT/g, updated_dusdt_name),
   };
 }
 
@@ -27,6 +24,7 @@ export function dusdt_converter_pool_pair(availablePairs: any) {
             /dUSDT/g,
             updated_dusdt_name,
           ),
+          name: pair.data.name.replace(/USDT/g, updated_dusdt_name),
           tokenA: {
             ...pair.data.tokenA,
             symbol:
@@ -65,6 +63,7 @@ export function dusdt_converter_pool_pair(availablePairs: any) {
           /dUSDT/g,
           updated_dusdt_name,
         ),
+        name: availablePairs.data.name.replace(/USDT/g, updated_dusdt_name),
         tokenA: {
           ...availablePairs.data.tokenA,
           symbol:
