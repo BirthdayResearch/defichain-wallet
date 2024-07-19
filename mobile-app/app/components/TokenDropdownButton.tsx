@@ -6,6 +6,7 @@ import {
 import { getNativeIcon } from "@components/icons/assets";
 import { tailwind } from "@tailwind";
 import { translate } from "@translations";
+import { dusdt_converter_token } from "@api/token/dusdt_converter";
 import { EVMLinearGradient } from "./EVMLinearGradient";
 
 export enum TokenDropdownButtonStatus {
@@ -25,7 +26,7 @@ export function TokenDropdownButton(props: {
   isEvmToken?: boolean;
 }): JSX.Element {
   if (props.tokenId === "3") {
-    props = { ...props, symbol: "csUSDT", displayedTextSymbol: "csUSDT" };
+    props = dusdt_converter_token(props);
   }
   const Icon =
     props.symbol !== undefined
