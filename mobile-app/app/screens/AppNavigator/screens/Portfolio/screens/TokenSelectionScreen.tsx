@@ -111,7 +111,7 @@ export function TokenSelectionScreen(): JSX.Element {
                 (t) => t.id === item.tokenId,
               );
 
-              if (token && token.id === "3") {
+              if (token && token.symbol === "USDT") {
                 token = dusdt_converter_token(token);
               }
               navigation.navigate({

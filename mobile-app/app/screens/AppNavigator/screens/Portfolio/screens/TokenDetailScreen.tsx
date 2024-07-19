@@ -78,7 +78,7 @@ const usePoolPairToken = (
     const t = tokens.find((t) => t.id === token.id);
 
     if (t !== undefined) {
-      if (t.id === "3") {
+      if (t.symbol === "USDT") {
         const depUSDTtoken = dusdt_converter_token(token);
         setToken(depUSDTtoken);
       } else {

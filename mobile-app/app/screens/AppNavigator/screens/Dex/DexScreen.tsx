@@ -312,14 +312,14 @@ export function DexScreen(): JSX.Element {
           tokenA: {
             ...item.data.tokenA,
             displaySymbol:
-              item.data.tokenA.id === "3"
+              item.data.tokenA.symbol === "USDT"
                 ? "depUSDT"
                 : item.data.tokenA.displaySymbol,
           },
           tokenB: {
             ...item.data.tokenB,
             displaySymbol:
-              item.data.tokenB.id === "3"
+              item.data.tokenB.symbol === "USDT"
                 ? "depUSDT"
                 : item.data.tokenB.displaySymbol,
           },

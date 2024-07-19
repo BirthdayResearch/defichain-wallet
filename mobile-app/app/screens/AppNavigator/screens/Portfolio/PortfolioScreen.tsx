@@ -250,7 +250,7 @@ export function PortfolioScreen({ navigation }: Props): JSX.Element {
           token.isLPS,
         );
 
-        if (token.id === "3") {
+        if (token.symbol === "USDT") {
           token = dusdt_converter_token(token);
         }
         if (token.symbol === "DFI") {
