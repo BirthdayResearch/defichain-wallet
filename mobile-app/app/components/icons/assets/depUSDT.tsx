@@ -1,6 +1,6 @@
 import Svg, { Circle, Path, SvgProps } from "react-native-svg";
 
-export function csUSDT(props: SvgProps): JSX.Element {
+export function depUSDT(props: SvgProps): JSX.Element {
   return (
     <Svg height={32} width={32} viewBox="0 0 32 32" {...props}>
       <Circle cx={16} cy={16} fill="#D4ECE5" r={16} />

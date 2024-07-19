@@ -81,7 +81,7 @@ export function TokensVsUtxoFaq(): JSX.Element {
         {
           text: translate(
             "components/UtxoVsTokenFaq",
-            "Swapping DFI with other tokens (e.g. dBTC, dETH, csUSDT)",
+            "Swapping DFI with other tokens (e.g. dBTC, dETH, depUSDT)",
           ),
           type: "bullet",
         },

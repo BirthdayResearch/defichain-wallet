@@ -447,14 +447,14 @@ export function AddLiquidityScreen(props: Props): JSX.Element {
           ...poolpair.tokenA,
           displaySymbol:
             poolpair.tokenA.id === "3"
-              ? "csUSDT"
+              ? "depUSDT"
               : poolpair.tokenA.displaySymbol,
         },
         tokenB: {
           ...poolpair.tokenB,
           displaySymbol:
             poolpair.tokenB.id === "3"
-              ? "csUSDT"
+              ? "depUSDT"
               : poolpair.tokenB.displaySymbol,
         },
         aSymbol,

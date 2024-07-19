@@ -84,8 +84,8 @@ export function useDexStabilization(
     const dUSDCDUSDPair = pairs.find(
       (p) => p.data.displaySymbol === "dUSDC-DUSD",
     );
-    const csUSDTDUSDPair = pairs.find(
-      (p) => p.data.displaySymbol === "csUSDT-DUSD",
+    const depUSDTDUSDPair = pairs.find(
+      (p) => p.data.displaySymbol === "depUSDT-DUSD",
     );
     const dEUROCDUSDPair = pairs.find(
       (p) => p.data.displaySymbol === "dEUROC-DUSD",
@@ -104,11 +104,11 @@ export function useDexStabilization(
     ) {
       fee = dUSDCDUSDPair.data.tokenB.fee?.pct;
     } else if (
-      csUSDTDUSDPair !== undefined &&
+      depUSDTDUSDPair !== undefined &&
       tokenADisplaySymbol === "DUSD" &&
-      tokenBDisplaySymbol === "csUSDT"
+      tokenBDisplaySymbol === "depUSDT"
     ) {
-      fee = csUSDTDUSDPair.data.tokenB.fee?.pct;
+      fee = depUSDTDUSDPair.data.tokenB.fee?.pct;
     } else if (
       dEUROCDUSDPair !== undefined &&
       tokenADisplaySymbol === "DUSD" &&
@@ -135,9 +135,9 @@ export function useDexStabilization(
       highFeesUrl = "https://defiscan.live/dex/DUSD";
     } else if (
       pair.tokenADisplaySymbol === "DUSD" &&
-      pair.tokenBDisplaySymbol === "csUSDT"
+      pair.tokenBDisplaySymbol === "depUSDT"
     ) {
-      highFeesUrl = "https://defiscan.live/dex/csUSDT-DUSD";
+      highFeesUrl = "https://defiscan.live/dex/depUSDT-DUSD";
     } else if (
       pair.tokenADisplaySymbol === "DUSD" &&
       pair.tokenBDisplaySymbol === "dUSDC"
@@ -349,7 +349,7 @@ export function useDexStabilization(
       bestPath.length === 1 &&
       ((tokenA.displaySymbol === "DUSD" && tokenB.displaySymbol === "DFI") ||
         (tokenA.displaySymbol === "DUSD" &&
-          tokenB.displaySymbol === "csUSDT") ||
+          tokenB.displaySymbol === "depUSDT") ||
         (tokenA.displaySymbol === "DUSD" && tokenB.displaySymbol === "dUSDC") ||
         (tokenA.displaySymbol === "DUSD" && tokenB.displaySymbol === "dEUROC"))
     ) {
@@ -376,7 +376,7 @@ export function useDexStabilization(
       bestPath,
       [
         { tokenADisplaySymbol: "DUSD", tokenBDisplaySymbol: "DFI" },
-        { tokenADisplaySymbol: "DUSD", tokenBDisplaySymbol: "csUSDT" },
+        { tokenADisplaySymbol: "DUSD", tokenBDisplaySymbol: "depUSDT" },
         { tokenADisplaySymbol: "DUSD", tokenBDisplaySymbol: "dUSDC" },
         { tokenADisplaySymbol: "DUSD", tokenBDisplaySymbol: "dEUROC" },
       ],

@@ -1,75 +1,90 @@
+const updated_dusdt_name = "depUSDT";
+
 export function dusdt_converter_token(token: any) {
   if (token.displayTextSymbol) {
-    return { ...token, displaySymbol: "csUSDT", displayTextSymbol: "csUSDT" };
+    return {
+      ...token,
+      displaySymbol: updated_dusdt_name,
+      displayTextSymbol: updated_dusdt_name,
+    };
   }
-  return { ...token, displaySymbol: "csUSDT" };
+  return {
+    ...token,
+    displaySymbol: updated_dusdt_name,
+    name: "Playground depUSDT",
+  };
 }
 
 export function dusdt_converter_pool_pair(availablePairs: any) {
   if (availablePairs.length > 1) {
     return availablePairs.map((pair: any) => {
-      const updatedPair = {
+      return {
         ...pair,
         data: {
           ...pair.data,
-          symbol: pair.data.symbol.replace(/dUSDT/g, "csUSDT"),
-          displaySymbol: pair.data.displaySymbol.replace(/dUSDT/g, "csUSDT"),
+          symbol: pair.data.symbol.replace(/dUSDT/g, updated_dusdt_name),
+          displaySymbol: pair.data.displaySymbol.replace(
+            /dUSDT/g,
+            updated_dusdt_name,
+          ),
           tokenA: {
             ...pair.data.tokenA,
             symbol:
               pair.data.tokenA.symbol === "dUSDT"
-                ? "csUSDT"
+                ? updated_dusdt_name
                 : pair.data.tokenA.symbol,
             displaySymbol:
               pair.data.tokenA.displaySymbol === "dUSDT"
-                ? "csUSDT"
+                ? updated_dusdt_name
                 : pair.data.tokenA.displaySymbol,
           },
           tokenB: {
             ...pair.data.tokenB,
             symbol:
               pair.data.tokenB.symbol === "dUSDT"
-                ? "csUSDT"
+                ? updated_dusdt_name
                 : pair.data.tokenB.symbol,
             displaySymbol:
               pair.data.tokenB.displaySymbol === "dUSDT"
-                ? "csUSDT"
+                ? updated_dusdt_name
                 : pair.data.tokenB.displaySymbol,
           },
         },
       };
-      return updatedPair;
     });
   } else {
     return {
       ...availablePairs,
       data: {
         ...availablePairs.data,
-        symbol: availablePairs.data.symbol.replace(/dUSDT/g, "csUSDT"),
+        symbol: availablePairs.data.symbol.replace(
+          /dUSDT/g,
+          updated_dusdt_name,
+        ),
         displaySymbol: availablePairs.data.displaySymbol.replace(
           /dUSDT/g,
-          "csUSDT",
+          updated_dusdt_name,
         ),
         tokenA: {
           ...availablePairs.data.tokenA,
           symbol:
             availablePairs.data.tokenA.symbol === "dUSDT"
-              ? "csUSDT"
+              ? updated_dusdt_name
               : availablePairs.data.tokenA.symbol,
           displaySymbol:
             availablePairs.data.tokenA.displaySymbol === "dUSDT"
-              ? "csUSDT"
+              ? updated_dusdt_name
               : availablePairs.data.tokenA.displaySymbol,
         },
         tokenB: {
           ...availablePairs.data.tokenB,
           symbol:
             availablePairs.data.tokenB.symbol === "dUSDT"
-              ? "csUSDT"
+              ? updated_dusdt_name
               : availablePairs.data.tokenB.symbol,
           displaySymbol:
             availablePairs.data.tokenB.displaySymbol === "dUSDT"
-              ? "csUSDT"
+              ? updated_dusdt_name
               : availablePairs.data.tokenB.displaySymbol,
         },
       },

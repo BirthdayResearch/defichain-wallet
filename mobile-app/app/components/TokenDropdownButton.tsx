@@ -25,7 +25,7 @@ export function TokenDropdownButton(props: {
   status: TokenDropdownButtonStatus;
   isEvmToken?: boolean;
 }): JSX.Element {
-  if (props.tokenId === "3") {
+  if (props.symbol === "USDT") {
     props = dusdt_converter_token(props);
   }
   const Icon =

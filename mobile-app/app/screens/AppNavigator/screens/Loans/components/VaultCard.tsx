@@ -210,7 +210,7 @@ export function VaultCard(props: VaultCardProps): JSX.Element {
                   testID={`${props.testID}_collateral_token_group`}
                   symbols={vault.collateralAmounts?.map((collateral) =>
                     collateral.displaySymbol === "dUSDT"
-                      ? "csUSDT"
+                      ? "depUSDT"
                       : collateral.displaySymbol,
                   )}
                   maxIconToDisplay={6}

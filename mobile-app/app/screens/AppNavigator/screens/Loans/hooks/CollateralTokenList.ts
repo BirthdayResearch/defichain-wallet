@@ -33,7 +33,7 @@ export function useCollateralTokenList() {
             token: {
               ...c.token,
               displaySymbol:
-                c.token.id === "3" ? "csUSDT" : c.token.displaySymbol,
+                c.token.id === "3" ? "depUSDT" : c.token.displaySymbol,
             },
             available: getTokenAmount(c.token.id),
           };

@@ -24,6 +24,7 @@ import { debounce } from "lodash";
 import { HeaderSearchInput } from "@components/HeaderSearchInput";
 import { ScrollView } from "react-native";
 import { ScreenName } from "@screens/enum";
+import { useFavouritePoolpairContext } from "@contexts/FavouritePoolpairContext";
 import { EmptyActivePoolpair } from "./components/EmptyActivePoolPair";
 import {
   ButtonGroupTabKey,
@@ -32,7 +33,6 @@ import {
 import { ButtonGroup } from "./components/ButtonGroup";
 import { DexParamList } from "./DexNavigator";
 import { AssetsFilterItem } from "../Portfolio/components/AssetsFilterRow";
-import { useFavouritePoolpairContext } from "../../../../contexts/FavouritePoolpairContext";
 
 enum TabKey {
   YourPoolPair = "YOUR_POOL_PAIRS",
@@ -313,14 +313,14 @@ export function DexScreen(): JSX.Element {
             ...item.data.tokenA,
             displaySymbol:
               item.data.tokenA.id === "3"
-                ? "csUSDT"
+                ? "depUSDT"
                 : item.data.tokenA.displaySymbol,
           },
           tokenB: {
             ...item.data.tokenB,
             displaySymbol:
               item.data.tokenB.id === "3"
-                ? "csUSDT"
+                ? "depUSDT"
                 : item.data.tokenB.displaySymbol,
           },
         },

@@ -80,7 +80,7 @@ describe("Token Price - Get Token Price (DEX)", () => {
         status: true,
         tokenA: {
           symbol: "USDT",
-          displaySymbol: "csUSDT",
+          displaySymbol: "depUSDT",
           id: "14",
           reserve: pair2ReserveA,
           blockCommission: "0",
