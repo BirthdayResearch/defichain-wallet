@@ -64,12 +64,12 @@ describe("DFI Total Portfolio Card", () => {
           totalLoansValue={new BigNumber(100)}
           portfolioButtonGroup={[
             {
-              id: PortfolioButtonGroupTabKey.USDT,
+              id: PortfolioButtonGroupTabKey.USDC,
               label: "USD",
               handleOnPress: jest.fn(),
             },
           ]}
-          denominationCurrency={PortfolioButtonGroupTabKey.USDT}
+          denominationCurrency={PortfolioButtonGroupTabKey.USDC}
           setDenominationCurrency={jest.fn()}
         />
       </Provider>

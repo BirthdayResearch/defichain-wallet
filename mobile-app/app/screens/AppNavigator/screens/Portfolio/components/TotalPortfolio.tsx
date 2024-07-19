@@ -19,7 +19,6 @@ import { BalanceText } from "./BalanceText";
 import { BalanceTextV2 } from "./BalanceTextV2";
 
 export enum PortfolioButtonGroupTabKey {
-  USDT = "USDT",
   DFI = "DFI",
   BTC = "BTC",
   DUSD = "DUSD",
@@ -98,7 +97,7 @@ export function TotalPortfolio(props: TotalPortfolioProps): JSX.Element {
             <NumberFormat
               displayType="text"
               prefix={
-                denominationCurrency === PortfolioButtonGroupTabKey.USDT
+                denominationCurrency === PortfolioButtonGroupTabKey.USDC
                   ? "$"
                   : undefined
               }
@@ -120,7 +119,7 @@ export function TotalPortfolio(props: TotalPortfolioProps): JSX.Element {
               )}
               thousandSeparator
               value={
-                denominationCurrency === PortfolioButtonGroupTabKey.USDT
+                denominationCurrency === PortfolioButtonGroupTabKey.USDC
                   ? getPrecisedCurrencyValue(totalPortfolioValue)
                   : getPrecisedTokenValue(totalPortfolioValue)
               }
@@ -234,13 +233,13 @@ function USDValueRow(props: {
         // TODO: modify condition when API is ready for denomination currency change for other pages other than BalanceScreen page
         prefix={
           props.denominationCurrency === undefined ||
-          props.denominationCurrency === PortfolioButtonGroupTabKey.USDT
+          props.denominationCurrency === PortfolioButtonGroupTabKey.USDC
             ? "$"
             : undefined
         }
         suffix={
           props.denominationCurrency !== undefined &&
-          props.denominationCurrency !== PortfolioButtonGroupTabKey.USDT
+          props.denominationCurrency !== PortfolioButtonGroupTabKey.USDC
             ? ` ${props.denominationCurrency}`
             : undefined
         }
@@ -255,7 +254,7 @@ function USDValueRow(props: {
         )}
         thousandSeparator
         value={
-          props.denominationCurrency === PortfolioButtonGroupTabKey.USDT
+          props.denominationCurrency === PortfolioButtonGroupTabKey.USDC
             ? getPrecisedCurrencyValue(props.value)
             : getPrecisedTokenValue(props.value)
         }

@@ -328,12 +328,12 @@ export function PortfolioScreen({ navigation }: Props): JSX.Element {
   };
 
   const portfolioButtonGroup = [
-    {
-      id: PortfolioButtonGroupTabKey.USDT,
-      label: translate("screens/PortfolioScreen", "USDT"),
-      handleOnPress: () =>
-        onPortfolioButtonGroupChange(PortfolioButtonGroupTabKey.USDT),
-    },
+    // {
+    //   id: PortfolioButtonGroupTabKey.USDT,
+    //   label: translate("screens/PortfolioScreen", "USDT"),
+    //   handleOnPress: () =>
+    //     onPortfolioButtonGroupChange(PortfolioButtonGroupTabKey.USDT),
+    // },
     {
       id: PortfolioButtonGroupTabKey.DFI,
       label: translate("screens/PortfolioScreen", "DFI"),

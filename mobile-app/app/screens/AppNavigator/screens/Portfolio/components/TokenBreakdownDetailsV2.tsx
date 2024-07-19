@@ -86,7 +86,7 @@ export function TokenBreakdownDetailsV2(
     return getTokenPrice(symbol, amount, isLPs);
   };
   const isUSDDenomination =
-    denominationCurrency === PortfolioButtonGroupTabKey.USDT;
+    denominationCurrency === PortfolioButtonGroupTabKey.USDC;
 
   return (
     <ThemedViewV2

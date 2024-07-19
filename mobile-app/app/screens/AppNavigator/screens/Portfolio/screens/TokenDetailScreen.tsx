@@ -538,12 +538,12 @@ function TokenSummary(props: {
             <NumberFormat
               displayType="text"
               prefix={
-                denominationCurrency === PortfolioButtonGroupTabKey.USDT
+                denominationCurrency === PortfolioButtonGroupTabKey.USDC
                   ? "$"
                   : undefined
               }
               suffix={
-                denominationCurrency !== PortfolioButtonGroupTabKey.USDT
+                denominationCurrency !== PortfolioButtonGroupTabKey.USDC
                   ? ` ${denominationCurrency}`
                   : undefined
               }

@@ -32,13 +32,13 @@ export const ActiveUSDValue = React.memo(
           displayType="text"
           prefix={
             props.denominationCurrency === undefined ||
-            props.denominationCurrency === PortfolioButtonGroupTabKey.USDT
+            props.denominationCurrency === PortfolioButtonGroupTabKey.USDC
               ? "≈ $"
               : undefined
           }
           suffix={
             props.denominationCurrency !== undefined &&
-            props.denominationCurrency !== PortfolioButtonGroupTabKey.USDT
+            props.denominationCurrency !== PortfolioButtonGroupTabKey.USDC
               ? ` ${props.denominationCurrency}`
               : undefined
           }
@@ -56,5 +56,5 @@ export const ActiveUSDValue = React.memo(
         {props.isOraclePrice === true && <IconTooltip />}
       </View>
     );
-  }
+  },
 );

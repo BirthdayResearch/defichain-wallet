@@ -11,7 +11,7 @@ interface PortfolioCurrency {
 export function useDenominationCurrency(): PortfolioCurrency {
   const logger = useLogger();
   const [denominationCurrency, setDenominationCurrency] =
-    useState<PortfolioButtonGroupTabKey>(PortfolioButtonGroupTabKey.USDT);
+    useState<PortfolioButtonGroupTabKey>(PortfolioButtonGroupTabKey.USDC);
 
   useEffect(() => {
     PortfolioCurrencyPersistence.get()
@@ -22,7 +22,7 @@ export function useDenominationCurrency(): PortfolioCurrency {
   }, []);
 
   const updatePortfolioCurrency = async (
-    denomination: PortfolioButtonGroupTabKey
+    denomination: PortfolioButtonGroupTabKey,
   ): Promise<void> => {
     setDenominationCurrency(denomination);
     await PortfolioCurrencyPersistence.set(denomination);

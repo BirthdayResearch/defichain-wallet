@@ -50,12 +50,12 @@ export function TokenBreakdownDetails(
         }}
         containerStyle={tailwind("mb-2")}
         prefix={
-          props.denominationCurrency === PortfolioButtonGroupTabKey.USDT
+          props.denominationCurrency === PortfolioButtonGroupTabKey.USDC
             ? "≈ $"
             : undefined
         }
         suffix={
-          props.denominationCurrency !== PortfolioButtonGroupTabKey.USDT
+          props.denominationCurrency !== PortfolioButtonGroupTabKey.USDC
             ? ` ${props.denominationCurrency}`
             : undefined
         }
@@ -81,12 +81,12 @@ export function TokenBreakdownDetails(
           dark: tailwind("text-gray-400"),
         }}
         prefix={
-          props.denominationCurrency === PortfolioButtonGroupTabKey.USDT
+          props.denominationCurrency === PortfolioButtonGroupTabKey.USDC
             ? "≈ $"
             : undefined
         }
         suffix={
-          props.denominationCurrency !== PortfolioButtonGroupTabKey.USDT
+          props.denominationCurrency !== PortfolioButtonGroupTabKey.USDC
             ? ` ${props.denominationCurrency}`
             : undefined
         }
