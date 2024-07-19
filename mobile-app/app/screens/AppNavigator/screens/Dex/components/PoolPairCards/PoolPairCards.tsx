@@ -30,6 +30,7 @@ import { useTokenPrice } from "@screens/AppNavigator/screens/Portfolio/hooks/Tok
 import { useToast } from "react-native-toast-notifications";
 import { useFavouritePoolpairContext } from "@contexts/FavouritePoolpairContext";
 import { Delayed } from "@components/Delayed";
+import { dusdt_converter_pool_pair } from "@api/token/dusdt_converter";
 import { DexScrollable } from "../DexScrollable";
 import { TotalValueLocked } from "../TotalValueLocked";
 
@@ -245,7 +246,7 @@ function PoolCard({
   const poolPairData = pairs.find(
     (pr) => pr.data.symbol === (yourPair as AddressToken).symbol,
   );
-  const mappedPair = poolPairData?.data;
+  const mappedPair = dusdt_converter_pool_pair(poolPairData)?.data;
 
   const [symbolA, symbolB] =
     mappedPair?.tokenA != null && mappedPair?.tokenB != null

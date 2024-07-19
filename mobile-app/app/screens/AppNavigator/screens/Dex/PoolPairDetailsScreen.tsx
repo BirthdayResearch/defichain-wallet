@@ -33,6 +33,7 @@ import { useDeFiScanContext } from "@shared-contexts/DeFiScanContext";
 import { useToast } from "react-native-toast-notifications";
 import { openURL } from "@api/linking";
 import { ScreenName } from "@screens/enum";
+import { dusdt_converter_pool_pair } from "@api/token/dusdt_converter";
 import { useYourPoolPairAmountBreakdown } from "./hook/YourPoolPairAmountBreakdown";
 import { useFavouritePoolpairContext } from "../../../../contexts/FavouritePoolpairContext";
 import { DexParamList } from "./DexNavigator";
@@ -44,11 +45,11 @@ type Props = StackScreenProps<DexParamList, "PoolPairDetailsScreen">;
 
 export function PoolPairDetailsScreen({ route }: Props): JSX.Element {
   const { id } = route.params;
-  const poolPair = useSelector((state: RootState) =>
-    poolPairSelector(state.wallet, id)
+  const poolPair = dusdt_converter_pool_pair(
+    useSelector((state: RootState) => poolPairSelector(state.wallet, id)),
   );
   const tokens = useSelector((state: RootState) =>
-    tokensSelector(state.wallet)
+    tokensSelector(state.wallet),
   );
   const { getTokenUrl } = useDeFiScanContext();
   const navigation = useNavigation<NavigationProp<DexParamList>>();
@@ -72,7 +73,7 @@ export function PoolPairDetailsScreen({ route }: Props): JSX.Element {
       headerTitle: translate(
         "screens/PoolPairDetailsScreen",
         "{{poolPair}} Pool",
-        { poolPair: poolPair.data.displaySymbol }
+        { poolPair: poolPair.data.displaySymbol },
       ),
     });
   }, [navigation]);
@@ -245,7 +246,7 @@ function Header(props: {
           isFavouritePair={props.isFavouritePair}
           onPress={() => {
             showToast(
-              props.isFavouritePair ? "UNSET_FAVOURITE" : "SET_FAVOURITE"
+              props.isFavouritePair ? "UNSET_FAVOURITE" : "SET_FAVOURITE",
             );
             props.setFavouritePair(props.poolPairId);
           }}
@@ -291,8 +292,8 @@ function PoolPairDetail({ poolPair }: { poolPair: DexItem }): JSX.Element {
               getTokenPrice(
                 poolPair.data.symbol,
                 new BigNumber(poolPair.data.totalLiquidity.token),
-                true
-              )
+                true,
+              ),
           ),
           usdTextStyle: tailwind("text-sm"),
           usdContainerStyle: tailwind("pt-1"),
@@ -304,7 +305,7 @@ function PoolPairDetail({ poolPair }: { poolPair: DexItem }): JSX.Element {
           value: translate(
             "screens/PoolPairDetailsScreen",
             "Pooled {{symbol}}",
-            { symbol: poolPair.data.tokenA.displaySymbol }
+            { symbol: poolPair.data.tokenA.displaySymbol },
           ),
           testID: "pooled_tokenA",
         }}
@@ -313,7 +314,7 @@ function PoolPairDetail({ poolPair }: { poolPair: DexItem }): JSX.Element {
           suffix: ` ${poolPair.data.tokenA.displaySymbol}`,
           usdAmount: getTokenPrice(
             poolPair.data.tokenA.symbol,
-            new BigNumber(poolPair.data.tokenA.reserve)
+            new BigNumber(poolPair.data.tokenA.reserve),
           ),
           usdTextStyle: tailwind("text-sm"),
           usdContainerStyle: tailwind("pt-1"),
@@ -325,7 +326,7 @@ function PoolPairDetail({ poolPair }: { poolPair: DexItem }): JSX.Element {
           value: translate(
             "screens/PoolPairDetailsScreen",
             "Pooled {{symbol}}",
-            { symbol: poolPair.data.tokenB.displaySymbol }
+            { symbol: poolPair.data.tokenB.displaySymbol },
           ),
           testID: "pooled_tokenB",
         }}
@@ -334,7 +335,7 @@ function PoolPairDetail({ poolPair }: { poolPair: DexItem }): JSX.Element {
           suffix: ` ${poolPair.data.tokenB.displaySymbol}`,
           usdAmount: getTokenPrice(
             poolPair.data.tokenB.symbol,
-            new BigNumber(poolPair.data.tokenB.reserve)
+            new BigNumber(poolPair.data.tokenB.reserve),
           ),
           usdTextStyle: tailwind("text-sm"),
           usdContainerStyle: tailwind("pt-1"),
@@ -366,7 +367,7 @@ function PriceRateDetail({ poolPair }: { poolPair: DexItem }): JSX.Element {
           suffix: ` ${poolPair.data.tokenB.displaySymbol}`,
           usdAmount: getTokenPrice(
             poolPair.data.tokenB.symbol,
-            new BigNumber(poolPair.data.priceRatio.ba)
+            new BigNumber(poolPair.data.priceRatio.ba),
           ),
           usdTextStyle: tailwind("text-sm"),
           usdContainerStyle: tailwind("pt-1"),
@@ -385,7 +386,7 @@ function PriceRateDetail({ poolPair }: { poolPair: DexItem }): JSX.Element {
           suffix: ` ${poolPair.data.tokenA.displaySymbol}`,
           usdAmount: getTokenPrice(
             poolPair.data.tokenA.symbol,
-            new BigNumber(poolPair.data.priceRatio.ab)
+            new BigNumber(poolPair.data.priceRatio.ab),
           ),
           usdTextStyle: tailwind("text-sm"),
           usdContainerStyle: tailwind("pt-1"),
@@ -405,7 +406,7 @@ function YourPoolPairTokenBreakdown(props: {
 }): JSX.Element {
   const { getTokenPrice } = useTokenPrice();
   const { tokenATotal, tokenBTotal } = useYourPoolPairAmountBreakdown(
-    props.yourLpToken
+    props.yourLpToken,
   );
 
   return (
@@ -424,7 +425,7 @@ function YourPoolPairTokenBreakdown(props: {
           usdAmount: getTokenPrice(
             props.yourLpToken.symbol,
             new BigNumber(props.yourLpToken.amount),
-            true
+            true,
           ),
           usdTextStyle: tailwind("text-sm"),
           usdContainerStyle: tailwind("pt-1"),
@@ -436,7 +437,7 @@ function YourPoolPairTokenBreakdown(props: {
           value: translate(
             "screens/PoolPairDetailsScreen",
             "Tokens in {{symbol}}",
-            { symbol: props.tokenADisplaySymbol }
+            { symbol: props.tokenADisplaySymbol },
           ),
           testID: "your_lp_tokenA",
         }}
@@ -444,7 +445,7 @@ function YourPoolPairTokenBreakdown(props: {
           value: tokenATotal.toFixed(8),
           usdAmount: getTokenPrice(
             props.tokenASymbol,
-            new BigNumber(tokenATotal)
+            new BigNumber(tokenATotal),
           ),
           usdTextStyle: tailwind("text-sm"),
           usdContainerStyle: tailwind("pt-1"),
@@ -456,7 +457,7 @@ function YourPoolPairTokenBreakdown(props: {
           value: translate(
             "screens/PoolPairDetailsScreen",
             "Tokens in {{symbol}}",
-            { symbol: props.tokenBDisplaySymbol }
+            { symbol: props.tokenBDisplaySymbol },
           ),
           testID: "your_lp_tokenB",
         }}
@@ -464,7 +465,7 @@ function YourPoolPairTokenBreakdown(props: {
           value: tokenBTotal.toFixed(8),
           usdAmount: getTokenPrice(
             props.tokenBSymbol,
-            new BigNumber(tokenBTotal)
+            new BigNumber(tokenBTotal),
           ),
           usdTextStyle: tailwind("text-sm"),
           usdContainerStyle: tailwind("pt-1"),
@@ -520,7 +521,7 @@ function APRDetail(props: {
               {translate(
                 "screens/PoolPairDetailsScreen",
                 "{{percentage}}% in rewards",
-                { percentage: val }
+                { percentage: val },
               )}
             </ThemedTextV2>
           )}
@@ -539,7 +540,7 @@ function APRDetail(props: {
               {translate(
                 "screens/PoolPairDetailsScreen",
                 "{{percentage}}% in commissions",
-                { percentage: val }
+                { percentage: val },
               )}
             </ThemedTextV2>
           )}
@@ -579,7 +580,7 @@ function PoolPairActionSection({
           onPress={() =>
             onAdd(
               pair.data,
-              walletToken ?? (pair.data as unknown as WalletToken)
+              walletToken ?? (pair.data as unknown as WalletToken),
             )
           }
           isLast={walletToken === undefined}
