@@ -26,6 +26,7 @@ import {
   SkeletonLoaderScreen,
 } from "@components/SkeletonLoader";
 import { debounce } from "lodash";
+import { dusdt_converter_auction } from "@api/token/dusdt_converter";
 import { AuctionsParamList } from "./AuctionNavigator";
 import { BrowseAuctions, ButtonGroupTabKey } from "./components/BrowseAuctions";
 import { EmptyAuction } from "./components/EmptyAuction";
@@ -35,7 +36,7 @@ type Props = StackScreenProps<AuctionsParamList, "AuctionScreen">;
 
 export function AuctionScreen({ navigation }: Props): JSX.Element {
   const { hasFetchAuctionsData } = useSelector(
-    (state: RootState) => state.auctions
+    (state: RootState) => state.auctions,
   );
   const [showLoader, setShowLoader] = useState(true);
   const [isFirstLoad, setIsFirstLoad] = useState(false);
@@ -44,35 +45,38 @@ export function AuctionScreen({ navigation }: Props): JSX.Element {
   const [showSearchInput, setShowSearchInput] = useState(false);
   const [searchString, setSearchString] = useState("");
   const [isSearching, setIsSearching] = useState(false);
-  const batches = useSelector((state: RootState) =>
-    getAuctionBatches(state.auctions)
+  const batches = dusdt_converter_auction(
+    useSelector((state: RootState) => getAuctionBatches(state.auctions)),
   );
   const handleFilter = useCallback(
     debounce((searchString: string) => {
       setIsSearching(false);
       if (searchString !== undefined && searchString.trim().length > 0) {
         setFilteredAuctionBatches(
-          batches.filter((batch) =>
+          batches.filter((batch: AuctionBatchProps) =>
             searchString
               .trim()
               .toLowerCase()
               .split(" ")
               .filter((e) => e !== "")
               .every((i) =>
-                batch.collateralTokenSymbols.join(" ").toLowerCase().includes(i)
-              )
-          )
+                batch.collateralTokenSymbols
+                  .join(" ")
+                  .toLowerCase()
+                  .includes(i),
+              ),
+          ),
         );
       } else {
         setFilteredAuctionBatches([]);
       }
     }, 500),
-    [batches]
+    [batches],
   );
   const [filteredAuctionBatches, setFilteredAuctionBatches] =
     useState<Array<AuctionBatchProps>>(batches);
   const [activeButtonGroup, setActiveButtonGroup] = useState<ButtonGroupTabKey>(
-    ButtonGroupTabKey.AllBids
+    ButtonGroupTabKey.AllBids,
   );
   const blockCount = useSelector((state: RootState) => state.block.count);
 
@@ -159,7 +163,7 @@ export function AuctionScreen({ navigation }: Props): JSX.Element {
 
   const handleButtonFilter = useCallback(
     (buttonGroupTabKey: ButtonGroupTabKey) => {
-      const filteredAuctions = batches.filter((auction) => {
+      const filteredAuctions = batches.filter((auction: AuctionBatchProps) => {
         switch (buttonGroupTabKey) {
           case ButtonGroupTabKey.YourActiveBids:
             return auction?.froms.includes(address);
@@ -176,7 +180,7 @@ export function AuctionScreen({ navigation }: Props): JSX.Element {
       });
       setFilteredAuctionBatches(filteredAuctions);
     },
-    [batches, address]
+    [batches, address],
   );
 
   if (hasFetchAuctionsData && batches?.length === 0 && !showSearchInput) {
@@ -212,11 +216,11 @@ export function AuctionScreen({ navigation }: Props): JSX.Element {
               ? translate(
                   "screens/AuctionScreen",
                   "Search results for “{{input}}”",
-                  { input: searchString?.trim() }
+                  { input: searchString?.trim() },
                 )
               : translate(
                   "screens/AuctionScreen",
-                  "Search for auctions using collateral token names i.e. DFI DUSD dBTC."
+                  "Search for auctions using collateral token names i.e. DFI DUSD dBTC.",
                 )}
           </ThemedTextV2>
         </View>

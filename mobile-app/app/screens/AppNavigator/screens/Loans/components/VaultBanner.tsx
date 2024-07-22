@@ -140,8 +140,10 @@ export function VaultBanner({
                 <View style={tailwind("mt-3")}>
                   <TokenIconGroupV2
                     testID={`${testID}_collateral_token_group`}
-                    symbols={vault.batches[0].collaterals?.map(
-                      (collateral) => collateral.displaySymbol
+                    symbols={vault.batches[0].collaterals?.map((collateral) =>
+                      collateral.displaySymbol === "dUSDT"
+                        ? "ex_USDT"
+                        : collateral.displaySymbol,
                     )}
                     maxIconToDisplay={6}
                     size={24}

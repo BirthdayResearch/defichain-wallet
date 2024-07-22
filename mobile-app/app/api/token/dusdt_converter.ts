@@ -121,3 +121,52 @@ export function dusdt_converter_pair_data(pairData: any) {
     },
   };
 }
+
+export function dusdt_converter_auction(auctionData: any) {
+  return auctionData.map((auction: any) => {
+    return {
+      ...auction,
+      collateralTokenSymbols: auction.collateralTokenSymbols.map(
+        (symbol: string) => symbol.replace(/dUSDT/g, updated_dusdt_name),
+      ),
+      collaterals: auction.collaterals.map((collateral: any) => ({
+        ...collateral,
+        name: collateral.name.replace(/USDT/g, updated_dusdt_name),
+        displaySymbol: collateral.displaySymbol.replace(
+          /dUSDT/g,
+          updated_dusdt_name,
+        ),
+      })),
+      loan: {
+        ...auction.loan,
+        name: auction.loan.name.replace(/USDT/g, updated_dusdt_name),
+        displaySymbol: auction.loan.displaySymbol.replace(
+          /dUSDT/g,
+          updated_dusdt_name,
+        ),
+      },
+      auction: {
+        ...auction.auction,
+        batches: auction.auction.batches.map((batch: any) => ({
+          ...batch,
+          collaterals: batch.collaterals.map((collateral: any) => ({
+            ...collateral,
+            name: collateral.name.replace(/USDT/g, updated_dusdt_name),
+            displaySymbol: collateral.displaySymbol.replace(
+              /dUSDT/g,
+              updated_dusdt_name,
+            ),
+          })),
+          loan: {
+            ...batch.loan,
+            name: batch.loan.name.replace(/USDT/g, updated_dusdt_name),
+            displaySymbol: batch.loan.displaySymbol.replace(
+              /dUSDT/g,
+              updated_dusdt_name,
+            ),
+          },
+        })),
+      },
+    };
+  });
+}
