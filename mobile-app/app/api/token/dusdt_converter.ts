@@ -90,3 +90,34 @@ export function dusdt_converter_pool_pair(availablePairs: any) {
     };
   }
 }
+
+export function dusdt_converter_pair_data(pairData: any) {
+  return {
+    ...pairData,
+    symbol: pairData.symbol.replace(/USDT/g, updated_dusdt_name),
+    displaySymbol: pairData.displaySymbol.replace(/dUSDT/g, updated_dusdt_name),
+    name: pairData.name.replace(/USDT/g, updated_dusdt_name),
+    tokenA: {
+      ...pairData.tokenA,
+      symbol:
+        pairData.tokenA.symbol === "dUSDT"
+          ? updated_dusdt_name
+          : pairData.tokenA.symbol,
+      displaySymbol:
+        pairData.tokenA.displaySymbol === "dUSDT"
+          ? updated_dusdt_name
+          : pairData.tokenA.displaySymbol,
+    },
+    tokenB: {
+      ...pairData.tokenB,
+      symbol:
+        pairData.tokenB.symbol === "dUSDT"
+          ? updated_dusdt_name
+          : pairData.tokenB.symbol,
+      displaySymbol:
+        pairData.tokenB.displaySymbol === "dUSDT"
+          ? updated_dusdt_name
+          : pairData.tokenB.displaySymbol,
+    },
+  };
+}

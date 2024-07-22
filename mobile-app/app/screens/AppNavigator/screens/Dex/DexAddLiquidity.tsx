@@ -42,6 +42,7 @@ import { useToast } from "react-native-toast-notifications";
 import { useBottomSheet } from "@hooks/useBottomSheet";
 import { useDisplayUtxoWarning } from "@hooks/wallet/DisplayUtxoWarning";
 import { ConvertDirection } from "@screens/enum";
+import { dusdt_converter_pair_data } from "@api/token/dusdt_converter";
 import { ViewPoolHeader } from "./components/ViewPoolHeader";
 import { ViewPoolDetails, DataRoutes } from "./components/ViewPoolDetails";
 import { LiquidityCalculationSummary } from "./components/LiquidityCalculationSummary";
@@ -196,7 +197,7 @@ export function AddLiquidityScreen(props: Props): JSX.Element {
         stackScreenName: "ViewPoolShare",
         component: ViewPoolDetails({
           dataRoutes: DataRoutes.AddLiquidity,
-          pairData: pairData,
+          pairData: dusdt_converter_pair_data(pairData),
           pairInfo: pairInfo,
         }),
         option: BottomSheetHeader,
