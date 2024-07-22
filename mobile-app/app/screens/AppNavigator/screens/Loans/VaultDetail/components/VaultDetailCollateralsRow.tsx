@@ -143,7 +143,7 @@ export function VaultDetailCollateralsRow({
                 totalCollateralValue={new BigNumber(vault.collateralValue)}
                 displaySymbol={
                   collateral.symbol === "USDT"
-                    ? "depUSDT"
+                    ? "ex_USDT"
                     : collateral.displaySymbol
                 }
                 amount={new BigNumber(collateral.amount)}

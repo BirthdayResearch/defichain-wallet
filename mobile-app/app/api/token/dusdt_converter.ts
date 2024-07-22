@@ -1,4 +1,4 @@
-const updated_dusdt_name = "depUSDT";
+const updated_dusdt_name = "ex_USDT";
 
 export function dusdt_converter_token(token: any) {
   return {

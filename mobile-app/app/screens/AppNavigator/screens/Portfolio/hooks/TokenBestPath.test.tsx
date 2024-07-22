@@ -80,7 +80,7 @@ describe("Token Best Path - Get Best Path (DEX)", () => {
         status: true,
         tokenA: {
           symbol: "USDT",
-          displaySymbol: "depUSDT",
+          displaySymbol: "ex_USDT",
           id: "14",
           reserve: pair2ReserveA,
           blockCommission: "0",

@@ -79,8 +79,8 @@ const usePoolPairToken = (
 
     if (t !== undefined) {
       if (t.symbol === "USDT") {
-        const depUSDTtoken = dusdt_converter_token(token);
-        setToken(depUSDTtoken);
+        const ex_USDTtoken = dusdt_converter_token(token);
+        setToken(ex_USDTtoken);
       } else {
         setToken(t);
       }

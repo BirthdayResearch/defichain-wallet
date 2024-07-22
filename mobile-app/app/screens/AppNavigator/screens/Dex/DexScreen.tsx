@@ -313,14 +313,14 @@ export function DexScreen(): JSX.Element {
             ...item.data.tokenA,
             displaySymbol:
               item.data.tokenA.symbol === "USDT"
-                ? "depUSDT"
+                ? "ex_USDT"
                 : item.data.tokenA.displaySymbol,
           },
           tokenB: {
             ...item.data.tokenB,
             displaySymbol:
               item.data.tokenB.symbol === "USDT"
-                ? "depUSDT"
+                ? "ex_USDT"
                 : item.data.tokenB.displaySymbol,
           },
         },

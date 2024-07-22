@@ -489,7 +489,7 @@
     "DFIs in token form are used for various DeFiChain functions such as Liquidity Pools, Loans, Auctions and DEX swaps.": "DFIs in token form are used for various DeFiChain functions such as Liquidity Pools, Loans, Auctions and DEX swaps.",
     "What are the use cases for Tokens?": "What are the use cases for Tokens?",
     "Use cases for Tokens include (but not limited) to the following:": "Use cases for Tokens include (but not limited) to the following:",
-    "Swapping DFI with other tokens (e.g. dBTC, dETH, depUSDT)": "Swapping DFI with other tokens (e.g. dBTC, dETH, depUSDT)",
+    "Swapping DFI with other tokens (e.g. dBTC, dETH, ex_USDT)": "Swapping DFI with other tokens (e.g. dBTC, dETH, ex_USDT)",
     "Liquidity pools": "Liquidity pools",
     "Collateral for Vaults": "Collateral for Vaults",
     "Auction bidding": "Auction bidding",
@@ -621,7 +621,7 @@
     "Transaction fees": "交易费用",
     "DFI in token form": "DFI代币",
     "DFIs in token form are used for various DeFiChain functions such as Liquidity Pools, Loans, Auctions and DEX swaps.": "代币形式的DFI用于递飞链的各种DeFi功能，如流动性池、贷款、拍卖和DEX兑换。",
-    "Swapping DFI with other tokens (e.g. dBTC, dETH, depUSDT)": "兑换DFI成其他代币(如，dBTC, dETH, depUSDT, dUSDC)",
+    "Swapping DFI with other tokens (e.g. dBTC, dETH, ex_USDT)": "兑换DFI成其他代币(如，dBTC, dETH, ex_USDT, dUSDC)",
     "Liquidity pools": "流动性池",
     "Auctions and Loans": "拍卖和贷款"
   },

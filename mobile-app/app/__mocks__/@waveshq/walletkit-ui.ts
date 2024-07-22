@@ -45,7 +45,7 @@ export const useWhaleApiClient = () => ({
       toToken: {
         id: "3",
         symbol: "USDT",
-        displaySymbol: "depUSDT",
+        displaySymbol: "ex_USDT",
       },
       bestPath: [
         {
@@ -72,7 +72,7 @@ export const useWhaleApiClient = () => ({
           tokenA: {
             id: "3",
             symbol: "USDT",
-            displaySymbol: "depUSDT",
+            displaySymbol: "ex_USDT",
           },
           tokenB: {
             id: "0",

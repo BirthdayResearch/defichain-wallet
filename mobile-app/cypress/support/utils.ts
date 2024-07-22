@@ -235,12 +235,12 @@ export const samplePoolPair = [
   {
     id: "21",
     symbol: "USDT-DFI",
-    displaySymbol: "depUSDT-DFI",
+    displaySymbol: "ex_USDT-DFI",
     name: "Playground csUSDT-Default Defi token",
     status: true,
     tokenA: {
       symbol: "USDT",
-      displaySymbol: "depUSDT",
+      displaySymbol: "ex_USDT",
       id: "3",
       name: "Playground csUSDT",
       reserve: "10000000",

@@ -250,7 +250,7 @@ export function SendScreen({ route, navigation }: Props): JSX.Element {
                 0,
               ).toFixed(8)
             : t.amount,
-        displaySymbol: t.symbol === "USDT" ? "depUSDT" : t.displaySymbol,
+        displaySymbol: t.symbol === "USDT" ? "ex_USDT" : t.displaySymbol,
       });
     }
   }, [JSON.stringify(tokens)]);
