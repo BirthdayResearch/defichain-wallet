@@ -170,3 +170,25 @@ export function dusdt_converter_auction(auctionData: any) {
     };
   });
 }
+
+export function dusdt_converter_batch(batchData: any) {
+  return {
+    ...batchData,
+    collaterals: batchData.collaterals.map((collateral: any) => ({
+      ...collateral,
+      name: collateral.name.replace(/USDT/g, updated_dusdt_name),
+      displaySymbol: collateral.displaySymbol.replace(
+        /dUSDT/g,
+        updated_dusdt_name,
+      ),
+    })),
+    loan: {
+      ...batchData.loan,
+      name: batchData.loan.name.replace(/USDT/g, updated_dusdt_name),
+      displaySymbol: batchData.loan.displaySymbol.replace(
+        /dUSDT/g,
+        updated_dusdt_name,
+      ),
+    },
+  };
+}

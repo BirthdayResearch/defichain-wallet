@@ -33,6 +33,7 @@ import { useWhaleApiClient } from "@waveshq/walletkit-ui/dist/contexts";
 import { useThemeContext } from "@waveshq/walletkit-ui";
 import { BidInfo } from "@screens/AppNavigator/screens/Auctions/components/BatchCard";
 import { TokenIconGroupV2 } from "@components/TokenIconGroupV2";
+import { dusdt_converter_batch } from "@api/token/dusdt_converter";
 import { useAuctionTime } from "../hooks/AuctionTimeLeft";
 import { useAuctionBidValue } from "../hooks/AuctionBidValue";
 import {
@@ -49,7 +50,7 @@ type BatchDetailScreenProps = StackScreenProps<
 >;
 
 export function AuctionDetailScreen(
-  props: BatchDetailScreenProps
+  props: BatchDetailScreenProps,
 ): JSX.Element {
   const { batch: batchFromParam, vault } = props.route.params;
   const [batch, setBatch] = useState<LoanVaultLiquidationBatch>(batchFromParam);
@@ -63,7 +64,7 @@ export function AuctionDetailScreen(
   const { auctions } = useSelector((state: RootState) => state.auctions);
   const blockCount = useSelector((state: RootState) => state.block.count) ?? 0;
   const bidHistory = useSelector(
-    (state: RootState) => state.auctions.bidHistory
+    (state: RootState) => state.auctions.bidHistory,
   );
 
   const { minNextBidInToken, totalCollateralsValueInUSD, minNextBidInUSD } =
@@ -92,7 +93,7 @@ export function AuctionDetailScreen(
             batchIndex: batch.index,
             client: client,
             size: 200,
-          })
+          }),
         );
       });
     }
@@ -100,20 +101,20 @@ export function AuctionDetailScreen(
 
   useEffect(() => {
     const _vault = auctions.find(
-      (auction) => auction.vaultId === vault.vaultId
+      (auction) => auction.vaultId === vault.vaultId,
     );
     if (_vault === undefined) {
       return;
     }
 
     const _batch = _vault.batches.find(
-      (batch) => batch.index === batchFromParam.index
+      (batch) => batch.index === batchFromParam.index,
     );
     if (_batch === undefined) {
       return;
     }
 
-    setBatch(_batch);
+    setBatch(dusdt_converter_batch(_batch));
   }, [auctions]);
 
   const onPlaceBid = (): void => {
@@ -125,7 +126,7 @@ export function AuctionDetailScreen(
   };
 
   const totalPrecisedCollateralsValue = getPrecisedTokenValue(
-    totalCollateralsValueInUSD
+    totalCollateralsValueInUSD,
   );
   const precisedMinNextBidInUSD = getPrecisedTokenValue(minNextBidInUSD);
 
@@ -134,16 +135,22 @@ export function AuctionDetailScreen(
     (collateral) => {
       const value = getTokenPrice(
         collateral.symbol,
-        new BigNumber(collateral.amount)
+        new BigNumber(collateral.amount),
       );
       return {
-        label: collateral.displaySymbol,
-        bSymbol: collateral.displaySymbol,
+        label:
+          collateral.displaySymbol === "USDT"
+            ? "ex_USDT"
+            : collateral.displaySymbol,
+        bSymbol:
+          collateral.displaySymbol === "USDT"
+            ? "ex_USDT"
+            : collateral.displaySymbol,
         value: collateral.amount,
         symbolUSDValue: value,
         usdTextStyle: tailwind("text-sm"),
       };
-    }
+    },
   );
 
   const timeRemainingThemedProps = {
@@ -186,7 +193,7 @@ export function AuctionDetailScreen(
             testID="auction_detail_collateral_group"
             size={36}
             symbols={batch.collaterals.map(
-              (collateral) => collateral.displaySymbol
+              (collateral) => collateral.displaySymbol,
             )}
             maxIconToDisplay={6}
           />
@@ -234,7 +241,7 @@ export function AuctionDetailScreen(
               lhs={{
                 value: translate(
                   "components/AuctionDetailScreen",
-                  "Total value"
+                  "Total value",
                 ),
                 testID: "auction_detail_total_label",
                 themedProps: {
@@ -263,7 +270,7 @@ export function AuctionDetailScreen(
             progress={normalizedBlocks.toNumber()}
             color={getColor(timeRemainingThemedColor)}
             unfilledColor={getColor(
-              isLight ? "mono-light-v2-200" : "mono-dark-v2-200"
+              isLight ? "mono-light-v2-200" : "mono-dark-v2-200",
             )}
             borderWidth={0}
             width={null}
@@ -271,7 +278,7 @@ export function AuctionDetailScreen(
           <TextRowV2
             containerStyle={{
               style: tailwind(
-                "flex-row items-start w-full bg-transparent mt-3"
+                "flex-row items-start w-full bg-transparent mt-3",
               ),
               light: tailwind("bg-transparent border-mono-light-v2-300"),
               dark: tailwind("bg-transparent border-mono-dark-v2-300"),
@@ -279,7 +286,7 @@ export function AuctionDetailScreen(
             lhs={{
               value: translate(
                 "components/AuctionDetailScreen",
-                timeRemaining ? "Time remaining" : "No time remaining"
+                timeRemaining ? "Time remaining" : "No time remaining",
               ),
               testID: "text_time_remaining_label",
               themedProps: timeRemainingThemedProps,
@@ -306,7 +313,7 @@ export function AuctionDetailScreen(
           <NumberRowV2
             containerStyle={{
               style: tailwind(
-                "flex-row items-start w-full bg-transparent mt-6"
+                "flex-row items-start w-full bg-transparent mt-6",
               ),
               light: tailwind("bg-transparent border-mono-light-v2-300"),
               dark: tailwind("bg-transparent border-mono-dark-v2-300"),
@@ -314,7 +321,7 @@ export function AuctionDetailScreen(
             lhs={{
               value: translate(
                 "components/AuctionDetailScreen",
-                "Min. next bid"
+                "Min. next bid",
               ),
               testID: "min_next_bid_label",
               themedProps: {
@@ -344,7 +351,7 @@ export function AuctionDetailScreen(
             light={tailwind("bg-mono-light-v2-00")}
             dark={tailwind("bg-mono-dark-v2-00")}
             style={tailwind(
-              "border-0 py-4.5 px-5 mt-7 mb-5 flex-row items-center justify-between rounded-lg-v2"
+              "border-0 py-4.5 px-5 mt-7 mb-5 flex-row items-center justify-between rounded-lg-v2",
             )}
             onPress={onBidHistory}
             testID="auction_detail_bid_history_btn"
@@ -355,7 +362,7 @@ export function AuctionDetailScreen(
               {translate(
                 "components/AuctionDetailScreen",
                 "Bid History ({{bidHistoryCount}})",
-                { bidHistoryCount: bidHistory.length }
+                { bidHistoryCount: bidHistory.length },
               )}
             </ThemedTextV2>
             <ThemedIcon
@@ -376,7 +383,7 @@ export function AuctionDetailScreen(
               light={tailwind("text-red-v2")}
               dark={tailwind("text-red-v2")}
               style={tailwind(
-                "text-red-v2 text-center text-xs font-normal-v2 mb-6"
+                "text-red-v2 text-center text-xs font-normal-v2 mb-6",
               )}
             >
               {translate("components/AuctionDetailScreen", "Auction closed")}
