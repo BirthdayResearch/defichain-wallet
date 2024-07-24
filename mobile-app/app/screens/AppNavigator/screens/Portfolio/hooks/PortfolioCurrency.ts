@@ -11,18 +11,23 @@ interface PortfolioCurrency {
 export function useDenominationCurrency(): PortfolioCurrency {
   const logger = useLogger();
   const [denominationCurrency, setDenominationCurrency] =
-    useState<PortfolioButtonGroupTabKey>(PortfolioButtonGroupTabKey.USDT);
+    useState<PortfolioButtonGroupTabKey>(PortfolioButtonGroupTabKey.USDC);
 
   useEffect(() => {
     PortfolioCurrencyPersistence.get()
       .then((denomination: PortfolioButtonGroupTabKey) => {
-        setDenominationCurrency(denomination);
+        // Change the local storage USDT to USDC
+        setDenominationCurrency(
+          denomination === PortfolioButtonGroupTabKey.USDT
+            ? PortfolioButtonGroupTabKey.USDC
+            : denomination,
+        );
       })
       .catch(logger.error);
   }, []);
 
   const updatePortfolioCurrency = async (
-    denomination: PortfolioButtonGroupTabKey
+    denomination: PortfolioButtonGroupTabKey,
   ): Promise<void> => {
     setDenominationCurrency(denomination);
     await PortfolioCurrencyPersistence.set(denomination);

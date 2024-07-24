@@ -69,6 +69,12 @@ export function TotalPortfolio(props: TotalPortfolioProps): JSX.Element {
     if (activeIndex === props.portfolioButtonGroup.length - 1) {
       nextIndex = 0;
     }
+
+    // Skip USDT in the denomination currency
+    if (props.portfolioButtonGroup[nextIndex].id === "USDT") {
+      nextIndex = (nextIndex + 1) % props.portfolioButtonGroup.length;
+    }
+
     props.setDenominationCurrency(props.portfolioButtonGroup[nextIndex].id);
   };
 
