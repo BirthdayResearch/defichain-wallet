@@ -480,8 +480,8 @@ context(
       cy.getByTestID("dfi_total_balance_amount").contains("10.00000000");
     });
 
-    it("should display portfolio values in USDT currency", () => {
-      assertPortfolioDenomination("USDT");
+    it("should display portfolio values in USDC currency", () => {
+      assertPortfolioDenomination("USDC");
       checkPortfolioPageDenominationValues(
         "$201,000.00",
         "$201,000.00",
