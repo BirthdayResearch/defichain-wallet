@@ -18,12 +18,18 @@ jobs:
       - name: Install EAS CLI
         run: npm install -g eas-cli
 
-      - name: Authenticate with Expo
-        run: eas login --token ${{ secrets.EXPO_TOKEN }}
-
-      - name: Sync iOS credentials with EAS
-        run: eas credentials:sync --platform ios
+      - name: Authenticate with Expo and Sync iOS credentials
+        run: |
+          export EXPO_TOKEN=${{ secrets.EXPO_TOKEN }}
+          export EXPO_APPLE_API_KEY_ID=${{ secrets.EXPO_APPLE_API_KEY_ID }}
+          export EXPO_APPLE_API_ISSUER_ID=${{ secrets.EXPO_APPLE_API_ISSUER_ID }}
+          export EXPO_APPLE_API_KEY=${{ secrets.EXPO_APPLE_API_KEY }}
+          echo 'Authenticating with Expo...'
+          npx eas-cli whoami || npx eas-cli login --non-interactive
+          echo 'Syncing iOS credentials...'
+          npx eas-cli credentials:sync --platform ios
         env:
+          EXPO_TOKEN: ${{ secrets.EXPO_TOKEN }}
           EXPO_APPLE_API_KEY_ID: ${{ secrets.EXPO_APPLE_API_KEY_ID }}
           EXPO_APPLE_API_ISSUER_ID: ${{ secrets.EXPO_APPLE_API_ISSUER_ID }}
           EXPO_APPLE_API_KEY: ${{ secrets.EXPO_APPLE_API_KEY }}
