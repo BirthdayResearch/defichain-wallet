@@ -1,0 +1,29 @@
+name: Update iOS Provisioning Profile
+
+on:
+  workflow_dispatch:
+
+jobs:
+  update-profile:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: 20
+
+      - name: Install EAS CLI
+        run: npm install -g eas-cli
+
+      - name: Authenticate with Expo
+        run: eas login --token ${{ secrets.EXPO_TOKEN }}
+
+      - name: Sync iOS credentials with EAS
+        run: eas credentials:sync --platform ios
+        env:
+          EXPO_APPLE_API_KEY_ID: ${{ secrets.EXPO_APPLE_API_KEY_ID }}
+          EXPO_APPLE_API_ISSUER_ID: ${{ secrets.EXPO_APPLE_API_ISSUER_ID }}
+          EXPO_APPLE_API_KEY: ${{ secrets.EXPO_APPLE_API_KEY }}
