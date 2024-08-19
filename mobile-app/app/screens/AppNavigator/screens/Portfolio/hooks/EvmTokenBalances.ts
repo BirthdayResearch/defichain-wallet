@@ -1,5 +1,9 @@
 import { useEffect, useState } from "react";
-import { WalletToken, useNetworkContext } from "@waveshq/walletkit-ui";
+import {
+  WalletToken,
+  useNetworkContext,
+  useWhaleApiClient,
+} from "@waveshq/walletkit-ui";
 import { utils } from "ethers";
 import { batch, useSelector } from "react-redux";
 import { RootState } from "@store";
@@ -12,6 +16,7 @@ import { useEVMProvider } from "@contexts/EVMProvider";
 import { useIsFocused } from "@react-navigation/native";
 import { getAddressFromDST20TokenId } from "@api/transaction/transfer_domain";
 import { useCustomServiceProviderContext } from "@contexts/CustomServiceProvider";
+import { getPaginatedResponse } from "@waveshq/walletkit-core";
 
 interface AssociatedToken {
   [key: string]: TokenData;
@@ -19,6 +24,7 @@ interface AssociatedToken {
 
 export function useEvmTokenBalances(): { evmTokens: WalletToken[] } {
   const { evmAddress } = useWalletContext();
+  const client = useWhaleApiClient();
   const [evmTokens, setEvmTokens] = useState<WalletToken[]>([]);
   const [allTokensWithAddress, setAllTokensWithAddress] =
     useState<AssociatedToken>({});
@@ -29,14 +35,25 @@ export function useEvmTokenBalances(): { evmTokens: WalletToken[] } {
   const logger = useLogger();
   const isFocused = useIsFocused();
 
-  const { allTokens } = useSelector((state: RootState) => state.wallet);
-  const tokenIds = Object.keys(allTokens).reduce((current: string[], key) => {
-    const token = allTokens[key];
+  const [allTokens, setAllTokens] = useState<TokenData[]>([]);
+  const getAllTokens = async () => {
+    const allTokens: TokenData[] = await getPaginatedResponse<TokenData>(
+      (limit, next) => client.tokens.list(limit, next),
+    );
+    setAllTokens(allTokens?.filter((token) => token.isDAT));
+  };
+
+  useEffect(() => {
+    void getAllTokens();
+  }, [isFocused]);
+
+  const tokenIds = allTokens.reduce((current: string[], token) => {
     if (token.id !== "0" && token.isDAT && !token.isLPS) {
       return [...current, token.id];
     }
     return current;
   }, []);
+
   const { evmWalletDetails, evmTokenBalances } = useSelector(
     (state: RootState) => state.evm,
   );
@@ -114,8 +131,7 @@ export function useEvmTokenBalances(): { evmTokens: WalletToken[] } {
 
   useEffect(() => {
     setAllTokensWithAddress(
-      Object.keys(allTokens).reduce((current, each) => {
-        const tokenDetails = allTokens[each];
+      allTokens?.reduce((current, tokenDetails) => {
         const key = getAddressFromDST20TokenId(tokenDetails.id);
         return Object.assign(current, { [key]: tokenDetails });
       }, {}),
