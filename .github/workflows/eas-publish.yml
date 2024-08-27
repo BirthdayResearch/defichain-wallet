@@ -99,7 +99,7 @@ jobs:
           npx standard-version --release-as ${{needs.version.outputs.version}}
 
       - name: EAS Build - iOS
-        run: eas build --platform ios --wait --clear-cache
+        run: eas build --platform ios --non-interactive --wait --clear-cache
         env:
           EAS_PROJECT_ID: ${{ secrets.EAS_PROJECT_ID }}
 
