@@ -1,7 +1,7 @@
 import { useSelector } from "react-redux";
 import BigNumber from "bignumber.js";
 import { RootState } from "@store";
-import { WalletToken, tokensSelector } from "@waveshq/walletkit-ui/dist/store";
+import { WalletToken, tokensSelector } from "@waveshq/walletkit-ui/store";
 import { useMemo } from "react";
 import { DomainType } from "@contexts/DomainContext";
 import { useEvmTokenBalances } from "./EvmTokenBalances";
@@ -70,8 +70,8 @@ export function useTokenBalance(): {
                   token.id === "0"
                     ? "DFI"
                     : token.id === "0_utxo"
-                    ? "UTXO"
-                    : token.displaySymbol,
+                      ? "UTXO"
+                      : token.displaySymbol,
                 symbol: token.symbol,
                 isLPS: false,
                 domainType: DomainType.DVM,

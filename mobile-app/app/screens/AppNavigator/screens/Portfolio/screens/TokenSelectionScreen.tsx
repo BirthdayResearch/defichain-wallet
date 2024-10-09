@@ -12,7 +12,7 @@ import {
   DFITokenSelector,
   tokensSelector,
   WalletToken,
-} from "@waveshq/walletkit-ui/dist/store";
+} from "@waveshq/walletkit-ui/store";
 import { useDebounce } from "@hooks/useDebounce";
 import { useThemeContext } from "@waveshq/walletkit-ui";
 import { useTokenPrice } from "@screens/AppNavigator/screens/Portfolio/hooks/TokenPrice";

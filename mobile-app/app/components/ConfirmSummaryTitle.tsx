@@ -4,7 +4,7 @@ import { tailwind } from "@tailwind";
 import { getNativeIcon } from "@components/icons/assets";
 import { translate } from "@translations";
 import { RandomAvatar } from "@screens/AppNavigator/screens/Portfolio/components/RandomAvatar";
-import { AddressType } from "@waveshq/walletkit-ui/dist/store";
+import { AddressType } from "@waveshq/walletkit-ui/store";
 import { View } from "react-native";
 import { ThemedTextV2, ThemedViewV2 } from "./themed";
 
@@ -25,7 +25,7 @@ interface ConfirmSummaryTitleV2Props {
 }
 
 export function ConfirmSummaryTitle(
-  props: ConfirmSummaryTitleV2Props
+  props: ConfirmSummaryTitleV2Props,
 ): JSX.Element {
   const IconA = getNativeIcon(props.iconA);
   const IconB = getNativeIcon(props.iconB);
@@ -85,7 +85,7 @@ export function ConfirmSummaryTitle(
                   {translate(
                     "screens/ConfirmCompositeSwapScreen",
                     "Settlement value {{percentageChange}}",
-                    { percentageChange: props.oraclePrice }
+                    { percentageChange: props.oraclePrice },
                   )}
                 </ThemedTextV2>
               </View>
@@ -95,7 +95,7 @@ export function ConfirmSummaryTitle(
                 renderText={(value) => (
                   <ThemedTextV2
                     style={tailwind(
-                      "text-xl font-semibold-v2 flex-wrap pr-1 pl-2"
+                      "text-xl font-semibold-v2 flex-wrap pr-1 pl-2",
                     )}
                     testID={`${props.testID}_to`}
                   >
@@ -121,7 +121,7 @@ export function ConfirmSummaryTitle(
             dark={tailwind("bg-mono-dark-v2-200")}
             light={tailwind("bg-mono-light-v2-200")}
             style={tailwind(
-              "rounded-full pl-1 pr-2.5 py-1 flex flex-row items-center overflow-hidden ml-2"
+              "rounded-full pl-1 pr-2.5 py-1 flex flex-row items-center overflow-hidden ml-2",
             )}
           >
             <RandomAvatar name={props.fromAddress} size={20} />
@@ -163,7 +163,7 @@ export function ConfirmSummaryTitle(
                 {
                   "pl-1": props.addressType === AddressType.WalletAddress,
                   "pl-2.5": props.addressType !== AddressType.WalletAddress,
-                }
+                },
               )}
             >
               {props.addressType === AddressType.WalletAddress && (

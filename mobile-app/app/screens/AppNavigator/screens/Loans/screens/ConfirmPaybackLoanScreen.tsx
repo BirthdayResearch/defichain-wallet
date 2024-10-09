@@ -14,7 +14,7 @@ import {
   hasTxQueued,
   hasOceanTXQueued,
   transactionQueue,
-} from "@waveshq/walletkit-ui/dist/store";
+} from "@waveshq/walletkit-ui/store";
 import { StackScreenProps } from "@react-navigation/stack";
 import {
   NativeLoggingProps,
@@ -26,7 +26,7 @@ import { LoanVaultTokenAmount } from "@defichain/whale-api-client/dist/api/loan"
 import { onTransactionBroadcast } from "@api/transaction/transaction_commands";
 import { fetchVaults } from "@store/loans";
 import { useWalletContext } from "@shared-contexts/WalletContext";
-import { useWhaleApiClient } from "@waveshq/walletkit-ui/dist/contexts";
+import { useWhaleApiClient } from "@waveshq/walletkit-ui/contexts";
 import { useAppDispatch } from "@hooks/useAppDispatch";
 import { SummaryTitle } from "@components/SummaryTitle";
 import { useAddressLabel } from "@hooks/useAddressLabel";
@@ -53,10 +53,10 @@ export function ConfirmPaybackLoanScreen({
     loanTokenActivePriceInUSD,
   } = route.params;
   const hasPendingJob = useSelector((state: RootState) =>
-    hasTxQueued(state.transactionQueue)
+    hasTxQueued(state.transactionQueue),
   );
   const hasPendingBroadcastJob = useSelector((state: RootState) =>
-    hasOceanTXQueued(state.ocean)
+    hasOceanTXQueued(state.ocean),
   );
   const dispatch = useAppDispatch();
   const { address } = useWalletContext();
@@ -93,10 +93,10 @@ export function ConfirmPaybackLoanScreen({
           fetchVaults({
             address,
             client,
-          })
+          }),
         );
       },
-      logger
+      logger,
     );
   }
 
@@ -110,7 +110,7 @@ export function ConfirmPaybackLoanScreen({
   const addressLabel = useAddressLabel(address);
   const loanRemaining = BigNumber.max(
     0,
-    new BigNumber(loanTokenAmount.amount).minus(amountToPay)
+    new BigNumber(loanTokenAmount.amount).minus(amountToPay),
   );
   return (
     <ThemedScrollViewV2 style={tailwind("pb-4")}>
@@ -119,7 +119,7 @@ export function ConfirmPaybackLoanScreen({
           amount={amountToPay}
           title={translate(
             "screens/ConfirmPaybackLoanScreen",
-            "You are paying"
+            "You are paying",
           )}
           testID="text_send_amount"
           iconA={loanTokenAmount.displaySymbol}
@@ -131,7 +131,7 @@ export function ConfirmPaybackLoanScreen({
         <NumberRowV2
           containerStyle={{
             style: tailwind(
-              "flex-row items-start w-full bg-transparent border-t-0.5 py-5 mt-6"
+              "flex-row items-start w-full bg-transparent border-t-0.5 py-5 mt-6",
             ),
             light: tailwind("bg-transparent border-mono-light-v2-300"),
             dark: tailwind("bg-transparent border-mono-dark-v2-300"),
@@ -139,7 +139,7 @@ export function ConfirmPaybackLoanScreen({
           lhs={{
             value: translate(
               "screens/ConfirmPaybackLoanScreen",
-              "Transaction fee"
+              "Transaction fee",
             ),
             testID: "transaction_fee",
             themedProps: {
@@ -161,7 +161,7 @@ export function ConfirmPaybackLoanScreen({
         <TextRowV2
           containerStyle={{
             style: tailwind(
-              "flex-row items-start w-full bg-transparent border-t-0.5 pt-5"
+              "flex-row items-start w-full bg-transparent border-t-0.5 pt-5",
             ),
             light: tailwind("bg-transparent border-mono-light-v2-300"),
             dark: tailwind("bg-transparent border-mono-dark-v2-300"),
@@ -199,7 +199,7 @@ export function ConfirmPaybackLoanScreen({
         <NumberRowV2
           containerStyle={{
             style: tailwind(
-              "flex-row items-start w-full bg-transparent border-t-0.5 pt-5"
+              "flex-row items-start w-full bg-transparent border-t-0.5 pt-5",
             ),
             light: tailwind("bg-transparent border-mono-light-v2-300"),
             dark: tailwind("bg-transparent border-mono-dark-v2-300"),
@@ -207,7 +207,7 @@ export function ConfirmPaybackLoanScreen({
           lhs={{
             value: translate(
               "screens/ConfirmPaybackLoanScreen",
-              "Loan remaining"
+              "Loan remaining",
             ),
             testID: "text_resulting_loan_amount",
             themedProps: {
@@ -220,7 +220,7 @@ export function ConfirmPaybackLoanScreen({
             suffix: ` ${loanTokenAmount.displaySymbol}`,
             testID: "resulting_loan_amount",
             usdAmount: new BigNumber(loanRemaining).multipliedBy(
-              loanTokenActivePriceInUSD
+              loanTokenActivePriceInUSD,
             ),
             themedProps: {
               light: tailwind("text-mono-light-v2-900"),
@@ -232,7 +232,7 @@ export function ConfirmPaybackLoanScreen({
         <NumberRowV2
           containerStyle={{
             style: tailwind(
-              "flex-row items-start w-full bg-transparent border-b-0.5"
+              "flex-row items-start w-full bg-transparent border-b-0.5",
             ),
             light: tailwind("bg-transparent border-mono-light-v2-300"),
             dark: tailwind("bg-transparent border-mono-dark-v2-300"),
@@ -240,7 +240,7 @@ export function ConfirmPaybackLoanScreen({
           lhs={{
             value: translate(
               "screens/ConfirmPaybackLoanScreen",
-              "Amount to pay"
+              "Amount to pay",
             ),
             testID: "text_tokens_to_pay",
             themedProps: {
@@ -253,7 +253,7 @@ export function ConfirmPaybackLoanScreen({
             suffix: ` ${loanTokenAmount.displaySymbol}`,
             testID: "tokens_to_pay",
             usdAmount: new BigNumber(amountToPay).multipliedBy(
-              loanTokenActivePriceInUSD
+              loanTokenActivePriceInUSD,
             ),
             themedProps: {
               style: tailwind("text-right text-sm font-semibold-v2"),
@@ -272,14 +272,14 @@ export function ConfirmPaybackLoanScreen({
           >
             {translate(
               "screens/ConfirmPaybackLoanScreen",
-              "Prices may vary during transaction confirmation."
+              "Prices may vary during transaction confirmation.",
             )}
           </ThemedTextV2>
           <SubmitButtonGroup
             isDisabled={hasPendingJob || hasPendingBroadcastJob}
             label={translate(
               "screens/ConfirmPaybackLoanScreen",
-              "Payback loan"
+              "Payback loan",
             )}
             onCancel={onCancel}
             onSubmit={onSubmit}
@@ -312,11 +312,11 @@ async function paybackLoanToken(
   dispatch: Dispatch<any>,
   onBroadcast: () => void,
   onConfirmation: () => void,
-  logger: NativeLoggingProps
+  logger: NativeLoggingProps,
 ): Promise<void> {
   try {
     const signer = async (
-      account: WhaleWalletAccount
+      account: WhaleWalletAccount,
     ): Promise<CTransactionSegWit> => {
       const script = await account.getScript();
       const builder = account.withTransactionBuilder();
@@ -333,7 +333,7 @@ async function paybackLoanToken(
             },
           ],
         },
-        script
+        script,
       );
       return new CTransactionSegWit(signed);
     };
@@ -347,12 +347,12 @@ async function paybackLoanToken(
           {
             amountToPay: amountToPay.toFixed(8),
             symbol: loanToken.displaySymbol,
-          }
+          },
         ),
         drawerMessages: {
           preparing: translate(
             "screens/OceanInterface",
-            "Preparing loan payment…"
+            "Preparing loan payment…",
           ),
           waiting: translate(
             "screens/ConfirmPaybackLoanScreen",
@@ -360,7 +360,7 @@ async function paybackLoanToken(
             {
               amountToPay: amountToPay.toFixed(8),
               symbol: loanToken.displaySymbol,
-            }
+            },
           ),
           complete: translate(
             "screens/ConfirmPaybackLoanScreen",
@@ -368,12 +368,12 @@ async function paybackLoanToken(
             {
               amountToPay: amountToPay.toFixed(8),
               symbol: loanToken.displaySymbol,
-            }
+            },
           ),
         },
         onBroadcast,
         onConfirmation,
-      })
+      }),
     );
   } catch (e) {
     logger.error(e);

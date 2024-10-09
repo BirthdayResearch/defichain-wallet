@@ -8,7 +8,7 @@ import { StackScreenProps } from "@react-navigation/stack";
 import { getColor, tailwind } from "@tailwind";
 import { translate } from "@translations";
 import { useNetworkContext, useThemeContext } from "@waveshq/walletkit-ui";
-import { useWhaleApiClient } from "@waveshq/walletkit-ui/dist/contexts";
+import { useWhaleApiClient } from "@waveshq/walletkit-ui/contexts";
 import { useLogger } from "@shared-contexts/NativeLoggingProvider";
 import { RootState } from "@store";
 import {
@@ -19,7 +19,7 @@ import {
   hasTxQueued,
   tokensSelector,
   WalletToken,
-} from "@waveshq/walletkit-ui/dist/store";
+} from "@waveshq/walletkit-ui/store";
 import { LocalAddress, WhitelistedAddress } from "@store/userPreferences";
 import { useDisplayUtxoWarning } from "@hooks/wallet/DisplayUtxoWarning";
 import {

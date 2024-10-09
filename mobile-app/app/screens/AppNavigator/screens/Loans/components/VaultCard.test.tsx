@@ -1,7 +1,7 @@
 import { render } from "@testing-library/react-native";
 import { LoanVaultState } from "@defichain/whale-api-client/dist/api/loan";
 import { configureStore } from "@reduxjs/toolkit";
-import { wallet } from "@waveshq/walletkit-ui/dist/store";
+import { wallet } from "@waveshq/walletkit-ui/store";
 import { loans } from "@store/loans";
 import { RootState } from "@store";
 import { Provider } from "react-redux";
@@ -10,7 +10,7 @@ import { VaultCard, VaultCardProps } from "./VaultCard";
 jest.mock("react-native-reanimated", () => "react-native-reanimated/mock");
 jest.mock(
   "react-native-circular-progress-indicator",
-  () => "react-native-circular-progress-indicator/mock"
+  () => "react-native-circular-progress-indicator/mock",
 );
 
 jest.mock("@shared-contexts/DeFiScanContext");
@@ -108,7 +108,7 @@ describe("Vault card", () => {
           vault={lockedVault.vault}
           testID={lockedVault.testID}
         />
-      </Provider>
+      </Provider>,
     );
     expect(rendered.toJSON()).toMatchSnapshot();
   });
@@ -143,7 +143,7 @@ describe("Vault card", () => {
     const rendered = render(
       <Provider store={store}>
         <VaultCard {...atRiskVault} testID={atRiskVault.testID} />
-      </Provider>
+      </Provider>,
     );
     expect(rendered.toJSON()).toMatchSnapshot();
   });
@@ -187,7 +187,7 @@ describe("Vault card", () => {
           vault={safeVault.vault}
           testID={safeVault.testID}
         />
-      </Provider>
+      </Provider>,
     );
     expect(rendered.toJSON()).toMatchSnapshot();
   });
@@ -231,7 +231,7 @@ describe("Vault card", () => {
           vault={newVault.vault}
           testID={newVault.testID}
         />
-      </Provider>
+      </Provider>,
     );
     expect(rendered.toJSON()).toMatchSnapshot();
   });

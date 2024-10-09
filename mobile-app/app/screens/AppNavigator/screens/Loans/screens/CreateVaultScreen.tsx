@@ -1,7 +1,7 @@
 import { View } from "@components";
 import { ThemedScrollViewV2, ThemedTextV2 } from "@components/themed";
 import { StackScreenProps } from "@react-navigation/stack";
-import { useWhaleApiClient } from "@waveshq/walletkit-ui/dist/contexts";
+import { useWhaleApiClient } from "@waveshq/walletkit-ui/contexts";
 import { tailwind } from "@tailwind";
 import { translate } from "@translations";
 import { Dispatch, useEffect, useState } from "react";
@@ -23,7 +23,7 @@ import {
   hasOceanTXQueued,
   transactionQueue,
   DFIUtxoSelector,
-} from "@waveshq/walletkit-ui/dist/store";
+} from "@waveshq/walletkit-ui/store";
 import { queueConvertTransaction } from "@hooks/wallet/Conversion";
 import { useAppDispatch } from "@hooks/useAppDispatch";
 import { LoanSchemeOptions } from "@screens/AppNavigator/screens/Loans/components/LoanSchemeOptions";

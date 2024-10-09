@@ -7,7 +7,7 @@ import React, {
 } from "react";
 import { providers } from "ethers";
 import { useNetworkContext } from "@waveshq/walletkit-ui";
-import { BaseLogger } from "@waveshq/walletkit-ui/dist/contexts/logger";
+import { BaseLogger } from "@waveshq/walletkit-ui/contexts/logger";
 import { useCustomServiceProviderContext } from "./CustomServiceProvider";
 
 interface EVMProviderContextI {

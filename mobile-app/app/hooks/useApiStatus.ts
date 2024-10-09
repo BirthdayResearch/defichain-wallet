@@ -7,7 +7,7 @@ import dayjs from "dayjs";
 import {
   useGetBlockchainStatusQuery,
   useGetOceanStatusQuery,
-} from "@waveshq/walletkit-ui/dist/store";
+} from "@waveshq/walletkit-ui/store";
 
 // MAX_TIME_DIFF set to 45 mins to display warning message (in AnnouncementBanner) when blockchain is down only in Production mode, else 5 seconds for local runs
 const MAX_TIME_DIFF = getEnvironment(getReleaseChannel()).debug
@@ -19,14 +19,14 @@ export function useApiStatus(): {
   isOceanDown: boolean;
 } {
   const { lastSync, lastSuccessfulSync } = useSelector(
-    (state: RootState) => state.block
+    (state: RootState) => state.block,
   );
   const { data: blockchainStatus, isSuccess: isBlockchainSuccess } =
     useGetBlockchainStatusQuery(
       {},
       {
         pollingInterval: 1000 * 60 * 5, // every 5mins
-      }
+      },
     );
 
   const { data: oceanStatus, isSuccess: isOceanSuccess } =
@@ -37,7 +37,7 @@ export function useApiStatus(): {
 
   function getBlockStatus(
     lastSync?: string,
-    lastSuccessfulSync?: string
+    lastSuccessfulSync?: string,
   ): void {
     if (lastSync !== undefined && lastSuccessfulSync !== undefined) {
       // stats api is down - if syncing time is more than MAX_TIME_DIFF - checks which api is down

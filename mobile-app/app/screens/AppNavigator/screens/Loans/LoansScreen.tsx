@@ -4,7 +4,7 @@ import { tailwind } from "@tailwind";
 import { translate } from "@translations";
 import { RootState } from "@store";
 import { fetchLoanSchemes, fetchLoanTokens, fetchVaults } from "@store/loans";
-import { useWhaleApiClient } from "@waveshq/walletkit-ui/dist/contexts";
+import { useWhaleApiClient } from "@waveshq/walletkit-ui/contexts";
 import { useWalletContext } from "@shared-contexts/WalletContext";
 import { useIsFocused, useScrollToTop } from "@react-navigation/native";
 import { useAppDispatch } from "@hooks/useAppDispatch";
@@ -63,7 +63,7 @@ export function LoansScreen(): JSX.Element {
           fetchVaults({
             address,
             client,
-          })
+          }),
         );
         dispatch(fetchLoanTokens({ client }));
       });
@@ -81,7 +81,7 @@ export function LoansScreen(): JSX.Element {
           light={tailwind("bg-mono-light-v2-00 border-mono-light-v2-100")}
           dark={tailwind("bg-mono-dark-v2-00 border-mono-dark-v2-100")}
           style={tailwind(
-            "flex flex-col items-center pt-4 rounded-b-2xl border-b z-20"
+            "flex flex-col items-center pt-4 rounded-b-2xl border-b z-20",
           )}
         >
           <View style={tailwind("w-full px-5")}>

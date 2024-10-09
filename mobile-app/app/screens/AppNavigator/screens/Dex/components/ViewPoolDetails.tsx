@@ -5,7 +5,7 @@ import BigNumber from "bignumber.js";
 import { ThemedTextV2, ThemedViewV2 } from "@components/themed";
 import { AddressToken } from "@defichain/whale-api-client/dist/api/address";
 import { PoolPairData } from "@defichain/whale-api-client/dist/api/poolpairs";
-import { WalletToken } from "@waveshq/walletkit-ui/dist/store";
+import { WalletToken } from "@waveshq/walletkit-ui/store";
 import { useDenominationCurrency } from "@screens/AppNavigator/screens/Portfolio/hooks/PortfolioCurrency";
 import { useTokenPrice } from "@screens/AppNavigator/screens/Portfolio/hooks/TokenPrice";
 import { translate } from "@translations";
@@ -40,7 +40,7 @@ export const ViewPoolDetails = ({
         style={tailwind(
           "px-5 h-full flex flex-grow",
           { "-mt-0.5": Platform.OS === "ios" },
-          { "-mt-1": Platform.OS === "android" }
+          { "-mt-1": Platform.OS === "android" },
         )}
       >
         {/* -mt-1 above and mt-1 added below is kind of hack to solved React Navigation elevation bug on android for now. */}
@@ -48,7 +48,7 @@ export const ViewPoolDetails = ({
           style={tailwind(
             "mb-3 flex-row items-center",
             { "mt-1": Platform.OS === "ios" },
-            { "mt-2": Platform.OS === "android" }
+            { "mt-2": Platform.OS === "android" },
           )}
         >
           <View>
@@ -89,7 +89,7 @@ function AddLiquidityDetails({
 }: AddLiquidityDetailsProps): JSX.Element {
   const { poolpairs: pairs } = useSelector((state: RootState) => state.wallet);
   const poolPairData = pairs.find(
-    (pr) => pr.data.symbol === (pairInfo as AddressToken).symbol
+    (pr) => pr.data.symbol === (pairInfo as AddressToken).symbol,
   );
   const mappedPair = poolPairData?.data;
   const { denominationCurrency } = useDenominationCurrency();
@@ -97,7 +97,7 @@ function AddLiquidityDetails({
   const getUSDValue = (
     amount: BigNumber,
     symbol: string,
-    isLPs: boolean = false
+    isLPs: boolean = false,
   ): BigNumber => {
     return getTokenPrice(symbol, amount, isLPs);
   };
@@ -137,7 +137,7 @@ function AddLiquidityDetails({
           }}
           rhs={{
             value: getPrecisedTokenValue(
-              pairData.totalLiquidity.usd ?? new BigNumber(0)
+              pairData.totalLiquidity.usd ?? new BigNumber(0),
             ),
             testID: `total_liquidity_${pairInfo.displaySymbol}_amount`,
             usdTextStyle: tailwind("text-sm"),
@@ -164,7 +164,7 @@ function AddLiquidityDetails({
           usdTextStyle: tailwind("text-sm"),
           usdAmount: getUSDValue(
             new BigNumber(pairData.tokenA.reserve),
-            pairData.tokenA.symbol
+            pairData.tokenA.symbol,
           ),
           suffix: ` ${pairData.tokenA.displaySymbol}`,
         }}
@@ -188,7 +188,7 @@ function AddLiquidityDetails({
           usdTextStyle: tailwind("text-sm"),
           usdAmount: getUSDValue(
             new BigNumber(pairData.tokenB.reserve),
-            pairData.tokenB.symbol
+            pairData.tokenB.symbol,
           ),
           suffix: ` ${pairData.tokenB.displaySymbol}`,
         }}
@@ -199,7 +199,7 @@ function AddLiquidityDetails({
         <ViewPoolAmountRow
           label={translate("screens/AddLiquidity", "APR")}
           amount={new BigNumber(
-            isNaN(pairData.apr.total) ? 0 : pairData.apr.total
+            isNaN(pairData.apr.total) ? 0 : pairData.apr.total,
           )
             .times(100)
             .toFixed(2)}
@@ -227,7 +227,7 @@ function RemoveLiquidityDetails({
 }: RemoveLiquidityDetailsProps): JSX.Element {
   const { poolpairs: pairs } = useSelector((state: RootState) => state.wallet);
   const poolPairData = pairs.find(
-    (pr) => pr.data.symbol === (pairInfo as AddressToken).symbol
+    (pr) => pr.data.symbol === (pairInfo as AddressToken).symbol,
 
     // PoolPairData comes from token detail screen
   );
@@ -249,7 +249,7 @@ function RemoveLiquidityDetails({
   const getUSDValue = (
     amount: BigNumber,
     symbol: string,
-    isLPs: boolean = false
+    isLPs: boolean = false,
   ): BigNumber => {
     return getTokenPrice(symbol, amount, isLPs);
   };
@@ -305,7 +305,7 @@ function RemoveLiquidityDetails({
           },
           usdAmount: getUSDValue(
             new BigNumber(tokenATotal),
-            pairData.tokenA.symbol
+            pairData.tokenA.symbol,
           ),
           usdTextStyle: tailwind("text-sm"),
           testID: `token_in_${pairData.tokenA.displaySymbol}_value`,
@@ -331,7 +331,7 @@ function RemoveLiquidityDetails({
           },
           usdAmount: getUSDValue(
             new BigNumber(tokenBTotal),
-            pairData.tokenB.symbol
+            pairData.tokenB.symbol,
           ),
           usdTextStyle: tailwind("text-sm"),
           testID: `token_in_${pairData.tokenB.displaySymbol}_value`,
@@ -350,7 +350,7 @@ function RemoveLiquidityDetails({
           }}
           rhs={{
             value: new BigNumber(
-              isNaN(pairData.apr.total) ? 0 : pairData.apr.total
+              isNaN(pairData.apr.total) ? 0 : pairData.apr.total,
             )
               .times(100)
               .toFixed(2),

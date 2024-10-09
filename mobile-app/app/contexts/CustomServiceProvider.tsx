@@ -1,6 +1,6 @@
 import { EnvironmentNetwork } from "@waveshq/walletkit-core";
 import { useNetworkContext } from "@waveshq/walletkit-ui";
-import { BaseLogger } from "@waveshq/walletkit-ui/dist/contexts/logger";
+import { BaseLogger } from "@waveshq/walletkit-ui/contexts/logger";
 import React, {
   createContext,
   PropsWithChildren,

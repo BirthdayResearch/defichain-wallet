@@ -27,7 +27,7 @@ import {
   ocean,
   tokensSelector,
   WalletToken,
-} from "@waveshq/walletkit-ui/dist/store";
+} from "@waveshq/walletkit-ui/store";
 import { tailwind } from "@tailwind";
 import BigNumber from "bignumber.js";
 import React, {

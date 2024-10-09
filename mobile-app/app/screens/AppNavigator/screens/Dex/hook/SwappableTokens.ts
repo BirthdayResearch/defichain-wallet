@@ -7,8 +7,8 @@ import {
   fetchDexPrice,
   fetchSwappableTokens,
   tokensSelector,
-} from "@waveshq/walletkit-ui/dist/store";
-import { useWhaleApiClient } from "@waveshq/walletkit-ui/dist/contexts";
+} from "@waveshq/walletkit-ui/store";
+import { useWhaleApiClient } from "@waveshq/walletkit-ui/contexts";
 import { BottomSheetToken } from "@components/BottomSheetTokenList";
 import { CacheApi } from "@api/cache";
 import { useNetworkContext } from "@waveshq/walletkit-ui";
@@ -28,20 +28,20 @@ export function useSwappableTokens(
   fromTokenId: string | undefined,
   fromTokenDisplaySymbol: string | undefined,
   fromTokenSymbol: string | undefined,
-  isFutureSwap: boolean
+  isFutureSwap: boolean,
 ): TokenPrice {
   const client = useWhaleApiClient();
   const { network } = useNetworkContext();
   const dispatch = useAppDispatch();
   const blockCount = useSelector((state: RootState) => state.block.count);
   const { swappableTokens, poolpairs } = useSelector(
-    (state: RootState) => state.wallet
+    (state: RootState) => state.wallet,
   );
   const tokens = useSelector((state: RootState) =>
-    tokensSelector(state.wallet)
+    tokensSelector(state.wallet),
   );
   const loanTokens = useSelector((state: RootState) =>
-    loanTokensSelector(state.loans)
+    loanTokensSelector(state.loans),
   );
 
   const [fromTokens, setFromTokens] = useState<BottomSheetToken[]>([]);
@@ -60,9 +60,9 @@ export function useSwappableTokens(
         fetchDexPrice({
           client,
           denomination: fromTokenSymbol ?? "USDT",
-        })
+        }),
       );
-    }, [blockCount, fromTokenSymbol])
+    }, [blockCount, fromTokenSymbol]),
   );
 
   /* Opted out of using useMemo to ensure it'll only run when screen is focused */
@@ -75,10 +75,10 @@ export function useSwappableTokens(
           }
 
           const hasTokenA = tokensInPair.some(
-            (token) => pair.data.tokenA.id === token.id
+            (token) => pair.data.tokenA.id === token.id,
           );
           const hasTokenB = tokensInPair.some(
-            (token) => pair.data.tokenB.id === token.id
+            (token) => pair.data.tokenB.id === token.id,
           );
           const tokensToAdd: TokenState[] = [];
           if (!hasTokenA) {
@@ -90,14 +90,14 @@ export function useSwappableTokens(
 
           return [...tokensInPair, ...tokensToAdd];
         },
-        []
+        [],
       );
 
       let filterTokens = _allTokens;
       if (isFutureSwap) {
         // filter out loanTokens and DUSD
         filterTokens = filterTokens.filter((t) =>
-          loanTokens.map((loan) => loan.token.id).includes(t.id)
+          loanTokens.map((loan) => loan.token.id).includes(t.id),
         );
       }
       const swappableFromTokens: BottomSheetToken[] = filterTokens
@@ -107,7 +107,7 @@ export function useSwappableTokens(
           return {
             tokenId: tokenId,
             available: new BigNumber(
-              ownedToken === undefined ? 0 : ownedToken.amount
+              ownedToken === undefined ? 0 : ownedToken.amount,
             ),
             token: {
               displaySymbol: token.displaySymbol,
@@ -120,7 +120,7 @@ export function useSwappableTokens(
 
       setAllTokens(_allTokens);
       setFromTokens(swappableFromTokens);
-    }, [poolpairs, tokens, loanTokens, isFutureSwap])
+    }, [poolpairs, tokens, loanTokens, isFutureSwap]),
   );
 
   const toTokens = useMemo(() => {
@@ -131,7 +131,7 @@ export function useSwappableTokens(
     if (fromTokenId !== undefined && swappableToTokens !== undefined) {
       CacheApi.set(
         cacheKey,
-        swappableTokens[fromTokenId === "0_unified" ? "0" : fromTokenId ?? ""]
+        swappableTokens[fromTokenId === "0_unified" ? "0" : fromTokenId ?? ""],
       );
     }
 
@@ -189,10 +189,10 @@ export function useSwappableTokens(
           fetchSwappableTokens({
             client,
             fromTokenId: fromTokenId === "0_unified" ? "0" : fromTokenId,
-          })
+          }),
         );
       }
-    }, [fromTokenId])
+    }, [fromTokenId]),
   );
 
   return {

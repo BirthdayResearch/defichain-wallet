@@ -12,12 +12,9 @@ import {
   ThemedTouchableOpacityV2,
   ThemedViewV2,
 } from "@components/themed";
-import { useWhaleApiClient } from "@waveshq/walletkit-ui/dist/contexts";
+import { useWhaleApiClient } from "@waveshq/walletkit-ui/contexts";
 import { useLogger } from "@shared-contexts/NativeLoggingProvider";
-import {
-  hasTxQueued,
-  hasOceanTXQueued,
-} from "@waveshq/walletkit-ui/dist/store";
+import { hasTxQueued, hasOceanTXQueued } from "@waveshq/walletkit-ui/store";
 import { RootState } from "@store";
 import { useSelector } from "react-redux";
 import { NavigationProp, useNavigation } from "@react-navigation/native";
@@ -57,15 +54,15 @@ export function WithdrawFutureSwapScreen(props: Props): JSX.Element {
   const { isLight } = useThemeContext();
   const { getTokenPrice } = useTokenPrice();
   const hasPendingJob = useSelector((state: RootState) =>
-    hasTxQueued(state.transactionQueue)
+    hasTxQueued(state.transactionQueue),
   );
   const hasPendingBroadcastJob = useSelector((state: RootState) =>
-    hasOceanTXQueued(state.ocean)
+    hasOceanTXQueued(state.ocean),
   );
   const blockCount = useSelector((state: RootState) => state.block.count ?? 0);
   const { isEnded, transactionDate } = useFutureSwapDate(
     executionBlock,
-    blockCount
+    blockCount,
   );
   const [amountToWithdraw, setAmountToWithdraw] = useState("");
   const [fee, setFee] = useState<BigNumber>(new BigNumber(0.0001));
@@ -94,8 +91,8 @@ export function WithdrawFutureSwapScreen(props: Props): JSX.Element {
       hasError
         ? TransactionCardStatus.Error
         : isInputFocus
-        ? TransactionCardStatus.Active
-        : TransactionCardStatus.Default
+          ? TransactionCardStatus.Active
+          : TransactionCardStatus.Default,
     );
   }, [hasError, isInputFocus]);
 
@@ -111,7 +108,7 @@ export function WithdrawFutureSwapScreen(props: Props): JSX.Element {
       remainingAmountInUSD: getTokenPrice(
         source.symbol,
         new BigNumber(source.amount).minus(BigNumber.max(amountToWithdraw, 0)),
-        false
+        false,
       ),
     };
   }, [source, amountToWithdraw]);
@@ -212,7 +209,7 @@ export function WithdrawFutureSwapScreen(props: Props): JSX.Element {
         type: "wallet_toast",
         placement: "top",
         duration: TOAST_DURATION,
-      }
+      },
     );
   }
 
@@ -227,7 +224,7 @@ export function WithdrawFutureSwapScreen(props: Props): JSX.Element {
             tokenBSymbol={destination.displaySymbol}
             headerLabel={translate(
               "screens/WithdrawFutureSwapScreen",
-              "View swap info"
+              "View swap info",
             )}
             onPress={expandModal}
             testID="view_swap_info"
@@ -237,7 +234,7 @@ export function WithdrawFutureSwapScreen(props: Props): JSX.Element {
               testID="withdraw_title"
               text={translate(
                 "screens/WithdrawFutureSwapScreen",
-                "I WANT TO WITHDRAW"
+                "I WANT TO WITHDRAW",
               )}
             />
             <TransactionCard
@@ -279,7 +276,7 @@ export function WithdrawFutureSwapScreen(props: Props): JSX.Element {
               >
                 {translate(
                   "screens/WithdrawFutureSwapScreen",
-                  "Insufficient Balance"
+                  "Insufficient Balance",
                 )}
               </ThemedTextV2>
             ) : (
@@ -288,7 +285,7 @@ export function WithdrawFutureSwapScreen(props: Props): JSX.Element {
                   testID="text_inline"
                   label={`${translate(
                     "screens/WithdrawFutureSwapScreen",
-                    "Withdraw from"
+                    "Withdraw from",
                   )}: `}
                   content={source.amount}
                   suffix={` ${source.displaySymbol}`}
@@ -308,7 +305,7 @@ export function WithdrawFutureSwapScreen(props: Props): JSX.Element {
                   lhs={{
                     value: translate(
                       "screens/WithdrawFutureSwapScreen",
-                      "Transaction fee"
+                      "Transaction fee",
                     ),
                     testID: "transaction_fee_label",
                     themedProps: {
@@ -328,14 +325,14 @@ export function WithdrawFutureSwapScreen(props: Props): JSX.Element {
               </ThemedViewV2>
               <ThemedTextV2
                 style={tailwind(
-                  "font-normal-v2 text-xs text-center pt-12 pb-5"
+                  "font-normal-v2 text-xs text-center pt-12 pb-5",
                 )}
                 light={tailwind("text-mono-light-v2-500")}
                 dark={tailwind("text-mono-dark-v2-500")}
               >
                 {translate(
                   "screens/WithdrawFutureSwapScreen",
-                  "Review full details in the next screen"
+                  "Review full details in the next screen",
                 )}
               </ThemedTextV2>
             </View>

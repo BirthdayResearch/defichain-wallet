@@ -13,7 +13,7 @@ import {
   firstTransactionSelector,
   hasOceanTXQueued,
   OceanTransaction,
-} from "@waveshq/walletkit-ui/dist/store";
+} from "@waveshq/walletkit-ui/store";
 import { useAppDispatch } from "@hooks/useAppDispatch";
 
 interface ConstructSignedBidAndSendProps {
@@ -29,27 +29,27 @@ export const useSignBidAndSend = (): {
   hasPendingBroadcastJob: boolean;
   currentBroadcastJob: OceanTransaction;
   constructSignedBidAndSend: (
-    props: ConstructSignedBidAndSendProps
+    props: ConstructSignedBidAndSendProps,
   ) => Promise<void>;
 } => {
   const dispatch = useAppDispatch();
   const logger = useLogger();
   const hasPendingJob = useSelector((state: RootState) =>
-    hasTxQueued(state.transactionQueue)
+    hasTxQueued(state.transactionQueue),
   );
   const hasPendingBroadcastJob = useSelector((state: RootState) =>
-    hasOceanTXQueued(state.ocean)
+    hasOceanTXQueued(state.ocean),
   );
   const currentBroadcastJob = useSelector((state: RootState) =>
-    firstTransactionSelector(state.ocean)
+    firstTransactionSelector(state.ocean),
   );
 
   async function constructSignedBidAndSend(
-    props: ConstructSignedBidAndSendProps
+    props: ConstructSignedBidAndSendProps,
   ): Promise<void> {
     try {
       const signer = async (
-        account: WhaleWalletAccount
+        account: WhaleWalletAccount,
       ): Promise<CTransactionSegWit> => {
         const builder = account.withTransactionBuilder();
         const script = await account.getScript();
@@ -76,12 +76,12 @@ export const useSignBidAndSend = (): {
             {
               amount: props.tokenAmount.amount,
               token: props.displaySymbol,
-            }
+            },
           ),
           drawerMessages: {
             preparing: translate(
               "screens/OceanInterface",
-              "Preparing to place bid…"
+              "Preparing to place bid…",
             ),
             waiting: translate(
               "components/QuickBid",
@@ -89,7 +89,7 @@ export const useSignBidAndSend = (): {
               {
                 amount: props.tokenAmount.amount,
                 token: props.displaySymbol,
-              }
+              },
             ),
             complete: translate(
               "components/QuickBid",
@@ -97,11 +97,11 @@ export const useSignBidAndSend = (): {
               {
                 amount: props.tokenAmount.amount,
                 token: props.displaySymbol,
-              }
+              },
             ),
           },
           onBroadcast: props.onBroadcast,
-        })
+        }),
       );
     } catch (e) {
       logger.error(e);

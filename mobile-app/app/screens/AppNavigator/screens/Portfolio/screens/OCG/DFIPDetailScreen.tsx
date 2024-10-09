@@ -21,10 +21,10 @@ import {
   DFIUtxoSelector,
   hasOceanTXQueued,
   hasTxQueued,
-} from "@waveshq/walletkit-ui/dist/store";
+} from "@waveshq/walletkit-ui/store";
 import { useAppDispatch } from "@hooks/useAppDispatch";
 import { useLogger } from "@shared-contexts/NativeLoggingProvider";
-import { useWhaleApiClient } from "@waveshq/walletkit-ui/dist/contexts";
+import { useWhaleApiClient } from "@waveshq/walletkit-ui/contexts";
 import { EnvironmentNetwork } from "@waveshq/walletkit-core";
 import { OCGProposalType } from "@screens/AppNavigator/screens/Portfolio/screens/OCG/OCGProposalsScreen";
 import { ConvertDirection } from "@screens/enum";

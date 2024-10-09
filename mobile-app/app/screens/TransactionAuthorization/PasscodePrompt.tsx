@@ -5,7 +5,7 @@ import {
   ThemedTouchableOpacityV2,
   ThemedViewV2,
 } from "@components/themed";
-import { DfTxSigner } from "@waveshq/walletkit-ui/dist/store";
+import { DfTxSigner } from "@waveshq/walletkit-ui/store";
 import { tailwind } from "@tailwind";
 import { translate } from "@translations";
 import { Platform, SafeAreaView, View } from "react-native";

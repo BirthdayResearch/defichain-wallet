@@ -23,7 +23,7 @@ import { fetchLoanTokens } from "@store/loans";
 import {
   useWhaleApiClient,
   useWhaleRpcClient,
-} from "@waveshq/walletkit-ui/dist/contexts";
+} from "@waveshq/walletkit-ui/contexts";
 import { useDeFiScanContext } from "@shared-contexts/DeFiScanContext";
 import { useAppDispatch } from "@hooks/useAppDispatch";
 import { openURL } from "@api/linking";
@@ -41,15 +41,15 @@ export function FutureSwapScreen({ navigation }: Props): JSX.Element {
   const whaleApiClient = useWhaleApiClient();
   const { address } = useWalletContext();
   const futureSwaps = useSelector((state: RootState) =>
-    futureSwapSelector(state)
+    futureSwapSelector(state),
   );
   const blockCount = useSelector((state: RootState) => state.block.count ?? 0);
   const executionBlock = useSelector(
-    (state: RootState) => state.futureSwaps.executionBlock
+    (state: RootState) => state.futureSwaps.executionBlock,
   );
   const { timeRemaining, transactionDate, isEnded } = useFutureSwapDate(
     executionBlock,
-    blockCount
+    blockCount,
   );
 
   useEffect(() => {
@@ -64,7 +64,7 @@ export function FutureSwapScreen({ navigation }: Props): JSX.Element {
           fetchFutureSwaps({
             client: whaleRpcClient,
             address,
-          })
+          }),
         );
         dispatch(fetchExecutionBlock({ client: whaleRpcClient }));
       });
@@ -88,7 +88,7 @@ export function FutureSwapScreen({ navigation }: Props): JSX.Element {
       return (
         <ThemedTouchableOpacityV2
           style={tailwind(
-            "py-4 px-5 mx-5 mt-2 items-center justify-between flex flex-row border-0 rounded-lg"
+            "py-4 px-5 mx-5 mt-2 items-center justify-between flex flex-row border-0 rounded-lg",
           )}
           dark={tailwind("bg-mono-dark-v2-00")}
           light={tailwind("bg-mono-light-v2-00")}
@@ -147,7 +147,7 @@ export function FutureSwapScreen({ navigation }: Props): JSX.Element {
         </ThemedTouchableOpacityV2>
       );
     },
-    [isEnded, transactionDate]
+    [isEnded, transactionDate],
   );
 
   return (
@@ -198,7 +198,7 @@ function ExecutionBlockInfo({
             >
               {`${translate(
                 "screens/FutureSwapScreen",
-                "Target block"
+                "Target block",
               )}: ${value}`}
             </ThemedTextV2>
           )}
@@ -212,7 +212,7 @@ function ExecutionBlockInfo({
             {`${transactionDate} (${translate(
               "screens/FutureSwapScreen",
               "{{time}} left",
-              { time: timeRemaining.trim() }
+              { time: timeRemaining.trim() },
             )})`}
           </ThemedTextV2>
           <ThemedIcon
@@ -238,7 +238,7 @@ function FooterNote(): JSX.Element {
       >
         {translate(
           "screens/FutureSwapScreen",
-          "Amount will be refunded automatically if transaction(s) failed"
+          "Amount will be refunded automatically if transaction(s) failed",
         )}
       </ThemedTextV2>
     </View>

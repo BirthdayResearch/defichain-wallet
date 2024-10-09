@@ -4,3 +4,10 @@ node_modules
 jest-coverage
 web-build
 mobile-app/coverage
+.husky
+.idea
+.vscode
+.contented
+dist
+package-lock.json
+pnpm-lock.yaml

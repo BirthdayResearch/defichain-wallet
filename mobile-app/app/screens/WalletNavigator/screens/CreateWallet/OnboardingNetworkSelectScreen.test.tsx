@@ -1,6 +1,6 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { RootState } from "@store";
-import { block } from "@waveshq/walletkit-ui/dist/store/block";
+import { block } from "@waveshq/walletkit-ui/store/block";
 import { render } from "@testing-library/react-native";
 import { Provider } from "react-redux";
 import { OnboardingNetworkSelectScreen } from "./OnboardingNetworkSelectScreen";
@@ -32,7 +32,7 @@ describe("onboarding network selection screen", () => {
     const rendered = render(
       <Provider store={store}>
         <OnboardingNetworkSelectScreen />
-      </Provider>
+      </Provider>,
     );
     expect(rendered.toJSON()).toMatchSnapshot();
   });

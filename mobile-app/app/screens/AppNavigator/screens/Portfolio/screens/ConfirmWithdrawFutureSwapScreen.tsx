@@ -10,7 +10,7 @@ import {
   hasOceanTXQueued,
   transactionQueue,
   AddressType,
-} from "@waveshq/walletkit-ui/dist/store";
+} from "@waveshq/walletkit-ui/store";
 import { StackScreenProps } from "@react-navigation/stack";
 import {
   NativeLoggingProps,
@@ -44,10 +44,10 @@ export function ConfirmWithdrawFutureSwapScreen({
   const addressLabel = useAddressLabel(address);
   const { getTokenPrice } = useTokenPrice();
   const hasPendingJob = useSelector((state: RootState) =>
-    hasTxQueued(state.transactionQueue)
+    hasTxQueued(state.transactionQueue),
   );
   const hasPendingBroadcastJob = useSelector((state: RootState) =>
-    hasOceanTXQueued(state.ocean)
+    hasOceanTXQueued(state.ocean),
   );
   const blockCount = useSelector((state: RootState) => state.block.count ?? 0);
   const { isEnded } = useFutureSwapDate(executionBlock, blockCount);
@@ -75,7 +75,7 @@ export function ConfirmWithdrawFutureSwapScreen({
       () => {
         onTransactionBroadcast(isOnPage, navigation.dispatch);
       },
-      logger
+      logger,
     );
   }
 
@@ -95,7 +95,7 @@ export function ConfirmWithdrawFutureSwapScreen({
         <SummaryTitle
           title={translate(
             "screens/ConfirmWithdrawFutureSwapScreen",
-            "You are withdrawing"
+            "You are withdrawing",
           )}
           amount={source.amountToWithdraw}
           testID="title_tx_detail"
@@ -114,7 +114,7 @@ export function ConfirmWithdrawFutureSwapScreen({
             lhs={{
               value: translate(
                 "screens/ConfirmWithdrawFutureSwapScreen",
-                "Transaction fee"
+                "Transaction fee",
               ),
               themedProps: themedProps,
               testID: "transaction_fee_label",
@@ -129,13 +129,13 @@ export function ConfirmWithdrawFutureSwapScreen({
           <NumberRowV2
             containerStyle={{
               style: tailwind(
-                "flex-row items-start w-full bg-transparent pt-5"
+                "flex-row items-start w-full bg-transparent pt-5",
               ),
             }}
             lhs={{
               value: translate(
                 "screens/ConfirmWithdrawFutureSwapScreen",
-                "To receive (est.)"
+                "To receive (est.)",
               ),
               themedProps: themedProps,
               testID: "receive_label",
@@ -159,7 +159,7 @@ export function ConfirmWithdrawFutureSwapScreen({
           title="withdraw_future_swap"
           label={translate(
             "screens/ConfirmWithdrawFutureSwapScreen",
-            "Withdraw"
+            "Withdraw",
           )}
           displayCancelBtn
           onSubmit={onSubmit}
@@ -190,11 +190,11 @@ async function withdrawFutureSwap(
   { source, destination }: FutureSwapForm,
   dispatch: Dispatch<any>,
   onBroadcast: () => void,
-  logger: NativeLoggingProps
+  logger: NativeLoggingProps,
 ): Promise<void> {
   try {
     const signer = async (
-      account: WhaleWalletAccount
+      account: WhaleWalletAccount,
     ): Promise<CTransactionSegWit> => {
       const script = await account.getScript();
       const builder = account.withTransactionBuilder();
@@ -208,7 +208,7 @@ async function withdrawFutureSwap(
           destination: source.isLoanToken ? 0 : Number(destination.tokenId),
           withdraw: true,
         },
-        script
+        script,
       );
       return new CTransactionSegWit(signed);
     };
@@ -225,12 +225,12 @@ async function withdrawFutureSwap(
             amountToWithdraw: amountToWithdraw,
             sourceSymbol: sourceSymbol,
             destinationSymbol: destination.displaySymbol,
-          }
+          },
         ),
         drawerMessages: {
           preparing: translate(
             "screens/OceanInterface",
-            "Preparing withdrawal…"
+            "Preparing withdrawal…",
           ),
           waiting: translate(
             "screens/OceanInterface",
@@ -238,12 +238,12 @@ async function withdrawFutureSwap(
             {
               amountToWithdraw: amountToWithdraw,
               sourceSymbol: sourceSymbol,
-            }
+            },
           ),
           complete: translate("screens/OceanInterface", "Withdrawal completed"),
         },
         onBroadcast,
-      })
+      }),
     );
   } catch (e) {
     logger.error(e);

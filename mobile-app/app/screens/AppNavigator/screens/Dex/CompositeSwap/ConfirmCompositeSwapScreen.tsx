@@ -10,7 +10,7 @@ import {
   hasTxQueued,
   hasOceanTXQueued,
   transactionQueue,
-} from "@waveshq/walletkit-ui/dist/store";
+} from "@waveshq/walletkit-ui/store";
 import { translate } from "@translations";
 import {
   CompositeSwap,
@@ -78,10 +78,10 @@ export function ConfirmCompositeSwapScreen({ route }: Props): JSX.Element {
   const logger = useLogger();
   const { getTokenPrice } = useTokenPrice();
   const hasPendingJob = useSelector((state: RootState) =>
-    hasTxQueued(state.transactionQueue)
+    hasTxQueued(state.transactionQueue),
   );
   const hasPendingBroadcastJob = useSelector((state: RootState) =>
-    hasOceanTXQueued(state.ocean)
+    hasOceanTXQueued(state.ocean),
   );
   const blockCount = useSelector((state: RootState) => state.block.count ?? 0);
 
@@ -133,7 +133,7 @@ export function ConfirmCompositeSwapScreen({ route }: Props): JSX.Element {
         () => {
           onTransactionBroadcast(isOnPage, navigation.dispatch);
         },
-        logger
+        logger,
       );
     } else {
       await constructSignedSwapAndSend(
@@ -144,7 +144,7 @@ export function ConfirmCompositeSwapScreen({ route }: Props): JSX.Element {
         () => {
           onTransactionBroadcast(isOnPage, navigation.dispatch);
         },
-        logger
+        logger,
       );
     }
     setIsSubmitting(false);
@@ -156,7 +156,7 @@ export function ConfirmCompositeSwapScreen({ route }: Props): JSX.Element {
         title: translate("screens/Settings", "Cancel transaction"),
         message: translate(
           "screens/Settings",
-          "By cancelling, you will lose any changes you made for your transaction."
+          "By cancelling, you will lose any changes you made for your transaction.",
         ),
         buttons: [
           {
@@ -170,7 +170,7 @@ export function ConfirmCompositeSwapScreen({ route }: Props): JSX.Element {
               navigation.navigate(
                 originScreen === ScreenName.DEX_screen
                   ? ScreenName.DEX_screen
-                  : ScreenName.PORTFOLIO_screen
+                  : ScreenName.PORTFOLIO_screen,
               );
             },
           },
@@ -185,7 +185,7 @@ export function ConfirmCompositeSwapScreen({ route }: Props): JSX.Element {
         <ConfirmSummaryTitle
           title={translate(
             "screens/ConfirmCompositeSwapScreen",
-            "You are swapping"
+            "You are swapping",
           )}
           fromTokenAmount={swap.amountFrom}
           toTokenAmount={estimatedAmount}
@@ -221,7 +221,7 @@ export function ConfirmCompositeSwapScreen({ route }: Props): JSX.Element {
           />
           <View
             style={tailwind(
-              "flex flex-row text-right items-center justify-end"
+              "flex flex-row text-right items-center justify-end",
             )}
           >
             <ThemedTextV2
@@ -235,7 +235,7 @@ export function ConfirmCompositeSwapScreen({ route }: Props): JSX.Element {
                 conversion?.isConversionRequired &&
                   conversion?.isConverted !== true
                   ? "Converting"
-                  : "Converted"
+                  : "Converted",
               )}
             </ThemedTextV2>
             {conversion?.isConversionRequired &&
@@ -268,7 +268,7 @@ export function ConfirmCompositeSwapScreen({ route }: Props): JSX.Element {
             lhs={{
               value: translate(
                 "screens/ConfirmCompositeSwapScreen",
-                "Slippage tolerance"
+                "Slippage tolerance",
               ),
               testID: "confirm_slippage_fee_label",
               themedProps: {
@@ -295,7 +295,7 @@ export function ConfirmCompositeSwapScreen({ route }: Props): JSX.Element {
             lhs={{
               value: translate(
                 "screens/ConfirmCompositeSwapScreen",
-                "Total fees"
+                "Total fees",
               ),
               testID: "transaction_fee",
               themedProps: {
@@ -328,7 +328,7 @@ export function ConfirmCompositeSwapScreen({ route }: Props): JSX.Element {
                 lhs={{
                   value: translate(
                     "screens/ConfirmCompositeSwapScreen",
-                    "Transaction fee"
+                    "Transaction fee",
                   ),
                   testID: "transaction_fee",
                   themedProps: {
@@ -348,7 +348,7 @@ export function ConfirmCompositeSwapScreen({ route }: Props): JSX.Element {
                 lhs={{
                   value: translate(
                     "screens/ConfirmCompositeSwapScreen",
-                    "Settlement block"
+                    "Settlement block",
                   ),
                   testID: "settlement_block",
                   themedProps: {
@@ -381,7 +381,7 @@ export function ConfirmCompositeSwapScreen({ route }: Props): JSX.Element {
                 lhs={{
                   value: translate(
                     "screens/ConfirmCompositeSwapScreen",
-                    "Estimated to receive"
+                    "Estimated to receive",
                   ),
                   testID: "confirm_text_receive",
                   themedProps: {
@@ -409,7 +409,7 @@ export function ConfirmCompositeSwapScreen({ route }: Props): JSX.Element {
                     "Settlement value {{percentageChange}}",
                     {
                       percentageChange: futureSwap.oraclePriceText,
-                    }
+                    },
                   ),
                   testID: "confirm_settlement_value",
                 }}
@@ -426,7 +426,7 @@ export function ConfirmCompositeSwapScreen({ route }: Props): JSX.Element {
               lhs={{
                 value: translate(
                   "screens/ConfirmCompositeSwapScreen",
-                  "Estimated to receive (incl. all fees)"
+                  "Estimated to receive (incl. all fees)",
                 ),
                 testID: "estimated_to_receive",
                 themedProps: {
@@ -441,7 +441,7 @@ export function ConfirmCompositeSwapScreen({ route }: Props): JSX.Element {
                 usdAmount: getTokenPrice(
                   tokenB.symbol,
                   new BigNumber(estimatedLessFeesAfterSlippage),
-                  false
+                  false,
                 ),
                 themedProps: {
                   style: tailwind("font-semibold-v2 text-right"),
@@ -519,7 +519,7 @@ async function constructSignedSwapAndSend(
   slippage: BigNumber,
   dispatch: Dispatch<any>,
   onBroadcast: () => void,
-  logger: NativeLoggingProps
+  logger: NativeLoggingProps,
 ): Promise<void> {
   try {
     const maxPrice = cSwapForm.amountFrom
@@ -527,7 +527,7 @@ async function constructSignedSwapAndSend(
       .times(slippage.plus(1))
       .decimalPlaces(8);
     const signer = async (
-      account: WhaleWalletAccount
+      account: WhaleWalletAccount,
     ): Promise<CTransactionSegWit> => {
       const builder = account.withTransactionBuilder();
       const script = await account.getScript();
@@ -538,10 +538,10 @@ async function constructSignedSwapAndSend(
           fromTokenId: Number(
             cSwapForm.tokenFrom.id === "0_unified"
               ? "0"
-              : cSwapForm.tokenFrom.id
+              : cSwapForm.tokenFrom.id,
           ),
           toTokenId: Number(
-            cSwapForm.tokenTo.id === "0_unified" ? "0" : cSwapForm.tokenTo.id
+            cSwapForm.tokenTo.id === "0_unified" ? "0" : cSwapForm.tokenTo.id,
           ),
           fromAmount: cSwapForm.amountFrom,
           maxPrice,
@@ -564,7 +564,7 @@ async function constructSignedSwapAndSend(
             amountB: cSwapForm.amountTo.toFixed(8),
             symbolA: cSwapForm.tokenFrom.displaySymbol,
             symbolB: cSwapForm.tokenTo.displaySymbol,
-          }
+          },
         ),
         drawerMessages: {
           waiting: translate(
@@ -575,7 +575,7 @@ async function constructSignedSwapAndSend(
               amountB: cSwapForm.amountTo.toFixed(8),
               symbolA: cSwapForm.tokenFrom.displaySymbol,
               symbolB: cSwapForm.tokenTo.displaySymbol,
-            }
+            },
           ),
           complete: translate(
             "screens/OceanInterface",
@@ -585,11 +585,11 @@ async function constructSignedSwapAndSend(
               amountB: cSwapForm.amountTo.toFixed(8),
               symbolA: cSwapForm.tokenFrom.displaySymbol,
               symbolB: cSwapForm.tokenTo.displaySymbol,
-            }
+            },
           ),
         },
         onBroadcast,
-      })
+      }),
     );
   } catch (e) {
     logger.error(e);
@@ -611,11 +611,11 @@ async function constructSignedFutureSwapAndSend(
   futureSwap: FutureSwapForm,
   dispatch: Dispatch<any>,
   onBroadcast: () => void,
-  logger: NativeLoggingProps
+  logger: NativeLoggingProps,
 ): Promise<void> {
   try {
     const signer = async (
-      account: WhaleWalletAccount
+      account: WhaleWalletAccount,
     ): Promise<CTransactionSegWit> => {
       const builder = account.withTransactionBuilder();
       const script = await account.getScript();
@@ -644,24 +644,24 @@ async function constructSignedFutureSwapAndSend(
             fromTokenDisplaySymbol: futureSwap.fromTokenDisplaySymbol,
             toTokenDisplaySymbol: futureSwap.toTokenDisplaySymbol,
             settlementBlock: futureSwap.executionBlock,
-          }
+          },
         ),
         drawerMessages: {
           preparing: translate(
             "screens/OceanInterface",
-            "Preparing your transaction…"
+            "Preparing your transaction…",
           ),
           waiting: translate(
             "screens/OceanInterface",
-            "Processing future swap…"
+            "Processing future swap…",
           ),
           complete: translate(
             "screens/OceanInterface",
-            "Future Swap confirmed for next settlement block"
+            "Future Swap confirmed for next settlement block",
           ),
         },
         onBroadcast,
-      })
+      }),
     );
   } catch (e) {
     logger.error(e);

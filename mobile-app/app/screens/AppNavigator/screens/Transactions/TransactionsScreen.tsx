@@ -4,7 +4,7 @@ import {
 } from "@components/SkeletonLoader";
 import { useThemeContext } from "@waveshq/walletkit-ui";
 import { useWalletContext } from "@shared-contexts/WalletContext";
-import { useWhaleApiClient } from "@waveshq/walletkit-ui/dist/contexts";
+import { useWhaleApiClient } from "@waveshq/walletkit-ui/contexts";
 import { MaterialIcons } from "@expo/vector-icons";
 import {
   NavigationProp,
@@ -56,7 +56,7 @@ export function TransactionsScreen(): JSX.Element {
   const [transactions, setTransactions] = useState<VMTransaction[]>([]);
   const [loadingState, setLoadingState] = useState<LoadingState>("idle");
   const [loadMoreToken, setLoadMoreToken] = useState<string | undefined>(
-    undefined
+    undefined,
   );
   const ref = useRef(null);
   useScrollToTop(ref);
@@ -83,7 +83,7 @@ export function TransactionsScreen(): JSX.Element {
       .then(async (addActivities) => {
         if (typeof loadMoreToken === "string") {
           setTransactions(
-            transactions.concat(activitiesToViewModel(addActivities, isLight))
+            transactions.concat(activitiesToViewModel(addActivities, isLight)),
           );
         } else {
           setTransactions(activitiesToViewModel(addActivities, isLight));

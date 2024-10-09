@@ -14,7 +14,7 @@ import {
   LoanVault,
   vaultsSelector,
 } from "@store/loans";
-import { useWhaleApiClient } from "@waveshq/walletkit-ui/dist/contexts";
+import { useWhaleApiClient } from "@waveshq/walletkit-ui/contexts";
 import { useWalletContext } from "@shared-contexts/WalletContext";
 import {
   NavigationProp,
@@ -60,7 +60,7 @@ export function Vaults(props: VaultsProps): JSX.Element {
   const blockCount = useSelector((state: RootState) => state.block.count);
   const vaults = useSelector((state: RootState) => vaultsSelector(state.loans));
   const { hasFetchedVaultsData } = useSelector(
-    (state: RootState) => state.loans
+    (state: RootState) => state.loans,
   );
 
   const [searchString, setSearchString] = useState("");
@@ -152,7 +152,7 @@ export function Vaults(props: VaultsProps): JSX.Element {
             <BottomSheetTokenListHeader
               headerLabel={translate(
                 "components/BottomSheetLoanTokensList",
-                "Select Token"
+                "Select Token",
               )}
               onCloseButtonPress={dismissModal}
             />
@@ -169,7 +169,7 @@ export function Vaults(props: VaultsProps): JSX.Element {
         fetchVaults({
           address,
           client,
-        })
+        }),
       );
     }
   }, [blockCount, address, isFocused]);
@@ -259,7 +259,7 @@ export function Vaults(props: VaultsProps): JSX.Element {
                 : translate(
                     "screens/LoansScreen",
                     "Search results for “{{searchTerm}}”",
-                    { searchTerm: debouncedSearchTerm }
+                    { searchTerm: debouncedSearchTerm },
                   )}
             </ThemedTextV2>
           )}
@@ -324,7 +324,7 @@ function CreateVaultButton(props: { onPress: () => void }): JSX.Element {
   return (
     <ThemedTouchableOpacityV2
       style={tailwind(
-        "w-10 h-10 ml-3 rounded-full items-center justify-center"
+        "w-10 h-10 ml-3 rounded-full items-center justify-center",
       )}
       light={tailwind("bg-mono-light-v2-900")}
       dark={tailwind("bg-mono-dark-v2-900")}
@@ -345,7 +345,7 @@ function CreateVaultButton(props: { onPress: () => void }): JSX.Element {
 function filterVaultsBySearchTerm(
   vaults: LoanVault[],
   searchTerm: string,
-  isFocused: boolean
+  isFocused: boolean,
 ): LoanVault[] {
   if (searchTerm === "") {
     return isFocused ? [] : vaults;
@@ -358,7 +358,7 @@ function filterVaultsBySearchTerm(
     //     ? vault.collateralAmounts.map((value) => value.displaySymbol)
     //     : [];
     return [t.vaultId].some((searchItem) =>
-      searchItem.toLowerCase().includes(searchTerm.trim().toLowerCase())
+      searchItem.toLowerCase().includes(searchTerm.trim().toLowerCase()),
     );
   });
 }

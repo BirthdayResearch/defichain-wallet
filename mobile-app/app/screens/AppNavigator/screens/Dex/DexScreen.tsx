@@ -18,7 +18,7 @@ import {
 } from "@components/themed";
 import { tailwind } from "@tailwind";
 import { translate } from "@translations";
-import { tokensSelector, WalletToken } from "@waveshq/walletkit-ui/dist/store";
+import { tokensSelector, WalletToken } from "@waveshq/walletkit-ui/store";
 import { RootState } from "@store";
 import { debounce } from "lodash";
 import { HeaderSearchInput } from "@components/HeaderSearchInput";
@@ -48,7 +48,7 @@ export function DexScreen(): JSX.Element {
   const navigation = useNavigation<NavigationProp<DexParamList>>();
   const [activeTab, setActiveTab] = useState<string>(TabKey.AvailablePoolPair);
   const tokens = useSelector((state: RootState) =>
-    tokensSelector(state.wallet)
+    tokensSelector(state.wallet),
   );
 
   const onButtonGroupChange = (buttonGroupTabKey: ButtonGroupTabKey): void => {
@@ -57,7 +57,7 @@ export function DexScreen(): JSX.Element {
   };
 
   const { poolpairs: pairs, hasFetchedPoolpairData } = useSelector(
-    (state: RootState) => state.wallet
+    (state: RootState) => state.wallet,
   );
   const yourLPTokens = useSelector(() => {
     const _yourLPTokens: Array<DexItem<WalletToken>> = tokens
@@ -156,7 +156,7 @@ export function DexScreen(): JSX.Element {
             .filter((pair) =>
               pair.data.displaySymbol
                 .toLowerCase()
-                .includes(searchString.trim().toLowerCase())
+                .includes(searchString.trim().toLowerCase()),
             )
             .sort(
               (firstPair, secondPair) =>
@@ -165,14 +165,14 @@ export function DexScreen(): JSX.Element {
                   .toNumber() ??
                 new BigNumber(secondPair.data.id)
                   .minus(firstPair.data.id)
-                  .toNumber()
-            )
+                  .toNumber(),
+            ),
         );
       } else {
         setFilteredAvailablePairs([]);
       }
     }, 500),
-    [activeTab, pairs]
+    [activeTab, pairs],
   );
 
   useEffect(() => {
@@ -211,7 +211,7 @@ export function DexScreen(): JSX.Element {
   }, [showSearchInput, searchString]);
 
   const [activeButtonGroup, setActiveButtonGroup] = useState<ButtonGroupTabKey>(
-    ButtonGroupTabKey.AllPairs
+    ButtonGroupTabKey.AllPairs,
   );
   const { isFavouritePoolpair, favouritePoolpairs } =
     useFavouritePoolpairContext();
@@ -250,11 +250,11 @@ export function DexScreen(): JSX.Element {
               .toNumber() ??
             new BigNumber(secondPair.data.id)
               .minus(firstPair.data.id)
-              .toNumber()
+              .toNumber(),
         );
       setFilteredAvailablePairs(filteredPairs);
     },
-    [pairs, favouritePoolpairs]
+    [pairs, favouritePoolpairs],
   );
 
   useEffect(() => {
@@ -293,7 +293,7 @@ export function DexScreen(): JSX.Element {
           new BigNumber(secondPair.data.totalLiquidity.usd ?? 0)
             .minus(firstPair.data.totalLiquidity.usd ?? 0)
             .toNumber() ??
-          new BigNumber(secondPair.data.id).minus(firstPair.data.id).toNumber()
+          new BigNumber(secondPair.data.id).minus(firstPair.data.id).toNumber(),
       )
       .slice(0, 5);
     setTopLiquidityPairs(sorted);
@@ -322,11 +322,11 @@ export function DexScreen(): JSX.Element {
               ? translate(
                   "screens/DexScreen",
                   "Search results for “{{input}}”",
-                  { input: searchString?.trim() }
+                  { input: searchString?.trim() },
                 )
               : translate(
                   "screens/DexScreen",
-                  "Search for pool pair with token name"
+                  "Search for pool pair with token name",
                 )}
           </ThemedTextV2>
         </View>
@@ -336,7 +336,7 @@ export function DexScreen(): JSX.Element {
             light={tailwind("bg-mono-light-v2-00 border-mono-light-v2-100")}
             dark={tailwind("bg-mono-dark-v2-00 border-mono-dark-v2-100")}
             style={tailwind(
-              "flex flex-col items-center pt-4 rounded-b-2xl border-b"
+              "flex flex-col items-center pt-4 rounded-b-2xl border-b",
             )}
           >
             <View style={tailwind("w-full px-5")}>
@@ -447,7 +447,7 @@ const DexFilterPillGroup = React.memo(
             horizontal
             showsHorizontalScrollIndicator={false}
             contentContainerStyle={tailwind(
-              "flex justify-between items-center flex-row px-5"
+              "flex justify-between items-center flex-row px-5",
             )}
           >
             <ThemedTouchableOpacityV2
@@ -479,5 +479,5 @@ const DexFilterPillGroup = React.memo(
         </ThemedViewV2>
       </View>
     );
-  }
+  },
 );

@@ -2,7 +2,7 @@ import { useFeatureFlagContext } from "@contexts/FeatureFlagContext";
 import { EnvironmentNetwork } from "@waveshq/walletkit-core";
 import { useNetworkContext } from "@waveshq/walletkit-ui";
 import { RootState } from "@store";
-import { tokenSelectorByDisplaySymbol } from "@waveshq/walletkit-ui/dist/store";
+import { tokenSelectorByDisplaySymbol } from "@waveshq/walletkit-ui/store";
 import BigNumber from "bignumber.js";
 import dayjs from "dayjs";
 import { useSelector } from "react-redux";
@@ -28,11 +28,14 @@ export function useFutureSwap(props: SwapType): {
   const fromTokenDetail = useSelector((state: RootState) =>
     tokenSelectorByDisplaySymbol(
       state.wallet,
-      props.fromTokenDisplaySymbol ?? ""
-    )
+      props.fromTokenDisplaySymbol ?? "",
+    ),
   );
   const toTokenDetail = useSelector((state: RootState) =>
-    tokenSelectorByDisplaySymbol(state.wallet, props.toTokenDisplaySymbol ?? "")
+    tokenSelectorByDisplaySymbol(
+      state.wallet,
+      props.toTokenDisplaySymbol ?? "",
+    ),
   );
   const { isFeatureAvailable } = useFeatureFlagContext();
   const isFutureSwapEnabled =
@@ -77,7 +80,7 @@ export function useFutureSwap(props: SwapType): {
 
 export function useFutureSwapDate(
   executionBlock: number,
-  blockCount: number
+  blockCount: number,
 ): {
   timeRemaining: string;
   transactionDate: string;
@@ -92,7 +95,7 @@ export function useFutureSwapDate(
       : 3;
   const blocksRemaining = BigNumber.max(
     executionBlock - blockCount,
-    0
+    0,
   ).toNumber();
   const blocksSeconds = blocksRemaining * secondsPerBlock;
   return {

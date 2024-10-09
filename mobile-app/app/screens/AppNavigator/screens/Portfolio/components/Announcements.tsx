@@ -8,7 +8,7 @@ import {
   ThemedViewV2,
 } from "@components/themed";
 import { tailwind } from "@tailwind";
-import { useGetAnnouncementsQuery } from "@waveshq/walletkit-ui/dist/store";
+import { useGetAnnouncementsQuery } from "@waveshq/walletkit-ui/store";
 import { AnnouncementData } from "@waveshq/walletkit-core";
 import { satisfies } from "semver";
 import { useLanguageContext } from "@shared-contexts/LanguageProvider";
@@ -70,25 +70,25 @@ export function Announcements(): JSX.Element {
     "0.0.0",
     language,
     hiddenAnnouncements,
-    emergencyMsgContent
+    emergencyMsgContent,
   );
   const blockchainIsDownAnnouncement = findDisplayedAnnouncementForVersion(
     "0.0.0",
     language,
     hiddenAnnouncements,
-    blockchainStatusAnnouncement
+    blockchainStatusAnnouncement,
   );
   const oceanIsDownAnnouncement = findDisplayedAnnouncementForVersion(
     "0.0.0",
     language,
     hiddenAnnouncements,
-    oceanStatusAnnouncement
+    oceanStatusAnnouncement,
   );
   const announcement = findDisplayedAnnouncementForVersion(
     nativeApplicationVersion ?? "0.0.0",
     language,
     hiddenAnnouncements,
-    announcements
+    announcements,
   );
 
   /*
@@ -265,7 +265,7 @@ export function AnnouncementBannerV2({
             "border-mono-dark-v2-900": isOtherAnnouncement && !isLight,
             "border-orange-v2": announcement.type === "OUTAGE",
             "border-red-v2": announcement.type === "EMERGENCY",
-          }
+          },
         ),
         containerStyle?.style,
       ]}
@@ -364,7 +364,7 @@ export function findDisplayedAnnouncementForVersion(
   version: string,
   language: string,
   hiddenAnnouncements: string[],
-  announcements?: AnnouncementData[]
+  announcements?: AnnouncementData[],
 ): Announcement | undefined {
   if (announcements === undefined || announcements.length === 0) {
     return;
@@ -393,7 +393,7 @@ export function findDisplayedAnnouncementForVersion(
 
 function getDisplayAnnouncement(
   hiddenAnnouncements: string[],
-  announcement: AnnouncementData
+  announcement: AnnouncementData,
 ): boolean {
   if (announcement === undefined) {
     return false;

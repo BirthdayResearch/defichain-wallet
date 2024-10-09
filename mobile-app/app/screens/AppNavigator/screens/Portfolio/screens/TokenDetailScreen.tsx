@@ -12,7 +12,7 @@ import {
   tokensSelector,
   unifiedDFISelector,
   WalletToken,
-} from "@waveshq/walletkit-ui/dist/store";
+} from "@waveshq/walletkit-ui/store";
 import {
   getMetaScanTokenUrl,
   useDeFiScanContext,

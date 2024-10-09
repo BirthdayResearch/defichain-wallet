@@ -19,7 +19,7 @@ import {
   useWalletPersistenceContext,
   WalletType,
 } from "@waveshq/walletkit-ui";
-import { useWhaleApiClient } from "@waveshq/walletkit-ui/dist/contexts";
+import { useWhaleApiClient } from "@waveshq/walletkit-ui/contexts";
 import { RootState } from "@store";
 import { authentication as authenticationStore } from "@store/authentication";
 import {
@@ -27,7 +27,7 @@ import {
   DfTxSigner,
   first,
   transactionQueue,
-} from "@waveshq/walletkit-ui/dist/store";
+} from "@waveshq/walletkit-ui/store";
 import { translate } from "@translations";
 import { useLogger } from "@shared-contexts/NativeLoggingProvider";
 import {

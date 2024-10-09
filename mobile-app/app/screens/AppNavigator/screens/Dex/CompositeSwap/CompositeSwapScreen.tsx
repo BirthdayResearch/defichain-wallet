@@ -17,7 +17,7 @@ import {
   DFITokenSelector,
   DFIUtxoSelector,
   tokensSelector,
-} from "@waveshq/walletkit-ui/dist/store";
+} from "@waveshq/walletkit-ui/store";
 import {
   queueConvertTransaction,
   useConversion,
@@ -26,7 +26,7 @@ import { useLogger } from "@shared-contexts/NativeLoggingProvider";
 import {
   useWhaleApiClient,
   useWhaleRpcClient,
-} from "@waveshq/walletkit-ui/dist/contexts";
+} from "@waveshq/walletkit-ui/contexts";
 import { PoolPairData } from "@defichain/whale-api-client/dist/api/poolpairs";
 import { StackScreenProps } from "@react-navigation/stack";
 import {
@@ -1113,8 +1113,8 @@ export function CompositeSwapScreen({ route }: Props): JSX.Element {
                     route.params.tokenSelectOption?.to?.isDisabled
                       ? TokenDropdownButtonStatus.Locked
                       : selectedTokenA === undefined || toTokens.length === 0
-                      ? TokenDropdownButtonStatus.Disabled
-                      : TokenDropdownButtonStatus.Enabled
+                        ? TokenDropdownButtonStatus.Disabled
+                        : TokenDropdownButtonStatus.Enabled
                   }
                 />
               </ThemedViewV2>

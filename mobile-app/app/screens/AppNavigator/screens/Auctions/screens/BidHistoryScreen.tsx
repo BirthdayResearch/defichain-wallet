@@ -10,7 +10,7 @@ import { useSelector } from "react-redux";
 import { useIsFocused } from "@react-navigation/native";
 import { RootState } from "@store";
 import { StackScreenProps } from "@react-navigation/stack";
-import { useWhaleApiClient } from "@waveshq/walletkit-ui/dist/contexts";
+import { useWhaleApiClient } from "@waveshq/walletkit-ui/contexts";
 import { VaultAuctionBatchHistory } from "@defichain/whale-api-client/dist/api/loan";
 import { auctions, fetchBidHistory } from "@store/auctions";
 import { useAppDispatch } from "@hooks/useAppDispatch";
@@ -32,7 +32,7 @@ export function BidHistoryScreen(props: BatchDetailScreenProps): JSX.Element {
   const blockCount = useSelector((state: RootState) => state.block.count) ?? 0;
   const isFocused = useIsFocused();
   const bidHistory = useSelector(
-    (state: RootState) => state.auctions.bidHistory
+    (state: RootState) => state.auctions.bidHistory,
   );
   const { getTokenPrice } = useTokenPrice();
 
@@ -45,7 +45,7 @@ export function BidHistoryScreen(props: BatchDetailScreenProps): JSX.Element {
           batchIndex: batch.index,
           client: client,
           size: 200,
-        })
+        }),
       );
     } else {
       dispatch(auctions.actions.resetBidHistory());
@@ -94,7 +94,7 @@ export function BidHistoryScreen(props: BatchDetailScreenProps): JSX.Element {
               bidderAddress={item.address}
               bidAmountInUSD={getTokenPrice(
                 batch.loan.symbol,
-                new BigNumber(item.amount)
+                new BigNumber(item.amount),
               )}
               bidBlockTime={item.block.time}
             />

@@ -24,7 +24,7 @@ import { useVaultStatus } from "@screens/AppNavigator/screens/Loans/components/V
 import { useNextCollateralizationRatio } from "@screens/AppNavigator/screens/Loans/hooks/NextCollateralizationRatio";
 import { useLoanOperations } from "@screens/AppNavigator/screens/Loans/hooks/LoanOperations";
 import { useAppDispatch } from "@hooks/useAppDispatch";
-import { useWhaleApiClient } from "@waveshq/walletkit-ui/dist/contexts";
+import { useWhaleApiClient } from "@waveshq/walletkit-ui/contexts";
 import { useIsFocused } from "@react-navigation/native";
 import { VaultDetailStatus } from "@screens/AppNavigator/screens/Loans/VaultDetail/components/VaultDetailStatus";
 import { VaultActionButtons } from "@screens/AppNavigator/screens/Loans/VaultDetail/components/VaultActionButtons";
@@ -69,27 +69,27 @@ export function VaultDetailScreen({ route, navigation }: Props): JSX.Element {
 
   const vaults = useSelector((state: RootState) => vaultsSelector(state.loans));
   const loanTokens = useSelector((state: RootState) =>
-    loanTokensSelector(state.loans)
+    loanTokensSelector(state.loans),
   );
 
   const inLiquidation = vault?.state === LoanVaultState.IN_LIQUIDATION;
   const totalLoanAmount = new BigNumber(
-    inLiquidation || vault === undefined ? 0 : vault?.loanValue
+    inLiquidation || vault === undefined ? 0 : vault?.loanValue,
   );
   const totalCollateralValue = new BigNumber(
-    inLiquidation || vault === undefined ? 0 : vault?.collateralValue
+    inLiquidation || vault === undefined ? 0 : vault?.collateralValue,
   );
   const minColRatio = new BigNumber(
-    vault === undefined ? 0 : vault?.loanScheme.minColRatio
+    vault === undefined ? 0 : vault?.loanScheme.minColRatio,
   );
   const vaultState = useVaultStatus(
     vault?.state,
     new BigNumber(
-      inLiquidation || vault === undefined ? 0 : vault?.informativeRatio
+      inLiquidation || vault === undefined ? 0 : vault?.informativeRatio,
     ),
     minColRatio,
     totalLoanAmount,
-    totalCollateralValue
+    totalCollateralValue,
   );
   const collateralAmounts =
     inLiquidation || vault === undefined ? [] : vault.collateralAmounts;
@@ -97,7 +97,7 @@ export function VaultDetailScreen({ route, navigation }: Props): JSX.Element {
     inLiquidation || vault === undefined ? [] : vault.loanAmounts;
   const nextCollateralizationRatio = useNextCollateralizationRatio(
     collateralAmounts,
-    loanAmounts
+    loanAmounts,
   );
   const maxLoanAmount = useMaxLoan({
     totalCollateralValue: totalCollateralValue,
@@ -156,7 +156,7 @@ export function VaultDetailScreen({ route, navigation }: Props): JSX.Element {
         title: translate("components/VaultCard", "Liquidated vault"),
         message: translate(
           "screens/VaultDetailScreen",
-          "Vault has been liquidated, and now available for auction. View your vault on DeFiScan for more details."
+          "Vault has been liquidated, and now available for auction. View your vault on DeFiScan for more details.",
         ),
         buttons: [
           {
@@ -200,7 +200,7 @@ export function VaultDetailScreen({ route, navigation }: Props): JSX.Element {
           },
         }),
         option: getBottomSheetHeader(
-          translate("screens/EditCollateralScreen", "Select Collateral")
+          translate("screens/EditCollateralScreen", "Select Collateral"),
         ),
       },
     ]);
@@ -209,7 +209,7 @@ export function VaultDetailScreen({ route, navigation }: Props): JSX.Element {
 
   const navigateToAddRemoveCollateralScreen = (
     collateralItem: CollateralItem | BottomSheetToken,
-    isAdd: boolean
+    isAdd: boolean,
   ) => {
     const addOrRemoveParams = {
       vault: vault as LoanVaultActive,
@@ -248,7 +248,7 @@ export function VaultDetailScreen({ route, navigation }: Props): JSX.Element {
           isLight,
         }),
         option: getBottomSheetHeader(
-          translate("components/BottomSheetLoanTokensList", "Select Token")
+          translate("components/BottomSheetLoanTokensList", "Select Token"),
         ),
       },
     ]);
@@ -270,7 +270,7 @@ export function VaultDetailScreen({ route, navigation }: Props): JSX.Element {
         component: BottomSheetPayBackList({
           onPress: (
             item: LoanVaultTokenAmount,
-            isPayDUSDUsingCollateral: boolean
+            isPayDUSDUsingCollateral: boolean,
           ) => {
             dismissModal();
             navigateToPayScreen(item, isPayDUSDUsingCollateral);
@@ -280,7 +280,7 @@ export function VaultDetailScreen({ route, navigation }: Props): JSX.Element {
           isLight: isLight,
         }),
         option: getBottomSheetHeader(
-          translate("screens/VaultDetailScreen", "Select Loan")
+          translate("screens/VaultDetailScreen", "Select Loan"),
         ),
       },
     ]);
@@ -289,7 +289,7 @@ export function VaultDetailScreen({ route, navigation }: Props): JSX.Element {
 
   const navigateToPayScreen = (
     loanToken: LoanVaultTokenAmount,
-    isPayDUSDUsingCollateral: boolean
+    isPayDUSDUsingCollateral: boolean,
   ) => {
     navigation.navigate({
       name: "PaybackLoanScreen",

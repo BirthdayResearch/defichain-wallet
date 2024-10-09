@@ -11,7 +11,7 @@ import {
   hasTxQueued,
   hasOceanTXQueued,
   tokensSelector,
-} from "@waveshq/walletkit-ui/dist/store";
+} from "@waveshq/walletkit-ui/store";
 import { translate } from "@translations";
 import { useBottomSheet } from "@hooks/useBottomSheet";
 import { NumericFormat as NumberFormat } from "react-number-format";
@@ -26,7 +26,7 @@ import {
   BottomSheetWithNav,
 } from "@components/BottomSheetWithNav";
 import { useLogger } from "@shared-contexts/NativeLoggingProvider";
-import { useWhaleApiClient } from "@waveshq/walletkit-ui/dist/contexts";
+import { useWhaleApiClient } from "@waveshq/walletkit-ui/contexts";
 import { useTokenPrice } from "@screens/AppNavigator/screens/Portfolio/hooks/TokenPrice";
 import {
   TokenDropdownButton,

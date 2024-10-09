@@ -13,13 +13,13 @@ import {
   ThemedTouchableOpacityV2,
   ThemedViewV2,
 } from "@components/themed";
-import { useWhaleApiClient } from "@waveshq/walletkit-ui/dist/contexts";
+import { useWhaleApiClient } from "@waveshq/walletkit-ui/contexts";
 import { RootState } from "@store";
 import {
   hasOceanTXQueued,
   hasTxQueued,
   tokensSelector,
-} from "@waveshq/walletkit-ui/dist/store";
+} from "@waveshq/walletkit-ui/store";
 import { getColor, tailwind } from "@tailwind";
 import { translate } from "@translations";
 import { useLogger } from "@shared-contexts/NativeLoggingProvider";
@@ -480,8 +480,8 @@ export function ConvertScreen(props: Props): JSX.Element {
             inlineTextStatus === InlineTextStatus.Error
               ? "Insufficient balance"
               : inlineTextStatus === InlineTextStatus.Warning
-              ? "A small amount of UTXO is reserved for fees"
-              : "",
+                ? "A small amount of UTXO is reserved for fees"
+                : "",
             {
               amount: new BigNumber(sourceToken.available).toFixed(8),
               unit: sourceToken.token.displaySymbol,

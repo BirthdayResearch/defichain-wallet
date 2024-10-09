@@ -1,4 +1,4 @@
-import { DfTxSigner } from "@waveshq/walletkit-ui/dist/store";
+import { DfTxSigner } from "@waveshq/walletkit-ui/store";
 import { WhaleWalletAccount } from "@defichain/whale-api-wallet";
 import { CTransactionSegWit } from "@defichain/jellyfish-transaction";
 import { Authentication } from "@store/authentication";
@@ -14,7 +14,7 @@ export async function execWithAutoRetries(
   promptPromise: () => Promise<any>,
   onAutoRetry: (attempts: number) => Promise<void>,
   retries: number = 0,
-  logger: NativeLoggingProps
+  logger: NativeLoggingProps,
 ): Promise<any> {
   try {
     return await promptPromise();
@@ -26,7 +26,7 @@ export async function execWithAutoRetries(
         promptPromise,
         onAutoRetry,
         retries,
-        logger
+        logger,
       );
     }
     throw e;
@@ -39,13 +39,13 @@ export async function signTransaction(
   account: WhaleWalletAccount,
   onAutoRetry: (attempts: number) => Promise<void>,
   retries: number = 0,
-  logger: NativeLoggingProps
+  logger: NativeLoggingProps,
 ): Promise<CTransactionSegWit> {
   return await execWithAutoRetries(
     async () => await tx.sign(account),
     onAutoRetry,
     retries,
-    logger
+    logger,
   );
 }
 
@@ -55,7 +55,7 @@ export async function authenticateFor<T>(
   authentication: Authentication<T>,
   onAutoRetry: (attempts: number) => Promise<void>,
   retries: number = 0,
-  logger: NativeLoggingProps
+  logger: NativeLoggingProps,
 ): Promise<void> {
   const customJob = async (): Promise<void> => {
     const passphrase = await promptPassphrase();
@@ -71,7 +71,7 @@ export function alertUnlinkWallet(): void {
     title: translate("screens/PinConfirmation", "Wallet Unlinked"),
     message: translate(
       "screens/PinConfirmation",
-      "Your wallet was unlinked for your safety due to successive passcode failures. Please use recovery words to restore and set up your wallet again."
+      "Your wallet was unlinked for your safety due to successive passcode failures. Please use recovery words to restore and set up your wallet again.",
     ),
     buttons: [
       {

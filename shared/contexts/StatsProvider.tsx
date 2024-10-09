@@ -2,11 +2,11 @@ import React, { useEffect, PropsWithChildren } from "react";
 import { useSelector } from "react-redux";
 import { isPlayground } from "@waveshq/walletkit-core";
 import { RootState } from "@store";
-import { block } from "@waveshq/walletkit-ui/dist/store/block";
+import { block } from "@waveshq/walletkit-ui/store/block";
 import { useNetworkContext } from "@waveshq/walletkit-ui";
 import { useLogger } from "@shared-contexts/NativeLoggingProvider";
 import { useAppDispatch } from "@hooks/useAppDispatch";
-import { useWhaleApiClient } from "@waveshq/walletkit-ui/dist/contexts";
+import { useWhaleApiClient } from "@waveshq/walletkit-ui/contexts";
 
 export function StatsProvider(
   props: PropsWithChildren<any>,
