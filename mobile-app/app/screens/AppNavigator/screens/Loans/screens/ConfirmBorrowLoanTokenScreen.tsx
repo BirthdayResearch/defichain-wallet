@@ -14,7 +14,7 @@ import {
   hasOceanTXQueued,
   transactionQueue,
   AddressType,
-} from "@waveshq/walletkit-ui/dist/store";
+} from "@waveshq/walletkit-ui/store";
 import { StackScreenProps } from "@react-navigation/stack";
 import {
   NativeLoggingProps,
@@ -29,7 +29,7 @@ import {
 import { onTransactionBroadcast } from "@api/transaction/transaction_commands";
 import { fetchVaults } from "@store/loans";
 import { useWalletContext } from "@shared-contexts/WalletContext";
-import { useWhaleApiClient } from "@waveshq/walletkit-ui/dist/contexts";
+import { useWhaleApiClient } from "@waveshq/walletkit-ui/contexts";
 import { getPrecisedCurrencyValue } from "@screens/AppNavigator/screens/Auctions/helpers/precision-token-value";
 import { useAppDispatch } from "@hooks/useAppDispatch";
 import { SummaryTitle } from "@components/SummaryTitle";
@@ -56,10 +56,10 @@ export function ConfirmBorrowLoanTokenScreen({
     resultingColRatio,
   } = route.params;
   const hasPendingJob = useSelector((state: RootState) =>
-    hasTxQueued(state.transactionQueue)
+    hasTxQueued(state.transactionQueue),
   );
   const hasPendingBroadcastJob = useSelector((state: RootState) =>
-    hasOceanTXQueued(state.ocean)
+    hasOceanTXQueued(state.ocean),
   );
   const dispatch = useAppDispatch();
   const logger = useLogger();
@@ -88,10 +88,10 @@ export function ConfirmBorrowLoanTokenScreen({
           fetchVaults({
             address,
             client,
-          })
+          }),
         );
       },
-      logger
+      logger,
     );
   }
 
@@ -108,7 +108,7 @@ export function ConfirmBorrowLoanTokenScreen({
         amount={new BigNumber(borrowAmount)}
         title={translate(
           "screens/ConfirmBorrowLoanTokenScreen",
-          "You are borrowing"
+          "You are borrowing",
         )}
         testID="text_borrow_amount"
         iconA={loanToken.token.displaySymbol}
@@ -117,7 +117,7 @@ export function ConfirmBorrowLoanTokenScreen({
         addressType={AddressType.WalletAddress}
         customToAddressTitle={translate(
           "screens/ConfirmBorrowLoanTokenScreen",
-          "On"
+          "On",
         )}
       />
       <HorizontalRule marginTop="pt-6" />
@@ -137,7 +137,7 @@ export function ConfirmBorrowLoanTokenScreen({
       >
         {translate(
           "screens/ConfirmBorrowLoanTokenScreen",
-          "Prices may vary during transaction confirmation."
+          "Prices may vary during transaction confirmation.",
         )}
       </ThemedTextV2>
       <SubmitButtonGroup
@@ -179,10 +179,10 @@ interface SummaryTransactionDetailsProps {
 }
 
 function SummaryTransactionDetails(
-  props: SummaryTransactionDetailsProps
+  props: SummaryTransactionDetailsProps,
 ): JSX.Element {
   const borrowAmountUSD = new BigNumber(props.borrowAmount).multipliedBy(
-    getActivePrice(props.loanToken.token.symbol, props.loanToken.activePrice)
+    getActivePrice(props.loanToken.token.symbol, props.loanToken.activePrice),
   );
   const { light, dark } = useCollateralizationRatioColor({
     colRatio: props.resultCollateralRatio,
@@ -195,7 +195,7 @@ function SummaryTransactionDetails(
         lhs={{
           value: translate(
             "screens/ConfirmBorrowLoanTokenScreen",
-            "Transaction fee"
+            "Transaction fee",
           ),
           testID: "transaction_fee",
           themedProps: {
@@ -230,7 +230,7 @@ function SummaryTransactionDetails(
         lhs={{
           value: translate(
             "screens/ConfirmBorrowLoanTokenScreen",
-            "Collateral ratio"
+            "Collateral ratio",
           ),
           testID: "col_ratio",
           themedProps: {
@@ -265,8 +265,8 @@ function SummaryTransactionDetails(
           value: getPrecisedCurrencyValue(
             getActivePrice(
               props.loanToken.token.symbol,
-              props.loanToken.activePrice
-            )
+              props.loanToken.activePrice,
+            ),
           ),
           testID: "price_value",
           prefix: "$",
@@ -303,8 +303,8 @@ function SummaryTransactionDetails(
             : props.annualInterest.multipliedBy(
                 getActivePrice(
                   props.loanToken.token.symbol,
-                  props.loanToken.activePrice
-                )
+                  props.loanToken.activePrice,
+                ),
               ),
           usdTextStyle: tailwind("text-sm mt-1"),
         }}
@@ -316,7 +316,7 @@ function SummaryTransactionDetails(
         lhs={{
           value: translate(
             "screens/ConfirmBorrowLoanTokenScreen",
-            "Amount to borrow"
+            "Amount to borrow",
           ),
           testID: "tokens_to_borrow",
           themedProps: {
@@ -350,11 +350,11 @@ async function borrowLoanToken(
   dispatch: Dispatch<any>,
   onBroadcast: () => void,
   onConfirmation: () => void,
-  logger: NativeLoggingProps
+  logger: NativeLoggingProps,
 ): Promise<void> {
   try {
     const signer = async (
-      account: WhaleWalletAccount
+      account: WhaleWalletAccount,
     ): Promise<CTransactionSegWit> => {
       const script = await account.getScript();
       const builder = account.withTransactionBuilder();
@@ -369,7 +369,7 @@ async function borrowLoanToken(
             },
           ],
         },
-        script
+        script,
       );
       return new CTransactionSegWit(signed);
     };
@@ -385,9 +385,9 @@ async function borrowLoanToken(
             symbol: loanToken.token.displaySymbol,
             vaultId: `${vaultId.slice(0, 4)}...${vaultId.slice(
               vaultId.length - 4,
-              vaultId.length
+              vaultId.length,
             )}`,
-          }
+          },
         ),
         drawerMessages: {
           preparing: translate("screens/OceanInterface", "Preparing loan…"),
@@ -397,7 +397,7 @@ async function borrowLoanToken(
             {
               amount: borrowAmount.toFixed(8),
               symbol: loanToken.token.displaySymbol,
-            }
+            },
           ),
           complete: translate(
             "screens/OceanInterface",
@@ -405,12 +405,12 @@ async function borrowLoanToken(
             {
               amount: borrowAmount.toFixed(8),
               symbol: loanToken.token.displaySymbol,
-            }
+            },
           ),
         },
         onBroadcast,
         onConfirmation,
-      })
+      }),
     );
   } catch (e) {
     logger.error(e);

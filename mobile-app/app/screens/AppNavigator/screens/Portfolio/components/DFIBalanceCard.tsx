@@ -4,7 +4,7 @@ import {
   DFITokenSelector,
   DFIUtxoSelector,
   unifiedDFISelector,
-} from "@waveshq/walletkit-ui/dist/store";
+} from "@waveshq/walletkit-ui/store";
 import { tailwind } from "@tailwind";
 import { TouchableOpacity, Text, View, Platform } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";

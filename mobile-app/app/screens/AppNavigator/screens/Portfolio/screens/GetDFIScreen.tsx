@@ -26,7 +26,7 @@ import { NumericFormat as NumberFormat } from "react-number-format";
 import BigNumber from "bignumber.js";
 import { useSelector } from "react-redux";
 import { RootState } from "@store";
-import { useWhaleApiClient } from "@waveshq/walletkit-ui/dist/contexts";
+import { useWhaleApiClient } from "@waveshq/walletkit-ui/contexts";
 import { PortfolioParamList } from "@screens/AppNavigator/screens/Portfolio/PortfolioNavigator";
 import { ConvertIcon } from "@components/icons/assets/ConvertIcon";
 import { DomainType, useDomainContext } from "@contexts/DomainContext";

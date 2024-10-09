@@ -1,5 +1,5 @@
 import { RootState } from "@store";
-import { tokenSelectorByDisplaySymbol } from "@waveshq/walletkit-ui/dist/store";
+import { tokenSelectorByDisplaySymbol } from "@waveshq/walletkit-ui/store";
 import { SvgProps } from "react-native-svg";
 import { useSelector } from "react-redux";
 import { DefaultLoanToken } from "./DefaultLoanToken";
@@ -8,7 +8,7 @@ import { DefaultToken } from "./DefaultToken";
 
 export function _Default(symbol: string): (props: SvgProps) => JSX.Element {
   const tokenDetail = useSelector((state: RootState) =>
-    tokenSelectorByDisplaySymbol(state.wallet, symbol)
+    tokenSelectorByDisplaySymbol(state.wallet, symbol),
   );
 
   if (tokenDetail?.isLoanToken) {

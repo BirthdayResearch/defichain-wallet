@@ -25,7 +25,7 @@ import {
   hasTxQueued,
   hasOceanTXQueued,
   DFITokenSelector,
-} from "@waveshq/walletkit-ui/dist/store";
+} from "@waveshq/walletkit-ui/store";
 import { ConversionInfoText } from "@components/ConversionInfoText";
 import {
   AmountButtonTypes,
@@ -89,13 +89,13 @@ export const AddOrRemoveCollateralForm = memo(
       collateralTokens,
     } = route.params;
     const hasPendingJob = useSelector((state: RootState) =>
-      hasTxQueued(state.transactionQueue)
+      hasTxQueued(state.transactionQueue),
     );
     const hasPendingBroadcastJob = useSelector((state: RootState) =>
-      hasOceanTXQueued(state.ocean)
+      hasOceanTXQueued(state.ocean),
     );
     const DFIToken = useSelector((state: RootState) =>
-      DFITokenSelector(state.wallet)
+      DFITokenSelector(state.wallet),
     );
     const { isFeatureAvailable } = useFeatureFlagContext();
 
@@ -166,19 +166,19 @@ export const AddOrRemoveCollateralForm = memo(
     const initialPrices = getCollateralPrice(
       new BigNumber(inputValue),
       collateralItem,
-      new BigNumber(vault.collateralValue)
+      new BigNumber(vault.collateralValue),
     );
     const totalCalculatedCollateralValue = isAdd
       ? new BigNumber(totalCollateralVaultValue).plus(
-          initialPrices?.collateralPrice
+          initialPrices?.collateralPrice,
         )
       : new BigNumber(totalCollateralVaultValue).minus(
-          initialPrices.collateralPrice
+          initialPrices.collateralPrice,
         );
     const prices = getCollateralPrice(
       totalAmount,
       collateralItem,
-      totalCalculatedCollateralValue
+      totalCalculatedCollateralValue,
     );
     const {
       requiredVaultShareTokens,
@@ -190,10 +190,10 @@ export const AddOrRemoveCollateralForm = memo(
       totalCalculatedCollateralValue,
       new BigNumber(vault.loanValue),
       token.id,
-      totalAmount
+      totalAmount,
     );
     const isValidCollateralRatio = requiredTokensShare?.gte(
-      minRequiredTokensShare
+      minRequiredTokensShare,
     );
     const removeMaxCollateralAmount =
       !isAdd &&
@@ -246,7 +246,7 @@ export const AddOrRemoveCollateralForm = memo(
               `How much {{symbol}} to ${isAdd ? "add" : "remove"}?`,
               {
                 symbol: token.displaySymbol,
-              }
+              },
             )}
           </ThemedText>
           {onCloseButtonPress !== undefined && (
@@ -276,7 +276,7 @@ export const AddOrRemoveCollateralForm = memo(
               displayType="text"
               suffix={`% ${translate(
                 "components/AddOrRemoveCollateralForm",
-                "collateral factor"
+                "collateral factor",
               )}`}
               renderText={(value) => (
                 <ThemedText
@@ -301,7 +301,7 @@ export const AddOrRemoveCollateralForm = memo(
           }}
           placeholder={translate(
             "components/AddOrRemoveCollateralForm",
-            "Enter an amount"
+            "Enter an amount",
           )}
           style={tailwind("h-9 w-6/12 flex-grow")}
           hasBottomSheet
@@ -329,7 +329,7 @@ export const AddOrRemoveCollateralForm = memo(
         <InputHelperText
           label={`${translate(
             "components/AddOrRemoveCollateralForm",
-            isAdd ? "Available" : "Current"
+            isAdd ? "Available" : "Current",
           )}: `}
           content={available}
           testID="form_balance_text"
@@ -347,7 +347,7 @@ export const AddOrRemoveCollateralForm = memo(
               {!new BigNumber(activePrice).isZero() && (
                 <NumberFormat
                   value={getPrecisedTokenValue(
-                    activePrice.multipliedBy(available)
+                    activePrice.multipliedBy(available),
                   )}
                   thousandSeparator
                   displayType="text"
@@ -370,19 +370,19 @@ export const AddOrRemoveCollateralForm = memo(
         {isFeatureAvailable("dusd_vault_share") ? (
           <View
             style={tailwind(
-              "flex justify-between items-center flex-row w-full"
+              "flex justify-between items-center flex-row w-full",
             )}
           >
             <ThemedText style={tailwind("mr-2 w-6/12")}>
               {translate(
                 "components/AddOrRemoveCollateralForm",
-                "Vault requirement"
+                "Vault requirement",
               )}
             </ThemedText>
 
             <ThemedView
               style={tailwind(
-                "flex flex-row items-center mb-0 p-1 rounded-2xl"
+                "flex flex-row items-center mb-0 p-1 rounded-2xl",
               )}
             >
               <TokenIconGroup
@@ -441,7 +441,7 @@ export const AddOrRemoveCollateralForm = memo(
             </ThemedText>
             <ThemedView
               style={tailwind(
-                "flex flex-row items-center mb-0 py-1 px-1.5 rounded-2xl"
+                "flex flex-row items-center mb-0 py-1 px-1.5 rounded-2xl",
               )}
             >
               <SymbolIcon symbol={token.displaySymbol} />
@@ -481,7 +481,7 @@ export const AddOrRemoveCollateralForm = memo(
           <ThemedText style={tailwind("mr-2")}>
             {translate(
               "components/AddOrRemoveCollateralForm",
-              "Resulting collateralization"
+              "Resulting collateralization",
             )}
           </ThemedText>
           {hasInvalidColRatio ? (
@@ -533,7 +533,7 @@ export const AddOrRemoveCollateralForm = memo(
           }
           label={translate(
             "components/AddOrRemoveCollateralForm",
-            isAdd ? "ADD TOKEN AS COLLATERAL" : "REMOVE COLLATERAL AMOUNT"
+            isAdd ? "ADD TOKEN AS COLLATERAL" : "REMOVE COLLATERAL AMOUNT",
           )}
           onPress={() =>
             onButtonPress({
@@ -557,7 +557,7 @@ export const AddOrRemoveCollateralForm = memo(
             >
               {translate(
                 "screens/BorrowLoanTokenScreen",
-                "Your vault needs at least 50% of DFI and/or DUSD as collateral"
+                "Your vault needs at least 50% of DFI and/or DUSD as collateral",
               )}
             </ThemedText>
           )}
@@ -568,12 +568,12 @@ export const AddOrRemoveCollateralForm = memo(
         >
           {translate(
             "components/AddOrRemoveCollateralForm",
-            "The collateral factor determines the degree of contribution of each collateral token."
+            "The collateral factor determines the degree of contribution of each collateral token.",
           )}
         </ThemedText>
       </ScrollView>
     );
-  }
+  },
 );
 
 function ColorBar(props: {

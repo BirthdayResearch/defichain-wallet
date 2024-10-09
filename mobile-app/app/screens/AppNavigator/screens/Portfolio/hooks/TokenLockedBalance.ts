@@ -1,7 +1,7 @@
 import { LoanVaultState } from "@defichain/whale-api-client/dist/api/loan";
 import { RootState } from "@store";
 import { vaultsSelector } from "@store/loans";
-import { dexPricesSelectorByDenomination } from "@waveshq/walletkit-ui/dist/store";
+import { dexPricesSelectorByDenomination } from "@waveshq/walletkit-ui/store";
 import BigNumber from "bignumber.js";
 import { clone } from "lodash";
 import { useCallback, useEffect, useState } from "react";
@@ -31,7 +31,7 @@ export function useTokenLockedBalance({
     useState<Map<string, LockedBalance>>();
   const { getTokenPrice } = useTokenPrice(denominationCurrency);
   const prices = useSelector((state: RootState) =>
-    dexPricesSelectorByDenomination(state.wallet, denominationCurrency)
+    dexPricesSelectorByDenomination(state.wallet, denominationCurrency),
   );
 
   useEffect(() => {
@@ -54,7 +54,7 @@ export function useTokenLockedBalance({
         };
         const tokenValue = getTokenPrice(
           collateral.symbol,
-          new BigNumber(collateral.amount)
+          new BigNumber(collateral.amount),
         );
         lockedBalance.set(collateral.displaySymbol, {
           amount: token.amount.plus(collateral.amount),

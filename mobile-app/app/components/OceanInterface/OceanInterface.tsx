@@ -6,7 +6,7 @@ import { useWalletContext } from "@shared-contexts/WalletContext";
 import {
   useNetworkContext,
   useWhaleApiClient,
-} from "@waveshq/walletkit-ui/dist/contexts";
+} from "@waveshq/walletkit-ui/contexts";
 import { CTransactionSegWit } from "@defichain/jellyfish-transaction/dist";
 import { WhaleApiClient } from "@defichain/whale-api-client";
 import { Transaction } from "@defichain/whale-api-client/dist/api/transactions";
@@ -17,7 +17,7 @@ import {
   ocean,
   OceanTransaction,
   TransactionStatusCode,
-} from "@waveshq/walletkit-ui/dist/store";
+} from "@waveshq/walletkit-ui/store";
 import { tailwind } from "@tailwind";
 import { translate } from "@translations";
 import { useCallback, useEffect, useRef, useState } from "react";

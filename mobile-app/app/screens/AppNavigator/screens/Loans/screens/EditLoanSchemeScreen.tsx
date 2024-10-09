@@ -17,11 +17,8 @@ import { NumericFormat as NumberFormat } from "react-number-format";
 import { useSelector } from "react-redux";
 import { RootState } from "@store";
 import { ascColRatioLoanScheme } from "@store/loans";
-import {
-  hasTxQueued,
-  hasOceanTXQueued,
-} from "@waveshq/walletkit-ui/dist/store";
-import { useWhaleApiClient } from "@waveshq/walletkit-ui/dist/contexts";
+import { hasTxQueued, hasOceanTXQueued } from "@waveshq/walletkit-ui/store";
+import { useWhaleApiClient } from "@waveshq/walletkit-ui/contexts";
 import { useLogger } from "@shared-contexts/NativeLoggingProvider";
 import { LoanSchemeOptions } from "@screens/AppNavigator/screens/Loans/components/LoanSchemeOptions";
 import { ButtonV2 } from "@components/ButtonV2";
@@ -39,10 +36,10 @@ export function EditLoanSchemeScreen({
   const { vaultId } = route.params;
   const { vaults } = useSelector((state: RootState) => state.loans);
   const loanSchemes = useSelector((state: RootState) =>
-    ascColRatioLoanScheme(state.loans)
+    ascColRatioLoanScheme(state.loans),
   );
   const hasFetchedLoanSchemes = useSelector(
-    (state: RootState) => state.loans.hasFetchedLoanSchemes
+    (state: RootState) => state.loans.hasFetchedLoanSchemes,
   );
   const [activeVault, setActiveVault] = useState<LoanVaultActive>();
   const [filteredLoanSchemes, setFilteredLoanSchemes] =
@@ -54,10 +51,10 @@ export function EditLoanSchemeScreen({
 
   // Continue button
   const hasPendingJob = useSelector((state: RootState) =>
-    hasTxQueued(state.transactionQueue)
+    hasTxQueued(state.transactionQueue),
   );
   const hasPendingBroadcastJob = useSelector((state: RootState) =>
-    hasOceanTXQueued(state.ocean)
+    hasOceanTXQueued(state.ocean),
   );
 
   const onSubmit = (): void => {
@@ -101,15 +98,15 @@ export function EditLoanSchemeScreen({
         const loanscheme: WalletLoanScheme = {
           disabled:
             new BigNumber(activeVault?.collateralRatio ?? NaN).isGreaterThan(
-              0
+              0,
             ) &&
             new BigNumber(activeVault?.collateralRatio ?? NaN).isLessThan(
-              scheme.minColRatio
+              scheme.minColRatio,
             ),
           ...scheme,
         };
         return loanscheme;
-      })
+      }),
     );
   }, [activeVault]);
 
@@ -155,7 +152,7 @@ export function EditLoanSchemeScreen({
           >
             {translate(
               "screens/EditLoanSchemeScreen",
-              "Review full details in the next screen"
+              "Review full details in the next screen",
             )}
           </ThemedTextV2>
         )}
@@ -189,7 +186,7 @@ function VaultDetail(props: { vault: LoanVaultActive }): JSX.Element {
     colRatio,
     minColRatio,
     totalLoanAmount,
-    totalCollateralValue
+    totalCollateralValue,
   );
 
   return (
@@ -229,7 +226,7 @@ function VaultDetail(props: { vault: LoanVaultActive }): JSX.Element {
                 "{{interestRate}}% Interest",
                 {
                   interestRate: vault.loanScheme.interestRate,
-                }
+                },
               )}
             </ThemedTextV2>
           </View>
@@ -253,7 +250,7 @@ function VaultDetail(props: { vault: LoanVaultActive }): JSX.Element {
                     {
                       "text-red-v2":
                         vaultState.status === VaultStatus.NearLiquidation,
-                    }
+                    },
                   )}
                   dark={tailwind(
                     "text-mono-dark-v2-900",
@@ -269,7 +266,7 @@ function VaultDetail(props: { vault: LoanVaultActive }): JSX.Element {
                     {
                       "text-red-v2":
                         vaultState.status === VaultStatus.NearLiquidation,
-                    }
+                    },
                   )}
                   style={tailwind("text-sm font-semibold-v2")}
                 >
@@ -280,14 +277,14 @@ function VaultDetail(props: { vault: LoanVaultActive }): JSX.Element {
                           .charAt(0)
                           .toUpperCase()}${vaultState.status
                           .slice(1)
-                          .toLowerCase()}`
+                          .toLowerCase()}`,
                       )
                     : `${val}%`}
                 </ThemedTextV2>
               )}
               thousandSeparator
               value={new BigNumber(
-                vault.informativeRatio === "-1" ? NaN : vault.informativeRatio
+                vault.informativeRatio === "-1" ? NaN : vault.informativeRatio,
               ).toFixed(2)}
             />
 
@@ -307,7 +304,7 @@ function VaultDetail(props: { vault: LoanVaultActive }): JSX.Element {
               )}
               thousandSeparator
               value={new BigNumber(vault.loanScheme.minColRatio ?? 0).toFixed(
-                0
+                0,
               )}
             />
           </View>
@@ -320,7 +317,7 @@ function VaultDetail(props: { vault: LoanVaultActive }): JSX.Element {
       >
         {translate(
           "screens/EditLoanSchemeScreen",
-          "You can only select a scheme lower than your vault's current collateralization."
+          "You can only select a scheme lower than your vault's current collateralization.",
         )}
       </ThemedTextV2>
     </View>

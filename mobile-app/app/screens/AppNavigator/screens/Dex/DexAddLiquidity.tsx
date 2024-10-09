@@ -19,7 +19,7 @@ import {
   WalletToken,
   hasTxQueued,
   hasOceanTXQueued,
-} from "@waveshq/walletkit-ui/dist/store";
+} from "@waveshq/walletkit-ui/store";
 import { useSelector } from "react-redux";
 import { RootState } from "@store";
 import {
@@ -403,15 +403,15 @@ export function AddLiquidityScreen(props: Props): JSX.Element {
       hasAError
         ? TransactionCardStatus.Error
         : isInputAFocus
-        ? TransactionCardStatus.Active
-        : undefined,
+          ? TransactionCardStatus.Active
+          : undefined,
     );
     setTokenBTransactionCardStatus(
       hasBError
         ? TransactionCardStatus.Error
         : isInputBFocus
-        ? TransactionCardStatus.Active
-        : undefined,
+          ? TransactionCardStatus.Active
+          : undefined,
     );
   }, [hasAError, hasBError, isInputAFocus, isInputBFocus]);
 

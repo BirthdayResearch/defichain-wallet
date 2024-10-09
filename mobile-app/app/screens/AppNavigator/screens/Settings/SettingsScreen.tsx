@@ -16,7 +16,7 @@ import {
 } from "@waveshq/walletkit-ui";
 import { StackScreenProps } from "@react-navigation/stack";
 import { authentication, Authentication } from "@store/authentication";
-import { ocean } from "@waveshq/walletkit-ui/dist/store";
+import { ocean } from "@waveshq/walletkit-ui/store";
 import { tailwind } from "@tailwind";
 import { getAppLanguages, translate } from "@translations";
 import { useCallback } from "react";

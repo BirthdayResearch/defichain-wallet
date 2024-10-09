@@ -17,7 +17,7 @@ import {
   hasTxQueued,
   hasOceanTXQueued,
   transactionQueue,
-} from "@waveshq/walletkit-ui/dist/store";
+} from "@waveshq/walletkit-ui/store";
 import { LoanScheme } from "@defichain/whale-api-client/dist/api/loan";
 import {
   NativeLoggingProps,
@@ -44,10 +44,10 @@ export function ConfirmEditLoanSchemeScreen({
 
   // Submit
   const hasPendingJob = useSelector((state: RootState) =>
-    hasTxQueued(state.transactionQueue)
+    hasTxQueued(state.transactionQueue),
   );
   const hasPendingBroadcastJob = useSelector((state: RootState) =>
-    hasOceanTXQueued(state.ocean)
+    hasOceanTXQueued(state.ocean),
   );
   const dispatch = useAppDispatch();
   const logger = useLogger();
@@ -76,7 +76,7 @@ export function ConfirmEditLoanSchemeScreen({
         onTransactionBroadcast(isOnPage, navigation.dispatch);
       },
       () => {},
-      logger
+      logger,
     );
   }
 
@@ -134,7 +134,7 @@ function SummaryHeader(props: {
       >
         {translate(
           "screens/ConfirmEditLoanSchemeScreen",
-          "You are editing loan scheme of"
+          "You are editing loan scheme of",
         )}
       </ThemedTextV2>
       <ThemedTextV2
@@ -158,7 +158,7 @@ function SummaryHeader(props: {
           dark={tailwind("bg-mono-dark-v2-200")}
           light={tailwind("bg-mono-light-v2-200")}
           style={tailwind(
-            "rounded-full pl-1 pr-2.5 py-1 flex flex-row items-center overflow-hidden ml-2"
+            "rounded-full pl-1 pr-2.5 py-1 flex flex-row items-center overflow-hidden ml-2",
           )}
         >
           <RandomAvatar name={props.address} size={20} />
@@ -191,7 +191,7 @@ interface SummaryTransactionDetailsProps {
 }
 
 function SummaryTransactionDetails(
-  props: SummaryTransactionDetailsProps
+  props: SummaryTransactionDetailsProps,
 ): JSX.Element {
   return (
     <View style={tailwind("mt-6")}>
@@ -204,7 +204,7 @@ function SummaryTransactionDetails(
           lhs={{
             value: translate(
               "screens/ConfirmEditLoanSchemeScreen",
-              "Prev. min. collateral ratio"
+              "Prev. min. collateral ratio",
             ),
             testID: "prev_min_col_ratio_label",
             themedProps: {
@@ -223,7 +223,7 @@ function SummaryTransactionDetails(
             lhs={{
               value: translate(
                 "screens/ConfirmEditLoanSchemeScreen",
-                "Prev. interest"
+                "Prev. interest",
               ),
               testID: "prev_vault_interest_label",
               themedProps: {
@@ -248,7 +248,7 @@ function SummaryTransactionDetails(
           lhs={{
             value: translate(
               "screens/ConfirmEditLoanSchemeScreen",
-              "New min. collateral ratio"
+              "New min. collateral ratio",
             ),
             testID: "new_min_col_ratio_label",
             themedProps: {
@@ -267,7 +267,7 @@ function SummaryTransactionDetails(
             lhs={{
               value: translate(
                 "screens/ConfirmEditLoanSchemeScreen",
-                "New vault interest"
+                "New vault interest",
               ),
               testID: "new_vault_interest_label",
               themedProps: {
@@ -292,7 +292,7 @@ function SummaryTransactionDetails(
           lhs={{
             value: translate(
               "screens/ConfirmEditLoanSchemeScreen",
-              "Transaction fee"
+              "Transaction fee",
             ),
             themedProps: {
               light: tailwind("text-mono-light-v2-500"),
@@ -324,11 +324,11 @@ async function editLoanScheme(
   dispatch: Dispatch<any>,
   onBroadcast: () => void,
   onConfirmation: () => void,
-  logger: NativeLoggingProps
+  logger: NativeLoggingProps,
 ): Promise<void> {
   try {
     const signer = async (
-      account: WhaleWalletAccount
+      account: WhaleWalletAccount,
     ): Promise<CTransactionSegWit> => {
       const script = await account.getScript();
       const builder = account.withTransactionBuilder();
@@ -338,7 +338,7 @@ async function editLoanScheme(
           ownerAddress: script,
           schemeId: loanScheme.id,
         },
-        script
+        script,
       );
       return new CTransactionSegWit(signed);
     };
@@ -346,7 +346,7 @@ async function editLoanScheme(
     const truncatedVaultIdFront = `${vaultId.substring(0, 3)}`;
     const truncatedVaultIdBack = `${vaultId.substring(
       vaultId.length - 3,
-      vaultId.length
+      vaultId.length,
     )}`;
 
     dispatch(
@@ -357,7 +357,7 @@ async function editLoanScheme(
           "Editing vault {{vaultId}}",
           {
             vaultId: `${truncatedVaultIdFront}...${truncatedVaultIdBack}`,
-          }
+          },
         ),
         drawerMessages: {
           waiting: translate(
@@ -365,19 +365,19 @@ async function editLoanScheme(
             "Editing vault {{vaultId}}",
             {
               vaultId: `${truncatedVaultIdFront}...${truncatedVaultIdBack}`,
-            }
+            },
           ),
           complete: translate(
             "screens/OceanInterface",
             "Edited vault {{vaultId}}",
             {
               vaultId: `${truncatedVaultIdFront}...${truncatedVaultIdBack}`,
-            }
+            },
           ),
         },
         onBroadcast,
         onConfirmation,
-      })
+      }),
     );
   } catch (e) {
     logger.error(e);

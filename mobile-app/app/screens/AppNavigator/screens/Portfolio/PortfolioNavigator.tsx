@@ -1,6 +1,6 @@
 import { NavigationProp, useNavigation } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
-import { AddressType, WalletToken } from "@waveshq/walletkit-ui/dist/store";
+import { AddressType, WalletToken } from "@waveshq/walletkit-ui/store";
 import BigNumber from "bignumber.js";
 import { Image } from "expo-image";
 import { Platform, View } from "react-native";

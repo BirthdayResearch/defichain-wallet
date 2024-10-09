@@ -1,7 +1,7 @@
 import { translate } from "@translations";
 import BigNumber from "bignumber.js";
 import { ethers, providers, utils } from "ethers";
-import { DfTxSigner } from "@waveshq/walletkit-ui/dist/store";
+import { DfTxSigner } from "@waveshq/walletkit-ui/store";
 import { WhaleWalletAccount } from "@defichain/whale-api-wallet";
 import {
   CTransactionSegWit,

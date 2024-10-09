@@ -10,7 +10,7 @@ import {
   hasOceanTXQueued,
   hasTxQueued,
   transactionQueue,
-} from "@waveshq/walletkit-ui/dist/store";
+} from "@waveshq/walletkit-ui/store";
 import { onTransactionBroadcast } from "@api/transaction/transaction_commands";
 import { WhaleWalletAccount } from "@defichain/whale-api-wallet";
 import { CTransactionSegWit } from "@defichain/jellyfish-transaction/dist";
@@ -39,10 +39,10 @@ type Props = StackScreenProps<LoanParamList, "CloseVaultScreen">;
 export function CloseVaultScreen({ route, navigation }: Props): JSX.Element {
   const { vaultId } = route.params;
   const hasPendingJob = useSelector((state: RootState) =>
-    hasTxQueued(state.transactionQueue)
+    hasTxQueued(state.transactionQueue),
   );
   const hasPendingBroadcastJob = useSelector((state: RootState) =>
-    hasOceanTXQueued(state.ocean)
+    hasOceanTXQueued(state.ocean),
   );
   const dispatch = useAppDispatch();
   const logger = useLogger();
@@ -62,7 +62,7 @@ export function CloseVaultScreen({ route, navigation }: Props): JSX.Element {
         onTransactionBroadcast(isOnPage, navigation.dispatch);
       },
       () => {},
-      logger
+      logger,
     );
   }
 
@@ -75,7 +75,7 @@ export function CloseVaultScreen({ route, navigation }: Props): JSX.Element {
 
   const truncatedVaultId = `${vaultId.substring(0, 3)}...${vaultId.substring(
     vaultId.length - 3,
-    vaultId.length
+    vaultId.length,
   )}`;
 
   return (
@@ -97,7 +97,7 @@ export function CloseVaultScreen({ route, navigation }: Props): JSX.Element {
         />
         <ThemedTextV2
           style={tailwind(
-            "mb-1 font-normal-v2 text-base mt-6 mx-7 text-center"
+            "mb-1 font-normal-v2 text-base mt-6 mx-7 text-center",
           )}
         >
           {translate(
@@ -105,7 +105,7 @@ export function CloseVaultScreen({ route, navigation }: Props): JSX.Element {
             "Are you sure you want to close your vault {{truncatedVaultId}}?",
             {
               truncatedVaultId,
-            }
+            },
           )}
         </ThemedTextV2>
         <SummaryDetails address={address} addressLabel={addressLabel} />
@@ -120,7 +120,7 @@ export function CloseVaultScreen({ route, navigation }: Props): JSX.Element {
         >
           {translate(
             "screens/CloseVaultScreen",
-            "All remaining collaterals will be returned to your wallet."
+            "All remaining collaterals will be returned to your wallet.",
           )}
         </ThemedTextV2>
         <SubmitButtonGroup
@@ -171,7 +171,7 @@ function SummaryDetails(props: {
           dark={tailwind("bg-mono-dark-v2-200")}
           light={tailwind("bg-mono-light-v2-200")}
           style={tailwind(
-            "rounded-full pl-1 pr-2.5 py-1 flex flex-row items-center overflow-hidden ml-2"
+            "rounded-full pl-1 pr-2.5 py-1 flex flex-row items-center overflow-hidden ml-2",
           )}
         >
           <RandomAvatar name={props.address} size={20} />
@@ -254,11 +254,11 @@ async function closeVault(
   dispatch: Dispatch<any>,
   onBroadcast: () => void,
   onConfirmation: () => void,
-  logger: NativeLoggingProps
+  logger: NativeLoggingProps,
 ): Promise<void> {
   try {
     const signer = async (
-      account: WhaleWalletAccount
+      account: WhaleWalletAccount,
     ): Promise<CTransactionSegWit> => {
       const script = await account.getScript();
       const builder = account.withTransactionBuilder();
@@ -267,14 +267,14 @@ async function closeVault(
           vaultId: vaultId,
           to: script,
         },
-        script
+        script,
       );
       return new CTransactionSegWit(signed);
     };
 
     const truncatedVaultId = `${vaultId.substring(0, 3)}...${vaultId.substring(
       vaultId.length - 3,
-      vaultId.length
+      vaultId.length,
     )}`;
 
     dispatch(
@@ -285,29 +285,29 @@ async function closeVault(
           "Closing vault {{vaultId}}",
           {
             vaultId: truncatedVaultId,
-          }
+          },
         ),
         drawerMessages: {
           preparing: translate(
             "screens/OceanInterface",
-            "Preparing to close vault…"
+            "Preparing to close vault…",
           ),
           waiting: translate(
             "screens/CloseVaultScreen",
             "Closing vault {{vaultId}}",
             {
               vaultId: truncatedVaultId,
-            }
+            },
           ),
           complete: translate(
             "screens/CloseVaultScreen",
             "Closed vault {{vaultId}}",
-            { vaultId: truncatedVaultId }
+            { vaultId: truncatedVaultId },
           ),
         },
         onBroadcast,
         onConfirmation,
-      })
+      }),
     );
   } catch (e) {
     logger.error(e);

@@ -16,7 +16,7 @@ import {
   hasTxQueued,
   hasOceanTXQueued,
   transactionQueue,
-} from "@waveshq/walletkit-ui/dist/store";
+} from "@waveshq/walletkit-ui/store";
 import { tailwind } from "@tailwind";
 import { translate } from "@translations";
 import { ScreenName } from "@screens/enum";
@@ -45,10 +45,10 @@ export function RemoveLiquidityConfirmScreen({ route }: Props): JSX.Element {
   const dispatch = useAppDispatch();
   const { getTokenPrice } = useTokenPrice();
   const hasPendingJob = useSelector((state: RootState) =>
-    hasTxQueued(state.transactionQueue)
+    hasTxQueued(state.transactionQueue),
   );
   const hasPendingBroadcastJob = useSelector((state: RootState) =>
-    hasOceanTXQueued(state.ocean)
+    hasOceanTXQueued(state.ocean),
   );
   const [isSubmitting, setIsSubmitting] = useState(false);
   const navigation = useNavigation<NavigationProp<DexParamList>>();
@@ -59,7 +59,7 @@ export function RemoveLiquidityConfirmScreen({ route }: Props): JSX.Element {
   const sharesUsdAmount = getTokenPrice(
     pair.symbol,
     new BigNumber(amount),
-    true
+    true,
   );
   useEffect(() => {
     setIsOnPage(true);
@@ -85,7 +85,7 @@ export function RemoveLiquidityConfirmScreen({ route }: Props): JSX.Element {
         title: translate("screens/Settings", "Cancel transaction"),
         message: translate(
           "screens/Settings",
-          "By cancelling, you will lose any changes you made for your transaction."
+          "By cancelling, you will lose any changes you made for your transaction.",
         ),
         buttons: [
           {
@@ -99,7 +99,7 @@ export function RemoveLiquidityConfirmScreen({ route }: Props): JSX.Element {
               navigation.navigate(
                 originScreen === ScreenName.DEX_screen
                   ? ScreenName.DEX_screen
-                  : ScreenName.PORTFOLIO_screen
+                  : ScreenName.PORTFOLIO_screen,
               );
             },
           },
@@ -121,7 +121,7 @@ export function RemoveLiquidityConfirmScreen({ route }: Props): JSX.Element {
           testID="text_remove_liquidity_amount"
           title={translate(
             "screens/ConfirmRemoveLiquidity",
-            "You are removing LP tokens"
+            "You are removing LP tokens",
           )}
         />
       </ThemedViewV2>
@@ -136,7 +136,7 @@ export function RemoveLiquidityConfirmScreen({ route }: Props): JSX.Element {
             lhs={{
               value: translate(
                 "screens/ConfirmRemoveLiquidity",
-                "Transaction fee"
+                "Transaction fee",
               ),
               themedProps: {
                 light: tailwind("text-mono-light-v2-500"),
@@ -185,12 +185,12 @@ export function RemoveLiquidityConfirmScreen({ route }: Props): JSX.Element {
                 "{{token}} to receive",
                 {
                   token: pair.tokenA.displaySymbol,
-                }
+                },
               ),
               value: BigNumber.max(tokenAAmount, 0).toFixed(8),
               symbolUSDValue: getTokenPrice(
                 pair.tokenA.symbol,
-                new BigNumber(tokenAAmount)
+                new BigNumber(tokenAAmount),
               ),
               usdTextStyle: tailwind("text-sm"),
             },
@@ -200,12 +200,12 @@ export function RemoveLiquidityConfirmScreen({ route }: Props): JSX.Element {
                 "{{token}} to receive",
                 {
                   token: pair.tokenB.displaySymbol,
-                }
+                },
               ),
               value: BigNumber.max(tokenBAmount, 0).toFixed(8),
               symbolUSDValue: getTokenPrice(
                 pair.tokenB.symbol,
-                new BigNumber(tokenBAmount)
+                new BigNumber(tokenBAmount),
               ),
               usdTextStyle: tailwind("text-sm"),
             },
@@ -215,7 +215,7 @@ export function RemoveLiquidityConfirmScreen({ route }: Props): JSX.Element {
           lhs={{
             value: translate(
               "screens/ConfirmRemoveLiquidity",
-              "LP tokens to remove"
+              "LP tokens to remove",
             ),
             themedProps: {
               light: tailwind("text-mono-light-v2-500"),
@@ -242,7 +242,7 @@ export function RemoveLiquidityConfirmScreen({ route }: Props): JSX.Element {
           isDisabled={isSubmitting || hasPendingJob || hasPendingBroadcastJob}
           label={translate(
             "screens/ConfirmRemoveLiquidity",
-            "Remove liquidity"
+            "Remove liquidity",
           )}
           onSubmit={onSubmit}
           onCancel={onCancel}
@@ -258,7 +258,7 @@ async function constructSignedRemoveLiqAndSend(
   pair: PoolPairData,
   amount: BigNumber,
   dispatch: Dispatch<any>,
-  onBroadcast: () => void
+  onBroadcast: () => void,
 ): Promise<void> {
   const tokenId = Number(pair.id);
   const symbol =
@@ -267,7 +267,7 @@ async function constructSignedRemoveLiqAndSend(
       : pair.symbol;
 
   const signer = async (
-    account: WhaleWalletAccount
+    account: WhaleWalletAccount,
   ): Promise<CTransactionSegWit> => {
     const builder = account.withTransactionBuilder();
     const script = await account.getScript();
@@ -290,12 +290,12 @@ async function constructSignedRemoveLiqAndSend(
         {
           symbol: symbol,
           amount: amount.toFixed(8),
-        }
+        },
       ),
       drawerMessages: {
         preparing: translate(
           "screens/OceanInterface",
-          "Preparing to remove liquidity…"
+          "Preparing to remove liquidity…",
         ),
         waiting: translate(
           "screens/OceanInterface",
@@ -303,7 +303,7 @@ async function constructSignedRemoveLiqAndSend(
           {
             symbol: symbol,
             amount: amount.toFixed(8),
-          }
+          },
         ),
         complete: translate(
           "screens/OceanInterface",
@@ -311,10 +311,10 @@ async function constructSignedRemoveLiqAndSend(
           {
             symbol: symbol,
             amount: amount.toFixed(8),
-          }
+          },
         ),
       },
       onBroadcast,
-    })
+    }),
   );
 }

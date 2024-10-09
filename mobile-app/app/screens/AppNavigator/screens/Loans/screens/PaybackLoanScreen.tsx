@@ -22,7 +22,7 @@ import {
   hasTxQueued,
   hasOceanTXQueued,
   tokensSelector,
-} from "@waveshq/walletkit-ui/dist/store";
+} from "@waveshq/walletkit-ui/store";
 import { useLoanOperations } from "@screens/AppNavigator/screens/Loans/hooks/LoanOperations";
 import { getActivePrice } from "@screens/AppNavigator/screens/Auctions/helpers/ActivePrice";
 import {
@@ -44,7 +44,7 @@ import { TextRowV2 } from "@components/TextRowV2";
 import { NumberRowV2 } from "@components/NumberRowV2";
 import { SubmitButtonGroup } from "@components/SubmitButtonGroup";
 import { useToast } from "react-native-toast-notifications";
-import { useWhaleApiClient } from "@waveshq/walletkit-ui/dist/contexts";
+import { useWhaleApiClient } from "@waveshq/walletkit-ui/contexts";
 import { useAppDispatch } from "@hooks/useAppDispatch";
 import { useLogger } from "@shared-contexts/NativeLoggingProvider";
 import { getTokenAmount } from "../hooks/LoanPaymentTokenRate";
@@ -410,8 +410,8 @@ export function PaybackLoanScreen({ navigation, route }: Props): JSX.Element {
               routeParams.isPaybackDUSDUsingCollateral
                 ? "Use your DUSD collaterals to fully pay off your DUSD loan."
                 : new BigNumber(loanTokenOutstandingBal).lt(amountToPay)
-                ? "Any excess payment will be returned."
-                : "Review full details in the next screen",
+                  ? "Any excess payment will be returned."
+                  : "Review full details in the next screen",
             )}
           </ThemedTextV2>
         )}

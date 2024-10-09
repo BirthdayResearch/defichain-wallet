@@ -4,7 +4,7 @@ import { tailwind } from "@tailwind";
 import { getNativeIcon } from "@components/icons/assets";
 import { translate } from "@translations";
 import { RandomAvatar } from "@screens/AppNavigator/screens/Portfolio/components/RandomAvatar";
-import { AddressType } from "@waveshq/walletkit-ui/dist/store";
+import { AddressType } from "@waveshq/walletkit-ui/store";
 import { LocalAddress, WhitelistedAddress } from "@store/userPreferences";
 import { DomainType } from "@contexts/DomainContext";
 

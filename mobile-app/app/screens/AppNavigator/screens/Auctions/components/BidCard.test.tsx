@@ -1,5 +1,5 @@
 import { RootState } from "@store";
-import { block } from "@waveshq/walletkit-ui/dist/store/block";
+import { block } from "@waveshq/walletkit-ui/store/block";
 import { render } from "@testing-library/react-native";
 
 import { Provider } from "react-redux";
@@ -82,7 +82,7 @@ describe("Bid Card", () => {
     const rendered = render(
       <Provider store={store}>
         <BidCard vaultId={vaultId} batch={batch} liquidationHeight={9870} />
-      </Provider>
+      </Provider>,
     );
     expect(rendered.toJSON()).toMatchSnapshot();
   });

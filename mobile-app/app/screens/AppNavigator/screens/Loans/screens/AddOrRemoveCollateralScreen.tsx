@@ -18,7 +18,7 @@ import {
   hasOceanTXQueued,
   DFITokenSelector,
   DFIUtxoSelector,
-} from "@waveshq/walletkit-ui/dist/store";
+} from "@waveshq/walletkit-ui/store";
 import {
   getPrecisedCurrencyValue,
   getPrecisedTokenValue,
@@ -47,7 +47,7 @@ import {
 import { CollateralFactorTag } from "@components/CollateralFactorTag";
 import { TextRowV2 } from "@components/TextRowV2";
 import { NumberRowV2 } from "@components/NumberRowV2";
-import { useWhaleApiClient } from "@waveshq/walletkit-ui/dist/contexts";
+import { useWhaleApiClient } from "@waveshq/walletkit-ui/contexts";
 import { useLogger } from "@shared-contexts/NativeLoggingProvider";
 import { useAppDispatch } from "@hooks/useAppDispatch";
 import { queueConvertTransaction } from "@hooks/wallet/Conversion";

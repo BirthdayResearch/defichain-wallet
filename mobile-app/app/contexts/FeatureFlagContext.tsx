@@ -6,7 +6,7 @@ import {
 import {
   useGetFeatureFlagsQuery,
   usePrefetch,
-} from "@waveshq/walletkit-ui/dist/store";
+} from "@waveshq/walletkit-ui/store";
 import { nativeApplicationVersion } from "expo-application";
 import {
   createContext,

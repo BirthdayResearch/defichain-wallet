@@ -3,8 +3,8 @@ import { fireEvent, render } from "@testing-library/react-native";
 import * as Clipboard from "expo-clipboard";
 import { Provider } from "react-redux";
 import { RootState } from "@store";
-import { wallet } from "@waveshq/walletkit-ui/dist/store";
-import { block } from "@waveshq/walletkit-ui/dist/store/block";
+import { wallet } from "@waveshq/walletkit-ui/store";
+import { block } from "@waveshq/walletkit-ui/store/block";
 import { GetDFIScreen } from "./GetDFIScreen";
 
 jest.mock("@shared-contexts/WalletContext");
@@ -15,7 +15,7 @@ jest.mock("expo-clipboard", () => ({
   setStringAsync: jest.fn(),
 }));
 
-jest.mock("@waveshq/walletkit-ui/dist/contexts", () => ({
+jest.mock("@waveshq/walletkit-ui/contexts", () => ({
   useWhaleApiClient: () => ({
     prices: {
       get: async () => ({

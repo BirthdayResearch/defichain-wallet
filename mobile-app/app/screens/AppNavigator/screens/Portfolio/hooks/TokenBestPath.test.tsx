@@ -3,7 +3,7 @@ import { Provider } from "react-redux";
 import { configureStore } from "@reduxjs/toolkit";
 import { renderHook } from "@testing-library/react-native";
 import BigNumber from "bignumber.js";
-import { block, DexItem, wallet } from "@waveshq/walletkit-ui/dist/store";
+import { block, DexItem, wallet } from "@waveshq/walletkit-ui/store";
 import { useTokenBestPath } from "./TokenBestPath";
 
 jest.mock("@react-navigation/native", () => ({
@@ -231,7 +231,7 @@ describe("Token Best Path - Get Best Path (DEX)", () => {
     const priceA = await result.current.calculatePriceRates(
       "1",
       "3",
-      new BigNumber("2")
+      new BigNumber("2"),
     );
 
     // Swap through BTC to USDT through BTC -> DFI -> USDT
@@ -246,7 +246,7 @@ describe("Token Best Path - Get Best Path (DEX)", () => {
     const priceB = await result.current.calculatePriceRates(
       "3",
       "1",
-      new BigNumber("1")
+      new BigNumber("1"),
     );
     expect(priceB).toStrictEqual({
       aToBPrice: new BigNumber("0.0001"),

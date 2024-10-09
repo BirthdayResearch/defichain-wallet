@@ -25,7 +25,7 @@ import {
   hasOceanTXQueued,
   hasTxQueued,
   wallet as walletReducer,
-} from "@waveshq/walletkit-ui/dist/store";
+} from "@waveshq/walletkit-ui/store";
 import { useSelector } from "react-redux";
 import { loans } from "@store/loans";
 import { RootState } from "@store";

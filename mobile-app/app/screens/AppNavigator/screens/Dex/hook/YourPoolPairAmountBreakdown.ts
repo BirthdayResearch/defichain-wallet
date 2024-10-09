@@ -1,5 +1,5 @@
 import { RootState } from "@store";
-import { WalletToken } from "@waveshq/walletkit-ui/dist/store";
+import { WalletToken } from "@waveshq/walletkit-ui/store";
 import BigNumber from "bignumber.js";
 import { useSelector } from "react-redux";
 
@@ -12,7 +12,7 @@ interface AmountBreakdown {
  * To return estimated token breakdown for Your pool pair based on reserve of token A and B and total pool pair amount
  */
 export function useYourPoolPairAmountBreakdown(
-  yourPoolPair: WalletToken
+  yourPoolPair: WalletToken,
 ): AmountBreakdown {
   const { poolpairs: pairs } = useSelector((state: RootState) => state.wallet);
   const poolPairData = pairs.find((pr) => pr.data.id === yourPoolPair.id)?.data;

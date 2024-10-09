@@ -2,20 +2,20 @@ import { useCallback } from "react";
 import BigNumber from "bignumber.js";
 import { RootState } from "@store";
 import { useSelector } from "react-redux";
-import { dexPricesSelectorByDenomination } from "@waveshq/walletkit-ui/dist/store";
+import { dexPricesSelectorByDenomination } from "@waveshq/walletkit-ui/store";
 
 interface TokenPrice {
   getTokenPrice: (
     symbol: string,
     amount: BigNumber,
-    isLPS?: boolean
+    isLPS?: boolean,
   ) => BigNumber;
 }
 
 export function useTokenPrice(denominationTokenSymbol = "USDT"): TokenPrice {
   const blockCount = useSelector((state: RootState) => state.block.count);
   const prices = useSelector((state: RootState) =>
-    dexPricesSelectorByDenomination(state.wallet, denominationTokenSymbol)
+    dexPricesSelectorByDenomination(state.wallet, denominationTokenSymbol),
   );
   const pairs = useSelector((state: RootState) => state.wallet.poolpairs);
 
@@ -39,7 +39,7 @@ export function useTokenPrice(denominationTokenSymbol = "USDT"): TokenPrice {
           return new BigNumber("");
         }
         const ratioToTotal = new BigNumber(amount).div(
-          pair.data.totalLiquidity.token
+          pair.data.totalLiquidity.token,
         );
         const tokenAAmount = ratioToTotal
           .times(pair.data.tokenA.reserve)
@@ -52,10 +52,10 @@ export function useTokenPrice(denominationTokenSymbol = "USDT"): TokenPrice {
         return usdTokenA.plus(usdTokenB);
       }
       return new BigNumber(prices[symbol]?.denominationPrice ?? 0).multipliedBy(
-        amount
+        amount,
       );
     },
-    [prices, pairs, blockCount]
+    [prices, pairs, blockCount],
   );
 
   return {

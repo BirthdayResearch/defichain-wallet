@@ -10,7 +10,7 @@ import {
   hasTxQueued,
   hasOceanTXQueued,
   transactionQueue,
-} from "@waveshq/walletkit-ui/dist/store";
+} from "@waveshq/walletkit-ui/store";
 import { tailwind } from "@tailwind";
 import { translate } from "@translations";
 import {

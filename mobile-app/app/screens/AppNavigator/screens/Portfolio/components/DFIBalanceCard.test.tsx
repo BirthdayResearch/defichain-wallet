@@ -1,9 +1,9 @@
 import { render } from "@testing-library/react-native";
 import { RootState } from "@store";
-import { setTokenSymbol, wallet } from "@waveshq/walletkit-ui/dist/store";
+import { setTokenSymbol, wallet } from "@waveshq/walletkit-ui/store";
 import { Provider } from "react-redux";
 import { configureStore } from "@reduxjs/toolkit";
-import { block } from "@waveshq/walletkit-ui/dist/store/block";
+import { block } from "@waveshq/walletkit-ui/store/block";
 import { loans } from "@store/loans";
 import { LoanVaultState } from "@defichain/whale-api-client/dist/api/loan";
 import { evm } from "@store/evm";

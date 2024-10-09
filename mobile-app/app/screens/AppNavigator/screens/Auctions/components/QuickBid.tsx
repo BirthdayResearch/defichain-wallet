@@ -11,11 +11,11 @@ import { LoanVaultLiquidated } from "@defichain/whale-api-client/dist/api/loan";
 import { useSelector } from "react-redux";
 import { RootState } from "@store";
 import { useLogger } from "@shared-contexts/NativeLoggingProvider";
-import { useWhaleApiClient } from "@waveshq/walletkit-ui/dist/contexts";
+import { useWhaleApiClient } from "@waveshq/walletkit-ui/contexts";
 import { NumericFormat as NumberFormat } from "react-number-format";
 import { NumberRowV2 } from "@components/NumberRowV2";
 import { ButtonV2 } from "@components/ButtonV2";
-import { tokensSelector } from "@waveshq/walletkit-ui/dist/store";
+import { tokensSelector } from "@waveshq/walletkit-ui/store";
 import { ScrollView } from "react-native-gesture-handler";
 import { useSignBidAndSend } from "../hooks/SignBidAndSend";
 import { useAuctionTime } from "../hooks/AuctionTimeLeft";
@@ -46,7 +46,7 @@ export const QuickBid = ({
 }: QuickBidProps): React.MemoExoticComponent<() => JSX.Element> =>
   memo(() => {
     const tokens = useSelector((state: RootState) =>
-      tokensSelector(state.wallet)
+      tokensSelector(state.wallet),
     );
     const ownedToken = tokens.find((token) => token.id === loanTokenId);
     const currentBalance = new BigNumber(ownedToken?.amount ?? 0);
@@ -55,7 +55,7 @@ export const QuickBid = ({
     const [fee, setFee] = useState<BigNumber>(new BigNumber(0.0001));
     const { blocksRemaining } = useAuctionTime(
       vaultLiquidationHeight,
-      blockCount
+      blockCount,
     );
     const isBalanceSufficient = currentBalance.gte(minNextBid);
     const { hasPendingJob, hasPendingBroadcastJob, constructSignedBidAndSend } =
@@ -70,7 +70,7 @@ export const QuickBid = ({
     }, []);
 
     const displayHigherBidWarning = new BigNumber(minNextBidInUSD).gte(
-      new BigNumber(totalCollateralsValueInUSD).times(1.2)
+      new BigNumber(totalCollateralsValueInUSD).times(1.2),
     );
     const onQuickBid = async (): Promise<void> => {
       await constructSignedBidAndSend({
@@ -92,7 +92,7 @@ export const QuickBid = ({
         style={tailwind(
           "flex-1",
           { "-mt-0.5": Platform.OS === "ios" },
-          { "-mt-1": Platform.OS === "android" }
+          { "-mt-1": Platform.OS === "android" },
         )}
       >
         {/* -mt-1 above and mt-1 added below is kind of hack to solved React Navigation elevation bug on android for now. */}
@@ -100,7 +100,7 @@ export const QuickBid = ({
           style={tailwind(
             "flex-1",
             { "mt-1": Platform.OS === "ios" },
-            { "mt-2": Platform.OS === "android" }
+            { "mt-2": Platform.OS === "android" },
           )}
         >
           <ScrollView contentContainerStyle={tailwind("pb-8")}>
@@ -120,7 +120,7 @@ export const QuickBid = ({
                       light={tailwind("text-mono-light-v2-900")}
                       dark={tailwind("text-mono-dark-v2-900")}
                       style={tailwind(
-                        "text-lg font-semibold-v2 flex-wrap ml-2"
+                        "text-lg font-semibold-v2 flex-wrap ml-2",
                       )}
                       testID="quick_bid_min_next_bid_amount"
                     >
@@ -139,7 +139,7 @@ export const QuickBid = ({
                     light={tailwind("text-mono-light-v2-500")}
                     dark={tailwind("text-mono-dark-v2-500")}
                     style={tailwind(
-                      "text-sm flex-wrap text-center font-normal-v2"
+                      "text-sm flex-wrap text-center font-normal-v2",
                     )}
                     testID="quick_bid_min_next_bid_value"
                   >
@@ -159,7 +159,7 @@ export const QuickBid = ({
                       light={tailwind("text-mono-light-v2-500")}
                       dark={tailwind("text-mono-dark-v2-500")}
                       style={tailwind(
-                        "text-sm flex-wrap text-center font-normal-v2"
+                        "text-sm flex-wrap text-center font-normal-v2",
                       )}
                       testID="available_token_balance"
                     >
@@ -181,7 +181,7 @@ export const QuickBid = ({
                     lhs={{
                       value: translate(
                         "components/QuickBid",
-                        "Transaction fee"
+                        "Transaction fee",
                       ),
                       testID: "transaction_fee_label",
                       themedProps: {
@@ -212,19 +212,19 @@ export const QuickBid = ({
                         renderText={(value: string) => (
                           <Text
                             style={tailwind(
-                              "text-center font-normal-v2 text-xs text-orange-v2"
+                              "text-center font-normal-v2 text-xs text-orange-v2",
                             )}
                           >
                             {translate(
                               "components/QuickBid",
                               "Your bid is higher than the auction's collateral value of {{currency}}{{amount}}",
-                              { amount: value, currency: "$" }
+                              { amount: value, currency: "$" },
                             )}
                           </Text>
                         )}
                         thousandSeparator
                         value={getPrecisedTokenValue(
-                          totalCollateralsValueInUSD
+                          totalCollateralsValueInUSD,
                         )}
                       />
                     )}
@@ -232,13 +232,13 @@ export const QuickBid = ({
                 ) : (
                   <Text
                     style={tailwind(
-                      "text-center font-normal-v2 text-xs text-red-v2"
+                      "text-center font-normal-v2 text-xs text-red-v2",
                     )}
                   >
                     {translate(
                       "components/QuickBid",
                       "Insufficient {{symbol}} balance",
-                      { symbol: loanTokenDisplaySymbol }
+                      { symbol: loanTokenDisplaySymbol },
                     )}
                   </Text>
                 )}

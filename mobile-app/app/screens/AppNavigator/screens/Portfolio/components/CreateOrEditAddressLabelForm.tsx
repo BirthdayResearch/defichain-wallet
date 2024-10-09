@@ -22,7 +22,7 @@ import { DomainType, useDomainContext } from "@contexts/DomainContext";
 import { useWalletContext } from "@shared-contexts/WalletContext";
 import { useAppDispatch } from "@hooks/useAppDispatch";
 import { WhaleWalletAccount } from "@defichain/whale-api-wallet";
-import { transactionQueue } from "@waveshq/walletkit-ui/dist/store";
+import { transactionQueue } from "@waveshq/walletkit-ui/store";
 import { CTransactionSegWit } from "@defichain/jellyfish-transaction/dist";
 import { ButtonV2 } from "@components/ButtonV2";
 import { debounce } from "lodash";

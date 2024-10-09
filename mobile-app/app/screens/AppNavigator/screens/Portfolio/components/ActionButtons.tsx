@@ -5,10 +5,7 @@ import {
   ThemedTextV2,
   ThemedTouchableOpacityV2,
 } from "@components/themed";
-import {
-  DFITokenSelector,
-  DFIUtxoSelector,
-} from "@waveshq/walletkit-ui/dist/store";
+import { DFITokenSelector, DFIUtxoSelector } from "@waveshq/walletkit-ui/store";
 import { useFeatureFlagContext } from "@contexts/FeatureFlagContext";
 import { NavigationProp, useNavigation } from "@react-navigation/native";
 import { RootState } from "@store";

@@ -22,7 +22,7 @@ import {
   BottomSheetTokenList,
   TokenType,
 } from "@components/BottomSheetTokenList";
-import { useWhaleApiClient } from "@waveshq/walletkit-ui/dist/contexts";
+import { useWhaleApiClient } from "@waveshq/walletkit-ui/contexts";
 import { useSelector } from "react-redux";
 import { RootState } from "@store";
 import { fetchCollateralTokens } from "@store/loans";
@@ -138,7 +138,7 @@ export function EditCollateralScreen({
                     <BottomSheetTokenListHeader
                       headerLabel={translate(
                         "screens/EditCollateralScreen",
-                        "Select Collateral"
+                        "Select Collateral",
                       )}
                       onCloseButtonPress={dismissModal}
                     />
@@ -154,7 +154,7 @@ export function EditCollateralScreen({
         )}
         {activeVault.collateralAmounts.map((collateral, index) => {
           const collateralItem = collateralTokens.find(
-            (col) => col.token.id === collateral.id
+            (col) => col.token.id === collateral.id,
           );
           if (collateralItem !== undefined) {
             const addOrRemoveParams = {
@@ -244,7 +244,7 @@ function VaultIdSection(props: { vault: LoanVaultActive }): JSX.Element {
     colRatio,
     minColRatio,
     totalLoanAmount,
-    totalCollateralValue
+    totalCollateralValue,
   );
   const colors = useCollateralizationRatioColor({
     colRatio,
@@ -280,7 +280,7 @@ function VaultIdSection(props: { vault: LoanVaultActive }): JSX.Element {
         value={getPrecisedTokenValue(vault.collateralValue ?? 0)}
         lhs={translate(
           "screens/EditCollateralScreen",
-          "Total collateral (USD)"
+          "Total collateral (USD)",
         )}
         isOraclePrice
       />
@@ -294,7 +294,7 @@ function VaultIdSection(props: { vault: LoanVaultActive }): JSX.Element {
       <VaultSectionTextRow
         testID="text_col_ratio_value"
         value={new BigNumber(
-          vault.informativeRatio === "-1" ? NaN : vault.informativeRatio
+          vault.informativeRatio === "-1" ? NaN : vault.informativeRatio,
         ).toFixed(2)}
         suffix={
           vault.informativeRatio === "-1"
@@ -304,7 +304,7 @@ function VaultIdSection(props: { vault: LoanVaultActive }): JSX.Element {
         suffixType="text"
         lhs={translate(
           "screens/EditCollateralScreen",
-          "Collateralization ratio"
+          "Collateralization ratio",
         )}
         rhsThemedProps={colors}
         info={{
@@ -320,7 +320,7 @@ function VaultIdSection(props: { vault: LoanVaultActive }): JSX.Element {
         suffixType="text"
         lhs={translate(
           "screens/EditCollateralScreen",
-          "Min. collateralization ratio"
+          "Min. collateralization ratio",
         )}
         info={{
           title: "Min. collateralization ratio",
@@ -359,7 +359,7 @@ function CollateralCard(props: CollateralCardProps): JSX.Element {
   const prices = getCollateralPrice(
     new BigNumber(collateral.amount),
     collateralItem,
-    totalCollateralValue
+    totalCollateralValue,
   );
   return (
     <ThemedView
@@ -371,7 +371,7 @@ function CollateralCard(props: CollateralCardProps): JSX.Element {
         light={tailwind("bg-white border-gray-200")}
         dark={tailwind("bg-gray-800 border-gray-700")}
         style={tailwind(
-          "flex flex-row items-center justify-between border-b pb-4 mb-2"
+          "flex flex-row items-center justify-between border-b pb-4 mb-2",
         )}
       >
         <View style={tailwind("flex flex-row items-center")}>

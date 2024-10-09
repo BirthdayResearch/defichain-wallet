@@ -8,7 +8,7 @@ import {
   wallet,
   announcementWebsiteSlice,
   statusWebsiteSlice,
-} from "@waveshq/walletkit-ui/dist/store";
+} from "@waveshq/walletkit-ui/store";
 import { authentication } from "./authentication";
 import { loans } from "./loans";
 import { auctions } from "./auctions";

@@ -8,10 +8,7 @@ import { useLogger } from "@shared-contexts/NativeLoggingProvider";
 import { useAppDispatch } from "@hooks/useAppDispatch";
 import { useSelector } from "react-redux";
 import { RootState } from "@store";
-import {
-  hasTxQueued,
-  hasOceanTXQueued,
-} from "@waveshq/walletkit-ui/dist/store";
+import { hasTxQueued, hasOceanTXQueued } from "@waveshq/walletkit-ui/store";
 import { useServiceProviderContext } from "@waveshq/walletkit-ui";
 import { ButtonV2 } from "@components/ButtonV2";
 import {

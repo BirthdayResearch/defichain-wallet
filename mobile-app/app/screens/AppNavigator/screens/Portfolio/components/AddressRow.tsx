@@ -1,7 +1,7 @@
 import { View } from "react-native";
 import { tailwind } from "@tailwind";
 import { translate } from "@translations";
-import { AddressType } from "@waveshq/walletkit-ui/dist/store";
+import { AddressType } from "@waveshq/walletkit-ui/store";
 import {
   ThemedIcon,
   ThemedTextV2,

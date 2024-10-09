@@ -20,7 +20,7 @@ import {
   hasTxQueued,
   hasOceanTXQueued,
   transactionQueue,
-} from "@waveshq/walletkit-ui/dist/store";
+} from "@waveshq/walletkit-ui/store";
 import { tailwind } from "@tailwind";
 import { translate } from "@translations";
 import { onTransactionBroadcast } from "@api/transaction/transaction_commands";
@@ -42,10 +42,10 @@ type Props = StackScreenProps<DexParamList, "ConfirmAddLiquidity">;
 
 export function ConfirmAddLiquidityScreen({ route }: Props): JSX.Element {
   const hasPendingJob = useSelector((state: RootState) =>
-    hasTxQueued(state.transactionQueue)
+    hasTxQueued(state.transactionQueue),
   );
   const hasPendingBroadcastJob = useSelector((state: RootState) =>
-    hasOceanTXQueued(state.ocean)
+    hasOceanTXQueued(state.ocean),
   );
   const {
     pair,
@@ -89,7 +89,7 @@ export function ConfirmAddLiquidityScreen({ route }: Props): JSX.Element {
       () => {
         onTransactionBroadcast(isOnPage, navigation.dispatch);
       },
-      logger
+      logger,
     );
     setIsSubmitting(false);
   }
@@ -100,7 +100,7 @@ export function ConfirmAddLiquidityScreen({ route }: Props): JSX.Element {
         title: translate("screens/Settings", "Cancel transaction"),
         message: translate(
           "screens/Settings",
-          "By cancelling, you will lose any changes you made for your transaction."
+          "By cancelling, you will lose any changes you made for your transaction.",
         ),
         buttons: [
           {
@@ -114,7 +114,7 @@ export function ConfirmAddLiquidityScreen({ route }: Props): JSX.Element {
               navigation.navigate(
                 originScreen === ScreenName.DEX_screen
                   ? ScreenName.DEX_screen
-                  : ScreenName.PORTFOLIO_screen
+                  : ScreenName.PORTFOLIO_screen,
               );
             },
           },
@@ -134,7 +134,7 @@ export function ConfirmAddLiquidityScreen({ route }: Props): JSX.Element {
           testID="text_add_amount"
           title={translate(
             "screens/ConfirmAddLiq",
-            "You will receive LP tokens"
+            "You will receive LP tokens",
           )}
           fromAddressLabel={addressLabel}
         />
@@ -162,7 +162,7 @@ export function ConfirmAddLiquidityScreen({ route }: Props): JSX.Element {
           />
           <View
             style={tailwind(
-              "flex flex-row text-right items-center justify-end"
+              "flex flex-row text-right items-center justify-end",
             )}
           >
             <ThemedTextV2
@@ -176,7 +176,7 @@ export function ConfirmAddLiquidityScreen({ route }: Props): JSX.Element {
                 conversion?.isConversionRequired &&
                   conversion?.isConverted !== true
                   ? "Converting"
-                  : "Converted"
+                  : "Converted",
               )}
             </ThemedTextV2>
             {conversion?.isConversionRequired &&
@@ -288,9 +288,9 @@ export function ConfirmAddLiquidityScreen({ route }: Props): JSX.Element {
             testID: "lp_tokens_to_receive_value",
             usdAmount: getTokenPrice(
               pair.tokenA.symbol,
-              new BigNumber(tokenAAmount)
+              new BigNumber(tokenAAmount),
             ).plus(
-              getTokenPrice(pair.tokenB.symbol, new BigNumber(tokenBAmount))
+              getTokenPrice(pair.tokenB.symbol, new BigNumber(tokenBAmount)),
             ),
             themedProps: {
               style: tailwind("font-semibold-v2 text-sm"),
@@ -326,11 +326,11 @@ async function constructSignedAddLiqAndSend(
   },
   dispatch: Dispatch<any>,
   onBroadcast: () => void,
-  logger: NativeLoggingProps
+  logger: NativeLoggingProps,
 ): Promise<void> {
   try {
     const signer = async (
-      account: WhaleWalletAccount
+      account: WhaleWalletAccount,
     ): Promise<CTransactionSegWit> => {
       const builder = account.withTransactionBuilder();
       const script = await account.getScript();
@@ -368,12 +368,12 @@ async function constructSignedAddLiqAndSend(
             totalToken: addLiqForm.lmTotalTokens,
             symbolA: addLiqForm.tokenASymbol,
             symbolB: addLiqForm.tokenBSymbol,
-          }
+          },
         ),
         drawerMessages: {
           preparing: translate(
             "screens/OceanInterface",
-            "Preparing to add liquidity…"
+            "Preparing to add liquidity…",
           ),
           waiting: translate(
             "screens/OceanInterface",
@@ -382,7 +382,7 @@ async function constructSignedAddLiqAndSend(
               totalToken: addLiqForm.lmTotalTokens,
               symbolA: addLiqForm.tokenASymbol,
               symbolB: addLiqForm.tokenBSymbol,
-            }
+            },
           ),
           complete: translate(
             "screens/OceanInterface",
@@ -391,11 +391,11 @@ async function constructSignedAddLiqAndSend(
               totalToken: addLiqForm.lmTotalTokens,
               symbolA: addLiqForm.tokenASymbol,
               symbolB: addLiqForm.tokenBSymbol,
-            }
+            },
           ),
         },
         onBroadcast,
-      })
+      }),
     );
   } catch (e) {
     logger.error(e);

@@ -19,10 +19,7 @@ import { NumberRowV2 } from "@components/NumberRowV2";
 import { getEnvironment } from "@waveshq/walletkit-core";
 import { getReleaseChannel } from "@api/releaseChannel";
 import { NetworkItemRow } from "@components/NetworkItemRow";
-import {
-  hasTxQueued,
-  hasOceanTXQueued,
-} from "@waveshq/walletkit-ui/dist/store";
+import { hasTxQueued, hasOceanTXQueued } from "@waveshq/walletkit-ui/store";
 
 export function NetworkSelectionScreen(): JSX.Element {
   const networks = getEnvironment(getReleaseChannel()).networks;
@@ -32,10 +29,10 @@ export function NetworkSelectionScreen(): JSX.Element {
     lastSuccessfulSync,
   } = useSelector((state: RootState) => state.block);
   const hasPendingJob = useSelector((state: RootState) =>
-    hasTxQueued(state.transactionQueue)
+    hasTxQueued(state.transactionQueue),
   );
   const hasPendingBroadcastJob = useSelector((state: RootState) =>
-    hasOceanTXQueued(state.ocean)
+    hasOceanTXQueued(state.ocean),
   );
   const syncFormattedDate =
     lastSuccessfulSync != null ? dayjs(lastSuccessfulSync).format("lll") : "";
@@ -50,7 +47,7 @@ export function NetworkSelectionScreen(): JSX.Element {
         testID="onboarding_network_selection_screen_title"
         text={translate(
           "screens/OnboardingNetworkSelectScreen",
-          "SELECT NETWORK"
+          "SELECT NETWORK",
         )}
       />
       <ThemedViewV2
@@ -68,7 +65,7 @@ export function NetworkSelectionScreen(): JSX.Element {
             alertMessage={translate(
               "screens/OnboardingNetworkSelectScreen",
               "You are about to switch to {{network}}. Do you want to proceed?",
-              { network: network }
+              { network: network },
             )}
             isLast={index === networks.length - 1}
           />
@@ -94,7 +91,7 @@ export function NetworkSelectionScreen(): JSX.Element {
           }}
           containerStyle={{
             style: tailwind(
-              "pb-4.5 border-b-0.5 flex-row items-start w-full bg-transparent"
+              "pb-4.5 border-b-0.5 flex-row items-start w-full bg-transparent",
             ),
             light: tailwind("border-mono-light-v2-300"),
             dark: tailwind("border-mono-dark-v2-300"),
@@ -116,7 +113,7 @@ export function NetworkSelectionScreen(): JSX.Element {
           }}
           containerStyle={{
             style: tailwind(
-              "pt-4.5 flex-row items-start w-full bg-transparent"
+              "pt-4.5 flex-row items-start w-full bg-transparent",
             ),
             light: tailwind("bg-transparent"),
             dark: tailwind("bg-transparent"),
@@ -140,7 +137,7 @@ function BlocksInfoRow({ blockCount }: { blockCount?: number }): JSX.Element {
   return (
     <ThemedViewV2
       style={tailwind(
-        "flex-row items-start w-full bg-transparent py-4.5 border-b-0.5"
+        "flex-row items-start w-full bg-transparent py-4.5 border-b-0.5",
       )}
       light={tailwind("border-mono-light-v2-300")}
       dark={tailwind("border-mono-dark-v2-300")}
@@ -164,7 +161,7 @@ function BlocksInfoRow({ blockCount }: { blockCount?: number }): JSX.Element {
                   light={tailwind("text-mono-light-v2-700")}
                   dark={tailwind("text-mono-dark-v2-700")}
                   style={tailwind(
-                    "text-sm font-normal-v2 flex-wrap text-right"
+                    "text-sm font-normal-v2 flex-wrap text-right",
                   )}
                   testID="network_details_block_height"
                 >
@@ -196,7 +193,7 @@ function TransactionOngoingMessage(): JSX.Element {
       <Text style={tailwind("text-xs font-normal-v2 text-orange-v2")}>
         {translate(
           "screens/NetworkDetails",
-          "Network selection is currently unavailable due to ongoing transaction(s)."
+          "Network selection is currently unavailable due to ongoing transaction(s).",
         )}
       </Text>
     </View>

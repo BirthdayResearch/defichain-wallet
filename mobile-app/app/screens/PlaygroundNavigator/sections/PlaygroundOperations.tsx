@@ -2,11 +2,11 @@
 import { View } from "@components";
 import { PlaygroundTitle } from "@screens/PlaygroundNavigator/components/PlaygroundTitle";
 import { useWalletContext } from "@shared-contexts/WalletContext";
-import { useWhaleApiClient } from "@waveshq/walletkit-ui/dist/contexts";
+import { useWhaleApiClient } from "@waveshq/walletkit-ui/contexts";
 import { usePlaygroundContext } from "@waveshq/walletkit-ui";
 import { useEffect, useState } from "react";
 import { WalletAddressIndexPersistence } from "@api/wallet/address_index";
-import { fetchTokens } from "@waveshq/walletkit-ui/dist/store";
+import { fetchTokens } from "@waveshq/walletkit-ui/store";
 import {
   PlaygroundConnectionStatus,
   PlaygroundStatusType,
@@ -22,7 +22,7 @@ export function PlaygroundOperations(): JSX.Element {
   const dispatch = useAppDispatch();
   const { api, rpc } = usePlaygroundContext();
   const [status, setStatus] = useState<PlaygroundConnectionStatus>(
-    PlaygroundConnectionStatus.loading
+    PlaygroundConnectionStatus.loading,
   );
 
   useEffect(() => {
@@ -51,7 +51,7 @@ export function PlaygroundOperations(): JSX.Element {
           fetchTokens({
             client,
             address,
-          })
+          }),
         );
       },
       rhsChildren: (): JSX.Element => {
@@ -73,7 +73,7 @@ export function PlaygroundOperations(): JSX.Element {
         await rpc.call(
           "generatetoaddress",
           [10, "mswsMVsyGMj1FzDMbbxw2QW3KvQAv2FKiy"],
-          "number"
+          "number",
         );
       },
       rhsChildren: (): JSX.Element => {

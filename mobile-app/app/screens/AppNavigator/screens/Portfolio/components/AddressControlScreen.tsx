@@ -28,7 +28,7 @@ import {
   hasTxQueued,
   hasOceanTXQueued,
   wallet as walletReducer,
-} from "@waveshq/walletkit-ui/dist/store";
+} from "@waveshq/walletkit-ui/store";
 import { loans } from "@store/loans";
 import { useAppDispatch } from "@hooks/useAppDispatch";
 import { PortfolioParamList } from "../PortfolioNavigator";
@@ -47,7 +47,7 @@ export function AddressControlScreen(): JSX.Element {
         testID="switch_address_screen_title"
         text={translate(
           "screens/AddressControlScreen",
-          "Switch to another address"
+          "Switch to another address",
         )}
       />
       <AddressControlCard onClose={() => navigation.goBack()} />
@@ -69,7 +69,7 @@ export function AddressControlModal({
       >
         <View
           style={tailwind(
-            "flex flex-row justify-between w-full px-4 pb-4 pt-2"
+            "flex flex-row justify-between w-full px-4 pb-4 pt-2",
           )}
         >
           <View style={tailwind("flex flex-row justify-between items-center")}>
@@ -80,7 +80,7 @@ export function AddressControlModal({
             >
               {translate(
                 "screens/AddressControlScreen",
-                "Switch to another address"
+                "Switch to another address",
               )}
             </ThemedText>
             <DiscoverWalletAddress size={18} />
@@ -202,7 +202,7 @@ export function AddressControlCard({
               >
                 {translate(
                   "screens/AddressControlScreen",
-                  "CREATE WALLET ADDRESS"
+                  "CREATE WALLET ADDRESS",
                 )}
               </ThemedText>
             </View>
@@ -225,10 +225,10 @@ export function AddressItemRow({
   onPress: () => void;
 }): JSX.Element {
   const hasPendingJob = useSelector((state: RootState) =>
-    hasTxQueued(state.transactionQueue)
+    hasTxQueued(state.transactionQueue),
   );
   const hasPendingBroadcastJob = useSelector((state: RootState) =>
-    hasOceanTXQueued(state.ocean)
+    hasOceanTXQueued(state.ocean),
   );
 
   return (

@@ -11,13 +11,13 @@ import {
   ThemedTouchableOpacityV2,
   ThemedViewV2,
 } from "@components/themed";
-import { useWhaleApiClient } from "@waveshq/walletkit-ui/dist/contexts";
+import { useWhaleApiClient } from "@waveshq/walletkit-ui/contexts";
 import { RootState } from "@store";
 import {
   hasTxQueued,
   hasOceanTXQueued,
   tokenSelector,
-} from "@waveshq/walletkit-ui/dist/store";
+} from "@waveshq/walletkit-ui/store";
 import { tailwind } from "@tailwind";
 import { translate } from "@translations";
 import { useLogger } from "@shared-contexts/NativeLoggingProvider";
@@ -51,10 +51,10 @@ export function RemoveLiquidityScreen(props: Props): JSX.Element {
   const toast = useToast();
   const [fee, setFee] = useState<BigNumber>(new BigNumber(0.0001));
   const hasPendingJob = useSelector((state: RootState) =>
-    hasTxQueued(state.transactionQueue)
+    hasTxQueued(state.transactionQueue),
   );
   const hasPendingBroadcastJob = useSelector((state: RootState) =>
-    hasOceanTXQueued(state.ocean)
+    hasOceanTXQueued(state.ocean),
   );
   const { getTokenPrice } = useTokenPrice();
   // this component state
@@ -79,10 +79,10 @@ export function RemoveLiquidityScreen(props: Props): JSX.Element {
   // gather required data
   const { pair, pairInfo, originScreen } = props.route.params;
   const tokenA = useSelector((state: RootState) =>
-    tokenSelector(state.wallet, pair.tokenA.id)
+    tokenSelector(state.wallet, pair.tokenA.id),
   );
   const tokenB = useSelector((state: RootState) =>
-    tokenSelector(state.wallet, pair.tokenB.id)
+    tokenSelector(state.wallet, pair.tokenB.id),
   );
 
   useEffect(() => {
@@ -90,8 +90,8 @@ export function RemoveLiquidityScreen(props: Props): JSX.Element {
       hasError
         ? TransactionCardStatus.Error
         : isInputFocus
-        ? TransactionCardStatus.Active
-        : TransactionCardStatus.Default
+          ? TransactionCardStatus.Active
+          : TransactionCardStatus.Default,
     );
   }, [hasError, isInputFocus]);
 
@@ -123,10 +123,10 @@ export function RemoveLiquidityScreen(props: Props): JSX.Element {
     setValidity(
       new BigNumber(tokenToRemove).isGreaterThan(new BigNumber(0)) &&
         new BigNumber(tokenToRemove).isLessThanOrEqualTo(
-          new BigNumber(pairInfo.amount)
+          new BigNumber(pairInfo.amount),
         ) &&
         !hasPendingJob &&
-        !hasPendingBroadcastJob
+        !hasPendingBroadcastJob,
     );
   }, [tokenToRemove]);
 
@@ -151,7 +151,7 @@ export function RemoveLiquidityScreen(props: Props): JSX.Element {
         type: "wallet_toast",
         placement: "top",
         duration: TOAST_DURATION,
-      }
+      },
     );
   }
 
@@ -224,7 +224,7 @@ export function RemoveLiquidityScreen(props: Props): JSX.Element {
       setTokenBAmount(tokenB);
       setTokenToRemove(amountString);
     },
-    [pair]
+    [pair],
   );
 
   useEffect(() => {
@@ -244,7 +244,7 @@ export function RemoveLiquidityScreen(props: Props): JSX.Element {
   const sharesUsdAmount = getTokenPrice(
     pair.symbol,
     new BigNumber(amount),
-    true
+    true,
   );
 
   return (
@@ -260,7 +260,7 @@ export function RemoveLiquidityScreen(props: Props): JSX.Element {
             tokenBSymbol={pair.tokenB.displaySymbol}
             headerLabel={translate(
               "screens/RemoveLiquidity",
-              "View pool share"
+              "View pool share",
             )}
             onPress={expandModal}
             testID="view_pool_button"
@@ -294,12 +294,12 @@ export function RemoveLiquidityScreen(props: Props): JSX.Element {
                       "{{token}} to receive",
                       {
                         token: pair.tokenA.displaySymbol,
-                      }
+                      },
                     ),
                     value: BigNumber.max(tokenAAmount, 0).toFixed(8),
                     symbolUSDValue: getTokenPrice(
                       pair.tokenA.symbol,
-                      tokenAAmount
+                      tokenAAmount,
                     ),
                     usdTextStyle: tailwind("text-sm"),
                   },
@@ -309,12 +309,12 @@ export function RemoveLiquidityScreen(props: Props): JSX.Element {
                       "{{token}} to receive",
                       {
                         token: pair.tokenB.displaySymbol,
-                      }
+                      },
                     ),
                     value: BigNumber.max(tokenBAmount, 0).toFixed(8),
                     symbolUSDValue: getTokenPrice(
                       pair.tokenB.symbol,
-                      tokenBAmount
+                      tokenBAmount,
                     ),
                     usdTextStyle: tailwind("text-sm"),
                   },
@@ -322,7 +322,7 @@ export function RemoveLiquidityScreen(props: Props): JSX.Element {
                 resultingLplhs={{
                   value: translate(
                     "screens/RemoveLiquidity",
-                    "LP tokens to remove"
+                    "LP tokens to remove",
                   ),
                   themedProps: {
                     light: tailwind("text-mono-light-v2-500"),
@@ -351,7 +351,7 @@ export function RemoveLiquidityScreen(props: Props): JSX.Element {
                 >
                   {translate(
                     "screens/ConvertScreen",
-                    "Review full details in the next screen"
+                    "Review full details in the next screen",
                   )}
                 </ThemedTextV2>
               </View>

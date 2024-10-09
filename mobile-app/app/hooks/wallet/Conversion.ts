@@ -7,7 +7,7 @@ import {
   DFIUtxoSelector,
   unifiedDFISelector,
   transactionQueue,
-} from "@waveshq/walletkit-ui/dist/store";
+} from "@waveshq/walletkit-ui/store";
 import { dfiConversionCrafter } from "@api/transaction/dfi_converter";
 import { NativeLoggingProps } from "@shared-contexts/NativeLoggingProvider";
 import { ConvertDirection } from "@screens/enum";

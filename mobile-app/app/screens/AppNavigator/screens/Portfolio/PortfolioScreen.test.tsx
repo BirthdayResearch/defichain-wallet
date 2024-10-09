@@ -2,11 +2,7 @@ import { configureStore } from "@reduxjs/toolkit";
 import { fireEvent, render } from "@testing-library/react-native";
 import { Provider } from "react-redux";
 import { RootState } from "@store";
-import {
-  block,
-  wallet,
-  setTokenSymbol,
-} from "@waveshq/walletkit-ui/dist/store";
+import { block, wallet, setTokenSymbol } from "@waveshq/walletkit-ui/store";
 import { loans } from "@store/loans";
 import { LoanVaultState } from "@defichain/whale-api-client/dist/api/loan";
 import { futureSwaps } from "@store/futureSwap";
@@ -42,7 +38,7 @@ jest.mock("react-native/Libraries/Utilities/Platform", () => ({
   select: () => jest.fn,
 }));
 
-jest.mock("@waveshq/walletkit-ui/dist/store/website", () => ({
+jest.mock("@waveshq/walletkit-ui/store/website", () => ({
   useGetAnnouncementsQuery: () => ({ data: [], isSuccess: true }),
   useGetStatusQuery: () => jest.fn(),
 }));
@@ -54,7 +50,7 @@ jest.mock(
       return <></>;
     }
     return { Announcements };
-  }
+  },
 );
 
 describe("portfolio page", () => {

@@ -18,14 +18,11 @@ import {
   LoanToken,
   LoanVaultActive,
 } from "@defichain/whale-api-client/dist/api/loan";
-import { useWhaleApiClient } from "@waveshq/walletkit-ui/dist/contexts";
+import { useWhaleApiClient } from "@waveshq/walletkit-ui/contexts";
 import { useLogger } from "@shared-contexts/NativeLoggingProvider";
 import { useSelector } from "react-redux";
 import { RootState } from "@store";
-import {
-  hasTxQueued,
-  hasOceanTXQueued,
-} from "@waveshq/walletkit-ui/dist/store";
+import { hasTxQueued, hasOceanTXQueued } from "@waveshq/walletkit-ui/store";
 import { useWalletContext } from "@shared-contexts/WalletContext";
 import { getActivePrice } from "@screens/AppNavigator/screens/Auctions/helpers/ActivePrice";
 import { getPrecisedCurrencyValue } from "@screens/AppNavigator/screens/Auctions/helpers/precision-token-value";

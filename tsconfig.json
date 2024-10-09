@@ -33,7 +33,9 @@
       "@store": ["../../shared/store"],
       "@store/*": ["../../shared/store/*"],
       "@translations": ["../../shared/translations"],
-      "@tailwind": ["tailwind"]
+      "@tailwind": ["tailwind"],
+      "@waveshq": ["../../walletkit"],
+      "@waveshq/*": ["../../walletkit/*"]
     }
   }
 }

@@ -23,7 +23,7 @@ import {
   hasOceanTXQueued,
   hasTxQueued,
   transactionQueue,
-} from "@waveshq/walletkit-ui/dist/store";
+} from "@waveshq/walletkit-ui/store";
 import { WalletAlert } from "@components/WalletAlert";
 import { ScreenName } from "@screens/enum";
 import { NavigationProp, useNavigation } from "@react-navigation/native";
@@ -66,10 +66,10 @@ export function OCGConfirmScreen({ route }: Props): JSX.Element {
   const dispatch = useAppDispatch();
 
   const hasPendingJob = useSelector((state: RootState) =>
-    hasTxQueued(state.transactionQueue)
+    hasTxQueued(state.transactionQueue),
   );
   const hasPendingBroadcastJob = useSelector((state: RootState) =>
-    hasOceanTXQueued(state.ocean)
+    hasOceanTXQueued(state.ocean),
   );
 
   const [isOnPage, setIsOnPage] = useState<boolean>(true);
@@ -105,7 +105,7 @@ export function OCGConfirmScreen({ route }: Props): JSX.Element {
       () => {
         onTransactionBroadcast(isOnPage, navigation.dispatch);
       },
-      logger
+      logger,
     );
     setIsSubmitting(false);
   }
@@ -119,7 +119,7 @@ export function OCGConfirmScreen({ route }: Props): JSX.Element {
       title: translate("screens/Settings", "Cancel transaction"),
       message: translate(
         "screens/Settings",
-        "By cancelling, you will lose any changes you made for your transaction."
+        "By cancelling, you will lose any changes you made for your transaction.",
       ),
       buttons: [
         {
@@ -352,7 +352,7 @@ function FeeSection({
           title: translate("screens/OCGConfirmScreen", "Proposal Fees"),
           message: translate(
             "screens/OCGConfirmScreen",
-            "Proposals fees are implemented to encourage more responsible submissions.\nProposal fees are calculated based on the type of proposal selected, and the requested amount (only for CFP).\nRefer to our FAQ section for more detailed breakdown."
+            "Proposals fees are implemented to encourage more responsible submissions.\nProposal fees are calculated based on the type of proposal selected, and the requested amount (only for CFP).\nRefer to our FAQ section for more detailed breakdown.",
           ),
           iconStyle: {
             light: tailwind("text-mono-light-v2-500"),
@@ -411,7 +411,7 @@ function AcknowledgeSwitch({
         >
           {translate(
             "screens/OCGConfirmScreen",
-            "I acknowledge all proposal details to be correct and final. Once submitted, the proposal is no longer editable. View your posted proposal in DeFiScan."
+            "I acknowledge all proposal details to be correct and final. Once submitted, the proposal is no longer editable. View your posted proposal in DeFiScan.",
           )}
         </ThemedTextV2>
       </TouchableOpacity>
@@ -446,11 +446,11 @@ async function constructSignedProposalAndSend(
   form: ProposalForm,
   dispatch: Dispatch<any>,
   onBroadcast: () => void,
-  logger: NativeLoggingProps
+  logger: NativeLoggingProps,
 ) {
   try {
     const signer = async (
-      account: WhaleWalletAccount
+      account: WhaleWalletAccount,
     ): Promise<CTransactionSegWit> => {
       const script = await account.getScript();
       const builder = account.withTransactionBuilder();
@@ -459,7 +459,7 @@ async function constructSignedProposalAndSend(
         const cfpForm = form as CFPProposalForm;
         const to = DeFiAddress.from(
           cfpForm.networkName,
-          cfpForm.receivingAddress
+          cfpForm.receivingAddress,
         ).getScript();
         const cfp: CreateCfp = {
           type: 0x01,
@@ -498,13 +498,13 @@ async function constructSignedProposalAndSend(
         drawerMessages: {
           preparing: translate(
             "screens/OCGConfirmScreen",
-            "Submitting proposal"
+            "Submitting proposal",
           ),
           waiting: translate("screens/OCGConfirmScreen", "Submitting proposal"),
           complete: translate("screens/OCGConfirmScreen", "Proposal Submitted"),
         },
         onBroadcast,
-      })
+      }),
     );
   } catch (e) {
     logger.error(e);

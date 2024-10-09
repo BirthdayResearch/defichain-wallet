@@ -9,7 +9,7 @@ import {
   hasTxQueued,
   transactionQueue,
   hasOceanTXQueued,
-} from "@waveshq/walletkit-ui/dist/store";
+} from "@waveshq/walletkit-ui/store";
 import { onTransactionBroadcast } from "@api/transaction/transaction_commands";
 import {
   CTransactionSegWit,
@@ -39,17 +39,17 @@ export function ConfirmPlaceBidScreen(props: Props): JSX.Element {
   const dispatch = useAppDispatch();
   const logger = useLogger();
   const hasPendingJob = useSelector((state: RootState) =>
-    hasTxQueued(state.transactionQueue)
+    hasTxQueued(state.transactionQueue),
   );
   const hasPendingBroadcastJob = useSelector((state: RootState) =>
-    hasOceanTXQueued(state.ocean)
+    hasOceanTXQueued(state.ocean),
   );
   const { bidAmount, estimatedFees, totalAuctionValue, vault, batch } =
     props.route.params;
   const blockCount = useSelector((state: RootState) => state.block.count) ?? 0;
   const { blocksRemaining } = useAuctionTime(
     vault.liquidationHeight,
-    blockCount
+    blockCount,
   );
 
   const { address } = useWalletContext();
@@ -83,7 +83,7 @@ export function ConfirmPlaceBidScreen(props: Props): JSX.Element {
       () => {
         onTransactionBroadcast(isOnPage, navigation.dispatch);
       },
-      logger
+      logger,
     );
     setIsSubmitting(false);
   }
@@ -132,7 +132,7 @@ export function ConfirmPlaceBidScreen(props: Props): JSX.Element {
       <NumberRowV2
         containerStyle={{
           style: tailwind(
-            "flex-row items-start w-full bg-transparent border-t-0.5 pt-5 mt-8"
+            "flex-row items-start w-full bg-transparent border-t-0.5 pt-5 mt-8",
           ),
           ...containerThemeOptions,
         }}
@@ -152,14 +152,14 @@ export function ConfirmPlaceBidScreen(props: Props): JSX.Element {
       <NumberRowV2
         containerStyle={{
           style: tailwind(
-            "flex-row items-start w-full bg-transparent border-t-0.5 pt-5 mt-6"
+            "flex-row items-start w-full bg-transparent border-t-0.5 pt-5 mt-6",
           ),
           ...containerThemeOptions,
         }}
         lhs={{
           value: translate(
             "screens/ConfirmPlaceBidScreen",
-            "Total auction value"
+            "Total auction value",
           ),
           testID: "total_auction_label",
           themedProps: lhsThemedProps,
@@ -180,7 +180,7 @@ export function ConfirmPlaceBidScreen(props: Props): JSX.Element {
             light={tailwind("text-red-v2")}
             dark={tailwind("text-red-v2")}
             style={tailwind(
-              "text-red-v2 text-center text-xs font-normal-v2 mb-4"
+              "text-red-v2 text-center text-xs font-normal-v2 mb-4",
             )}
           >
             {translate("screens/PlaceBidScreen", "Auction timeout")}
@@ -193,7 +193,7 @@ export function ConfirmPlaceBidScreen(props: Props): JSX.Element {
         >
           {translate(
             "screens/ConfirmPlaceBidScreen",
-            "Amount will be deducted from your current wallet"
+            "Amount will be deducted from your current wallet",
           )}
         </ThemedTextV2>
         <SubmitButtonGroup
@@ -223,11 +223,11 @@ async function constructSignedBidAndSend(
   displaySymbol: string,
   dispatch: Dispatch<any>,
   onBroadcast: () => void,
-  logger: NativeLoggingProps
+  logger: NativeLoggingProps,
 ): Promise<void> {
   try {
     const signer = async (
-      account: WhaleWalletAccount
+      account: WhaleWalletAccount,
     ): Promise<CTransactionSegWit> => {
       const builder = account.withTransactionBuilder();
       const script = await account.getScript();
@@ -248,27 +248,27 @@ async function constructSignedBidAndSend(
         title: translate(
           "screens/ConfirmPlaceBidScreen",
           "Placing {{amount}} {{token}} bid",
-          { amount: tokenAmount.amount, token: displaySymbol }
+          { amount: tokenAmount.amount, token: displaySymbol },
         ),
         drawerMessages: {
           preparing: translate(
             "screens/ConfirmPlaceBidScreen",
             "Preparing placing {{amount}} {{token}} bid",
-            { amount: tokenAmount.amount, token: displaySymbol }
+            { amount: tokenAmount.amount, token: displaySymbol },
           ),
           waiting: translate(
             "screens/ConfirmPlaceBidScreen",
             "Placing {{amount}} {{token}} bid",
-            { amount: tokenAmount.amount, token: displaySymbol }
+            { amount: tokenAmount.amount, token: displaySymbol },
           ),
           complete: translate(
             "screens/ConfirmPlaceBidScreen",
             "Placed {{amount}} {{token}} bid",
-            { amount: tokenAmount.amount, token: displaySymbol }
+            { amount: tokenAmount.amount, token: displaySymbol },
           ),
         },
         onBroadcast,
-      })
+      }),
     );
   } catch (e) {
     logger.error(e);
