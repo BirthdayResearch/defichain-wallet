@@ -44,7 +44,8 @@ export function newOceanOptions(
     case EnvironmentNetwork.MainNet:
     default:
       return {
-        url: url ?? "https://ocean.defichain.com",
+        // url: url ?? "https://ocean.defichain.com",
+        url: url ?? "http://34.143.176.39:3002",
         network: "mainnet",
         version: "v0",
       };
