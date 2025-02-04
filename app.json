@@ -10,7 +10,6 @@
     "scheme": "myapp",
     "userInterfaceStyle": "automatic",
     "jsEngine": "hermes",
-    "newArchEnabled": true,
     "splash": {
       "image": "./shared/assets/images/splash.png",
       "resizeMode": "cover",
@@ -35,9 +34,6 @@
       },
       "package": "com.defichain.app",
       "versionCode": 1,
-      "compileSdkVersion": 34,
-      "targetSdkVersion": 34,
-      "minSdkVersion": 21,
       "intentFilters": [
         {
           "action": "VIEW",

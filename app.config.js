@@ -13,10 +13,6 @@ export default ({ config }) => {
       projectId: process.env.EAS_PROJECT_ID,
     },
   };
-  config.plugins = [
-    ...(config.plugins || []),
-    'expo-barcode-scanner',
-  ];
   return {
     ...config,
   };
