@@ -160,7 +160,7 @@ exports[`button should match styling of button type fill 2`] = `
   }
   accessible={true}
   collapsable={false}
-  focusable={true}
+  focusable={false}
   onClick={[Function]}
   onResponderGrant={[Function]}
   onResponderMove={[Function]}
@@ -300,7 +300,7 @@ exports[`button should match styling of button type flat 2`] = `
   }
   accessible={true}
   collapsable={false}
-  focusable={true}
+  focusable={false}
   onClick={[Function]}
   onResponderGrant={[Function]}
   onResponderMove={[Function]}
@@ -370,7 +370,7 @@ exports[`button should not be clickable when disabled 1`] = `
   }
   accessible={true}
   collapsable={false}
-  focusable={true}
+  focusable={false}
   onClick={[Function]}
   onResponderGrant={[Function]}
   onResponderMove={[Function]}

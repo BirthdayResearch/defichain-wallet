@@ -198,12 +198,17 @@ exports[`LoansFaq FAQ V2 screen should match snapshot 1`] = `
             <View
               collapsable={false}
               pointerEvents="auto"
-              style={{}}
+              style={false}
             >
               <View
                 collapsable={false}
                 onLayout={[Function]}
-                style={{}}
+                style={
+                  [
+                    undefined,
+                    {},
+                  ]
+                }
               >
                 <View
                   style={
@@ -367,7 +372,12 @@ exports[`LoansFaq FAQ V2 screen should match snapshot 1`] = `
               <View
                 collapsable={false}
                 onLayout={[Function]}
-                style={{}}
+                style={
+                  [
+                    undefined,
+                    {},
+                  ]
+                }
               >
                 <View
                   style={
@@ -758,7 +768,12 @@ exports[`LoansFaq FAQ V2 screen should match snapshot 1`] = `
               <View
                 collapsable={false}
                 onLayout={[Function]}
-                style={{}}
+                style={
+                  [
+                    undefined,
+                    {},
+                  ]
+                }
               >
                 <View
                   style={
@@ -1331,7 +1346,12 @@ exports[`LoansFaq FAQ V2 screen should match snapshot 1`] = `
               <View
                 collapsable={false}
                 onLayout={[Function]}
-                style={{}}
+                style={
+                  [
+                    undefined,
+                    {},
+                  ]
+                }
               >
                 <View
                   style={
@@ -1658,7 +1678,12 @@ exports[`LoansFaq FAQ V2 screen should match snapshot 1`] = `
               <View
                 collapsable={false}
                 onLayout={[Function]}
-                style={{}}
+                style={
+                  [
+                    undefined,
+                    {},
+                  ]
+                }
               >
                 <View
                   style={
@@ -1818,7 +1843,12 @@ exports[`LoansFaq FAQ V2 screen should match snapshot 1`] = `
               <View
                 collapsable={false}
                 onLayout={[Function]}
-                style={{}}
+                style={
+                  [
+                    undefined,
+                    {},
+                  ]
+                }
               >
                 <View
                   style={

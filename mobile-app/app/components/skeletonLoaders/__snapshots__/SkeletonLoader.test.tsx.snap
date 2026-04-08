@@ -24,7 +24,7 @@ exports[`Skeleton Loader should match snapshot of address skeleton loader 1`] = 
 >
   <RNSVGSvgView
     align="xMidYMid"
-    bbHeight="35"
+    bbHeight={35}
     bbWidth="100%"
     focusable={false}
     height={35}
@@ -128,8 +128,8 @@ exports[`Skeleton Loader should match snapshot of address skeleton loader 1`] = 
           name="address-diff"
           x1="-100%"
           x2="0%"
-          y1="0"
-          y2="0"
+          y1={0}
+          y2={0}
         />
       </RNSVGDefs>
     </RNSVGGroup>
@@ -163,7 +163,7 @@ exports[`Skeleton Loader should match snapshot of browse auction skeleton loader
 >
   <RNSVGSvgView
     align="xMidYMid"
-    bbHeight="84"
+    bbHeight={84}
     bbWidth="100%"
     focusable={false}
     height={84}
@@ -323,8 +323,8 @@ exports[`Skeleton Loader should match snapshot of browse auction skeleton loader
           name="browseAuctions-diff"
           x1="-100%"
           x2="0%"
-          y1="0"
-          y2="0"
+          y1={0}
+          y2={0}
         />
       </RNSVGDefs>
     </RNSVGGroup>
@@ -348,7 +348,7 @@ exports[`Skeleton Loader should match snapshot of dex price skeleton loader 1`] 
 >
   <RNSVGSvgView
     align="xMidYMid"
-    bbHeight="30"
+    bbHeight={30}
     bbWidth="100%"
     focusable={false}
     height={30}
@@ -441,8 +441,8 @@ exports[`Skeleton Loader should match snapshot of dex price skeleton loader 1`] 
           name="dexPrice-diff"
           x1="-100%"
           x2="0%"
-          y1="0"
-          y2="0"
+          y1={0}
+          y2={0}
         />
       </RNSVGDefs>
     </RNSVGGroup>
@@ -474,7 +474,7 @@ exports[`Skeleton Loader should match snapshot of dex skeleton loader 1`] = `
 >
   <RNSVGSvgView
     align="xMidYMid"
-    bbHeight="88"
+    bbHeight={88}
     bbWidth="100%"
     focusable={false}
     height={88}
@@ -634,8 +634,8 @@ exports[`Skeleton Loader should match snapshot of dex skeleton loader 1`] = `
           name="dex-diff"
           x1="-100%"
           x2="0%"
-          y1="0"
-          y2="0"
+          y1={0}
+          y2={0}
         />
       </RNSVGDefs>
     </RNSVGGroup>
@@ -693,7 +693,7 @@ exports[`Skeleton Loader should match snapshot of loan skeleton loader 1`] = `
   >
     <RNSVGSvgView
       align="xMidYMid"
-      bbHeight="144"
+      bbHeight={144}
       bbWidth="100%"
       focusable={false}
       height={144}
@@ -853,8 +853,8 @@ exports[`Skeleton Loader should match snapshot of loan skeleton loader 1`] = `
             name="loan-diff"
             x1="-100%"
             x2="0%"
-            y1="0"
-            y2="0"
+            y1={0}
+            y2={0}
           />
         </RNSVGDefs>
       </RNSVGGroup>
@@ -890,7 +890,7 @@ exports[`Skeleton Loader should match snapshot of loan skeleton loader 1`] = `
   >
     <RNSVGSvgView
       align="xMidYMid"
-      bbHeight="144"
+      bbHeight={144}
       bbWidth="100%"
       focusable={false}
       height={144}
@@ -1050,8 +1050,8 @@ exports[`Skeleton Loader should match snapshot of loan skeleton loader 1`] = `
             name="loan-diff"
             x1="-100%"
             x2="0%"
-            y1="0"
-            y2="0"
+            y1={0}
+            y2={0}
           />
         </RNSVGDefs>
       </RNSVGGroup>
@@ -1087,7 +1087,7 @@ exports[`Skeleton Loader should match snapshot of mnemonic word skeleton loader 
 >
   <RNSVGSvgView
     align="xMidYMid"
-    bbHeight="47"
+    bbHeight={47}
     bbWidth="100%"
     focusable={false}
     height={47}
@@ -1201,8 +1201,8 @@ exports[`Skeleton Loader should match snapshot of mnemonic word skeleton loader 
           name="mnemonic_word-diff"
           x1="-100%"
           x2="0%"
-          y1="0"
-          y2="0"
+          y1={0}
+          y2={0}
         />
       </RNSVGDefs>
     </RNSVGGroup>
@@ -1235,7 +1235,7 @@ exports[`Skeleton Loader should match snapshot of mnemonic word skeleton loader 
 >
   <RNSVGSvgView
     align="xMidYMid"
-    bbHeight="20"
+    bbHeight={20}
     bbWidth="100%"
     focusable={false}
     height={20}
@@ -1328,8 +1328,8 @@ exports[`Skeleton Loader should match snapshot of mnemonic word skeleton loader 
           name="mnemonic_word_v2-diff"
           x1="-100%"
           x2="0%"
-          y1="0"
-          y2="0"
+          y1={0}
+          y2={0}
         />
       </RNSVGDefs>
     </RNSVGGroup>
@@ -1361,7 +1361,7 @@ exports[`Skeleton Loader should match snapshot of portfolio skeleton loader 1`] 
 >
   <RNSVGSvgView
     align="xMidYMid"
-    bbHeight="44"
+    bbHeight={44}
     bbWidth="100%"
     focusable={false}
     height={44}
@@ -1507,8 +1507,8 @@ exports[`Skeleton Loader should match snapshot of portfolio skeleton loader 1`] 
           name="portfolio_scheme-diff"
           x1="-100%"
           x2="0%"
-          y1="0"
-          y2="0"
+          y1={0}
+          y2={0}
         />
       </RNSVGDefs>
     </RNSVGGroup>
@@ -1543,7 +1543,7 @@ exports[`Skeleton Loader should match snapshot of transaction skeleton loader 1`
 >
   <RNSVGSvgView
     align="xMidYMid"
-    bbHeight="47"
+    bbHeight={47}
     bbWidth="100%"
     focusable={false}
     height={47}
@@ -1669,8 +1669,8 @@ exports[`Skeleton Loader should match snapshot of transaction skeleton loader 1`
           name="transaction-diff"
           x1="-100%"
           x2="0%"
-          y1="0"
-          y2="0"
+          y1={0}
+          y2={0}
         />
       </RNSVGDefs>
     </RNSVGGroup>
@@ -1702,7 +1702,7 @@ exports[`Skeleton Loader should match snapshot of vault scheme skeleton loader 1
 >
   <RNSVGSvgView
     align="xMidYMid"
-    bbHeight="90"
+    bbHeight={90}
     bbWidth="100%"
     focusable={false}
     height={90}
@@ -1820,8 +1820,8 @@ exports[`Skeleton Loader should match snapshot of vault scheme skeleton loader 1
           name="vault_scheme-diff"
           x1="-100%"
           x2="0%"
-          y1="0"
-          y2="0"
+          y1={0}
+          y2={0}
         />
       </RNSVGDefs>
     </RNSVGGroup>
@@ -1861,7 +1861,7 @@ exports[`Skeleton Loader should match snapshot of vault skeleton loader 1`] = `
 >
   <RNSVGSvgView
     align="xMidYMid"
-    bbHeight="130"
+    bbHeight={130}
     bbWidth="100%"
     focusable={false}
     height={130}
@@ -2036,8 +2036,8 @@ exports[`Skeleton Loader should match snapshot of vault skeleton loader 1`] = `
           name="vault-diff"
           x1="-100%"
           x2="0%"
-          y1="0"
-          y2="0"
+          y1={0}
+          y2={0}
         />
       </RNSVGDefs>
     </RNSVGGroup>

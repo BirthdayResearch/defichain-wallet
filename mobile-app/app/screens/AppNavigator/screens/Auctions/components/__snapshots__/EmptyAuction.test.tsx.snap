@@ -307,8 +307,8 @@ exports[`Empty bids should match snapshot 1`] = `
                 ]
               }
               width="57"
-              x="0"
-              y="0"
+              x={0}
+              y={0}
             />
           </RNSVGClipPath>
           <RNSVGClipPath
@@ -344,8 +344,8 @@ exports[`Empty bids should match snapshot 1`] = `
                 ]
               }
               width="57"
-              x="0"
-              y="0"
+              x={0}
+              y={0}
             />
           </RNSVGClipPath>
         </RNSVGDefs>

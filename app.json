@@ -19,6 +19,21 @@
       "policy": "sdkVersion"
     },
     "assetBundlePatterns": ["**/*"],
+      "newArchEnabled": false,
+      "plugins": [
+        "react-native-edge-to-edge",
+        "expo-asset",
+        "expo-font",
+        "expo-localization",
+        "expo-secure-store",
+        "expo-web-browser",
+        [
+          "expo-camera",
+          {
+            "cameraPermission": "Allow $(PRODUCT_NAME) to access your camera to scan QR codes."
+          }
+        ]
+      ],
     "ios": {
       "supportsTablet": false,
       "bundleIdentifier": "com.defichain.app",

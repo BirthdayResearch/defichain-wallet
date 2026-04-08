@@ -161,7 +161,12 @@ exports[`wallet accordion should render 1`] = `
           <View
             collapsable={false}
             onLayout={[Function]}
-            style={{}}
+            style={
+              [
+                undefined,
+                {},
+              ]
+            }
           >
             <View
               style={

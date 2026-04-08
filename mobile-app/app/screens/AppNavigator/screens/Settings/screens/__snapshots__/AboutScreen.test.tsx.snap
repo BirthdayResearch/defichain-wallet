@@ -31,8 +31,8 @@ exports[`<AboutScreen /> should match snapshot 1`] = `
     >
       <RNSVGSvgView
         align="xMidYMid"
-        bbHeight="52"
-        bbWidth="52"
+        bbHeight={52}
+        bbWidth={52}
         focusable={false}
         height={52}
         meetOrSlice={0}
@@ -83,7 +83,11 @@ exports[`<AboutScreen /> should match snapshot 1`] = `
       </RNSVGSvgView>
       <Image
         contentFit="contain"
-        source={1}
+        source={
+          {
+            "testUri": "../../../shared/assets/images/DeFiChainWallet-light.png",
+          }
+        }
         style={
           {
             "flexWrap": "wrap",
@@ -150,7 +154,11 @@ exports[`<AboutScreen /> should match snapshot 1`] = `
       >
         <Image
           resizeMode="cover"
-          source={1}
+          source={
+            {
+              "testUri": "../../../shared/assets/images/about-grid-bg-light.png",
+            }
+          }
           style={
             [
               {
@@ -230,7 +238,7 @@ exports[`<AboutScreen /> should match snapshot 1`] = `
               ]
             }
           >
-            Birthday Research
+            Birthday Research/Community
           </Text>
         </View>
         <View
@@ -346,8 +354,8 @@ exports[`<AboutScreen /> should match snapshot 1`] = `
           >
             <RNSVGSvgView
               align="xMidYMid"
-              bbHeight="24"
-              bbWidth="24"
+              bbHeight={24}
+              bbWidth={24}
               fill="none"
               focusable={false}
               height={24}

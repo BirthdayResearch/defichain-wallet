@@ -80,7 +80,11 @@ exports[`Total Value Locked should match snapshot 1`] = `
       >
         <Image
           resizeMode="cover"
-          source={1}
+          source={
+            {
+              "testUri": "../../../shared/assets/images/onboarding/grid-background-light.png",
+            }
+          }
           style={
             [
               {

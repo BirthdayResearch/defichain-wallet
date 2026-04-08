@@ -3,8 +3,8 @@
 exports[`<AppIcon /> should match snapshot 1`] = `
 <RNSVGSvgView
   align="xMidYMid"
-  bbHeight="52"
-  bbWidth="53"
+  bbHeight={52}
+  bbWidth={53}
   focusable={false}
   height={52}
   meetOrSlice={0}

@@ -14,10 +14,16 @@ jest.mock("@react-navigation/native", () => ({
   useNavigation: jest.fn(),
 }));
 
-jest.mock("react-native/Libraries/Utilities/Platform", () => ({
-  OS: "web",
-  select: () => jest.fn,
-}));
+jest.mock("react-native/Libraries/Utilities/Platform", () => {
+  const Platform = jest.requireActual(
+    "react-native/Libraries/Utilities/Platform",
+  );
+  return {
+    ...Platform,
+    OS: "web",
+    select: (obj: Record<string, unknown>) => obj.web ?? obj.default,
+  };
+});
 
 describe.skip("DFI Action Buttons", () => {
   it("should match snapshot for Action Buttons component", async () => {

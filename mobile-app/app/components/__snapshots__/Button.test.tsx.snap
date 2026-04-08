@@ -151,7 +151,7 @@ exports[`button should match styling of button type fill-primary 2`] = `
   }
   accessible={true}
   collapsable={false}
-  focusable={true}
+  focusable={false}
   onClick={[Function]}
   onResponderGrant={[Function]}
   onResponderMove={[Function]}
@@ -228,7 +228,7 @@ exports[`button should match styling of button type fill-primary 3`] = `
   }
   accessible={true}
   collapsable={false}
-  focusable={true}
+  focusable={false}
   onClick={[Function]}
   onResponderGrant={[Function]}
   onResponderMove={[Function]}
@@ -382,7 +382,7 @@ exports[`button should match styling of button type fill-secondary 2`] = `
   }
   accessible={true}
   collapsable={false}
-  focusable={true}
+  focusable={false}
   onClick={[Function]}
   onResponderGrant={[Function]}
   onResponderMove={[Function]}
@@ -459,7 +459,7 @@ exports[`button should match styling of button type fill-secondary 3`] = `
   }
   accessible={true}
   collapsable={false}
-  focusable={true}
+  focusable={false}
   onClick={[Function]}
   onResponderGrant={[Function]}
   onResponderMove={[Function]}
@@ -613,7 +613,7 @@ exports[`button should match styling of button type flat-primary 2`] = `
   }
   accessible={true}
   collapsable={false}
-  focusable={true}
+  focusable={false}
   onClick={[Function]}
   onResponderGrant={[Function]}
   onResponderMove={[Function]}
@@ -690,7 +690,7 @@ exports[`button should match styling of button type flat-primary 3`] = `
   }
   accessible={true}
   collapsable={false}
-  focusable={true}
+  focusable={false}
   onClick={[Function]}
   onResponderGrant={[Function]}
   onResponderMove={[Function]}
@@ -844,7 +844,7 @@ exports[`button should match styling of button type flat-secondary 2`] = `
   }
   accessible={true}
   collapsable={false}
-  focusable={true}
+  focusable={false}
   onClick={[Function]}
   onResponderGrant={[Function]}
   onResponderMove={[Function]}
@@ -921,7 +921,7 @@ exports[`button should match styling of button type flat-secondary 3`] = `
   }
   accessible={true}
   collapsable={false}
-  focusable={true}
+  focusable={false}
   onClick={[Function]}
   onResponderGrant={[Function]}
   onResponderMove={[Function]}
@@ -1075,7 +1075,7 @@ exports[`button should match styling of button type outline-primary 2`] = `
   }
   accessible={true}
   collapsable={false}
-  focusable={true}
+  focusable={false}
   onClick={[Function]}
   onResponderGrant={[Function]}
   onResponderMove={[Function]}
@@ -1152,7 +1152,7 @@ exports[`button should match styling of button type outline-primary 3`] = `
   }
   accessible={true}
   collapsable={false}
-  focusable={true}
+  focusable={false}
   onClick={[Function]}
   onResponderGrant={[Function]}
   onResponderMove={[Function]}
@@ -1306,7 +1306,7 @@ exports[`button should match styling of button type outline-secondary 2`] = `
   }
   accessible={true}
   collapsable={false}
-  focusable={true}
+  focusable={false}
   onClick={[Function]}
   onResponderGrant={[Function]}
   onResponderMove={[Function]}
@@ -1383,7 +1383,7 @@ exports[`button should match styling of button type outline-secondary 3`] = `
   }
   accessible={true}
   collapsable={false}
-  focusable={true}
+  focusable={false}
   onClick={[Function]}
   onResponderGrant={[Function]}
   onResponderMove={[Function]}
@@ -1464,7 +1464,7 @@ exports[`button should not be clickable when disabled 1`] = `
   }
   accessible={true}
   collapsable={false}
-  focusable={true}
+  focusable={false}
   onClick={[Function]}
   onResponderGrant={[Function]}
   onResponderMove={[Function]}

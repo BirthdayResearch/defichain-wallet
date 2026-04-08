@@ -32,7 +32,7 @@ reports
 jest-coverage
 cypress-coverage
 
-.expo/*
+.expo/
 npm-debug.*
 *.jks
 *.p8

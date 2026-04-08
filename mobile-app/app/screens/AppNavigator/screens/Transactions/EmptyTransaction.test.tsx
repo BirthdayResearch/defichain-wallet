@@ -4,7 +4,7 @@ import { EmptyTransaction } from "./EmptyTransaction";
 jest.mock("@react-navigation/native");
 
 describe("empty transaction", () => {
-  it("should match snapshot", async () => {
+  it("should render empty state", async () => {
     const navigation: any = {
       navigate: jest.fn(),
     };
@@ -14,8 +14,10 @@ describe("empty transaction", () => {
         key="1"
         loadingStatus="loading"
         navigation={navigation}
-      />
+      />,
     );
-    expect(rendered.toJSON()).toMatchSnapshot();
+
+    expect(await rendered.findByText("No transactions found")).toBeTruthy();
+    expect(await rendered.findByText("Start by depositing DFI")).toBeTruthy();
   });
 });

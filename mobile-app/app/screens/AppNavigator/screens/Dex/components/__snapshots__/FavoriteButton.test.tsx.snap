@@ -48,8 +48,8 @@ exports[`Favorite Button should match snapshot 1`] = `
 >
   <RNSVGSvgView
     align="xMidYMid"
-    bbHeight="14"
-    bbWidth="14"
+    bbHeight={14}
+    bbWidth={14}
     fill="none"
     focusable={false}
     height={14}

@@ -779,7 +779,7 @@ exports[`onboarding network selection screen should render 1`] = `
           }
           accessible={true}
           collapsable={false}
-          focusable={true}
+          focusable={false}
           onClick={[Function]}
           onResponderGrant={[Function]}
           onResponderMove={[Function]}

@@ -1,6 +1,6 @@
 import { StackScreenProps } from "@react-navigation/stack";
-import { BarCodeScanner as DefaultBarCodeScanner } from "expo-barcode-scanner";
-import { useEffect, useLayoutEffect, useState } from "react";
+import { CameraView, useCameraPermissions } from "expo-camera";
+import { useEffect, useLayoutEffect } from "react";
 import { StyleSheet } from "react-native";
 import tailwind from "tailwind-rn";
 import { PortfolioParamList } from "@screens/AppNavigator/screens/Portfolio/PortfolioNavigator";
@@ -12,32 +12,11 @@ import { View } from ".";
 type Props = StackScreenProps<PortfolioParamList, "BarCodeScanner">;
 
 export function BarCodeScanner({ route, navigation }: Props): JSX.Element {
-  // null => undetermined
-  const [hasPermission, setHasPermission] = useState<boolean | null>(null);
-  const [value, setValue] = useState<string>();
+  const [permission, requestPermission] = useCameraPermissions();
   const logger = useLogger();
 
-  // to ensure callback only can be fired once as value change
   useEffect(() => {
-    if (value !== undefined) {
-      route.params.onQrScanned(value);
-      navigation.pop();
-    }
-  }, [value]);
-
-  useEffect(() => {
-    DefaultBarCodeScanner.requestPermissionsAsync()
-      .then(({ status }) => {
-        switch (status) {
-          case "granted":
-            setHasPermission(true);
-            break;
-          case "denied":
-            setHasPermission(false);
-            break;
-        }
-      })
-      .catch(logger.error);
+    requestPermission().catch(logger.error);
   }, []);
 
   useLayoutEffect(() => {
@@ -52,25 +31,25 @@ export function BarCodeScanner({ route, navigation }: Props): JSX.Element {
     }
   }, [navigation]);
 
-  if (hasPermission === null) {
+  if (!permission) {
     return (
       <View style={tailwind("flex-col flex-1 justify-center items-center")}>
         <ThemedText>
           {translate(
             "components/BarCodeScanner",
-            "Requesting for camera permission"
+            "Requesting for camera permission",
           )}
         </ThemedText>
       </View>
     );
   }
-  if (!hasPermission) {
+  if (!permission.granted) {
     return (
       <View style={tailwind("flex-col flex-1 justify-center items-center")}>
         <ThemedText>
           {translate(
             "components/BarCodeScanner",
-            "You have denied the permission request to use your camera"
+            "You have denied the permission request to use your camera",
           )}
         </ThemedText>
       </View>
@@ -107,10 +86,11 @@ export function BarCodeScanner({ route, navigation }: Props): JSX.Element {
 
   return (
     <>
-      <DefaultBarCodeScanner
-        barCodeTypes={[DefaultBarCodeScanner.Constants.BarCodeType.qr]}
-        onBarCodeScanned={(e) => {
-          setValue(e.data);
+      <CameraView
+        barcodeScannerSettings={{ barcodeTypes: ["qr"] }}
+        onBarcodeScanned={(e) => {
+          route.params.onQrScanned(e.data);
+          navigation.pop();
         }}
         style={tailwind("flex-1 absolute inset-0")}
       />
@@ -123,25 +103,25 @@ export function BarCodeScanner({ route, navigation }: Props): JSX.Element {
         <View style={[styles.focused, tailwind("relative")]}>
           <View
             style={tailwind(
-              "border-t-4 border-l-4 border-white w-16 h-16 absolute"
+              "border-t-4 border-l-4 border-white w-16 h-16 absolute",
             )}
           />
 
           <View
             style={tailwind(
-              "border-t-4 border-r-4 border-white w-16 h-16 top-0 right-0 absolute"
+              "border-t-4 border-r-4 border-white w-16 h-16 top-0 right-0 absolute",
             )}
           />
 
           <View
             style={tailwind(
-              "border-b-4 border-l-4 border-white w-16 h-16 bottom-0 absolute"
+              "border-b-4 border-l-4 border-white w-16 h-16 bottom-0 absolute",
             )}
           />
 
           <View
             style={tailwind(
-              "border-b-4 border-r-4 border-white w-16 h-16 bottom-0 right-0 absolute"
+              "border-b-4 border-r-4 border-white w-16 h-16 bottom-0 right-0 absolute",
             )}
           />
         </View>

@@ -34,7 +34,11 @@ exports[`create wallet guidelines v2 should match snapshot 1`] = `
       }
     >
       <Image
-        source={1}
+        source={
+          {
+            "testUri": "../../../shared/assets/images/light-wallet-guidelines.png",
+          }
+        }
         style={
           {
             "height": 136,
@@ -341,7 +345,6 @@ exports[`create wallet guidelines v2 should match snapshot 1`] = `
                 },
               ]
             }
-            tintColor="rgba(255, 255, 255, 1)"
             vbHeight={12}
             vbWidth={12}
             width="12"
@@ -589,7 +592,7 @@ exports[`create wallet guidelines v2 should match snapshot 1`] = `
       }
       accessible={true}
       collapsable={false}
-      focusable={true}
+      focusable={false}
       onClick={[Function]}
       onResponderGrant={[Function]}
       onResponderMove={[Function]}

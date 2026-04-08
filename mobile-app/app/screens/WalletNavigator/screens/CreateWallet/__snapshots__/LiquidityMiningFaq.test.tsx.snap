@@ -198,12 +198,17 @@ exports[`Liquidity Mining FAQ screen should match snapshot 1`] = `
             <View
               collapsable={false}
               pointerEvents="auto"
-              style={{}}
+              style={false}
             >
               <View
                 collapsable={false}
                 onLayout={[Function]}
-                style={{}}
+                style={
+                  [
+                    undefined,
+                    {},
+                  ]
+                }
               >
                 <View
                   style={
@@ -369,7 +374,12 @@ Once an amount is entered on one side of the pair, the app automatically balance
               <View
                 collapsable={false}
                 onLayout={[Function]}
-                style={{}}
+                style={
+                  [
+                    undefined,
+                    {},
+                  ]
+                }
               >
                 <View
                   style={
@@ -533,7 +543,12 @@ Similarly, liquidity tokens can only be sent to another DFI wallet address.
               <View
                 collapsable={false}
                 onLayout={[Function]}
-                style={{}}
+                style={
+                  [
+                    undefined,
+                    {},
+                  ]
+                }
               >
                 <View
                   style={
@@ -700,7 +715,12 @@ View more at DeFiChain.com
               <View
                 collapsable={false}
                 onLayout={[Function]}
-                style={{}}
+                style={
+                  [
+                    undefined,
+                    {},
+                  ]
+                }
               >
                 <View
                   style={
@@ -860,7 +880,12 @@ View more at DeFiChain.com
               <View
                 collapsable={false}
                 onLayout={[Function]}
-                style={{}}
+                style={
+                  [
+                    undefined,
+                    {},
+                  ]
+                }
               >
                 <View
                   style={

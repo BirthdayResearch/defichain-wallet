@@ -1363,7 +1363,11 @@ exports[`Vault card should match snapshot of liquidated vault 1`] = `
       >
         <Image
           contentFit="contain"
-          source={1}
+          source={
+            {
+              "testUri": "../../../shared/assets/images/loans/liquidated_vault.png",
+            }
+          }
           style={
             {
               "height": 64,

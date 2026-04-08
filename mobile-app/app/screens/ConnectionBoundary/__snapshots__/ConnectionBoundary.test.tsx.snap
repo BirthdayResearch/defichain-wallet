@@ -32,7 +32,11 @@ exports[`offline screen should match snapshot when offline 1`] = `
     }
   >
     <Image
-      source={1}
+      source={
+        {
+          "testUri": "../../../shared/assets/images/misc/connection_problem.png",
+        }
+      }
       style={
         {
           "height": 59,

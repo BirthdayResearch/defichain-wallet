@@ -107,7 +107,11 @@ exports[`WalletCreateRestoreSuccess should match create wallet snapshot 1`] = `
       >
         <Image
           resizeMode="cover"
-          source={1}
+          source={
+            {
+              "testUri": "../../../shared/assets/images/onboarding/grid-background-light.png",
+            }
+          }
           style={
             [
               {
@@ -129,7 +133,11 @@ exports[`WalletCreateRestoreSuccess should match create wallet snapshot 1`] = `
           }
         />
         <Image
-          source={1}
+          source={
+            {
+              "testUri": "../../../shared/assets/images/create-success-coin.png",
+            }
+          }
           style={
             {
               "height": 332,
@@ -324,7 +332,11 @@ exports[`WalletCreateRestoreSuccess should match restore wallet snapshot 1`] = `
       >
         <Image
           resizeMode="cover"
-          source={1}
+          source={
+            {
+              "testUri": "../../../shared/assets/images/onboarding/grid-background-light.png",
+            }
+          }
           style={
             [
               {
@@ -346,7 +358,11 @@ exports[`WalletCreateRestoreSuccess should match restore wallet snapshot 1`] = `
           }
         />
         <Image
-          source={1}
+          source={
+            {
+              "testUri": "../../../shared/assets/images/restore-success-coin.png",
+            }
+          }
           style={
             {
               "height": 332,
