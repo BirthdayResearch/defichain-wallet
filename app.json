@@ -2,8 +2,8 @@
   "expo": {
     "name": "DeFiChain Wallet",
     "description": "DeFi Blockchain Light Wallet for iOS, Android & Web.",
-    "slug": "wallet",
-    "owner": "defichaincommunity",
+    "slug": "defichain-wallet",
+    "owner": "andrey.galysh",
     "version": "0.0.0",
     "orientation": "portrait",
     "icon": "./shared/assets/images/icon.png",
@@ -18,22 +18,24 @@
     "runtimeVersion": {
       "policy": "sdkVersion"
     },
-    "assetBundlePatterns": ["**/*"],
-      "newArchEnabled": false,
-      "plugins": [
-        "react-native-edge-to-edge",
-        "expo-asset",
-        "expo-font",
-        "expo-localization",
-        "expo-secure-store",
-        "expo-web-browser",
-        [
-          "expo-camera",
-          {
-            "cameraPermission": "Allow $(PRODUCT_NAME) to access your camera to scan QR codes."
-          }
-        ]
-      ],
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "newArchEnabled": false,
+    "plugins": [
+      "react-native-edge-to-edge",
+      "expo-asset",
+      "expo-font",
+      "expo-localization",
+      "expo-secure-store",
+      "expo-web-browser",
+      [
+        "expo-camera",
+        {
+          "cameraPermission": "Allow $(PRODUCT_NAME) to access your camera to scan QR codes."
+        }
+      ]
+    ],
     "ios": {
       "supportsTablet": false,
       "bundleIdentifier": "com.defichain.app",
@@ -55,7 +57,10 @@
           "data": {
             "scheme": "https"
           },
-          "category": ["BROWSABLE", "DEFAULT"]
+          "category": [
+            "BROWSABLE",
+            "DEFAULT"
+          ]
         },
         {
           "autoVerify": true,
@@ -63,7 +68,10 @@
           "data": {
             "scheme": "http"
           },
-          "category": ["BROWSABLE", "DEFAULT"]
+          "category": [
+            "BROWSABLE",
+            "DEFAULT"
+          ]
         }
       ]
     },
