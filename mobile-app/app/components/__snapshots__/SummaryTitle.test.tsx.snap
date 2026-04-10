@@ -276,6 +276,194 @@ exports[`Summary Title V2 should match snapshot 1`] = `
           ]
         }
       >
+        <RNSVGSvgView
+          align="xMidYMid"
+          bbHeight={20}
+          bbWidth={20}
+          fill="none"
+          focusable={false}
+          height={20}
+          meetOrSlice={0}
+          minX={0}
+          minY={0}
+          style={
+            [
+              {
+                "backgroundColor": "transparent",
+                "borderWidth": 0,
+              },
+              {
+                "flex": 0,
+                "height": 20,
+                "width": 20,
+              },
+            ]
+          }
+          vbHeight={20}
+          vbWidth={20}
+          width={20}
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <RNSVGGroup
+            fill={null}
+            propList={
+              [
+                "fill",
+              ]
+            }
+          >
+            <RNSVGMask
+              fill={
+                {
+                  "payload": 4278190080,
+                  "type": 0,
+                }
+              }
+              height={20}
+              maskContentUnits={1}
+              maskType={0}
+              maskUnits={1}
+              name="random-avatar-mask-_r0_"
+              width={20}
+              x={0}
+              y={0}
+            >
+              <RNSVGRect
+                fill={
+                  {
+                    "payload": 4294967295,
+                    "type": 0,
+                  }
+                }
+                height={20}
+                propList={
+                  [
+                    "fill",
+                  ]
+                }
+                rx={40}
+                width={20}
+                x={0}
+                y={0}
+              />
+            </RNSVGMask>
+            <RNSVGGroup
+              fill={
+                {
+                  "payload": 4278190080,
+                  "type": 0,
+                }
+              }
+              mask="random-avatar-mask-_r0_"
+            >
+              <RNSVGRect
+                fill={
+                  {
+                    "payload": 4284158207,
+                    "type": 0,
+                  }
+                }
+                height={20}
+                propList={
+                  [
+                    "fill",
+                  ]
+                }
+                width={20}
+                x={0}
+                y={0}
+              />
+              <RNSVGRect
+                fill={
+                  {
+                    "payload": 4294945863,
+                    "type": 0,
+                  }
+                }
+                height={10}
+                matrix={
+                  [
+                    -0.6691306063588582,
+                    0.7431448254773942,
+                    -0.7431448254773942,
+                    -0.6691306063588582,
+                    26.122754318362524,
+                    7.25985780881464,
+                  ]
+                }
+                propList={
+                  [
+                    "fill",
+                  ]
+                }
+                width={20}
+                x={2.5}
+                y={7.5}
+              />
+              <RNSVGCircle
+                cx={10}
+                cy={10}
+                fill={
+                  {
+                    "payload": 4278234397,
+                    "type": 0,
+                  }
+                }
+                matrix={
+                  [
+                    1,
+                    0,
+                    0,
+                    1,
+                    3,
+                    -3,
+                  ]
+                }
+                propList={
+                  [
+                    "fill",
+                  ]
+                }
+                r={4}
+              />
+              <RNSVGLine
+                fill={
+                  {
+                    "payload": 4278190080,
+                    "type": 0,
+                  }
+                }
+                matrix={
+                  [
+                    -0.10452846326765336,
+                    -0.9945218953682734,
+                    0.9945218953682734,
+                    -0.10452846326765336,
+                    -2.8999343210061994,
+                    24.990503586359267,
+                  ]
+                }
+                propList={
+                  [
+                    "stroke",
+                    "strokeWidth",
+                  ]
+                }
+                stroke={
+                  {
+                    "payload": 4279316113,
+                    "type": 0,
+                  }
+                }
+                strokeWidth={2}
+                x1={0}
+                x2={20}
+                y1={10}
+                y2={10}
+              />
+            </RNSVGGroup>
+          </RNSVGGroup>
+        </RNSVGSvgView>
         <Text
           ellipsizeMode="middle"
           numberOfLines={1}
