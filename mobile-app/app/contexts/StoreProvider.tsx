@@ -7,11 +7,11 @@ import { useWalletPersistenceContext } from "@waveshq/walletkit-ui";
  * Store that is memoized to network & wallets setting.
  */
 export function StoreProvider(props: PropsWithChildren<any>): JSX.Element {
-  const { wallets } = useWalletPersistenceContext();
+  useWalletPersistenceContext();
 
   const store = useMemo(() => {
     return initializeStore();
-  }, [wallets]);
+  }, []);
 
   return <Provider store={store}>{props.children}</Provider>;
 }
