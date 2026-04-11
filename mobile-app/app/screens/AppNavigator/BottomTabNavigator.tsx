@@ -1,4 +1,5 @@
 import { Text, Platform } from "react-native";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { getColor, tailwind } from "@tailwind";
 import { translate } from "@translations";
@@ -43,6 +44,7 @@ const getTabBarLabel = ({
 export function BottomTabNavigator(): JSX.Element {
   const { isLight } = useThemeContext();
   const { domain } = useDomainContext();
+  const insets = useSafeAreaInsets();
   return (
     <>
       <OceanInterface />
@@ -52,13 +54,19 @@ export function BottomTabNavigator(): JSX.Element {
         screenOptions={{
           headerShown: false,
           tabBarLabelPosition: "below-icon",
-          tabBarStyle: tailwind(
-            "px-5 py-2 h-16 border-t",
-            { "bg-mono-light-v2-00 border-mono-light-v2-100": isLight },
-            { "bg-mono-dark-v2-00 border-mono-dark-v2-100": !isLight },
-            { "pt-1 pb-4 h-24": Platform.OS === "ios" },
-            { hidden: domain !== DomainType.DVM },
-          ),
+          tabBarStyle: [
+            tailwind(
+              "px-5 py-2 h-16 border-t",
+              { "bg-mono-light-v2-00 border-mono-light-v2-100": isLight },
+              { "bg-mono-dark-v2-00 border-mono-dark-v2-100": !isLight },
+              { "pt-1 pb-4 h-24": Platform.OS === "ios" },
+              { hidden: domain !== DomainType.DVM },
+            ),
+            Platform.OS === "android" && {
+              height: 64 + insets.bottom,
+              paddingBottom: insets.bottom,
+            },
+          ],
           tabBarActiveTintColor: getColor("brand-v2-500"),
           tabBarInactiveTintColor: isLight
             ? getColor("mono-light-v2-900")
