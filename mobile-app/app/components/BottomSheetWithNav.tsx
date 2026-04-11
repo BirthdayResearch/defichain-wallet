@@ -72,13 +72,12 @@ export const BottomSheetWithNav = React.memo(
         animateOnMount={!reducedMotion}
         backdropComponent={(backdropProps: BottomSheetBackdropProps) => (
           <View
-            {...backdropProps}
             style={[backdropProps.style, tailwind("bg-black bg-opacity-60")]}
           />
         )}
         backgroundComponent={(backgroundProps: BottomSheetBackgroundProps) => (
           <ThemedViewV2
-            {...backgroundProps}
+            pointerEvents={backgroundProps.pointerEvents}
             style={[backgroundProps.style, tailwind("rounded-t-xl-v2")]}
           />
         )}

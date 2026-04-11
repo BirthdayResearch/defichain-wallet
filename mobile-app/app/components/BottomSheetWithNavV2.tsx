@@ -72,7 +72,6 @@ export const BottomSheetWithNavV2 = React.memo(
         animateOnMount={!reducedMotion}
         backdropComponent={(backdropProps: BottomSheetBackdropProps) => (
           <View
-            {...backdropProps}
             style={[backdropProps.style, tailwind("bg-black bg-opacity-60")]}
           />
         )}

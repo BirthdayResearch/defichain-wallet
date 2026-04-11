@@ -1,145 +1,1727 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`transaction authorization screen should match snapshot of status: 0 1`] = `
-<View
-  onLayout={[Function]}
-  pointerEvents="box-none"
+<RCTSafeAreaView
   style={
-    [
-      undefined,
-      {
-        "bottom": 0,
-        "left": 0,
-        "position": "absolute",
-        "right": 0,
-        "top": 0,
-      },
-      {
-        "bottom": 0,
-        "overflow": "hidden",
-        "top": 0,
-      },
-    ]
+    {
+      "flexDirection": "column",
+      "height": "100%",
+      "left": 0,
+      "position": "absolute",
+      "top": 0,
+      "width": "100%",
+      "zIndex": 50,
+    }
   }
-/>
+>
+  <View
+    accessibilityState={
+      {
+        "busy": undefined,
+        "checked": undefined,
+        "disabled": false,
+        "expanded": undefined,
+        "selected": undefined,
+      }
+    }
+    accessibilityValue={
+      {
+        "max": undefined,
+        "min": undefined,
+        "now": undefined,
+        "text": undefined,
+      }
+    }
+    accessible={true}
+    collapsable={false}
+    focusable={true}
+    onClick={[Function]}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+    style={
+      {
+        "alignItems": "flex-end",
+        "backgroundColor": "rgba(242, 242, 242, 1)",
+        "borderTopLeftRadius": 15,
+        "borderTopRightRadius": 15,
+        "opacity": 1,
+        "paddingLeft": 20,
+        "paddingRight": 20,
+        "paddingTop": 20,
+      }
+    }
+    testID="cancel_authorization"
+  >
+    <Text />
+  </View>
+  <View
+    style={
+      [
+        {
+          "flexBasis": "0%",
+          "flexDirection": "column",
+          "flexGrow": 1,
+          "flexShrink": 1,
+          "paddingLeft": 20,
+          "paddingRight": 20,
+          "width": "100%",
+        },
+        {
+          "backgroundColor": "rgba(242, 242, 242, 1)",
+        },
+      ]
+    }
+  >
+    <Text
+      style={
+        [
+          {
+            "fontFamily": "RegularFont",
+            "fontSize": 16,
+            "fontWeight": "400",
+            "lineHeight": 24,
+          },
+          [
+            {
+              "fontFamily": "SoraRegular",
+              "fontWeight": "400",
+              "paddingLeft": 40,
+              "paddingRight": 40,
+              "paddingTop": 6,
+              "textAlign": "center",
+            },
+            {
+              "color": "rgba(18, 18, 18, 1)",
+            },
+          ],
+        ]
+      }
+      testID="txn_authorization_title"
+    >
+      title
+    </Text>
+    <View
+      style={
+        {
+          "fontSize": 14,
+          "lineHeight": 20,
+          "marginBottom": 56,
+          "marginTop": 16,
+          "paddingLeft": 40,
+          "paddingRight": 40,
+          "textAlign": "center",
+        }
+      }
+    />
+  </View>
+</RCTSafeAreaView>
 `;
 
 exports[`transaction authorization screen should match snapshot of status: 1 1`] = `
-<View
-  onLayout={[Function]}
-  pointerEvents="box-none"
+<RCTSafeAreaView
   style={
-    [
-      undefined,
-      {
-        "bottom": 0,
-        "left": 0,
-        "position": "absolute",
-        "right": 0,
-        "top": 0,
-      },
-      {
-        "bottom": 0,
-        "overflow": "hidden",
-        "top": 0,
-      },
-    ]
+    {
+      "flexDirection": "column",
+      "height": "100%",
+      "left": 0,
+      "position": "absolute",
+      "top": 0,
+      "width": "100%",
+      "zIndex": 50,
+    }
   }
-/>
+>
+  <View
+    accessibilityState={
+      {
+        "busy": undefined,
+        "checked": undefined,
+        "disabled": false,
+        "expanded": undefined,
+        "selected": undefined,
+      }
+    }
+    accessibilityValue={
+      {
+        "max": undefined,
+        "min": undefined,
+        "now": undefined,
+        "text": undefined,
+      }
+    }
+    accessible={true}
+    collapsable={false}
+    focusable={true}
+    onClick={[Function]}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+    style={
+      {
+        "alignItems": "flex-end",
+        "backgroundColor": "rgba(242, 242, 242, 1)",
+        "borderTopLeftRadius": 15,
+        "borderTopRightRadius": 15,
+        "opacity": 1,
+        "paddingLeft": 20,
+        "paddingRight": 20,
+        "paddingTop": 20,
+      }
+    }
+    testID="cancel_authorization"
+  >
+    <Text
+      allowFontScaling={false}
+      selectable={false}
+      style={
+        [
+          {
+            "color": undefined,
+            "fontSize": 22,
+          },
+          [
+            undefined,
+            {
+              "color": "rgba(18, 18, 18, 1)",
+            },
+          ],
+          {
+            "fontFamily": "feather",
+            "fontStyle": "normal",
+            "fontWeight": "normal",
+          },
+          {},
+        ]
+      }
+    >
+      
+    </Text>
+  </View>
+  <View
+    style={
+      [
+        {
+          "flexBasis": "0%",
+          "flexDirection": "column",
+          "flexGrow": 1,
+          "flexShrink": 1,
+          "paddingLeft": 20,
+          "paddingRight": 20,
+          "width": "100%",
+        },
+        {
+          "backgroundColor": "rgba(242, 242, 242, 1)",
+        },
+      ]
+    }
+  >
+    <Text
+      style={
+        [
+          {
+            "fontFamily": "RegularFont",
+            "fontSize": 16,
+            "fontWeight": "400",
+            "lineHeight": 24,
+          },
+          [
+            {
+              "fontFamily": "SoraRegular",
+              "fontWeight": "400",
+              "paddingLeft": 40,
+              "paddingRight": 40,
+              "paddingTop": 6,
+              "textAlign": "center",
+            },
+            {
+              "color": "rgba(18, 18, 18, 1)",
+            },
+          ],
+        ]
+      }
+      testID="txn_authorization_title"
+    >
+      title
+    </Text>
+    <View
+      style={
+        {
+          "fontSize": 14,
+          "lineHeight": 20,
+          "marginBottom": 56,
+          "marginTop": 16,
+          "paddingLeft": 40,
+          "paddingRight": 40,
+          "textAlign": "center",
+        }
+      }
+    />
+  </View>
+</RCTSafeAreaView>
 `;
 
 exports[`transaction authorization screen should match snapshot of status: 2 1`] = `
-<View
-  onLayout={[Function]}
-  pointerEvents="box-none"
+<RCTSafeAreaView
   style={
-    [
-      undefined,
-      {
-        "bottom": 0,
-        "left": 0,
-        "position": "absolute",
-        "right": 0,
-        "top": 0,
-      },
-      {
-        "bottom": 0,
-        "overflow": "hidden",
-        "top": 0,
-      },
-    ]
+    {
+      "flexDirection": "column",
+      "height": "100%",
+      "left": 0,
+      "position": "absolute",
+      "top": 0,
+      "width": "100%",
+      "zIndex": 50,
+    }
   }
-/>
+>
+  <View
+    accessibilityState={
+      {
+        "busy": undefined,
+        "checked": undefined,
+        "disabled": true,
+        "expanded": undefined,
+        "selected": undefined,
+      }
+    }
+    accessibilityValue={
+      {
+        "max": undefined,
+        "min": undefined,
+        "now": undefined,
+        "text": undefined,
+      }
+    }
+    accessible={true}
+    collapsable={false}
+    focusable={false}
+    onClick={[Function]}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+    style={
+      {
+        "alignItems": "flex-end",
+        "backgroundColor": "rgba(242, 242, 242, 1)",
+        "borderTopLeftRadius": 15,
+        "borderTopRightRadius": 15,
+        "opacity": 1,
+        "paddingLeft": 20,
+        "paddingRight": 20,
+        "paddingTop": 20,
+      }
+    }
+    testID="cancel_authorization"
+  >
+    <Text
+      allowFontScaling={false}
+      selectable={false}
+      style={
+        [
+          {
+            "color": undefined,
+            "fontSize": 22,
+          },
+          [
+            undefined,
+            {
+              "color": "rgba(18, 18, 18, 1)",
+            },
+          ],
+          {
+            "fontFamily": "feather",
+            "fontStyle": "normal",
+            "fontWeight": "normal",
+          },
+          {},
+        ]
+      }
+    >
+      
+    </Text>
+  </View>
+  <View
+    style={
+      [
+        {
+          "flexBasis": "0%",
+          "flexDirection": "column",
+          "flexGrow": 1,
+          "flexShrink": 1,
+          "paddingLeft": 20,
+          "paddingRight": 20,
+          "width": "100%",
+        },
+        {
+          "backgroundColor": "rgba(242, 242, 242, 1)",
+        },
+      ]
+    }
+  >
+    <Text
+      style={
+        [
+          {
+            "fontFamily": "RegularFont",
+            "fontSize": 16,
+            "fontWeight": "400",
+            "lineHeight": 24,
+          },
+          [
+            {
+              "fontFamily": "SoraRegular",
+              "fontWeight": "400",
+              "paddingLeft": 40,
+              "paddingRight": 40,
+              "paddingTop": 6,
+              "textAlign": "center",
+            },
+            {
+              "color": "rgba(18, 18, 18, 1)",
+            },
+          ],
+        ]
+      }
+      testID="txn_authorization_title"
+    >
+      title
+    </Text>
+    <View
+      style={
+        {
+          "fontSize": 14,
+          "lineHeight": 20,
+          "marginBottom": 56,
+          "marginTop": 16,
+          "paddingLeft": 40,
+          "paddingRight": 40,
+          "textAlign": "center",
+        }
+      }
+    />
+  </View>
+</RCTSafeAreaView>
 `;
 
 exports[`transaction authorization screen should match snapshot of status: 3 1`] = `
-<View
-  onLayout={[Function]}
-  pointerEvents="box-none"
+<RCTSafeAreaView
   style={
-    [
-      undefined,
-      {
-        "bottom": 0,
-        "left": 0,
-        "position": "absolute",
-        "right": 0,
-        "top": 0,
-      },
-      {
-        "bottom": 0,
-        "overflow": "hidden",
-        "top": 0,
-      },
-    ]
+    {
+      "flexDirection": "column",
+      "height": "100%",
+      "left": 0,
+      "position": "absolute",
+      "top": 0,
+      "width": "100%",
+      "zIndex": 50,
+    }
   }
-/>
+>
+  <View
+    accessibilityState={
+      {
+        "busy": undefined,
+        "checked": undefined,
+        "disabled": false,
+        "expanded": undefined,
+        "selected": undefined,
+      }
+    }
+    accessibilityValue={
+      {
+        "max": undefined,
+        "min": undefined,
+        "now": undefined,
+        "text": undefined,
+      }
+    }
+    accessible={true}
+    collapsable={false}
+    focusable={true}
+    onClick={[Function]}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+    style={
+      {
+        "alignItems": "flex-end",
+        "backgroundColor": "rgba(242, 242, 242, 1)",
+        "borderTopLeftRadius": 15,
+        "borderTopRightRadius": 15,
+        "opacity": 1,
+        "paddingLeft": 20,
+        "paddingRight": 20,
+        "paddingTop": 20,
+      }
+    }
+    testID="cancel_authorization"
+  >
+    <Text
+      allowFontScaling={false}
+      selectable={false}
+      style={
+        [
+          {
+            "color": undefined,
+            "fontSize": 22,
+          },
+          [
+            undefined,
+            {
+              "color": "rgba(18, 18, 18, 1)",
+            },
+          ],
+          {
+            "fontFamily": "feather",
+            "fontStyle": "normal",
+            "fontWeight": "normal",
+          },
+          {},
+        ]
+      }
+    >
+      
+    </Text>
+  </View>
+  <View
+    style={
+      [
+        {
+          "flexBasis": "0%",
+          "flexDirection": "column",
+          "flexGrow": 1,
+          "flexShrink": 1,
+          "paddingLeft": 20,
+          "paddingRight": 20,
+          "width": "100%",
+        },
+        {
+          "backgroundColor": "rgba(242, 242, 242, 1)",
+        },
+      ]
+    }
+  >
+    <Text
+      style={
+        [
+          {
+            "fontFamily": "RegularFont",
+            "fontSize": 16,
+            "fontWeight": "400",
+            "lineHeight": 24,
+          },
+          [
+            {
+              "fontFamily": "SoraRegular",
+              "fontWeight": "400",
+              "marginBottom": 64,
+              "paddingBottom": 12,
+              "paddingLeft": 40,
+              "paddingRight": 40,
+              "paddingTop": 6,
+              "textAlign": "center",
+            },
+            {
+              "color": "rgba(18, 18, 18, 1)",
+            },
+          ],
+        ]
+      }
+      testID="txn_authorization_title"
+    >
+      title
+    </Text>
+    <View
+      style={
+        {
+          "flexDirection": "row",
+          "justifyContent": "center",
+        }
+      }
+    >
+      <View
+        style={
+          {
+            "flexDirection": "row",
+            "justifyContent": "space-between",
+          }
+        }
+      >
+        <View
+          onLayout={[Function]}
+          style={
+            [
+              {
+                "alignItems": "center",
+                "backgroundColor": "transparent",
+                "borderRadius": 10,
+                "borderStyle": "solid",
+                "borderWidth": 1,
+                "display": "flex",
+                "fontSize": 20,
+                "fontWeight": "500",
+                "height": 20,
+                "justifyContent": "center",
+                "lineHeight": 20,
+                "marginLeft": 25,
+                "paddingLeft": 1,
+                "paddingTop": 1,
+                "textAlign": "center",
+                "width": 20,
+              },
+              {
+                "borderColor": "rgba(18, 18, 18, 1)",
+              },
+              false,
+              {
+                "backgroundColor": "rgba(18, 18, 18, 1)",
+                "borderColor": "rgba(18, 18, 18, 1)",
+                "borderRadius": 10,
+              },
+              false,
+              {
+                "marginLeft": 0,
+              },
+            ]
+          }
+          testID="pin_authorize_0"
+        />
+        <View
+          onLayout={[Function]}
+          style={
+            [
+              {
+                "alignItems": "center",
+                "backgroundColor": "transparent",
+                "borderRadius": 10,
+                "borderStyle": "solid",
+                "borderWidth": 1,
+                "display": "flex",
+                "fontSize": 20,
+                "fontWeight": "500",
+                "height": 20,
+                "justifyContent": "center",
+                "lineHeight": 20,
+                "marginLeft": 25,
+                "paddingLeft": 1,
+                "paddingTop": 1,
+                "textAlign": "center",
+                "width": 20,
+              },
+              {
+                "borderColor": "rgba(18, 18, 18, 1)",
+              },
+              false,
+              {
+                "backgroundColor": "rgba(18, 18, 18, 1)",
+                "borderColor": "rgba(18, 18, 18, 1)",
+                "borderRadius": 10,
+              },
+              false,
+              false,
+            ]
+          }
+          testID="pin_authorize_1"
+        />
+        <View
+          onLayout={[Function]}
+          style={
+            [
+              {
+                "alignItems": "center",
+                "backgroundColor": "transparent",
+                "borderRadius": 10,
+                "borderStyle": "solid",
+                "borderWidth": 1,
+                "display": "flex",
+                "fontSize": 20,
+                "fontWeight": "500",
+                "height": 20,
+                "justifyContent": "center",
+                "lineHeight": 20,
+                "marginLeft": 25,
+                "paddingLeft": 1,
+                "paddingTop": 1,
+                "textAlign": "center",
+                "width": 20,
+              },
+              {
+                "borderColor": "rgba(18, 18, 18, 1)",
+              },
+              false,
+              {
+                "backgroundColor": "rgba(18, 18, 18, 1)",
+                "borderColor": "rgba(18, 18, 18, 1)",
+                "borderRadius": 10,
+              },
+              false,
+              false,
+            ]
+          }
+          testID="pin_authorize_2"
+        />
+        <View
+          onLayout={[Function]}
+          style={
+            [
+              {
+                "alignItems": "center",
+                "backgroundColor": "transparent",
+                "borderRadius": 10,
+                "borderStyle": "solid",
+                "borderWidth": 1,
+                "display": "flex",
+                "fontSize": 20,
+                "fontWeight": "500",
+                "height": 20,
+                "justifyContent": "center",
+                "lineHeight": 20,
+                "marginLeft": 25,
+                "paddingLeft": 1,
+                "paddingTop": 1,
+                "textAlign": "center",
+                "width": 20,
+              },
+              {
+                "borderColor": "rgba(18, 18, 18, 1)",
+              },
+              false,
+              false,
+              false,
+              false,
+            ]
+          }
+          testID="pin_authorize_3"
+        />
+        <View
+          onLayout={[Function]}
+          style={
+            [
+              {
+                "alignItems": "center",
+                "backgroundColor": "transparent",
+                "borderRadius": 10,
+                "borderStyle": "solid",
+                "borderWidth": 1,
+                "display": "flex",
+                "fontSize": 20,
+                "fontWeight": "500",
+                "height": 20,
+                "justifyContent": "center",
+                "lineHeight": 20,
+                "marginLeft": 25,
+                "paddingLeft": 1,
+                "paddingTop": 1,
+                "textAlign": "center",
+                "width": 20,
+              },
+              {
+                "borderColor": "rgba(18, 18, 18, 1)",
+              },
+              false,
+              false,
+              false,
+              false,
+            ]
+          }
+          testID="pin_authorize_4"
+        />
+        <View
+          onLayout={[Function]}
+          style={
+            [
+              {
+                "alignItems": "center",
+                "backgroundColor": "transparent",
+                "borderRadius": 10,
+                "borderStyle": "solid",
+                "borderWidth": 1,
+                "display": "flex",
+                "fontSize": 20,
+                "fontWeight": "500",
+                "height": 20,
+                "justifyContent": "center",
+                "lineHeight": 20,
+                "marginLeft": 25,
+                "paddingLeft": 1,
+                "paddingTop": 1,
+                "textAlign": "center",
+                "width": 20,
+              },
+              {
+                "borderColor": "rgba(18, 18, 18, 1)",
+              },
+              false,
+              false,
+              false,
+              false,
+            ]
+          }
+          testID="pin_authorize_5"
+        />
+        <TextInput
+          autoCapitalize="characters"
+          autoCorrect={false}
+          autoFocus={true}
+          blurOnSubmit={false}
+          caretHidden={true}
+          clearButtonMode="never"
+          disableFullscreenUI={true}
+          keyboardType="number-pad"
+          maxLength={6}
+          onBlur={[Function]}
+          onChangeText={[Function]}
+          onFocus={[Function]}
+          onPressOut={[Function]}
+          spellCheck={false}
+          style={
+            {
+              "bottom": 0,
+              "fontSize": 1,
+              "left": 0,
+              "opacity": 0.015,
+              "position": "absolute",
+              "right": 0,
+              "top": 0,
+            }
+          }
+          testID="pin_authorize"
+          textContentType="oneTimeCode"
+          underlineColorAndroid="transparent"
+          value="foo"
+        />
+      </View>
+    </View>
+    <View
+      style={
+        {
+          "fontSize": 14,
+          "lineHeight": 20,
+          "marginBottom": 56,
+          "marginTop": 16,
+          "paddingLeft": 40,
+          "paddingRight": 40,
+          "textAlign": "center",
+        }
+      }
+    />
+  </View>
+</RCTSafeAreaView>
 `;
 
 exports[`transaction authorization screen should match snapshot of status: 4 1`] = `
-<View
-  onLayout={[Function]}
-  pointerEvents="box-none"
+<RCTSafeAreaView
   style={
-    [
-      undefined,
-      {
-        "bottom": 0,
-        "left": 0,
-        "position": "absolute",
-        "right": 0,
-        "top": 0,
-      },
-      {
-        "bottom": 0,
-        "overflow": "hidden",
-        "top": 0,
-      },
-    ]
+    {
+      "flexDirection": "column",
+      "height": "100%",
+      "left": 0,
+      "position": "absolute",
+      "top": 0,
+      "width": "100%",
+      "zIndex": 50,
+    }
   }
-/>
+>
+  <View
+    accessibilityState={
+      {
+        "busy": undefined,
+        "checked": undefined,
+        "disabled": true,
+        "expanded": undefined,
+        "selected": undefined,
+      }
+    }
+    accessibilityValue={
+      {
+        "max": undefined,
+        "min": undefined,
+        "now": undefined,
+        "text": undefined,
+      }
+    }
+    accessible={true}
+    collapsable={false}
+    focusable={false}
+    onClick={[Function]}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+    style={
+      {
+        "alignItems": "flex-end",
+        "backgroundColor": "rgba(242, 242, 242, 1)",
+        "borderTopLeftRadius": 15,
+        "borderTopRightRadius": 15,
+        "opacity": 1,
+        "paddingLeft": 20,
+        "paddingRight": 20,
+        "paddingTop": 20,
+      }
+    }
+    testID="cancel_authorization"
+  >
+    <Text
+      allowFontScaling={false}
+      selectable={false}
+      style={
+        [
+          {
+            "color": undefined,
+            "fontSize": 22,
+          },
+          [
+            undefined,
+            {
+              "color": "rgba(18, 18, 18, 1)",
+            },
+          ],
+          {
+            "fontFamily": "feather",
+            "fontStyle": "normal",
+            "fontWeight": "normal",
+          },
+          {},
+        ]
+      }
+    >
+      
+    </Text>
+  </View>
+  <View
+    style={
+      [
+        {
+          "flexBasis": "0%",
+          "flexDirection": "column",
+          "flexGrow": 1,
+          "flexShrink": 1,
+          "paddingLeft": 20,
+          "paddingRight": 20,
+          "width": "100%",
+        },
+        {
+          "backgroundColor": "rgba(242, 242, 242, 1)",
+        },
+      ]
+    }
+  >
+    <Text
+      style={
+        [
+          {
+            "fontFamily": "RegularFont",
+            "fontSize": 16,
+            "fontWeight": "400",
+            "lineHeight": 24,
+          },
+          [
+            {
+              "fontFamily": "SoraRegular",
+              "fontWeight": "400",
+              "paddingLeft": 40,
+              "paddingRight": 40,
+              "paddingTop": 6,
+              "textAlign": "center",
+            },
+            {
+              "color": "rgba(18, 18, 18, 1)",
+            },
+          ],
+        ]
+      }
+      testID="txn_authorization_title"
+    >
+      title
+    </Text>
+    <ActivityIndicator
+      color="rgba(255, 0, 140, 1)"
+      style={
+        [
+          {
+            "marginBottom": 20,
+            "marginTop": 20,
+            "paddingBottom": 8,
+            "paddingTop": 8,
+          },
+          {
+            "transform": [
+              {
+                "scale": 1.5,
+              },
+            ],
+          },
+        ]
+      }
+    />
+    <View
+      style={
+        {
+          "flexDirection": "row",
+          "justifyContent": "center",
+        }
+      }
+    >
+      <View
+        style={
+          {
+            "flexDirection": "row",
+            "justifyContent": "space-between",
+          }
+        }
+      >
+        <View
+          onLayout={[Function]}
+          style={
+            [
+              {
+                "alignItems": "center",
+                "backgroundColor": "transparent",
+                "borderRadius": 10,
+                "borderStyle": "solid",
+                "borderWidth": 1,
+                "display": "flex",
+                "fontSize": 20,
+                "fontWeight": "500",
+                "height": 20,
+                "justifyContent": "center",
+                "lineHeight": 20,
+                "marginLeft": 25,
+                "paddingLeft": 1,
+                "paddingTop": 1,
+                "textAlign": "center",
+                "width": 20,
+              },
+              {
+                "borderColor": "rgba(18, 18, 18, 1)",
+              },
+              false,
+              {
+                "backgroundColor": "rgba(18, 18, 18, 1)",
+                "borderColor": "rgba(18, 18, 18, 1)",
+                "borderRadius": 10,
+              },
+              false,
+              {
+                "marginLeft": 0,
+              },
+            ]
+          }
+          testID="pin_authorize_0"
+        />
+        <View
+          onLayout={[Function]}
+          style={
+            [
+              {
+                "alignItems": "center",
+                "backgroundColor": "transparent",
+                "borderRadius": 10,
+                "borderStyle": "solid",
+                "borderWidth": 1,
+                "display": "flex",
+                "fontSize": 20,
+                "fontWeight": "500",
+                "height": 20,
+                "justifyContent": "center",
+                "lineHeight": 20,
+                "marginLeft": 25,
+                "paddingLeft": 1,
+                "paddingTop": 1,
+                "textAlign": "center",
+                "width": 20,
+              },
+              {
+                "borderColor": "rgba(18, 18, 18, 1)",
+              },
+              false,
+              {
+                "backgroundColor": "rgba(18, 18, 18, 1)",
+                "borderColor": "rgba(18, 18, 18, 1)",
+                "borderRadius": 10,
+              },
+              false,
+              false,
+            ]
+          }
+          testID="pin_authorize_1"
+        />
+        <View
+          onLayout={[Function]}
+          style={
+            [
+              {
+                "alignItems": "center",
+                "backgroundColor": "transparent",
+                "borderRadius": 10,
+                "borderStyle": "solid",
+                "borderWidth": 1,
+                "display": "flex",
+                "fontSize": 20,
+                "fontWeight": "500",
+                "height": 20,
+                "justifyContent": "center",
+                "lineHeight": 20,
+                "marginLeft": 25,
+                "paddingLeft": 1,
+                "paddingTop": 1,
+                "textAlign": "center",
+                "width": 20,
+              },
+              {
+                "borderColor": "rgba(18, 18, 18, 1)",
+              },
+              false,
+              {
+                "backgroundColor": "rgba(18, 18, 18, 1)",
+                "borderColor": "rgba(18, 18, 18, 1)",
+                "borderRadius": 10,
+              },
+              false,
+              false,
+            ]
+          }
+          testID="pin_authorize_2"
+        />
+        <View
+          onLayout={[Function]}
+          style={
+            [
+              {
+                "alignItems": "center",
+                "backgroundColor": "transparent",
+                "borderRadius": 10,
+                "borderStyle": "solid",
+                "borderWidth": 1,
+                "display": "flex",
+                "fontSize": 20,
+                "fontWeight": "500",
+                "height": 20,
+                "justifyContent": "center",
+                "lineHeight": 20,
+                "marginLeft": 25,
+                "paddingLeft": 1,
+                "paddingTop": 1,
+                "textAlign": "center",
+                "width": 20,
+              },
+              {
+                "borderColor": "rgba(18, 18, 18, 1)",
+              },
+              false,
+              false,
+              false,
+              false,
+            ]
+          }
+          testID="pin_authorize_3"
+        />
+        <View
+          onLayout={[Function]}
+          style={
+            [
+              {
+                "alignItems": "center",
+                "backgroundColor": "transparent",
+                "borderRadius": 10,
+                "borderStyle": "solid",
+                "borderWidth": 1,
+                "display": "flex",
+                "fontSize": 20,
+                "fontWeight": "500",
+                "height": 20,
+                "justifyContent": "center",
+                "lineHeight": 20,
+                "marginLeft": 25,
+                "paddingLeft": 1,
+                "paddingTop": 1,
+                "textAlign": "center",
+                "width": 20,
+              },
+              {
+                "borderColor": "rgba(18, 18, 18, 1)",
+              },
+              false,
+              false,
+              false,
+              false,
+            ]
+          }
+          testID="pin_authorize_4"
+        />
+        <View
+          onLayout={[Function]}
+          style={
+            [
+              {
+                "alignItems": "center",
+                "backgroundColor": "transparent",
+                "borderRadius": 10,
+                "borderStyle": "solid",
+                "borderWidth": 1,
+                "display": "flex",
+                "fontSize": 20,
+                "fontWeight": "500",
+                "height": 20,
+                "justifyContent": "center",
+                "lineHeight": 20,
+                "marginLeft": 25,
+                "paddingLeft": 1,
+                "paddingTop": 1,
+                "textAlign": "center",
+                "width": 20,
+              },
+              {
+                "borderColor": "rgba(18, 18, 18, 1)",
+              },
+              false,
+              false,
+              false,
+              false,
+            ]
+          }
+          testID="pin_authorize_5"
+        />
+        <TextInput
+          autoCapitalize="characters"
+          autoCorrect={false}
+          autoFocus={false}
+          blurOnSubmit={false}
+          caretHidden={true}
+          clearButtonMode="never"
+          disableFullscreenUI={true}
+          keyboardType="number-pad"
+          maxLength={6}
+          onBlur={[Function]}
+          onChangeText={[Function]}
+          onFocus={[Function]}
+          onPressOut={[Function]}
+          spellCheck={false}
+          style={
+            {
+              "bottom": 0,
+              "fontSize": 1,
+              "left": 0,
+              "opacity": 0.015,
+              "position": "absolute",
+              "right": 0,
+              "top": 0,
+            }
+          }
+          testID="pin_authorize"
+          textContentType="oneTimeCode"
+          underlineColorAndroid="transparent"
+          value="foo"
+        />
+      </View>
+    </View>
+    <View
+      style={
+        {
+          "fontSize": 14,
+          "lineHeight": 20,
+          "marginBottom": 56,
+          "marginTop": 16,
+          "paddingLeft": 40,
+          "paddingRight": 40,
+          "textAlign": "center",
+        }
+      }
+    >
+      <Text
+        style={
+          [
+            {
+              "fontFamily": "RegularFont",
+              "fontSize": 16,
+              "fontWeight": "400",
+              "lineHeight": 24,
+            },
+            [
+              {
+                "fontFamily": "SoraRegular",
+                "fontSize": 14,
+                "fontWeight": "400",
+                "lineHeight": 20,
+                "textAlign": "center",
+              },
+              {
+                "color": "rgba(89, 89, 89, 1)",
+              },
+            ],
+          ]
+        }
+        testID="txn_authorization_message"
+      >
+        foo
+      </Text>
+    </View>
+  </View>
+</RCTSafeAreaView>
 `;
 
 exports[`transaction authorization screen should match snapshot of status: 5 1`] = `
-<View
-  onLayout={[Function]}
-  pointerEvents="box-none"
+<RCTSafeAreaView
   style={
-    [
-      undefined,
-      {
-        "bottom": 0,
-        "left": 0,
-        "position": "absolute",
-        "right": 0,
-        "top": 0,
-      },
-      {
-        "bottom": 0,
-        "overflow": "hidden",
-        "top": 0,
-      },
-    ]
+    {
+      "flexDirection": "column",
+      "height": "100%",
+      "left": 0,
+      "position": "absolute",
+      "top": 0,
+      "width": "100%",
+      "zIndex": 50,
+    }
   }
-/>
+>
+  <View
+    accessibilityState={
+      {
+        "busy": undefined,
+        "checked": undefined,
+        "disabled": false,
+        "expanded": undefined,
+        "selected": undefined,
+      }
+    }
+    accessibilityValue={
+      {
+        "max": undefined,
+        "min": undefined,
+        "now": undefined,
+        "text": undefined,
+      }
+    }
+    accessible={true}
+    collapsable={false}
+    focusable={true}
+    onClick={[Function]}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+    style={
+      {
+        "alignItems": "flex-end",
+        "backgroundColor": "rgba(242, 242, 242, 1)",
+        "borderTopLeftRadius": 15,
+        "borderTopRightRadius": 15,
+        "opacity": 1,
+        "paddingLeft": 20,
+        "paddingRight": 20,
+        "paddingTop": 20,
+      }
+    }
+    testID="cancel_authorization"
+  >
+    <Text
+      allowFontScaling={false}
+      selectable={false}
+      style={
+        [
+          {
+            "color": undefined,
+            "fontSize": 22,
+          },
+          [
+            undefined,
+            {
+              "color": "rgba(18, 18, 18, 1)",
+            },
+          ],
+          {
+            "fontFamily": "feather",
+            "fontStyle": "normal",
+            "fontWeight": "normal",
+          },
+          {},
+        ]
+      }
+    >
+      
+    </Text>
+  </View>
+  <View
+    style={
+      [
+        {
+          "flexBasis": "0%",
+          "flexDirection": "column",
+          "flexGrow": 1,
+          "flexShrink": 1,
+          "paddingLeft": 20,
+          "paddingRight": 20,
+          "width": "100%",
+        },
+        {
+          "backgroundColor": "rgba(242, 242, 242, 1)",
+        },
+      ]
+    }
+  >
+    <Text
+      style={
+        [
+          {
+            "fontFamily": "RegularFont",
+            "fontSize": 16,
+            "fontWeight": "400",
+            "lineHeight": 24,
+          },
+          [
+            {
+              "fontFamily": "SoraRegular",
+              "fontWeight": "400",
+              "paddingLeft": 40,
+              "paddingRight": 40,
+              "paddingTop": 6,
+              "textAlign": "center",
+            },
+            {
+              "color": "rgba(18, 18, 18, 1)",
+            },
+          ],
+        ]
+      }
+      testID="txn_authorization_title"
+    >
+      title
+    </Text>
+    <View
+      style={
+        {
+          "alignItems": "center",
+          "display": "flex",
+          "flexDirection": "column",
+          "marginBottom": 2,
+          "paddingBottom": 18,
+          "paddingTop": 18,
+        }
+      }
+    >
+      <Text />
+    </View>
+    <View
+      style={
+        {
+          "flexDirection": "row",
+          "justifyContent": "center",
+        }
+      }
+    >
+      <View
+        style={
+          {
+            "flexDirection": "row",
+            "justifyContent": "space-between",
+          }
+        }
+      >
+        <View
+          onLayout={[Function]}
+          style={
+            [
+              {
+                "alignItems": "center",
+                "backgroundColor": "transparent",
+                "borderRadius": 10,
+                "borderStyle": "solid",
+                "borderWidth": 1,
+                "display": "flex",
+                "fontSize": 20,
+                "fontWeight": "500",
+                "height": 20,
+                "justifyContent": "center",
+                "lineHeight": 20,
+                "marginLeft": 25,
+                "paddingLeft": 1,
+                "paddingTop": 1,
+                "textAlign": "center",
+                "width": 20,
+              },
+              {
+                "borderColor": "rgba(18, 18, 18, 1)",
+              },
+              false,
+              {
+                "backgroundColor": "rgba(18, 18, 18, 1)",
+                "borderColor": "rgba(18, 18, 18, 1)",
+                "borderRadius": 10,
+              },
+              false,
+              {
+                "marginLeft": 0,
+              },
+            ]
+          }
+          testID="pin_authorize_0"
+        />
+        <View
+          onLayout={[Function]}
+          style={
+            [
+              {
+                "alignItems": "center",
+                "backgroundColor": "transparent",
+                "borderRadius": 10,
+                "borderStyle": "solid",
+                "borderWidth": 1,
+                "display": "flex",
+                "fontSize": 20,
+                "fontWeight": "500",
+                "height": 20,
+                "justifyContent": "center",
+                "lineHeight": 20,
+                "marginLeft": 25,
+                "paddingLeft": 1,
+                "paddingTop": 1,
+                "textAlign": "center",
+                "width": 20,
+              },
+              {
+                "borderColor": "rgba(18, 18, 18, 1)",
+              },
+              false,
+              {
+                "backgroundColor": "rgba(18, 18, 18, 1)",
+                "borderColor": "rgba(18, 18, 18, 1)",
+                "borderRadius": 10,
+              },
+              false,
+              false,
+            ]
+          }
+          testID="pin_authorize_1"
+        />
+        <View
+          onLayout={[Function]}
+          style={
+            [
+              {
+                "alignItems": "center",
+                "backgroundColor": "transparent",
+                "borderRadius": 10,
+                "borderStyle": "solid",
+                "borderWidth": 1,
+                "display": "flex",
+                "fontSize": 20,
+                "fontWeight": "500",
+                "height": 20,
+                "justifyContent": "center",
+                "lineHeight": 20,
+                "marginLeft": 25,
+                "paddingLeft": 1,
+                "paddingTop": 1,
+                "textAlign": "center",
+                "width": 20,
+              },
+              {
+                "borderColor": "rgba(18, 18, 18, 1)",
+              },
+              false,
+              {
+                "backgroundColor": "rgba(18, 18, 18, 1)",
+                "borderColor": "rgba(18, 18, 18, 1)",
+                "borderRadius": 10,
+              },
+              false,
+              false,
+            ]
+          }
+          testID="pin_authorize_2"
+        />
+        <View
+          onLayout={[Function]}
+          style={
+            [
+              {
+                "alignItems": "center",
+                "backgroundColor": "transparent",
+                "borderRadius": 10,
+                "borderStyle": "solid",
+                "borderWidth": 1,
+                "display": "flex",
+                "fontSize": 20,
+                "fontWeight": "500",
+                "height": 20,
+                "justifyContent": "center",
+                "lineHeight": 20,
+                "marginLeft": 25,
+                "paddingLeft": 1,
+                "paddingTop": 1,
+                "textAlign": "center",
+                "width": 20,
+              },
+              {
+                "borderColor": "rgba(18, 18, 18, 1)",
+              },
+              false,
+              false,
+              false,
+              false,
+            ]
+          }
+          testID="pin_authorize_3"
+        />
+        <View
+          onLayout={[Function]}
+          style={
+            [
+              {
+                "alignItems": "center",
+                "backgroundColor": "transparent",
+                "borderRadius": 10,
+                "borderStyle": "solid",
+                "borderWidth": 1,
+                "display": "flex",
+                "fontSize": 20,
+                "fontWeight": "500",
+                "height": 20,
+                "justifyContent": "center",
+                "lineHeight": 20,
+                "marginLeft": 25,
+                "paddingLeft": 1,
+                "paddingTop": 1,
+                "textAlign": "center",
+                "width": 20,
+              },
+              {
+                "borderColor": "rgba(18, 18, 18, 1)",
+              },
+              false,
+              false,
+              false,
+              false,
+            ]
+          }
+          testID="pin_authorize_4"
+        />
+        <View
+          onLayout={[Function]}
+          style={
+            [
+              {
+                "alignItems": "center",
+                "backgroundColor": "transparent",
+                "borderRadius": 10,
+                "borderStyle": "solid",
+                "borderWidth": 1,
+                "display": "flex",
+                "fontSize": 20,
+                "fontWeight": "500",
+                "height": 20,
+                "justifyContent": "center",
+                "lineHeight": 20,
+                "marginLeft": 25,
+                "paddingLeft": 1,
+                "paddingTop": 1,
+                "textAlign": "center",
+                "width": 20,
+              },
+              {
+                "borderColor": "rgba(18, 18, 18, 1)",
+              },
+              false,
+              false,
+              false,
+              false,
+            ]
+          }
+          testID="pin_authorize_5"
+        />
+        <TextInput
+          autoCapitalize="characters"
+          autoCorrect={false}
+          autoFocus={false}
+          blurOnSubmit={false}
+          caretHidden={true}
+          clearButtonMode="never"
+          disableFullscreenUI={true}
+          keyboardType="number-pad"
+          maxLength={6}
+          onBlur={[Function]}
+          onChangeText={[Function]}
+          onFocus={[Function]}
+          onPressOut={[Function]}
+          spellCheck={false}
+          style={
+            {
+              "bottom": 0,
+              "fontSize": 1,
+              "left": 0,
+              "opacity": 0.015,
+              "position": "absolute",
+              "right": 0,
+              "top": 0,
+            }
+          }
+          testID="pin_authorize"
+          textContentType="oneTimeCode"
+          underlineColorAndroid="transparent"
+          value="foo"
+        />
+      </View>
+    </View>
+    <View
+      style={
+        {
+          "fontSize": 14,
+          "lineHeight": 20,
+          "marginBottom": 56,
+          "marginTop": 16,
+          "paddingLeft": 40,
+          "paddingRight": 40,
+          "textAlign": "center",
+        }
+      }
+    >
+      <Text
+        style={
+          [
+            {
+              "fontFamily": "RegularFont",
+              "fontSize": 16,
+              "fontWeight": "400",
+              "lineHeight": 24,
+            },
+            [
+              {
+                "fontFamily": "SoraRegular",
+                "fontSize": 14,
+                "fontWeight": "400",
+                "lineHeight": 20,
+                "textAlign": "center",
+              },
+              {
+                "color": "rgba(89, 89, 89, 1)",
+              },
+            ],
+          ]
+        }
+        testID="txn_authorization_message"
+      >
+        success
+      </Text>
+    </View>
+  </View>
+</RCTSafeAreaView>
 `;

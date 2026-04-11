@@ -77,15 +77,14 @@ export function BottomSheetModalV2(props: Props): JSX.Element {
           backgroundStyle={[isLight ? light : dark]}
           backdropComponent={(backdropProps: BottomSheetBackgroundProps) => (
             <View
-              {...backdropProps}
               style={[backdropProps.style, tailwind("bg-black bg-opacity-60")]}
             />
           )}
           backgroundComponent={(
-            backgroundProps: BottomSheetBackgroundProps
+            backgroundProps: BottomSheetBackgroundProps,
           ) => (
             <View
-              {...backgroundProps}
+              pointerEvents={backgroundProps.pointerEvents}
               style={[
                 backgroundProps.style,
                 tailwind(
@@ -93,7 +92,7 @@ export function BottomSheetModalV2(props: Props): JSX.Element {
                     isLight
                       ? "bg-white border-gray-200"
                       : "bg-gray-800 border-gray-700"
-                  } rounded-t-xl-v2`
+                  } rounded-t-xl-v2`,
                 ),
               ]}
             />
@@ -103,14 +102,14 @@ export function BottomSheetModalV2(props: Props): JSX.Element {
         >
           <ScrollView
             contentContainerStyle={tailwind(
-              `pb-7 relative ${handleComponent === null ? "pt-7" : "pt-2"}`
+              `pb-7 relative ${handleComponent === null ? "pt-7" : "pt-2"}`,
             )}
             scrollEnabled={enableScroll}
           >
             <View
               style={[
                 tailwind(
-                  "absolute flex-row justify-end right-5 top-5 w-full z-10"
+                  "absolute flex-row justify-end right-5 top-5 w-full z-10",
                 ),
                 closeButtonStyle,
               ]}
